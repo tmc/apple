@@ -2,9 +2,11 @@ package rdma
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
+	"syscall"
 	"testing"
 	"time"
 	"unsafe"
@@ -220,6 +222,94 @@ func TestNilProviderResultClassified(t *testing.T) {
 	}
 	if pe.Result != "protection domain" || !pe.ReturnSet || pe.Return != 0 {
 		t.Fatalf("provider result fields = %#v", pe)
+	}
+}
+
+func TestResourceExhaustionHintForNilResourceResult(t *testing.T) {
+	for _, op := range []string{"ibv_alloc_pd", "ibv_create_cq", "ibv_create_qp", "ibv_reg_mr"} {
+		t.Run(op, func(t *testing.T) {
+			err := rdmaNilProviderResultError(op, "resource", 0, 0, false, 123, true)
+			var pe *ProviderError
+			if !errors.As(err, &pe) {
+				t.Fatalf("error type = %T, want *ProviderError", err)
+			}
+			hint := pe.ResourceExhaustionHint()
+			if !strings.Contains(hint, "can indicate per-boot AppleThunderboltRDMA resource exhaustion") {
+				t.Fatalf("hint = %q, want symptom-inferred resource exhaustion", hint)
+			}
+			if !strings.Contains(hint, "no provider resource budget was read") {
+				t.Fatalf("hint = %q, want no-budget-read caveat", hint)
+			}
+			if got := err.Error(); !strings.Contains(got, "provider returned nil after opening a context") || !strings.Contains(got, "reboot before retrying") {
+				t.Fatalf("error = %q, want resource exhaustion reboot hint", got)
+			}
+		})
+	}
+}
+
+func TestResourceExhaustionHintForResourceErrnos(t *testing.T) {
+	tests := []struct {
+		name  string
+		errno syscall.Errno
+	}{
+		{"ENOMEM", syscall.ENOMEM},
+		{"EBUSY", syscall.EBUSY},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := rdmaProviderStatusError("ibv_modify_qp", int(tt.errno), 123, true)
+			var pe *ProviderError
+			if !errors.As(err, &pe) {
+				t.Fatalf("error type = %T, want *ProviderError", err)
+			}
+			hint := pe.ResourceExhaustionHint()
+			if !strings.Contains(hint, "may indicate per-boot AppleThunderboltRDMA resource exhaustion") {
+				t.Fatalf("hint = %q, want symptom-inferred provider resource hint", hint)
+			}
+			if !strings.Contains(hint, "no provider resource budget was read") {
+				t.Fatalf("hint = %q, want no-budget-read caveat", hint)
+			}
+			if got := err.Error(); !strings.Contains(got, "errno="+strconv.Itoa(int(tt.errno))) || !strings.Contains(got, "stop live RDMA probes") {
+				t.Fatalf("error = %q, want errno and stop-probes hint", got)
+			}
+		})
+	}
+}
+
+func TestResourceExhaustionHintForProviderTimeout(t *testing.T) {
+	err := &ProviderError{
+		Operation:   "ibv_alloc_pd",
+		ContextOpen: true,
+		Failure:     FailureProviderTimeout,
+		Cause:       ErrProviderTimeout,
+	}
+	if hint := err.ResourceExhaustionHint(); !strings.Contains(hint, "provider may be wedged for this boot") {
+		t.Fatalf("hint = %q, want wedged-provider hint", hint)
+	}
+	if got := err.Error(); !strings.Contains(got, "provider timed out") || !strings.Contains(got, "no provider resource budget was read") {
+		t.Fatalf("error = %q, want timeout hint", got)
+	}
+}
+
+func TestResourceExhaustionHintDoesNotFireBeforeOpen(t *testing.T) {
+	err := rdmaNilProviderResultError("ibv_open_device", "context", 0, int(syscall.EBUSY), true, 0, false)
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("error type = %T, want *ProviderError", err)
+	}
+	if hint := pe.ResourceExhaustionHint(); hint != "" {
+		t.Fatalf("hint = %q, want empty before open", hint)
+	}
+}
+
+func TestResourceExhaustionHintDoesNotFireForNonResourceNilResult(t *testing.T) {
+	err := rdmaNilProviderResultError("ibv_query_port", "port attributes", 0, 0, false, 123, true)
+	var pe *ProviderError
+	if !errors.As(err, &pe) {
+		t.Fatalf("error type = %T, want *ProviderError", err)
+	}
+	if hint := pe.ResourceExhaustionHint(); hint != "" {
+		t.Fatalf("hint = %q, want empty for non-resource nil result", hint)
 	}
 }
 

@@ -3,6 +3,7 @@ package rdma
 import (
 	"errors"
 	"fmt"
+	"syscall"
 )
 
 var (
@@ -20,12 +21,12 @@ func ErrnoText(errno int) string {
 		return "errno 5 (EIO)"
 	case 6:
 		return "errno 6 (ENXIO)"
-	case 12:
+	case int(syscall.ENOMEM):
 		return "errno 12 (ENOMEM)"
 	case 13:
 		return "errno 13 (EACCES)"
-	case 16:
-		return "errno 16 (EBUSY; AppleThunderboltRDMA resources are exhausted, reboot the affected node before retrying)"
+	case int(syscall.EBUSY):
+		return "errno 16 (EBUSY; may indicate AppleThunderboltRDMA resource exhaustion or contaminated IOKit state, reboot the affected node before retrying)"
 	case 19:
 		return "errno 19 (ENODEV)"
 	case 22:
@@ -56,11 +57,11 @@ func ErrnoName(errno int) string {
 		return "EIO"
 	case 6:
 		return "ENXIO"
-	case 12:
+	case int(syscall.ENOMEM):
 		return "ENOMEM"
 	case 13:
 		return "EACCES"
-	case 16:
+	case int(syscall.EBUSY):
 		return "EBUSY"
 	case 19:
 		return "ENODEV"

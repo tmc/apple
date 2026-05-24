@@ -14,6 +14,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"runtime/debug"
 	"sort"
 	"strings"
 	"sync"
@@ -50,8 +51,18 @@ type rdmaBenchResult struct {
 	Mode           string             `json:"mode"`
 	Role           string             `json:"role"`
 	Addr           string             `json:"addr,omitempty"`
+	Commit         string             `json:"commit,omitempty"`
+	Host           string             `json:"host,omitempty"`
+	Command        string             `json:"command,omitempty"`
 	Device         string             `json:"device,omitempty"`
+	DevicePair     string             `json:"device_pair,omitempty"`
 	Stage          string             `json:"stage,omitempty"`
+	SetupTimeout   string             `json:"setup_timeout,omitempty"`
+	GateEnv        string             `json:"gate_env,omitempty"`
+	FailureClass   string             `json:"failure_class,omitempty"`
+	FirstError     string             `json:"first_error,omitempty"`
+	NoRetry        bool               `json:"no_retry"`
+	DatapathClaim  bool               `json:"datapath_claim"`
 	Control        []rdmaControlEvent `json:"control,omitempty"`
 	Size           int                `json:"size"`
 	Iterations     int                `json:"iterations"`
@@ -573,6 +584,7 @@ func rdmaPingpong(args []string) {
 	} else {
 		res = runRDMAPingpongClient(*addr, *deviceName, *deviceIndex, *gidIndex, size, *iters, *setupTimeout)
 	}
+	finalizeRDMABenchResult(&res, *setupTimeout, *allowRTR)
 	if *jsonOut {
 		writeJSON(res)
 	} else {
@@ -623,7 +635,7 @@ type routeGID struct {
 }
 
 func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
-	res := rdmaBenchResult{Mode: "rdma-pingpong", Role: "server", Addr: listenAddr, Size: size, Iterations: iters}
+	res := newRDMABenchResult("server", listenAddr, size, iters)
 	ln, err := listenTCP(listenAddr)
 	if err != nil {
 		res.Error = err.Error()
@@ -644,7 +656,7 @@ func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex,
 }
 
 func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
-	res := rdmaBenchResult{Mode: "rdma-pingpong", Role: "client", Addr: addr, Size: size, Iterations: iters}
+	res := newRDMABenchResult("client", addr, size, iters)
 	c, err := dialTCP(addr)
 	if err != nil {
 		res.Error = err.Error()
@@ -655,6 +667,77 @@ func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size,
 		res.Error = err.Error()
 	}
 	return res
+}
+
+func newRDMABenchResult(role, addr string, size, iters int) rdmaBenchResult {
+	host, _ := os.Hostname()
+	return rdmaBenchResult{
+		Mode:       "rdma-pingpong",
+		Role:       role,
+		Addr:       addr,
+		Commit:     vcsRevision(),
+		Host:       host,
+		Command:    strings.Join(os.Args, " "),
+		GateEnv:    "allow-rtr=false",
+		NoRetry:    true,
+		Size:       size,
+		Iterations: iters,
+	}
+}
+
+func finalizeRDMABenchResult(res *rdmaBenchResult, setupTimeout time.Duration, allowRTR bool) {
+	res.SetupTimeout = setupTimeout.String()
+	res.GateEnv = fmt.Sprintf("allow-rtr=%t", allowRTR)
+	res.NoRetry = true
+	res.DatapathClaim = res.Stage == "done" && res.Error == ""
+	if res.Device != "" && res.Remote.Name != "" {
+		res.DevicePair = res.Device + "<->" + res.Remote.Name
+	}
+	if res.Error != "" {
+		res.FirstError = firstLine(res.Error)
+		res.FailureClass = classifyRDMABenchFailure(res.Error)
+	}
+}
+
+func vcsRevision() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return ""
+	}
+	for _, setting := range info.Settings {
+		if setting.Key == "vcs.revision" {
+			return setting.Value
+		}
+	}
+	return ""
+}
+
+func firstLine(s string) string {
+	if i := strings.IndexByte(s, '\n'); i >= 0 {
+		return s[:i]
+	}
+	return s
+}
+
+func classifyRDMABenchFailure(s string) string {
+	switch {
+	case strings.Contains(s, "rdma setup timeout"):
+		return string(rdma.FailureProviderTimeout)
+	case strings.Contains(s, "errno 60") || strings.Contains(s, "ETIMEDOUT") || strings.Contains(s, "i/o timeout"):
+		return "timeout"
+	case strings.Contains(s, "nil provider result") || strings.Contains(s, "provider returned nil"):
+		return string(rdma.FailureNilProviderResult)
+	case strings.Contains(s, "provider returned negative status"):
+		return string(rdma.FailureNegativeProviderReturn)
+	case strings.Contains(s, "provider returned status"):
+		return string(rdma.FailureProviderStatus)
+	case strings.Contains(s, "no RDMA device") || strings.Contains(s, "no rdma device"):
+		return string(rdma.FailureNoDevice)
+	case strings.Contains(s, "rdma rtr unsafe"):
+		return "rtr_refused"
+	default:
+		return "error"
+	}
 }
 
 func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {

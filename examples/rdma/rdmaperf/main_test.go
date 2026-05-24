@@ -733,6 +733,7 @@ func TestRDMAPingpongResultKeepsStageAndLocalOnExchangeFailure(t *testing.T) {
 		},
 		Error: "receive remote rdma info: i/o timeout",
 	}
+	finalizeRDMABenchResult(&res, 12*time.Second, true)
 	data, err := json.Marshal(res)
 	if err != nil {
 		t.Fatal(err)
@@ -740,6 +741,12 @@ func TestRDMAPingpongResultKeepsStageAndLocalOnExchangeFailure(t *testing.T) {
 	text := string(data)
 	for _, want := range []string{
 		`"stage":"exchange-rdma-info"`,
+		`"setup_timeout":"12s"`,
+		`"gate_env":"allow-rtr=true"`,
+		`"failure_class":"timeout"`,
+		`"first_error":"receive remote rdma info: i/o timeout"`,
+		`"no_retry":true`,
+		`"datapath_claim":false`,
 		`"qpn":2304`,
 		`"gid_index":1`,
 		`"receive remote rdma info`,
@@ -747,6 +754,48 @@ func TestRDMAPingpongResultKeepsStageAndLocalOnExchangeFailure(t *testing.T) {
 		if !strings.Contains(text, want) {
 			t.Fatalf("result JSON %s missing %s", text, want)
 		}
+	}
+}
+
+func TestFinalizeRDMABenchResultClassifiesProviderBoundary(t *testing.T) {
+	tests := []struct {
+		name string
+		err  string
+		want string
+	}{
+		{"setup timeout", "rdma setup timeout opening rdma resources after 12s", "provider_timeout"},
+		{"errno 60", "ibv_modify_qp INIT->RTR failed: errno 60 (ETIMEDOUT), mask=0x101181", "timeout"},
+		{"nil provider", "rdma: ibv_alloc_pd: provider returned nil protection domain", "nil_provider_result"},
+		{"no device", "no RDMA device matched name rdma_en1", "no_device"},
+		{"refused", "rdma rtr unsafe", "rtr_refused"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := rdmaBenchResult{Error: tt.err}
+			finalizeRDMABenchResult(&res, time.Second, false)
+			if res.FailureClass != tt.want {
+				t.Fatalf("failure class = %q, want %q", res.FailureClass, tt.want)
+			}
+			if !res.NoRetry {
+				t.Fatal("NoRetry = false, want true")
+			}
+			if res.DatapathClaim {
+				t.Fatal("DatapathClaim = true, want false")
+			}
+		})
+	}
+}
+
+func TestFinalizeRDMABenchResultClaimsDatapathOnlyOnDone(t *testing.T) {
+	res := rdmaBenchResult{Stage: "done"}
+	finalizeRDMABenchResult(&res, time.Second, true)
+	if !res.DatapathClaim {
+		t.Fatal("DatapathClaim = false, want true")
+	}
+	res.Error = "post-rts failure"
+	finalizeRDMABenchResult(&res, time.Second, true)
+	if res.DatapathClaim {
+		t.Fatal("DatapathClaim = true after error, want false")
 	}
 }
 
