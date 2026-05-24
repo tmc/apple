@@ -1,0 +1,10 @@
+commit: 352f5b7c8405c1e4803f4c2752e80254f0cde283
+date: 2026-05-24T11:06:40Z
+agent: codex
+model: GPT-5
+tty: not a tty
+pid: 7083
+ITERM_SESSION_ID: w2t3p1:FCAB28BB-2475-4CB9-9569-B9B7E70C1031
+review: /Users/tmc/tmp/cove-package-extract-current/go-team-staged-vzkit-disk-attachment-v2-review.md
+gates: go test ./x/vzkit/storage; go test ./x/vzkit/...
+no-push: true
