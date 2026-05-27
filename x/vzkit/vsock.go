@@ -23,4 +23,12 @@ func NewVsockManager(vm vz.VZVirtualMachine) (*VsockManager, error) {
 	return vsockx.NewManager(vm)
 }
 
+// VsockListener accepts guest-initiated Virtio socket connections.
+type VsockListener = vsockx.Listener
+
+// NewVsockListener installs a Virtio socket listener for port on device.
+func NewVsockListener(device vz.VZVirtioSocketDevice, port uint32, dispatch func(func())) (*VsockListener, error) {
+	return vsockx.Listen(device, port, dispatch)
+}
+
 var _ net.Conn = (*VsockConn)(nil)
