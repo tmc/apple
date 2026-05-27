@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+var (
+	benchmarkRouteGID RouteGID
+	benchmarkGIDOK    bool
+	benchmarkGIDBool  bool
+)
+
 func TestSelectRouteGID(t *testing.T) {
 	gid0 := GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
 	gid1 := GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}
@@ -97,6 +103,55 @@ func TestSelectRouteGID(t *testing.T) {
 		if gotOK != tt.wantOK || got.Index != tt.wantIndex {
 			t.Fatalf("%s: SelectRouteGID index=%d ok=%v, want index=%d ok=%v", tt.name, got.Index, gotOK, tt.wantIndex, tt.wantOK)
 		}
+	}
+}
+
+func benchmarkRouteGIDs() []RouteGID {
+	return []RouteGID{
+		{Index: 0, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}},
+		{Index: 1, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}},
+		{Index: 2, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}},
+		{Index: 3, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4}},
+		{Index: 4, GID: GID{10: 0xff, 11: 0xff, 12: 192, 13: 0, 14: 2, 15: 1}},
+	}
+}
+
+func TestPolicySelectorsAllocs(t *testing.T) {
+	gids := benchmarkRouteGIDs()
+	if allocs := testing.AllocsPerRun(1000, func() {
+		benchmarkRouteGID, benchmarkGIDOK = SelectRouteGID(gids, -1, LinkLayerThunderbolt)
+	}); allocs != 0 {
+		t.Fatalf("SelectRouteGID allocs = %v, want 0", allocs)
+	}
+	if allocs := testing.AllocsPerRun(1000, func() {
+		benchmarkGIDBool = IsIPv4MappedGID(gids[4].GID)
+	}); allocs != 0 {
+		t.Fatalf("IsIPv4MappedGID allocs = %v, want 0", allocs)
+	}
+	if !benchmarkGIDOK || benchmarkRouteGID.Index != 4 || !benchmarkGIDBool {
+		t.Fatalf("benchmark selectors returned index=%d ok=%v ipv4=%v", benchmarkRouteGID.Index, benchmarkGIDOK, benchmarkGIDBool)
+	}
+}
+
+func BenchmarkSelectRouteGID(b *testing.B) {
+	gids := benchmarkRouteGIDs()
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		benchmarkRouteGID, benchmarkGIDOK = SelectRouteGID(gids, -1, LinkLayerThunderbolt)
+	}
+	if !benchmarkGIDOK || benchmarkRouteGID.Index != 4 {
+		b.Fatalf("SelectRouteGID index=%d ok=%v, want index=4 ok=true", benchmarkRouteGID.Index, benchmarkGIDOK)
+	}
+}
+
+func BenchmarkIsIPv4MappedGID(b *testing.B) {
+	gid := benchmarkRouteGIDs()[4].GID
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		benchmarkGIDBool = IsIPv4MappedGID(gid)
+	}
+	if !benchmarkGIDBool {
+		b.Fatalf("IsIPv4MappedGID = false, want true")
 	}
 }
 
