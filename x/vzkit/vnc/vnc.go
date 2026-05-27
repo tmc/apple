@@ -4,8 +4,10 @@ import (
 	"fmt"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
+	vz "github.com/tmc/apple/virtualization"
 	"github.com/tmc/apple/x/vzkit/vm"
 )
 
@@ -73,6 +75,14 @@ func NewSecurityConfig(cfg Config) (SecurityConfig, error) {
 type Server struct {
 	raw   pvz.VZVNCServer
 	queue *vm.Queue
+}
+
+// StartResult describes the observable VNC server state after start.
+type StartResult struct {
+	DisplayAttached bool
+	Port            uint16
+	State           int64
+	Description     string
 }
 
 // Raw returns the underlying private VNC server.
@@ -144,6 +154,32 @@ func (s *Server) Start() {
 	s.sync(func() { s.raw.Start() })
 }
 
+// StartVirtualMachine attaches machine, attaches its first graphics display if
+// present, starts the server, and returns the observed server state.
+func (s *Server) StartVirtualMachine(machine vz.VZVirtualMachine) (StartResult, error) {
+	s.SetVirtualMachine(pvz.VZVirtualMachineFromID(machine.ID))
+
+	var displayErr error
+	displayAttached := false
+	if s.CanSetGraphicsDisplay() {
+		display, err := s.firstGraphicsDisplay(machine)
+		if err == nil && display.ID != 0 {
+			s.SetGraphicsDisplay(display)
+			displayAttached = true
+		} else if err != nil {
+			displayErr = err
+		}
+	}
+
+	s.Start()
+	return StartResult{
+		DisplayAttached: displayAttached,
+		Port:            s.Port(),
+		State:           s.State(),
+		Description:     s.Description(),
+	}, displayErr
+}
+
 // Stop stops the VNC server.
 func (s *Server) Stop() {
 	s.sync(func() { s.raw.Stop() })
@@ -157,6 +193,37 @@ func (s *Server) SetVirtualMachine(vm pvz.IVZVirtualMachine) {
 // SetGraphicsDisplay attaches a graphics display to the server.
 func (s *Server) SetGraphicsDisplay(display pvz.IVZGraphicsDisplay) {
 	s.sync(func() { s.raw.SetGraphicsDisplay(display) })
+}
+
+// CanSetGraphicsDisplay reports whether this server accepts an explicit graphics display.
+func (s *Server) CanSetGraphicsDisplay() bool {
+	var ok bool
+	s.sync(func() { ok = objc.RespondsToSelector(s.raw.ID, objc.Sel("setGraphicsDisplay:")) })
+	return ok
+}
+
+func (s *Server) firstGraphicsDisplay(machine vz.VZVirtualMachine) (pvz.VZGraphicsDisplay, error) {
+	var (
+		display pvz.VZGraphicsDisplay
+		err     error
+	)
+	s.sync(func() {
+		devices := machine.GraphicsDevices()
+		if len(devices) == 0 {
+			err = fmt.Errorf("no graphics devices")
+			return
+		}
+		displays := devices[0].Displays()
+		if len(displays) == 0 {
+			err = fmt.Errorf("no graphics displays")
+			return
+		}
+		display = pvz.VZGraphicsDisplayFromID(displays[0].ID)
+	})
+	if err != nil {
+		return pvz.VZGraphicsDisplay{}, err
+	}
+	return display, nil
 }
 
 // Port returns the configured VNC port.
