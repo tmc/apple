@@ -543,7 +543,7 @@ func startRDMAWatchdog(name string, timeout time.Duration) func() {
 		return func() {}
 	}
 	timer := time.AfterFunc(timeout, func() {
-		fmt.Fprintf(os.Stderr, "rdmaperf: %s watchdog expired after %s\n", name, timeout)
+		fmt.Fprintf(os.Stderr, "rdmaperf: %s watchdog expired after %s; provider may be wedged for this boot, stop live RDMA probes and reboot before retrying\n", name, timeout)
 		os.Exit(124)
 	})
 	return func() {

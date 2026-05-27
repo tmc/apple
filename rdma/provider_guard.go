@@ -9,6 +9,9 @@ import (
 )
 
 var (
+	// rdmaProviderMu serializes Apple RDMA provider calls in this process. The
+	// provider has shown process-wide wedge behavior under overlapping calls; this
+	// guard is separate from errno handling, which is protected by LockOSThread.
 	rdmaProviderMu   sync.Mutex
 	rdmaErrnoOnce    sync.Once
 	rdmaErrorPointer func() unsafe.Pointer
@@ -41,10 +44,6 @@ func rdmaProviderCall0(fn func()) {
 
 func rdmaKeepAlive(v any) {
 	runtime.KeepAlive(v)
-}
-
-func rdmaSetFinalizer(obj any, finalizer any) {
-	runtime.SetFinalizer(obj, finalizer)
 }
 
 func rdmaErrno() (int, bool) {

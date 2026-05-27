@@ -3,12 +3,7 @@
 // Package rdma provides Go bindings for the rdma framework.
 package rdma
 
-import (
-	"fmt"
-	"os"
-
-	"github.com/ebitengine/purego"
-)
+import "github.com/ebitengine/purego"
 
 // frameworkPaths lists paths to try when loading the rdma library.
 // The framework bundle path is tried first; a /usr/lib dylib fallback covers
@@ -26,5 +21,4 @@ func init() {
 			return
 		}
 	}
-	fmt.Fprintf(os.Stderr, "warning: rdma: failed to load framework from any known path\n")
 }

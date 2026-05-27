@@ -28,7 +28,6 @@ func OpenDeviceList() (*DeviceList, error) {
 	}
 
 	dl := &DeviceList{list: list}
-	rdmaSetFinalizer(dl, (*DeviceList).finalize)
 	if list == 0 {
 		return dl, nil
 	}
@@ -107,12 +106,7 @@ func (l *DeviceList) Close() error {
 	if list == 0 {
 		return nil
 	}
-	rdmaSetFinalizer(l, nil)
 	return IbvFreeDeviceList(list)
-}
-
-func (l *DeviceList) finalize() {
-	_ = l.Close()
 }
 
 // Open opens d with ibv_open_device and keeps the owning list alive for the
