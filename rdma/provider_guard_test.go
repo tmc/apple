@@ -101,6 +101,25 @@ func TestZeroHandleTeardownRefusesProviderCall(t *testing.T) {
 	}
 }
 
+func BenchmarkProviderCallNoop(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		if got := rdmaProviderCall(func() int { return 1 }); got != 1 {
+			b.Fatalf("rdmaProviderCall = %d, want 1", got)
+		}
+	}
+}
+
+func BenchmarkProviderCallWithErrnoNoop(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		got, _, _ := rdmaProviderCallWithErrno(func() int { return 1 })
+		if got != 1 {
+			b.Fatalf("rdmaProviderCallWithErrno = %d, want 1", got)
+		}
+	}
+}
+
 func TestResourcesCloseOrderAndIdempotence(t *testing.T) {
 	saveRDMAFuncs(t)
 	var order []string

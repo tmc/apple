@@ -19,8 +19,9 @@ var (
 )
 
 func rdmaProviderCall[T any](fn func() T) T {
-	v, _, _ := rdmaProviderCallWithErrno(fn)
-	return v
+	rdmaProviderMu.Lock()
+	defer rdmaProviderMu.Unlock()
+	return fn()
 }
 
 func rdmaProviderCallWithErrno[T any](fn func() T) (T, int, bool) {
