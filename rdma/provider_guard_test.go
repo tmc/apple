@@ -14,14 +14,18 @@ import (
 
 type savedRDMAFuncs struct {
 	allocPD        func(RDMAContext) RDMAPD
+	ackCQEvents    func(RDMACQ, uint32)
 	closeDevice    func(RDMAContext) int
+	createChannel  func(RDMAContext) RDMACompChannel
 	createCQ       func(RDMAContext, int, uintptr, uintptr, int) RDMACQ
 	createQP       func(RDMAPD, uintptr) RDMAQP
 	deallocPD      func(RDMAPD) int
 	deregMR        func(RDMAMR) int
+	destroyChannel func(RDMACompChannel) int
 	destroyCQ      func(RDMACQ) int
 	destroyQP      func(RDMAQP) int
 	freeDeviceList func(RDMADeviceList)
+	getCQEvent     func(RDMACompChannel, uintptr, uintptr) int
 	modifyQP       func(RDMAQP, uintptr, int) int
 	openDevice     func(RDMADevice) RDMAContext
 	queryDevice    func(RDMAContext, uintptr) int
@@ -34,14 +38,18 @@ func saveRDMAFuncs(t *testing.T) {
 	t.Helper()
 	saved := savedRDMAFuncs{
 		allocPD:        _ibvAllocPd,
+		ackCQEvents:    _ibvAckCqEvents,
 		closeDevice:    _ibvCloseDevice,
+		createChannel:  _ibvCreateCompChannel,
 		createCQ:       _ibvCreateCq,
 		createQP:       _ibvCreateQp,
 		deallocPD:      _ibvDeallocPd,
 		deregMR:        _ibvDeregMr,
+		destroyChannel: _ibvDestroyCompChannel,
 		destroyCQ:      _ibvDestroyCq,
 		destroyQP:      _ibvDestroyQp,
 		freeDeviceList: _ibvFreeDeviceList,
+		getCQEvent:     _ibvGetCqEvent,
 		modifyQP:       _ibvModifyQp,
 		openDevice:     _ibvOpenDevice,
 		queryDevice:    _ibvQueryDevice,
@@ -51,14 +59,18 @@ func saveRDMAFuncs(t *testing.T) {
 	}
 	t.Cleanup(func() {
 		_ibvAllocPd = saved.allocPD
+		_ibvAckCqEvents = saved.ackCQEvents
 		_ibvCloseDevice = saved.closeDevice
+		_ibvCreateCompChannel = saved.createChannel
 		_ibvCreateCq = saved.createCQ
 		_ibvCreateQp = saved.createQP
 		_ibvDeallocPd = saved.deallocPD
 		_ibvDeregMr = saved.deregMR
+		_ibvDestroyCompChannel = saved.destroyChannel
 		_ibvDestroyCq = saved.destroyCQ
 		_ibvDestroyQp = saved.destroyQP
 		_ibvFreeDeviceList = saved.freeDeviceList
+		_ibvGetCqEvent = saved.getCQEvent
 		_ibvModifyQp = saved.modifyQP
 		_ibvOpenDevice = saved.openDevice
 		_ibvQueryDevice = saved.queryDevice
