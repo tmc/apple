@@ -1,6 +1,11 @@
 package network
 
-import "testing"
+import (
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
 
 func TestParse(t *testing.T) {
 	got, err := Parse("host-only")
@@ -29,5 +34,19 @@ func TestCreateDeviceNone(t *testing.T) {
 	}
 	if got.ID != 0 {
 		t.Fatalf("CreateDevice(ModeNone) returned non-zero device")
+	}
+}
+
+func TestCreateRandomMACAddress(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "mac.address")
+	if err := CreateRandomMACAddress(path); err != nil {
+		t.Fatalf("CreateRandomMACAddress: %v", err)
+	}
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatalf("read mac.address: %v", err)
+	}
+	if got := strings.TrimSpace(string(data)); len(got) != len("aa:bb:cc:dd:ee:ff") {
+		t.Fatalf("mac.address = %q", got)
 	}
 }
