@@ -65,5 +65,10 @@ func init() {
 			return
 		}
 	}
-	fmt.Fprintf(os.Stderr, "warning: EndpointSecurity: failed to load framework from any known path\n")
+	// Loading is best-effort: the warning is silent by default because a missing
+	// framework is harmless unless one of its symbols is actually called. Set
+	// APPLE_FRAMEWORK_LOAD_DEBUG to surface load failures while diagnosing.
+	if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
+		fmt.Fprintf(os.Stderr, "warning: EndpointSecurity: failed to load framework from any known path\n")
+	}
 }

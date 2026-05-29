@@ -347,7 +347,11 @@ func init() {
 		}
 	}
 	if lib == 0 {
-		fmt.Fprintf(os.Stderr, "warning: dispatch: failed to load framework from any known path\n")
+		// Silent by default; libdispatch is always present on macOS, so a load
+		// failure here is exceptional. Set APPLE_FRAMEWORK_LOAD_DEBUG to surface it.
+		if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
+			fmt.Fprintf(os.Stderr, "warning: dispatch: failed to load framework from any known path\n")
+		}
 		_dispatch_io_read_f = func(uintptr, int64, uint64, uintptr, unsafe.Pointer, uintptr) {
 			panic("dispatch: dispatch_io_read_f unavailable")
 		}
