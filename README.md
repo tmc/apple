@@ -6,8 +6,7 @@ Go bindings for Apple platform frameworks. These bindings are cgo-free, using
 [purego](https://github.com/ebitengine/purego) for dynamic function loading at
 runtime.
 
-Auto-generated from Apple developer documentation via
-[applegen](https://github.com/tmc/appledocs/cmd/applegen).
+Auto-generated from Apple developer documentation via an internal tool called applegen.
 
 ## Private frameworks
 
