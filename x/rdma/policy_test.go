@@ -4,6 +4,8 @@ import (
 	"errors"
 	"strings"
 	"testing"
+
+	"github.com/tmc/apple/rdma"
 )
 
 var (
@@ -13,9 +15,9 @@ var (
 )
 
 func TestSelectRouteGID(t *testing.T) {
-	gid0 := GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
-	gid1 := GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}
-	ipv4 := GID{10: 0xff, 11: 0xff, 12: 192, 13: 0, 14: 2, 15: 1}
+	gid0 := rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+	gid1 := rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}
+	ipv4 := rdma.IbvGID{10: 0xff, 11: 0xff, 12: 192, 13: 0, 14: 2, 15: 1}
 	tests := []struct {
 		name      string
 		gids      []RouteGID
@@ -108,11 +110,11 @@ func TestSelectRouteGID(t *testing.T) {
 
 func benchmarkRouteGIDs() []RouteGID {
 	return []RouteGID{
-		{Index: 0, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}},
-		{Index: 1, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}},
-		{Index: 2, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}},
-		{Index: 3, GID: GID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4}},
-		{Index: 4, GID: GID{10: 0xff, 11: 0xff, 12: 192, 13: 0, 14: 2, 15: 1}},
+		{Index: 0, GID: rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}},
+		{Index: 1, GID: rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}},
+		{Index: 2, GID: rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}},
+		{Index: 3, GID: rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4}},
+		{Index: 4, GID: rdma.IbvGID{10: 0xff, 11: 0xff, 12: 192, 13: 0, 14: 2, 15: 1}},
 	}
 }
 
@@ -313,16 +315,6 @@ func TestDerivePreflightSafety(t *testing.T) {
 		if !tt.want && len(reasons) == 0 {
 			t.Fatalf("%s: no reasons returned", tt.name)
 		}
-	}
-}
-
-func TestErrnoText(t *testing.T) {
-	got := ErrnoText(16)
-	if !strings.Contains(got, "EBUSY") || !strings.Contains(got, "reboot") {
-		t.Fatalf("ErrnoText(16) = %q", got)
-	}
-	if got := ErrnoName(60); got != "ETIMEDOUT" {
-		t.Fatalf("ErrnoName(60) = %q, want ETIMEDOUT", got)
 	}
 }
 

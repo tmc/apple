@@ -1558,9 +1558,9 @@ func initErrno() {
 func errnoName(rc int) string {
 	switch rc {
 	case 60, 96:
-		return xrdma.ErrnoText(rc)
+		return rdma.ErrnoText(rc)
 	}
-	return xrdma.ErrnoName(rc)
+	return rdma.ErrnoName(rc)
 }
 
 func fatalf(format string, args ...any) {

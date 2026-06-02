@@ -1823,7 +1823,7 @@ func errOrCode(err error, rc int) string {
 	}
 	if rc != 0 {
 		if rc == 16 {
-			return xrdma.ErrnoText(rc)
+			return rdma.ErrnoText(rc)
 		}
 		return fmt.Sprintf("errno %d", rc)
 	}

@@ -1,6 +1,6 @@
 package rdma
 
-import bindings "github.com/tmc/apple/rdma"
+import "github.com/tmc/apple/rdma"
 
 const (
 	// PortActive is the ibv_port_state value for PORT_ACTIVE.
@@ -16,13 +16,10 @@ const (
 	MaxRouteGIDScan = 8
 )
 
-// GID is an RDMA global identifier.
-type GID = bindings.IbvGID
-
 // RouteGID is a nonzero GID candidate returned by ibv_query_gid.
 type RouteGID struct {
 	Index int
-	GID   GID
+	GID   rdma.IbvGID
 }
 
 // GIDInfo is the JSON-friendly form used by diagnostics.
@@ -33,7 +30,7 @@ type GIDInfo struct {
 }
 
 // IsZeroGID reports whether gid is all zeros.
-func IsZeroGID(gid GID) bool {
+func IsZeroGID(gid rdma.IbvGID) bool {
 	for _, b := range gid {
 		if b != 0 {
 			return false
@@ -43,7 +40,7 @@ func IsZeroGID(gid GID) bool {
 }
 
 // IsIPv4MappedGID reports whether gid has the IPv4-mapped IPv6 prefix.
-func IsIPv4MappedGID(gid GID) bool {
+func IsIPv4MappedGID(gid rdma.IbvGID) bool {
 	for i := 0; i < 10; i++ {
 		if gid[i] != 0 {
 			return false
