@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/tmc/apple/rdma"
+	xrdma "github.com/tmc/apple/x/rdma"
 )
 
 func TestParseSize(t *testing.T) {
@@ -99,7 +100,7 @@ func TestRTRAttrUsesLocalGIDIndex(t *testing.T) {
 		UseGlobal: true,
 		ActiveMTU: 5,
 	}
-	attr, err := r.rtrAttr(remote)
+	attr, _, err := r.rtrAttr(remote, xrdma.RTRPolicy{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -123,10 +124,10 @@ func TestRTRAttrUsesLocalGIDIndex(t *testing.T) {
 func TestRTRAttrRejectsInvalidLocalGIDIndex(t *testing.T) {
 	for _, index := range []int{-1, 256} {
 		r := rdmaResources{gidIndex: index}
-		_, err := r.rtrAttr(rdmaPeerInfo{
+		_, _, err := r.rtrAttr(rdmaPeerInfo{
 			GID:       "fe800000000000000000000000000001",
 			UseGlobal: true,
-		})
+		}, xrdma.RTRPolicy{})
 		if err == nil {
 			t.Fatalf("rtrAttr accepted out-of-range local gid index %d", index)
 		}
@@ -135,12 +136,12 @@ func TestRTRAttrRejectsInvalidLocalGIDIndex(t *testing.T) {
 
 func TestRTRAttrLeavesGRHZeroForLocalOnlyRoute(t *testing.T) {
 	r := rdmaResources{gidIndex: 7}
-	attr, err := r.rtrAttr(rdmaPeerInfo{
+	attr, _, err := r.rtrAttr(rdmaPeerInfo{
 		LID:       1,
 		QPN:       2,
 		PSN:       3,
 		UseGlobal: false,
-	})
+	}, xrdma.RTRPolicy{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -149,6 +150,32 @@ func TestRTRAttrLeavesGRHZeroForLocalOnlyRoute(t *testing.T) {
 	}
 	if attr.AHAttr.GRH != (rdma.IbvGlobalRoute{}) {
 		t.Fatalf("GRH = %#v, want zero", attr.AHAttr.GRH)
+	}
+}
+
+func TestRTRAttrAppliesPolicy(t *testing.T) {
+	r := rdmaResources{gidIndex: 0, port: ibvPortAttr{ActiveMTU: 5}}
+	attr, _, err := r.rtrAttr(rdmaPeerInfo{
+		LID:       1,
+		QPN:       2,
+		PSN:       3,
+		GID:       "fe800000000000000000000000000001",
+		UseGlobal: true,
+		ActiveMTU: 5,
+	}, xrdma.RTRPolicy{
+		ZeroDLIDWhenGlobal: true,
+		HopLimit:           255,
+		TrafficClass:       7,
+		FlowLabel:          9,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if attr.AHAttr.DLID != 0 {
+		t.Fatalf("DLID = %d, want 0", attr.AHAttr.DLID)
+	}
+	if attr.AHAttr.GRH.HopLimit != 255 || attr.AHAttr.GRH.TrafficClass != 7 || attr.AHAttr.GRH.FlowLabel != 9 {
+		t.Fatalf("GRH = %+v, want policy fields", attr.AHAttr.GRH)
 	}
 }
 
@@ -167,8 +194,8 @@ func TestNegotiatedPathMTU(t *testing.T) {
 		{"invalid", 99, 99, rdma.IBV_MTU_1024},
 	}
 	for _, tt := range tests {
-		if got := negotiatedPathMTU(tt.local, tt.remote); got != tt.want {
-			t.Fatalf("%s: negotiatedPathMTU(%d, %d) = %d, want %d", tt.name, tt.local, tt.remote, got, tt.want)
+		if got := xrdma.NegotiatedPathMTU(tt.local, tt.remote); got != tt.want {
+			t.Fatalf("%s: NegotiatedPathMTU(%d, %d) = %d, want %d", tt.name, tt.local, tt.remote, got, tt.want)
 		}
 	}
 }

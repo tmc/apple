@@ -558,6 +558,10 @@ func rdmaPingpong(args []string) {
 	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
 	deviceIndex := fs.Int("device", -1, "RDMA device index")
 	gidIndex := fs.Int("gid-index", -1, "source GID index for GRH; -1 auto-selects, 0..255 selects explicitly")
+	zeroDLIDWhenGlobal := fs.Bool("zero-dlid-when-global", false, "set DLID=0 when RTR AH uses a global route")
+	grhHopLimit := fs.Int("grh-hop-limit", 0, "GRH hop limit override, 0 uses default")
+	grhTrafficClass := fs.Int("grh-traffic-class", 0, "GRH traffic class")
+	grhFlowLabel := fs.Uint("grh-flow-label", 0, "GRH flow label")
 	sizeText := fs.String("size", "64", "payload size")
 	iters := fs.Int("iters", 10000, "ping-pong iterations")
 	setupTimeout := fs.Duration("setup-timeout", 5*time.Second, "maximum time to wait for local QP setup")
@@ -571,6 +575,10 @@ func rdmaPingpong(args []string) {
 	if err := validateGIDIndexFlag(*gidIndex); err != nil {
 		fatalf("%v", err)
 	}
+	policy, err := rdmaRTRPolicyFromFlags(*zeroDLIDWhenGlobal, *grhHopLimit, *grhTrafficClass, *grhFlowLabel)
+	if err != nil {
+		fatalf("%v", err)
+	}
 	if *iters <= 0 {
 		fatalf("-iters must be positive")
 	}
@@ -580,9 +588,9 @@ func rdmaPingpong(args []string) {
 	size := parseSize(*sizeText)
 	var res rdmaBenchResult
 	if *listenAddr != "" {
-		res = runRDMAPingpongServer(*listenAddr, *deviceName, *deviceIndex, *gidIndex, size, *iters, *setupTimeout)
+		res = runRDMAPingpongServer(*listenAddr, *deviceName, *deviceIndex, *gidIndex, policy, size, *iters, *setupTimeout)
 	} else {
-		res = runRDMAPingpongClient(*addr, *deviceName, *deviceIndex, *gidIndex, size, *iters, *setupTimeout)
+		res = runRDMAPingpongClient(*addr, *deviceName, *deviceIndex, *gidIndex, policy, size, *iters, *setupTimeout)
 	}
 	finalizeRDMABenchResult(&res, *setupTimeout, *allowRTR)
 	if *jsonOut {
@@ -593,6 +601,24 @@ func rdmaPingpong(args []string) {
 	if res.Error != "" {
 		os.Exit(1)
 	}
+}
+
+func rdmaRTRPolicyFromFlags(zeroDLIDWhenGlobal bool, hopLimit, trafficClass int, flowLabel uint) (xrdma.RTRPolicy, error) {
+	if hopLimit < 0 || hopLimit > 255 {
+		return xrdma.RTRPolicy{}, fmt.Errorf("-grh-hop-limit must be between 0 and 255")
+	}
+	if trafficClass < 0 || trafficClass > 255 {
+		return xrdma.RTRPolicy{}, fmt.Errorf("-grh-traffic-class must be between 0 and 255")
+	}
+	if flowLabel > 0xfffff {
+		return xrdma.RTRPolicy{}, fmt.Errorf("-grh-flow-label must be between 0 and 1048575")
+	}
+	return xrdma.RTRPolicy{
+		ZeroDLIDWhenGlobal: zeroDLIDWhenGlobal,
+		HopLimit:           uint8(hopLimit),
+		TrafficClass:       uint8(trafficClass),
+		FlowLabel:          uint32(flowLabel),
+	}, nil
 }
 
 func checkRDMAPingpongOptIn(allowRTR bool) error {
@@ -634,7 +660,7 @@ type routeGID struct {
 	gid   rdma.IbvGID
 }
 
-func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
+func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex int, policy xrdma.RTRPolicy, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
 	res := newRDMABenchResult("server", listenAddr, size, iters)
 	ln, err := listenTCP(listenAddr)
 	if err != nil {
@@ -649,13 +675,13 @@ func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex,
 	}
 	defer c.Close()
 	res.Addr = c.LocalAddr().String()
-	if err := runRDMAPingpong(c, false, deviceName, deviceIndex, gidIndex, size, iters, setupTimeout, &res); err != nil {
+	if err := runRDMAPingpong(c, false, deviceName, deviceIndex, gidIndex, policy, size, iters, setupTimeout, &res); err != nil {
 		res.Error = err.Error()
 	}
 	return res
 }
 
-func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
+func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex int, policy xrdma.RTRPolicy, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
 	res := newRDMABenchResult("client", addr, size, iters)
 	c, err := dialTCP(addr)
 	if err != nil {
@@ -663,7 +689,7 @@ func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size,
 		return res
 	}
 	defer c.Close()
-	if err := runRDMAPingpong(c, true, deviceName, deviceIndex, gidIndex, size, iters, setupTimeout, &res); err != nil {
+	if err := runRDMAPingpong(c, true, deviceName, deviceIndex, gidIndex, policy, size, iters, setupTimeout, &res); err != nil {
 		res.Error = err.Error()
 	}
 	return res
@@ -740,7 +766,7 @@ func classifyRDMABenchFailure(s string) string {
 	}
 }
 
-func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {
+func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex int, policy xrdma.RTRPolicy, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {
 	defer c.SetDeadline(time.Time{})
 	role := "server"
 	if client {
@@ -776,7 +802,7 @@ func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gi
 	}
 
 	res.Stage = "connect-rdma"
-	connectErr := r.connectWithTimeout(remote, setupTimeout)
+	connectErr := r.connectWithTimeout(remote, policy, setupTimeout)
 	if errors.Is(connectErr, errRDMASetupTimeout) {
 		closeResources = false
 	}
@@ -1233,7 +1259,7 @@ func (r *rdmaResources) peerInfo() rdmaPeerInfo {
 	}
 }
 
-func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
+func (r *rdmaResources) connect(remote rdmaPeerInfo, policy xrdma.RTRPolicy) error {
 	init := rdma.IbvQPAttr{
 		QPState:       rdma.IBV_QPS_INIT,
 		PKeyIndex:     0,
@@ -1246,11 +1272,10 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		return rdma.NewModifyQPError(r.qp, &init, initMask, rc, err)
 	}
 
-	rtr, err := r.rtrAttr(remote)
+	rtr, rtrMask, err := r.rtrAttr(remote, policy)
 	if err != nil {
 		return err
 	}
-	rtrMask := rdma.IBV_QP_STATE | rdma.IBV_QP_AV | rdma.IBV_QP_PATH_MTU | rdma.IBV_QP_DEST_QPN | rdma.IBV_QP_RQ_PSN
 	rc, err = rdma.IbvModifyQpAttr(r.qp, &rtr, rtrMask)
 	if err != nil || rc != 0 {
 		return rdma.NewModifyQPError(r.qp, &rtr, rtrMask, rc, err)
@@ -1268,54 +1293,39 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 	return nil
 }
 
-func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo) (rdma.IbvQPAttr, error) {
-	attr := rdma.IbvQPAttr{
-		QPState:   rdma.IBV_QPS_RTR,
-		PathMTU:   negotiatedPathMTU(r.port.ActiveMTU, remote.ActiveMTU),
-		RQPSN:     remote.PSN,
-		DestQPNum: remote.QPN,
-		AHAttr: rdma.IbvAHAttr{
-			DLID:     remote.LID,
-			PortNum:  1,
-			IsGlobal: boolByte(remote.UseGlobal),
-		},
+func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo, policy xrdma.RTRPolicy) (rdma.IbvQPAttr, int, error) {
+	var gid rdma.IbvGID
+	if remote.UseGlobal {
+		var err error
+		gid, err = parseGID(remote.GID)
+		if err != nil {
+			return rdma.IbvQPAttr{}, 0, err
+		}
 	}
-	if !remote.UseGlobal {
-		return attr, nil
-	}
-	if r.gidIndex < 0 || r.gidIndex > 255 {
-		return attr, fmt.Errorf("local gid index %d out of uint8 range", r.gidIndex)
-	}
-	gid, err := parseGID(remote.GID)
-	if err != nil {
-		return attr, err
-	}
-	attr.AHAttr.GRH.DGID = gid
-	attr.AHAttr.GRH.SGIDIndex = uint8(r.gidIndex)
-	attr.AHAttr.GRH.HopLimit = 1
-	return attr, nil
+	return xrdma.RTRAttr(xrdma.LocalQP{
+		PortNum:   1,
+		GIDIndex:  r.gidIndex,
+		ActiveMTU: r.port.ActiveMTU,
+		LinkLayer: r.port.LinkLayer,
+	}, xrdma.RemoteQP{
+		Name:      remote.Name,
+		LID:       remote.LID,
+		QPN:       remote.QPN,
+		PSN:       remote.PSN,
+		GIDIndex:  remote.GIDIndex,
+		GID:       gid,
+		UseGlobal: remote.UseGlobal,
+		ActiveMTU: remote.ActiveMTU,
+	}, policy)
 }
 
-func negotiatedPathMTU(local, remote int32) int32 {
-	if mtuBytes(local) == 0 {
-		local = rdma.IBV_MTU_1024
-	}
-	if mtuBytes(remote) == 0 {
-		remote = rdma.IBV_MTU_1024
-	}
-	if local < remote {
-		return local
-	}
-	return remote
-}
-
-func (r *rdmaResources) connectWithTimeout(remote rdmaPeerInfo, timeout time.Duration) error {
+func (r *rdmaResources) connectWithTimeout(remote rdmaPeerInfo, policy xrdma.RTRPolicy, timeout time.Duration) error {
 	if timeout <= 0 {
-		return r.connect(remote)
+		return r.connect(remote, policy)
 	}
 	done := make(chan error, 1)
 	go func() {
-		done <- r.connect(remote)
+		done <- r.connect(remote, policy)
 	}()
 	timer := time.NewTimer(timeout)
 	defer timer.Stop()
@@ -1762,13 +1772,6 @@ func parseGID(text string) (rdma.IbvGID, error) {
 	}
 	copy(gid[:], b)
 	return gid, nil
-}
-
-func boolByte(v bool) uint8 {
-	if v {
-		return 1
-	}
-	return 0
 }
 
 func runtimeYield() {
