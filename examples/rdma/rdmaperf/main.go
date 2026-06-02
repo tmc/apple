@@ -1913,5 +1913,12 @@ func hexHandle[T ~uintptr](v T) string {
 
 func fatalf(format string, args ...any) {
 	fmt.Fprintf(os.Stderr, "rdmaperf: "+format+"\n", args...)
+	for _, a := range args {
+		if err, ok := a.(error); ok {
+			if hint := xrdma.ResourceExhaustionHint(err); hint != "" {
+				fmt.Fprintf(os.Stderr, "rdmaperf: hint: %s\n", hint)
+			}
+		}
+	}
 	os.Exit(1)
 }

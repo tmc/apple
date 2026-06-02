@@ -137,41 +137,7 @@ func (e *ProviderError) Error() string {
 		b.WriteString(": ")
 		b.WriteString(e.Cause.Error())
 	}
-	if hint := e.ResourceExhaustionHint(); hint != "" {
-		b.WriteString("; hint: ")
-		b.WriteString(hint)
-	}
 	return b.String()
-}
-
-// ResourceExhaustionHint returns an operator hint for failures that can indicate
-// the Apple Thunderbolt RDMA per-boot resource exhaustion pattern.
-func (e *ProviderError) ResourceExhaustionHint() string {
-	if e == nil || !e.ContextOpen {
-		return ""
-	}
-	if e.ErrnoSet {
-		switch e.Errno {
-		case int(syscall.ENOMEM), int(syscall.EBUSY):
-			return "provider status may indicate per-boot AppleThunderboltRDMA resource exhaustion or contaminated IOKit state; no provider resource budget was read; stop live RDMA probes and reboot the affected node before retrying"
-		}
-	}
-	if e.Failure == FailureProviderTimeout {
-		return "AppleThunderboltRDMA provider may be wedged for this boot; no provider resource budget was read; stop live RDMA probes and reboot the affected node before retrying"
-	}
-	if e.Failure == FailureNilProviderResult && providerResourceOperation(e.Operation) {
-		return "provider returned nil after opening a context; this can indicate per-boot AppleThunderboltRDMA resource exhaustion or contaminated IOKit state; no provider resource budget was read; stop live RDMA probes and reboot before retrying"
-	}
-	return ""
-}
-
-func providerResourceOperation(op string) bool {
-	switch op {
-	case "ibv_alloc_pd", "ibv_create_cq", "ibv_create_qp", "ibv_reg_mr":
-		return true
-	default:
-		return false
-	}
 }
 
 func (e *ProviderError) Unwrap() error {
@@ -309,7 +275,7 @@ func ErrnoText(errno int) string {
 	case 13:
 		return "errno 13 (EACCES)"
 	case int(syscall.EBUSY):
-		return "errno 16 (EBUSY; may indicate AppleThunderboltRDMA resource exhaustion or contaminated IOKit state, reboot the affected node before retrying)"
+		return "errno 16 (EBUSY)"
 	case 19:
 		return "errno 19 (ENODEV)"
 	case 22:

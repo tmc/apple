@@ -40,24 +40,49 @@ func TestRDMAHardwareProviderMatrix(t *testing.T) {
 		t.Fatalf("APPLE_RDMA_DEVICE=%q not found; available devices: %v", wantDevice, deviceNames(devs))
 	}
 
-	var res Resources
+	var ctx RDMAContext
+	var pd RDMAPD
+	var mr RDMAMR
+	var cq RDMACQ
+	var qp RDMAQP
 	success := false
 	defer func() {
-		if err := res.Close(); err != nil {
-			t.Errorf("cleanup: %v", err)
+		if qp != 0 {
+			if rc, err := IbvDestroyQp(qp); err != nil || rc != 0 {
+				t.Errorf("cleanup ibv_destroy_qp: rc=%d err=%v", rc, err)
+			}
+		}
+		if mr != 0 {
+			if rc, err := IbvDeregMr(mr); err != nil || rc != 0 {
+				t.Errorf("cleanup ibv_dereg_mr: rc=%d err=%v", rc, err)
+			}
+		}
+		if cq != 0 {
+			if rc, err := IbvDestroyCq(cq); err != nil || rc != 0 {
+				t.Errorf("cleanup ibv_destroy_cq: rc=%d err=%v", rc, err)
+			}
+		}
+		if pd != 0 {
+			if rc, err := IbvDeallocPd(pd); err != nil || rc != 0 {
+				t.Errorf("cleanup ibv_dealloc_pd: rc=%d err=%v", rc, err)
+			}
+		}
+		if ctx != 0 {
+			if rc, err := IbvCloseDevice(ctx); err != nil || rc != 0 {
+				t.Errorf("cleanup ibv_close_device: rc=%d err=%v", rc, err)
+			}
 		}
 		if !success {
 			hardwareLog("stop", "device=%s", wantDevice)
 		}
 	}()
 
-	ctx, err := hardwareStepHandle("ibv_open_device", func() (RDMAContext, error) {
+	ctx, err = hardwareStepHandle("ibv_open_device", func() (RDMAContext, error) {
 		return dev.Open()
 	})
 	if err != nil {
 		t.Fatalf("ibv_open_device: %v", err)
 	}
-	res.Context = ctx
 
 	deviceAttr := make([]byte, 512)
 	if err := hardwareStepRC("ibv_query_device", func() (int, error) {
@@ -73,28 +98,26 @@ func TestRDMAHardwareProviderMatrix(t *testing.T) {
 		t.Fatalf("ibv_query_port: %v", err)
 	}
 
-	pd, err := hardwareStepHandle("ibv_alloc_pd", func() (RDMAPD, error) {
+	pd, err = hardwareStepHandle("ibv_alloc_pd", func() (RDMAPD, error) {
 		return IbvAllocPd(ctx)
 	})
 	if err != nil {
 		t.Fatalf("ibv_alloc_pd: %v", err)
 	}
-	res.PD = pd
 
-	cq, err := hardwareStepHandle("ibv_create_cq", func() (RDMACQ, error) {
+	cq, err = hardwareStepHandle("ibv_create_cq", func() (RDMACQ, error) {
 		return IbvCreateCq(ctx, 16, 0, 0, 0)
 	})
 	if err != nil {
 		t.Fatalf("ibv_create_cq: %v", err)
 	}
-	res.CQ = cq
 
 	buf, mapBuf, err := hardwareBuffer(4096)
 	if err != nil {
 		t.Fatalf("hardware buffer: %v", err)
 	}
 	defer syscall.Munmap(mapBuf)
-	mr, err := hardwareStepHandle("ibv_reg_mr", func() (RDMAMR, error) {
+	mr, err = hardwareStepHandle("ibv_reg_mr", func() (RDMAMR, error) {
 		mr, err := IbvRegMr(pd, uintptr(unsafe.Pointer(unsafe.SliceData(buf))), uintptr(len(buf)), IBV_ACCESS_LOCAL_WRITE)
 		runtime.KeepAlive(buf)
 		return mr, err
@@ -102,7 +125,6 @@ func TestRDMAHardwareProviderMatrix(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ibv_reg_mr: %v", err)
 	}
-	res.MR = mr
 
 	init := IbvQPInitAttr{
 		SendCQ: cq,
@@ -115,13 +137,12 @@ func TestRDMAHardwareProviderMatrix(t *testing.T) {
 		},
 		QPType: IBV_QPT_UC,
 	}
-	qp, err := hardwareStepHandle("ibv_create_qp", func() (RDMAQP, error) {
+	qp, err = hardwareStepHandle("ibv_create_qp", func() (RDMAQP, error) {
 		return IbvCreateQpAttr(pd, &init)
 	})
 	if err != nil {
 		t.Fatalf("ibv_create_qp: %v", err)
 	}
-	res.QP = qp
 	success = true
 }
 
