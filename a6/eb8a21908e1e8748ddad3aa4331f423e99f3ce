@@ -1,0 +1,8 @@
+commit: a6eb8a21908e1e8748ddad3aa4331f423e99f3ce
+date: 2026-06-02T22:52:47Z
+claude-code-version: unavailable (codex)
+model: GPT-5 Codex
+tty: not a tty
+pid: 65356
+ITERM_SESSION_ID: w3t13p13:8ACB7ACA-1F89-4A56-83B7-D1B854594E20
+history-audit: rewritten from 975e5cad and 7ec57ece to use final LocalQP/RemoteQP vocabulary from inception
