@@ -1,0 +1,2 @@
+commit=3d63c9cc3a5e9531079eef76cdbbb23ea0868695 date=2026-06-10T23:24:43-0700 claude-code=2.1.170 (Claude Code) model=claude-fable-5 tty=not a tty
+none pid=47132 ITERM_SESSION_ID=w2t16p7:8AF0300E-F02B-44A2-8501-F497339171F2 note=series rebuilt with x/fskitbridge Server layer (IMP extraction); prior series content preserved via fskit-helper-extraction-backup
