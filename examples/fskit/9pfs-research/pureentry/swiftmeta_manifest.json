@@ -1,0 +1,7678 @@
+{
+	"header": {
+		"magic": 4277009103,
+		"cputype": 16777228,
+		"filetype": 1,
+		"flags": 8192
+	},
+	"buildVersion": {
+		"platform": 1,
+		"minos": 984064,
+		"sdk": 1705216,
+		"tools": [
+			{
+				"tool": 3,
+				"version": 62718208
+			}
+		]
+	},
+	"linkerOptions": [
+		{
+			"args": [
+				"-lswiftCoreFoundation"
+			]
+		},
+		{
+			"args": [
+				"-lswiftDispatch"
+			]
+		},
+		{
+			"args": [
+				"-lswiftIOKit"
+			]
+		},
+		{
+			"args": [
+				"-lswiftOSLog"
+			]
+		},
+		{
+			"args": [
+				"-lswiftObjectiveC"
+			]
+		},
+		{
+			"args": [
+				"-lswiftXPC"
+			]
+		},
+		{
+			"args": [
+				"-lswift_Builtin_float"
+			]
+		},
+		{
+			"args": [
+				"-lswiftos"
+			]
+		}
+	],
+	"sections": [
+		{
+			"segment": "__TEXT",
+			"name": "__text",
+			"addr": 0,
+			"size": 2640,
+			"align": 2,
+			"flags": 2147484672,
+			"sha256": "ad10580f8dd4907de816a6b9a9591e1f405f80ecfcb0aea03eefe4142fc17f30",
+			"words": [
+				2847694840,
+				2835437558,
+				2835501044,
+				2835577853,
+				2432746493,
+				2852258804,
+				2852193267,
+				2415919112,
+				4181721344,
+				2483027968,
+				2852127733,
+				1385039648,
+				1924033728,
+				3539763201,
+				2483027968,
+				2852127734,
+				2415919112,
+				4181721344,
+				2483027968,
+				2483027968,
+				2852127735,
+				2853503968,
+				2853569506,
+				2853635043,
+				2483027968,
+				2854028285,
+				2483027968,
+				2852127733,
+				2853569504,
+				2483027968,
+				2853635040,
+				2483027968,
+				2853503968,
+				2483027968,
+				2852127734,
+				2853503968,
+				3531603969,
+				3594453600,
+				2853569504,
+				2483027968,
+				2853569504,
+				2839772157,
+				2839695348,
+				2839631862,
+				2831441912,
+				335544320,
+				2847758326,
+				2835435508,
+				2835512317,
+				2432730109,
+				2852324339,
+				2415919112,
+				4181721344,
+				2483027968,
+				2852127732,
+				1385039648,
+				1924033728,
+				3539763201,
+				2483027968,
+				2852127733,
+				2415919112,
+				4181721344,
+				2483027968,
+				2483027968,
+				2852127734,
+				2853438432,
+				2853503970,
+				2853569507,
+				2483027968,
+				2854028285,
+				2483027968,
+				2852127732,
+				2853503968,
+				2483027968,
+				2853569504,
+				2483027968,
+				4181723752,
+				2853372896,
+				2853438433,
+				3531603970,
+				3594453248,
+				2853438432,
+				2839706621,
+				2839629812,
+				2831374326,
+				335544320,
+				3506553855,
+				2835570680,
+				2835634166,
+				2835697652,
+				2835774461,
+				2432795645,
+				2852324339,
+				2852258805,
+				2852193270,
+				2852127735,
+				2415919104,
+				2432696320,
+				1384121345,
+				1384120546,
+				2483027968,
+				2835434517,
+				2415919112,
+				2432696584,
+				2835481576,
+				2415919112,
+				4181721352,
+				4177527784,
+				2415919112,
+				4248830208,
+				4244637664,
+				2415919112,
+				2432696584,
+				2415919113,
+				2432696617,
+				2835425256,
+				2432697312,
+				2483027968,
+				2852127733,
+				4181727224,
+				2853372896,
+				2483027968,
+				2853700576,
+				2483027968,
+				2853438432,
+				2853635041,
+				2853569506,
+				2853503971,
+				2483027968,
+				2853503968,
+				2483027968,
+				2839968765,
+				2839891956,
+				2839828470,
+				2839764984,
+				2432812031,
+				3596551104,
+				2847898621,
+				2432697341,
+				4181724800,
+				2483027968,
+				2853438432,
+				1384121345,
+				1384120546,
+				2831252477,
+				335544320,
+				2847821812,
+				2835446781,
+				2432713725,
+				2839630472,
+				3594453248,
+				2839641085,
+				2831306740,
+				3596551104,
+				2847694840,
+				2835437558,
+				2835501044,
+				2835577853,
+				2432746493,
+				2852258803,
+				2852193268,
+				2839696408,
+				2853503968,
+				2483027968,
+				2853438432,
+				2483027968,
+				2852127734,
+				2853372896,
+				2483027968,
+				2852127735,
+				2853438432,
+				2853372897,
+				2853503988,
+				3594453760,
+				2853503968,
+				2483027968,
+				2853569504,
+				2483027968,
+				2853635040,
+				2839772157,
+				2839695348,
+				2839631862,
+				2831441912,
+				335544320,
+				4181726248,
+				1035995168,
+				1031800832,
+				2852652000,
+				335544320,
+				4181726208,
+				335544320,
+				3506553855,
+				2835570680,
+				2835634166,
+				2835697652,
+				2835774461,
+				2432795645,
+				2852324341,
+				2852258806,
+				2852127732,
+				2852389856,
+				2483027968,
+				2852127735,
+				2415919104,
+				2432696320,
+				1384121089,
+				1384120546,
+				2483027968,
+				2852127731,
+				4177528855,
+				2415919104,
+				2432696320,
+				1384121345,
+				1384120546,
+				2483027968,
+				2415919112,
+				2432696584,
+				2835434504,
+				2415919112,
+				2432696584,
+				2835481576,
+				2415919112,
+				4181721352,
+				4177527784,
+				2415919112,
+				4248830208,
+				4244637664,
+				2415919112,
+				2432696584,
+				2415919113,
+				2432696617,
+				2835425256,
+				2432697312,
+				2483027968,
+				2852127735,
+				4181727224,
+				2853569504,
+				2483027968,
+				2852127734,
+				2853503968,
+				2483027968,
+				2852127733,
+				2853438432,
+				2483027968,
+				2852127732,
+				2853372896,
+				2483027968,
+				2853700576,
+				2483027968,
+				2853438432,
+				2853569505,
+				2853503970,
+				2853635043,
+				2483027968,
+				2853569504,
+				2483027968,
+				2853503968,
+				2483027968,
+				2853372896,
+				2483027968,
+				2853635040,
+				2483027968,
+				2853438432,
+				2483027968,
+				2839968765,
+				2839891956,
+				2839828470,
+				2839764984,
+				2432812031,
+				3596551104,
+				2847758326,
+				2835435508,
+				2835512317,
+				2432730109,
+				2852258803,
+				2852127732,
+				3019899041,
+				2852193248,
+				2483027968,
+				2852127733,
+				335544322,
+				3531603989,
+				4181723752,
+				2853372896,
+				2853438433,
+				2853503970,
+				3594453248,
+				2853503968,
+				2839706621,
+				2839629812,
+				2831374326,
+				335544320,
+				2847821812,
+				2835446781,
+				2432713725,
+				3531603968,
+				2852324340,
+				3594453056,
+				2839641085,
+				2831306740,
+				3596551104,
+				2852389856,
+				4181723266,
+				3531603969,
+				3592355904,
+				2847898621,
+				2432697341,
+				2853438432,
+				2483027968,
+				2831252477,
+				335544320,
+				3506471935,
+				2835446781,
+				2432713725,
+				2483027968,
+				2835350516,
+				2415919112,
+				4181721345,
+				2432697312,
+				2483027968,
+				2839641085,
+				2432730111,
+				3596551104,
+				2847898621,
+				2432697341,
+				2415919104,
+				2432696320,
+				2483027968,
+				3531603969,
+				2831252477,
+				3596551104,
+				3506488319,
+				2835435508,
+				2835512317,
+				2432730109,
+				2852127731,
+				2483027968,
+				2835350515,
+				2415919112,
+				4181721345,
+				2432697312,
+				2483027968,
+				2839706621,
+				2839629812,
+				2432746495,
+				3596551104,
+				3506471935,
+				2835446781,
+				2432713725,
+				2483027968,
+				2835350516,
+				2415919112,
+				4181721345,
+				2432697312,
+				2483027968,
+				2839641085,
+				2432730111,
+				3596551104,
+				335544320,
+				2847898621,
+				2432697341,
+				2483027968,
+				2483027968,
+				2831252477,
+				335544320,
+				335544320,
+				2847821812,
+				2835446781,
+				2432713725,
+				2853503987,
+				2483027968,
+				2852127713,
+				2415919104,
+				2432696320,
+				2852127732,
+				2853372917,
+				2483027968,
+				2839641085,
+				2831306740,
+				3596551104,
+				2415919112,
+				4181721344,
+				3019898944,
+				3596551104,
+				2847898621,
+				2432697341,
+				2415919104,
+				2432696320,
+				2415919105,
+				2432696353,
+				2483027968,
+				2415919112,
+				2432696584,
+				3365928192,
+				2831252477,
+				3596551104,
+				4181721728,
+				335544320,
+				2847758326,
+				2835435508,
+				2835512317,
+				2432730109,
+				2852127731,
+				2852652021,
+				2483027968,
+				2852127713,
+				2853503976,
+				2853372896,
+				2839706621,
+				2839629812,
+				2831374326,
+				335544320,
+				2847821812,
+				2835446781,
+				2432713725,
+				2852652019,
+				2483027968,
+				2483027968,
+				2483027968,
+				4177527392,
+				2839641085,
+				2831306740,
+				3596551104,
+				2847898621,
+				2432697341,
+				2483027968,
+				2831252477,
+				3596551104,
+				3506504703,
+				2835437558,
+				2835501044,
+				2835577853,
+				2432746493,
+				2483027968,
+				2852127713,
+				2415919104,
+				2432696320,
+				2852127732,
+				3531603989,
+				2483027968,
+				3036676341,
+				1384120320,
+				2839772157,
+				2839695348,
+				2839631862,
+				2432762879,
+				3596551104,
+				2853503968,
+				2483027968,
+				3558866976,
+				335544320,
+				3506488319,
+				2835435508,
+				2835512317,
+				2432730109,
+				2852193267,
+				2483027968,
+				2835350515,
+				2415919105,
+				4181721121,
+				2432697312,
+				1384120354,
+				2483027968,
+				2839706621,
+				2839629812,
+				2432746495,
+				3596551104,
+				2415919112,
+				4181721344,
+				3019898944,
+				3596551104,
+				2847898621,
+				2432697341,
+				2415919104,
+				2432696320,
+				2415919105,
+				2432696353,
+				2483027968,
+				2415919112,
+				2432696584,
+				3365928192,
+				2831252477,
+				3596551104,
+				2415919104,
+				2432696320,
+				3531603969,
+				3596551104,
+				2847898621,
+				2432697341,
+				4181723776,
+				2483027968,
+				2853438432,
+				1384121089,
+				1384120546,
+				2831252477,
+				335544320,
+				4181723778,
+				335544320,
+				335544320,
+				335544320,
+				335544320,
+				335544320,
+				335544320,
+				3506537471,
+				2835441658,
+				2835505144,
+				2835568630,
+				2835632116,
+				2835708925,
+				2432779261,
+				2852324339,
+				2852258804,
+				2852193269,
+				2852127734,
+				2415919104,
+				2432696320,
+				2483027968,
+				2852127735,
+				2415919104,
+				2432696320,
+				2483027968,
+				2852127736,
+				2853635040,
+				2853700577,
+				2483027968,
+				2852127737,
+				1384120328,
+				2415919113,
+				2432696617,
+				1384120362,
+				2296970538,
+				889192680,
+				2415919106,
+				2432696386,
+				2432705504,
+				3531603969,
+				3531603971,
+				2483027968,
+				1384126746,
+				2853635040,
+				2853700577,
+				2483027968,
+				3944284191,
+				1409286497,
+				1384440320,
+				2483027968,
+				1895827290,
+				1426063105,
+				4181723752,
+				2853372896,
+				3531603969,
+				3531603970,
+				3594453248,
+				335544328,
+				2852127720,
+				2853569504,
+				2853700577,
+				2853503970,
+				2853438435,
+				2853372900,
+				3594453248,
+				2839903229,
+				2839826420,
+				2839762934,
+				2839699448,
+				2839635962,
+				2432795647,
+				3596551104,
+				2847758326,
+				2835435508,
+				2835512317,
+				2432730109,
+				1384120320,
+				2483027968,
+				2852127732,
+				1384120320,
+				2483027968,
+				3107984008,
+				872416968,
+				2852127731,
+				2432729750,
+				3107979977,
+				1895827775,
+				1409286336,
+				3107981001,
+				2332623574,
+				1895826696,
+				1426063169,
+				335544364,
+				3107982017,
+				2853438432,
+				2483027968,
+				2852127733,
+				3107984065,
+				2853438432,
+				2483027968,
+				4043309759,
+				4198504452,
+				1409287232,
+				3107983048,
+				872416264,
+				3531603977,
+				2333278890,
+				2333278219,
+				2432697708,
+				2415919117,
+				2432696749,
+				3548179758,
+				3094243662,
+				872415598,
+				946760047,
+				1895923199,
+				1409286401,
+				2332950926,
+				2852979696,
+				872415535,
+				943723983,
+				943724049,
+				1796276735,
+				1426063232,
+				2432697641,
+				3943170367,
+				1426062881,
+				335544329,
+				2332627272,
+				4181722376,
+				2870149384,
+				1409286304,
+				2415919105,
+				2432696353,
+				1384120352,
+				3594453248,
+				3531603968,
+				2839706621,
+				2839629812,
+				2831374326,
+				3596551104,
+				3107983368,
+				872415784,
+				2432729097,
+				704709610,
+				3107979563,
+				1895851391,
+				1409286401,
+				4181726508,
+				3943432523,
+				1409286307,
+				4181727533,
+				2332819884,
+				3943301535,
+				1409286376,
+				3107980587,
+				2332754217,
+				1895826696,
+				1426062945,
+				3531603968,
+				3596551104,
+				4181724456,
+				2332557664,
+				3596551104
+			],
+			"relocs": [
+				{
+					"addr": 180,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 156,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 132,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 124,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 116,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 228,
+					"symbol": "_objc_retainAutoreleasedReturnValue",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 223,
+					"symbol": "_objc_msgSend$usableProbeResultWithName:containerID:",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 76,
+					"value": 222,
+					"symbol": "_objc_msgSend$init",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 72,
+					"value": 220,
+					"symbol": "_objc_allocWithZone",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 68,
+					"value": 125,
+					"symbol": "l064",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 64,
+					"value": 125,
+					"symbol": "l064",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 197,
+					"symbol": "_$sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 36,
+					"value": 225,
+					"symbol": "_objc_opt_self",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 124,
+					"symbol": "l063",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 124,
+					"symbol": "l063",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 340,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 300,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 292,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 280,
+					"value": 228,
+					"symbol": "_objc_retainAutoreleasedReturnValue",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 272,
+					"value": 223,
+					"symbol": "_objc_msgSend$usableProbeResultWithName:containerID:",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 252,
+					"value": 222,
+					"symbol": "_objc_msgSend$init",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 248,
+					"value": 220,
+					"symbol": "_objc_allocWithZone",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 244,
+					"value": 125,
+					"symbol": "l064",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 240,
+					"value": 125,
+					"symbol": "l064",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 232,
+					"value": 197,
+					"symbol": "_$sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 212,
+					"value": 225,
+					"symbol": "_objc_opt_self",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 208,
+					"value": 124,
+					"symbol": "l063",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 204,
+					"value": 124,
+					"symbol": "l063",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 520,
+					"value": 205,
+					"symbol": "__Block_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 512,
+					"value": 157,
+					"symbol": "_NinePFSDelayedLoadResource",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 492,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 484,
+					"value": 237,
+					"symbol": "_swift_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 468,
+					"value": 204,
+					"symbol": "__Block_copy",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 456,
+					"value": 96,
+					"symbol": "_block_descriptor",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 452,
+					"value": 96,
+					"symbol": "_block_descriptor",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 448,
+					"value": 155,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeggg_AcFIeyByy_TR",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 444,
+					"value": 155,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeggg_AcFIeyByy_TR",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 436,
+					"value": 19,
+					"symbol": "l001",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 432,
+					"value": 19,
+					"symbol": "l001",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 424,
+					"value": 206,
+					"symbol": "__NSConcreteStackBlock",
+					"type": 6,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 420,
+					"value": 206,
+					"symbol": "__NSConcreteStackBlock",
+					"type": 5,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 412,
+					"value": 2,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 408,
+					"value": 2,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 400,
+					"value": 231,
+					"symbol": "_swift_allocObject",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 388,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 388,
+					"value": 95,
+					"symbol": "l_metadata",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 384,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 384,
+					"value": 95,
+					"symbol": "l_metadata",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 580,
+					"value": 232,
+					"symbol": "_swift_deallocObject",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 560,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 732,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 708,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 700,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 672,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 660,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 652,
+					"value": 237,
+					"symbol": "_swift_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 752,
+					"value": 237,
+					"symbol": "_swift_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 760,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1052,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1044,
+					"value": 205,
+					"symbol": "__Block_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1036,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1028,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1020,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1012,
+					"value": 157,
+					"symbol": "_NinePFSDelayedLoadResource",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 992,
+					"value": 236,
+					"symbol": "_swift_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 984,
+					"value": 237,
+					"symbol": "_swift_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 972,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 960,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 948,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 932,
+					"value": 204,
+					"symbol": "__Block_copy",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 920,
+					"value": 100,
+					"symbol": "block_descriptor.12",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 916,
+					"value": 100,
+					"symbol": "block_descriptor.12",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 912,
+					"value": 155,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeggg_AcFIeyByy_TR",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 908,
+					"value": 155,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeggg_AcFIeyByy_TR",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 900,
+					"value": 19,
+					"symbol": "l001",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 896,
+					"value": 19,
+					"symbol": "l001",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 888,
+					"value": 206,
+					"symbol": "__NSConcreteStackBlock",
+					"type": 6,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 884,
+					"value": 206,
+					"symbol": "__NSConcreteStackBlock",
+					"type": 5,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 876,
+					"value": 16,
+					"symbol": "$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA.9",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 872,
+					"value": 16,
+					"symbol": "$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA.9",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 864,
+					"value": 12,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeyBhyy_ACs5Error_pSgIeghgg_TRTA",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 860,
+					"value": 12,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeyBhyy_ACs5Error_pSgIeghgg_TRTA",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 856,
+					"value": 231,
+					"symbol": "_swift_allocObject",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 844,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 844,
+					"value": 99,
+					"symbol": "l_metadata.8",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 840,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 840,
+					"value": 99,
+					"symbol": "l_metadata.8",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 828,
+					"value": 231,
+					"symbol": "_swift_allocObject",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 816,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 816,
+					"value": 98,
+					"symbol": "l_metadata.5",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 812,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 812,
+					"value": 98,
+					"symbol": "l_metadata.5",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 804,
+					"value": 204,
+					"symbol": "__Block_copy",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1164,
+					"value": 226,
+					"symbol": "_objc_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1112,
+					"value": 182,
+					"symbol": "_$s10Foundation22_convertErrorToNSErrorySo0E0Cs0C0_pF",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1240,
+					"value": 222,
+					"symbol": "_objc_msgSend$init",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1232,
+					"value": 220,
+					"symbol": "_objc_allocWithZone",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1276,
+					"value": 224,
+					"symbol": "_objc_msgSendSuper2",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1268,
+					"value": 123,
+					"symbol": "l062",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1264,
+					"value": 123,
+					"symbol": "l062",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1256,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1308,
+					"value": 225,
+					"symbol": "_objc_opt_self",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1304,
+					"value": 24,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1304,
+					"value": 128,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1300,
+					"value": 24,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1300,
+					"value": 128,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1364,
+					"value": 224,
+					"symbol": "_objc_msgSendSuper2",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1356,
+					"value": 123,
+					"symbol": "l062",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1352,
+					"value": 123,
+					"symbol": "l062",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1344,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1416,
+					"value": 224,
+					"symbol": "_objc_msgSendSuper2",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1408,
+					"value": 122,
+					"symbol": "l061",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1404,
+					"value": 122,
+					"symbol": "l061",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1396,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1432,
+					"value": 8,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVACycfCTm",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1456,
+					"value": 222,
+					"symbol": "_objc_msgSend$init",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1448,
+					"value": 220,
+					"symbol": "_objc_allocWithZone",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1444,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1460,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1504,
+					"value": 189,
+					"symbol": "_$s19ExtensionFoundation03AppA0PAAE4mainyyKFZ",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1492,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1492,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1488,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1488,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1480,
+					"value": 149,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWl",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1568,
+					"value": 148,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWL",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1564,
+					"value": 148,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWL",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1560,
+					"value": 235,
+					"symbol": "_swift_getWitnessTable",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1556,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1556,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1552,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1552,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1548,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1544,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1524,
+					"value": 148,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWL",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1520,
+					"value": 148,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWL",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1588,
+					"value": 227,
+					"symbol": "_objc_retain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1644,
+					"value": 194,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvg",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1616,
+					"value": 151,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWl",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1672,
+					"value": 222,
+					"symbol": "_objc_msgSend$init",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1668,
+					"value": 220,
+					"symbol": "_objc_allocWithZone",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1664,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1700,
+					"value": 188,
+					"symbol": "_$s19ExtensionFoundation03AppA0PAAE14extensionPointAA0caE0Vvg",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1792,
+					"value": 233,
+					"symbol": "_swift_errorInMain",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1756,
+					"value": 189,
+					"symbol": "_$s19ExtensionFoundation03AppA0PAAE4mainyyKFZ",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1744,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1744,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1740,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1740,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1732,
+					"value": 149,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWl",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1800,
+					"value": 149,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWl",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1848,
+					"value": 234,
+					"symbol": "_swift_getOpaqueTypeConformance2",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1836,
+					"value": 195,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQOMQ",
+					"type": 6,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1832,
+					"value": 195,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQOMQ",
+					"type": 5,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1824,
+					"value": 151,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWl",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1916,
+					"value": 150,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWL",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1912,
+					"value": 150,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWL",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1908,
+					"value": 235,
+					"symbol": "_swift_getWitnessTable",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1904,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1904,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1900,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1900,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1896,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1892,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1872,
+					"value": 150,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWL",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1868,
+					"value": 150,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWL",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1936,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1936,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 1932,
+					"value": 16,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 1932,
+					"value": 97,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMf",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1980,
+					"value": 232,
+					"symbol": "_swift_deallocObject",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1960,
+					"value": 205,
+					"symbol": "__Block_release",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1988,
+					"value": 156,
+					"symbol": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeyBhyy_ACs5Error_pSgIeghgg_TR",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1992,
+					"value": 1,
+					"symbol": "l_objectdestroy",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 1996,
+					"value": 3,
+					"symbol": "_block_copy_helper",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2000,
+					"value": 4,
+					"symbol": "_block_destroy_helper",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2004,
+					"value": 2,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2008,
+					"value": 141,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV10fileSystemAA0b5PFileE0Cvpfi",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2180,
+					"value": 238,
+					"symbol": "_usleep",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2164,
+					"value": 219,
+					"symbol": "_class_getMethodImplementation",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2148,
+					"value": 229,
+					"symbol": "_pthread_create",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2132,
+					"value": 17,
+					"symbol": "_go_thread",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2128,
+					"value": 17,
+					"symbol": "_go_thread",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2112,
+					"value": 133,
+					"symbol": "start_go_once.started",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2108,
+					"value": 133,
+					"symbol": "start_go_once.started",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2096,
+					"value": 219,
+					"symbol": "_class_getMethodImplementation",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2080,
+					"value": 230,
+					"symbol": "_sel_registerName",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2076,
+					"value": 93,
+					"symbol": "LC58",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2072,
+					"value": 93,
+					"symbol": "LC58",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2064,
+					"value": 221,
+					"symbol": "_objc_getClass",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2060,
+					"value": 92,
+					"symbol": "LC57",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2056,
+					"value": 92,
+					"symbol": "LC57",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2516,
+					"value": 130,
+					"symbol": "go_thread.argv",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2512,
+					"value": 130,
+					"symbol": "go_thread.argv",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2424,
+					"value": 1,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 2424,
+					"value": 94,
+					"symbol": "LC59",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 2420,
+					"value": 1,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 2420,
+					"value": 94,
+					"symbol": "LC59",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2380,
+					"value": 18,
+					"symbol": "_fileoff_to_vmaddr",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2364,
+					"value": 18,
+					"symbol": "_fileoff_to_vmaddr",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2304,
+					"value": 208,
+					"symbol": "__dyld_get_image_vmaddr_slide",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 2292,
+					"value": 207,
+					"symbol": "__dyld_get_image_header",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__literal8",
+			"addr": 2640,
+			"size": 8,
+			"align": 3,
+			"flags": 4,
+			"sha256": "881b4c5ce869e46790c6d2bc6c37772a77119f1673069c2eaad570710e773747"
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_typeref",
+			"addr": 2648,
+			"size": 204,
+			"align": 1,
+			"sha256": "57770f4b50f1fbfb7e5db6ebbe6bebc1866595c7c48a27222c14d66f0c05b9a5",
+			"strings": [
+				{
+					"offset": 19,
+					"value": "_pSgIeghgg_"
+				},
+				{
+					"offset": 52,
+					"value": "$s5FSKit24UnaryFileSystemExtensionP"
+				},
+				{
+					"offset": 107,
+					"value": "_Qo_"
+				},
+				{
+					"offset": 112,
+					"value": "$s19ExtensionFoundation03AppA0P"
+				},
+				{
+					"offset": 144,
+					"value": "So17FSUnaryFileSystemC"
+				},
+				{
+					"offset": 168,
+					"value": "So8FSVolumeCSgSo7NSErrorCSgIeyBhyy_"
+				}
+			],
+			"byteSpans": [
+				{
+					"offset": 0,
+					"hex": "536f384653566f6c756d6543536702"
+				},
+				{
+					"offset": 32,
+					"hex": "ff07feffffff"
+				},
+				{
+					"offset": 40,
+					"hex": "01ffffffff"
+				},
+				{
+					"offset": 46,
+					"hex": "01ffffffff"
+				},
+				{
+					"offset": 88,
+					"hex": "ff07feffffff"
+				},
+				{
+					"offset": 96,
+					"hex": "02"
+				},
+				{
+					"offset": 101,
+					"hex": "7901f9ffffff"
+				}
+			],
+			"relocs": [
+				{
+					"addr": 15,
+					"value": 198,
+					"symbol": "_$ss5ErrorMp",
+					"type": 7,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 34,
+					"value": 171,
+					"symbol": "_associated conformance 9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAA0H10Foundation03AppH0",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 34,
+					"value": 9,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAA0H10Foundation03AppH0PWb",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 41,
+					"value": 178,
+					"symbol": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 41,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 47,
+					"value": 179,
+					"symbol": "_symbolic _____ 9swiftmeta16NinePFSExtensionV",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 47,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 90,
+					"value": 170,
+					"symbol": "_associated conformance 9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AA13ConfigurationAdEP_AD0fdG0",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 90,
+					"value": 10,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AA13ConfigurationAdEP_AD0fdG0PWT",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 103,
+					"value": 180,
+					"symbol": "_symbolic _____y______Qo_ 5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQO 9swiftmeta16NinePFSExtensionV",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 103,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 97,
+					"value": 195,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQOMQ",
+					"type": 7,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_capture",
+			"addr": 2852,
+			"size": 48,
+			"align": 2,
+			"sha256": "bdf44a8f70aa3a29da2b10b7364dd57499d87200c8b6ab48b5c57600df354d8f",
+			"words": [
+				1,
+				0,
+				0,
+				4294967284,
+				1,
+				0,
+				0,
+				4294967284,
+				1,
+				0,
+				0,
+				4294967284
+			],
+			"relocs": [
+				{
+					"addr": 12,
+					"value": 20,
+					"symbol": "l__swift5_reflection_descriptor",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 12,
+					"value": 177,
+					"symbol": "_symbolic So8FSVolumeCSg______pSgIeghgg_ s5ErrorP",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 21,
+					"symbol": "l__swift5_reflection_descriptor.3",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 176,
+					"symbol": "_symbolic So8FSVolumeCSgSo7NSErrorCSgIeyBhyy_",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 44,
+					"value": 22,
+					"symbol": "l__swift5_reflection_descriptor.6",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 44,
+					"value": 177,
+					"symbol": "_symbolic So8FSVolumeCSg______pSgIeghgg_ s5ErrorP",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__objc_methtype",
+			"addr": 2912,
+			"size": 461,
+			"align": 4,
+			"flags": 2,
+			"sha256": "099f51c30bc8b01d42e40127b781f28f1dc801dc7e44dc4adde65a008edb68b3",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "v24@?0@\"FSVolume\"8@\"NSError\"16"
+				},
+				{
+					"offset": 48,
+					"value": "v40@0:8@16@24@?32"
+				},
+				{
+					"offset": 66,
+					"value": "@16@0:8"
+				},
+				{
+					"offset": 74,
+					"value": "v32@0:8@16@?24"
+				},
+				{
+					"offset": 91,
+					"value": "v16@0:8"
+				},
+				{
+					"offset": 99,
+					"value": "v32@0:8@\"FSResource\"16@?\u003cv@?@\"FSProbeResult\"@\"NSError\"\u003e24"
+				},
+				{
+					"offset": 157,
+					"value": "v40@0:8@\"FSResource\"16@\"FSTaskOptions\"24@?\u003cv@?@\"FSVolume\"@\"NSError\"\u003e32"
+				},
+				{
+					"offset": 228,
+					"value": "v40@0:8@\"FSResource\"16@\"FSTaskOptions\"24@?\u003cv@?@\"NSError\"\u003e32"
+				},
+				{
+					"offset": 288,
+					"value": "B24@0:8@16"
+				},
+				{
+					"offset": 299,
+					"value": "#16@0:8"
+				},
+				{
+					"offset": 315,
+					"value": "@24@0:8:16"
+				},
+				{
+					"offset": 326,
+					"value": "@32@0:8:16@24"
+				},
+				{
+					"offset": 340,
+					"value": "@40@0:8:16@24@32"
+				},
+				{
+					"offset": 357,
+					"value": "B16@0:8"
+				},
+				{
+					"offset": 365,
+					"value": "B24@0:8#16"
+				},
+				{
+					"offset": 376,
+					"value": "B24@0:8:16"
+				},
+				{
+					"offset": 387,
+					"value": "Vv16@0:8"
+				},
+				{
+					"offset": 396,
+					"value": "Q16@0:8"
+				},
+				{
+					"offset": 404,
+					"value": "^{_NSZone=}16@0:8"
+				},
+				{
+					"offset": 422,
+					"value": "B24@0:8@\"Protocol\"16"
+				},
+				{
+					"offset": 443,
+					"value": "@\"NSString\"16@0:8"
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__objc_methname",
+			"addr": 3373,
+			"size": 449,
+			"flags": 2,
+			"sha256": "2c742b875e372ca8727a35bd05e3c2676ecb3f0e3676208698145a47e4c027f4",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "dealloc"
+				},
+				{
+					"offset": 8,
+					"value": "T@\"NSString\",?,R,C"
+				},
+				{
+					"offset": 27,
+					"value": "release"
+				},
+				{
+					"offset": 35,
+					"value": "T#,R"
+				},
+				{
+					"offset": 40,
+					"value": "isProxy"
+				},
+				{
+					"offset": 48,
+					"value": "T@\"NSString\",R,C"
+				},
+				{
+					"offset": 65,
+					"value": "TQ,R"
+				},
+				{
+					"offset": 70,
+					"value": "autorelease"
+				},
+				{
+					"offset": 82,
+					"value": "class"
+				},
+				{
+					"offset": 88,
+					"value": "conformsToProtocol:"
+				},
+				{
+					"offset": 108,
+					"value": "debugDescription"
+				},
+				{
+					"offset": 125,
+					"value": "description"
+				},
+				{
+					"offset": 137,
+					"value": "didFinishLoading"
+				},
+				{
+					"offset": 154,
+					"value": "hash"
+				},
+				{
+					"offset": 159,
+					"value": "init"
+				},
+				{
+					"offset": 164,
+					"value": "isEqual:"
+				},
+				{
+					"offset": 173,
+					"value": "isKindOfClass:"
+				},
+				{
+					"offset": 188,
+					"value": "isMemberOfClass:"
+				},
+				{
+					"offset": 205,
+					"value": "loadResource:options:replyHandler:"
+				},
+				{
+					"offset": 240,
+					"value": "performSelector:"
+				},
+				{
+					"offset": 257,
+					"value": "performSelector:withObject:"
+				},
+				{
+					"offset": 285,
+					"value": "performSelector:withObject:withObject:"
+				},
+				{
+					"offset": 324,
+					"value": "probeResource:replyHandler:"
+				},
+				{
+					"offset": 352,
+					"value": "respondsToSelector:"
+				},
+				{
+					"offset": 372,
+					"value": "retain"
+				},
+				{
+					"offset": 379,
+					"value": "retainCount"
+				},
+				{
+					"offset": 391,
+					"value": "self"
+				},
+				{
+					"offset": 396,
+					"value": "superclass"
+				},
+				{
+					"offset": 407,
+					"value": "unloadResource:options:replyHandler:"
+				},
+				{
+					"offset": 444,
+					"value": "zone"
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_reflstr",
+			"addr": 3822,
+			"size": 36,
+			"sha256": "3468041bde96d6d89daa4d50e3e09d4f647e87615566d90781df297f3fce7d01",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "FileSystem"
+				},
+				{
+					"offset": 11,
+					"value": "Configuration"
+				},
+				{
+					"offset": 25,
+					"value": "fileSystem"
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_assocty",
+			"addr": 3860,
+			"size": 48,
+			"align": 2,
+			"sha256": "e8acb14a05d6d725150250353e22987f704894a5bf766940f95fe73cba8fd753",
+			"words": [
+				0,
+				4294967292,
+				1,
+				8,
+				4294967280,
+				4294967276,
+				0,
+				4294967292,
+				1,
+				8,
+				4294967280,
+				4294967276
+			],
+			"relocs": [
+				{
+					"addr": 20,
+					"value": 77,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 20,
+					"value": 178,
+					"symbol": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 77,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 74,
+					"symbol": "l___unnamed_1",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 77,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 174,
+					"symbol": "_symbolic $s5FSKit24UnaryFileSystemExtensionP",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 77,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 179,
+					"symbol": "_symbolic _____ 9swiftmeta16NinePFSExtensionV",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 44,
+					"value": 78,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 44,
+					"value": 180,
+					"symbol": "_symbolic _____y______Qo_ 5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQO 9swiftmeta16NinePFSExtensionV",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 78,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 75,
+					"symbol": "l___unnamed_2",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 78,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 173,
+					"symbol": "_symbolic $s19ExtensionFoundation03AppA0P",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 78,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMA",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 179,
+					"symbol": "_symbolic _____ 9swiftmeta16NinePFSExtensionV",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__const",
+			"addr": 3920,
+			"size": 180,
+			"align": 4,
+			"sha256": "d217f116b242c9d570da0d51ca336cd95fa20c3ed5418f08d63c6a6f7d143a3c",
+			"words": [
+				1,
+				4294967292,
+				0,
+				196608,
+				3,
+				4294967277,
+				4294967273,
+				4294967269,
+				4294967265,
+				4294967261,
+				4294967256,
+				65536,
+				0,
+				4294967244,
+				1,
+				4294967292,
+				0,
+				196608,
+				5,
+				4294967277,
+				4294967273,
+				4294967269,
+				4294967265,
+				4294967261,
+				4294967256,
+				4294967253,
+				4294967248,
+				4294967245,
+				4294967240,
+				65536,
+				0,
+				4294967228,
+				0,
+				1718187891,
+				1952804212,
+				1766719585,
+				1179673966,
+				1399155817,
+				1702130553,
+				109,
+				1701734734,
+				1163085392,
+				1852142712,
+				1852795251,
+				196608
+			],
+			"relocs": [
+				{
+					"addr": 52,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 52,
+					"value": 131,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMcMK",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 147,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAadEP04fileG00fG0QzvgTW",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 36,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 36,
+					"value": 104,
+					"symbol": "l_got.$s5FSKit24UnaryFileSystemExtensionP04fileD00cD0QzvgTq",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 178,
+					"symbol": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 103,
+					"symbol": "l_got.$s10FileSystem5FSKit05UnaryaB9ExtensionPTl",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 171,
+					"symbol": "_associated conformance 9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAA0H10Foundation03AppH0",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 20,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 20,
+					"value": 102,
+					"symbol": "l_got.$s5FSKit24UnaryFileSystemExtensionP0E10Foundation03AppE0Tb",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 101,
+					"symbol": "l_got.$s5FSKit24UnaryFileSystemExtensionMp",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 124,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 124,
+					"value": 132,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMcMK",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 112,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 112,
+					"value": 144,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEP14extensionPointAD0fdH0VvgTW",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 108,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 108,
+					"value": 110,
+					"symbol": "l_got.$s19ExtensionFoundation03AppA0P14extensionPointAA0caE0VvgTq",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 145,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEPxycfCTW",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 100,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 100,
+					"value": 109,
+					"symbol": "l_got.$s19ExtensionFoundation03AppA0PxycfCTq",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 143,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEP13configuration13ConfigurationQzvgTW",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 92,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 92,
+					"value": 108,
+					"symbol": "l_got.$s19ExtensionFoundation03AppA0P13configuration13ConfigurationQzvgTq",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 88,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 88,
+					"value": 180,
+					"symbol": "_symbolic _____y______Qo_ 5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQO 9swiftmeta16NinePFSExtensionV",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 84,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 84,
+					"value": 107,
+					"symbol": "l_got.$s13Configuration19ExtensionFoundation03AppB0PTl",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 80,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 80,
+					"value": 170,
+					"symbol": "_associated conformance 9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AA13ConfigurationAdEP_AD0fdG0",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 76,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 76,
+					"value": 106,
+					"symbol": "l_got.$s19ExtensionFoundation03AppA0P13ConfigurationAC_AA0caD0Tn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 60,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 60,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 105,
+					"symbol": "l_got.$s19ExtensionFoundation03AppA0Mp",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_entry",
+			"addr": 4100,
+			"size": 8,
+			"align": 2,
+			"sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 82,
+					"symbol": "l_entry_point",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 172,
+					"symbol": "_main",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__objc_classname",
+			"addr": 4108,
+			"size": 53,
+			"flags": 2,
+			"sha256": "fb69b5b1abdf4cf2af3ab364ac030f4b00ec67648de1fa94b7c10bcdbda62017",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "NinePFileSystem"
+				},
+				{
+					"offset": 16,
+					"value": "FSUnaryFileSystemOperations"
+				},
+				{
+					"offset": 44,
+					"value": "NSObject"
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__constg_swiftt",
+			"addr": 4164,
+			"size": 116,
+			"align": 2,
+			"sha256": "dcb1d47a00cfcd5ee1eb819f910cc57111a34f44e6e0f64ae04e980d69f69b12",
+			"words": [
+				0,
+				0,
+				4294967288,
+				2147483728,
+				4294967292,
+				4294967288,
+				4294967284,
+				4294967280,
+				4294967276,
+				3,
+				13,
+				3,
+				0,
+				10,
+				10,
+				3,
+				16,
+				4294967240,
+				16,
+				4294967232,
+				16,
+				4294967224,
+				81,
+				4294967292,
+				4294967288,
+				4294967284,
+				4294967280,
+				1,
+				2
+			],
+			"relocs": [
+				{
+					"addr": 8,
+					"value": 154,
+					"symbol": "_$s9swiftmetaMXM",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 79,
+					"symbol": "l_.str.9.swiftmeta",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 175,
+					"symbol": "_symbolic So17FSUnaryFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 28,
+					"value": 86,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMF",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 137,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMa",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 20,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 20,
+					"value": 80,
+					"symbol": "l_.str.15.NinePFileSystem.2",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 154,
+					"symbol": "_$s9swiftmetaMXM",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 68,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 68,
+					"value": 135,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC13probeResource8resource12replyHandlerySo10FSResourceC_ySo13FSProbeResultCSg_s5Error_pSgtYbctF",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 76,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 76,
+					"value": 134,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctF",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 84,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 84,
+					"value": 136,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC14unloadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCys5Error_pSgYbctF",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 87,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMF",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 100,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 100,
+					"value": 152,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMa",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 81,
+					"symbol": "l_.str.16.NinePFSExtension",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 92,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 92,
+					"value": 154,
+					"symbol": "_$s9swiftmetaMXM",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_fieldmd",
+			"addr": 4280,
+			"size": 44,
+			"align": 2,
+			"sha256": "796d3c094e0921ca3936fdd6f71d1819aa20b569f8dd6c2a4b86f34d120918cc",
+			"words": [
+				0,
+				4294967292,
+				786439,
+				0,
+				0,
+				0,
+				786432,
+				1,
+				0,
+				4294967276,
+				4294967272
+			],
+			"relocs": [
+				{
+					"addr": 4,
+					"value": 86,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMF",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 175,
+					"symbol": "_symbolic So17FSUnaryFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 86,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMF",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 178,
+					"symbol": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 87,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMF",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 76,
+					"symbol": "l___unnamed_3",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 36,
+					"value": 87,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMF",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 36,
+					"value": 178,
+					"symbol": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 87,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMF",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 179,
+					"symbol": "_symbolic _____ 9swiftmeta16NinePFSExtensionV",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_proto",
+			"addr": 4324,
+			"size": 8,
+			"align": 2,
+			"sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 88,
+					"symbol": "l_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAHc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 146,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 89,
+					"symbol": "l_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAHc",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 142,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__swift5_types",
+			"addr": 4332,
+			"size": 8,
+			"align": 2,
+			"sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 90,
+					"symbol": "l_$s9swiftmeta15NinePFileSystemCHn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 91,
+					"symbol": "l_$s9swiftmeta16NinePFSExtensionVHn",
+					"type": 1,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 4,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 2,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__cstring",
+			"addr": 4340,
+			"size": 70,
+			"flags": 2,
+			"sha256": "d0fd00faa3f3946d4ac158fae3c32c78932003f7c71d570d3722187586f27963",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "NinePFileSystem"
+				},
+				{
+					"offset": 16,
+					"value": "loadResource:options:replyHandler:"
+				},
+				{
+					"offset": 51,
+					"value": "__rt0_arm64_darwin"
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__const",
+			"addr": 4416,
+			"size": 392,
+			"align": 3,
+			"sha256": "edfe54c3c4f2c1c4c6178846ca1bd2881f5e208d2a17349b6631074d2aef8af8",
+			"words": [
+				0,
+				0,
+				0,
+				0,
+				1024,
+				0,
+				16,
+				0,
+				0,
+				0,
+				0,
+				0,
+				48,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				512,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				1024,
+				0,
+				16,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				1024,
+				0,
+				16,
+				0,
+				0,
+				0,
+				0,
+				0,
+				48,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 32,
+					"value": 20,
+					"symbol": "l__swift5_reflection_descriptor",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 0,
+					"value": 1,
+					"symbol": "l_objectdestroy",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 72,
+					"value": 23,
+					"symbol": "LC2",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 64,
+					"value": 4,
+					"symbol": "_block_destroy_helper",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 3,
+					"symbol": "_block_copy_helper",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 88,
+					"value": 196,
+					"symbol": "_$sBOWV",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 104,
+					"value": 153,
+					"symbol": "_$s9swiftmeta16NinePFSExtensionVMn",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 120,
+					"value": 212,
+					"symbol": "__swift_FORCE_LOAD_$_swiftFoundation",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 128,
+					"value": 217,
+					"symbol": "__swift_FORCE_LOAD_$_swift_Builtin_float",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 136,
+					"value": 215,
+					"symbol": "__swift_FORCE_LOAD_$_swiftObjectiveC",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 144,
+					"value": 210,
+					"symbol": "__swift_FORCE_LOAD_$_swiftCoreFoundation",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 152,
+					"value": 211,
+					"symbol": "__swift_FORCE_LOAD_$_swiftDispatch",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 160,
+					"value": 216,
+					"symbol": "__swift_FORCE_LOAD_$_swiftXPC",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 168,
+					"value": 213,
+					"symbol": "__swift_FORCE_LOAD_$_swiftIOKit",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 176,
+					"value": 218,
+					"symbol": "__swift_FORCE_LOAD_$_swiftos",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 184,
+					"value": 214,
+					"symbol": "__swift_FORCE_LOAD_$_swiftOSLog",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 224,
+					"value": 21,
+					"symbol": "l__swift5_reflection_descriptor.3",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 192,
+					"value": 11,
+					"symbol": "l_objectdestroy.4",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 264,
+					"value": 22,
+					"symbol": "l__swift5_reflection_descriptor.6",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 232,
+					"value": 13,
+					"symbol": "l_objectdestroy.7",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 304,
+					"value": 23,
+					"symbol": "LC2",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 296,
+					"value": 15,
+					"symbol": "block_destroy_helper.11",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 288,
+					"value": 14,
+					"symbol": "block_copy_helper.10",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 312,
+					"value": 191,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionMp",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 320,
+					"value": 193,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionP0E10Foundation03AppE0Tb",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 328,
+					"value": 181,
+					"symbol": "_$s10FileSystem5FSKit05UnaryaB9ExtensionPTl",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 336,
+					"value": 192,
+					"symbol": "_$s5FSKit24UnaryFileSystemExtensionP04fileD00cD0QzvgTq",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 344,
+					"value": 184,
+					"symbol": "_$s19ExtensionFoundation03AppA0Mp",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 352,
+					"value": 185,
+					"symbol": "_$s19ExtensionFoundation03AppA0P13ConfigurationAC_AA0caD0Tn",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 360,
+					"value": 183,
+					"symbol": "_$s13Configuration19ExtensionFoundation03AppB0PTl",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 368,
+					"value": 186,
+					"symbol": "_$s19ExtensionFoundation03AppA0P13configuration13ConfigurationQzvgTq",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 376,
+					"value": 190,
+					"symbol": "_$s19ExtensionFoundation03AppA0PxycfCTq",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 384,
+					"value": 187,
+					"symbol": "_$s19ExtensionFoundation03AppA0P14extensionPointAA0caE0VvgTq",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_classlist",
+			"addr": 4808,
+			"size": 8,
+			"align": 3,
+			"flags": 268435456,
+			"sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 139,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCN",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_protolist",
+			"addr": 4816,
+			"size": 32,
+			"align": 3,
+			"sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 160,
+					"symbol": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 160,
+					"symbol": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 161,
+					"symbol": "__OBJC_PROTOCOL_$_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 161,
+					"symbol": "__OBJC_PROTOCOL_$_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_imageinfo",
+			"addr": 4848,
+			"size": 8,
+			"align": 2,
+			"sha256": "9430fb236b56df1c2846dc691d67b88647f3c5957aa1a8d2ceabf48690c6444b"
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_const",
+			"addr": 4856,
+			"size": 1000,
+			"align": 3,
+			"sha256": "3c5f32a3c192ba4717390c1a6806c3b765a5d7d588fd0233443f2f5719a0a919",
+			"words": [
+				1,
+				0,
+				0,
+				0,
+				129,
+				40,
+				40,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				1,
+				0,
+				0,
+				0,
+				1,
+				0,
+				0,
+				0,
+				0,
+				0,
+				24,
+				3,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				24,
+				1,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				24,
+				19,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				24,
+				1,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				16,
+				4,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 8,
+					"value": 160,
+					"symbol": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 111,
+					"symbol": "__PROTOCOLS_NinePFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 83,
+					"symbol": "LC54",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 160,
+					"symbol": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 112,
+					"value": 161,
+					"symbol": "__OBJC_PROTOCOL_$_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 192,
+					"value": 24,
+					"symbol": "LC4",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 184,
+					"value": 72,
+					"symbol": "LC52",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 168,
+					"value": 24,
+					"symbol": "LC4",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 160,
+					"value": 62,
+					"symbol": "LC42",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 144,
+					"value": 26,
+					"symbol": "LC6",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 136,
+					"value": 66,
+					"symbol": "LC46",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 224,
+					"value": 27,
+					"symbol": "LC7",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 216,
+					"value": 56,
+					"symbol": "LC36",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 264,
+					"value": 27,
+					"symbol": "LC7",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 256,
+					"value": 30,
+					"symbol": "LC10",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 248,
+					"value": 29,
+					"symbol": "LC9",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 240,
+					"value": 28,
+					"symbol": "LC8",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 720,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 712,
+					"value": 55,
+					"symbol": "LC35",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 696,
+					"value": 32,
+					"symbol": "LC12",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 688,
+					"value": 71,
+					"symbol": "LC51",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 672,
+					"value": 40,
+					"symbol": "LC20",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 664,
+					"value": 57,
+					"symbol": "LC37",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 648,
+					"value": 41,
+					"symbol": "LC21",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 640,
+					"value": 73,
+					"symbol": "LC53",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 624,
+					"value": 40,
+					"symbol": "LC20",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 616,
+					"value": 69,
+					"symbol": "LC49",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 600,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 592,
+					"value": 51,
+					"symbol": "LC31",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 576,
+					"value": 39,
+					"symbol": "LC19",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 568,
+					"value": 46,
+					"symbol": "LC26",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 552,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 544,
+					"value": 68,
+					"symbol": "LC48",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 528,
+					"value": 38,
+					"symbol": "LC18",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 520,
+					"value": 67,
+					"symbol": "LC47",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 504,
+					"value": 31,
+					"symbol": "LC11",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 496,
+					"value": 53,
+					"symbol": "LC33",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 480,
+					"value": 37,
+					"symbol": "LC17",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 472,
+					"value": 61,
+					"symbol": "LC41",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 456,
+					"value": 37,
+					"symbol": "LC17",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 448,
+					"value": 60,
+					"symbol": "LC40",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 432,
+					"value": 36,
+					"symbol": "LC16",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 424,
+					"value": 48,
+					"symbol": "LC28",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 408,
+					"value": 35,
+					"symbol": "LC15",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 400,
+					"value": 65,
+					"symbol": "LC45",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 384,
+					"value": 34,
+					"symbol": "LC14",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 376,
+					"value": 64,
+					"symbol": "LC44",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 360,
+					"value": 33,
+					"symbol": "LC13",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 352,
+					"value": 63,
+					"symbol": "LC43",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 336,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 328,
+					"value": 70,
+					"symbol": "LC50",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 312,
+					"value": 32,
+					"symbol": "LC12",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 304,
+					"value": 52,
+					"symbol": "LC32",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 288,
+					"value": 31,
+					"symbol": "LC11",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 280,
+					"value": 59,
+					"symbol": "LC39",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 752,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 744,
+					"value": 54,
+					"symbol": "LC34",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 832,
+					"value": 45,
+					"symbol": "LC25",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 824,
+					"value": 54,
+					"symbol": "LC34",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 816,
+					"value": 49,
+					"symbol": "LC29",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 808,
+					"value": 55,
+					"symbol": "LC35",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 800,
+					"value": 47,
+					"symbol": "LC27",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 792,
+					"value": 71,
+					"symbol": "LC51",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 784,
+					"value": 50,
+					"symbol": "LC30",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 776,
+					"value": 57,
+					"symbol": "LC37",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 992,
+					"value": 43,
+					"symbol": "LC23",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 984,
+					"value": 43,
+					"symbol": "LC23",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 976,
+					"value": 32,
+					"symbol": "LC12",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 968,
+					"value": 40,
+					"symbol": "LC20",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 960,
+					"value": 41,
+					"symbol": "LC21",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 952,
+					"value": 40,
+					"symbol": "LC20",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 944,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 936,
+					"value": 39,
+					"symbol": "LC19",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 928,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 920,
+					"value": 38,
+					"symbol": "LC18",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 912,
+					"value": 42,
+					"symbol": "LC22",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 904,
+					"value": 37,
+					"symbol": "LC17",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 896,
+					"value": 37,
+					"symbol": "LC17",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 888,
+					"value": 36,
+					"symbol": "LC16",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 880,
+					"value": 35,
+					"symbol": "LC15",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 872,
+					"value": 34,
+					"symbol": "LC14",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 864,
+					"value": 33,
+					"symbol": "LC13",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 856,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 848,
+					"value": 32,
+					"symbol": "LC12",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 840,
+					"value": 31,
+					"symbol": "LC11",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_selrefs",
+			"addr": 5856,
+			"size": 16,
+			"align": 3,
+			"flags": 268435461,
+			"sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 44,
+					"symbol": "LC24",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 58,
+					"symbol": "LC38",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_protorefs",
+			"addr": 5872,
+			"size": 16,
+			"align": 3,
+			"sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 160,
+					"symbol": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 161,
+					"symbol": "__OBJC_PROTOCOL_$_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_classrefs",
+			"addr": 5888,
+			"size": 16,
+			"align": 3,
+			"flags": 268435456,
+			"sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb",
+			"relocs": [
+				{
+					"addr": 0,
+					"value": 200,
+					"symbol": "_OBJC_CLASS_$_FSProbeResult",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 199,
+					"symbol": "_OBJC_CLASS_$_FSContainerIdentifier",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_data",
+			"addr": 5904,
+			"size": 304,
+			"align": 3,
+			"sha256": "9814f307293384f242e4c6eea052653b77f03835fe6d9209043f1098811d70c3",
+			"words": [
+				24,
+				4,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				128,
+				8,
+				8,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				2,
+				0,
+				4,
+				0,
+				8,
+				7,
+				128,
+				24,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 96,
+					"value": 7,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCACycfcTo",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 88,
+					"value": 25,
+					"symbol": "LC5",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 80,
+					"value": 58,
+					"symbol": "LC38",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 72,
+					"value": 6,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC14unloadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCys5Error_pSgYbctFTo",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 64,
+					"value": 24,
+					"symbol": "LC4",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 56,
+					"value": 72,
+					"symbol": "LC52",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 48,
+					"value": 5,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFTo",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 40,
+					"value": 24,
+					"symbol": "LC4",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 62,
+					"symbol": "LC42",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 0,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC13probeResource8resource12replyHandlerySo10FSResourceC_ySo13FSProbeResultCSg_s5Error_pSgtYbctFTo",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 26,
+					"symbol": "LC6",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 8,
+					"value": 66,
+					"symbol": "LC46",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 144,
+					"value": 113,
+					"symbol": "_PROTOCOLS_NinePFileSystem.1",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 136,
+					"value": 126,
+					"symbol": "__INSTANCE_METHODS_NinePFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 128,
+					"value": 83,
+					"symbol": "LC54",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 192,
+					"value": 196,
+					"symbol": "_$sBOWV",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 184,
+					"value": 140,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCfD",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 296,
+					"value": 136,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC14unloadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCys5Error_pSgYbctF",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 288,
+					"value": 134,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctF",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 280,
+					"value": 135,
+					"symbol": "_$s9swiftmeta15NinePFileSystemC13probeResource8resource12replyHandlerySo10FSResourceC_ySo13FSProbeResultCSg_s5Error_pSgtYbctF",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 264,
+					"value": 138,
+					"symbol": "_$s9swiftmeta15NinePFileSystemCMn",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 232,
+					"value": 127,
+					"symbol": "__DATA_NinePFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 216,
+					"value": 209,
+					"symbol": "__objc_empty_cache",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 208,
+					"value": 201,
+					"symbol": "_OBJC_CLASS_$_FSUnaryFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 200,
+					"value": 159,
+					"symbol": "_OBJC_METACLASS_$_NinePFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__data",
+			"addr": 6208,
+			"size": 296,
+			"align": 4,
+			"sha256": "fa4e483ea59de9b413a791335e66773b9947dfc3616a76530fd991ec916c3cb1",
+			"words": [
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				96,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				96,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				1701734734,
+				1163085392,
+				1852142712,
+				1852795251,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 48,
+					"value": 112,
+					"symbol": "__METACLASS_DATA_NinePFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 32,
+					"value": 209,
+					"symbol": "__objc_empty_cache",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 24,
+					"value": 202,
+					"symbol": "_OBJC_METACLASS_$_FSUnaryFileSystem",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 16,
+					"value": 203,
+					"symbol": "_OBJC_METACLASS_$_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 128,
+					"value": 117,
+					"symbol": "__OBJC_$_PROTOCOL_METHOD_TYPES_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 116,
+					"symbol": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 80,
+					"value": 115,
+					"symbol": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 72,
+					"value": 114,
+					"symbol": "__OBJC_$_PROTOCOL_REFS_FSUnaryFileSystemOperations",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 64,
+					"value": 84,
+					"symbol": "LC55",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 232,
+					"value": 121,
+					"symbol": "__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 216,
+					"value": 120,
+					"symbol": "__OBJC_$_PROP_LIST_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 200,
+					"value": 119,
+					"symbol": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 184,
+					"value": 118,
+					"symbol": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 168,
+					"value": 85,
+					"symbol": "LC56",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				},
+				{
+					"addr": 280,
+					"value": 129,
+					"symbol": "go_thread.name",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__bss",
+			"addr": 6512,
+			"size": 260,
+			"align": 4,
+			"flags": 1,
+			"sha256": "9c0095c04ef53d9df41602f3783c90ef3c3e27cc9d0b38262d23930db6313f5a"
+		}
+	],
+	"symbols": [
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC13probeResource8resource12replyHandlerySo10FSResourceC_ySo13FSProbeResultCSg_s5Error_pSgtYbctFTo",
+			"value": 184,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_objectdestroy",
+			"value": 548,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA",
+			"value": 584,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_block_copy_helper",
+			"value": 736,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_block_destroy_helper",
+			"value": 756,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFTo",
+			"value": 764,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC14unloadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCys5Error_pSgYbctFTo",
+			"value": 1204,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCACycfcTo",
+			"value": 1324,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVACycfCTm",
+			"value": 1436,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAA0H10Foundation03AppH0PWb",
+			"value": 1800,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AA13ConfigurationAdEP_AD0fdG0PWT",
+			"value": 1804,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_objectdestroy.4",
+			"value": 1948,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeyBhyy_ACs5Error_pSgIeghgg_TRTA",
+			"value": 1984,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_objectdestroy.7",
+			"value": 1992,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "block_copy_helper.10",
+			"rawName": "_block_copy_helper.10",
+			"value": 1996,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "block_destroy_helper.11",
+			"rawName": "_block_destroy_helper.11",
+			"value": 2000,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA.9",
+			"rawName": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctFyAN_So7NSErrorCSgtcfU_TA.9",
+			"value": 2004,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_go_thread",
+			"value": 2272,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_fileoff_to_vmaddr",
+			"value": 2548,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l001",
+			"value": 2640,
+			"sect": 2,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l__swift5_reflection_descriptor",
+			"value": 2852,
+			"sect": 4,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l__swift5_reflection_descriptor.3",
+			"value": 2868,
+			"sect": 4,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l__swift5_reflection_descriptor.6",
+			"value": 2884,
+			"sect": 4,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "LC2",
+			"value": 2912,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC4",
+			"value": 2960,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC5",
+			"value": 2978,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC6",
+			"value": 2986,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC7",
+			"value": 3003,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC8",
+			"value": 3011,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC9",
+			"value": 3069,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC10",
+			"value": 3140,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC11",
+			"value": 3200,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC12",
+			"value": 3211,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC13",
+			"value": 3227,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC14",
+			"value": 3238,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC15",
+			"value": 3252,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC16",
+			"value": 3269,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC17",
+			"value": 3277,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC18",
+			"value": 3288,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC19",
+			"value": 3299,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC20",
+			"value": 3308,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC21",
+			"value": 3316,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC22",
+			"value": 3334,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC23",
+			"value": 3355,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC24",
+			"value": 3373,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC25",
+			"value": 3381,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC26",
+			"value": 3400,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC27",
+			"value": 3408,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC28",
+			"value": 3413,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC29",
+			"value": 3421,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC30",
+			"value": 3438,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC31",
+			"value": 3443,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC32",
+			"value": 3455,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC33",
+			"value": 3461,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC34",
+			"value": 3481,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC35",
+			"value": 3498,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC36",
+			"value": 3510,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC37",
+			"value": 3527,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC38",
+			"value": 3532,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC39",
+			"value": 3537,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC40",
+			"value": 3546,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC41",
+			"value": 3561,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC42",
+			"value": 3578,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC43",
+			"value": 3613,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC44",
+			"value": 3630,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC45",
+			"value": 3658,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC46",
+			"value": 3697,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC47",
+			"value": 3725,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC48",
+			"value": 3745,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC49",
+			"value": 3752,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC50",
+			"value": 3764,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC51",
+			"value": 3769,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC52",
+			"value": 3780,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC53",
+			"value": 3817,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l___unnamed_1",
+			"value": 3822,
+			"sect": 7,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l___unnamed_2",
+			"value": 3833,
+			"sect": 7,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l___unnamed_3",
+			"value": 3847,
+			"sect": 7,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMA",
+			"value": 3860,
+			"sect": 8,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMA",
+			"value": 3884,
+			"sect": 8,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l_.str.9.swiftmeta",
+			"value": 4052,
+			"sect": 9,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_.str.15.NinePFileSystem.2",
+			"value": 4062,
+			"sect": 9,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_.str.16.NinePFSExtension",
+			"value": 4080,
+			"sect": 9,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_entry_point",
+			"value": 4100,
+			"sect": 10,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "LC54",
+			"value": 4108,
+			"sect": 11,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC55",
+			"value": 4124,
+			"sect": 11,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "LC56",
+			"value": 4152,
+			"sect": 11,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCMF",
+			"value": 4280,
+			"sect": 13,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVMF",
+			"value": 4296,
+			"sect": 13,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAHc",
+			"value": 4324,
+			"sect": 14,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAHc",
+			"value": 4328,
+			"sect": 14,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l_$s9swiftmeta15NinePFileSystemCHn",
+			"value": 4332,
+			"sect": 15,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l_$s9swiftmeta16NinePFSExtensionVHn",
+			"value": 4336,
+			"sect": 15,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "LC57",
+			"value": 4340,
+			"sect": 16,
+			"type": 30,
+			"entry": true
+		},
+		{
+			"name": "LC58",
+			"value": 4356,
+			"sect": 16,
+			"type": 30,
+			"entry": true
+		},
+		{
+			"name": "LC59",
+			"value": 4391,
+			"sect": 16,
+			"type": 30,
+			"entry": true
+		},
+		{
+			"name": "l_metadata",
+			"value": 4416,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_block_descriptor",
+			"value": 4456,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVMf",
+			"value": 4496,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_metadata.5",
+			"value": 4608,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_metadata.8",
+			"value": 4648,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "block_descriptor.12",
+			"rawName": "_block_descriptor.12",
+			"value": 4688,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s5FSKit24UnaryFileSystemExtensionMp",
+			"value": 4728,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s5FSKit24UnaryFileSystemExtensionP0E10Foundation03AppE0Tb",
+			"value": 4736,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s10FileSystem5FSKit05UnaryaB9ExtensionPTl",
+			"value": 4744,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s5FSKit24UnaryFileSystemExtensionP04fileD00cD0QzvgTq",
+			"value": 4752,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s19ExtensionFoundation03AppA0Mp",
+			"value": 4760,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s19ExtensionFoundation03AppA0P13ConfigurationAC_AA0caD0Tn",
+			"value": 4768,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s13Configuration19ExtensionFoundation03AppB0PTl",
+			"value": 4776,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s19ExtensionFoundation03AppA0P13configuration13ConfigurationQzvgTq",
+			"value": 4784,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s19ExtensionFoundation03AppA0PxycfCTq",
+			"value": 4792,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_got.$s19ExtensionFoundation03AppA0P14extensionPointAA0caE0VvgTq",
+			"value": 4800,
+			"sect": 17,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__PROTOCOLS_NinePFileSystem",
+			"value": 4856,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__METACLASS_DATA_NinePFileSystem",
+			"value": 4872,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_PROTOCOLS_NinePFileSystem.1",
+			"rawName": "__PROTOCOLS_NinePFileSystem.1",
+			"value": 4944,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_REFS_FSUnaryFileSystemOperations",
+			"value": 4960,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_FSUnaryFileSystemOperations",
+			"value": 4984,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FSUnaryFileSystemOperations",
+			"value": 5064,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_METHOD_TYPES_FSUnaryFileSystemOperations",
+			"value": 5096,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject",
+			"value": 5128,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject",
+			"value": 5592,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROP_LIST_NSObject",
+			"value": 5624,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject",
+			"value": 5696,
+			"sect": 21,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l061",
+			"value": 5856,
+			"sect": 22,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l062",
+			"value": 5864,
+			"sect": 22,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l063",
+			"value": 5888,
+			"sect": 24,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "l064",
+			"value": 5896,
+			"sect": 24,
+			"type": 14,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "__INSTANCE_METHODS_NinePFileSystem",
+			"value": 5904,
+			"sect": 25,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "__DATA_NinePFileSystem",
+			"value": 6008,
+			"sect": 25,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCMf",
+			"value": 6080,
+			"sect": 25,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "go_thread.name",
+			"rawName": "_go_thread.name",
+			"value": 6464,
+			"sect": 26,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "go_thread.argv",
+			"rawName": "_go_thread.argv",
+			"value": 6488,
+			"sect": 26,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMcMK",
+			"value": 6512,
+			"sect": 27,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMcMK",
+			"value": 6640,
+			"sect": 27,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "start_go_once.started",
+			"rawName": "_start_go_once.started",
+			"value": 6768,
+			"sect": 27,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC12loadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCySo8FSVolumeCSg_s5Error_pSgtYbctF",
+			"value": 344,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC13probeResource8resource12replyHandlerySo10FSResourceC_ySo13FSProbeResultCSg_s5Error_pSgtYbctF",
+			"value": 0,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemC14unloadResource8resource7options12replyHandlerySo10FSResourceC_So13FSTaskOptionsCys5Error_pSgYbctF",
+			"value": 1168,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCMa",
+			"value": 1292,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCMn",
+			"value": 4176,
+			"sect": 12,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCN",
+			"value": 6104,
+			"sect": 25,
+			"type": 15,
+			"desc": 544,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta15NinePFileSystemCfD",
+			"value": 1384,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV10fileSystemAA0b5PFileE0Cvpfi",
+			"value": 1432,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AAMc",
+			"value": 3976,
+			"sect": 9,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEP13configuration13ConfigurationQzvgTW",
+			"value": 1592,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEP14extensionPointAD0fdH0VvgTW",
+			"value": 1692,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AadEPxycfCTW",
+			"value": 1648,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAAMc",
+			"value": 3920,
+			"sect": 9,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAadEP04fileG00fG0QzvgTW",
+			"value": 1584,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWL",
+			"value": 6208,
+			"sect": 26,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVAC19ExtensionFoundation03AppD0AAWl",
+			"value": 1520,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWL",
+			"value": 6216,
+			"sect": 26,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVAC5FSKit24UnaryFileSystemExtensionAAWl",
+			"value": 1868,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVMa",
+			"value": 1932,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmeta16NinePFSExtensionVMn",
+			"value": 4252,
+			"sect": 12,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_$s9swiftmetaMXM",
+			"value": 4164,
+			"sect": 12,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeggg_AcFIeyByy_TR",
+			"value": 616,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$sSo8FSVolumeCSgSo7NSErrorCSgIeyBhyy_ACs5Error_pSgIeghgg_TR",
+			"value": 1080,
+			"sect": 1,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_NinePFSDelayedLoadResource",
+			"value": 2012,
+			"sect": 1,
+			"type": 15,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_CLASS_$_NinePFileSystem",
+			"value": 6104,
+			"sect": 25,
+			"type": 15,
+			"desc": 544,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_METACLASS_$_NinePFileSystem",
+			"value": 6224,
+			"sect": 26,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_PROTOCOL_$_FSUnaryFileSystemOperations",
+			"value": 6264,
+			"sect": 26,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__OBJC_PROTOCOL_$_NSObject",
+			"value": 6368,
+			"sect": 26,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftCoreFoundation_$_swiftmeta",
+			"value": 4560,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftDispatch_$_swiftmeta",
+			"value": 4568,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftIOKit_$_swiftmeta",
+			"value": 4584,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftOSLog_$_swiftmeta",
+			"value": 4600,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftObjectiveC_$_swiftmeta",
+			"value": 4552,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftXPC_$_swiftmeta",
+			"value": 4576,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swift_Builtin_float_$_swiftmeta",
+			"value": 4544,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftos_$_swiftmeta",
+			"value": 4592,
+			"sect": 17,
+			"type": 31,
+			"desc": 160,
+			"entry": true
+		},
+		{
+			"name": "_associated conformance 9swiftmeta16NinePFSExtensionV19ExtensionFoundation03AppD0AA13ConfigurationAdEP_AD0fdG0",
+			"value": 2736,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_associated conformance 9swiftmeta16NinePFSExtensionV5FSKit24UnaryFileSystemExtensionAA0H10Foundation03AppH0",
+			"value": 2680,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_main",
+			"value": 1712,
+			"sect": 1,
+			"type": 15,
+			"desc": 32,
+			"entry": true
+		},
+		{
+			"name": "_symbolic $s19ExtensionFoundation03AppA0P",
+			"value": 2760,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic $s5FSKit24UnaryFileSystemExtensionP",
+			"value": 2700,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic So17FSUnaryFileSystemC",
+			"value": 2792,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic So8FSVolumeCSgSo7NSErrorCSgIeyBhyy_",
+			"value": 2816,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic So8FSVolumeCSg______pSgIeghgg_ s5ErrorP",
+			"value": 2648,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic _____ 9swiftmeta15NinePFileSystemC",
+			"value": 2688,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic _____ 9swiftmeta16NinePFSExtensionV",
+			"value": 2694,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_symbolic _____y______Qo_ 5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQO 9swiftmeta16NinePFSExtensionV",
+			"value": 2744,
+			"sect": 3,
+			"type": 31,
+			"desc": 128,
+			"entry": true
+		},
+		{
+			"name": "_$s10FileSystem5FSKit05UnaryaB9ExtensionPTl",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s10Foundation22_convertErrorToNSErrorySo0E0Cs0C0_pF",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s13Configuration19ExtensionFoundation03AppB0PTl",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0Mp",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0P13ConfigurationAC_AA0caD0Tn",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0P13configuration13ConfigurationQzvgTq",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0P14extensionPointAA0caE0VvgTq",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0PAAE14extensionPointAA0caE0Vvg",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0PAAE4mainyyKFZ",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s19ExtensionFoundation03AppA0PxycfCTq",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s5FSKit24UnaryFileSystemExtensionMp",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s5FSKit24UnaryFileSystemExtensionP04fileD00cD0QzvgTq",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s5FSKit24UnaryFileSystemExtensionP0E10Foundation03AppE0Tb",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvg",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$s5FSKit24UnaryFileSystemExtensionPAAE13configurationQrvpQOMQ",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$sBOWV",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_$ss5ErrorMp",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_CLASS_$_FSContainerIdentifier",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_CLASS_$_FSProbeResult",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_CLASS_$_FSUnaryFileSystem",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_METACLASS_$_FSUnaryFileSystem",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_OBJC_METACLASS_$_NSObject",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__Block_copy",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__Block_release",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__NSConcreteStackBlock",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__dyld_get_image_header",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__dyld_get_image_vmaddr_slide",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__objc_empty_cache",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftCoreFoundation",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftDispatch",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftFoundation",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftIOKit",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftOSLog",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftObjectiveC",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftXPC",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swift_Builtin_float",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "__swift_FORCE_LOAD_$_swiftos",
+			"value": 0,
+			"type": 1,
+			"desc": 64,
+			"entry": true
+		},
+		{
+			"name": "_class_getMethodImplementation",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_allocWithZone",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_getClass",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_msgSend$init",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_msgSend$usableProbeResultWithName:containerID:",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_msgSendSuper2",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_opt_self",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_release",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_retain",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_retainAutoreleasedReturnValue",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_pthread_create",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_sel_registerName",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_allocObject",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_deallocObject",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_errorInMain",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_getOpaqueTypeConformance2",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_getWitnessTable",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_release",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_swift_retain",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_usleep",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		}
+	]
+}

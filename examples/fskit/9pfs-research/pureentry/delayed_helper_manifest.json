@@ -1,0 +1,693 @@
+{
+	"path": "/tmp/9pfs-delayed-nodata-build/obj/delayed_load.o",
+	"header": {
+		"magic": 4277009103,
+		"cputype": 16777228,
+		"filetype": 1,
+		"ncmds": 5,
+		"sizeofcmds": 696,
+		"flags": 8192
+	},
+	"buildVersion": {
+		"platform": 1,
+		"minos": 984064,
+		"sdk": 1705216
+	},
+	"linkerOptimizationHint": {
+		"offset": 1800,
+		"size": 32,
+		"sha256": "6a984ba77b226cb0e612b1763d960dbabece18512416c906ecb3b2fe2dd90e34",
+		"bytes": "BwJgZAcCPEAHAiwwBwJ0eAcCmAOcAwcC9AP4AwAAAAA="
+	},
+	"sections": [
+		{
+			"segment": "__TEXT",
+			"name": "__text",
+			"addr": 0,
+			"size": 628,
+			"offset": 728,
+			"align": 2,
+			"reloff": 1576,
+			"nreloc": 24,
+			"flags": 2147484672,
+			"header": true,
+			"sha256": "cdab17062eac1c36db6aa8a9ac10405953c0449e5b5ddfa1c5b03afa0b300aab",
+			"words": [
+				3506537471,
+				2835441658,
+				2835505144,
+				2835568630,
+				2835632116,
+				2835708925,
+				2432779261,
+				2852324339,
+				2852258804,
+				2852193269,
+				2852127734,
+				2415919104,
+				2432696320,
+				2483027968,
+				2852127735,
+				2415919104,
+				2432696320,
+				2483027968,
+				2852127736,
+				2853635040,
+				2853700577,
+				2483027968,
+				2852127737,
+				1384120328,
+				2415919113,
+				2432696617,
+				1384120362,
+				2296970538,
+				889192680,
+				2415919106,
+				2432696386,
+				2432705504,
+				3531603969,
+				3531603971,
+				2483027968,
+				1384126746,
+				2853635040,
+				2853700577,
+				2483027968,
+				3944284191,
+				1409286497,
+				1384440320,
+				2483027968,
+				1895827290,
+				1426063105,
+				4181723752,
+				2853372896,
+				3531603969,
+				3531603970,
+				3594453248,
+				335544328,
+				2852127720,
+				2853569504,
+				2853700577,
+				2853503970,
+				2853438435,
+				2853372900,
+				3594453248,
+				2839903229,
+				2839826420,
+				2839762934,
+				2839699448,
+				2839635962,
+				2432795647,
+				3596551104,
+				2847758326,
+				2835435508,
+				2835512317,
+				2432730109,
+				1384120320,
+				2483027968,
+				2852127732,
+				1384120320,
+				2483027968,
+				3107984008,
+				872416968,
+				2852127731,
+				2432729750,
+				3107979977,
+				1895827775,
+				1409286336,
+				3107981001,
+				2332623574,
+				1895826696,
+				1426063169,
+				335544364,
+				3107982017,
+				2853438432,
+				2483027968,
+				2852127733,
+				3107984065,
+				2853438432,
+				2483027968,
+				4043309759,
+				4198504452,
+				1409287232,
+				3107983048,
+				872416264,
+				3531603977,
+				2333278890,
+				2333278219,
+				2432697708,
+				2415919117,
+				2432696749,
+				3548179758,
+				3094243662,
+				872415598,
+				946760047,
+				1895923199,
+				1409286401,
+				2332950926,
+				2852979696,
+				872415535,
+				943723983,
+				943724049,
+				1796276735,
+				1426063232,
+				2432697641,
+				3943170367,
+				1426062881,
+				335544329,
+				2332627272,
+				4181722376,
+				2870149384,
+				1409286304,
+				2415919105,
+				2432696353,
+				1384120352,
+				3594453248,
+				3531603968,
+				2839706621,
+				2839629812,
+				2831374326,
+				3596551104,
+				3107983368,
+				872415784,
+				2432729097,
+				704709610,
+				3107979563,
+				1895851391,
+				1409286401,
+				4181726508,
+				3943432523,
+				1409286307,
+				4181727533,
+				2332819884,
+				3943301535,
+				1409286376,
+				3107980587,
+				2332754217,
+				1895826696,
+				1426062945,
+				3531603968,
+				3596551104,
+				4181724456,
+				2332557664,
+				3596551104
+			],
+			"relocs": [
+				{
+					"addr": 504,
+					"value": 7,
+					"symbol": "go_thread.argv",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 500,
+					"value": 7,
+					"symbol": "go_thread.argv",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 412,
+					"value": 1,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 412,
+					"value": 6,
+					"symbol": "l_.str.2",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 408,
+					"value": 1,
+					"type": 10,
+					"len": 2
+				},
+				{
+					"addr": 408,
+					"value": 6,
+					"symbol": "l_.str.2",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 368,
+					"value": 5,
+					"symbol": "_fileoff_to_vmaddr",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 352,
+					"value": 5,
+					"symbol": "_fileoff_to_vmaddr",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 292,
+					"value": 16,
+					"symbol": "__dyld_get_image_vmaddr_slide",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 280,
+					"value": 15,
+					"symbol": "__dyld_get_image_header",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 168,
+					"value": 21,
+					"symbol": "_usleep",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 152,
+					"value": 17,
+					"symbol": "_class_getMethodImplementation",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 136,
+					"value": 19,
+					"symbol": "_pthread_create",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 120,
+					"value": 4,
+					"symbol": "_go_thread",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 116,
+					"value": 4,
+					"symbol": "_go_thread",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 100,
+					"value": 3,
+					"symbol": "start_go_once.started",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 96,
+					"value": 3,
+					"symbol": "start_go_once.started",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 84,
+					"value": 17,
+					"symbol": "_class_getMethodImplementation",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 68,
+					"value": 20,
+					"symbol": "_sel_registerName",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 64,
+					"value": 2,
+					"symbol": "l_.str.1",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 60,
+					"value": 2,
+					"symbol": "l_.str.1",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 52,
+					"value": 18,
+					"symbol": "_objc_getClass",
+					"type": 2,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				},
+				{
+					"addr": 48,
+					"value": 1,
+					"symbol": "l_.str",
+					"type": 4,
+					"len": 2,
+					"extern": true
+				},
+				{
+					"addr": 44,
+					"value": 1,
+					"symbol": "l_.str",
+					"type": 3,
+					"len": 2,
+					"pcrel": true,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__TEXT",
+			"name": "__cstring",
+			"addr": 628,
+			"size": 70,
+			"offset": 1356,
+			"flags": 2,
+			"header": true,
+			"sha256": "d0fd00faa3f3946d4ac158fae3c32c78932003f7c71d570d3722187586f27963",
+			"strings": [
+				{
+					"offset": 0,
+					"value": "NinePFileSystem"
+				},
+				{
+					"offset": 16,
+					"value": "loadResource:options:replyHandler:"
+				},
+				{
+					"offset": 51,
+					"value": "__rt0_arm64_darwin"
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__bss",
+			"addr": 848,
+			"size": 4,
+			"offset": 0,
+			"align": 2,
+			"flags": 1,
+			"header": true,
+			"sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+		},
+		{
+			"segment": "__DATA",
+			"name": "__data",
+			"addr": 704,
+			"size": 40,
+			"offset": 1432,
+			"align": 3,
+			"reloff": 1768,
+			"nreloc": 1,
+			"header": true,
+			"sha256": "7bb716041739bb8cc9d68a50deccefc46f07b9cecf9fed6ec26f217ab748e5d8",
+			"words": [
+				1701734734,
+				1163085392,
+				1852142712,
+				1852795251,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 24,
+					"value": 11,
+					"symbol": "go_thread.name",
+					"type": 0,
+					"len": 3,
+					"extern": true
+				}
+			]
+		},
+		{
+			"segment": "__DATA",
+			"name": "__objc_imageinfo",
+			"addr": 744,
+			"size": 8,
+			"offset": 1472,
+			"flags": 268435456,
+			"header": true,
+			"sha256": "94039884329d3732c577860f40d0dfdf883ff89dac332f87216e692c08892fa2",
+			"bytes": "AAAAAEAAAAA="
+		},
+		{
+			"segment": "__LD",
+			"name": "__compact_unwind",
+			"addr": 752,
+			"size": 96,
+			"offset": 1480,
+			"align": 3,
+			"reloff": 1776,
+			"nreloc": 3,
+			"flags": 33554432,
+			"header": true,
+			"sha256": "97030d2ca466634062b022374b76cd7597899037c3ecefec2cbf55f0bdf43cd1",
+			"words": [
+				0,
+				0,
+				260,
+				67108879,
+				0,
+				0,
+				0,
+				0,
+				260,
+				0,
+				276,
+				67108867,
+				0,
+				0,
+				0,
+				0,
+				536,
+				0,
+				92,
+				33554432,
+				0,
+				0,
+				0,
+				0
+			],
+			"relocs": [
+				{
+					"addr": 64,
+					"value": 1,
+					"type": 0,
+					"len": 3
+				},
+				{
+					"addr": 32,
+					"value": 1,
+					"type": 0,
+					"len": 3
+				},
+				{
+					"addr": 0,
+					"value": 1,
+					"type": 0,
+					"len": 3
+				}
+			]
+		}
+	],
+	"symbols": [
+		{
+			"name": "ltmp0",
+			"value": 0,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_.str",
+			"value": 628,
+			"sect": 2,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_.str.1",
+			"value": 644,
+			"sect": 2,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "start_go_once.started",
+			"rawName": "_start_go_once.started",
+			"value": 848,
+			"sect": 3,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_go_thread",
+			"value": 260,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_fileoff_to_vmaddr",
+			"value": 536,
+			"sect": 1,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "l_.str.2",
+			"value": 679,
+			"sect": 2,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "go_thread.argv",
+			"rawName": "_go_thread.argv",
+			"value": 728,
+			"sect": 4,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "ltmp1",
+			"value": 628,
+			"sect": 2,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "ltmp2",
+			"value": 848,
+			"sect": 3,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "ltmp3",
+			"value": 704,
+			"sect": 4,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "go_thread.name",
+			"rawName": "_go_thread.name",
+			"value": 704,
+			"sect": 4,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "ltmp4",
+			"value": 744,
+			"sect": 5,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "ltmp5",
+			"value": 752,
+			"sect": 6,
+			"type": 14,
+			"entry": true
+		},
+		{
+			"name": "_NinePFSDelayedLoadResource",
+			"value": 0,
+			"sect": 1,
+			"type": 15,
+			"entry": true
+		},
+		{
+			"name": "__dyld_get_image_header",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "__dyld_get_image_vmaddr_slide",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_class_getMethodImplementation",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_objc_getClass",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_pthread_create",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_sel_registerName",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		},
+		{
+			"name": "_usleep",
+			"value": 0,
+			"type": 1,
+			"entry": true
+		}
+	]
+}
