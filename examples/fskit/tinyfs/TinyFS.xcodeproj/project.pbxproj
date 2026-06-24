@@ -1,0 +1,419 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		31AECFB8079D6D1E63D52701 /* TinyFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C9D0452332A5E9E7C8738 /* TinyFS.swift */; };
+		7949E8DBB0F52A332153D823 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD7295C1BD43850AD8E9E48 /* App.swift */; };
+		C2E28D924BB17E0CEA1930AD /* TinyFSExtension.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 7E2F90E43F060C5ED4FF0463 /* TinyFSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		709E653E3A1F21D4EA624915 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C79E0EAF71108B6F009E86 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F12B7E4B9574161848A937B7;
+			remoteInfo = TinyFSExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1C827FA5E20E742A23B6F574 /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				C2E28D924BB17E0CEA1930AD /* TinyFSExtension.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		19C54C471C24756234AF2CBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1B0C9D0452332A5E9E7C8738 /* TinyFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyFS.swift; sourceTree = "<group>"; };
+		764BCF0A7D99DCF9F93530B5 /* TinyFSHost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TinyFSHost.entitlements; sourceTree = "<group>"; };
+		7CAAAC3E23735F4E679B4098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7E2F90E43F060C5ED4FF0463 /* TinyFSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = TinyFSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AD7295C1BD43850AD8E9E48 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		BBB5E37E800265A5F4D23985 /* TinyFSHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyFSHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3930A5F54079915598A6423 /* TinyFSExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TinyFSExtension.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5C2C7B4785DCE95E31ED41E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E2F90E43F060C5ED4FF0463 /* TinyFSExtension.appex */,
+				BBB5E37E800265A5F4D23985 /* TinyFSHost.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89B8E70B13C26876DC0743E5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				19C54C471C24756234AF2CBF /* Info.plist */,
+				1B0C9D0452332A5E9E7C8738 /* TinyFS.swift */,
+				D3930A5F54079915598A6423 /* TinyFSExtension.entitlements */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DD3ED0951BC5202343DFBBA5 = {
+			isa = PBXGroup;
+			children = (
+				89B8E70B13C26876DC0743E5 /* Extension */,
+				F334B3D69BB91AD3F67EA383 /* Host */,
+				5C2C7B4785DCE95E31ED41E7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F334B3D69BB91AD3F67EA383 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				9AD7295C1BD43850AD8E9E48 /* App.swift */,
+				7CAAAC3E23735F4E679B4098 /* Info.plist */,
+				764BCF0A7D99DCF9F93530B5 /* TinyFSHost.entitlements */,
+			);
+			path = Host;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D508BB9BD61C393408434FA3 /* TinyFSHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E41011A700D5D8DD54A3FB0 /* Build configuration list for PBXNativeTarget "TinyFSHost" */;
+			buildPhases = (
+				53AD53BDD01D08CF29944122 /* Sources */,
+				1C827FA5E20E742A23B6F574 /* Embed ExtensionKit Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0CBD43F701C2DC19B78FED40 /* PBXTargetDependency */,
+			);
+			name = TinyFSHost;
+			packageProductDependencies = (
+			);
+			productName = TinyFSHost;
+			productReference = BBB5E37E800265A5F4D23985 /* TinyFSHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F12B7E4B9574161848A937B7 /* TinyFSExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC353B593379B740ED6A7CA /* Build configuration list for PBXNativeTarget "TinyFSExtension" */;
+			buildPhases = (
+				95123CBD3954A18BBD92DB0F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinyFSExtension;
+			packageProductDependencies = (
+			);
+			productName = TinyFSExtension;
+			productReference = 7E2F90E43F060C5ED4FF0463 /* TinyFSExtension.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49C79E0EAF71108B6F009E86 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					D508BB9BD61C393408434FA3 = {
+						ProvisioningStyle = Manual;
+					};
+					F12B7E4B9574161848A937B7 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = EAC3E4F6019F3CC13C781789 /* Build configuration list for PBXProject "TinyFS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = DD3ED0951BC5202343DFBBA5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F12B7E4B9574161848A937B7 /* TinyFSExtension */,
+				D508BB9BD61C393408434FA3 /* TinyFSHost */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		53AD53BDD01D08CF29944122 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7949E8DBB0F52A332153D823 /* App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95123CBD3954A18BBD92DB0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31AECFB8079D6D1E63D52701 /* TinyFS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0CBD43F701C2DC19B78FED40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F12B7E4B9574161848A937B7 /* TinyFSExtension */;
+			targetProxy = 709E653E3A1F21D4EA624915 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0B7737D36D63BE12FBCFD7B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Host/TinyFSHost.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Host/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.tinyfs;
+				PRODUCT_NAME = TinyFSHost;
+				PROVISIONING_PROFILE_SPECIFIER = TinyFSHostDev;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		404E1FE947FCADD20FCFDCAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/TinyFSExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.tinyfs.extension;
+				PRODUCT_NAME = TinyFSExtension;
+				PROVISIONING_PROFILE_SPECIFIER = TinyFSExtensionDevFSKit2;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7602BA6ECDE7C7EA118CFC36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Host/TinyFSHost.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Host/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.tinyfs;
+				PRODUCT_NAME = TinyFSHost;
+				PROVISIONING_PROFILE_SPECIFIER = TinyFSHostDev;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B041C26212C4584F51B6EE78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/TinyFSExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.tinyfs.extension;
+				PRODUCT_NAME = TinyFSExtension;
+				PROVISIONING_PROFILE_SPECIFIER = TinyFSExtensionDevFSKit2;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BEA5836353B7C00FA2ECFB45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		FFBC1785FD484398519CD445 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9E41011A700D5D8DD54A3FB0 /* Build configuration list for PBXNativeTarget "TinyFSHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B7737D36D63BE12FBCFD7B8 /* Debug */,
+				7602BA6ECDE7C7EA118CFC36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AAC353B593379B740ED6A7CA /* Build configuration list for PBXNativeTarget "TinyFSExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B041C26212C4584F51B6EE78 /* Debug */,
+				404E1FE947FCADD20FCFDCAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EAC3E4F6019F3CC13C781789 /* Build configuration list for PBXProject "TinyFS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEA5836353B7C00FA2ECFB45 /* Debug */,
+				FFBC1785FD484398519CD445 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49C79E0EAF71108B6F009E86 /* Project object */;
+}

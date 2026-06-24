@@ -1,0 +1,39 @@
+name: TinyFS
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    macOS: "15.4"
+settings:
+  base:
+    CODE_SIGN_STYLE: Manual
+    MACOSX_DEPLOYMENT_TARGET: "15.4"
+    SWIFT_VERSION: "6.0"
+targets:
+  TinyFSHost:
+    type: application
+    platform: macOS
+    sources:
+      - Host
+    dependencies:
+      - target: TinyFSExtension
+        embed: true
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Host/TinyFSHost.entitlements
+        ENABLE_HARDENED_RUNTIME: "YES"
+        INFOPLIST_FILE: Host/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tmc.apple.examples.fskit.tinyfs
+        PRODUCT_NAME: TinyFSHost
+        PROVISIONING_PROFILE_SPECIFIER: TinyFSHostDev
+  TinyFSExtension:
+    type: extensionkit-extension
+    platform: macOS
+    sources:
+      - Extension
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Extension/TinyFSExtension.entitlements
+        INFOPLIST_FILE: Extension/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tmc.apple.examples.fskit.tinyfs.extension
+        PRODUCT_NAME: TinyFSExtension
+        PROVISIONING_PROFILE_SPECIFIER: TinyFSExtensionDevFSKit2
