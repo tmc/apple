@@ -1,0 +1,2 @@
+commit=34f9dce4bfa8fa0a9089e3a31679212a1a0df3ec date=2026-06-23T21:14:44-0700 claude-code=2.1.170 (Claude Code) model=claude-opus-4-8 tty=not a tty
+none pid=14151 ITERM_SESSION_ID=w2t16p7:8AF0300E-F02B-44A2-8501-F497339171F2 note=folded adversarial-review fixes (S1 errno linux.Errno->Darwin, S2 hermetic export9p, S3 ReadFileAt, S4 NINEPFS_DEBUG log gate, S5 tinyfsgo litter) + pure-entry doc correction; pre-review series at fskit-helper-extraction-prereview
