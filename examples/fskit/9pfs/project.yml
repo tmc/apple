@@ -1,0 +1,112 @@
+name: NinePFS
+options:
+  deploymentTarget:
+    macOS: "15.4"
+settings:
+  base:
+    CODE_SIGN_STYLE: Manual
+    MACOSX_DEPLOYMENT_TARGET: "15.4"
+    SWIFT_VERSION: "6.0"
+targets:
+  NinePFSHost:
+    type: application
+    platform: macOS
+    sources:
+      - host
+    dependencies:
+      - target: NinePFSExtension
+        embed: true
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: host/NinePFSHost.entitlements
+        ENABLE_HARDENED_RUNTIME: "YES"
+        INFOPLIST_FILE: host/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tmc.apple.examples.fskit.9pfs
+        PRODUCT_NAME: NinePFSHost
+        PROVISIONING_PROFILE_SPECIFIER: NinePFSHostDev
+  NinePFSExtension:
+    type: extensionkit-extension
+    platform: macOS
+    sources:
+      - appex
+      - path: swiftshim/Sources/NinePFSShimObjC/NinePFileSystem.m
+        compilerFlags:
+          - -fobjc-arc
+    preBuildScripts:
+      - name: Build libNinePFS
+        basedOnDependencyAnalysis: false
+        script: |
+          set -euo pipefail
+          objdir="$DERIVED_FILE_DIR/9pfs"
+          p9src="$objdir/p9-src"
+          moddir="$objdir/mod"
+          modfile="$moddir/go.mod"
+          mkdir -p "$moddir" "$BUILT_PRODUCTS_DIR"
+          if [[ "${NINEPFS_GO_EMPTY_STUB:-}" == "yes" ]]; then
+            stubdir="$objdir/empty-stub"
+            rm -rf "$stubdir"
+            mkdir -p "$stubdir"
+            cat > "$stubdir/stub.go" <<'EOF'
+          package main
+
+          /*
+          #include <stdint.h>
+          #include <stdlib.h>
+          */
+          import "C"
+
+          import "unsafe"
+
+          //export NinePFSInit
+          func NinePFSInit() C.int { return 0 }
+
+          //export NinePFSNewFileSystem
+          func NinePFSNewFileSystem() unsafe.Pointer { return nil }
+
+          //export NinePFSConfigureFileSystem
+          func NinePFSConfigureFileSystem(raw unsafe.Pointer) C.int { return 0 }
+
+          //export NinePFSProbeResource
+          func NinePFSProbeResource(self unsafe.Pointer, resource unsafe.Pointer, reply unsafe.Pointer) {}
+
+          //export NinePFSLoadResource
+          func NinePFSLoadResource(self unsafe.Pointer, resource unsafe.Pointer, options unsafe.Pointer, reply unsafe.Pointer) {}
+
+          //export NinePFSUnloadResource
+          func NinePFSUnloadResource(self unsafe.Pointer, resource unsafe.Pointer, options unsafe.Pointer, reply unsafe.Pointer) {}
+
+          //export NinePFSLastError
+          func NinePFSLastError() *C.char { return nil }
+
+          func main() {}
+          EOF
+            (cd "$stubdir" && GO111MODULE=off MACOSX_DEPLOYMENT_TARGET="$MACOSX_DEPLOYMENT_TARGET" CGO_CFLAGS="-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_CFLAGS:-}" CGO_LDFLAGS="-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_LDFLAGS:-}" go build -ldflags "-extldflags=-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET" -buildmode=c-archive -o "$BUILT_PRODUCTS_DIR/libNinePFS.a" .)
+          else
+            "$SRCROOT/prepare-p9-module.sh" "$p9src"
+            sed '/^replace github.com\/tmc\/apple /d' "$SRCROOT/go.mod" > "$modfile"
+            cp "$SRCROOT/go.sum" "${modfile%.mod}.sum"
+            {
+              echo
+              echo "replace github.com/tmc/apple => $(cd "$SRCROOT/../../.." && pwd)"
+              echo "replace github.com/hugelgupf/p9 => $p9src"
+            } >> "$modfile"
+            go_tags="${NINEPFS_GO_TAGS:-cshared}"
+            (cd "$SRCROOT" && GOWORK=off GOFLAGS="-modfile=$modfile" MACOSX_DEPLOYMENT_TARGET="$MACOSX_DEPLOYMENT_TARGET" CGO_CFLAGS="-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_CFLAGS:-}" CGO_LDFLAGS="-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_LDFLAGS:-}" go build -tags "$go_tags" -ldflags "-extldflags=-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET" -buildmode=c-archive -o "$BUILT_PRODUCTS_DIR/libNinePFS.a" .)
+          fi
+          rm -f "$BUILT_PRODUCTS_DIR/libNinePFS.h"
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: appex/NinePFSExtension.entitlements
+        HEADER_SEARCH_PATHS:
+          - "$(SRCROOT)/swiftshim/Sources/NinePFSShimObjC/include"
+        INFOPLIST_FILE: appex/Info.plist
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/../Frameworks"
+        OTHER_LDFLAGS:
+          - "$(inherited)"
+          - "$(BUILT_PRODUCTS_DIR)/libNinePFS.a"
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tmc.apple.examples.fskit.9pfs.extension
+        PRODUCT_NAME: NinePFSExtension
+        PROVISIONING_PROFILE_SPECIFIER: NinePFSExtensionDevFSKit
+        SWIFT_OBJC_BRIDGING_HEADER: swiftshim/Sources/NinePFSShimObjC/include/NinePFileSystem.h

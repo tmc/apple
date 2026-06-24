@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B21F2353480FDD822E9EC14 /* NinePFSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568EE6816CBD13BD08EC184 /* NinePFSExtension.swift */; };
+		73FCE3B4189072E1F3477608 /* NinePFSExtension.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 06DAA0765B4D8B36AE975A99 /* NinePFSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		914ADD7F40086E04EFFDC77E /* NinePFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF015D1FD7C5BC3440F615 /* NinePFileSystem.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		963ACF52B1168A724B30640D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E3BFF54B9CA6FD9411BF7B /* App.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2052907FFD4E885CD493D515 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BE04B8A935502C7DE0EE5BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 462632506B24E9E83882C76E;
+			remoteInfo = NinePFSExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8E7938F4D402674076E9D74E /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				73FCE3B4189072E1F3477608 /* NinePFSExtension.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		06DAA0765B4D8B36AE975A99 /* NinePFSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = NinePFSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		19BDB27B286B2D1AA1C4951E /* NinePFSExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NinePFSExtension.entitlements; sourceTree = "<group>"; };
+		2568EE6816CBD13BD08EC184 /* NinePFSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinePFSExtension.swift; sourceTree = "<group>"; };
+		2F003FAF6876DBC7A4107D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6BEC073AEE579F927D0220FF /* NinePFSHost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NinePFSHost.entitlements; sourceTree = "<group>"; };
+		BCAF015D1FD7C5BC3440F615 /* NinePFileSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NinePFileSystem.m; sourceTree = "<group>"; };
+		CA48FAE87403FD97648852C9 /* NinePFSHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinePFSHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA6E88DF6A0564E4E937AE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D9E3BFF54B9CA6FD9411BF7B /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3DAA66EA4C2C6E4FB1DB2C55 /* appex */ = {
+			isa = PBXGroup;
+			children = (
+				CA6E88DF6A0564E4E937AE73 /* Info.plist */,
+				19BDB27B286B2D1AA1C4951E /* NinePFSExtension.entitlements */,
+				2568EE6816CBD13BD08EC184 /* NinePFSExtension.swift */,
+			);
+			path = appex;
+			sourceTree = "<group>";
+		};
+		600F41DE8D12849E30E2EE94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06DAA0765B4D8B36AE975A99 /* NinePFSExtension.appex */,
+				CA48FAE87403FD97648852C9 /* NinePFSHost.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		66C9F3ECEF538BD207A1AC05 = {
+			isa = PBXGroup;
+			children = (
+				3DAA66EA4C2C6E4FB1DB2C55 /* appex */,
+				D4054B5029ACD883F175426A /* host */,
+				6B924BB8344DAEA2E8E6FE9E /* NinePFSShimObjC */,
+				600F41DE8D12849E30E2EE94 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6B924BB8344DAEA2E8E6FE9E /* NinePFSShimObjC */ = {
+			isa = PBXGroup;
+			children = (
+				BCAF015D1FD7C5BC3440F615 /* NinePFileSystem.m */,
+			);
+			name = NinePFSShimObjC;
+			path = swiftshim/Sources/NinePFSShimObjC;
+			sourceTree = "<group>";
+		};
+		D4054B5029ACD883F175426A /* host */ = {
+			isa = PBXGroup;
+			children = (
+				D9E3BFF54B9CA6FD9411BF7B /* App.swift */,
+				2F003FAF6876DBC7A4107D4D /* Info.plist */,
+				6BEC073AEE579F927D0220FF /* NinePFSHost.entitlements */,
+			);
+			path = host;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		462632506B24E9E83882C76E /* NinePFSExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A234136E0474F3F7DF5F13 /* Build configuration list for PBXNativeTarget "NinePFSExtension" */;
+			buildPhases = (
+				102B42DD08D6F2A1FC29532C /* Build libNinePFS */,
+				3155C827B6C0A759D47B252F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NinePFSExtension;
+			packageProductDependencies = (
+			);
+			productName = NinePFSExtension;
+			productReference = 06DAA0765B4D8B36AE975A99 /* NinePFSExtension.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
+		C799F05C57D7E8568CC8BAC3 /* NinePFSHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0106889FDF306360FE2B8CB5 /* Build configuration list for PBXNativeTarget "NinePFSHost" */;
+			buildPhases = (
+				6CF2A847A9B3A2461F524B3F /* Sources */,
+				8E7938F4D402674076E9D74E /* Embed ExtensionKit Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E2F8195FE7EE6FEB23E3EA9F /* PBXTargetDependency */,
+			);
+			name = NinePFSHost;
+			packageProductDependencies = (
+			);
+			productName = NinePFSHost;
+			productReference = CA48FAE87403FD97648852C9 /* NinePFSHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BE04B8A935502C7DE0EE5BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					462632506B24E9E83882C76E = {
+						ProvisioningStyle = Manual;
+					};
+					C799F05C57D7E8568CC8BAC3 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 7E173C33567C50759A0225B5 /* Build configuration list for PBXProject "NinePFS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 66C9F3ECEF538BD207A1AC05;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				462632506B24E9E83882C76E /* NinePFSExtension */,
+				C799F05C57D7E8568CC8BAC3 /* NinePFSHost */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		102B42DD08D6F2A1FC29532C /* Build libNinePFS */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build libNinePFS";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\nobjdir=\"$DERIVED_FILE_DIR/9pfs\"\np9src=\"$objdir/p9-src\"\nmoddir=\"$objdir/mod\"\nmodfile=\"$moddir/go.mod\"\nmkdir -p \"$moddir\" \"$BUILT_PRODUCTS_DIR\"\nif [[ \"${NINEPFS_GO_EMPTY_STUB:-}\" == \"yes\" ]]; then\n  stubdir=\"$objdir/empty-stub\"\n  rm -rf \"$stubdir\"\n  mkdir -p \"$stubdir\"\n  cat > \"$stubdir/stub.go\" <<'EOF'\npackage main\n\n/*\n#include <stdint.h>\n#include <stdlib.h>\n*/\nimport \"C\"\n\nimport \"unsafe\"\n\n//export NinePFSInit\nfunc NinePFSInit() C.int { return 0 }\n\n//export NinePFSNewFileSystem\nfunc NinePFSNewFileSystem() unsafe.Pointer { return nil }\n\n//export NinePFSConfigureFileSystem\nfunc NinePFSConfigureFileSystem(raw unsafe.Pointer) C.int { return 0 }\n\n//export NinePFSProbeResource\nfunc NinePFSProbeResource(self unsafe.Pointer, resource unsafe.Pointer, reply unsafe.Pointer) {}\n\n//export NinePFSLoadResource\nfunc NinePFSLoadResource(self unsafe.Pointer, resource unsafe.Pointer, options unsafe.Pointer, reply unsafe.Pointer) {}\n\n//export NinePFSUnloadResource\nfunc NinePFSUnloadResource(self unsafe.Pointer, resource unsafe.Pointer, options unsafe.Pointer, reply unsafe.Pointer) {}\n\n//export NinePFSLastError\nfunc NinePFSLastError() *C.char { return nil }\n\nfunc main() {}\nEOF\n  (cd \"$stubdir\" && GO111MODULE=off MACOSX_DEPLOYMENT_TARGET=\"$MACOSX_DEPLOYMENT_TARGET\" CGO_CFLAGS=\"-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_CFLAGS:-}\" CGO_LDFLAGS=\"-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_LDFLAGS:-}\" go build -ldflags \"-extldflags=-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET\" -buildmode=c-archive -o \"$BUILT_PRODUCTS_DIR/libNinePFS.a\" .)\nelse\n  \"$SRCROOT/prepare-p9-module.sh\" \"$p9src\"\n  sed '/^replace github.com\\/tmc\\/apple /d' \"$SRCROOT/go.mod\" > \"$modfile\"\n  cp \"$SRCROOT/go.sum\" \"${modfile%.mod}.sum\"\n  {\n    echo\n    echo \"replace github.com/tmc/apple => $(cd \"$SRCROOT/../../..\" && pwd)\"\n    echo \"replace github.com/hugelgupf/p9 => $p9src\"\n  } >> \"$modfile\"\n  go_tags=\"${NINEPFS_GO_TAGS:-cshared}\"\n  (cd \"$SRCROOT\" && GOWORK=off GOFLAGS=\"-modfile=$modfile\" MACOSX_DEPLOYMENT_TARGET=\"$MACOSX_DEPLOYMENT_TARGET\" CGO_CFLAGS=\"-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_CFLAGS:-}\" CGO_LDFLAGS=\"-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET ${CGO_LDFLAGS:-}\" go build -tags \"$go_tags\" -ldflags \"-extldflags=-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET\" -buildmode=c-archive -o \"$BUILT_PRODUCTS_DIR/libNinePFS.a\" .)\nfi\nrm -f \"$BUILT_PRODUCTS_DIR/libNinePFS.h\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3155C827B6C0A759D47B252F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B21F2353480FDD822E9EC14 /* NinePFSExtension.swift in Sources */,
+				914ADD7F40086E04EFFDC77E /* NinePFileSystem.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CF2A847A9B3A2461F524B3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				963ACF52B1168A724B30640D /* App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E2F8195FE7EE6FEB23E3EA9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 462632506B24E9E83882C76E /* NinePFSExtension */;
+			targetProxy = 2052907FFD4E885CD493D515 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F8D5A7EC44B4639C3587FC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = host/NinePFSHost.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = host/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.9pfs;
+				PRODUCT_NAME = NinePFSHost;
+				PROVISIONING_PROFILE_SPECIFIER = NinePFSHostDev;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		52AACB314D4A4ED0CD0FCF19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = appex/NinePFSExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/swiftshim/Sources/NinePFSShimObjC/include",
+				);
+				INFOPLIST_FILE = appex/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/libNinePFS.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.9pfs.extension;
+				PRODUCT_NAME = NinePFSExtension;
+				PROVISIONING_PROFILE_SPECIFIER = NinePFSExtensionDevFSKit;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = swiftshim/Sources/NinePFSShimObjC/include/NinePFileSystem.h;
+			};
+			name = Release;
+		};
+		84AB0FCDEC150A6D3D1A91ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = host/NinePFSHost.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = host/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.9pfs;
+				PRODUCT_NAME = NinePFSHost;
+				PROVISIONING_PROFILE_SPECIFIER = NinePFSHostDev;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DE99A01BDE5C0502B6794770 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = appex/NinePFSExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/swiftshim/Sources/NinePFSShimObjC/include",
+				);
+				INFOPLIST_FILE = appex/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/libNinePFS.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tmc.apple.examples.fskit.9pfs.extension;
+				PRODUCT_NAME = NinePFSExtension;
+				PROVISIONING_PROFILE_SPECIFIER = NinePFSExtensionDevFSKit;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = swiftshim/Sources/NinePFSShimObjC/include/NinePFileSystem.h;
+			};
+			name = Debug;
+		};
+		EAEE1382E05224CCE212BD0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		F336E82365DD70EFF1F0F8A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0106889FDF306360FE2B8CB5 /* Build configuration list for PBXNativeTarget "NinePFSHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AB0FCDEC150A6D3D1A91ED /* Debug */,
+				0F8D5A7EC44B4639C3587FC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7E173C33567C50759A0225B5 /* Build configuration list for PBXProject "NinePFS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAEE1382E05224CCE212BD0D /* Debug */,
+				F336E82365DD70EFF1F0F8A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E7A234136E0474F3F7DF5F13 /* Build configuration list for PBXNativeTarget "NinePFSExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE99A01BDE5C0502B6794770 /* Debug */,
+				52AACB314D4A4ED0CD0FCF19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BE04B8A935502C7DE0EE5BA /* Project object */;
+}

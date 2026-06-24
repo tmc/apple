@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleGetInfoString</key>
+	<string>9pfs FSKit mount helper</string>
+	<key>CFBundleIdentifier</key>
+	<string>dev.tmc.apple.examples.fskit.9pfs.fs</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>9pfs</string>
+	<key>CFBundlePackageType</key>
+	<string>fs  </string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>FSMediaTypes</key>
+	<dict/>
+	<key>FSPersonalities</key>
+	<dict>
+		<key>9pfs</key>
+		<dict>
+			<key>FSName</key>
+			<string>9pfs</string>
+			<key>FSfileObjectsAreCaseSensitive</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

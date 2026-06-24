@@ -1,0 +1,149 @@
+diff -ruN orig/fsimpl/localfs/localfs.go patched/fsimpl/localfs/localfs.go
+--- orig/fsimpl/localfs/localfs.go
++++ patched/fsimpl/localfs/localfs.go
+@@ -18,6 +18,7 @@
+ import (
+ 	"os"
+ 	"path"
+ 	"path/filepath"
++	"time"
+
+ 	"github.com/hugelgupf/p9/fsimpl/templatefs"
+@@ -268,15 +269,33 @@
+ // SetAttr implements p9.File.SetAttr.
+ func (l *Local) SetAttr(valid p9.SetAttrMask, attr p9.SetAttr) error {
+ 	// When truncate(2) is called on Linux, Linux will try to set time & size. Fake it. Sorry.
+-	supported := p9.SetAttrMask{Size: true, MTime: true, CTime: true, ATime: true}
++	supported := p9.SetAttrMask{Permissions: true, Size: true, MTime: true, CTime: true, ATime: true}
+ 	if !valid.IsSubsetOf(supported) {
+ 		return linux.ENOSYS
+ 	}
+
++	if valid.Permissions {
++		if err := os.Chmod(l.path, os.FileMode(attr.Permissions.Permissions())); err != nil {
++			return err
++		}
++	}
+ 	if valid.Size {
+-		// If more than one thing is ever implemented, we can't just
+-		// return an error here.
+-		return os.Truncate(l.path, int64(attr.Size))
++		if err := os.Truncate(l.path, int64(attr.Size)); err != nil {
++			return err
++		}
++	}
++	if valid.ATime || valid.MTime {
++		atime := time.Now()
++		mtime := atime
++		if valid.ATime {
++			atime = time.Unix(int64(attr.ATimeSeconds), int64(attr.ATimeNanoSeconds))
++		}
++		if valid.MTime {
++			mtime = time.Unix(int64(attr.MTimeSeconds), int64(attr.MTimeNanoSeconds))
++		}
++		if err := os.Chtimes(l.path, atime, mtime); err != nil {
++			return err
++		}
+ 	}
+ 	return nil
+ }
+diff -ruN orig/fsimpl/localfs/system_unix.go patched/fsimpl/localfs/system_unix.go
+--- orig/fsimpl/localfs/system_unix.go
++++ patched/fsimpl/localfs/system_unix.go
+@@ -120,10 +120,10 @@
+
+ func localToQid(_ string, fi os.FileInfo) (uint64, error) {
+ 	stat := fi.Sys().(*syscall.Stat_t)
+-	if q, ok := encodeLikely(stat.Dev, stat.Ino); ok {
++	if q, ok := encodeLikely(uint64(stat.Dev), uint64(stat.Ino)); ok {
+ 		return q, nil
+ 	}
+-	di := &devino{stat.Dev, stat.Ino}
++	di := &devino{uint64(stat.Dev), uint64(stat.Ino)}
+ 	if q, ok := qids.Load(di); ok {
+ 		return q.(uint64), nil
+ 	}
+diff -ruN orig/p9/client_file.go patched/p9/client_file.go
+--- orig/p9/client_file.go
++++ patched/p9/client_file.go
+@@ -18,6 +18,7 @@
+ 	"fmt"
+ 	"io"
+ 	"runtime"
++	"strings"
+ 	"sync/atomic"
+
+ 	"github.com/hugelgupf/p9/linux"
+@@ -70,22 +71,68 @@
+
+ // SetXattr implements p9.File.SetXattr.
+ func (c *clientFile) SetXattr(attr string, data []byte, flags XattrFlags) error {
+-	return linux.ENOSYS
++	if atomic.LoadUint32(&c.closed) != 0 {
++		return linux.EBADF
++	}
++	if err := c.client.sendRecv(&txattrcreate{fid: c.fid, Name: attr, AttrSize: uint64(len(data)), Flags: uint32(flags)}, &rxattrcreate{}); err != nil {
++		return err
++	}
++	if len(data) > 0 {
++		if _, err := c.WriteAt(data, 0); err != nil {
++			return err
++		}
++	}
++	return c.client.sendRecv(&tclunk{fid: c.fid}, &rclunk{})
+ }
+
+ // RemoveXattr implements p9.File.RemoveXattr.
+ func (c *clientFile) RemoveXattr(attr string) error {
+-	return linux.ENOSYS
++	return c.SetXattr(attr, nil, XattrReplace)
+ }
+
+ // GetXattr implements p9.File.GetXattr.
+ func (c *clientFile) GetXattr(attr string) ([]byte, error) {
+-	return nil, linux.ENOSYS
++	return c.xattr(attr)
+ }
+
+ // ListXattrs implements p9.File.ListXattrs.
+ func (c *clientFile) ListXattrs() ([]string, error) {
+-	return nil, linux.ENOSYS
++	data, err := c.xattr("")
++	if err != nil {
++		return nil, err
++	}
++	list := strings.TrimRight(string(data), "\x00")
++	if list == "" {
++		return nil, nil
++	}
++	return strings.Split(list, "\x00"), nil
++}
++
++func (c *clientFile) xattr(attr string) ([]byte, error) {
++	if atomic.LoadUint32(&c.closed) != 0 {
++		return nil, linux.EBADF
++	}
++	id, ok := c.client.fidPool.Get()
++	if !ok {
++		return nil, ErrOutOfFIDs
++	}
++	xfid := fid(id)
++	var walk rxattrwalk
++	if err := c.client.sendRecv(&txattrwalk{fid: c.fid, newFID: xfid, Name: attr}, &walk); err != nil {
++		c.client.fidPool.Put(id)
++		return nil, err
++	}
++	xfile := c.client.newFile(xfid)
++	defer xfile.Close()
++	if walk.Size == 0 {
++		return nil, nil
++	}
++	data := make([]byte, walk.Size)
++	n, err := xfile.ReadAt(data, 0)
++	if err != nil && err != io.EOF {
++		return nil, err
++	}
++	return data[:n], nil
+ }
+
+ // Walk implements File.Walk.

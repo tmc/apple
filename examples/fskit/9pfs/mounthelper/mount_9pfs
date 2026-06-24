@@ -1,0 +1,53 @@
+#!/bin/sh
+set -eu
+
+usage() {
+	echo "usage: mount_9pfs [-o options] ninep://host:port[/aname] node" >&2
+	exit 64
+}
+
+if [ "$#" -lt 2 ]; then
+	usage
+fi
+
+if [ "${MOUNT_9PFS_FSKIT_REEXEC:-}" = 1 ]; then
+	echo "mount_9pfs: refusing recursive FSKit re-exec" >&2
+	exit 70
+fi
+
+opts=
+flags=
+while [ "$#" -gt 2 ]; do
+	case "$1" in
+	-o)
+		[ "$#" -gt 1 ] || usage
+		opts=${opts:+$opts,}$2
+		shift 2
+		;;
+	-r|-w|-u|-v|-f|-k)
+		flags="$flags $1"
+		shift
+		;;
+	--)
+		shift
+		break
+		;;
+	-*)
+		echo "mount_9pfs: unsupported helper option $1" >&2
+		usage
+		;;
+	*)
+		break
+		;;
+	esac
+done
+
+[ "$#" -eq 2 ] || usage
+
+if [ -n "$opts" ]; then
+	# shellcheck disable=SC2086
+	exec env MOUNT_9PFS_FSKIT_REEXEC=1 /sbin/mount -F -t 9pfs $flags -o "$opts" "$1" "$2"
+fi
+
+# shellcheck disable=SC2086
+exec env MOUNT_9PFS_FSKIT_REEXEC=1 /sbin/mount -F -t 9pfs $flags "$1" "$2"
