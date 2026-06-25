@@ -6,7 +6,10 @@ import (
 	"syscall"
 )
 
-const errnoENOATTR = syscall.Errno(93) // ENOATTR; syscall does not name it
+// ENOATTR is Darwin's "attribute not found" errno, which the syscall package
+// does not name. File systems mapping a backend's missing-attribute error
+// report it for extended attribute operations.
+const ENOATTR = syscall.Errno(93)
 
 // errnoFor maps an operation error to the errno reported to FSKit.
 func errnoFor(err error) syscall.Errno {
@@ -37,7 +40,7 @@ func xattrErrnoFor(err error) syscall.Errno {
 		return errno
 	}
 	if errors.Is(err, fs.ErrNotExist) {
-		return errnoENOATTR
+		return ENOATTR
 	}
 	return errnoFor(err)
 }

@@ -23,6 +23,12 @@
 // lookup, enumeration, and attribute operations, and POSIXError constructs
 // the POSIX-domain NSError values that reply blocks accept.
 //
+// An extension built as a c-archive and hosted by ExtensionFoundation wraps
+// its Server in an [Extension], which owns the lifecycle the host needs:
+// lazy, retryable initialization, last-error reporting, a reply fallback for
+// calls that arrive before the Server is ready, and panic recovery for the
+// exported entry points.
+//
 // The file systems under examples/fskit use this package; see
 // examples/fskit/9pfs for a complete example.
 package fskitbridge

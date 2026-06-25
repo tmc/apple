@@ -38,8 +38,8 @@ func TestXattrErrnoFor(t *testing.T) {
 		err  error
 		want syscall.Errno
 	}{
-		{"not exist", fs.ErrNotExist, errnoENOATTR},
-		{"wrapped not exist", fmt.Errorf("attr: %w", fs.ErrNotExist), errnoENOATTR},
+		{"not exist", fs.ErrNotExist, ENOATTR},
+		{"wrapped not exist", fmt.Errorf("attr: %w", fs.ErrNotExist), ENOATTR},
 		{"errno wins", fmt.Errorf("%w: %w", syscall.ENOENT, fs.ErrNotExist), syscall.ENOENT},
 		{"unknown", errors.New("transport broke"), syscall.EIO},
 	}

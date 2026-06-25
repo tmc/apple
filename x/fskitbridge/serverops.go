@@ -543,7 +543,7 @@ func (s *Server) impVolumeSetXattr(self objc.ID, _ objc.SEL, name, value, item o
 			break
 		}
 		if _, err := xattrs.GetXattr(it, attr); err != nil {
-			errno = errnoENOATTR
+			errno = ENOATTR
 			break
 		}
 		errno = xattrErrnoOf(xattrs.SetXattr(it, attr, bytesFromNSData(value)))
