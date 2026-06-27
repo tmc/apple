@@ -2,6 +2,19 @@ package rdma
 
 import "unsafe"
 
+// IbvModifyQpToErr moves a queue pair to the ERR state. Outstanding send and
+// receive work requests are flushed to the completion queue with a non-success
+// status, which lets the caller poll them out and reclaim the queue pair and
+// its memory regions without racing in-flight transfers.
+func IbvModifyQpToErr(qp RDMAQP) error {
+	attr := IbvQPAttr{QPState: IBV_QPS_ERR}
+	rc, err := IbvModifyQpAttr(qp, &attr, IBV_QP_STATE)
+	if err != nil || rc != 0 {
+		return NewModifyQPError(qp, &attr, IBV_QP_STATE, rc, err)
+	}
+	return nil
+}
+
 // IbvCreateQpAttr calls ibv_create_qp with a typed init-attr pointer.
 func IbvCreateQpAttr(pd RDMAPD, attr *IbvQPInitAttr) (RDMAQP, error) {
 	if attr == nil {

@@ -17,9 +17,11 @@ const (
 
 	IBV_QPT_UC = 3
 
-	IBV_QPS_INIT = 1
-	IBV_QPS_RTR  = 2
-	IBV_QPS_RTS  = 3
+	IBV_QPS_RESET = 0
+	IBV_QPS_INIT  = 1
+	IBV_QPS_RTR   = 2
+	IBV_QPS_RTS   = 3
+	IBV_QPS_ERR   = 6
 
 	IBV_QP_STATE        = 1
 	IBV_QP_ACCESS_FLAGS = 8

@@ -124,12 +124,16 @@ func QPAttrMaskNames(mask int) []string {
 
 func QPStateName(state int32) string {
 	switch state {
+	case IBV_QPS_RESET:
+		return "RESET"
 	case IBV_QPS_INIT:
 		return "INIT"
 	case IBV_QPS_RTR:
 		return "RTR"
 	case IBV_QPS_RTS:
 		return "RTS"
+	case IBV_QPS_ERR:
+		return "ERR"
 	default:
 		return fmt.Sprintf("state(%d)", state)
 	}
@@ -146,6 +150,8 @@ func inferQPTransition(attr *IbvQPAttr) string {
 		return "INIT->RTR"
 	case IBV_QPS_RTS:
 		return "RTR->RTS"
+	case IBV_QPS_ERR:
+		return "->ERR"
 	default:
 		return "->" + QPStateName(attr.QPState)
 	}

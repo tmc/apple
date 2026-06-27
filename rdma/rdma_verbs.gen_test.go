@@ -62,6 +62,8 @@ func TestRDMAExtraConstants(t *testing.T) {
 	}{
 		{"IBV_WR_RDMA_WRITE", IBV_WR_RDMA_WRITE, 0},
 		{"IBV_WR_SEND", IBV_WR_SEND, 2},
+		{"IBV_QPS_RESET", IBV_QPS_RESET, 0},
+		{"IBV_QPS_ERR", IBV_QPS_ERR, 6},
 	}
 	for _, tt := range tests {
 		if tt.got != tt.want {
