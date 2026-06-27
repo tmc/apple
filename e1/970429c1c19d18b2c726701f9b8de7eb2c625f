@@ -1,0 +1,6 @@
+agent: claude-code
+version: 2.1.170 (Claude Code)
+model: claude-opus-4-8[1m]
+iterm_session: w4t0p4:DC807A30-DBC9-4F28-AD42-748B3FCC750F
+date: 2026-06-27T19:23:24Z
+note: Step 7 ext4 promotion (Sean buy-in confirmed by user); portability fix per peer scout; vz-container delete+swap next
