@@ -1851,43 +1851,43 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleCSP"); err == nil && ptr != 0 {
-		gGuidAppleCSP = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleCSP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleCSPDL"); err == nil && ptr != 0 {
-		gGuidAppleCSPDL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleCSPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleDotMacDL"); err == nil && ptr != 0 {
-		gGuidAppleDotMacDL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleDotMacDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleDotMacTP"); err == nil && ptr != 0 {
-		gGuidAppleDotMacTP = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleDotMacTP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleFileDL"); err == nil && ptr != 0 {
-		gGuidAppleFileDL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleFileDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleLDAPDL"); err == nil && ptr != 0 {
-		gGuidAppleLDAPDL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleLDAPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleSdCSPDL"); err == nil && ptr != 0 {
-		gGuidAppleSdCSPDL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleSdCSPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleX509CL"); err == nil && ptr != 0 {
-		gGuidAppleX509CL = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleX509CL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleX509TP"); err == nil && ptr != 0 {
-		gGuidAppleX509TP = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidAppleX509TP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidCssm"); err == nil && ptr != 0 {
-		gGuidCssm = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		gGuidCssm = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMSEncoderDigestAlgorithmSHA1"); err == nil && ptr != 0 {
@@ -6581,323 +6581,323 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAdCAIssuer"); err == nil && ptr != 0 {
-		oidAdCAIssuer = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAdCAIssuer = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAdOCSP"); err == nil && ptr != 0 {
-		oidAdOCSP = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAdOCSP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnsip384r1"); err == nil && ptr != 0 {
-		oidAnsip384r1 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAnsip384r1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnsip521r1"); err == nil && ptr != 0 {
-		oidAnsip521r1 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAnsip521r1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnyExtendedKeyUsage"); err == nil && ptr != 0 {
-		oidAnyExtendedKeyUsage = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAnyExtendedKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnyPolicy"); err == nil && ptr != 0 {
-		oidAnyPolicy = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAnyPolicy = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAuthorityInfoAccess"); err == nil && ptr != 0 {
-		oidAuthorityInfoAccess = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAuthorityInfoAccess = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAuthorityKeyIdentifier"); err == nil && ptr != 0 {
-		oidAuthorityKeyIdentifier = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidAuthorityKeyIdentifier = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidBasicConstraints"); err == nil && ptr != 0 {
-		oidBasicConstraints = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidBasicConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCertificatePolicies"); err == nil && ptr != 0 {
-		oidCertificatePolicies = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidCertificatePolicies = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCommonName"); err == nil && ptr != 0 {
-		oidCommonName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidCommonName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCountryName"); err == nil && ptr != 0 {
-		oidCountryName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidCountryName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCrlDistributionPoints"); err == nil && ptr != 0 {
-		oidCrlDistributionPoints = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidCrlDistributionPoints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidDescription"); err == nil && ptr != 0 {
-		oidDescription = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidDescription = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPrime192v1"); err == nil && ptr != 0 {
-		oidEcPrime192v1 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidEcPrime192v1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPrime256v1"); err == nil && ptr != 0 {
-		oidEcPrime256v1 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidEcPrime256v1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPubKey"); err == nil && ptr != 0 {
-		oidEcPubKey = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidEcPubKey = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEmailAddress"); err == nil && ptr != 0 {
-		oidEmailAddress = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidEmailAddress = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEntrustVersInfo"); err == nil && ptr != 0 {
-		oidEntrustVersInfo = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidEntrustVersInfo = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsage"); err == nil && ptr != 0 {
-		oidExtendedKeyUsage = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageClientAuth"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageClientAuth = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageClientAuth = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageCodeSigning"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageCodeSigning = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageCodeSigning = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageEmailProtection"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageEmailProtection = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageEmailProtection = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageIPSec"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageIPSec = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageIPSec = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageMicrosoftSGC"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageMicrosoftSGC = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageMicrosoftSGC = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageNetscapeSGC"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageNetscapeSGC = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageNetscapeSGC = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageOCSPSigning"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageOCSPSigning = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageOCSPSigning = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageServerAuth"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageServerAuth = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageServerAuth = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageTimeStamping"); err == nil && ptr != 0 {
-		oidExtendedKeyUsageTimeStamping = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidExtendedKeyUsageTimeStamping = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidFee"); err == nil && ptr != 0 {
-		oidFee = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidFee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidFriendlyName"); err == nil && ptr != 0 {
-		oidFriendlyName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidFriendlyName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidGoogleEmbeddedSignedCertificateTimestamp"); err == nil && ptr != 0 {
-		oidGoogleEmbeddedSignedCertificateTimestamp = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidGoogleEmbeddedSignedCertificateTimestamp = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidGoogleOCSPSignedCertificateTimestamp"); err == nil && ptr != 0 {
-		oidGoogleOCSPSignedCertificateTimestamp = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidGoogleOCSPSignedCertificateTimestamp = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidInhibitAnyPolicy"); err == nil && ptr != 0 {
-		oidInhibitAnyPolicy = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidInhibitAnyPolicy = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidIssuerAltName"); err == nil && ptr != 0 {
-		oidIssuerAltName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidIssuerAltName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidKeyUsage"); err == nil && ptr != 0 {
-		oidKeyUsage = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidLocalKeyId"); err == nil && ptr != 0 {
-		oidLocalKeyId = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidLocalKeyId = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidLocalityName"); err == nil && ptr != 0 {
-		oidLocalityName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidLocalityName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMSNTPrincipalName"); err == nil && ptr != 0 {
-		oidMSNTPrincipalName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMSNTPrincipalName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd2"); err == nil && ptr != 0 {
-		oidMd2 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd2 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd2Rsa"); err == nil && ptr != 0 {
-		oidMd2Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd2Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd4"); err == nil && ptr != 0 {
-		oidMd4 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd4 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd4Rsa"); err == nil && ptr != 0 {
-		oidMd4Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd4Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5"); err == nil && ptr != 0 {
-		oidMd5 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd5 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5Fee"); err == nil && ptr != 0 {
-		oidMd5Fee = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd5Fee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5Rsa"); err == nil && ptr != 0 {
-		oidMd5Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidMd5Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidNameConstraints"); err == nil && ptr != 0 {
-		oidNameConstraints = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidNameConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidNetscapeCertType"); err == nil && ptr != 0 {
-		oidNetscapeCertType = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidNetscapeCertType = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidOrganizationName"); err == nil && ptr != 0 {
-		oidOrganizationName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidOrganizationName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidOrganizationalUnitName"); err == nil && ptr != 0 {
-		oidOrganizationalUnitName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidOrganizationalUnitName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPolicyConstraints"); err == nil && ptr != 0 {
-		oidPolicyConstraints = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidPolicyConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPolicyMappings"); err == nil && ptr != 0 {
-		oidPolicyMappings = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidPolicyMappings = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPrivateKeyUsagePeriod"); err == nil && ptr != 0 {
-		oidPrivateKeyUsagePeriod = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidPrivateKeyUsagePeriod = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidQtCps"); err == nil && ptr != 0 {
-		oidQtCps = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidQtCps = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidQtUNotice"); err == nil && ptr != 0 {
-		oidQtUNotice = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidQtUNotice = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidRsa"); err == nil && ptr != 0 {
-		oidRsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidRsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1"); err == nil && ptr != 0 {
-		oidSha1 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Dsa"); err == nil && ptr != 0 {
-		oidSha1Dsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1Dsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1DsaCommonOIW"); err == nil && ptr != 0 {
-		oidSha1DsaCommonOIW = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1DsaCommonOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1DsaOIW"); err == nil && ptr != 0 {
-		oidSha1DsaOIW = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1DsaOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Ecdsa"); err == nil && ptr != 0 {
-		oidSha1Ecdsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Fee"); err == nil && ptr != 0 {
-		oidSha1Fee = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1Fee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Rsa"); err == nil && ptr != 0 {
-		oidSha1Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1RsaOIW"); err == nil && ptr != 0 {
-		oidSha1RsaOIW = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha1RsaOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224"); err == nil && ptr != 0 {
-		oidSha224 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha224 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224Ecdsa"); err == nil && ptr != 0 {
-		oidSha224Ecdsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha224Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224Rsa"); err == nil && ptr != 0 {
-		oidSha224Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha224Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256"); err == nil && ptr != 0 {
-		oidSha256 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha256 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256Ecdsa"); err == nil && ptr != 0 {
-		oidSha256Ecdsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha256Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256Rsa"); err == nil && ptr != 0 {
-		oidSha256Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha256Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384"); err == nil && ptr != 0 {
-		oidSha384 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha384 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384Ecdsa"); err == nil && ptr != 0 {
-		oidSha384Ecdsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha384Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384Rsa"); err == nil && ptr != 0 {
-		oidSha384Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha384Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512"); err == nil && ptr != 0 {
-		oidSha512 = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha512 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512Ecdsa"); err == nil && ptr != 0 {
-		oidSha512Ecdsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha512Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512Rsa"); err == nil && ptr != 0 {
-		oidSha512Rsa = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSha512Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidStateOrProvinceName"); err == nil && ptr != 0 {
-		oidStateOrProvinceName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidStateOrProvinceName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectAltName"); err == nil && ptr != 0 {
-		oidSubjectAltName = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSubjectAltName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectInfoAccess"); err == nil && ptr != 0 {
-		oidSubjectInfoAccess = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSubjectInfoAccess = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectKeyIdentifier"); err == nil && ptr != 0 {
-		oidSubjectKeyIdentifier = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		oidSubjectKeyIdentifier = unsafe.Pointer(ptr)
 	}
 
 }
