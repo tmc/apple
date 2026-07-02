@@ -211,8 +211,11 @@ func Send[T any](id ID, sel SEL, args ...any) T {
 					// void return — return zero value of T (struct{}{})
 					return zero
 				}
-				var result any = ID(rv)
-				return result.(T)
+				// T is uintptr-kinded (ID, SEL, Class, uintptr, …). Convert the
+				// raw uintptr result to T by reinterpreting its bits; a plain
+				// result.(T) assertion would panic because the boxed dynamic
+				// type (ID) differs from named types like SEL or uintptr.
+				return *(*T)(unsafe.Pointer(&rv))
 			}
 		}
 	}

@@ -58,8 +58,11 @@ func (e *ObjCException) Exception() ID {
 type ExceptionHandler func(name, reason string, callStack []string)
 
 // ExceptionPreprocessorFunc is called before any Objective-C exception is thrown.
-// This allows logging/debugging but cannot prevent the exception in pure Go.
-// For actual exception catching, use the cgoexception subpackage.
+// This allows logging/debugging but cannot prevent the exception in pure Go:
+// there is currently no in-tree way to catch an Objective-C exception. The
+// preprocessor can only observe the exception; the default handler then calls
+// os.Exit(1). Any method documented to raise an exception aborts the process, so
+// pre-validate arguments rather than relying on recovery.
 type ExceptionPreprocessorFunc func(exception ID) ID
 
 var (
@@ -126,7 +129,9 @@ func initExceptionPreprocessor() {
 // Passing nil restores the default behavior (handleException + os.Exit(1)).
 //
 // NOTE: The preprocessor cannot prevent the exception in pure Go - the program
-// will still crash. For actual exception catching, use the cgoexception subpackage.
+// will still crash. There is currently no in-tree way to catch an Objective-C
+// exception; the preprocessor observes it and the default handler calls
+// os.Exit(1).
 //
 // Example:
 //
