@@ -23,14 +23,18 @@ var checkTrustOnce sync.Once
 // Unlike AXIsProcessTrusted(), this always queries the current TCC state.
 // Must be called from the main thread (ObjC runtime requirement).
 func IsTrustedFresh(prompt bool) bool {
-	key := objc.Send[uintptr](objc.ID(objc.GetClass("NSString")), objc.Sel("stringWithUTF8String:"), "AXTrustedCheckOptionPrompt\x00")
+	// objc.Send must be instantiated as Send[objc.ID]: its fast path boxes the
+	// result as objc.ID, so Send[uintptr] panics on the result.(uintptr) type
+	// assertion (objc.ID is a distinct named type, not uintptr). Convert to
+	// uintptr only at the C-function boundary, which takes a raw CFDictionaryRef.
+	key := objc.Send[objc.ID](objc.ID(objc.GetClass("NSString")), objc.Sel("stringWithUTF8String:"), "AXTrustedCheckOptionPrompt\x00")
 	var boolVal bool
 	if prompt {
 		boolVal = true
 	}
-	val := objc.Send[uintptr](objc.ID(objc.GetClass("NSNumber")), objc.Sel("numberWithBool:"), boolVal)
-	dict := objc.Send[uintptr](objc.ID(objc.GetClass("NSDictionary")), objc.Sel("dictionaryWithObject:forKey:"), val, key)
-	return AXIsProcessTrustedWithOptions(dict)
+	val := objc.Send[objc.ID](objc.ID(objc.GetClass("NSNumber")), objc.Sel("numberWithBool:"), boolVal)
+	dict := objc.Send[objc.ID](objc.ID(objc.GetClass("NSDictionary")), objc.Sel("dictionaryWithObject:forKey:"), val, key)
+	return AXIsProcessTrustedWithOptions(uintptr(dict))
 }
 
 // execName returns the base name of the running executable, stripping any
