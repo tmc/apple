@@ -1,0 +1,7 @@
+published in v0.6.15 on 2026-07-03T02:30:22Z
+claude-code: 2.1.197 (Claude Code)
+model: claude-opus-4-8[1m]
+tty: not a tty
+pid: 12972
+ITERM_SESSION_ID: w3t0p2:DC807A30-DBC9-4F28-AD42-748B3FCC750F
+reviews: go-team codebase-review (4 fixes folded) + history-audit (GO); notebook 127a7086
