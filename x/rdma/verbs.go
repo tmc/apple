@@ -32,6 +32,13 @@ type RTRPolicy struct {
 	HopLimit           uint8
 	TrafficClass       uint8
 	FlowLabel          uint32
+
+	// MaxPathMTU caps the negotiated path MTU (an IBV_MTU_* value). The zero
+	// value applies no cap and uses the peers' negotiated active MTU. Apple's
+	// Thunderbolt RDMA provider does not reliably sustain a 4096-byte path MTU
+	// under queue-pair reuse, so callers on that fabric should set this to
+	// rdma.IBV_MTU_1024 (the value MLX's jaccl backend hardcodes).
+	MaxPathMTU int32
 }
 
 // RTRAttr returns the ibv_modify_qp attributes and mask for INIT->RTR.
@@ -42,7 +49,7 @@ func RTRAttr(local LocalQP, remote RemoteQP, policy RTRPolicy) (rdma.IbvQPAttr, 
 	}
 	attr := rdma.IbvQPAttr{
 		QPState:   rdma.IBV_QPS_RTR,
-		PathMTU:   NegotiatedPathMTU(local.ActiveMTU, remote.ActiveMTU),
+		PathMTU:   capPathMTU(NegotiatedPathMTU(local.ActiveMTU, remote.ActiveMTU), policy.MaxPathMTU),
 		RQPSN:     remote.PSN,
 		DestQPNum: remote.QPN,
 		AHAttr: rdma.IbvAHAttr{
@@ -87,6 +94,19 @@ func NegotiatedPathMTU(local, remote int32) int32 {
 		return local
 	}
 	return remote
+}
+
+// capPathMTU limits mtu to max when max is a valid, smaller IBV_MTU_* value.
+// A zero (or invalid) max applies no cap. IBV_MTU_* values are ordered, so a
+// numeric comparison yields the smaller MTU.
+func capPathMTU(mtu, max int32) int32 {
+	if MTUBytes(max) == 0 {
+		return mtu
+	}
+	if max < mtu {
+		return max
+	}
+	return mtu
 }
 
 // MTUBytes returns the byte size for an ibv_mtu value.
