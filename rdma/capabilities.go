@@ -26,8 +26,8 @@ type Capabilities struct {
 	RDMAWrite   Capability
 }
 
-// AppleThunderboltCapabilities reports the verbs supported by Apple's
-// Thunderbolt RDMA provider.
+// AppleThunderboltCapabilities reports the current evidence for Apple's
+// Thunderbolt RDMA provider features.
 //
 // UC queue pairs and SEND/RECV are confirmed by the working collective path.
 // RC, READ, and WRITE are unknown: this binding does not exercise or expose
