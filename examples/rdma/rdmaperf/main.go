@@ -30,21 +30,22 @@ import (
 const headerSize = 8
 
 type result struct {
-	Mode        string          `json:"mode"`
-	Pattern     string          `json:"pattern,omitempty"`
-	Addr        string          `json:"addr,omitempty"`
-	LocalAddr   string          `json:"local_addr,omitempty"`
-	RemoteAddr  string          `json:"remote_addr,omitempty"`
-	Duration    string          `json:"duration,omitempty"`
-	Elapsed     string          `json:"elapsed,omitempty"`
-	Size        int             `json:"size,omitempty"`
-	Bytes       uint64          `json:"bytes,omitempty"`
-	Messages    uint64          `json:"messages,omitempty"`
-	BytesPerSec float64         `json:"bytes_per_sec,omitempty"`
-	MsgsPerSec  float64         `json:"msgs_per_sec,omitempty"`
-	Latency     *latencySummary `json:"latency,omitempty"`
-	RDMA        *rdmaSummary    `json:"rdma,omitempty"`
-	Error       string          `json:"error,omitempty"`
+	Mode         string              `json:"mode"`
+	Pattern      string              `json:"pattern,omitempty"`
+	Addr         string              `json:"addr,omitempty"`
+	LocalAddr    string              `json:"local_addr,omitempty"`
+	RemoteAddr   string              `json:"remote_addr,omitempty"`
+	Duration     string              `json:"duration,omitempty"`
+	Elapsed      string              `json:"elapsed,omitempty"`
+	Size         int                 `json:"size,omitempty"`
+	Bytes        uint64              `json:"bytes,omitempty"`
+	Messages     uint64              `json:"messages,omitempty"`
+	BytesPerSec  float64             `json:"bytes_per_sec,omitempty"`
+	MsgsPerSec   float64             `json:"msgs_per_sec,omitempty"`
+	Latency      *latencySummary     `json:"latency,omitempty"`
+	RDMA         *rdmaSummary        `json:"rdma,omitempty"`
+	RCCapability *rcCapabilityResult `json:"rc_capability,omitempty"`
+	Error        string              `json:"error,omitempty"`
 }
 
 type rdmaBenchResult struct {
@@ -107,6 +108,17 @@ type rdmaStep struct {
 	Handle string         `json:"handle,omitempty"`
 	Fields map[string]any `json:"fields,omitempty"`
 	Error  string         `json:"error,omitempty"`
+}
+
+type rcCapabilityResult struct {
+	Device       string `json:"device,omitempty"`
+	Outcome      string `json:"outcome"`
+	Attempts     int    `json:"attempts"`
+	NoRTR        bool   `json:"no_rtr"`
+	NoData       bool   `json:"no_data"`
+	CreateErrno  int    `json:"create_errno,omitempty"`
+	CreateError  string `json:"create_error,omitempty"`
+	DestroyError string `json:"destroy_error,omitempty"`
 }
 
 type rdmaPeerInfo struct {
@@ -193,6 +205,8 @@ func main() {
 		sweep(os.Args[2:])
 	case "rdma-probe":
 		rdmaProbe(os.Args[2:])
+	case "rdma-rc-capability":
+		rdmaRCCapability(os.Args[2:])
 	case "rdma-pingpong":
 		rdmaPingpong(os.Args[2:])
 	case "rdma-port-state":
@@ -216,6 +230,8 @@ Commands:
   tcp         Run one TCP benchmark against a server.
   sweep       Run tcp across common payload sizes.
   rdma-probe  Exercise RDMA discovery/open/query/resource readiness.
+  rdma-rc-capability
+              One guarded RC-QP create/destroy capability probe; no RTR or data.
   rdma-pingpong
               Run RDMA SEND/RECV ping-pong using TCP only for setup exchange.
   interfaces  List local interface addresses useful for -listen and -addr.
@@ -536,6 +552,60 @@ func rdmaProbe(args []string) {
 	} else {
 		printResult(res)
 	}
+}
+
+const rcCapabilityConfirmEnv = "CONFIRM_RDMA_RC_CAPABILITY"
+const rcCapabilityConfirmValue = "one-shot-qp-create"
+
+func rdmaRCCapability(args []string) {
+	fs := flag.NewFlagSet("rdma-rc-capability", flag.ExitOnError)
+	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
+	deviceIndex := fs.Int("device", -1, "select RDMA device index")
+	timeout := fs.Duration("timeout", 10*time.Second, "watchdog limit for the one provider attempt")
+	allow := fs.Bool("allow-rc-probe", false, "acknowledge one RC queue-pair create/destroy attempt")
+	jsonOut := fs.Bool("json", false, "print JSON")
+	fs.Parse(args)
+
+	if err := validateRCCapabilityTimeout(*timeout); err != nil {
+		fatalf("%v", err)
+	}
+	if err := requireRCCapabilityProbeAllowed(*allow); err != nil {
+		fatalf("%v", err)
+	}
+	stopWatchdog := startRDMAWatchdog("rdma RC capability probe", *timeout)
+	res := result{Mode: "rdma-rc-capability", RCCapability: probeRCCapability(*deviceName, *deviceIndex)}
+	stopWatchdog()
+	if res.RCCapability.Outcome == "inconclusive" {
+		res.Error = res.RCCapability.CreateError
+	}
+	if res.RCCapability.DestroyError != "" {
+		res.Error = res.RCCapability.DestroyError
+	}
+	if *jsonOut {
+		writeJSON(res)
+	} else {
+		printResult(res)
+	}
+	if res.Error != "" {
+		os.Exit(1)
+	}
+}
+
+func requireRCCapabilityProbeAllowed(allow bool) error {
+	if !allow {
+		return fmt.Errorf("refusing RC capability probe: pass -allow-rc-probe for one create/destroy attempt")
+	}
+	if os.Getenv(rcCapabilityConfirmEnv) != rcCapabilityConfirmValue {
+		return fmt.Errorf("refusing RC capability probe: set %s=%s", rcCapabilityConfirmEnv, rcCapabilityConfirmValue)
+	}
+	return nil
+}
+
+func validateRCCapabilityTimeout(timeout time.Duration) error {
+	if timeout <= 0 {
+		return fmt.Errorf("-timeout must be positive")
+	}
+	return nil
 }
 
 func startRDMAWatchdog(name string, timeout time.Duration) func() {
@@ -1031,6 +1101,102 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	}
 	success = true
 	return r, nil
+}
+
+func probeRCCapability(deviceName string, deviceIndex int) *rcCapabilityResult {
+	result := &rcCapabilityResult{Outcome: "inconclusive", NoRTR: true, NoData: true}
+	if !rdma.Available() {
+		result.CreateError = "rdma unavailable"
+		return result
+	}
+	devs, err := rdmaDevices()
+	if err != nil {
+		result.CreateError = fmt.Sprintf("rdma devices: %v", err)
+		return result
+	}
+	dev, err := selectRCCapabilityDevice(devs, deviceName, deviceIndex)
+	if err != nil {
+		result.CreateError = err.Error()
+		return result
+	}
+	result.Device = dev.Name
+	ctx, err := dev.Open()
+	if err != nil || ctx == 0 {
+		result.CreateError = "ibv_open_device: " + nilReturnError(err, ctx, "context")
+		return result
+	}
+	defer rdma.IbvCloseDevice(ctx)
+	pd, err := rdma.IbvAllocPd(ctx)
+	if err != nil || pd == 0 {
+		result.CreateError = "ibv_alloc_pd: " + nilReturnError(err, pd, "protection domain")
+		return result
+	}
+	defer rdma.IbvDeallocPd(pd)
+	cq, err := rdma.IbvCreateCq(ctx, 1, 0, 0, 0)
+	if err != nil || cq == 0 {
+		result.CreateError = "ibv_create_cq: " + nilReturnError(err, cq, "completion queue")
+		return result
+	}
+	defer rdma.IbvDestroyCq(cq)
+
+	result.Attempts = 1
+	qp, err := rdma.IbvCreateQpAttr(pd, &rdma.IbvQPInitAttr{
+		SendCQ: cq,
+		RecvCQ: cq,
+		Cap: rdma.IbvQPCap{
+			MaxSendWR:  1,
+			MaxRecvWR:  1,
+			MaxSendSGE: 1,
+			MaxRecvSGE: 1,
+		},
+		QPType: rdma.IBV_QPT_RCExperimental,
+	})
+	result.Outcome, result.CreateErrno, result.CreateError = classifyRCCapabilityCreate(qp, err)
+	if qp != 0 {
+		rc, destroyErr := rdma.IbvDestroyQp(qp)
+		if destroyErr != nil || rc != 0 {
+			result.DestroyError = errOrCode(destroyErr, rc)
+		}
+	}
+	return result
+}
+
+func selectRCCapabilityDevice(devs []rdma.Device, name string, index int) (rdma.Device, error) {
+	if name != "" {
+		for _, dev := range devs {
+			if strings.Contains(dev.Name, name) {
+				return dev, nil
+			}
+		}
+		return rdma.Device{}, fmt.Errorf("no rdma device name contains %q", name)
+	}
+	if index >= 0 {
+		if index >= len(devs) {
+			return rdma.Device{}, fmt.Errorf("rdma device index %d out of range [0,%d)", index, len(devs))
+		}
+		return devs[index], nil
+	}
+	if len(devs) == 0 {
+		return rdma.Device{}, fmt.Errorf("no rdma devices")
+	}
+	return devs[0], nil
+}
+
+func classifyRCCapabilityCreate(qp rdma.RDMAQP, err error) (outcome string, errno int, detail string) {
+	if qp != 0 {
+		return "supported", 0, ""
+	}
+	if err == nil {
+		return "inconclusive", 0, "ibv_create_qp returned nil queue pair"
+	}
+	var providerErr *rdma.ProviderError
+	if errors.As(err, &providerErr) && providerErr.ErrnoSet {
+		errno = providerErr.Errno
+		if errno == int(syscall.ENOTSUP) {
+			return "rejected", errno, err.Error()
+		}
+	}
+	return "inconclusive", errno, err.Error()
 }
 
 func inactivePortError(name string, state int32, explicit bool) error {
@@ -1622,6 +1788,21 @@ func percentile(samples []time.Duration, p int) time.Duration {
 }
 
 func printResult(res result) {
+	if res.RCCapability != nil {
+		cap := res.RCCapability
+		fmt.Printf("%s device=%s outcome=%s attempts=%d no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Outcome, cap.Attempts, cap.NoRTR, cap.NoData)
+		if cap.CreateErrno != 0 {
+			fmt.Printf(" create_errno=%d", cap.CreateErrno)
+		}
+		if cap.CreateError != "" {
+			fmt.Printf(" create_error=%s", cap.CreateError)
+		}
+		if cap.DestroyError != "" {
+			fmt.Printf(" destroy_error=%s", cap.DestroyError)
+		}
+		fmt.Println()
+		return
+	}
 	if res.RDMA != nil {
 		printRDMA(res.RDMA)
 		return

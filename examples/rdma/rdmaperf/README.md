@@ -32,6 +32,14 @@ Check RDMA userspace readiness separately:
 GOWORK=off go run ./examples/rdma/rdmaperf rdma-probe -timeout 10s -json
 ```
 
+The `rdma-rc-capability` command is a separate, one-shot provider capability
+experiment. It opens one device, allocates one PD and CQ, creates exactly one
+RC QP, and immediately destroys it. It does not query a port, transition a QP,
+register memory, or post work. Both `-allow-rc-probe` and
+`CONFIRM_RDMA_RC_CAPABILITY=one-shot-qp-create` are required. Do not run it
+without a human-approved plan; a successful creation means only that RC QP
+creation is supported, not that RDMA READ or WRITE is supported.
+
 True RDMA datapath benchmarking requires successful protection-domain,
 completion-queue, memory-region, queue-pair lifecycle, QP transition, and work
 completion polling. When provider calls block, the probe watchdog exits 124

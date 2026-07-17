@@ -17,3 +17,9 @@ func TestAppleThunderboltCapabilities(t *testing.T) {
 		t.Fatalf("ErrRDMAReadUnavailable does not wrap ErrUnsupportedOperation")
 	}
 }
+
+func TestExperimentalRCQueuePairValue(t *testing.T) {
+	if IBV_QPT_RCExperimental != 2 {
+		t.Fatalf("IBV_QPT_RCExperimental = %d, want 2", IBV_QPT_RCExperimental)
+	}
+}
