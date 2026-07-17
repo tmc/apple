@@ -2,27 +2,46 @@ package rdma
 
 import "fmt"
 
-// Capabilities describes the verbs supported by Apple's Thunderbolt RDMA
-// provider. It is not a claim about every provider implementing libibverbs.
+// Capability describes the evidence level for one Apple Thunderbolt RDMA
+// feature.
+type Capability string
+
+const (
+	// CapabilityUnknown reports that this binding has no primary provider
+	// observation for the feature.
+	CapabilityUnknown Capability = "unknown"
+
+	// CapabilityConfirmed reports an observed working provider path.
+	CapabilityConfirmed Capability = "confirmed"
+)
+
+// Capabilities describes the evidence currently available for Apple's
+// Thunderbolt RDMA provider. It does not infer unsupported features from the
+// absence of binding constants.
 type Capabilities struct {
-	QueuePairUC bool
-	SendRecv    bool
-	RDMARead    bool
+	QueuePairUC Capability
+	SendRecv    Capability
+	QueuePairRC Capability
+	RDMARead    Capability
+	RDMAWrite   Capability
 }
 
 // AppleThunderboltCapabilities reports the verbs supported by Apple's
 // Thunderbolt RDMA provider.
 //
-// The provider accepts UC queue pairs and supports SEND/RECV. It rejects RC
-// queue pairs, so RDMA READ is unavailable. Other one-sided operations are
-// intentionally not represented here until verified against the provider.
+// UC queue pairs and SEND/RECV are confirmed by the working collective path.
+// RC, READ, and WRITE are unknown: this binding does not exercise or expose
+// them, but that absence is not evidence of provider rejection.
 func AppleThunderboltCapabilities() Capabilities {
 	return Capabilities{
-		QueuePairUC: true,
-		SendRecv:    true,
+		QueuePairUC: CapabilityConfirmed,
+		SendRecv:    CapabilityConfirmed,
+		QueuePairRC: CapabilityUnknown,
+		RDMARead:    CapabilityUnknown,
+		RDMAWrite:   CapabilityUnknown,
 	}
 }
 
-// ErrRDMAReadUnsupported reports that Apple's Thunderbolt RDMA provider does
-// not support RDMA READ. It wraps ErrUnsupportedOperation.
-var ErrRDMAReadUnsupported = fmt.Errorf("%w: RDMA READ requires an RC queue pair, which Apple's Thunderbolt RDMA provider rejects", ErrUnsupportedOperation)
+// ErrRDMAReadUnavailable reports that this binding does not expose RDMA READ.
+// It does not make a claim about whether the provider accepts it.
+var ErrRDMAReadUnavailable = fmt.Errorf("%w: RDMA READ is not exposed by this binding", ErrUnsupportedOperation)

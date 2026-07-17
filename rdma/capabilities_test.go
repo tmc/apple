@@ -7,13 +7,13 @@ import (
 
 func TestAppleThunderboltCapabilities(t *testing.T) {
 	got := AppleThunderboltCapabilities()
-	if !got.QueuePairUC || !got.SendRecv {
-		t.Fatalf("capabilities = %+v, want UC SEND/RECV", got)
+	if got.QueuePairUC != CapabilityConfirmed || got.SendRecv != CapabilityConfirmed {
+		t.Fatalf("capabilities = %+v, want confirmed UC/SEND/RECV", got)
 	}
-	if got.RDMARead {
-		t.Fatalf("capabilities = %+v, RDMARead must be false", got)
+	if got.QueuePairRC != CapabilityUnknown || got.RDMARead != CapabilityUnknown || got.RDMAWrite != CapabilityUnknown {
+		t.Fatalf("capabilities = %+v, want unknown RC/READ/WRITE", got)
 	}
-	if !errors.Is(ErrRDMAReadUnsupported, ErrUnsupportedOperation) {
-		t.Fatalf("ErrRDMAReadUnsupported does not wrap ErrUnsupportedOperation")
+	if !errors.Is(ErrRDMAReadUnavailable, ErrUnsupportedOperation) {
+		t.Fatalf("ErrRDMAReadUnavailable does not wrap ErrUnsupportedOperation")
 	}
 }
