@@ -761,6 +761,10 @@ func classifyRDMABenchFailure(s string) string {
 		return string(rdma.FailureNoDevice)
 	case strings.Contains(s, "rdma rtr unsafe"):
 		return "rtr_refused"
+	case strings.Contains(s, "work completion protection error"):
+		return "completion_protection"
+	case strings.Contains(s, "work completion failure"):
+		return "completion_failure"
 	default:
 		return "error"
 	}
@@ -1374,7 +1378,7 @@ func (r *rdmaResources) poll(want int, timeout time.Duration) error {
 			continue
 		}
 		if wc.Status != rdma.IBV_WC_SUCCESS {
-			return fmt.Errorf("work completion status=%d opcode=%d vendor_err=%d", wc.Status, wc.Opcode, wc.VendorErr)
+			return fmt.Errorf("work completion %s status=%d opcode=%d vendor_err=%d", rdma.ClassifyCompletionStatus(wc.Status), wc.Status, wc.Opcode, wc.VendorErr)
 		}
 		got += n
 	}
