@@ -36,6 +36,20 @@ func TestValidateRCCapabilityTimeout(t *testing.T) {
 	}
 }
 
+func TestRequireRKeyCapabilityProbeAllowed(t *testing.T) {
+	t.Setenv(rkeyCapabilityConfirmEnv, "")
+	if err := requireRKeyCapabilityProbeAllowed(false); err == nil {
+		t.Fatal("requireRKeyCapabilityProbeAllowed(false) succeeded")
+	}
+	if err := requireRKeyCapabilityProbeAllowed(true); err == nil {
+		t.Fatal("requireRKeyCapabilityProbeAllowed(true) succeeded without confirmation")
+	}
+	t.Setenv(rkeyCapabilityConfirmEnv, rkeyCapabilityConfirmValue)
+	if err := requireRKeyCapabilityProbeAllowed(true); err != nil {
+		t.Fatalf("requireRKeyCapabilityProbeAllowed(true) = %v", err)
+	}
+}
+
 func TestRCCapabilityProbeDoesNotDriveDataPath(t *testing.T) {
 	data, err := os.ReadFile("main.go")
 	if err != nil {
@@ -46,7 +60,7 @@ func TestRCCapabilityProbeDoesNotDriveDataPath(t *testing.T) {
 	if start < 0 {
 		t.Fatal("could not locate probeRCCapability source")
 	}
-	end := strings.Index(src[start:], "\nfunc selectRCCapabilityDevice(")
+	end := strings.Index(src[start:], "\nfunc probeRKeyCapability(")
 	if end < 0 {
 		t.Fatal("could not locate end of probeRCCapability source")
 	}
@@ -57,6 +71,34 @@ func TestRCCapabilityProbeDoesNotDriveDataPath(t *testing.T) {
 	for _, forbidden := range []string{"IbvModifyQp", "IbvRegMr", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
 		if strings.Contains(body, forbidden) {
 			t.Fatalf("RC capability probe must not call %s", forbidden)
+		}
+	}
+}
+
+func TestRKeyCapabilityProbeDoesNotCreateQueuePairOrDriveDataPath(t *testing.T) {
+	data, err := os.ReadFile("main.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	src := string(data)
+	start := strings.Index(src, "func probeRKeyCapability(")
+	if start < 0 {
+		t.Fatal("could not locate probeRKeyCapability source")
+	}
+	end := strings.Index(src[start:], "\nfunc classifyRKeyCapabilityRegistration(")
+	if end < 0 {
+		t.Fatal("could not locate end of probeRKeyCapability source")
+	}
+	body := src[start : start+end]
+	if n := strings.Count(body, "IbvRegMr("); n != 1 {
+		t.Fatalf("rkey capability probe has %d register-MR calls, want 1", n)
+	}
+	if n := strings.Count(body, "IbvDeregMr("); n != 1 {
+		t.Fatalf("rkey capability probe has %d deregister-MR calls, want 1", n)
+	}
+	for _, forbidden := range []string{"IbvCreateQp", "IbvModifyQp", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
+		if strings.Contains(body, forbidden) {
+			t.Fatalf("rkey capability probe must not call %s", forbidden)
 		}
 	}
 }
@@ -80,6 +122,29 @@ func TestClassifyRCCapabilityCreate(t *testing.T) {
 			gotStatus, gotErrno, _ := classifyRCCapabilityCreate(test.qp, test.err)
 			if gotStatus != test.wantStatus || gotErrno != test.wantErrno {
 				t.Fatalf("classifyRCCapabilityCreate(%#x, %v) = (%q, %d), want (%q, %d)", test.qp, test.err, gotStatus, gotErrno, test.wantStatus, test.wantErrno)
+			}
+		})
+	}
+}
+
+func TestClassifyRKeyCapabilityRegistration(t *testing.T) {
+	tests := []struct {
+		name       string
+		mr         rdma.RDMAMR
+		err        error
+		wantStatus string
+		wantErrno  int
+	}{
+		{"registered", 1, nil, "registered", 0},
+		{"provider errno", 0, &rdma.ProviderError{Errno: 22, ErrnoSet: true}, "inconclusive", 22},
+		{"ordinary error", 0, errors.New("register failed"), "inconclusive", 0},
+		{"nil memory region", 0, nil, "inconclusive", 0},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			gotStatus, gotErrno, _ := classifyRKeyCapabilityRegistration(test.mr, test.err)
+			if gotStatus != test.wantStatus || gotErrno != test.wantErrno {
+				t.Fatalf("classifyRKeyCapabilityRegistration(%#x, %v) = (%q, %d), want (%q, %d)", test.mr, test.err, gotStatus, gotErrno, test.wantStatus, test.wantErrno)
 			}
 		})
 	}

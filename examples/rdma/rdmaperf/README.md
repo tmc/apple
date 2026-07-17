@@ -40,6 +40,15 @@ register memory, or post work. Both `-allow-rc-probe` and
 without a human-approved plan; a successful creation means only that RC QP
 creation is supported, not that RDMA READ or WRITE is supported.
 
+The `rdma-rkey-capability` command is a separate, one-shot provider capability
+experiment. It opens one device, allocates one PD, and registers exactly one
+4096-byte buffer with local-write and remote-read/write access flags. It reports
+the local address, lkey, and rkey, then deregisters the buffer. It creates no
+QP, does not query a port, and does not post work. Both `-allow-rkey-probe` and
+`CONFIRM_RDMA_RKEY_CAPABILITY=one-shot-mr-register` are required. Do not run it
+without a human-approved plan; a zero or nonzero rkey reports only that
+registration's key value, not whether a one-sided operation will succeed.
+
 True RDMA datapath benchmarking requires successful protection-domain,
 completion-queue, memory-region, queue-pair lifecycle, QP transition, and work
 completion polling. When provider calls block, the probe watchdog exits 124

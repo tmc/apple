@@ -30,22 +30,23 @@ import (
 const headerSize = 8
 
 type result struct {
-	Mode         string              `json:"mode"`
-	Pattern      string              `json:"pattern,omitempty"`
-	Addr         string              `json:"addr,omitempty"`
-	LocalAddr    string              `json:"local_addr,omitempty"`
-	RemoteAddr   string              `json:"remote_addr,omitempty"`
-	Duration     string              `json:"duration,omitempty"`
-	Elapsed      string              `json:"elapsed,omitempty"`
-	Size         int                 `json:"size,omitempty"`
-	Bytes        uint64              `json:"bytes,omitempty"`
-	Messages     uint64              `json:"messages,omitempty"`
-	BytesPerSec  float64             `json:"bytes_per_sec,omitempty"`
-	MsgsPerSec   float64             `json:"msgs_per_sec,omitempty"`
-	Latency      *latencySummary     `json:"latency,omitempty"`
-	RDMA         *rdmaSummary        `json:"rdma,omitempty"`
-	RCCapability *rcCapabilityResult `json:"rc_capability,omitempty"`
-	Error        string              `json:"error,omitempty"`
+	Mode           string                `json:"mode"`
+	Pattern        string                `json:"pattern,omitempty"`
+	Addr           string                `json:"addr,omitempty"`
+	LocalAddr      string                `json:"local_addr,omitempty"`
+	RemoteAddr     string                `json:"remote_addr,omitempty"`
+	Duration       string                `json:"duration,omitempty"`
+	Elapsed        string                `json:"elapsed,omitempty"`
+	Size           int                   `json:"size,omitempty"`
+	Bytes          uint64                `json:"bytes,omitempty"`
+	Messages       uint64                `json:"messages,omitempty"`
+	BytesPerSec    float64               `json:"bytes_per_sec,omitempty"`
+	MsgsPerSec     float64               `json:"msgs_per_sec,omitempty"`
+	Latency        *latencySummary       `json:"latency,omitempty"`
+	RDMA           *rdmaSummary          `json:"rdma,omitempty"`
+	RCCapability   *rcCapabilityResult   `json:"rc_capability,omitempty"`
+	RKeyCapability *rkeyCapabilityResult `json:"rkey_capability,omitempty"`
+	Error          string                `json:"error,omitempty"`
 }
 
 type rdmaBenchResult struct {
@@ -119,6 +120,21 @@ type rcCapabilityResult struct {
 	CreateErrno  int    `json:"create_errno,omitempty"`
 	CreateError  string `json:"create_error,omitempty"`
 	DestroyError string `json:"destroy_error,omitempty"`
+}
+
+type rkeyCapabilityResult struct {
+	Device          string `json:"device,omitempty"`
+	Outcome         string `json:"outcome"`
+	Attempts        int    `json:"attempts"`
+	NoQP            bool   `json:"no_qp"`
+	NoRTR           bool   `json:"no_rtr"`
+	NoData          bool   `json:"no_data"`
+	Addr            string `json:"addr,omitempty"`
+	LKey            string `json:"lkey,omitempty"`
+	RKey            string `json:"rkey,omitempty"`
+	RegisterErrno   int    `json:"register_errno,omitempty"`
+	RegisterError   string `json:"register_error,omitempty"`
+	DeregisterError string `json:"deregister_error,omitempty"`
 }
 
 type rdmaPeerInfo struct {
@@ -207,6 +223,8 @@ func main() {
 		rdmaProbe(os.Args[2:])
 	case "rdma-rc-capability":
 		rdmaRCCapability(os.Args[2:])
+	case "rdma-rkey-capability":
+		rdmaRKeyCapability(os.Args[2:])
 	case "rdma-pingpong":
 		rdmaPingpong(os.Args[2:])
 	case "rdma-port-state":
@@ -232,6 +250,8 @@ Commands:
   rdma-probe  Exercise RDMA discovery/open/query/resource readiness.
   rdma-rc-capability
               One guarded RC-QP create/destroy capability probe; no RTR or data.
+  rdma-rkey-capability
+              One guarded MR registration capability probe; no QP, RTR, or data.
   rdma-pingpong
               Run RDMA SEND/RECV ping-pong using TCP only for setup exchange.
   interfaces  List local interface addresses useful for -listen and -addr.
@@ -557,6 +577,10 @@ func rdmaProbe(args []string) {
 const rcCapabilityConfirmEnv = "CONFIRM_RDMA_RC_CAPABILITY"
 const rcCapabilityConfirmValue = "one-shot-qp-create"
 
+const rkeyCapabilityConfirmEnv = "CONFIRM_RDMA_RKEY_CAPABILITY"
+const rkeyCapabilityConfirmValue = "one-shot-mr-register"
+const rkeyCapabilityBytes = 4096
+
 func rdmaRCCapability(args []string) {
 	fs := flag.NewFlagSet("rdma-rc-capability", flag.ExitOnError)
 	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
@@ -604,6 +628,50 @@ func requireRCCapabilityProbeAllowed(allow bool) error {
 func validateRCCapabilityTimeout(timeout time.Duration) error {
 	if timeout <= 0 {
 		return fmt.Errorf("-timeout must be positive")
+	}
+	return nil
+}
+
+func rdmaRKeyCapability(args []string) {
+	fs := flag.NewFlagSet("rdma-rkey-capability", flag.ExitOnError)
+	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
+	deviceIndex := fs.Int("device", -1, "select RDMA device index")
+	timeout := fs.Duration("timeout", 10*time.Second, "watchdog limit for the one provider attempt")
+	allow := fs.Bool("allow-rkey-probe", false, "acknowledge one memory-register/deregister attempt")
+	jsonOut := fs.Bool("json", false, "print JSON")
+	fs.Parse(args)
+
+	if err := validateRCCapabilityTimeout(*timeout); err != nil {
+		fatalf("%v", err)
+	}
+	if err := requireRKeyCapabilityProbeAllowed(*allow); err != nil {
+		fatalf("%v", err)
+	}
+	stopWatchdog := startRDMAWatchdog("rdma rkey capability probe", *timeout)
+	res := result{Mode: "rdma-rkey-capability", RKeyCapability: probeRKeyCapability(*deviceName, *deviceIndex)}
+	stopWatchdog()
+	if res.RKeyCapability.Outcome == "inconclusive" {
+		res.Error = res.RKeyCapability.RegisterError
+	}
+	if res.RKeyCapability.DeregisterError != "" {
+		res.Error = res.RKeyCapability.DeregisterError
+	}
+	if *jsonOut {
+		writeJSON(res)
+	} else {
+		printResult(res)
+	}
+	if res.Error != "" {
+		os.Exit(1)
+	}
+}
+
+func requireRKeyCapabilityProbeAllowed(allow bool) error {
+	if !allow {
+		return fmt.Errorf("refusing rkey capability probe: pass -allow-rkey-probe for one memory-register/deregister attempt")
+	}
+	if os.Getenv(rkeyCapabilityConfirmEnv) != rkeyCapabilityConfirmValue {
+		return fmt.Errorf("refusing rkey capability probe: set %s=%s", rkeyCapabilityConfirmEnv, rkeyCapabilityConfirmValue)
 	}
 	return nil
 }
@@ -1159,6 +1227,77 @@ func probeRCCapability(deviceName string, deviceIndex int) *rcCapabilityResult {
 		}
 	}
 	return result
+}
+
+func probeRKeyCapability(deviceName string, deviceIndex int) *rkeyCapabilityResult {
+	result := &rkeyCapabilityResult{Outcome: "inconclusive", NoQP: true, NoRTR: true, NoData: true}
+	if !rdma.Available() {
+		result.RegisterError = "rdma unavailable"
+		return result
+	}
+	devs, err := rdmaDevices()
+	if err != nil {
+		result.RegisterError = fmt.Sprintf("rdma devices: %v", err)
+		return result
+	}
+	dev, err := selectRCCapabilityDevice(devs, deviceName, deviceIndex)
+	if err != nil {
+		result.RegisterError = err.Error()
+		return result
+	}
+	result.Device = dev.Name
+	ctx, err := dev.Open()
+	if err != nil || ctx == 0 {
+		result.RegisterError = "ibv_open_device: " + nilReturnError(err, ctx, "context")
+		return result
+	}
+	defer rdma.IbvCloseDevice(ctx)
+	pd, err := rdma.IbvAllocPd(ctx)
+	if err != nil || pd == 0 {
+		result.RegisterError = "ibv_alloc_pd: " + nilReturnError(err, pd, "protection domain")
+		return result
+	}
+	defer rdma.IbvDeallocPd(pd)
+	buf, mapBuf, err := rdmaBuffer(rkeyCapabilityBytes)
+	if err != nil {
+		result.RegisterError = err.Error()
+		return result
+	}
+	defer syscall.Munmap(mapBuf)
+
+	result.Attempts = 1
+	mr, err := rdma.IbvRegMr(pd, uintptr(unsafe.Pointer(unsafe.SliceData(buf))), uintptr(len(buf)), rdma.IBV_ACCESS_LOCAL_WRITE|rdma.IBV_ACCESS_REMOTE_READ|rdma.IBV_ACCESS_REMOTE_WRITE)
+	runtime.KeepAlive(buf)
+	result.Outcome, result.RegisterErrno, result.RegisterError = classifyRKeyCapabilityRegistration(mr, err)
+	if mr != 0 {
+		result.Addr = fmt.Sprintf("0x%x", uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
+		result.LKey = fmt.Sprintf("0x%x", rdma.Ibv_mr_lkey(mr))
+		result.RKey = fmt.Sprintf("0x%x", rdma.Ibv_mr_rkey(mr))
+		if rdma.Ibv_mr_rkey(mr) == 0 {
+			result.Outcome = "zero"
+		} else {
+			result.Outcome = "nonzero"
+		}
+		rc, deregisterErr := rdma.IbvDeregMr(mr)
+		if deregisterErr != nil || rc != 0 {
+			result.DeregisterError = errOrCode(deregisterErr, rc)
+		}
+	}
+	return result
+}
+
+func classifyRKeyCapabilityRegistration(mr rdma.RDMAMR, err error) (outcome string, errno int, detail string) {
+	if mr != 0 {
+		return "registered", 0, ""
+	}
+	if err == nil {
+		return "inconclusive", 0, "ibv_reg_mr returned nil memory region"
+	}
+	var providerErr *rdma.ProviderError
+	if errors.As(err, &providerErr) && providerErr.ErrnoSet {
+		errno = providerErr.Errno
+	}
+	return "inconclusive", errno, err.Error()
 }
 
 func selectRCCapabilityDevice(devs []rdma.Device, name string, index int) (rdma.Device, error) {
