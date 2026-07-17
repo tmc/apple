@@ -75,8 +75,13 @@ func TestAppleHeaderABI(t *testing.T) {
 		"IBV_QP_DEST_QPN":                      1048576,
 		"IBV_SEND_SIGNALED":                    2,
 	} {
-		if got[name] != want {
-			t.Errorf("%s = %d, want %d", name, got[name], want)
+		value, ok := got[name]
+		if !ok {
+			t.Errorf("ABI oracle omitted %s", name)
+			continue
+		}
+		if value != want {
+			t.Errorf("%s = %d, want %d", name, value, want)
 		}
 	}
 }
