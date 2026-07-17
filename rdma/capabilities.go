@@ -7,20 +7,19 @@ import "fmt"
 type Capabilities struct {
 	QueuePairUC bool
 	SendRecv    bool
-	RDMAWrite   bool
 	RDMARead    bool
 }
 
 // AppleThunderboltCapabilities reports the verbs supported by Apple's
 // Thunderbolt RDMA provider.
 //
-// The provider accepts UC queue pairs and supports SEND/RECV and RDMA WRITE.
-// It rejects RC queue pairs, so RDMA READ is unavailable.
+// The provider accepts UC queue pairs and supports SEND/RECV. It rejects RC
+// queue pairs, so RDMA READ is unavailable. Other one-sided operations are
+// intentionally not represented here until verified against the provider.
 func AppleThunderboltCapabilities() Capabilities {
 	return Capabilities{
 		QueuePairUC: true,
 		SendRecv:    true,
-		RDMAWrite:   true,
 	}
 }
 
