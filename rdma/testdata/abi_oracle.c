@@ -4,6 +4,7 @@
 
 #define SIZE(type) printf(#type ".size=%zu\n", sizeof(type))
 #define OFFSET(type, field) printf(#type "." #field "=%zu\n", offsetof(type, field))
+#define VALUE(value) printf(#value "=%d\n", value)
 
 int
 main(void)
@@ -35,5 +36,27 @@ main(void)
 	OFFSET(struct ibv_port_attr, lid);
 	OFFSET(struct ibv_port_attr, link_layer);
 	OFFSET(struct ibv_port_attr, port_cap_flags2);
+
+	VALUE(IBV_QPT_RC);
+	VALUE(IBV_QPT_UC);
+	VALUE(IBV_WR_RDMA_WRITE);
+	VALUE(IBV_WR_SEND);
+	VALUE(IBV_WR_RDMA_READ);
+	VALUE(IBV_ACCESS_LOCAL_WRITE);
+	VALUE(IBV_ACCESS_REMOTE_WRITE);
+	VALUE(IBV_ACCESS_REMOTE_READ);
+	VALUE(IBV_WC_SUCCESS);
+	VALUE(IBV_WC_LOC_PROT_ERR);
+	VALUE(IBV_WC_REM_ACCESS_ERR);
+	VALUE(IBV_QP_STATE);
+	VALUE(IBV_QP_ACCESS_FLAGS);
+	VALUE(IBV_QP_PKEY_INDEX);
+	VALUE(IBV_QP_PORT);
+	VALUE(IBV_QP_AV);
+	VALUE(IBV_QP_PATH_MTU);
+	VALUE(IBV_QP_RQ_PSN);
+	VALUE(IBV_QP_SQ_PSN);
+	VALUE(IBV_QP_DEST_QPN);
+	VALUE(IBV_SEND_SIGNALED);
 	return 0;
 }
