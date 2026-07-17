@@ -1331,7 +1331,7 @@ func classifyRCCapabilityCreate(qp rdma.RDMAQP, err error) (outcome string, errn
 	var providerErr *rdma.ProviderError
 	if errors.As(err, &providerErr) && providerErr.ErrnoSet {
 		errno = providerErr.Errno
-		if errno == int(syscall.ENOTSUP) {
+		if rdma.IsUnsupportedErrno(errno) {
 			return "rejected", errno, err.Error()
 		}
 	}

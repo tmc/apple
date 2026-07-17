@@ -113,6 +113,7 @@ func TestClassifyRCCapabilityCreate(t *testing.T) {
 	}{
 		{"created", 1, nil, "supported", 0},
 		{"enotsup", 0, &rdma.ProviderError{Errno: int(syscall.ENOTSUP), ErrnoSet: true}, "rejected", int(syscall.ENOTSUP)},
+		{"eopnotsupp", 0, &rdma.ProviderError{Errno: 102, ErrnoSet: true}, "rejected", 102},
 		{"other provider errno", 0, &rdma.ProviderError{Errno: 22, ErrnoSet: true}, "inconclusive", 22},
 		{"ordinary error", 0, errors.New("create failed"), "inconclusive", 0},
 		{"nil queue pair", 0, nil, "inconclusive", 0},

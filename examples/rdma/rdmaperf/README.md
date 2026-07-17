@@ -49,6 +49,13 @@ QP, does not query a port, and does not post work. Both `-allow-rkey-probe` and
 without a human-approved plan; a zero or nonzero rkey reports only that
 registration's key value, not whether a one-sided operation will succeed.
 
+Measured on `rdma_en3` on 2026-07-17: the guarded RC create returned a nil QP
+with Darwin `EOPNOTSUPP` (errno 102; `strerror` reports "Operation not
+supported on socket"), and the guarded memory registration returned `rkey=0x0`
+after requesting remote-read/write access. These are observations for that
+device, configuration, and run. The zero rkey is not a recorded rejection of a
+one-sided operation; neither READ nor WRITE has been attempted.
+
 True RDMA datapath benchmarking requires successful protection-domain,
 completion-queue, memory-region, queue-pair lifecycle, QP transition, and work
 completion polling. When provider calls block, the probe watchdog exits 124

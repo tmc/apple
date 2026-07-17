@@ -13,6 +13,14 @@ const (
 
 	// CapabilityConfirmed reports an observed working provider path.
 	CapabilityConfirmed Capability = "confirmed"
+
+	// CapabilityRejected reports an observed provider rejection for the
+	// documented device, configuration, and run.
+	CapabilityRejected Capability = "rejected"
+
+	// CapabilityObservedZero reports an observed zero value where a nonzero
+	// capability value would be required by the documented path.
+	CapabilityObservedZero Capability = "observed_zero"
 )
 
 // Capabilities describes the evidence currently available for Apple's
@@ -24,21 +32,26 @@ type Capabilities struct {
 	QueuePairRC Capability
 	RDMARead    Capability
 	RDMAWrite   Capability
+	RemoteKey   Capability
 }
 
 // AppleThunderboltCapabilities reports the current evidence for Apple's
 // Thunderbolt RDMA provider features.
 //
 // UC queue pairs and SEND/RECV are confirmed by the working collective path.
-// RC, READ, and WRITE are unknown: this binding does not exercise or expose
-// them, but that absence is not evidence of provider rejection.
+// On 2026-07-17, a guarded RC create on rdma_en3 returned a nil QP with
+// EOPNOTSUPP (errno 102), so RC is rejected for that device, configuration,
+// and run. A guarded memory registration on the same device requested remote
+// read/write and returned rkey 0x0. That is an observed key value, not an
+// attempted or rejected one-sided operation. READ and WRITE remain unknown.
 func AppleThunderboltCapabilities() Capabilities {
 	return Capabilities{
 		QueuePairUC: CapabilityConfirmed,
 		SendRecv:    CapabilityConfirmed,
-		QueuePairRC: CapabilityUnknown,
+		QueuePairRC: CapabilityRejected,
 		RDMARead:    CapabilityUnknown,
 		RDMAWrite:   CapabilityUnknown,
+		RemoteKey:   CapabilityObservedZero,
 	}
 }
 

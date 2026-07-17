@@ -284,6 +284,8 @@ func ErrnoText(errno int) string {
 		return "errno 38 (ENOSYS)"
 	case int(syscall.ENOTSUP):
 		return "errno 45 (ENOTSUP)"
+	case 102:
+		return "errno 102 (EOPNOTSUPP)"
 	case 60:
 		return "errno 60 (ETIMEDOUT)"
 	case 96:
@@ -318,6 +320,8 @@ func ErrnoName(errno int) string {
 		return "ENOSYS"
 	case int(syscall.ENOTSUP):
 		return "ENOTSUP"
+	case 102:
+		return "EOPNOTSUPP"
 	case 60:
 		return "ETIMEDOUT"
 	case 96:
@@ -325,4 +329,11 @@ func ErrnoName(errno int) string {
 	default:
 		return fmt.Sprintf("errno %d", errno)
 	}
+}
+
+// IsUnsupportedErrno reports whether errno is Apple's ENOTSUP or its UNIX03
+// EOPNOTSUPP value. Darwin strerror(102) is "Operation not supported on
+// socket".
+func IsUnsupportedErrno(errno int) bool {
+	return errno == int(syscall.ENOTSUP) || errno == 102
 }
