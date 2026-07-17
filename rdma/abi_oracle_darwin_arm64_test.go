@@ -74,6 +74,7 @@ func TestAppleHeaderABI(t *testing.T) {
 		"IBV_QP_SQ_PSN":                        65536,
 		"IBV_QP_DEST_QPN":                      1048576,
 		"IBV_SEND_SIGNALED":                    2,
+		"ENOTSUP":                              45,
 	} {
 		value, ok := got[name]
 		if !ok {

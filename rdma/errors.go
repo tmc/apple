@@ -282,12 +282,10 @@ func ErrnoText(errno int) string {
 		return "errno 22 (EINVAL)"
 	case 38:
 		return "errno 38 (ENOSYS)"
-	case 45:
-		return "errno 45 (EOPNOTSUPP)"
+	case int(syscall.ENOTSUP):
+		return "errno 45 (ENOTSUP)"
 	case 60:
 		return "errno 60 (ETIMEDOUT)"
-	case 95:
-		return "errno 95 (ENOTSUP)"
 	case 96:
 		return "errno 96 (EPROTONOSUPPORT)"
 	default:
@@ -318,12 +316,10 @@ func ErrnoName(errno int) string {
 		return "EINVAL"
 	case 38:
 		return "ENOSYS"
-	case 45:
-		return "EOPNOTSUPP"
+	case int(syscall.ENOTSUP):
+		return "ENOTSUP"
 	case 60:
 		return "ETIMEDOUT"
-	case 95:
-		return "ENOTSUP"
 	case 96:
 		return "EPROTONOSUPPORT"
 	default:
