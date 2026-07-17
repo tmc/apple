@@ -777,16 +777,11 @@ func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gi
 		return err
 	}
 	res.Stage = "open-rdma-resources"
-	r, err := openRDMAResourcesWithTimeout(deviceName, deviceIndex, gidIndex, size, setupTimeout)
+	r, err := openRDMAResources(deviceName, deviceIndex, gidIndex, size, setupTimeout)
 	if err != nil {
 		return err
 	}
-	closeResources := true
-	defer func() {
-		if closeResources {
-			r.close()
-		}
-	}()
+	defer r.close()
 
 	local := r.peerInfo()
 	res.Device = r.dev.Name
@@ -802,10 +797,13 @@ func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gi
 	}
 
 	res.Stage = "connect-rdma"
-	connectErr := r.connectWithTimeout(remote, policy, setupTimeout)
-	if errors.Is(connectErr, errRDMASetupTimeout) {
-		closeResources = false
-	}
+	// IbvModifyQp can wedge inside the provider. Do not run it in a goroutine
+	// and return on a timer: that would leave the call operating on resources
+	// this function may close. The watchdog terminates the process if the
+	// synchronous attempt does not return; it is containment, not cancellation.
+	stopWatchdog := startRDMAWatchdog("rdma QP setup", setupTimeout)
+	connectErr := r.connect(remote, policy)
+	stopWatchdog()
 	// This ready exchange is the post-RTS barrier: neither side posts datapath
 	// work until both QPs have completed the INIT->RTR->RTS transition.
 	res.Stage = "exchange-rdma-ready"
@@ -1150,29 +1148,6 @@ func rdmaPortState(args []string) {
 	writeJSON(out)
 }
 
-func openRDMAResourcesWithTimeout(deviceName string, deviceIndex, gidIndex, size int, timeout time.Duration) (*rdmaResources, error) {
-	if timeout <= 0 {
-		return openRDMAResources(deviceName, deviceIndex, gidIndex, size, timeout)
-	}
-	type result struct {
-		res *rdmaResources
-		err error
-	}
-	done := make(chan result, 1)
-	go func() {
-		res, err := openRDMAResources(deviceName, deviceIndex, gidIndex, size, timeout)
-		done <- result{res: res, err: err}
-	}()
-	timer := time.NewTimer(timeout)
-	defer timer.Stop()
-	select {
-	case got := <-done:
-		return got.res, got.err
-	case <-timer.C:
-		return nil, fmt.Errorf("%w opening rdma resources after %s", errRDMASetupTimeout, timeout)
-	}
-}
-
 func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 	rc, err := rdma.IbvQueryPort(r.ctx, 1, uintptr(unsafe.Pointer(&r.port)))
 	runtime.KeepAlive(&r.port)
@@ -1317,24 +1292,6 @@ func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo, policy xrdma.RTRPolicy) (rd
 		UseGlobal: remote.UseGlobal,
 		ActiveMTU: remote.ActiveMTU,
 	}, policy)
-}
-
-func (r *rdmaResources) connectWithTimeout(remote rdmaPeerInfo, policy xrdma.RTRPolicy, timeout time.Duration) error {
-	if timeout <= 0 {
-		return r.connect(remote, policy)
-	}
-	done := make(chan error, 1)
-	go func() {
-		done <- r.connect(remote, policy)
-	}()
-	timer := time.NewTimer(timeout)
-	defer timer.Stop()
-	select {
-	case err := <-done:
-		return err
-	case <-timer.C:
-		return fmt.Errorf("%w after %s", errRDMASetupTimeout, timeout)
-	}
 }
 
 func runRDMAPingpongClientLoop(r *rdmaResources, iters int, res *rdmaBenchResult) error {
