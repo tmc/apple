@@ -1361,7 +1361,7 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 		return err
 	}
 	defer closeRDMAResources(resources)
-	res.MRsOpened, res.PDsOpened, res.QPsOpened = lifecycleResourceCounts(resources)
+	setLifecycleResourceCounts(res, resources)
 
 	local := make([]rdmaPeerInfo, len(resources))
 	for i, r := range resources {
@@ -1547,6 +1547,10 @@ func lifecycleResourceCounts(resources []*rdmaResources) (qps, pds, mrs int) {
 		mrs += len(r.extraMRs)
 	}
 	return qps, pds, mrs
+}
+
+func setLifecycleResourceCounts(res *rdmaBenchResult, resources []*rdmaResources) {
+	res.QPsOpened, res.PDsOpened, res.MRsOpened = lifecycleResourceCounts(resources)
 }
 
 func closeRDMAResources(resources []*rdmaResources) {

@@ -366,6 +366,11 @@ func TestLifecycleResourceCounts(t *testing.T) {
 	if qps != 2 || pds != 2 || mrs != 4 {
 		t.Fatalf("lifecycleResourceCounts() = (%d, %d, %d), want (2, 2, 4)", qps, pds, mrs)
 	}
+	var result rdmaBenchResult
+	setLifecycleResourceCounts(&result, resources)
+	if result.QPsOpened != 2 || result.PDsOpened != 2 || result.MRsOpened != 4 {
+		t.Fatalf("setLifecycleResourceCounts() = (%d, %d, %d), want (2, 2, 4)", result.QPsOpened, result.PDsOpened, result.MRsOpened)
+	}
 }
 
 func TestFinishRDMADatapath(t *testing.T) {
