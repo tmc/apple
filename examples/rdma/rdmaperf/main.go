@@ -70,6 +70,7 @@ type rdmaBenchResult struct {
 	Size                   int                `json:"size"`
 	Iterations             int                `json:"iterations"`
 	DataIterations         int                `json:"data_iterations,omitempty"`
+	IdleDwell              string             `json:"idle_dwell,omitempty"`
 	MRCount                int                `json:"mr_count,omitempty"`
 	PDsPerRound            int                `json:"pds_per_round,omitempty"`
 	QPsPerRound            int                `json:"qps_per_round,omitempty"`
@@ -88,11 +89,26 @@ type rdmaBenchResult struct {
 	DatapathMessagesPerSec float64            `json:"datapath_messages_per_sec,omitempty"`
 	Latency                *latencySummary    `json:"latency,omitempty"`
 	DataVerified           bool               `json:"data_verified"`
+	PreIdleVerified        bool               `json:"pre_idle_verified,omitempty"`
+	PostIdleVerified       bool               `json:"post_idle_verified,omitempty"`
+	QPData                 []rdmaQPDataResult `json:"qp_data,omitempty"`
 	Local                  rdmaPeerInfo       `json:"local"`
 	Remote                 rdmaPeerInfo       `json:"remote"`
 	Error                  string             `json:"error,omitempty"`
 
 	datapathElapsed time.Duration
+}
+
+type rdmaQPDataResult struct {
+	QP             int     `json:"qp"`
+	Phase          string  `json:"phase,omitempty"`
+	Bytes          uint64  `json:"bytes"`
+	Messages       uint64  `json:"messages"`
+	Elapsed        string  `json:"elapsed,omitempty"`
+	BytesPerSec    float64 `json:"bytes_per_sec,omitempty"`
+	MessagesPerSec float64 `json:"messages_per_sec,omitempty"`
+	Verified       bool    `json:"verified"`
+	Error          string  `json:"error,omitempty"`
 }
 
 type latencySummary struct {
@@ -879,13 +895,17 @@ const lifecycleProbeConfirmValue = "one-shot-lifecycle"
 const lifecycleStressConfirmEnv = "CONFIRM_RDMA_LIFECYCLE_STRESS"
 
 const (
-	lifecycleStressCountScale = "l1-count-scale"
-	lifecycleStressRoundDepth = "l2-round-depth"
-	maxLifecycleStressRounds  = 1000
-	maxLifecycleStressMRs     = 90
-	maxLifecycleStressQPs     = 11
-	maxLifecycleStressL1Time  = 10 * time.Minute
-	maxLifecycleStressL2Time  = 6 * time.Hour
+	lifecycleStressCountScale      = "l1-count-scale"
+	lifecycleStressRoundDepth      = "l2-round-depth"
+	lifecycleStressConcurrency     = "l4-concurrency"
+	lifecycleStressIdleDegradation = "l5-idle-degradation"
+	maxLifecycleStressRounds       = 1000
+	maxLifecycleStressMRs          = 90
+	maxLifecycleStressQPs          = 11
+	maxLifecycleStressL1Time       = 10 * time.Minute
+	maxLifecycleStressL2Time       = 6 * time.Hour
+	maxLifecycleStressL5Time       = 3 * time.Hour
+	maxLifecycleIdleDwell          = 2 * time.Hour
 )
 
 func rdmaLifecycleProbe(args []string) {
@@ -913,9 +933,9 @@ func rdmaLifecycleProbe(args []string) {
 	stop := startRDMAWatchdog("rdma lifecycle probe", *timeout)
 	var res rdmaBenchResult
 	if *listenAddr != "" {
-		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, *setupTimeout)
+		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout)
 	} else {
-		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, *setupTimeout)
+		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout)
 	}
 	stop()
 	res.Mode, res.Iterations, res.DatapathClaim = "rdma-lifecycle-probe", *rounds, false
@@ -941,13 +961,14 @@ func rdmaLifecycleStress(args []string) {
 	addr := fs.String("addr", "", "rank 0 address for rank 1")
 	deviceName := fs.String("name", "", "select RDMA device")
 	deviceIndex := fs.Int("device", -1, "select RDMA device index")
-	level := fs.String("level", "", "stress level: l1-count-scale or l2-round-depth")
+	level := fs.String("level", "", "stress level: l1-count-scale, l2-round-depth, l4-concurrency, or l5-idle-degradation")
 	rounds := fs.Int("rounds", 0, "setup/teardown rounds")
 	mrs := fs.Int("mrs", 0, "total memory regions held per round")
 	qps := fs.Int("qps", 0, "queue pairs held per round")
 	data := fs.Bool("data", false, "post UC SEND/RECV traffic after QP setup")
 	sizeText := fs.String("size", "64", "data payload size when -data is set (1..512K)")
 	iters := fs.Int("iters", 0, "data ping-pong iterations per QP per round when -data is set")
+	idleDwell := fs.Duration("idle-dwell", 0, "idle time between verified pre-idle and post-idle transfers for l5")
 	timeout := fs.Duration("timeout", 0, "whole-probe watchdog limit")
 	setupTimeout := fs.Duration("setup-timeout", 5*time.Second, "per-round setup watchdog limit")
 	allow := fs.Bool("allow-lifecycle-stress", false, "acknowledge the selected lifecycle stress probe")
@@ -955,7 +976,7 @@ func rdmaLifecycleStress(args []string) {
 	jsonOut := fs.Bool("json", false, "print JSON")
 	fs.Parse(args)
 	size := parseSize(*sizeText)
-	if err := validateLifecycleStress(*level, *listenAddr, *addr, *rounds, *mrs, *qps, *data, size, *iters, *timeout, *setupTimeout); err != nil {
+	if err := validateLifecycleStressIdle(*level, *listenAddr, *addr, *rounds, *mrs, *qps, *data, size, *iters, *idleDwell, *timeout, *setupTimeout); err != nil {
 		fatalf("lifecycle stress: %v", err)
 	}
 	if !*allow || os.Getenv(lifecycleStressConfirmEnv) != *level {
@@ -971,13 +992,16 @@ func rdmaLifecycleStress(args []string) {
 	stop := startRDMAWatchdog("rdma lifecycle stress", *timeout)
 	var res rdmaBenchResult
 	if *listenAddr != "" {
-		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *setupTimeout)
+		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout)
 	} else {
-		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *setupTimeout)
+		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout)
 	}
 	stop()
 	res.Mode, res.Iterations, res.DataIterations = "rdma-lifecycle-stress", *rounds, *iters
 	res.Size, res.DatapathClaim = size, *data && res.Error == "" && res.RoundsDone == *rounds
+	if *idleDwell > 0 {
+		res.IdleDwell = idleDwell.String()
+	}
 	res.SetupTimeout = setupTimeout.String()
 	res.GateEnv = lifecycleStressGateEnv(*level, *data)
 	res.MRCount, res.PDsPerRound, res.QPsPerRound = *mrs, *qps, *qps
@@ -1009,6 +1033,10 @@ func lifecycleStressGateEnv(level string, data bool) string {
 }
 
 func validateLifecycleStress(level, listen, addr string, rounds, mrs, qps int, data bool, size, iters int, timeout, setupTimeout time.Duration) error {
+	return validateLifecycleStressIdle(level, listen, addr, rounds, mrs, qps, data, size, iters, 0, timeout, setupTimeout)
+}
+
+func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps int, data bool, size, iters int, idleDwell, timeout, setupTimeout time.Duration) error {
 	if (listen == "") == (addr == "") {
 		return fmt.Errorf("require exactly one of -listen/-addr")
 	}
@@ -1052,13 +1080,45 @@ func validateLifecycleStress(level, listen, addr string, rounds, mrs, qps int, d
 		if mrs < 1 || mrs > 4 {
 			return fmt.Errorf("l2 round-depth -mrs must be in [1,4]")
 		}
+	case lifecycleStressConcurrency:
+		if rounds != 1 {
+			return fmt.Errorf("l4 concurrency requires -rounds=1")
+		}
+		if qps < 2 || qps > 9 {
+			return fmt.Errorf("l4 concurrency -qps must be in [2,9]")
+		}
+		if mrs < qps || mrs > maxLifecycleStressMRs {
+			return fmt.Errorf("l4 concurrency -mrs must be in [%d,%d]", qps, maxLifecycleStressMRs)
+		}
+		if !data {
+			return fmt.Errorf("l4 concurrency requires -data")
+		}
+	case lifecycleStressIdleDegradation:
+		if timeout > maxLifecycleStressL5Time {
+			return fmt.Errorf("l5 idle-degradation -timeout must not exceed %s", maxLifecycleStressL5Time)
+		}
+		if rounds != 1 || qps != 1 {
+			return fmt.Errorf("l5 idle-degradation requires -rounds=1 and -qps=1")
+		}
+		if mrs < 1 || mrs > 4 {
+			return fmt.Errorf("l5 idle-degradation -mrs must be in [1,4]")
+		}
+		if !data {
+			return fmt.Errorf("l5 idle-degradation requires -data")
+		}
+		if idleDwell < time.Second || idleDwell > maxLifecycleIdleDwell {
+			return fmt.Errorf("l5 idle-degradation -idle-dwell must be in [1s,%s]", maxLifecycleIdleDwell)
+		}
+		if timeout <= idleDwell {
+			return fmt.Errorf("l5 idle-degradation -timeout must exceed -idle-dwell")
+		}
 	default:
-		return fmt.Errorf("-level must be %q or %q", lifecycleStressCountScale, lifecycleStressRoundDepth)
+		return fmt.Errorf("-level must be %q, %q, %q, or %q", lifecycleStressCountScale, lifecycleStressRoundDepth, lifecycleStressConcurrency, lifecycleStressIdleDegradation)
 	}
 	return nil
 }
 
-func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iters int, timeout time.Duration) rdmaBenchResult {
+func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration) rdmaBenchResult {
 	res := newRDMABenchResult("rank0", listen, 0, rounds)
 	ln, err := listenTCP(listen)
 	if err != nil {
@@ -1073,7 +1133,7 @@ func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iter
 	}
 	defer c.Close()
 	for i := 0; i < rounds; i++ {
-		if err := runRDMALifecycleRound(c, false, name, index, mrs, qps, size, iters, timeout, &res); err != nil {
+		if err := runRDMALifecycleRound(c, false, name, index, mrs, qps, size, iters, level, idleDwell, timeout, &res); err != nil {
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
@@ -1083,7 +1143,7 @@ func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iter
 	return res
 }
 
-func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters int, timeout time.Duration) rdmaBenchResult {
+func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration) rdmaBenchResult {
 	res := newRDMABenchResult("rank1", addr, 0, rounds)
 	c, err := dialTCP(addr)
 	if err != nil {
@@ -1092,7 +1152,7 @@ func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters 
 	}
 	defer c.Close()
 	for i := 0; i < rounds; i++ {
-		if err := runRDMALifecycleRound(c, true, name, index, mrs, qps, size, iters, timeout, &res); err != nil {
+		if err := runRDMALifecycleRound(c, true, name, index, mrs, qps, size, iters, level, idleDwell, timeout, &res); err != nil {
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
@@ -1278,7 +1338,7 @@ func classifyRDMABenchFailure(s string) string {
 // runRDMALifecycleRound holds qps QPs and mrs MRs simultaneously, completes
 // their INIT->RTR->RTS transitions, optionally transfers UC SEND/RECV data,
 // and tears them all down. It is used only by guarded lifecycle commands.
-func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceIndex, mrs, qps, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {
+func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceIndex, mrs, qps, size, iters int, level string, idleDwell, setupTimeout time.Duration, res *rdmaBenchResult) error {
 	defer c.SetDeadline(time.Time{})
 	role := "server"
 	if client {
@@ -1341,24 +1401,94 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	}
 	if iters > 0 {
 		res.Stage = "datapath"
-		start := time.Now()
-		for i, r := range resources {
-			var dataRes rdmaBenchResult
-			if client {
-				err = runRDMAPingpongClientLoop(r, iters, &dataRes)
-			} else {
-				err = runRDMAPingpongServerLoop(r, iters, &dataRes)
+		switch level {
+		case lifecycleStressIdleDegradation:
+			if err := runLifecycleData(resources, client, iters, false, "pre-idle", res); err != nil {
+				return err
 			}
-			if err != nil {
-				return fmt.Errorf("qp %d data: %w", i+1, err)
+			res.PreIdleVerified = true
+			if err := runRDMAControlHello(control, res, "pre-idle", role, setupTimeout); err != nil {
+				return err
 			}
-			res.Bytes += dataRes.Bytes
-			res.Messages += uint64(iters)
+			res.Stage = "idle"
+			time.Sleep(idleDwell)
+			if err := runRDMAControlHello(control, res, "post-idle", role, setupTimeout); err != nil {
+				return err
+			}
+			res.Stage = "post-idle-datapath"
+			if err := runLifecycleData(resources, client, iters, false, "post-idle", res); err != nil {
+				return err
+			}
+			res.PostIdleVerified = true
+		case lifecycleStressConcurrency:
+			if err := runLifecycleData(resources, client, iters, true, "concurrent", res); err != nil {
+				return err
+			}
+		default:
+			if err := runLifecycleData(resources, client, iters, false, "", res); err != nil {
+				return err
+			}
 		}
-		res.datapathElapsed += time.Since(start)
 		res.DataVerified = true
 	}
 	res.Stage = "done"
+	return nil
+}
+
+func runLifecycleData(resources []*rdmaResources, client bool, iters int, concurrent bool, phase string, res *rdmaBenchResult) error {
+	start := time.Now()
+	results := make([]rdmaQPDataResult, len(resources))
+	run := func(i int, r *rdmaResources) {
+		dataRes := rdmaBenchResult{}
+		qpStart := time.Now()
+		var err error
+		if client {
+			err = runRDMAPingpongClientLoop(r, iters, &dataRes)
+		} else {
+			err = runRDMAPingpongServerLoop(r, iters, &dataRes)
+		}
+		elapsed := time.Since(qpStart)
+		result := rdmaQPDataResult{
+			QP:       i + 1,
+			Phase:    phase,
+			Bytes:    dataRes.Bytes,
+			Messages: uint64(iters),
+			Elapsed:  elapsed.String(),
+			Verified: err == nil,
+			Error:    "",
+		}
+		if err != nil {
+			result.Error = err.Error()
+		} else if elapsed > 0 {
+			result.BytesPerSec = float64(dataRes.Bytes) / elapsed.Seconds()
+			result.MessagesPerSec = float64(iters) / elapsed.Seconds()
+		}
+		results[i] = result
+	}
+	if concurrent {
+		var wg sync.WaitGroup
+		wg.Add(len(resources))
+		for i, r := range resources {
+			go func(i int, r *rdmaResources) {
+				defer wg.Done()
+				run(i, r)
+			}(i, r)
+		}
+		wg.Wait()
+	} else {
+		for i, r := range resources {
+			run(i, r)
+		}
+	}
+	res.QPData = append(res.QPData, results...)
+	for _, result := range results {
+		if result.Error != "" {
+			return fmt.Errorf("qp %d data: %s", result.QP, result.Error)
+		}
+		res.Bytes += result.Bytes
+		res.Messages += result.Messages
+	}
+	res.datapathElapsed += time.Since(start)
 	return nil
 }
 

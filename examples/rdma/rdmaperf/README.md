@@ -99,20 +99,28 @@ L3 is the `-data` composition of either L1 or L2. It has a payload range of
 data soak is L1 or L2 with `-data`: it measures cleanup after actual UC
 SEND/RECV completions, not merely QP state transitions.
 
-L4 concurrency is intentionally not implemented by this command yet. It will
-need multiple independent QP groups posting concurrently, rather than the
-current sequential per-QP data phase, and is a two-host wedge/corruption risk.
+L4 concurrency uses 2--9 live QPs and starts one UC SEND/RECV ping-pong
+goroutine per QP after all QPs reach RTS. It requires `-rounds=1`, `-data`, and
+the normal lifecycle and data gates. JSON reports aggregate bytes plus a
+`qp_data` entry for every QP, so serialization, corruption, and individual-QP
+provider errors remain visible. It is a two-host wedge/corruption risk.
 
-L5 idle degradation is intentionally not implemented yet. It will need two
-hosts to hold known-good RTS QPs idle for the approved interval and then run a
-verified data exchange. It is a two-host wedge and long-duration risk.
+L5 idle degradation uses one QP. It runs verified pre-idle data, exchanges a
+TCP control barrier, holds the QP idle for `-idle-dwell`, exchanges a second
+barrier, and runs verified post-idle data. It requires `-rounds=1`, `-qps=1`,
+`-data`, and an idle dwell between one second and two hours. JSON records
+`idle_dwell`, `pre_idle_verified`, `post_idle_verified`, and phase-labelled
+per-QP data. It is a two-host wedge and long-duration risk.
 
 For L1/L2, success is JSON with `outcome="reclaimed"`, the requested
 `rounds_done`, `mr_count`, and `qps_per_round`, and no `error`. In data mode,
 also require `data_verified=true` and exactly
 `rounds * qps * iters * size * 2` bytes on each rank. A nonzero exit with a
 round error is a failure/degradation signal; exit 124 is watchdog containment
-for a possible wedge. Do not retry either signal automatically.
+for a possible wedge. A watchdog can also fire if the peer was not launched or
+the control connection was malformed, so confirm provider health with a
+read-only `rdma-probe` on both hosts before declaring a wedge. Do not retry
+either signal automatically.
 
 `bytes_per_sec` covers the full lifecycle command, including rank-0 listen and
 resource setup. For a payload throughput sweep, use `datapath_bytes_per_sec`

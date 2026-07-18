@@ -260,6 +260,9 @@ func TestValidateLifecycleStress(t *testing.T) {
 		{"l2 maximum", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1000, 4, 1, false, 64, 0, time.Hour, time.Second, false},
 		{"l2 multiple qps", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 50, 2, 2, false, 64, 0, time.Minute, time.Second, true},
 		{"l2 too many mrs", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 50, 5, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"l4 concurrent", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 2, 2, true, 64, 1, time.Minute, time.Second, false},
+		{"l4 requires data", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 2, 2, false, 64, 0, time.Minute, time.Second, true},
+		{"l4 too many qps", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 10, 10, true, 64, 1, time.Minute, time.Second, true},
 		{"data needs iters", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, true, 64, 0, time.Minute, time.Second, true},
 		{"iters needs data", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 1, time.Minute, time.Second, true},
 		{"bad level", "l3-data-path", ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, true},
@@ -271,6 +274,28 @@ func TestValidateLifecycleStress(t *testing.T) {
 			err := validateLifecycleStress(test.level, test.listen, test.addr, test.rounds, test.mrs, test.qps, test.data, test.size, test.iters, test.timeout, test.setupTimeout)
 			if (err != nil) != test.wantErr {
 				t.Fatalf("validateLifecycleStress() error = %v, wantErr %v", err, test.wantErr)
+			}
+		})
+	}
+}
+
+func TestValidateLifecycleStressIdle(t *testing.T) {
+	tests := []struct {
+		name      string
+		dwell     time.Duration
+		timeout   time.Duration
+		wantError bool
+	}{
+		{"valid", 5 * time.Minute, 10 * time.Minute, false},
+		{"zero dwell", 0, 10 * time.Minute, true},
+		{"dwell exceeds timeout", 5 * time.Minute, 5 * time.Minute, true},
+		{"dwell too long", 3 * time.Hour, 4 * time.Hour, true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			err := validateLifecycleStressIdle(lifecycleStressIdleDegradation, ":1234", "", 1, 2, 1, true, 64, 1, test.dwell, test.timeout, time.Second)
+			if (err != nil) != test.wantError {
+				t.Fatalf("validateLifecycleStressIdle() error = %v, wantError %v", err, test.wantError)
 			}
 		})
 	}
