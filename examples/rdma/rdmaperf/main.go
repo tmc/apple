@@ -70,6 +70,10 @@ type rdmaBenchResult struct {
 	Size           int                `json:"size"`
 	Iterations     int                `json:"iterations"`
 	MRCount        int                `json:"mr_count,omitempty"`
+	PDsPerRound    int                `json:"pds_per_round,omitempty"`
+	QPsPerRound    int                `json:"qps_per_round,omitempty"`
+	RoundsDone     int                `json:"rounds_done,omitempty"`
+	Outcome        string             `json:"outcome,omitempty"`
 	Elapsed        string             `json:"elapsed,omitempty"`
 	Bytes          uint64             `json:"bytes,omitempty"`
 	BytesPerSec    float64            `json:"bytes_per_sec,omitempty"`
@@ -888,7 +892,12 @@ func rdmaLifecycleProbe(args []string) {
 	}
 	stop()
 	res.Mode, res.Iterations, res.DatapathClaim = "rdma-lifecycle-probe", *rounds, false
-	res.MRCount = *mrs
+	res.MRCount, res.PDsPerRound, res.QPsPerRound = *mrs, 1, 1
+	if res.Error == "" && res.RoundsDone == *rounds {
+		res.Outcome = "reclaimed"
+	} else if res.Error != "" {
+		res.Outcome = "failed"
+	}
 	if *jsonOut {
 		writeJSON(res)
 	} else {
@@ -918,6 +927,7 @@ func runLifecycleServer(listen, name string, index, rounds, mrs int, timeout tim
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
+		res.RoundsDone++
 	}
 	res.Stage = "done"
 	return res
@@ -936,6 +946,7 @@ func runLifecycleClient(addr, name string, index, rounds, mrs int, timeout time.
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
+		res.RoundsDone++
 	}
 	res.Stage = "done"
 	return res
