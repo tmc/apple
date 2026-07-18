@@ -41,6 +41,29 @@ func TestQueryStepPreview(t *testing.T) {
 	}
 }
 
+func TestDeviceAttrFieldsIncludesProviderLimits(t *testing.T) {
+	buf := make([]byte, unsafe.Sizeof(ibvDeviceAttr{}))
+	attr := (*ibvDeviceAttr)(unsafe.Pointer(unsafe.SliceData(buf)))
+	attr.MaxPD = 11
+	attr.MaxMR = 12
+	attr.MaxQP = 13
+	attr.MaxCQ = 14
+	attr.MaxCQE = 15
+
+	fields := deviceAttrFields(buf)
+	for name, want := range map[string]any{
+		"max_pd":  int32(11),
+		"max_mr":  int32(12),
+		"max_qp":  int32(13),
+		"max_cq":  int32(14),
+		"max_cqe": int32(15),
+	} {
+		if got := fields[name]; got != want {
+			t.Errorf("deviceAttrFields()[%q] = %v, want %v", name, got, want)
+		}
+	}
+}
+
 func TestRDMAReadinessNames(t *testing.T) {
 	if got := rdmaNetInterface("rdma_en3"); got != "en3" {
 		t.Fatalf("rdmaNetInterface = %q, want en3", got)

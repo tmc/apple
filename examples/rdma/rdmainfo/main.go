@@ -120,6 +120,8 @@ func main() {
 		openDevice(os.Args[2:])
 	case "query":
 		query(os.Args[2:])
+	case "query-device":
+		queryDevice(os.Args[2:])
 	case "lifecycle":
 		lifecycle(os.Args[2:])
 	case "help", "-h", "--help":
@@ -144,6 +146,7 @@ Commands:
   exercise    Exercise every generated verb that is safe on this host.
   open        Open and close one RDMA device.
   query       Open a device and call ibv_query_device / ibv_query_port.
+  query-device Open a device and call ibv_query_device only.
   lifecycle   Open a device, allocate PD, create CQ, optionally register memory.
 
 Common options:
@@ -499,6 +502,35 @@ func query(args []string) {
 	}
 
 	runQuery(ctx, portNum, *deviceAttrSize, *portAttrSize, *preview, &out)
+	closeContext(ctx, &out)
+	printOutput(out, *jsonOut)
+}
+
+// queryDevice calls ibv_query_device without querying a port or allocating a
+// provider resource. It is useful when the reported device limits are the
+// only requested observation.
+func queryDevice(args []string) {
+	fs := flag.NewFlagSet("query-device", flag.ExitOnError)
+	selector := addDeviceFlags(fs)
+	jsonOut := fs.Bool("json", false, "print JSON")
+	require := fs.Bool("require", false, "exit non-zero if unavailable or empty")
+	deviceAttrSize := fs.Int("device-attr-size", int(unsafe.Sizeof(ibvDeviceAttr{})), "raw byte buffer size for ibv_query_device")
+	preview := fs.Int("preview", 0, "bytes of successful query buffer to print")
+	fs.Parse(args)
+
+	out := output{Available: rdma.Available()}
+	dev, ok := pickDevice(selector, *require, *jsonOut, &out)
+	if !ok {
+		printOutput(out, *jsonOut)
+		return
+	}
+	out.Devices = []deviceInfo{deviceInfoFrom(dev, selector.index)}
+	ctx, ok := openContext(dev, *require, &out)
+	if !ok {
+		printOutput(out, *jsonOut)
+		return
+	}
+	appendQueryDevice(ctx, "ibv_query_device", *deviceAttrSize, *preview, &out)
 	closeContext(ctx, &out)
 	printOutput(out, *jsonOut)
 }
