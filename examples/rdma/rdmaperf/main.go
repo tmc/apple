@@ -970,6 +970,8 @@ func rdmaLifecycleStress(args []string) {
 	stop()
 	res.Mode, res.Iterations, res.DataIterations = "rdma-lifecycle-stress", *rounds, *iters
 	res.Size, res.DatapathClaim = size, *data && res.Error == "" && res.RoundsDone == *rounds
+	res.SetupTimeout = setupTimeout.String()
+	res.GateEnv = lifecycleStressGateEnv(*level, *data)
 	res.MRCount, res.PDsPerRound, res.QPsPerRound = *mrs, *qps, *qps
 	finishRDMABench(&res, time.Since(start), res.Bytes, res.Messages)
 	if res.Error == "" && res.RoundsDone == *rounds {
@@ -987,6 +989,14 @@ func rdmaLifecycleStress(args []string) {
 	if res.Error != "" {
 		os.Exit(1)
 	}
+}
+
+func lifecycleStressGateEnv(level string, data bool) string {
+	gate := fmt.Sprintf("%s=%s", lifecycleStressConfirmEnv, level)
+	if data {
+		gate += ",CONFIRM_RDMA_LIFECYCLE_DATA=uc-send-recv"
+	}
+	return gate
 }
 
 func validateLifecycleStress(level, listen, addr string, rounds, mrs, qps int, data bool, size, iters int, timeout, setupTimeout time.Duration) error {

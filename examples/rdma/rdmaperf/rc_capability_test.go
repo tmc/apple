@@ -307,6 +307,15 @@ func TestRDMAPayload(t *testing.T) {
 	}
 }
 
+func TestLifecycleStressGateEnv(t *testing.T) {
+	if got, want := lifecycleStressGateEnv(lifecycleStressCountScale, false), "CONFIRM_RDMA_LIFECYCLE_STRESS=l1-count-scale"; got != want {
+		t.Fatalf("lifecycleStressGateEnv(false) = %q, want %q", got, want)
+	}
+	if got, want := lifecycleStressGateEnv(lifecycleStressRoundDepth, true), "CONFIRM_RDMA_LIFECYCLE_STRESS=l2-round-depth,CONFIRM_RDMA_LIFECYCLE_DATA=uc-send-recv"; got != want {
+		t.Fatalf("lifecycleStressGateEnv(true) = %q, want %q", got, want)
+	}
+}
+
 func TestClassifyRCCapabilityCreate(t *testing.T) {
 	tests := []struct {
 		name       string
