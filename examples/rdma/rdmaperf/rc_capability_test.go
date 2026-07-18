@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 	"syscall"
 	"testing"
@@ -330,6 +332,79 @@ func TestRDMAPayload(t *testing.T) {
 	buf[17]++
 	if err := checkRDMAPayload(buf); err == nil || !strings.Contains(err.Error(), "data mismatch") {
 		t.Fatalf("checkRDMAPayload() = %v, want data mismatch", err)
+	}
+}
+
+func TestWireBenchSampleJSON(t *testing.T) {
+	samples := []wireBenchSample{
+		{
+			Total: 200, StagingCopy: 10, Post: 20, CompletionWait: 150, ReceiveCopy: 15,
+			Reduction: 0, AllocBytes: 30, Allocs: 2, GCPause: 3, QueueDepth: 2, Completions: 2, Polls: 4,
+		},
+		{
+			Total: 210, StagingCopy: 11, Post: 21, CompletionWait: 157, ReceiveCopy: 16,
+			Reduction: 0, AllocBytes: 30, Allocs: 2, GCPause: 3, QueueDepth: 2, Completions: 2, Polls: 5,
+		},
+	}
+	path := filepath.Join(t.TempDir(), "samples.json")
+	collector := wireSampleCollector{samples: samples}
+	if err := collector.write(path); err != nil {
+		t.Fatalf("write() = %v", err)
+	}
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var raw []map[string]json.RawMessage
+	if err := json.Unmarshal(data, &raw); err != nil {
+		t.Fatal(err)
+	}
+	wantFields := []string{"Total", "StagingCopy", "Post", "CompletionWait", "ReceiveCopy", "Reduction", "AllocBytes", "Allocs", "GCPause", "QueueDepth", "Completions", "Polls"}
+	for _, sample := range raw {
+		for _, field := range wantFields {
+			if _, ok := sample[field]; !ok {
+				t.Fatalf("JSON sample missing %q: %s", field, data)
+			}
+		}
+	}
+	var got []wireBenchSample
+	if err := json.Unmarshal(data, &got); err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != len(samples) || got[1].CompletionWait != samples[1].CompletionWait || got[1].Polls != samples[1].Polls {
+		t.Fatalf("JSON round trip = %#v, want %#v", got, samples)
+	}
+	if err := validateWireBenchSamples(got); err != nil {
+		t.Fatalf("validateWireBenchSamples() = %v", err)
+	}
+	if err := validateWireBenchSamples([]wireBenchSample{{Total: -1}}); err == nil {
+		t.Fatal("validateWireBenchSamples accepted negative duration")
+	}
+	t.Logf("wire sample JSON: %s", data)
+}
+
+func TestValidateWireSamples(t *testing.T) {
+	tests := []struct {
+		name        string
+		path, addr  string
+		rounds, qps int
+		data        bool
+		wantErr     bool
+	}{
+		{"disabled", "", "", 1, 1, false, false},
+		{"client", "samples.json", "127.0.0.1:1234", 1, 1, true, false},
+		{"needs data", "samples.json", "127.0.0.1:1234", 1, 1, false, true},
+		{"needs client", "samples.json", "", 1, 1, true, true},
+		{"one round", "samples.json", "127.0.0.1:1234", 2, 1, true, true},
+		{"one qp", "samples.json", "127.0.0.1:1234", 1, 2, true, true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			err := validateWireSamples(test.path, test.addr, test.rounds, test.qps, test.data)
+			if (err != nil) != test.wantErr {
+				t.Fatalf("validateWireSamples() error = %v, wantErr %v", err, test.wantErr)
+			}
+		})
 	}
 }
 

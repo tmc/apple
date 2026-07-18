@@ -13,6 +13,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"runtime/debug"
 	"sort"
@@ -935,9 +936,9 @@ func rdmaLifecycleProbe(args []string) {
 	stop := startRDMAWatchdog("rdma lifecycle probe", *timeout)
 	var res rdmaBenchResult
 	if *listenAddr != "" {
-		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout)
+		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout, "")
 	} else {
-		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout)
+		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, 1, 4096, 0, "", 0, *setupTimeout, "")
 	}
 	stop()
 	res.Mode, res.Iterations, res.DatapathClaim = "rdma-lifecycle-probe", *rounds, false
@@ -968,6 +969,7 @@ func rdmaLifecycleStress(args []string) {
 	mrs := fs.Int("mrs", 0, "total memory regions held per round")
 	qps := fs.Int("qps", 0, "queue pairs held per round")
 	data := fs.Bool("data", false, "post UC SEND/RECV traffic after QP setup")
+	wireSamples := fs.String("wire-samples", "", "write per-iteration wire phase samples on the client rank")
 	sizeText := fs.String("size", "64", "data payload size when -data is set (1..512K)")
 	iters := fs.Int("iters", 0, "data ping-pong iterations per QP per round when -data is set")
 	idleDwell := fs.Duration("idle-dwell", 0, "idle time between verified pre-idle and post-idle transfers for l5")
@@ -979,6 +981,9 @@ func rdmaLifecycleStress(args []string) {
 	fs.Parse(args)
 	size := parseSize(*sizeText)
 	if err := validateLifecycleStressIdle(*level, *listenAddr, *addr, *rounds, *mrs, *qps, *data, size, *iters, *idleDwell, *timeout, *setupTimeout); err != nil {
+		fatalf("lifecycle stress: %v", err)
+	}
+	if err := validateWireSamples(*wireSamples, *addr, *rounds, *qps, *data); err != nil {
 		fatalf("lifecycle stress: %v", err)
 	}
 	if !*allow || os.Getenv(lifecycleStressConfirmEnv) != *level {
@@ -994,9 +999,9 @@ func rdmaLifecycleStress(args []string) {
 	stop := startRDMAWatchdog("rdma lifecycle stress", *timeout)
 	var res rdmaBenchResult
 	if *listenAddr != "" {
-		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout)
+		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout, "")
 	} else {
-		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout)
+		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, *qps, size, *iters, *level, *idleDwell, *setupTimeout, *wireSamples)
 	}
 	stop()
 	res.Mode, res.Iterations, res.DataIterations = "rdma-lifecycle-stress", *rounds, *iters
@@ -1036,6 +1041,22 @@ func lifecycleStressGateEnv(level string, data bool) string {
 
 func validateLifecycleStress(level, listen, addr string, rounds, mrs, qps int, data bool, size, iters int, timeout, setupTimeout time.Duration) error {
 	return validateLifecycleStressIdle(level, listen, addr, rounds, mrs, qps, data, size, iters, 0, timeout, setupTimeout)
+}
+
+func validateWireSamples(path, addr string, rounds, qps int, data bool) error {
+	if path == "" {
+		return nil
+	}
+	if !data {
+		return fmt.Errorf("-wire-samples requires -data")
+	}
+	if addr == "" {
+		return fmt.Errorf("-wire-samples is written by the client rank; use -addr")
+	}
+	if rounds != 1 || qps != 1 {
+		return fmt.Errorf("-wire-samples requires -rounds=1 and -qps=1")
+	}
+	return nil
 }
 
 func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps int, data bool, size, iters int, idleDwell, timeout, setupTimeout time.Duration) error {
@@ -1120,7 +1141,7 @@ func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps in
 	return nil
 }
 
-func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration) rdmaBenchResult {
+func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration, wireSamples string) rdmaBenchResult {
 	res := newRDMABenchResult("rank0", listen, 0, rounds)
 	ln, err := listenTCP(listen)
 	if err != nil {
@@ -1135,7 +1156,7 @@ func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iter
 	}
 	defer c.Close()
 	for i := 0; i < rounds; i++ {
-		if err := runRDMALifecycleRound(c, false, name, index, mrs, qps, size, iters, level, idleDwell, timeout, &res); err != nil {
+		if err := runRDMALifecycleRound(c, false, name, index, mrs, qps, size, iters, level, idleDwell, timeout, wireSamples, &res); err != nil {
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
@@ -1145,7 +1166,7 @@ func runLifecycleServer(listen, name string, index, rounds, mrs, qps, size, iter
 	return res
 }
 
-func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration) rdmaBenchResult {
+func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters int, level string, idleDwell, timeout time.Duration, wireSamples string) rdmaBenchResult {
 	res := newRDMABenchResult("rank1", addr, 0, rounds)
 	c, err := dialTCP(addr)
 	if err != nil {
@@ -1154,7 +1175,7 @@ func runLifecycleClient(addr, name string, index, rounds, mrs, qps, size, iters 
 	}
 	defer c.Close()
 	for i := 0; i < rounds; i++ {
-		if err := runRDMALifecycleRound(c, true, name, index, mrs, qps, size, iters, level, idleDwell, timeout, &res); err != nil {
+		if err := runRDMALifecycleRound(c, true, name, index, mrs, qps, size, iters, level, idleDwell, timeout, wireSamples, &res); err != nil {
 			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
 			return res
 		}
@@ -1342,7 +1363,7 @@ func classifyRDMABenchFailure(s string) string {
 // runRDMALifecycleRound holds qps QPs and mrs MRs simultaneously, completes
 // their INIT->RTR->RTS transitions, optionally transfers UC SEND/RECV data,
 // and tears them all down. It is used only by guarded lifecycle commands.
-func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceIndex, mrs, qps, size, iters int, level string, idleDwell, setupTimeout time.Duration, res *rdmaBenchResult) error {
+func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceIndex, mrs, qps, size, iters int, level string, idleDwell, setupTimeout time.Duration, wireSamples string, res *rdmaBenchResult) error {
 	defer c.SetDeadline(time.Time{})
 	role := "server"
 	if client {
@@ -1405,9 +1426,13 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	}
 	if iters > 0 {
 		res.Stage = "datapath"
+		var collector *wireSampleCollector
+		if wireSamples != "" {
+			collector = newWireSampleCollector(size, iters)
+		}
 		switch level {
 		case lifecycleStressIdleDegradation:
-			if err := runLifecycleData(resources, client, iters, false, "pre-idle", res); err != nil {
+			if err := runLifecycleData(resources, client, iters, false, "pre-idle", nil, res); err != nil {
 				return err
 			}
 			res.PreIdleVerified = true
@@ -1420,16 +1445,21 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 				return err
 			}
 			res.Stage = "post-idle-datapath"
-			if err := runLifecycleData(resources, client, iters, false, "post-idle", res); err != nil {
+			if err := runLifecycleData(resources, client, iters, false, "post-idle", nil, res); err != nil {
 				return err
 			}
 			res.PostIdleVerified = true
 		case lifecycleStressConcurrency:
-			if err := runLifecycleData(resources, client, iters, true, "concurrent", res); err != nil {
+			if err := runLifecycleData(resources, client, iters, true, "concurrent", nil, res); err != nil {
 				return err
 			}
 		default:
-			if err := runLifecycleData(resources, client, iters, false, "", res); err != nil {
+			if err := runLifecycleData(resources, client, iters, false, "", collector, res); err != nil {
+				return err
+			}
+		}
+		if collector != nil {
+			if err := collector.write(wireSamples); err != nil {
 				return err
 			}
 		}
@@ -1439,7 +1469,7 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	return nil
 }
 
-func runLifecycleData(resources []*rdmaResources, client bool, iters int, concurrent bool, phase string, res *rdmaBenchResult) error {
+func runLifecycleData(resources []*rdmaResources, client bool, iters int, concurrent bool, phase string, collector *wireSampleCollector, res *rdmaBenchResult) error {
 	start := time.Now()
 	results := make([]rdmaQPDataResult, len(resources))
 	run := func(i int, r *rdmaResources) {
@@ -1447,7 +1477,11 @@ func runLifecycleData(resources []*rdmaResources, client bool, iters int, concur
 		qpStart := time.Now()
 		var err error
 		if client {
-			err = runRDMAPingpongClientLoop(r, iters, &dataRes)
+			if collector != nil {
+				err = collector.run(r, &dataRes)
+			} else {
+				err = runRDMAPingpongClientLoop(r, iters, &dataRes)
+			}
 		} else {
 			err = runRDMAPingpongServerLoop(r, iters, &dataRes)
 		}
@@ -2431,6 +2465,152 @@ func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo, policy xrdma.RTRPolicy) (rd
 	}, policy)
 }
 
+// wireBenchSample is the on-disk input accepted by jacclvalidate wire-bench.
+// Keep the field names exported and untagged: the consumer uses these names.
+type wireBenchSample struct {
+	Total          time.Duration
+	StagingCopy    time.Duration
+	Post           time.Duration
+	CompletionWait time.Duration
+	ReceiveCopy    time.Duration
+	Reduction      time.Duration
+	AllocBytes     uint64
+	Allocs         uint64
+	GCPause        time.Duration
+	QueueDepth     int
+	Completions    int
+	Polls          int
+}
+
+type wireSampleCollector struct {
+	samples []wireBenchSample
+	source  []byte
+	dest    []byte
+}
+
+func newWireSampleCollector(size, iters int) *wireSampleCollector {
+	source := make([]byte, size)
+	fillRDMAPayload(source)
+	return &wireSampleCollector{
+		samples: make([]wireBenchSample, 0, iters),
+		source:  source,
+		dest:    make([]byte, size),
+	}
+}
+
+func (c *wireSampleCollector) run(r *rdmaResources, res *rdmaBenchResult) error {
+	var before runtime.MemStats
+	runtime.ReadMemStats(&before)
+	start := time.Now()
+	for i := 0; i < cap(c.samples); i++ {
+		iterationStart := time.Now()
+
+		phaseStart := time.Now()
+		copy(r.buf, c.source)
+		stagingCopy := time.Since(phaseStart)
+
+		phaseStart = time.Now()
+		if err := r.postRecv(uint64(i)); err != nil {
+			return err
+		}
+		if err := r.postSend(uint64(i)); err != nil {
+			return err
+		}
+		post := time.Since(phaseStart)
+
+		phaseStart = time.Now()
+		polls, completions, err := r.pollMeasured(2, 5*time.Second)
+		if err != nil {
+			return err
+		}
+		completionWait := time.Since(phaseStart)
+
+		phaseStart = time.Now()
+		copy(c.dest, r.buf)
+		receiveCopy := time.Since(phaseStart)
+		if err := checkRDMAPayload(c.dest); err != nil {
+			return err
+		}
+
+		c.samples = append(c.samples, wireBenchSample{
+			Total:          time.Since(iterationStart),
+			StagingCopy:    stagingCopy,
+			Post:           post,
+			CompletionWait: completionWait,
+			ReceiveCopy:    receiveCopy,
+			QueueDepth:     2,
+			Completions:    completions,
+			Polls:          polls,
+		})
+	}
+	var after runtime.MemStats
+	runtime.ReadMemStats(&after)
+	c.setMemoryStats(before, after)
+	finishRDMABench(res, time.Since(start), uint64(len(c.samples)*len(r.buf)*2), uint64(len(c.samples)))
+	res.Latency = summarizeWireLatency(c.samples)
+	return nil
+}
+
+func (c *wireSampleCollector) setMemoryStats(before, after runtime.MemStats) {
+	if len(c.samples) == 0 {
+		return
+	}
+	n := uint64(len(c.samples))
+	allocBytes := (after.TotalAlloc - before.TotalAlloc) / n
+	allocs := (after.Mallocs - before.Mallocs) / n
+	gcPause := time.Duration((after.PauseTotalNs - before.PauseTotalNs) / n)
+	for i := range c.samples {
+		c.samples[i].AllocBytes = allocBytes
+		c.samples[i].Allocs = allocs
+		c.samples[i].GCPause = gcPause
+	}
+}
+
+func (c *wireSampleCollector) write(path string) error {
+	if err := validateWireBenchSamples(c.samples); err != nil {
+		return err
+	}
+	dir := filepath.Dir(path)
+	tmp, err := os.CreateTemp(dir, "."+filepath.Base(path)+".tmp-")
+	if err != nil {
+		return fmt.Errorf("create wire samples: %w", err)
+	}
+	tmpName := tmp.Name()
+	defer os.Remove(tmpName)
+	enc := json.NewEncoder(tmp)
+	if err := enc.Encode(c.samples); err != nil {
+		tmp.Close()
+		return fmt.Errorf("encode wire samples: %w", err)
+	}
+	if err := tmp.Close(); err != nil {
+		return fmt.Errorf("close wire samples: %w", err)
+	}
+	if err := os.Rename(tmpName, path); err != nil {
+		return fmt.Errorf("publish wire samples: %w", err)
+	}
+	return nil
+}
+
+func validateWireBenchSamples(samples []wireBenchSample) error {
+	for i, sample := range samples {
+		if sample.Total < 0 || sample.StagingCopy < 0 || sample.Post < 0 || sample.CompletionWait < 0 || sample.ReceiveCopy < 0 || sample.Reduction < 0 || sample.GCPause < 0 {
+			return fmt.Errorf("wire sample %d has a negative duration", i)
+		}
+		if sample.QueueDepth < 0 || sample.Completions < 0 || sample.Polls < 0 {
+			return fmt.Errorf("wire sample %d has a negative counter", i)
+		}
+	}
+	return nil
+}
+
+func summarizeWireLatency(samples []wireBenchSample) *latencySummary {
+	latencies := make([]time.Duration, len(samples))
+	for i, sample := range samples {
+		latencies[i] = sample.Total
+	}
+	return summarizeLatency(latencies)
+}
+
 func runRDMAPingpongClientLoop(r *rdmaResources, iters int, res *rdmaBenchResult) error {
 	samples := make([]time.Duration, 0, iters)
 	start := time.Now()
@@ -2501,27 +2681,32 @@ func (r *rdmaResources) postSend(id uint64) error {
 }
 
 func (r *rdmaResources) poll(want int, timeout time.Duration) error {
+	_, _, err := r.pollMeasured(want, timeout)
+	return err
+}
+
+func (r *rdmaResources) pollMeasured(want int, timeout time.Duration) (polls, completions int, err error) {
 	deadline := time.Now().Add(timeout)
-	var got int
-	for got < want {
+	for completions < want {
 		var wc rdma.IbvWC
 		n := r.poller.Poll(1, &wc)
+		polls++
 		if n < 0 {
-			return fmt.Errorf("ibv_poll_cq: rc=%d", n)
+			return polls, completions, fmt.Errorf("ibv_poll_cq: rc=%d", n)
 		}
 		if n == 0 {
 			if time.Now().After(deadline) {
-				return fmt.Errorf("timed out polling cq after %s", timeout)
+				return polls, completions, fmt.Errorf("timed out polling cq after %s", timeout)
 			}
 			runtimeYield()
 			continue
 		}
 		if wc.Status != rdma.IBV_WC_SUCCESS {
-			return fmt.Errorf("work completion %s status=%d opcode=%d vendor_err=%d", rdma.ClassifyCompletionStatus(wc.Status), wc.Status, wc.Opcode, wc.VendorErr)
+			return polls, completions, fmt.Errorf("work completion %s status=%d opcode=%d vendor_err=%d", rdma.ClassifyCompletionStatus(wc.Status), wc.Status, wc.Opcode, wc.VendorErr)
 		}
-		got += n
+		completions += n
 	}
-	return nil
+	return polls, completions, nil
 }
 
 func (r *rdmaResources) close() {
