@@ -69,6 +69,7 @@ type rdmaBenchResult struct {
 	Control        []rdmaControlEvent `json:"control,omitempty"`
 	Size           int                `json:"size"`
 	Iterations     int                `json:"iterations"`
+	MRCount        int                `json:"mr_count,omitempty"`
 	Elapsed        string             `json:"elapsed,omitempty"`
 	Bytes          uint64             `json:"bytes,omitempty"`
 	BytesPerSec    float64            `json:"bytes_per_sec,omitempty"`
@@ -250,6 +251,8 @@ func main() {
 		rdmaPDLifecycle(os.Args[2:])
 	case "rdma-pingpong":
 		rdmaPingpong(os.Args[2:])
+	case "rdma-lifecycle-probe":
+		rdmaLifecycleProbe(os.Args[2:])
 	case "rdma-port-state":
 		rdmaPortState(os.Args[2:])
 	case "interfaces":
@@ -279,6 +282,8 @@ Commands:
               Guarded PD alloc/dealloc/realloc lifecycle probe; no MR, QP, RTR, or data.
   rdma-pingpong
               Run RDMA SEND/RECV ping-pong using TCP only for setup exchange.
+  rdma-lifecycle-probe
+              Two-rank, no-data QP setup/teardown reclamation probe.
   interfaces  List local interface addresses useful for -listen and -addr.
 
 Patterns:
@@ -849,6 +854,93 @@ func rdmaPingpong(args []string) {
 	}
 }
 
+const lifecycleProbeConfirmEnv = "CONFIRM_RDMA_LIFECYCLE_LEAK"
+const lifecycleProbeConfirmValue = "one-shot-lifecycle"
+
+func rdmaLifecycleProbe(args []string) {
+	fs := flag.NewFlagSet("rdma-lifecycle-probe", flag.ExitOnError)
+	listenAddr := fs.String("listen", "", "listen address for rank 0")
+	addr := fs.String("addr", "", "rank 0 address for rank 1")
+	deviceName := fs.String("name", "", "select RDMA device")
+	deviceIndex := fs.Int("device", -1, "select RDMA device index")
+	rounds := fs.Int("rounds", 2, "setup/teardown rounds (1..3)")
+	mrs := fs.Int("mrs", 2, "memory regions per round (1..4)")
+	timeout := fs.Duration("timeout", 20*time.Second, "whole-probe watchdog limit")
+	setupTimeout := fs.Duration("setup-timeout", 5*time.Second, "per-round setup watchdog limit")
+	allow := fs.Bool("allow-lifecycle-probe", false, "acknowledge two-rank lifecycle probe")
+	jsonOut := fs.Bool("json", false, "print JSON")
+	fs.Parse(args)
+	if (*listenAddr == "") == (*addr == "") || *rounds < 1 || *rounds > 3 || *mrs < 1 || *mrs > 4 || *timeout <= 0 || *setupTimeout <= 0 {
+		fatalf("require exactly one of -listen/-addr, -rounds in [1,3], -mrs in [1,4], and positive timeouts")
+	}
+	if !*allow || os.Getenv(lifecycleProbeConfirmEnv) != lifecycleProbeConfirmValue {
+		fatalf("refusing lifecycle probe: pass -allow-lifecycle-probe and set %s=%s", lifecycleProbeConfirmEnv, lifecycleProbeConfirmValue)
+	}
+	if err := xrdma.RequireRTRAttemptAllowed(true); err != nil {
+		fatalf("lifecycle probe RTR gate: %v", err)
+	}
+	stop := startRDMAWatchdog("rdma lifecycle probe", *timeout)
+	var res rdmaBenchResult
+	if *listenAddr != "" {
+		res = runLifecycleServer(*listenAddr, *deviceName, *deviceIndex, *rounds, *mrs, *setupTimeout)
+	} else {
+		res = runLifecycleClient(*addr, *deviceName, *deviceIndex, *rounds, *mrs, *setupTimeout)
+	}
+	stop()
+	res.Mode, res.Iterations, res.DatapathClaim = "rdma-lifecycle-probe", *rounds, false
+	res.MRCount = *mrs
+	if *jsonOut {
+		writeJSON(res)
+	} else {
+		printRDMABench(res)
+	}
+	if res.Error != "" {
+		os.Exit(1)
+	}
+}
+
+func runLifecycleServer(listen, name string, index, rounds, mrs int, timeout time.Duration) rdmaBenchResult {
+	res := newRDMABenchResult("rank0", listen, 0, rounds)
+	ln, err := listenTCP(listen)
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer ln.Close()
+	c, err := ln.Accept()
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer c.Close()
+	for i := 0; i < rounds; i++ {
+		if err := runRDMAPingpong(c, false, name, index, -1, xrdma.RTRPolicy{}, 4096, 0, mrs, timeout, &res); err != nil {
+			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
+			return res
+		}
+	}
+	res.Stage = "done"
+	return res
+}
+
+func runLifecycleClient(addr, name string, index, rounds, mrs int, timeout time.Duration) rdmaBenchResult {
+	res := newRDMABenchResult("rank1", addr, 0, rounds)
+	c, err := dialTCP(addr)
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer c.Close()
+	for i := 0; i < rounds; i++ {
+		if err := runRDMAPingpong(c, true, name, index, -1, xrdma.RTRPolicy{}, 4096, 0, mrs, timeout, &res); err != nil {
+			res.Error = fmt.Sprintf("round %d: %v", i+1, err)
+			return res
+		}
+	}
+	res.Stage = "done"
+	return res
+}
+
 func rdmaRTRPolicyFromFlags(zeroDLIDWhenGlobal bool, hopLimit, trafficClass int, flowLabel uint) (xrdma.RTRPolicy, error) {
 	if hopLimit < 0 || hopLimit > 255 {
 		return xrdma.RTRPolicy{}, fmt.Errorf("-grh-hop-limit must be between 0 and 255")
@@ -885,20 +977,22 @@ func validateGIDIndexFlag(index int) error {
 }
 
 type rdmaResources struct {
-	dev      rdma.Device
-	ctx      rdma.RDMAContext
-	pd       rdma.RDMAPD
-	cq       rdma.RDMACQ
-	qp       rdma.RDMAQP
-	mr       rdma.RDMAMR
-	poller   rdma.IbvCQPoller
-	poster   rdma.IbvQPPoster
-	mapBuf   []byte
-	buf      []byte
-	port     ibvPortAttr
-	gid      rdma.IbvGID
-	gidIndex int
-	psn      uint32
+	dev       rdma.Device
+	ctx       rdma.RDMAContext
+	pd        rdma.RDMAPD
+	cq        rdma.RDMACQ
+	qp        rdma.RDMAQP
+	mr        rdma.RDMAMR
+	extraMRs  []rdma.RDMAMR
+	extraMaps [][]byte
+	poller    rdma.IbvCQPoller
+	poster    rdma.IbvQPPoster
+	mapBuf    []byte
+	buf       []byte
+	port      ibvPortAttr
+	gid       rdma.IbvGID
+	gidIndex  int
+	psn       uint32
 }
 
 type routeGID struct {
@@ -921,7 +1015,7 @@ func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex 
 	}
 	defer c.Close()
 	res.Addr = c.LocalAddr().String()
-	if err := runRDMAPingpong(c, false, deviceName, deviceIndex, gidIndex, policy, size, iters, setupTimeout, &res); err != nil {
+	if err := runRDMAPingpong(c, false, deviceName, deviceIndex, gidIndex, policy, size, iters, 1, setupTimeout, &res); err != nil {
 		res.Error = err.Error()
 	}
 	return res
@@ -935,7 +1029,7 @@ func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex int, p
 		return res
 	}
 	defer c.Close()
-	if err := runRDMAPingpong(c, true, deviceName, deviceIndex, gidIndex, policy, size, iters, setupTimeout, &res); err != nil {
+	if err := runRDMAPingpong(c, true, deviceName, deviceIndex, gidIndex, policy, size, iters, 1, setupTimeout, &res); err != nil {
 		res.Error = err.Error()
 	}
 	return res
@@ -1016,7 +1110,7 @@ func classifyRDMABenchFailure(s string) string {
 	}
 }
 
-func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex int, policy xrdma.RTRPolicy, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {
+func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex int, policy xrdma.RTRPolicy, size, iters, mrCount int, setupTimeout time.Duration, res *rdmaBenchResult) error {
 	defer c.SetDeadline(time.Time{})
 	role := "server"
 	if client {
@@ -1032,6 +1126,9 @@ func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gi
 		return err
 	}
 	defer r.close()
+	if err := addLifecycleMRs(r, mrCount-1, setupTimeout); err != nil {
+		return err
+	}
 
 	local := r.peerInfo()
 	res.Device = r.dev.Name
@@ -1277,6 +1374,26 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	}
 	success = true
 	return r, nil
+}
+
+func addLifecycleMRs(r *rdmaResources, count int, timeout time.Duration) error {
+	for range count {
+		buf, mapBuf, err := rdmaBuffer(len(r.buf))
+		if err != nil {
+			return err
+		}
+		stop := startRDMAWatchdog("ibv_reg_mr", timeout)
+		mr, err := rdma.IbvRegMr(r.pd, uintptr(unsafe.Pointer(unsafe.SliceData(buf))), uintptr(len(buf)), rdma.IBV_ACCESS_LOCAL_WRITE|rdma.IBV_ACCESS_REMOTE_READ|rdma.IBV_ACCESS_REMOTE_WRITE)
+		stop()
+		runtime.KeepAlive(buf)
+		if err != nil || mr == 0 {
+			_ = syscall.Munmap(mapBuf)
+			return fmt.Errorf("ibv_reg_mr: %s", nilReturnError(err, mr, "memory region"))
+		}
+		r.extraMRs = append(r.extraMRs, mr)
+		r.extraMaps = append(r.extraMaps, mapBuf)
+	}
+	return nil
 }
 
 func probeRCCapability(deviceName string, deviceIndex int) *rcCapabilityResult {
@@ -1909,6 +2026,12 @@ func (r *rdmaResources) close() {
 	}
 	if r.mr != 0 {
 		_, _ = rdma.IbvDeregMr(r.mr)
+	}
+	for _, mr := range r.extraMRs {
+		_, _ = rdma.IbvDeregMr(mr)
+	}
+	for _, mapBuf := range r.extraMaps {
+		_ = syscall.Munmap(mapBuf)
 	}
 	if r.mapBuf != nil {
 		_ = syscall.Munmap(r.mapBuf)

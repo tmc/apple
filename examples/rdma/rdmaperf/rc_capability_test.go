@@ -216,6 +216,30 @@ func TestPDLifecycleProbeOnlyUsesPDCalls(t *testing.T) {
 	}
 }
 
+func TestLifecycleProbeIsGatedAndDoesNotPostData(t *testing.T) {
+	data, err := os.ReadFile("main.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	src := string(data)
+	start := strings.Index(src, "func rdmaLifecycleProbe(")
+	end := strings.Index(src[start:], "\nfunc runLifecycleServer(")
+	if start < 0 || end < 0 {
+		t.Fatal("could not locate lifecycle probe")
+	}
+	body := src[start : start+end]
+	for _, want := range []string{"lifecycleProbeConfirmEnv", "allow-lifecycle-probe", "RequireRTRAttemptAllowed", "-mrs in [1,4]"} {
+		if !strings.Contains(body, want) {
+			t.Fatalf("lifecycle probe missing %q", want)
+		}
+	}
+	for _, forbidden := range []string{"PostSend", "PostRecv", "runRDMAPingpongClientLoop", "runRDMAPingpongServerLoop"} {
+		if strings.Contains(body, forbidden) {
+			t.Fatalf("lifecycle probe must not call %s", forbidden)
+		}
+	}
+}
+
 func TestClassifyRCCapabilityCreate(t *testing.T) {
 	tests := []struct {
 		name       string
