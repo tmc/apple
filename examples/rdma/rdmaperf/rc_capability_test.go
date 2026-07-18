@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"io"
 	"os"
 	"strings"
 	"syscall"
@@ -10,6 +11,30 @@ import (
 
 	"github.com/tmc/apple/rdma"
 )
+
+func TestPrintRKeyCapability(t *testing.T) {
+	old := os.Stdout
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stdout = w
+	printResult(result{Mode: "rdma-rkey-capability", RKeyCapability: &rkeyCapabilityResult{
+		Device: "rdma_en3", Outcome: "zero", Attempts: 1, NoQP: true, NoRTR: true, NoData: true,
+		Addr: "0x1000", LKey: "0x101", RKey: "0x0",
+	}})
+	w.Close()
+	os.Stdout = old
+	out, err := io.ReadAll(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"outcome=zero", "addr=0x1000", "lkey=0x101", "rkey=0x0", "no_qp=true"} {
+		if !strings.Contains(string(out), want) {
+			t.Fatalf("printResult output %q missing %q", out, want)
+		}
+	}
+}
 
 func TestRequireRCCapabilityProbeAllowed(t *testing.T) {
 	t.Setenv(rcCapabilityConfirmEnv, "")

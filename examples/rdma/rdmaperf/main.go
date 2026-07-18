@@ -1942,6 +1942,23 @@ func printResult(res result) {
 		fmt.Println()
 		return
 	}
+	if res.RKeyCapability != nil {
+		cap := res.RKeyCapability
+		fmt.Printf("%s device=%s outcome=%s attempts=%d no_qp=%v no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Outcome, cap.Attempts, cap.NoQP, cap.NoRTR, cap.NoData)
+		for _, field := range []struct {
+			name  string
+			value string
+		}{{"addr", cap.Addr}, {"lkey", cap.LKey}, {"rkey", cap.RKey}, {"register_error", cap.RegisterError}, {"deregister_error", cap.DeregisterError}} {
+			if field.value != "" {
+				fmt.Printf(" %s=%s", field.name, field.value)
+			}
+		}
+		if cap.RegisterErrno != 0 {
+			fmt.Printf(" register_errno=%s", rdma.ErrnoText(cap.RegisterErrno))
+		}
+		fmt.Println()
+		return
+	}
 	if res.RDMA != nil {
 		printRDMA(res.RDMA)
 		return
