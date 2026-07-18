@@ -32,6 +32,15 @@ main(void)
 	OFFSET(struct ibv_qp_attr, port_num);
 	OFFSET(struct ibv_qp_attr, rate_limit);
 	OFFSET(struct ibv_send_wr, wr);
+	OFFSET(struct ibv_context, ops);
+	OFFSET(struct ibv_context_ops, poll_cq);
+	OFFSET(struct ibv_context_ops, post_send);
+	OFFSET(struct ibv_context_ops, post_recv);
+	OFFSET(struct ibv_qp, qp_num);
+	OFFSET(struct ibv_mr, lkey);
+	OFFSET(struct ibv_mr, rkey);
+	OFFSET(struct ibv_comp_channel, fd);
+	OFFSET(struct ibv_cq, channel);
 	OFFSET(struct ibv_port_attr, gid_tbl_len);
 	OFFSET(struct ibv_port_attr, lid);
 	OFFSET(struct ibv_port_attr, link_layer);
