@@ -44,7 +44,7 @@ func TestPrintPDLifecycle(t *testing.T) {
 	}
 	os.Stdout = w
 	printResult(result{Mode: "rdma-pd-lifecycle", PDLifecycle: &pdLifecycleResult{
-		Device: "rdma_en2", Outcome: "reclaimed", Cycles: 1, Allocations: 2, Deallocations: 2,
+		Device: "rdma_en2", Mode: "reclaim", Outcome: "reclaimed", Cycles: 1, AllocPerCycle: 11, RoundsDone: 1, Allocations: 11, Deallocations: 11,
 		NoMR: true, NoQP: true, NoRTR: true, NoData: true,
 	}})
 	w.Close()
@@ -53,7 +53,7 @@ func TestPrintPDLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, want := range []string{"outcome=reclaimed", "allocations=2", "deallocations=2", "no_mr=true"} {
+	for _, want := range []string{"mode=reclaim", "outcome=reclaimed", "allocations=11", "deallocations=11", "no_mr=true"} {
 		if !strings.Contains(string(out), want) {
 			t.Fatalf("printResult output %q missing %q", out, want)
 		}
@@ -114,13 +114,26 @@ func TestRequirePDLifecycleProbeAllowed(t *testing.T) {
 }
 
 func TestValidatePDLifecycleProbe(t *testing.T) {
-	for _, cycles := range []int{0, maxPDLifecycleCycles + 1} {
-		if err := validatePDLifecycleProbe(cycles, time.Second); err == nil {
-			t.Fatalf("validatePDLifecycleProbe(%d) succeeded", cycles)
-		}
+	for _, test := range []struct {
+		name                     string
+		mode                     string
+		cycles, allocs, maxAlloc int
+		timeout, opTimeout       time.Duration
+	}{
+		{"bad mode", "bad", 1, 1, 1, time.Second, time.Second},
+		{"bad cycles", "reclaim", 0, 1, 1, time.Second, time.Second},
+		{"bad allocs", "reclaim", 1, 0, 1, time.Second, time.Second},
+		{"bad max", "exhaust", 1, 1, 0, time.Second, time.Second},
+		{"op exceeds total", "reclaim", 1, 1, 1, time.Second, 2 * time.Second},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			if err := validatePDLifecycleProbe(test.mode, test.cycles, test.allocs, test.maxAlloc, test.timeout, test.opTimeout); err == nil {
+				t.Fatal("validatePDLifecycleProbe succeeded")
+			}
+		})
 	}
-	if err := validatePDLifecycleProbe(1, time.Second); err != nil {
-		t.Fatalf("validatePDLifecycleProbe(1) = %v", err)
+	if err := validatePDLifecycleProbe("reclaim", 1, 1, 1, time.Second, time.Second); err != nil {
+		t.Fatalf("validatePDLifecycleProbe() = %v", err)
 	}
 }
 
@@ -183,25 +196,23 @@ func TestPDLifecycleProbeOnlyUsesPDCalls(t *testing.T) {
 		t.Fatal(err)
 	}
 	src := string(data)
-	start := strings.Index(src, "func probePDLifecycle(")
-	if start < 0 {
-		t.Fatal("could not locate probePDLifecycle source")
-	}
-	end := strings.Index(src[start:], "\nfunc providerErrno(")
-	if end < 0 {
-		t.Fatal("could not locate end of probePDLifecycle source")
-	}
-	body := src[start : start+end]
-	if n := strings.Count(body, "IbvAllocPd("); n != 2 {
-		t.Fatalf("PD lifecycle probe has %d allocation sites, want 2", n)
-	}
-	if n := strings.Count(body, "IbvDeallocPd("); n != 2 {
-		t.Fatalf("PD lifecycle probe has %d deallocation sites, want 2", n)
-	}
-	for _, forbidden := range []string{"IbvRegMr", "IbvCreateQp", "IbvCreateCq", "IbvModifyQp", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
-		if strings.Contains(body, forbidden) {
-			t.Fatalf("PD lifecycle probe must not call %s", forbidden)
+	for _, function := range []string{"probePDLifecycle", "probePDExhaustion", "allocatePDs", "deallocatePDs"} {
+		functionStart := strings.Index(src, "func "+function+"(")
+		if functionStart < 0 {
+			t.Fatalf("could not locate %s", function)
 		}
+		functionBody := src[functionStart:]
+		if next := strings.Index(functionBody[1:], "\nfunc "); next >= 0 {
+			functionBody = functionBody[:next+1]
+		}
+		for _, forbidden := range []string{"IbvRegMr", "IbvCreateQp", "IbvCreateCq", "IbvModifyQp", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
+			if strings.Contains(functionBody, forbidden) {
+				t.Fatalf("%s must not call %s", function, forbidden)
+			}
+		}
+	}
+	if !strings.Contains(src, "startRDMAWatchdog(\"ibv_alloc_pd\"") || !strings.Contains(src, "startRDMAWatchdog(\"ibv_dealloc_pd\"") {
+		t.Fatal("PD lifecycle probe has no per-operation watchdog")
 	}
 }
 

@@ -140,8 +140,12 @@ type rkeyCapabilityResult struct {
 
 type pdLifecycleResult struct {
 	Device        string `json:"device,omitempty"`
+	Mode          string `json:"mode"`
 	Outcome       string `json:"outcome"`
 	Cycles        int    `json:"cycles"`
+	AllocPerCycle int    `json:"alloc_per_cycle"`
+	MaxAlloc      int    `json:"max_alloc,omitempty"`
+	RoundsDone    int    `json:"rounds_done"`
 	Allocations   int    `json:"allocations"`
 	Deallocations int    `json:"deallocations"`
 	NoMR          bool   `json:"no_mr"`
@@ -604,7 +608,12 @@ const rkeyCapabilityBytes = 4096
 
 const pdLifecycleConfirmEnv = "CONFIRM_RDMA_PD_LIFECYCLE"
 const pdLifecycleConfirmValue = "one-shot-pd-lifecycle"
-const maxPDLifecycleCycles = 3
+const (
+	maxPDLifecycleCycles   = 32
+	maxPDAllocPerCycle     = 32
+	maxPDExhaustionAlloc   = 64
+	defaultPDAllocPerCycle = 11
+)
 
 func rdmaRCCapability(args []string) {
 	fs := flag.NewFlagSet("rdma-rc-capability", flag.ExitOnError)
@@ -705,22 +714,26 @@ func rdmaPDLifecycle(args []string) {
 	fs := flag.NewFlagSet("rdma-pd-lifecycle", flag.ExitOnError)
 	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
 	deviceIndex := fs.Int("device", -1, "select RDMA device index")
-	cycles := fs.Int("cycles", 1, "bounded allocate/deallocate/reallocate cycles (1..3)")
-	timeout := fs.Duration("timeout", 10*time.Second, "watchdog limit for the bounded provider calls")
+	mode := fs.String("mode", "reclaim", "probe mode: reclaim or exhaust")
+	cycles := fs.Int("cycles", 1, "allocation/deallocation rounds in reclaim mode (1..32)")
+	allocPerCycle := fs.Int("alloc-per-cycle", defaultPDAllocPerCycle, "PD allocations per reclaim round (1..32)")
+	maxAlloc := fs.Int("max-alloc", 16, "allocation cap in exhaust mode (1..64)")
+	timeout := fs.Duration("timeout", 60*time.Second, "whole-probe watchdog limit")
+	opTimeout := fs.Duration("op-timeout", 2*time.Second, "watchdog limit for each PD allocation or deallocation")
 	allow := fs.Bool("allow-pd-lifecycle-probe", false, "acknowledge bounded protection-domain lifecycle probe")
 	jsonOut := fs.Bool("json", false, "print JSON")
 	fs.Parse(args)
 
-	if err := validatePDLifecycleProbe(*cycles, *timeout); err != nil {
+	if err := validatePDLifecycleProbe(*mode, *cycles, *allocPerCycle, *maxAlloc, *timeout, *opTimeout); err != nil {
 		fatalf("%v", err)
 	}
 	if err := requirePDLifecycleProbeAllowed(*allow); err != nil {
 		fatalf("%v", err)
 	}
 	stopWatchdog := startRDMAWatchdog("rdma PD lifecycle probe", *timeout)
-	res := result{Mode: "rdma-pd-lifecycle", PDLifecycle: probePDLifecycle(*deviceName, *deviceIndex, *cycles)}
+	res := result{Mode: "rdma-pd-lifecycle", PDLifecycle: probePDLifecycle(*deviceName, *deviceIndex, *mode, *cycles, *allocPerCycle, *maxAlloc, *opTimeout)}
 	stopWatchdog()
-	if res.PDLifecycle.Outcome != "reclaimed" {
+	if !successfulPDLifecycleOutcome(res.PDLifecycle.Outcome) {
 		res.Error = res.PDLifecycle.AllocateError
 		if res.PDLifecycle.DeallocError != "" {
 			res.Error = res.PDLifecycle.DeallocError
@@ -746,11 +759,29 @@ func requirePDLifecycleProbeAllowed(allow bool) error {
 	return nil
 }
 
-func validatePDLifecycleProbe(cycles int, timeout time.Duration) error {
+func validatePDLifecycleProbe(mode string, cycles, allocPerCycle, maxAlloc int, timeout, opTimeout time.Duration) error {
+	if mode != "reclaim" && mode != "exhaust" {
+		return fmt.Errorf("-mode must be reclaim or exhaust")
+	}
 	if cycles < 1 || cycles > maxPDLifecycleCycles {
 		return fmt.Errorf("-cycles must be in [1,%d]", maxPDLifecycleCycles)
 	}
-	return validateRCCapabilityTimeout(timeout)
+	if allocPerCycle < 1 || allocPerCycle > maxPDAllocPerCycle {
+		return fmt.Errorf("-alloc-per-cycle must be in [1,%d]", maxPDAllocPerCycle)
+	}
+	if maxAlloc < 1 || maxAlloc > maxPDExhaustionAlloc {
+		return fmt.Errorf("-max-alloc must be in [1,%d]", maxPDExhaustionAlloc)
+	}
+	if err := validateRCCapabilityTimeout(timeout); err != nil {
+		return err
+	}
+	if err := validateRCCapabilityTimeout(opTimeout); err != nil {
+		return fmt.Errorf("-op-timeout: %w", err)
+	}
+	if opTimeout > timeout {
+		return fmt.Errorf("-op-timeout must not exceed -timeout")
+	}
+	return nil
 }
 
 func startRDMAWatchdog(name string, timeout time.Duration) func() {
@@ -1363,11 +1394,10 @@ func probeRKeyCapability(deviceName string, deviceIndex int) *rkeyCapabilityResu
 	return result
 }
 
-// probePDLifecycle checks whether a deallocated PD can be allocated again in
-// the same process. It stops at the first failure; it never retries a failed
-// provider call.
-func probePDLifecycle(deviceName string, deviceIndex, cycles int) *pdLifecycleResult {
-	result := &pdLifecycleResult{Outcome: "inconclusive", Cycles: cycles, NoMR: true, NoQP: true, NoRTR: true, NoData: true}
+// probePDLifecycle probes either PD exhaustion or same-process reclamation. It
+// stops at the first unexpected provider result and never retries that call.
+func probePDLifecycle(deviceName string, deviceIndex int, mode string, cycles, allocPerCycle, maxAlloc int, opTimeout time.Duration) *pdLifecycleResult {
+	result := &pdLifecycleResult{Mode: mode, Outcome: "inconclusive", Cycles: cycles, AllocPerCycle: allocPerCycle, NoMR: true, NoQP: true, NoRTR: true, NoData: true}
 	if !rdma.Available() {
 		result.AllocateError = "rdma unavailable"
 		return result
@@ -1390,34 +1420,75 @@ func probePDLifecycle(deviceName string, deviceIndex, cycles int) *pdLifecycleRe
 	}
 	defer rdma.IbvCloseDevice(ctx)
 
+	if mode == "exhaust" {
+		result.MaxAlloc = maxAlloc
+		return probePDExhaustion(ctx, result, maxAlloc, opTimeout)
+	}
 	for cycle := 0; cycle < cycles; cycle++ {
-		pd, err := rdma.IbvAllocPd(ctx)
-		result.Allocations++
-		if err != nil || pd == 0 {
-			result.AllocateErrno, result.AllocateError = providerErrno(err), "ibv_alloc_pd: "+nilReturnError(err, pd, "protection domain")
+		pds, ok := allocatePDs(ctx, result, allocPerCycle, opTimeout)
+		if !ok {
+			if cycle > 0 {
+				result.Outcome = "reclamation_failed"
+			} else {
+				result.Outcome = "allocation_failed"
+			}
 			return result
 		}
-		rc, err := rdma.IbvDeallocPd(pd)
-		result.Deallocations++
-		if err != nil || rc != 0 {
-			result.DeallocErrno, result.DeallocError = providerErrno(err), "ibv_dealloc_pd: "+errOrCode(err, rc)
+		if !deallocatePDs(pds, result, opTimeout) {
+			result.Outcome = "deallocation_failed"
 			return result
 		}
-		pd, err = rdma.IbvAllocPd(ctx)
-		result.Allocations++
-		if err != nil || pd == 0 {
-			result.AllocateErrno, result.AllocateError = providerErrno(err), "ibv_alloc_pd after dealloc: "+nilReturnError(err, pd, "protection domain")
-			return result
-		}
-		rc, err = rdma.IbvDeallocPd(pd)
-		result.Deallocations++
-		if err != nil || rc != 0 {
-			result.DeallocErrno, result.DeallocError = providerErrno(err), "ibv_dealloc_pd after realloc: "+errOrCode(err, rc)
-			return result
-		}
+		result.RoundsDone++
 	}
 	result.Outcome = "reclaimed"
 	return result
+}
+
+func probePDExhaustion(ctx rdma.RDMAContext, result *pdLifecycleResult, maxAlloc int, opTimeout time.Duration) *pdLifecycleResult {
+	pds, ok := allocatePDs(ctx, result, maxAlloc, opTimeout)
+	if ok {
+		result.Outcome = "limit_not_reached"
+	} else {
+		result.Outcome = "exhausted"
+	}
+	if !deallocatePDs(pds, result, opTimeout) {
+		result.Outcome = "deallocation_failed"
+	}
+	return result
+}
+
+func allocatePDs(ctx rdma.RDMAContext, result *pdLifecycleResult, n int, opTimeout time.Duration) ([]rdma.RDMAPD, bool) {
+	pds := make([]rdma.RDMAPD, 0, n)
+	for range n {
+		stop := startRDMAWatchdog("ibv_alloc_pd", opTimeout)
+		pd, err := rdma.IbvAllocPd(ctx)
+		stop()
+		if err != nil || pd == 0 {
+			result.AllocateErrno, result.AllocateError = providerErrno(err), "ibv_alloc_pd: "+nilReturnError(err, pd, "protection domain")
+			return pds, false
+		}
+		result.Allocations++
+		pds = append(pds, pd)
+	}
+	return pds, true
+}
+
+func deallocatePDs(pds []rdma.RDMAPD, result *pdLifecycleResult, opTimeout time.Duration) bool {
+	for _, pd := range pds {
+		stop := startRDMAWatchdog("ibv_dealloc_pd", opTimeout)
+		rc, err := rdma.IbvDeallocPd(pd)
+		stop()
+		if err != nil || rc != 0 {
+			result.DeallocErrno, result.DeallocError = providerErrno(err), "ibv_dealloc_pd: "+errOrCode(err, rc)
+			return false
+		}
+		result.Deallocations++
+	}
+	return true
+}
+
+func successfulPDLifecycleOutcome(outcome string) bool {
+	return outcome == "reclaimed" || outcome == "exhausted"
 }
 
 func providerErrno(err error) int {
@@ -2103,7 +2174,7 @@ func printResult(res result) {
 	}
 	if res.PDLifecycle != nil {
 		cap := res.PDLifecycle
-		fmt.Printf("%s device=%s outcome=%s cycles=%d allocations=%d deallocations=%d no_mr=%v no_qp=%v no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Outcome, cap.Cycles, cap.Allocations, cap.Deallocations, cap.NoMR, cap.NoQP, cap.NoRTR, cap.NoData)
+		fmt.Printf("%s device=%s mode=%s outcome=%s cycles=%d alloc_per_cycle=%d max_alloc=%d rounds_done=%d allocations=%d deallocations=%d no_mr=%v no_qp=%v no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Mode, cap.Outcome, cap.Cycles, cap.AllocPerCycle, cap.MaxAlloc, cap.RoundsDone, cap.Allocations, cap.Deallocations, cap.NoMR, cap.NoQP, cap.NoRTR, cap.NoData)
 		if cap.AllocateErrno != 0 {
 			fmt.Printf(" allocate_errno=%s", rdma.ErrnoText(cap.AllocateErrno))
 		}
