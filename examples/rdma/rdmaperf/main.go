@@ -900,6 +900,7 @@ const (
 	lifecycleStressConcurrency     = "l4-concurrency"
 	lifecycleStressIdleDegradation = "l5-idle-degradation"
 	maxLifecycleStressRounds       = 1000
+	maxLifecycleStressL1MRs        = 99
 	maxLifecycleStressMRs          = 90
 	maxLifecycleStressQPs          = 11
 	maxLifecycleStressL1Time       = 10 * time.Minute
@@ -1064,8 +1065,8 @@ func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps in
 		if qps < 1 || qps > maxLifecycleStressQPs {
 			return fmt.Errorf("l1 count-scale -qps must be in [1,%d]", maxLifecycleStressQPs)
 		}
-		if mrs < qps || mrs > maxLifecycleStressMRs {
-			return fmt.Errorf("l1 count-scale -mrs must be in [%d,%d]", qps, maxLifecycleStressMRs)
+		if mrs < qps || mrs > maxLifecycleStressL1MRs {
+			return fmt.Errorf("l1 count-scale -mrs must be in [%d,%d]", qps, maxLifecycleStressL1MRs)
 		}
 	case lifecycleStressRoundDepth:
 		if timeout > maxLifecycleStressL2Time {

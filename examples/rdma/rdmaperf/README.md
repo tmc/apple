@@ -83,7 +83,7 @@ all QPs reach RTS. It verifies the received deterministic payload on both
 ranks. A mismatch exits nonzero with `failure_class=data_mismatch`; it is not
 classified as a resource-reclamation failure.
 
-L1 count-scale holds multiple QPs and a total of 1--90 MRs live in each round,
+L1 count-scale holds multiple QPs and a total of 1--99 MRs live in each round,
 then tears them all down. It permits 1--11 QPs and 1--3 rounds, with a maximum
 10-minute whole-probe watchdog. `-mrs` is the total MRs per rank, not MRs per
 QP. This is a two-host wedge risk because both ranks allocate resources and

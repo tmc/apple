@@ -251,9 +251,9 @@ func TestValidateLifecycleStress(t *testing.T) {
 		wantErr               bool
 	}{
 		{"l1 minimum", lifecycleStressCountScale, ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
-		{"l1 scale", lifecycleStressCountScale, ":1234", "", 3, 90, 11, false, 64, 0, time.Minute, time.Second, false},
+		{"l1 scale", lifecycleStressCountScale, ":1234", "", 3, 99, 11, false, 64, 0, time.Minute, time.Second, false},
 		{"l1 data", lifecycleStressCountScale, ":1234", "", 1, 1, 1, true, 512 * 1024, 1, time.Minute, time.Second, false},
-		{"l1 too many mrs", lifecycleStressCountScale, ":1234", "", 1, 91, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"l1 too many mrs", lifecycleStressCountScale, ":1234", "", 1, 100, 1, false, 64, 0, time.Minute, time.Second, true},
 		{"l1 too few mrs", lifecycleStressCountScale, ":1234", "", 1, 2, 3, false, 64, 0, time.Minute, time.Second, true},
 		{"l1 too many qps", lifecycleStressCountScale, ":1234", "", 1, 12, 12, false, 64, 0, time.Minute, time.Second, true},
 		{"l2 minimum", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
