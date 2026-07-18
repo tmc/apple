@@ -114,6 +114,11 @@ also require `data_verified=true` and exactly
 round error is a failure/degradation signal; exit 124 is watchdog containment
 for a possible wedge. Do not retry either signal automatically.
 
+`bytes_per_sec` covers the full lifecycle command, including rank-0 listen and
+resource setup. For a payload throughput sweep, use `datapath_bytes_per_sec`
+and `datapath_elapsed`: they cover only the verified UC SEND/RECV phase. They
+are bidirectional application-payload rates, not raw link-layer rates.
+
 `mrs_opened`, `pds_opened`, and `qps_opened` report the resources actually
 opened in the current (or failing) round before teardown. For example, a QP
 ceiling can be reported as `qps_per_round=11` and `qps_opened=10`. A provider

@@ -51,43 +51,48 @@ type result struct {
 }
 
 type rdmaBenchResult struct {
-	Mode           string             `json:"mode"`
-	Role           string             `json:"role"`
-	Addr           string             `json:"addr,omitempty"`
-	Commit         string             `json:"commit,omitempty"`
-	Host           string             `json:"host,omitempty"`
-	Command        string             `json:"command,omitempty"`
-	Device         string             `json:"device,omitempty"`
-	DevicePair     string             `json:"device_pair,omitempty"`
-	Stage          string             `json:"stage,omitempty"`
-	SetupTimeout   string             `json:"setup_timeout,omitempty"`
-	GateEnv        string             `json:"gate_env,omitempty"`
-	FailureClass   string             `json:"failure_class,omitempty"`
-	FirstError     string             `json:"first_error,omitempty"`
-	NoRetry        bool               `json:"no_retry"`
-	DatapathClaim  bool               `json:"datapath_claim"`
-	Control        []rdmaControlEvent `json:"control,omitempty"`
-	Size           int                `json:"size"`
-	Iterations     int                `json:"iterations"`
-	DataIterations int                `json:"data_iterations,omitempty"`
-	MRCount        int                `json:"mr_count,omitempty"`
-	PDsPerRound    int                `json:"pds_per_round,omitempty"`
-	QPsPerRound    int                `json:"qps_per_round,omitempty"`
-	MRsOpened      int                `json:"mrs_opened,omitempty"`
-	PDsOpened      int                `json:"pds_opened,omitempty"`
-	QPsOpened      int                `json:"qps_opened,omitempty"`
-	RoundsDone     int                `json:"rounds_done,omitempty"`
-	Outcome        string             `json:"outcome,omitempty"`
-	Elapsed        string             `json:"elapsed,omitempty"`
-	Bytes          uint64             `json:"bytes,omitempty"`
-	Messages       uint64             `json:"messages,omitempty"`
-	BytesPerSec    float64            `json:"bytes_per_sec,omitempty"`
-	MessagesPerSec float64            `json:"messages_per_sec,omitempty"`
-	Latency        *latencySummary    `json:"latency,omitempty"`
-	DataVerified   bool               `json:"data_verified"`
-	Local          rdmaPeerInfo       `json:"local"`
-	Remote         rdmaPeerInfo       `json:"remote"`
-	Error          string             `json:"error,omitempty"`
+	Mode                   string             `json:"mode"`
+	Role                   string             `json:"role"`
+	Addr                   string             `json:"addr,omitempty"`
+	Commit                 string             `json:"commit,omitempty"`
+	Host                   string             `json:"host,omitempty"`
+	Command                string             `json:"command,omitempty"`
+	Device                 string             `json:"device,omitempty"`
+	DevicePair             string             `json:"device_pair,omitempty"`
+	Stage                  string             `json:"stage,omitempty"`
+	SetupTimeout           string             `json:"setup_timeout,omitempty"`
+	GateEnv                string             `json:"gate_env,omitempty"`
+	FailureClass           string             `json:"failure_class,omitempty"`
+	FirstError             string             `json:"first_error,omitempty"`
+	NoRetry                bool               `json:"no_retry"`
+	DatapathClaim          bool               `json:"datapath_claim"`
+	Control                []rdmaControlEvent `json:"control,omitempty"`
+	Size                   int                `json:"size"`
+	Iterations             int                `json:"iterations"`
+	DataIterations         int                `json:"data_iterations,omitempty"`
+	MRCount                int                `json:"mr_count,omitempty"`
+	PDsPerRound            int                `json:"pds_per_round,omitempty"`
+	QPsPerRound            int                `json:"qps_per_round,omitempty"`
+	MRsOpened              int                `json:"mrs_opened,omitempty"`
+	PDsOpened              int                `json:"pds_opened,omitempty"`
+	QPsOpened              int                `json:"qps_opened,omitempty"`
+	RoundsDone             int                `json:"rounds_done,omitempty"`
+	Outcome                string             `json:"outcome,omitempty"`
+	Elapsed                string             `json:"elapsed,omitempty"`
+	Bytes                  uint64             `json:"bytes,omitempty"`
+	Messages               uint64             `json:"messages,omitempty"`
+	BytesPerSec            float64            `json:"bytes_per_sec,omitempty"`
+	MessagesPerSec         float64            `json:"messages_per_sec,omitempty"`
+	DatapathElapsed        string             `json:"datapath_elapsed,omitempty"`
+	DatapathBytesPerSec    float64            `json:"datapath_bytes_per_sec,omitempty"`
+	DatapathMessagesPerSec float64            `json:"datapath_messages_per_sec,omitempty"`
+	Latency                *latencySummary    `json:"latency,omitempty"`
+	DataVerified           bool               `json:"data_verified"`
+	Local                  rdmaPeerInfo       `json:"local"`
+	Remote                 rdmaPeerInfo       `json:"remote"`
+	Error                  string             `json:"error,omitempty"`
+
+	datapathElapsed time.Duration
 }
 
 type latencySummary struct {
@@ -977,6 +982,7 @@ func rdmaLifecycleStress(args []string) {
 	res.GateEnv = lifecycleStressGateEnv(*level, *data)
 	res.MRCount, res.PDsPerRound, res.QPsPerRound = *mrs, *qps, *qps
 	finishRDMABench(&res, time.Since(start), res.Bytes, res.Messages)
+	finishRDMADatapath(&res, res.datapathElapsed, res.Bytes, res.Messages)
 	if res.Error == "" && res.RoundsDone == *rounds {
 		res.Outcome = "reclaimed"
 	} else if res.Error != "" {
@@ -1335,6 +1341,7 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	}
 	if iters > 0 {
 		res.Stage = "datapath"
+		start := time.Now()
 		for i, r := range resources {
 			var dataRes rdmaBenchResult
 			if client {
@@ -1348,6 +1355,7 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 			res.Bytes += dataRes.Bytes
 			res.Messages += uint64(iters)
 		}
+		res.datapathElapsed += time.Since(start)
 		res.DataVerified = true
 	}
 	res.Stage = "done"
@@ -2412,6 +2420,15 @@ func finishRDMABench(res *rdmaBenchResult, elapsed time.Duration, bytes, message
 		res.BytesPerSec = float64(bytes) / elapsed.Seconds()
 		res.MessagesPerSec = float64(messages) / elapsed.Seconds()
 	}
+}
+
+func finishRDMADatapath(res *rdmaBenchResult, elapsed time.Duration, bytes, messages uint64) {
+	if elapsed <= 0 {
+		return
+	}
+	res.DatapathElapsed = elapsed.String()
+	res.DatapathBytesPerSec = float64(bytes) / elapsed.Seconds()
+	res.DatapathMessagesPerSec = float64(messages) / elapsed.Seconds()
 }
 
 func probeRDMA() *rdmaSummary {

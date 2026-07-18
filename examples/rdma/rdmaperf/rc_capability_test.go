@@ -343,6 +343,14 @@ func TestLifecycleResourceCounts(t *testing.T) {
 	}
 }
 
+func TestFinishRDMADatapath(t *testing.T) {
+	var res rdmaBenchResult
+	finishRDMADatapath(&res, 2*time.Second, 2048, 5)
+	if res.DatapathElapsed != "2s" || res.DatapathBytesPerSec != 1024 || res.DatapathMessagesPerSec != 2.5 {
+		t.Fatalf("finishRDMADatapath() = (%q, %v, %v), want (2s, 1024, 2.5)", res.DatapathElapsed, res.DatapathBytesPerSec, res.DatapathMessagesPerSec)
+	}
+}
+
 func TestClassifyRCCapabilityCreate(t *testing.T) {
 	tests := []struct {
 		name       string
