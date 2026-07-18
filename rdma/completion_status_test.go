@@ -10,6 +10,7 @@ func TestClassifyCompletionStatus(t *testing.T) {
 	}{
 		{"success", IBV_WC_SUCCESS, CompletionSuccess},
 		{"local protection", IBV_WC_LOC_PROT_ERR, CompletionProtection},
+		{"local access", IBV_WC_LOC_ACCESS_ERR, CompletionProtection},
 		{"remote access", IBV_WC_REM_ACCESS_ERR, CompletionProtection},
 		{"other failure", 5, CompletionFailure},
 	}

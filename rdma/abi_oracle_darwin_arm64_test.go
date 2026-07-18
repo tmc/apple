@@ -63,6 +63,7 @@ func TestAppleHeaderABI(t *testing.T) {
 		"IBV_ACCESS_REMOTE_READ":               4,
 		"IBV_WC_SUCCESS":                       0,
 		"IBV_WC_LOC_PROT_ERR":                  4,
+		"IBV_WC_LOC_ACCESS_ERR":                8,
 		"IBV_WC_REM_ACCESS_ERR":                10,
 		"IBV_QP_STATE":                         1,
 		"IBV_QP_ACCESS_FLAGS":                  8,

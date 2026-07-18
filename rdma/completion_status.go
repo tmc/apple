@@ -4,6 +4,7 @@ package rdma
 // part of the verbs ABI; they do not imply that an unsupported verb is usable.
 const (
 	IBV_WC_LOC_PROT_ERR   = 4
+	IBV_WC_LOC_ACCESS_ERR = 8
 	IBV_WC_REM_ACCESS_ERR = 10
 )
 
@@ -22,7 +23,7 @@ func ClassifyCompletionStatus(status int32) CompletionStatusClass {
 	switch status {
 	case IBV_WC_SUCCESS:
 		return CompletionSuccess
-	case IBV_WC_LOC_PROT_ERR, IBV_WC_REM_ACCESS_ERR:
+	case IBV_WC_LOC_PROT_ERR, IBV_WC_LOC_ACCESS_ERR, IBV_WC_REM_ACCESS_ERR:
 		return CompletionProtection
 	default:
 		return CompletionFailure
