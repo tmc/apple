@@ -36,6 +36,30 @@ func TestPrintRKeyCapability(t *testing.T) {
 	}
 }
 
+func TestPrintPDLifecycle(t *testing.T) {
+	old := os.Stdout
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stdout = w
+	printResult(result{Mode: "rdma-pd-lifecycle", PDLifecycle: &pdLifecycleResult{
+		Device: "rdma_en2", Outcome: "reclaimed", Cycles: 1, Allocations: 2, Deallocations: 2,
+		NoMR: true, NoQP: true, NoRTR: true, NoData: true,
+	}})
+	w.Close()
+	os.Stdout = old
+	out, err := io.ReadAll(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"outcome=reclaimed", "allocations=2", "deallocations=2", "no_mr=true"} {
+		if !strings.Contains(string(out), want) {
+			t.Fatalf("printResult output %q missing %q", out, want)
+		}
+	}
+}
+
 func TestRequireRCCapabilityProbeAllowed(t *testing.T) {
 	t.Setenv(rcCapabilityConfirmEnv, "")
 	if err := requireRCCapabilityProbeAllowed(false); err == nil {
@@ -72,6 +96,31 @@ func TestRequireRKeyCapabilityProbeAllowed(t *testing.T) {
 	t.Setenv(rkeyCapabilityConfirmEnv, rkeyCapabilityConfirmValue)
 	if err := requireRKeyCapabilityProbeAllowed(true); err != nil {
 		t.Fatalf("requireRKeyCapabilityProbeAllowed(true) = %v", err)
+	}
+}
+
+func TestRequirePDLifecycleProbeAllowed(t *testing.T) {
+	t.Setenv(pdLifecycleConfirmEnv, "")
+	if err := requirePDLifecycleProbeAllowed(false); err == nil {
+		t.Fatal("requirePDLifecycleProbeAllowed(false) succeeded")
+	}
+	if err := requirePDLifecycleProbeAllowed(true); err == nil {
+		t.Fatal("requirePDLifecycleProbeAllowed(true) succeeded without confirmation")
+	}
+	t.Setenv(pdLifecycleConfirmEnv, pdLifecycleConfirmValue)
+	if err := requirePDLifecycleProbeAllowed(true); err != nil {
+		t.Fatalf("requirePDLifecycleProbeAllowed(true) = %v", err)
+	}
+}
+
+func TestValidatePDLifecycleProbe(t *testing.T) {
+	for _, cycles := range []int{0, maxPDLifecycleCycles + 1} {
+		if err := validatePDLifecycleProbe(cycles, time.Second); err == nil {
+			t.Fatalf("validatePDLifecycleProbe(%d) succeeded", cycles)
+		}
+	}
+	if err := validatePDLifecycleProbe(1, time.Second); err != nil {
+		t.Fatalf("validatePDLifecycleProbe(1) = %v", err)
 	}
 }
 
@@ -124,6 +173,34 @@ func TestRKeyCapabilityProbeDoesNotCreateQueuePairOrDriveDataPath(t *testing.T) 
 	for _, forbidden := range []string{"IbvCreateQp", "IbvModifyQp", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
 		if strings.Contains(body, forbidden) {
 			t.Fatalf("rkey capability probe must not call %s", forbidden)
+		}
+	}
+}
+
+func TestPDLifecycleProbeOnlyUsesPDCalls(t *testing.T) {
+	data, err := os.ReadFile("main.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	src := string(data)
+	start := strings.Index(src, "func probePDLifecycle(")
+	if start < 0 {
+		t.Fatal("could not locate probePDLifecycle source")
+	}
+	end := strings.Index(src[start:], "\nfunc providerErrno(")
+	if end < 0 {
+		t.Fatal("could not locate end of probePDLifecycle source")
+	}
+	body := src[start : start+end]
+	if n := strings.Count(body, "IbvAllocPd("); n != 2 {
+		t.Fatalf("PD lifecycle probe has %d allocation sites, want 2", n)
+	}
+	if n := strings.Count(body, "IbvDeallocPd("); n != 2 {
+		t.Fatalf("PD lifecycle probe has %d deallocation sites, want 2", n)
+	}
+	for _, forbidden := range []string{"IbvRegMr", "IbvCreateQp", "IbvCreateCq", "IbvModifyQp", "PostSend", "PostRecv", "IbvQueryPort", "IbvQueryGid"} {
+		if strings.Contains(body, forbidden) {
+			t.Fatalf("PD lifecycle probe must not call %s", forbidden)
 		}
 	}
 }

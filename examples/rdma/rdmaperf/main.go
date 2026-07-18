@@ -46,6 +46,7 @@ type result struct {
 	RDMA           *rdmaSummary          `json:"rdma,omitempty"`
 	RCCapability   *rcCapabilityResult   `json:"rc_capability,omitempty"`
 	RKeyCapability *rkeyCapabilityResult `json:"rkey_capability,omitempty"`
+	PDLifecycle    *pdLifecycleResult    `json:"pd_lifecycle,omitempty"`
 	Error          string                `json:"error,omitempty"`
 }
 
@@ -137,6 +138,22 @@ type rkeyCapabilityResult struct {
 	DeregisterError string `json:"deregister_error,omitempty"`
 }
 
+type pdLifecycleResult struct {
+	Device        string `json:"device,omitempty"`
+	Outcome       string `json:"outcome"`
+	Cycles        int    `json:"cycles"`
+	Allocations   int    `json:"allocations"`
+	Deallocations int    `json:"deallocations"`
+	NoMR          bool   `json:"no_mr"`
+	NoQP          bool   `json:"no_qp"`
+	NoRTR         bool   `json:"no_rtr"`
+	NoData        bool   `json:"no_data"`
+	AllocateErrno int    `json:"allocate_errno,omitempty"`
+	AllocateError string `json:"allocate_error,omitempty"`
+	DeallocErrno  int    `json:"dealloc_errno,omitempty"`
+	DeallocError  string `json:"dealloc_error,omitempty"`
+}
+
 type rdmaPeerInfo struct {
 	Name      string `json:"name,omitempty"`
 	LID       uint16 `json:"lid"`
@@ -225,6 +242,8 @@ func main() {
 		rdmaRCCapability(os.Args[2:])
 	case "rdma-rkey-capability":
 		rdmaRKeyCapability(os.Args[2:])
+	case "rdma-pd-lifecycle":
+		rdmaPDLifecycle(os.Args[2:])
 	case "rdma-pingpong":
 		rdmaPingpong(os.Args[2:])
 	case "rdma-port-state":
@@ -252,6 +271,8 @@ Commands:
               One guarded RC-QP create/destroy capability probe; no RTR or data.
   rdma-rkey-capability
               One guarded MR registration capability probe; no QP, RTR, or data.
+  rdma-pd-lifecycle
+              Guarded PD alloc/dealloc/realloc lifecycle probe; no MR, QP, RTR, or data.
   rdma-pingpong
               Run RDMA SEND/RECV ping-pong using TCP only for setup exchange.
   interfaces  List local interface addresses useful for -listen and -addr.
@@ -581,6 +602,10 @@ const rkeyCapabilityConfirmEnv = "CONFIRM_RDMA_RKEY_CAPABILITY"
 const rkeyCapabilityConfirmValue = "one-shot-mr-register"
 const rkeyCapabilityBytes = 4096
 
+const pdLifecycleConfirmEnv = "CONFIRM_RDMA_PD_LIFECYCLE"
+const pdLifecycleConfirmValue = "one-shot-pd-lifecycle"
+const maxPDLifecycleCycles = 3
+
 func rdmaRCCapability(args []string) {
 	fs := flag.NewFlagSet("rdma-rc-capability", flag.ExitOnError)
 	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
@@ -674,6 +699,58 @@ func requireRKeyCapabilityProbeAllowed(allow bool) error {
 		return fmt.Errorf("refusing rkey capability probe: set %s=%s", rkeyCapabilityConfirmEnv, rkeyCapabilityConfirmValue)
 	}
 	return nil
+}
+
+func rdmaPDLifecycle(args []string) {
+	fs := flag.NewFlagSet("rdma-pd-lifecycle", flag.ExitOnError)
+	deviceName := fs.String("name", "", "select first RDMA device whose name contains substring")
+	deviceIndex := fs.Int("device", -1, "select RDMA device index")
+	cycles := fs.Int("cycles", 1, "bounded allocate/deallocate/reallocate cycles (1..3)")
+	timeout := fs.Duration("timeout", 10*time.Second, "watchdog limit for the bounded provider calls")
+	allow := fs.Bool("allow-pd-lifecycle-probe", false, "acknowledge bounded protection-domain lifecycle probe")
+	jsonOut := fs.Bool("json", false, "print JSON")
+	fs.Parse(args)
+
+	if err := validatePDLifecycleProbe(*cycles, *timeout); err != nil {
+		fatalf("%v", err)
+	}
+	if err := requirePDLifecycleProbeAllowed(*allow); err != nil {
+		fatalf("%v", err)
+	}
+	stopWatchdog := startRDMAWatchdog("rdma PD lifecycle probe", *timeout)
+	res := result{Mode: "rdma-pd-lifecycle", PDLifecycle: probePDLifecycle(*deviceName, *deviceIndex, *cycles)}
+	stopWatchdog()
+	if res.PDLifecycle.Outcome != "reclaimed" {
+		res.Error = res.PDLifecycle.AllocateError
+		if res.PDLifecycle.DeallocError != "" {
+			res.Error = res.PDLifecycle.DeallocError
+		}
+	}
+	if *jsonOut {
+		writeJSON(res)
+	} else {
+		printResult(res)
+	}
+	if res.Error != "" {
+		os.Exit(1)
+	}
+}
+
+func requirePDLifecycleProbeAllowed(allow bool) error {
+	if !allow {
+		return fmt.Errorf("refusing PD lifecycle probe: pass -allow-pd-lifecycle-probe for bounded alloc/dealloc/realloc")
+	}
+	if os.Getenv(pdLifecycleConfirmEnv) != pdLifecycleConfirmValue {
+		return fmt.Errorf("refusing PD lifecycle probe: set %s=%s", pdLifecycleConfirmEnv, pdLifecycleConfirmValue)
+	}
+	return nil
+}
+
+func validatePDLifecycleProbe(cycles int, timeout time.Duration) error {
+	if cycles < 1 || cycles > maxPDLifecycleCycles {
+		return fmt.Errorf("-cycles must be in [1,%d]", maxPDLifecycleCycles)
+	}
+	return validateRCCapabilityTimeout(timeout)
 }
 
 func startRDMAWatchdog(name string, timeout time.Duration) func() {
@@ -1284,6 +1361,71 @@ func probeRKeyCapability(deviceName string, deviceIndex int) *rkeyCapabilityResu
 		}
 	}
 	return result
+}
+
+// probePDLifecycle checks whether a deallocated PD can be allocated again in
+// the same process. It stops at the first failure; it never retries a failed
+// provider call.
+func probePDLifecycle(deviceName string, deviceIndex, cycles int) *pdLifecycleResult {
+	result := &pdLifecycleResult{Outcome: "inconclusive", Cycles: cycles, NoMR: true, NoQP: true, NoRTR: true, NoData: true}
+	if !rdma.Available() {
+		result.AllocateError = "rdma unavailable"
+		return result
+	}
+	devs, err := rdmaDevices()
+	if err != nil {
+		result.AllocateError = fmt.Sprintf("rdma devices: %v", err)
+		return result
+	}
+	dev, err := selectRCCapabilityDevice(devs, deviceName, deviceIndex)
+	if err != nil {
+		result.AllocateError = err.Error()
+		return result
+	}
+	result.Device = dev.Name
+	ctx, err := dev.Open()
+	if err != nil || ctx == 0 {
+		result.AllocateError = "ibv_open_device: " + nilReturnError(err, ctx, "context")
+		return result
+	}
+	defer rdma.IbvCloseDevice(ctx)
+
+	for cycle := 0; cycle < cycles; cycle++ {
+		pd, err := rdma.IbvAllocPd(ctx)
+		result.Allocations++
+		if err != nil || pd == 0 {
+			result.AllocateErrno, result.AllocateError = providerErrno(err), "ibv_alloc_pd: "+nilReturnError(err, pd, "protection domain")
+			return result
+		}
+		rc, err := rdma.IbvDeallocPd(pd)
+		result.Deallocations++
+		if err != nil || rc != 0 {
+			result.DeallocErrno, result.DeallocError = providerErrno(err), "ibv_dealloc_pd: "+errOrCode(err, rc)
+			return result
+		}
+		pd, err = rdma.IbvAllocPd(ctx)
+		result.Allocations++
+		if err != nil || pd == 0 {
+			result.AllocateErrno, result.AllocateError = providerErrno(err), "ibv_alloc_pd after dealloc: "+nilReturnError(err, pd, "protection domain")
+			return result
+		}
+		rc, err = rdma.IbvDeallocPd(pd)
+		result.Deallocations++
+		if err != nil || rc != 0 {
+			result.DeallocErrno, result.DeallocError = providerErrno(err), "ibv_dealloc_pd after realloc: "+errOrCode(err, rc)
+			return result
+		}
+	}
+	result.Outcome = "reclaimed"
+	return result
+}
+
+func providerErrno(err error) int {
+	var providerErr *rdma.ProviderError
+	if errors.As(err, &providerErr) && providerErr.ErrnoSet {
+		return providerErr.Errno
+	}
+	return 0
 }
 
 func classifyRKeyCapabilityRegistration(mr rdma.RDMAMR, err error) (outcome string, errno int, detail string) {
@@ -1955,6 +2097,24 @@ func printResult(res result) {
 		}
 		if cap.RegisterErrno != 0 {
 			fmt.Printf(" register_errno=%s", rdma.ErrnoText(cap.RegisterErrno))
+		}
+		fmt.Println()
+		return
+	}
+	if res.PDLifecycle != nil {
+		cap := res.PDLifecycle
+		fmt.Printf("%s device=%s outcome=%s cycles=%d allocations=%d deallocations=%d no_mr=%v no_qp=%v no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Outcome, cap.Cycles, cap.Allocations, cap.Deallocations, cap.NoMR, cap.NoQP, cap.NoRTR, cap.NoData)
+		if cap.AllocateErrno != 0 {
+			fmt.Printf(" allocate_errno=%s", rdma.ErrnoText(cap.AllocateErrno))
+		}
+		if cap.AllocateError != "" {
+			fmt.Printf(" allocate_error=%s", cap.AllocateError)
+		}
+		if cap.DeallocErrno != 0 {
+			fmt.Printf(" dealloc_errno=%s", rdma.ErrnoText(cap.DeallocErrno))
+		}
+		if cap.DeallocError != "" {
+			fmt.Printf(" dealloc_error=%s", cap.DeallocError)
 		}
 		fmt.Println()
 		return
