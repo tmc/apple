@@ -900,7 +900,7 @@ const (
 	lifecycleStressRoundDepth      = "l2-round-depth"
 	lifecycleStressConcurrency     = "l4-concurrency"
 	lifecycleStressIdleDegradation = "l5-idle-degradation"
-	maxLifecycleStressRounds       = 1000
+	maxLifecycleStressRounds       = 2000
 	maxLifecycleStressL1MRs        = 101
 	maxLifecycleStressMRs          = 90
 	maxLifecycleStressQPs          = 11
