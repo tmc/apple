@@ -970,7 +970,7 @@ func rdmaLifecycleStress(args []string) {
 	qps := fs.Int("qps", 0, "queue pairs held per round")
 	data := fs.Bool("data", false, "post UC SEND/RECV traffic after QP setup")
 	wireSamples := fs.String("wire-samples", "", "write per-iteration wire phase samples on the client rank")
-	sizeText := fs.String("size", "64", "data payload size when -data is set (1..512K)")
+	sizeText := fs.String("size", "64", "data payload size when -data is set (1..4M)")
 	iters := fs.Int("iters", 0, "data ping-pong iterations per QP per round when -data is set")
 	idleDwell := fs.Duration("idle-dwell", 0, "idle time between verified pre-idle and post-idle transfers for l5")
 	timeout := fs.Duration("timeout", 0, "whole-probe watchdog limit")
@@ -1053,8 +1053,8 @@ func validateWireSamples(path, addr string, rounds, qps int, data bool) error {
 	if addr == "" {
 		return fmt.Errorf("-wire-samples is written by the client rank; use -addr")
 	}
-	if rounds != 1 || qps != 1 {
-		return fmt.Errorf("-wire-samples requires -rounds=1 and -qps=1")
+	if rounds != 1 {
+		return fmt.Errorf("-wire-samples requires -rounds=1")
 	}
 	return nil
 }
@@ -1067,8 +1067,8 @@ func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps in
 		return fmt.Errorf("require positive timeouts with -setup-timeout not exceeding -timeout")
 	}
 	if data {
-		if size < 1 || size > 512*1024 {
-			return fmt.Errorf("-size must be in [1,524288] with -data")
+		if size < 1 || size > 4*1024*1024 {
+			return fmt.Errorf("-size must be in [1,4194304] with -data")
 		}
 		if iters < 1 || iters > 10000 {
 			return fmt.Errorf("-iters must be in [1,10000] with -data")
@@ -1450,7 +1450,7 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 			}
 			res.PostIdleVerified = true
 		case lifecycleStressConcurrency:
-			if err := runLifecycleData(resources, client, iters, true, "concurrent", nil, res); err != nil {
+			if err := runLifecycleData(resources, client, iters, true, "concurrent", collector, res); err != nil {
 				return err
 			}
 		default:
@@ -1478,7 +1478,7 @@ func runLifecycleData(resources []*rdmaResources, client bool, iters int, concur
 		var err error
 		if client {
 			if collector != nil {
-				err = collector.run(r, &dataRes)
+				err = collector.run(r, iters, &dataRes)
 			} else {
 				err = runRDMAPingpongClientLoop(r, iters, &dataRes)
 			}
@@ -2483,30 +2483,29 @@ type wireBenchSample struct {
 }
 
 type wireSampleCollector struct {
+	mu      sync.Mutex
 	samples []wireBenchSample
-	source  []byte
-	dest    []byte
 }
 
 func newWireSampleCollector(size, iters int) *wireSampleCollector {
-	source := make([]byte, size)
-	fillRDMAPayload(source)
 	return &wireSampleCollector{
 		samples: make([]wireBenchSample, 0, iters),
-		source:  source,
-		dest:    make([]byte, size),
 	}
 }
 
-func (c *wireSampleCollector) run(r *rdmaResources, res *rdmaBenchResult) error {
+func (c *wireSampleCollector) run(r *rdmaResources, iters int, res *rdmaBenchResult) error {
+	source := make([]byte, len(r.buf))
+	fillRDMAPayload(source)
+	dest := make([]byte, len(r.buf))
+	samples := make([]wireBenchSample, 0, iters)
 	var before runtime.MemStats
 	runtime.ReadMemStats(&before)
 	start := time.Now()
-	for i := 0; i < cap(c.samples); i++ {
+	for i := 0; i < iters; i++ {
 		iterationStart := time.Now()
 
 		phaseStart := time.Now()
-		copy(r.buf, c.source)
+		copy(r.buf, source)
 		stagingCopy := time.Since(phaseStart)
 
 		phaseStart = time.Now()
@@ -2526,13 +2525,13 @@ func (c *wireSampleCollector) run(r *rdmaResources, res *rdmaBenchResult) error 
 		completionWait := time.Since(phaseStart)
 
 		phaseStart = time.Now()
-		copy(c.dest, r.buf)
+		copy(dest, r.buf)
 		receiveCopy := time.Since(phaseStart)
-		if err := checkRDMAPayload(c.dest); err != nil {
+		if err := checkRDMAPayload(dest); err != nil {
 			return err
 		}
 
-		c.samples = append(c.samples, wireBenchSample{
+		samples = append(samples, wireBenchSample{
 			Total:          time.Since(iterationStart),
 			StagingCopy:    stagingCopy,
 			Post:           post,
@@ -2545,24 +2544,27 @@ func (c *wireSampleCollector) run(r *rdmaResources, res *rdmaBenchResult) error 
 	}
 	var after runtime.MemStats
 	runtime.ReadMemStats(&after)
-	c.setMemoryStats(before, after)
-	finishRDMABench(res, time.Since(start), uint64(len(c.samples)*len(r.buf)*2), uint64(len(c.samples)))
-	res.Latency = summarizeWireLatency(c.samples)
+	setWireMemoryStats(samples, before, after)
+	c.mu.Lock()
+	c.samples = append(c.samples, samples...)
+	c.mu.Unlock()
+	finishRDMABench(res, time.Since(start), uint64(len(samples)*len(r.buf)*2), uint64(len(samples)))
+	res.Latency = summarizeWireLatency(samples)
 	return nil
 }
 
-func (c *wireSampleCollector) setMemoryStats(before, after runtime.MemStats) {
-	if len(c.samples) == 0 {
+func setWireMemoryStats(samples []wireBenchSample, before, after runtime.MemStats) {
+	if len(samples) == 0 {
 		return
 	}
-	n := uint64(len(c.samples))
+	n := uint64(len(samples))
 	allocBytes := (after.TotalAlloc - before.TotalAlloc) / n
 	allocs := (after.Mallocs - before.Mallocs) / n
 	gcPause := time.Duration((after.PauseTotalNs - before.PauseTotalNs) / n)
-	for i := range c.samples {
-		c.samples[i].AllocBytes = allocBytes
-		c.samples[i].Allocs = allocs
-		c.samples[i].GCPause = gcPause
+	for i := range samples {
+		samples[i].AllocBytes = allocBytes
+		samples[i].Allocs = allocs
+		samples[i].GCPause = gcPause
 	}
 }
 

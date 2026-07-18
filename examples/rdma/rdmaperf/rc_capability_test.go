@@ -396,7 +396,7 @@ func TestValidateWireSamples(t *testing.T) {
 		{"needs data", "samples.json", "127.0.0.1:1234", 1, 1, false, true},
 		{"needs client", "samples.json", "", 1, 1, true, true},
 		{"one round", "samples.json", "127.0.0.1:1234", 2, 1, true, true},
-		{"one qp", "samples.json", "127.0.0.1:1234", 1, 2, true, true},
+		{"multiple qps", "samples.json", "127.0.0.1:1234", 1, 2, true, false},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
