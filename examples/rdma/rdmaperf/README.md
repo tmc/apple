@@ -114,6 +114,12 @@ also require `data_verified=true` and exactly
 round error is a failure/degradation signal; exit 124 is watchdog containment
 for a possible wedge. Do not retry either signal automatically.
 
+`mrs_opened`, `pds_opened`, and `qps_opened` report the resources actually
+opened in the current (or failing) round before teardown. For example, a QP
+ceiling can be reported as `qps_per_round=11` and `qps_opened=10`. A provider
+`EBUSY` resource refusal is classified as `resource_exhausted`; it remains
+distinct from a watchdog wedge or a data mismatch.
+
 Conservative, approved-run cards should start with L1 at one round, 16 MRs,
 and one QP, then L2 at 50 rounds, two MRs, and one QP. Add `-data -size 64
 -iters 10` only under the additional data gate. Increase one dimension at a

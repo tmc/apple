@@ -316,6 +316,33 @@ func TestLifecycleStressGateEnv(t *testing.T) {
 	}
 }
 
+func TestClassifyRDMABenchFailure(t *testing.T) {
+	tests := []struct {
+		input string
+		want  string
+	}{
+		{"ibv_create_qp: provider returned nil queue pair (return=0, errno 16 (EBUSY))", "resource_exhausted"},
+		{"data mismatch at byte 1", "data_mismatch"},
+		{"rdma setup timeout", string(rdma.FailureProviderTimeout)},
+	}
+	for _, test := range tests {
+		if got := classifyRDMABenchFailure(test.input); got != test.want {
+			t.Errorf("classifyRDMABenchFailure(%q) = %q, want %q", test.input, got, test.want)
+		}
+	}
+}
+
+func TestLifecycleResourceCounts(t *testing.T) {
+	resources := []*rdmaResources{
+		{qp: 1, pd: 1, mr: 1, extraMRs: []rdma.RDMAMR{1, 2}},
+		{qp: 2, pd: 2, mr: 2},
+	}
+	qps, pds, mrs := lifecycleResourceCounts(resources)
+	if qps != 2 || pds != 2 || mrs != 4 {
+		t.Fatalf("lifecycleResourceCounts() = (%d, %d, %d), want (2, 2, 4)", qps, pds, mrs)
+	}
+}
+
 func TestClassifyRCCapabilityCreate(t *testing.T) {
 	tests := []struct {
 		name       string

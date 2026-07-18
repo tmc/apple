@@ -73,6 +73,9 @@ type rdmaBenchResult struct {
 	MRCount        int                `json:"mr_count,omitempty"`
 	PDsPerRound    int                `json:"pds_per_round,omitempty"`
 	QPsPerRound    int                `json:"qps_per_round,omitempty"`
+	MRsOpened      int                `json:"mrs_opened,omitempty"`
+	PDsOpened      int                `json:"pds_opened,omitempty"`
+	QPsOpened      int                `json:"qps_opened,omitempty"`
 	RoundsDone     int                `json:"rounds_done,omitempty"`
 	Outcome        string             `json:"outcome,omitempty"`
 	Elapsed        string             `json:"elapsed,omitempty"`
@@ -1243,6 +1246,8 @@ func classifyRDMABenchFailure(s string) string {
 		return string(rdma.FailureProviderTimeout)
 	case strings.Contains(s, "errno 60") || strings.Contains(s, "ETIMEDOUT") || strings.Contains(s, "i/o timeout"):
 		return "timeout"
+	case strings.Contains(s, "errno 16 (EBUSY)") || strings.Contains(s, "EBUSY"):
+		return "resource_exhausted"
 	case strings.Contains(s, "nil provider result") || strings.Contains(s, "provider returned nil"):
 		return string(rdma.FailureNilProviderResult)
 	case strings.Contains(s, "provider returned negative status"):
@@ -1281,9 +1286,16 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	res.Stage = "open-rdma-resources"
 	resources, err := openLifecycleResources(deviceName, deviceIndex, mrs, qps, size, setupTimeout)
 	if err != nil {
+		var openErr *lifecycleOpenError
+		if errors.As(err, &openErr) {
+			res.MRsOpened = openErr.mrs
+			res.PDsOpened = openErr.pds
+			res.QPsOpened = openErr.qps
+		}
 		return err
 	}
 	defer closeRDMAResources(resources)
+	res.MRsOpened, res.PDsOpened, res.QPsOpened = lifecycleResourceCounts(resources)
 
 	local := make([]rdmaPeerInfo, len(resources))
 	for i, r := range resources {
@@ -1342,6 +1354,17 @@ func runRDMALifecycleRound(c net.Conn, client bool, deviceName string, deviceInd
 	return nil
 }
 
+type lifecycleOpenError struct {
+	qps int
+	pds int
+	mrs int
+	err error
+}
+
+func (e *lifecycleOpenError) Error() string { return e.err.Error() }
+
+func (e *lifecycleOpenError) Unwrap() error { return e.err }
+
 func openLifecycleResources(deviceName string, deviceIndex, mrs, qps, size int, timeout time.Duration) ([]*rdmaResources, error) {
 	resources := make([]*rdmaResources, 0, qps)
 	defer func() {
@@ -1352,8 +1375,10 @@ func openLifecycleResources(deviceName string, deviceIndex, mrs, qps, size int, 
 	for i := 0; i < qps; i++ {
 		r, err := openRDMAResources(deviceName, deviceIndex, -1, size, timeout)
 		if err != nil {
-			return nil, fmt.Errorf("qp %d: %w", i+1, err)
+			qpsOpened, pdsOpened, mrsOpened := lifecycleResourceCounts(resources)
+			return nil, &lifecycleOpenError{qps: qpsOpened, pds: pdsOpened, mrs: mrsOpened, err: fmt.Errorf("qp %d: %w", i+1, err)}
 		}
+		resources = append(resources, r)
 		// Every resource owns its initial MR. Spread the remaining MRs across
 		// the live QPs so mrs is the total held by this rank for the round.
 		extra := mrs/qps - 1
@@ -1361,14 +1386,29 @@ func openLifecycleResources(deviceName string, deviceIndex, mrs, qps, size int, 
 			extra++
 		}
 		if err := addLifecycleMRs(r, extra, timeout); err != nil {
-			r.close()
-			return nil, fmt.Errorf("qp %d: %w", i+1, err)
+			qpsOpened, pdsOpened, mrsOpened := lifecycleResourceCounts(resources)
+			return nil, &lifecycleOpenError{qps: qpsOpened, pds: pdsOpened, mrs: mrsOpened, err: fmt.Errorf("qp %d: %w", i+1, err)}
 		}
-		resources = append(resources, r)
 	}
 	owned := resources
 	resources = nil
 	return owned, nil
+}
+
+func lifecycleResourceCounts(resources []*rdmaResources) (qps, pds, mrs int) {
+	for _, r := range resources {
+		if r.qp != 0 {
+			qps++
+		}
+		if r.pd != 0 {
+			pds++
+		}
+		if r.mr != 0 {
+			mrs++
+		}
+		mrs += len(r.extraMRs)
+	}
+	return qps, pds, mrs
 }
 
 func closeRDMAResources(resources []*rdmaResources) {
