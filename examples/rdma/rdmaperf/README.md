@@ -61,6 +61,64 @@ completion-queue, memory-region, queue-pair lifecycle, QP transition, and work
 completion polling. When provider calls block, the probe watchdog exits 124
 instead of leaving the command hung.
 
+## Lifecycle stress ladder
+
+`rdma-lifecycle-stress` is a two-rank, bounded stress command. It reuses the
+guarded UC lifecycle path, so it can wedge either provider. Build it locally,
+copy the same binary to the peer, and obtain approval for each invocation. Do
+not run it on only one host: every level reaches RTR/RTS on both hosts.
+
+Each invocation needs the level gate:
+
+```sh
+CONFIRM_RDMA_LIFECYCLE_STRESS=l1-count-scale \
+  rdmaperf rdma-lifecycle-stress -level l1-count-scale \
+  -allow-lifecycle-stress ...
+```
+
+With `-data`, it also needs
+`CONFIRM_RDMA_LIFECYCLE_DATA=uc-send-recv` and
+`-allow-lifecycle-data`. Data mode posts UC SEND/RECV ping-pong traffic after
+all QPs reach RTS. It verifies the received deterministic payload on both
+ranks. A mismatch exits nonzero with `failure_class=data_mismatch`; it is not
+classified as a resource-reclamation failure.
+
+L1 count-scale holds multiple QPs and a total of 1--90 MRs live in each round,
+then tears them all down. It permits 1--11 QPs and 1--3 rounds, with a maximum
+10-minute whole-probe watchdog. `-mrs` is the total MRs per rank, not MRs per
+QP. This is a two-host wedge risk because both ranks allocate resources and
+drive RTR/RTS.
+
+L2 round-depth holds one QP and 1--4 MRs, then repeats the full lifecycle for
+1--1000 rounds. Its maximum whole-probe watchdog is six hours. This isolates
+cumulative reclamation from high simultaneous resource pressure, but remains a
+two-host wedge risk.
+
+L3 is the `-data` composition of either L1 or L2. It has a payload range of
+1 byte through 512 KiB and 1--10,000 ping-pongs per QP per round. The combined
+data soak is L1 or L2 with `-data`: it measures cleanup after actual UC
+SEND/RECV completions, not merely QP state transitions.
+
+L4 concurrency is intentionally not implemented by this command yet. It will
+need multiple independent QP groups posting concurrently, rather than the
+current sequential per-QP data phase, and is a two-host wedge/corruption risk.
+
+L5 idle degradation is intentionally not implemented yet. It will need two
+hosts to hold known-good RTS QPs idle for the approved interval and then run a
+verified data exchange. It is a two-host wedge and long-duration risk.
+
+For L1/L2, success is JSON with `outcome="reclaimed"`, the requested
+`rounds_done`, `mr_count`, and `qps_per_round`, and no `error`. In data mode,
+also require `data_verified=true` and exactly
+`rounds * qps * iters * size * 2` bytes on each rank. A nonzero exit with a
+round error is a failure/degradation signal; exit 124 is watchdog containment
+for a possible wedge. Do not retry either signal automatically.
+
+Conservative, approved-run cards should start with L1 at one round, 16 MRs,
+and one QP, then L2 at 50 rounds, two MRs, and one QP. Add `-data -size 64
+-iters 10` only under the additional data gate. Increase one dimension at a
+time and save JSON, stderr, and exit status from both ranks.
+
 The `rdma-pingpong` command drives QP `INIT->RTR`. On the Apple Thunderbolt
 RDMA provider, repeated failed RTR attempts have been observed to tear down the
 kernel transmit path and wedge the port until reboot. The command therefore

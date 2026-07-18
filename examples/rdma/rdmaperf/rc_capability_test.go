@@ -240,6 +240,73 @@ func TestLifecycleProbeIsGatedAndDoesNotPostData(t *testing.T) {
 	}
 }
 
+func TestValidateLifecycleStress(t *testing.T) {
+	tests := []struct {
+		name                  string
+		level, listen, addr   string
+		rounds, mrs, qps      int
+		data                  bool
+		size, iters           int
+		timeout, setupTimeout time.Duration
+		wantErr               bool
+	}{
+		{"l1 minimum", lifecycleStressCountScale, ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
+		{"l1 scale", lifecycleStressCountScale, ":1234", "", 3, 90, 11, false, 64, 0, time.Minute, time.Second, false},
+		{"l1 data", lifecycleStressCountScale, ":1234", "", 1, 1, 1, true, 512 * 1024, 1, time.Minute, time.Second, false},
+		{"l1 too many mrs", lifecycleStressCountScale, ":1234", "", 1, 91, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"l1 too few mrs", lifecycleStressCountScale, ":1234", "", 1, 2, 3, false, 64, 0, time.Minute, time.Second, true},
+		{"l1 too many qps", lifecycleStressCountScale, ":1234", "", 1, 12, 12, false, 64, 0, time.Minute, time.Second, true},
+		{"l2 minimum", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
+		{"l2 maximum", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1000, 4, 1, false, 64, 0, time.Hour, time.Second, false},
+		{"l2 multiple qps", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 50, 2, 2, false, 64, 0, time.Minute, time.Second, true},
+		{"l2 too many mrs", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 50, 5, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"data needs iters", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, true, 64, 0, time.Minute, time.Second, true},
+		{"iters needs data", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 1, time.Minute, time.Second, true},
+		{"bad level", "l3-data-path", ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"both roles", lifecycleStressCountScale, ":1234", "127.0.0.1:1234", 1, 1, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"setup exceeds whole", lifecycleStressCountScale, ":1234", "", 1, 1, 1, false, 64, 0, time.Second, time.Minute, true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			err := validateLifecycleStress(test.level, test.listen, test.addr, test.rounds, test.mrs, test.qps, test.data, test.size, test.iters, test.timeout, test.setupTimeout)
+			if (err != nil) != test.wantErr {
+				t.Fatalf("validateLifecycleStress() error = %v, wantErr %v", err, test.wantErr)
+			}
+		})
+	}
+}
+
+func TestLifecycleStressRequiresDataGate(t *testing.T) {
+	data, err := os.ReadFile("main.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	src := string(data)
+	start := strings.Index(src, "func rdmaLifecycleStress(")
+	end := strings.Index(src[start:], "\nfunc validateLifecycleStress(")
+	if start < 0 || end < 0 {
+		t.Fatal("could not locate lifecycle stress probe")
+	}
+	body := src[start : start+end]
+	for _, want := range []string{"lifecycleStressConfirmEnv", "allow-lifecycle-stress", "CONFIRM_RDMA_LIFECYCLE_DATA", "allow-lifecycle-data", "RequireRTRAttemptAllowed", "startRDMAWatchdog"} {
+		if !strings.Contains(body, want) {
+			t.Fatalf("lifecycle stress probe missing %q", want)
+		}
+	}
+}
+
+func TestRDMAPayload(t *testing.T) {
+	buf := make([]byte, 64)
+	fillRDMAPayload(buf)
+	if err := checkRDMAPayload(buf); err != nil {
+		t.Fatalf("checkRDMAPayload() = %v", err)
+	}
+	buf[17]++
+	if err := checkRDMAPayload(buf); err == nil || !strings.Contains(err.Error(), "data mismatch") {
+		t.Fatalf("checkRDMAPayload() = %v, want data mismatch", err)
+	}
+}
+
 func TestClassifyRCCapabilityCreate(t *testing.T) {
 	tests := []struct {
 		name       string
