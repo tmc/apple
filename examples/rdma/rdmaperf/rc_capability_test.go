@@ -251,9 +251,9 @@ func TestValidateLifecycleStress(t *testing.T) {
 		wantErr               bool
 	}{
 		{"l1 minimum", lifecycleStressCountScale, ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
-		{"l1 scale", lifecycleStressCountScale, ":1234", "", 3, 99, 11, false, 64, 0, time.Minute, time.Second, false},
+		{"l1 scale", lifecycleStressCountScale, ":1234", "", 3, 101, 11, false, 64, 0, time.Minute, time.Second, false},
 		{"l1 data", lifecycleStressCountScale, ":1234", "", 1, 1, 1, true, 512 * 1024, 1, time.Minute, time.Second, false},
-		{"l1 too many mrs", lifecycleStressCountScale, ":1234", "", 1, 100, 1, false, 64, 0, time.Minute, time.Second, true},
+		{"l1 too many mrs", lifecycleStressCountScale, ":1234", "", 1, 102, 1, false, 64, 0, time.Minute, time.Second, true},
 		{"l1 too few mrs", lifecycleStressCountScale, ":1234", "", 1, 2, 3, false, 64, 0, time.Minute, time.Second, true},
 		{"l1 too many qps", lifecycleStressCountScale, ":1234", "", 1, 12, 12, false, 64, 0, time.Minute, time.Second, true},
 		{"l2 minimum", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 0, time.Minute, time.Second, false},
@@ -262,7 +262,8 @@ func TestValidateLifecycleStress(t *testing.T) {
 		{"l2 too many mrs", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 50, 5, 1, false, 64, 0, time.Minute, time.Second, true},
 		{"l4 concurrent", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 2, 2, true, 64, 1, time.Minute, time.Second, false},
 		{"l4 requires data", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 2, 2, false, 64, 0, time.Minute, time.Second, true},
-		{"l4 too many qps", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 10, 10, true, 64, 1, time.Minute, time.Second, true},
+		{"l4 boundary", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 11, 11, true, 64, 1, time.Minute, time.Second, false},
+		{"l4 too many qps", lifecycleStressConcurrency, "", "127.0.0.1:1234", 1, 12, 12, true, 64, 1, time.Minute, time.Second, true},
 		{"data needs iters", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, true, 64, 0, time.Minute, time.Second, true},
 		{"iters needs data", lifecycleStressRoundDepth, "", "127.0.0.1:1234", 1, 1, 1, false, 64, 1, time.Minute, time.Second, true},
 		{"bad level", "l3-data-path", ":1234", "", 1, 1, 1, false, 64, 0, time.Minute, time.Second, true},
@@ -347,6 +348,7 @@ func TestClassifyRDMABenchFailure(t *testing.T) {
 		want  string
 	}{
 		{"ibv_create_qp: provider returned nil queue pair (return=0, errno 16 (EBUSY))", "resource_exhausted"},
+		{"ibv_reg_mr: provider returned nil memory region (return=0, errno 0)", "resource_exhausted"},
 		{"data mismatch at byte 1", "data_mismatch"},
 		{"rdma setup timeout", string(rdma.FailureProviderTimeout)},
 	}

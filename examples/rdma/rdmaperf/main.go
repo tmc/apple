@@ -900,9 +900,10 @@ const (
 	lifecycleStressConcurrency     = "l4-concurrency"
 	lifecycleStressIdleDegradation = "l5-idle-degradation"
 	maxLifecycleStressRounds       = 1000
-	maxLifecycleStressL1MRs        = 99
+	maxLifecycleStressL1MRs        = 101
 	maxLifecycleStressMRs          = 90
 	maxLifecycleStressQPs          = 11
+	maxLifecycleStressL4QPs        = 11
 	maxLifecycleStressL1Time       = 10 * time.Minute
 	maxLifecycleStressL2Time       = 6 * time.Hour
 	maxLifecycleStressL5Time       = 3 * time.Hour
@@ -1085,8 +1086,8 @@ func validateLifecycleStressIdle(level, listen, addr string, rounds, mrs, qps in
 		if rounds != 1 {
 			return fmt.Errorf("l4 concurrency requires -rounds=1")
 		}
-		if qps < 2 || qps > 9 {
-			return fmt.Errorf("l4 concurrency -qps must be in [2,9]")
+		if qps < 2 || qps > maxLifecycleStressL4QPs {
+			return fmt.Errorf("l4 concurrency -qps must be in [2,%d]", maxLifecycleStressL4QPs)
 		}
 		if mrs < qps || mrs > maxLifecycleStressMRs {
 			return fmt.Errorf("l4 concurrency -mrs must be in [%d,%d]", qps, maxLifecycleStressMRs)
@@ -1314,6 +1315,8 @@ func classifyRDMABenchFailure(s string) string {
 	case strings.Contains(s, "errno 60") || strings.Contains(s, "ETIMEDOUT") || strings.Contains(s, "i/o timeout"):
 		return "timeout"
 	case strings.Contains(s, "errno 16 (EBUSY)") || strings.Contains(s, "EBUSY"):
+		return "resource_exhausted"
+	case strings.Contains(s, "ibv_reg_mr") && (strings.Contains(s, "nil memory region") || strings.Contains(s, "provider returned nil")):
 		return "resource_exhausted"
 	case strings.Contains(s, "nil provider result") || strings.Contains(s, "provider returned nil"):
 		return string(rdma.FailureNilProviderResult)

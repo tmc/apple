@@ -83,7 +83,7 @@ all QPs reach RTS. It verifies the received deterministic payload on both
 ranks. A mismatch exits nonzero with `failure_class=data_mismatch`; it is not
 classified as a resource-reclamation failure.
 
-L1 count-scale holds multiple QPs and a total of 1--99 MRs live in each round,
+L1 count-scale holds multiple QPs and a total of 1--101 MRs live in each round,
 then tears them all down. It permits 1--11 QPs and 1--3 rounds, with a maximum
 10-minute whole-probe watchdog. `-mrs` is the total MRs per rank, not MRs per
 QP. This is a two-host wedge risk because both ranks allocate resources and
@@ -99,7 +99,7 @@ L3 is the `-data` composition of either L1 or L2. It has a payload range of
 data soak is L1 or L2 with `-data`: it measures cleanup after actual UC
 SEND/RECV completions, not merely QP state transitions.
 
-L4 concurrency uses 2--9 live QPs and starts one UC SEND/RECV ping-pong
+L4 concurrency uses 2--11 requested QPs and starts one UC SEND/RECV ping-pong
 goroutine per QP after all QPs reach RTS. It requires `-rounds=1`, `-data`, and
 the normal lifecycle and data gates. JSON reports aggregate bytes plus a
 `qp_data` entry for every QP, so serialization, corruption, and individual-QP
