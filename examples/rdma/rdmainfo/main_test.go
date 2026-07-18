@@ -61,7 +61,7 @@ func TestErrnoNamePreservesEvidenceCodes(t *testing.T) {
 		errno int
 		want  string
 	}{
-		{22, "EINVAL"},
+		{22, "errno 22 (EINVAL)"},
 		{60, "errno 60 (ETIMEDOUT)"},
 		{96, "errno 96 (EPROTONOSUPPORT)"},
 	}

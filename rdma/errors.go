@@ -126,7 +126,7 @@ func (e *ProviderError) Error() string {
 			add("return=" + strconv.FormatInt(e.Return, 10))
 		}
 		if e.ErrnoSet {
-			add("errno=" + strconv.Itoa(e.Errno))
+			add(ErrnoText(e.Errno))
 		}
 		if e.Context != 0 {
 			add(fmt.Sprintf("context=%#x", uintptr(e.Context)))

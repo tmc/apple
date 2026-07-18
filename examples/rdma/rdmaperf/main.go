@@ -1931,7 +1931,7 @@ func printResult(res result) {
 		cap := res.RCCapability
 		fmt.Printf("%s device=%s outcome=%s attempts=%d no_rtr=%v no_data=%v", res.Mode, cap.Device, cap.Outcome, cap.Attempts, cap.NoRTR, cap.NoData)
 		if cap.CreateErrno != 0 {
-			fmt.Printf(" create_errno=%d", cap.CreateErrno)
+			fmt.Printf(" create_errno=%s", rdma.ErrnoText(cap.CreateErrno))
 		}
 		if cap.CreateError != "" {
 			fmt.Printf(" create_error=%s", cap.CreateError)
@@ -2123,10 +2123,7 @@ func errOrCode(err error, rc int) string {
 		return err.Error()
 	}
 	if rc != 0 {
-		if rc == 16 {
-			return rdma.ErrnoText(rc)
-		}
-		return fmt.Sprintf("errno %d", rc)
+		return rdma.ErrnoText(rc)
 	}
 	return ""
 }
