@@ -19,11 +19,11 @@ func TestResourceExhaustionHintForNilResourceResult(t *testing.T) {
 				Cause:       rdma.ErrNilProviderResult,
 			}
 			hint := ResourceExhaustionHint(err)
-			if !strings.Contains(hint, "can indicate per-boot AppleThunderboltRDMA resource exhaustion") {
-				t.Fatalf("hint = %q, want symptom-inferred provider resource hint", hint)
+			if !strings.Contains(hint, "provider returned nil for a resource") {
+				t.Fatalf("hint = %q, want resource-refusal hint", hint)
 			}
-			if !strings.Contains(hint, "no provider resource budget was read") {
-				t.Fatalf("hint = %q, want no-budget-read caveat", hint)
+			if !strings.Contains(hint, "read-only rdma-probe") {
+				t.Fatalf("hint = %q, want read-only follow-up", hint)
 			}
 		})
 	}
@@ -41,11 +41,11 @@ func TestResourceExhaustionHintForResourceErrnos(t *testing.T) {
 				Cause:       rdma.ErrProviderStatus,
 			}
 			hint := ResourceExhaustionHint(err)
-			if !strings.Contains(hint, "may indicate per-boot AppleThunderboltRDMA resource exhaustion") {
-				t.Fatalf("hint = %q, want symptom-inferred provider resource hint", hint)
+			if !strings.Contains(hint, "provider refused a resource") {
+				t.Fatalf("hint = %q, want resource-refusal hint", hint)
 			}
-			if !strings.Contains(hint, "no provider resource budget was read") {
-				t.Fatalf("hint = %q, want no-budget-read caveat", hint)
+			if !strings.Contains(hint, "read-only rdma-probe") {
+				t.Fatalf("hint = %q, want read-only follow-up", hint)
 			}
 		})
 	}
@@ -58,8 +58,8 @@ func TestResourceExhaustionHintForProviderTimeout(t *testing.T) {
 		Failure:     rdma.FailureProviderTimeout,
 		Cause:       rdma.ErrProviderTimeout,
 	}
-	if hint := ResourceExhaustionHint(err); !strings.Contains(hint, "provider may be wedged for this boot") {
-		t.Fatalf("hint = %q, want wedged-provider hint", hint)
+	if hint := ResourceExhaustionHint(err); !strings.Contains(hint, "watchdog containment alone does not prove a wedge") {
+		t.Fatalf("hint = %q, want containment hint", hint)
 	}
 }
 

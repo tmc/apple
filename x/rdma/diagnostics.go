@@ -7,8 +7,9 @@ import (
 	"github.com/tmc/apple/rdma"
 )
 
-// ResourceExhaustionHint returns an operator hint for failures that can
-// indicate the Apple Thunderbolt RDMA per-boot resource exhaustion pattern.
+// ResourceExhaustionHint returns an operator hint for a provider failure after
+// opening a context. The hint distinguishes a resource refusal from a timeout;
+// neither result alone proves that the provider is wedged.
 func ResourceExhaustionHint(err error) string {
 	var e *rdma.ProviderError
 	if !errors.As(err, &e) || e == nil || !e.ContextOpen {
@@ -17,14 +18,14 @@ func ResourceExhaustionHint(err error) string {
 	if e.ErrnoSet {
 		switch e.Errno {
 		case int(syscall.ENOMEM), int(syscall.EBUSY):
-			return "provider status may indicate per-boot AppleThunderboltRDMA resource exhaustion or contaminated IOKit state; no provider resource budget was read; stop live RDMA probes and reboot the affected node before retrying"
+			return "provider refused a resource after opening a context; stop the current run and inspect both hosts with read-only rdma-probe before any new attempt"
 		}
 	}
 	if e.Failure == rdma.FailureProviderTimeout {
-		return "AppleThunderboltRDMA provider may be wedged for this boot; no provider resource budget was read; stop live RDMA probes and reboot the affected node before retrying"
+		return "provider call timed out after opening a context; watchdog containment alone does not prove a wedge, so inspect both hosts with read-only rdma-probe before any new attempt"
 	}
 	if e.Failure == rdma.FailureNilProviderResult && providerResourceOperation(e.Operation) {
-		return "provider returned nil after opening a context; this can indicate per-boot AppleThunderboltRDMA resource exhaustion or contaminated IOKit state; no provider resource budget was read; stop live RDMA probes and reboot before retrying"
+		return "provider returned nil for a resource after opening a context; stop the current run and inspect both hosts with read-only rdma-probe before any new attempt"
 	}
 	return ""
 }

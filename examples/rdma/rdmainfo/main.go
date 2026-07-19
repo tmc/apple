@@ -17,10 +17,13 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/rdma"
 	xrdma "github.com/tmc/apple/x/rdma"
 )
+
+const resourceLifecycleConfirmEnv = "CONFIRM_RDMA_RESOURCE_LIFECYCLE"
+
+const resourceLifecycleConfirmValue = "one-shot-resource-lifecycle"
 
 type output struct {
 	Available bool             `json:"available"`
@@ -114,8 +117,6 @@ func main() {
 		scan(os.Args[2:])
 	case "matrix":
 		matrix(os.Args[2:])
-	case "exercise":
-		exercise(os.Args[2:])
 	case "open":
 		openDevice(os.Args[2:])
 	case "query":
@@ -143,7 +144,6 @@ Commands:
   preflight   Capture read-only health before one bounded RTR attempt.
   scan        Run safe bring-up checks: status, list, open, query.
   matrix      Run scan-style checks across all devices and selected ports.
-  exercise    Exercise every generated verb that is safe on this host.
   open        Open and close one RDMA device.
   query       Open a device and call ibv_query_device / ibv_query_port.
   query-device Open a device and call ibv_query_device only.
@@ -157,7 +157,10 @@ Common options:
 
 Default behavior treats "librdma unavailable" and "no RDMA devices" as normal
 states. Use -require for CI or hardware bring-up once RDMA should be enabled.
-`)
+
+The lifecycle command allocates provider resources. It requires
+-allow-resource-lifecycle and %s=%s.
+`, resourceLifecycleConfirmEnv, resourceLifecycleConfirmValue)
 }
 
 func status(args []string) {
@@ -232,7 +235,8 @@ func features(args []string) {
 		},
 		Notes: []string{
 			"MR registration is opt-in in lifecycle with -register-memory.",
-			"Pointer-returning verbs may fail by returning nil; lifecycle reports errno when librdma sets it.",
+			"Lifecycle requires an explicit resource-lifecycle acknowledgement.",
+			"Pointer-returning verbs report the provider error returned by the binding.",
 		},
 	}
 	if *jsonOut {
@@ -360,101 +364,6 @@ func matrix(args []string) {
 	printOutput(out, *jsonOut)
 }
 
-func exercise(args []string) {
-	fs := flag.NewFlagSet("exercise", flag.ExitOnError)
-	jsonOut := fs.Bool("json", false, "print JSON")
-	require := fs.Bool("require", false, "exit non-zero if unavailable or empty")
-	portsText := fs.String("ports", "1", "comma-separated port numbers to query")
-	attrSize := fs.Int("attr-size", 4096, "raw byte buffer size for query calls")
-	preview := fs.Int("preview", 0, "bytes of successful query buffers to print")
-	cqe := fs.Int("cqe", 16, "completion queue entries")
-	registerMemory := fs.Bool("register-memory", false, "also register a small memory region when PD allocation works")
-	mrBytes := fs.Int("mr-bytes", 4096, "bytes to allocate when -register-memory is set")
-	access := fs.Int("mr-access", 0, "ibv_reg_mr access flags")
-	fs.Parse(args)
-
-	out := output{Available: rdma.Available()}
-	devs, ok := devicesOrExplain(*require, *jsonOut)
-	if !ok {
-		out.State = "unavailable"
-		printOutput(out, *jsonOut)
-		return
-	}
-	out.Devices = deviceInfos(devs)
-	if len(devs) == 0 {
-		out.State = "available-no-devices"
-		out.Notes = append(out.Notes, "no RDMA devices reported")
-		printOutput(out, *jsonOut)
-		return
-	}
-	out.State = "devices-present"
-	ports := parsePorts(*portsText)
-	for i, dev := range devs {
-		ctx, ok := openContext(dev, *require, &out)
-		if !ok {
-			continue
-		}
-		out.Steps = append(out.Steps, stepResult{
-			Name:   fmt.Sprintf("device[%d].name", i),
-			OK:     true,
-			Handle: dev.Name,
-		})
-		appendQueryDevice(ctx, fmt.Sprintf("device[%d].ibv_query_device", i), *attrSize, *preview, &out)
-		active := false
-		for _, port := range ports {
-			step := queryPort(ctx, port, fmt.Sprintf("device[%d].port[%d].ibv_query_port", i, port), *attrSize, *preview)
-			if step.OK && step.Fields["state"] == int32(4) {
-				active = true
-			}
-			out.Steps = append(out.Steps, step)
-		}
-		if !active {
-			out.Steps = append(out.Steps, stepResult{
-				Name:  fmt.Sprintf("device[%d].rdma_datapath_ready", i),
-				Error: "skipped resource verbs because no queried port is PORT_ACTIVE",
-			})
-			closeContext(ctx, &out)
-			continue
-		}
-		pd, pdOK := allocPD(ctx, &out)
-		cq, cqOK := createCQ(ctx, *cqe, &out)
-		if *registerMemory && pdOK {
-			registerMR(pd, *mrBytes, *access, &out)
-		} else if *registerMemory {
-			out.Steps = append(out.Steps, stepResult{
-				Name:  "ibv_reg_mr",
-				Error: "skipped because ibv_alloc_pd did not return a protection domain",
-			})
-		}
-		if !pdOK {
-			out.Steps = append(out.Steps, stepResult{
-				Name:  "ibv_create_qp",
-				Error: "skipped because ibv_alloc_pd did not return a protection domain",
-			})
-			out.Steps = append(out.Steps, stepResult{
-				Name:  "ibv_modify_qp",
-				Error: "skipped because no queue pair was created",
-			})
-			out.Steps = append(out.Steps, stepResult{
-				Name:  "ibv_destroy_qp",
-				Error: "skipped because no queue pair was created",
-			})
-		}
-		if cqOK {
-			destroyCQ(cq, &out)
-		}
-		if pdOK {
-			deallocPD(pd, &out)
-		}
-		closeContext(ctx, &out)
-	}
-	out.Notes = append(out.Notes,
-		"device discovery uses IbvGetDeviceList, IbvGetDeviceName, and IbvFreeDeviceList through rdma.Devices",
-		"QP creation requires a protection domain and ibv_qp_init_attr; this command reports it as skipped when PD allocation fails",
-	)
-	printOutput(out, *jsonOut)
-}
-
 func openDevice(args []string) {
 	fs := flag.NewFlagSet("open", flag.ExitOnError)
 	selector := addDeviceFlags(fs)
@@ -544,7 +453,11 @@ func lifecycle(args []string) {
 	registerMemory := fs.Bool("register-memory", false, "also register a small memory region")
 	mrBytes := fs.Int("mr-bytes", 4096, "bytes to allocate when -register-memory is set")
 	access := fs.Int("mr-access", 0, "ibv_reg_mr access flags")
+	allow := fs.Bool("allow-resource-lifecycle", false, "acknowledge one bounded provider resource lifecycle")
 	fs.Parse(args)
+	if err := requireResourceLifecycleAllowed(*allow); err != nil {
+		fatalf("%v", err)
+	}
 
 	out := output{Available: rdma.Available()}
 	dev, ok := pickDevice(selector, *require, *jsonOut, &out)
@@ -1003,9 +916,7 @@ func failedRTRLogLine(line string) bool {
 }
 
 func allocPD(ctx rdma.RDMAContext, out *output) (rdma.RDMAPD, bool) {
-	setErrno(0)
 	pd, err := rdma.IbvAllocPd(ctx)
-	callErrno := errno()
 	step := stepResult{Name: "ibv_alloc_pd", OK: err == nil && pd != 0, Handle: hexHandle(pd)}
 	if err != nil {
 		step.Error = err.Error()
@@ -1014,9 +925,6 @@ func allocPD(ctx rdma.RDMAContext, out *output) (rdma.RDMAPD, bool) {
 	}
 	if pd == 0 {
 		step.Error = "returned nil protection domain"
-		if callErrno != 0 {
-			step.Error += ": " + errnoName(callErrno)
-		}
 		out.Steps = append(out.Steps, step)
 		return 0, false
 	}
@@ -1030,9 +938,7 @@ func deallocPD(pd rdma.RDMAPD, out *output) {
 }
 
 func createCQ(ctx rdma.RDMAContext, cqe int, out *output) (rdma.RDMACQ, bool) {
-	setErrno(0)
 	cq, err := rdma.IbvCreateCq(ctx, cqe, 0, 0, 0)
-	callErrno := errno()
 	step := stepResult{Name: "ibv_create_cq", OK: err == nil && cq != 0, Handle: hexHandle(cq)}
 	if err != nil {
 		step.Error = err.Error()
@@ -1041,9 +947,6 @@ func createCQ(ctx rdma.RDMAContext, cqe int, out *output) (rdma.RDMACQ, bool) {
 	}
 	if cq == 0 {
 		step.Error = "returned nil completion queue"
-		if callErrno != 0 {
-			step.Error += ": " + errnoName(callErrno)
-		}
 		out.Steps = append(out.Steps, step)
 		return 0, false
 	}
@@ -1067,10 +970,8 @@ func registerMR(pd rdma.RDMAPD, n int, access int, out *output) {
 		return
 	}
 	defer syscall.Munmap(mapBuf)
-	setErrno(0)
 	mr, err := rdma.IbvRegMr(pd, uintptr(unsafe.Pointer(unsafe.SliceData(buf))), uintptr(len(buf)), access)
 	runtime.KeepAlive(buf)
-	callErrno := errno()
 	step := stepResult{Name: "ibv_reg_mr", OK: err == nil && mr != 0, Handle: hexHandle(mr), Bytes: len(buf)}
 	if err != nil {
 		step.Error = err.Error()
@@ -1079,9 +980,6 @@ func registerMR(pd rdma.RDMAPD, n int, access int, out *output) {
 	}
 	if mr == 0 {
 		step.Error = "returned nil memory region"
-		if callErrno != 0 {
-			step.Error += ": " + errnoName(callErrno)
-		}
 		out.Steps = append(out.Steps, step)
 		return
 	}
@@ -1559,36 +1457,15 @@ func parsePortFlag(name string, port int) uint8 {
 	return uint8(port)
 }
 
-var errorPointer func() unsafe.Pointer
-
-func errno() int {
-	initErrno()
-	if errorPointer == nil {
-		return 0
-	}
-	return int(*(*int32)(errorPointer()))
-}
-
-func setErrno(v int32) {
-	initErrno()
-	if errorPointer != nil {
-		*(*int32)(errorPointer()) = v
-	}
-}
-
-func initErrno() {
-	if errorPointer != nil {
-		return
-	}
-	sym, err := purego.Dlsym(purego.RTLD_DEFAULT, "__error")
-	if err != nil || sym == 0 {
-		return
-	}
-	purego.RegisterFunc(&errorPointer, sym)
-}
-
 func errnoName(rc int) string {
 	return rdma.ErrnoText(rc)
+}
+
+func requireResourceLifecycleAllowed(allow bool) error {
+	if allow && os.Getenv(resourceLifecycleConfirmEnv) == resourceLifecycleConfirmValue {
+		return nil
+	}
+	return fmt.Errorf("refusing resource lifecycle: pass -allow-resource-lifecycle and set %s=%s", resourceLifecycleConfirmEnv, resourceLifecycleConfirmValue)
 }
 
 func fatalf(format string, args ...any) {

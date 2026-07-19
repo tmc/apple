@@ -7,6 +7,20 @@ import (
 	"unsafe"
 )
 
+func TestRequireResourceLifecycleAllowed(t *testing.T) {
+	t.Setenv(resourceLifecycleConfirmEnv, "")
+	if err := requireResourceLifecycleAllowed(false); err == nil {
+		t.Fatal("requireResourceLifecycleAllowed(false) = nil, want error")
+	}
+	if err := requireResourceLifecycleAllowed(true); err == nil {
+		t.Fatal("requireResourceLifecycleAllowed(true) without confirmation = nil, want error")
+	}
+	t.Setenv(resourceLifecycleConfirmEnv, resourceLifecycleConfirmValue)
+	if err := requireResourceLifecycleAllowed(true); err != nil {
+		t.Fatalf("requireResourceLifecycleAllowed(true) = %v", err)
+	}
+}
+
 func TestParsePorts(t *testing.T) {
 	got := parsePorts("1, 2,255")
 	want := []uint8{1, 2, 255}

@@ -90,13 +90,15 @@ QP. This is a two-host wedge risk because both ranks allocate resources and
 drive RTR/RTS.
 
 L2 round-depth holds one QP and 1--4 MRs, then repeats the full lifecycle for
-1--1000 rounds. Its maximum whole-probe watchdog is six hours. This isolates
+1--2000 rounds. Its maximum whole-probe watchdog is six hours. This isolates
 cumulative reclamation from high simultaneous resource pressure, but remains a
 two-host wedge risk.
 
-L3 is the `-data` composition of either L1 or L2. It has a payload range of
-1 byte through 512 KiB and 1--10,000 ping-pongs per QP per round. The combined
-data soak is L1 or L2 with `-data`: it measures cleanup after actual UC
+L3 is the `-data` composition of either L1 or L2. It accepts payloads from
+1 byte through 4 MiB and 1--10,000 ping-pongs per QP per round. The current
+provider passed the single-SGE path through 1 MiB and cleanly rejected a 4 MiB
+receive post with `ENOMEM`; this is a provider limit, not a retry target. The
+combined data soak is L1 or L2 with `-data`: it measures cleanup after actual UC
 SEND/RECV completions, not merely QP state transitions.
 
 L4 concurrency uses 2--11 requested QPs and starts one UC SEND/RECV ping-pong
@@ -144,19 +146,20 @@ kernel transmit path and wedge the port until reboot. The command therefore
 requires `-allow-rtr`. Treat each run as one bounded experiment, not as a retry
 loop.
 
-AppleThunderboltRDMA also appears to have tight resource limits. Community
-reports against JACCL/exo describe practical ceilings around dozens of
-protection domains and about one hundred memory regions per device, with
-resource exhaustion sometimes requiring reboot. `rdma-pingpong` opens one
-context, one protection domain, one completion queue, one memory region, and
-one queue pair per role; do not wrap it in a retry loop or launch many
-instances in parallel.
+AppleThunderboltRDMA has small resource limits. The provider reports limits
+near 100 MRs and 11 QPs, although those values are not uniformly hard-enforced
+on every host. Bounded lifecycle tests reclaimed resources cleanly; a resource
+refusal is not by itself evidence that a reboot is needed. `rdma-pingpong`
+opens one context, one protection domain, one completion queue, one memory
+region, and one queue pair per role; do not wrap it in a retry loop or launch
+many instances in parallel.
 
-Long-lived applications should not leave successful QPs idle for long periods.
-EXO/JACCL reports describe idle connections degrading after tens of minutes.
-This tool runs its TCP post-RTS barrier and immediately starts traffic; code
-that keeps QPs open should add an application-level heartbeat or tear down idle
-QPs.
+Long-lived applications should still bound and observe idle QPs. EXO/JACCL
+reports describe idle connections degrading after tens of minutes, although the
+current two-host probe passed a 30-minute idle dwell with verified post-idle
+traffic. This tool runs its TCP post-RTS barrier and immediately starts traffic;
+code that keeps QPs open should add an application-level heartbeat or tear down
+idle QPs.
 
 To test the RDMA datapath, run `rdma-pingpong` on two Macs connected by
 Thunderbolt. TCP is used only to exchange LID/QPN/PSN/GID setup data; measured
