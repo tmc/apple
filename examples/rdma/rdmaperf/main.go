@@ -94,6 +94,7 @@ type rdmaBenchResult struct {
 	PostIdleVerified       bool               `json:"post_idle_verified,omitempty"`
 	SGSegments             int                `json:"sg_segments,omitempty"`
 	SGSegmentSize          int                `json:"sg_segment_size,omitempty"`
+	SGMaxSGE               int                `json:"sg_max_sge,omitempty"`
 	SGCeilingClass         string             `json:"sg_ceiling_class,omitempty"`
 	SGCeilingError         string             `json:"sg_ceiling_error,omitempty"`
 	QPData                 []rdmaQPDataResult `json:"qp_data,omitempty"`
@@ -264,6 +265,23 @@ type ibvPortAttr struct {
 	LinkLayer     uint8
 	Flags         uint8
 	PortCapFlags2 uint16
+}
+
+// ibvDeviceAttr is the prefix of struct ibv_device_attr through max_sge.
+// It is used only for the provider's read-only max_sge prerequisite check.
+type ibvDeviceAttr struct {
+	FWVer          [64]byte
+	NodeGUID       uint64
+	SysImageGUID   uint64
+	MaxMRSize      uint64
+	PageSizeCap    uint64
+	VendorID       uint32
+	VendorPartID   uint32
+	HWVer          uint32
+	MaxQP          int32
+	MaxQPWR        int32
+	DeviceCapFlags uint32
+	MaxSGE         int32
 }
 
 func main() {
@@ -944,7 +962,6 @@ func rdmaSGCapability(args []string) {
 	res.Iterations = 1
 	res.Size = *segments * segmentSize
 	res.MRCount, res.PDsPerRound, res.QPsPerRound = *segments, 1, 1
-	res.MRsOpened, res.PDsOpened, res.QPsOpened = *segments, 1, 1
 	res.SGSegments, res.SGSegmentSize = *segments, segmentSize
 	res.SetupTimeout = setupTimeout.String()
 	res.GateEnv = sgCapabilityConfirmEnv + "=" + sgCapabilityConfirmValue
@@ -953,6 +970,13 @@ func rdmaSGCapability(args []string) {
 		res.Outcome = "transferred"
 		res.SGCeilingClass = "per-sge"
 		res.DataVerified = true
+	} else if isSGUnsupportedError(res.Error) {
+		// The provider's advertised max_sge is a prerequisite for the
+		// experiment. Do not mistake this pre-datapath rejection for a
+		// per-SGE or per-WR size result.
+		res.Outcome = "unsupported"
+		res.SGCeilingClass = "provider-max-sge"
+		res.SGCeilingError, res.Error = res.Error, ""
 	} else if isSGCeilingError(res.Error) {
 		// A clean ENOMEM while posting a 4 MiB multi-SGE work request answers
 		// the experiment: the provider limits the whole work request, not an SGE.
@@ -1000,6 +1024,10 @@ func isSGCeilingError(errText string) bool {
 	return strings.Contains(errText, "ENOMEM") || strings.Contains(errText, "errno 12") || strings.Contains(errText, "errno 4294967284")
 }
 
+func isSGUnsupportedError(errText string) bool {
+	return strings.Contains(errText, "max_sge=")
+}
+
 func runRDMASGServer(listenAddr, deviceName string, deviceIndex, segments, segmentSize int, setupTimeout time.Duration) rdmaBenchResult {
 	res := newRDMABenchResult("server", listenAddr, segments*segmentSize, 1)
 	ln, err := listenTCP(listenAddr)
@@ -1045,8 +1073,16 @@ func runRDMASG(c net.Conn, client bool, deviceName string, deviceIndex, segments
 	if err := runRDMAControlHello(control, res, "pre-resource-control", role, setupTimeout); err != nil {
 		return err
 	}
+	maxSGE, err := queryRDMADeviceMaxSGE(deviceName, deviceIndex, setupTimeout)
+	if err != nil {
+		return err
+	}
+	res.SGMaxSGE = maxSGE
+	if maxSGE < segments {
+		return fmt.Errorf("scatter/gather unsupported: provider max_sge=%d, need %d", maxSGE, segments)
+	}
 	res.Stage = "open-rdma-resources"
-	r, err := openRDMAResources(deviceName, deviceIndex, -1, segmentSize, setupTimeout)
+	r, err := openRDMAResourcesWithSGE(deviceName, deviceIndex, -1, segmentSize, segments, setupTimeout)
 	if err != nil {
 		return err
 	}
@@ -1054,6 +1090,7 @@ func runRDMASG(c net.Conn, client bool, deviceName string, deviceIndex, segments
 	if err := addLifecycleMRs(r, segments-1, setupTimeout); err != nil {
 		return err
 	}
+	res.MRsOpened, res.PDsOpened, res.QPsOpened = segments, 1, 1
 	res.Device, res.Local = r.dev.Name, r.peerInfo()
 	if err := runRDMAControlHello(control, res, "post-resource-control", role, setupTimeout); err != nil {
 		return err
@@ -2017,7 +2054,41 @@ func setControlDeadline(c *rdmaControlConn, timeout time.Duration) error {
 	return c.conn.SetDeadline(time.Now().Add(timeout + 2*time.Second))
 }
 
+func queryRDMADeviceMaxSGE(deviceName string, deviceIndex int, timeout time.Duration) (int, error) {
+	if !rdma.Available() {
+		return 0, fmt.Errorf("rdma unavailable")
+	}
+	devs, err := rdmaDevices()
+	if err != nil {
+		return 0, fmt.Errorf("rdma devices: %w", err)
+	}
+	dev, err := selectRDMADevice(devs, deviceName, deviceIndex, timeout)
+	if err != nil {
+		return 0, err
+	}
+	ctx, err := dev.Open()
+	if err != nil {
+		return 0, fmt.Errorf("ibv_open_device: %w", err)
+	}
+	defer rdma.IbvCloseDevice(ctx)
+	buf := make([]byte, unsafe.Sizeof(ibvDeviceAttr{}))
+	rc, err := rdma.IbvQueryDevice(ctx, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
+	runtime.KeepAlive(buf)
+	if err != nil || rc != 0 {
+		return 0, fmt.Errorf("ibv_query_device: %s", errOrCode(err, rc))
+	}
+	attr := (*ibvDeviceAttr)(unsafe.Pointer(unsafe.SliceData(buf)))
+	return int(attr.MaxSGE), nil
+}
+
 func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probeTimeout time.Duration) (*rdmaResources, error) {
+	return openRDMAResourcesWithSGE(deviceName, deviceIndex, gidIndex, size, 1, probeTimeout)
+}
+
+func openRDMAResourcesWithSGE(deviceName string, deviceIndex, gidIndex, size, maxSGE int, probeTimeout time.Duration) (*rdmaResources, error) {
+	if maxSGE <= 0 {
+		return nil, fmt.Errorf("maximum SGE count must be positive")
+	}
 	if !rdma.Available() {
 		return nil, fmt.Errorf("rdma unavailable")
 	}
@@ -2074,8 +2145,8 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 		Cap: rdma.IbvQPCap{
 			MaxSendWR:  32,
 			MaxRecvWR:  32,
-			MaxSendSGE: 8,
-			MaxRecvSGE: 8,
+			MaxSendSGE: uint32(maxSGE),
+			MaxRecvSGE: uint32(maxSGE),
 		},
 		QPType:   rdma.IBV_QPT_UC,
 		SQSigAll: 0,

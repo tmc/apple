@@ -443,6 +443,15 @@ func TestSGCeilingError(t *testing.T) {
 	}
 }
 
+func TestSGUnsupportedError(t *testing.T) {
+	if !isSGUnsupportedError("scatter/gather unsupported: provider max_sge=1, need 4") {
+		t.Fatal("isSGUnsupportedError did not recognize provider max_sge rejection")
+	}
+	if isSGUnsupportedError("ibv_post_recv: errno 4294967284") {
+		t.Fatal("isSGUnsupportedError recognized an ENOMEM ceiling")
+	}
+}
+
 func TestValidateWireSamples(t *testing.T) {
 	tests := []struct {
 		name        string
