@@ -92,12 +92,17 @@ type rdmaBenchResult struct {
 	DataVerified           bool               `json:"data_verified"`
 	PreIdleVerified        bool               `json:"pre_idle_verified,omitempty"`
 	PostIdleVerified       bool               `json:"post_idle_verified,omitempty"`
+	SGSegments             int                `json:"sg_segments,omitempty"`
+	SGSegmentSize          int                `json:"sg_segment_size,omitempty"`
+	SGCeilingClass         string             `json:"sg_ceiling_class,omitempty"`
+	SGCeilingError         string             `json:"sg_ceiling_error,omitempty"`
 	QPData                 []rdmaQPDataResult `json:"qp_data,omitempty"`
 	Local                  rdmaPeerInfo       `json:"local"`
 	Remote                 rdmaPeerInfo       `json:"remote"`
 	Error                  string             `json:"error,omitempty"`
 
 	datapathElapsed time.Duration
+	wireSamples     []wireBenchSample
 }
 
 type rdmaQPDataResult struct {
@@ -283,6 +288,8 @@ func main() {
 		rdmaPDLifecycle(os.Args[2:])
 	case "rdma-pingpong":
 		rdmaPingpong(os.Args[2:])
+	case "rdma-sg-capability":
+		rdmaSGCapability(os.Args[2:])
 	case "rdma-lifecycle-probe":
 		rdmaLifecycleProbe(os.Args[2:])
 	case "rdma-lifecycle-stress":
@@ -316,6 +323,8 @@ Commands:
               Guarded PD alloc/dealloc/realloc lifecycle probe; no MR, QP, RTR, or data.
   rdma-pingpong
               Run RDMA SEND/RECV ping-pong using TCP only for setup exchange.
+	 rdma-sg-capability
+	              Guarded two-rank 4 MiB scatter/gather SEND/RECV capability probe.
   rdma-lifecycle-probe
               Two-rank, no-data QP setup/teardown reclamation probe.
   rdma-lifecycle-stress
@@ -890,6 +899,200 @@ func rdmaPingpong(args []string) {
 	}
 }
 
+const sgCapabilityConfirmEnv = "CONFIRM_RDMA_SG_CAPABILITY"
+const sgCapabilityConfirmValue = "one-shot-sg"
+
+// rdmaSGCapability tests whether a 4 MiB SEND/RECV work request is limited by
+// a single SGE or by the aggregate work-request size. It always transfers one
+// payload, never retries, and requires both an explicit flag and environment
+// confirmation before it opens the two-rank RTR/RTS datapath.
+func rdmaSGCapability(args []string) {
+	fs := flag.NewFlagSet("rdma-sg-capability", flag.ExitOnError)
+	listenAddr := fs.String("listen", "", "listen address for server role")
+	addr := fs.String("addr", "", "server address for client role")
+	deviceName := fs.String("name", "", "select RDMA device")
+	deviceIndex := fs.Int("device", -1, "select RDMA device index")
+	segments := fs.Int("segments", 4, "scatter/gather segments: 2 or 4")
+	segmentSizeText := fs.String("segment-size", "1M", "bytes in each scatter/gather segment")
+	wireSamples := fs.String("wire-samples", "", "write one client wire-phase sample to this path")
+	timeout := fs.Duration("timeout", 2*time.Minute, "whole-probe watchdog limit")
+	setupTimeout := fs.Duration("setup-timeout", 15*time.Second, "per-QP setup watchdog limit")
+	allow := fs.Bool("allow-sg-capability", false, "acknowledge the scatter/gather capability probe")
+	jsonOut := fs.Bool("json", false, "print JSON")
+	fs.Parse(args)
+
+	segmentSize := parseSize(*segmentSizeText)
+	if err := validateSGCapability(*listenAddr, *addr, *segments, segmentSize, *wireSamples, *timeout, *setupTimeout); err != nil {
+		fatalf("sg capability: %v", err)
+	}
+	if !*allow || os.Getenv(sgCapabilityConfirmEnv) != sgCapabilityConfirmValue {
+		fatalf("refusing scatter/gather capability probe: pass -allow-sg-capability and set %s=%s", sgCapabilityConfirmEnv, sgCapabilityConfirmValue)
+	}
+	if err := xrdma.RequireRTRAttemptAllowed(true); err != nil {
+		fatalf("sg capability RTR gate: %v", err)
+	}
+
+	stop := startRDMAWatchdog("rdma scatter/gather capability probe", *timeout)
+	var res rdmaBenchResult
+	if *listenAddr != "" {
+		res = runRDMASGServer(*listenAddr, *deviceName, *deviceIndex, *segments, segmentSize, *setupTimeout)
+	} else {
+		res = runRDMASGClient(*addr, *deviceName, *deviceIndex, *segments, segmentSize, *setupTimeout, *wireSamples)
+	}
+	stop()
+	res.Mode = "rdma-sg-capability"
+	res.Iterations = 1
+	res.Size = *segments * segmentSize
+	res.MRCount, res.PDsPerRound, res.QPsPerRound = *segments, 1, 1
+	res.MRsOpened, res.PDsOpened, res.QPsOpened = *segments, 1, 1
+	res.SGSegments, res.SGSegmentSize = *segments, segmentSize
+	res.SetupTimeout = setupTimeout.String()
+	res.GateEnv = sgCapabilityConfirmEnv + "=" + sgCapabilityConfirmValue
+	res.NoRetry = true
+	if res.Error == "" {
+		res.Outcome = "transferred"
+		res.SGCeilingClass = "per-sge"
+		res.DataVerified = true
+	} else if isSGCeilingError(res.Error) {
+		// A clean ENOMEM while posting a 4 MiB multi-SGE work request answers
+		// the experiment: the provider limits the whole work request, not an SGE.
+		res.Outcome = "ceiling"
+		res.SGCeilingClass = "per-wr-total"
+		res.SGCeilingError, res.Error = res.Error, ""
+	} else {
+		res.Outcome = "failed"
+		res.FirstError = firstLine(res.Error)
+		res.FailureClass = classifyRDMABenchFailure(res.Error)
+	}
+	if *jsonOut {
+		writeJSON(res)
+	} else {
+		printRDMABench(res)
+	}
+	if res.Error != "" {
+		os.Exit(1)
+	}
+}
+
+func validateSGCapability(listen, addr string, segments, segmentSize int, wireSamples string, timeout, setupTimeout time.Duration) error {
+	if (listen == "") == (addr == "") {
+		return fmt.Errorf("require exactly one of -listen/-addr")
+	}
+	if segments != 2 && segments != 4 {
+		return fmt.Errorf("-segments must be 2 or 4")
+	}
+	if segmentSize <= 0 {
+		return fmt.Errorf("-segment-size must be positive")
+	}
+	if segments*segmentSize != 4<<20 {
+		return fmt.Errorf("-segments * -segment-size must equal 4M")
+	}
+	if wireSamples != "" && addr == "" {
+		return fmt.Errorf("-wire-samples is written by the client rank; use -addr")
+	}
+	if timeout <= 0 || setupTimeout <= 0 || setupTimeout > timeout {
+		return fmt.Errorf("require positive timeouts with -setup-timeout not exceeding -timeout")
+	}
+	return nil
+}
+
+func isSGCeilingError(errText string) bool {
+	return strings.Contains(errText, "ENOMEM") || strings.Contains(errText, "errno 12") || strings.Contains(errText, "errno 4294967284")
+}
+
+func runRDMASGServer(listenAddr, deviceName string, deviceIndex, segments, segmentSize int, setupTimeout time.Duration) rdmaBenchResult {
+	res := newRDMABenchResult("server", listenAddr, segments*segmentSize, 1)
+	ln, err := listenTCP(listenAddr)
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer ln.Close()
+	c, err := ln.Accept()
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer c.Close()
+	res.Addr = c.LocalAddr().String()
+	if err := runRDMASG(c, false, deviceName, deviceIndex, segments, segmentSize, setupTimeout, "", &res); err != nil {
+		res.Error = err.Error()
+	}
+	return res
+}
+
+func runRDMASGClient(addr, deviceName string, deviceIndex, segments, segmentSize int, setupTimeout time.Duration, wireSamples string) rdmaBenchResult {
+	res := newRDMABenchResult("client", addr, segments*segmentSize, 1)
+	c, err := dialTCP(addr)
+	if err != nil {
+		res.Error = err.Error()
+		return res
+	}
+	defer c.Close()
+	if err := runRDMASG(c, true, deviceName, deviceIndex, segments, segmentSize, setupTimeout, wireSamples, &res); err != nil {
+		res.Error = err.Error()
+	}
+	return res
+}
+
+func runRDMASG(c net.Conn, client bool, deviceName string, deviceIndex, segments, segmentSize int, setupTimeout time.Duration, wireSamples string, res *rdmaBenchResult) error {
+	defer c.SetDeadline(time.Time{})
+	role := "server"
+	if client {
+		role = "client"
+	}
+	control := newRDMAControlConn(c)
+	if err := runRDMAControlHello(control, res, "pre-resource-control", role, setupTimeout); err != nil {
+		return err
+	}
+	res.Stage = "open-rdma-resources"
+	r, err := openRDMAResources(deviceName, deviceIndex, -1, segmentSize, setupTimeout)
+	if err != nil {
+		return err
+	}
+	defer r.close()
+	if err := addLifecycleMRs(r, segments-1, setupTimeout); err != nil {
+		return err
+	}
+	res.Device, res.Local = r.dev.Name, r.peerInfo()
+	if err := runRDMAControlHello(control, res, "post-resource-control", role, setupTimeout); err != nil {
+		return err
+	}
+	res.Stage = "exchange-rdma-info"
+	remote, err := exchangeRDMAPeerInfo(control, res.Local, setupTimeout)
+	res.Remote = remote
+	if err != nil {
+		return err
+	}
+	res.Stage = "connect-rdma"
+	stopWatchdog := startRDMAWatchdog("rdma scatter/gather QP setup", setupTimeout)
+	connectErr := r.connect(remote, xrdma.RTRPolicy{})
+	stopWatchdog()
+	res.Stage = "exchange-rdma-ready"
+	if err := exchangeRDMAReady(control, connectErr, setupTimeout); err != nil {
+		return err
+	}
+	if connectErr != nil {
+		return connectErr
+	}
+	res.Stage = "datapath"
+	if client {
+		err = runRDMASGClientLoop(r, segments, res)
+	} else {
+		err = runRDMASGServerLoop(r, segments, res)
+	}
+	if err != nil {
+		return err
+	}
+	if wireSamples != "" {
+		if err := writeWireSamples(wireSamples, res); err != nil {
+			return err
+		}
+	}
+	res.Stage = "done"
+	return nil
+}
+
 const lifecycleProbeConfirmEnv = "CONFIRM_RDMA_LIFECYCLE_LEAK"
 const lifecycleProbeConfirmValue = "one-shot-lifecycle"
 
@@ -1229,6 +1432,7 @@ type rdmaResources struct {
 	mr        rdma.RDMAMR
 	extraMRs  []rdma.RDMAMR
 	extraMaps [][]byte
+	extraBufs [][]byte
 	poller    rdma.IbvCQPoller
 	poster    rdma.IbvQPPoster
 	mapBuf    []byte
@@ -1870,8 +2074,8 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 		Cap: rdma.IbvQPCap{
 			MaxSendWR:  32,
 			MaxRecvWR:  32,
-			MaxSendSGE: 1,
-			MaxRecvSGE: 1,
+			MaxSendSGE: 8,
+			MaxRecvSGE: 8,
 		},
 		QPType:   rdma.IBV_QPT_UC,
 		SQSigAll: 0,
@@ -1908,6 +2112,7 @@ func addLifecycleMRs(r *rdmaResources, count int, timeout time.Duration) error {
 		}
 		r.extraMRs = append(r.extraMRs, mr)
 		r.extraMaps = append(r.extraMaps, mapBuf)
+		r.extraBufs = append(r.extraBufs, buf)
 	}
 	return nil
 }
@@ -2680,6 +2885,156 @@ func (r *rdmaResources) postSend(id uint64) error {
 		return fmt.Errorf("ibv_post_send: %s", errOrCode(nil, rc))
 	}
 	return nil
+}
+
+func (r *rdmaResources) sgEntries() ([]rdma.IbvSGE, error) {
+	bufs := append([][]byte{r.buf}, r.extraBufs...)
+	mrs := append([]rdma.RDMAMR{r.mr}, r.extraMRs...)
+	if len(bufs) != len(mrs) || len(bufs) == 0 {
+		return nil, fmt.Errorf("scatter/gather resources: %d buffers, %d memory regions", len(bufs), len(mrs))
+	}
+	entries := make([]rdma.IbvSGE, len(bufs))
+	for i := range bufs {
+		entries[i] = rdma.IbvSGE{
+			Addr:   uint64(uintptr(unsafe.Pointer(unsafe.SliceData(bufs[i])))),
+			Length: uint32(len(bufs[i])),
+			LKey:   rdma.Ibv_mr_lkey(mrs[i]),
+		}
+	}
+	return entries, nil
+}
+
+func (r *rdmaResources) postRecvSG(id uint64) error {
+	entries, err := r.sgEntries()
+	if err != nil {
+		return err
+	}
+	wr := rdma.IbvRecvWR{WRID: id, SGList: unsafe.SliceData(entries), NumSGE: int32(len(entries))}
+	var bad *rdma.IbvRecvWR
+	rc := r.poster.PostRecv(&wr, &bad)
+	runtime.KeepAlive(entries)
+	if rc != 0 {
+		return fmt.Errorf("ibv_post_recv: %s", errOrCode(nil, rc))
+	}
+	return nil
+}
+
+func (r *rdmaResources) postSendSG(id uint64) error {
+	entries, err := r.sgEntries()
+	if err != nil {
+		return err
+	}
+	wr := rdma.IbvSendWR{WRID: id, SGList: unsafe.SliceData(entries), NumSGE: int32(len(entries)), Opcode: rdma.IBV_WR_SEND, SendFlags: rdma.IBV_SEND_SIGNALED}
+	var bad *rdma.IbvSendWR
+	rc := r.poster.PostSend(&wr, &bad)
+	runtime.KeepAlive(entries)
+	if rc != 0 {
+		return fmt.Errorf("ibv_post_send: %s", errOrCode(nil, rc))
+	}
+	return nil
+}
+
+func (r *rdmaResources) scatter(source []byte) error {
+	bufs := append([][]byte{r.buf}, r.extraBufs...)
+	if len(source) != len(bufs)*len(r.buf) {
+		return fmt.Errorf("scatter source length %d, want %d", len(source), len(bufs)*len(r.buf))
+	}
+	for i, buf := range bufs {
+		copy(buf, source[i*len(buf):(i+1)*len(buf)])
+	}
+	return nil
+}
+
+func (r *rdmaResources) gather(dest []byte) error {
+	bufs := append([][]byte{r.buf}, r.extraBufs...)
+	if len(dest) != len(bufs)*len(r.buf) {
+		return fmt.Errorf("gather destination length %d, want %d", len(dest), len(bufs)*len(r.buf))
+	}
+	for i, buf := range bufs {
+		copy(dest[i*len(buf):(i+1)*len(buf)], buf)
+	}
+	return nil
+}
+
+func runRDMASGClientLoop(r *rdmaResources, segments int, res *rdmaBenchResult) error {
+	size := segments * len(r.buf)
+	source, dest := make([]byte, size), make([]byte, size)
+	fillRDMAPayload(source)
+	var before runtime.MemStats
+	runtime.ReadMemStats(&before)
+	start, iterationStart := time.Now(), time.Now()
+	phaseStart := time.Now()
+	if err := r.scatter(source); err != nil {
+		return err
+	}
+	stagingCopy := time.Since(phaseStart)
+	phaseStart = time.Now()
+	if err := r.postRecvSG(0); err != nil {
+		return err
+	}
+	if err := r.postSendSG(0); err != nil {
+		return err
+	}
+	post := time.Since(phaseStart)
+	phaseStart = time.Now()
+	polls, completions, err := r.pollMeasured(2, 15*time.Second)
+	if err != nil {
+		return err
+	}
+	completionWait := time.Since(phaseStart)
+	phaseStart = time.Now()
+	if err := r.gather(dest); err != nil {
+		return err
+	}
+	receiveCopy := time.Since(phaseStart)
+	if err := checkRDMAPayload(dest); err != nil {
+		return err
+	}
+	var after runtime.MemStats
+	runtime.ReadMemStats(&after)
+	sample := wireBenchSample{
+		Total: time.Since(iterationStart), StagingCopy: stagingCopy, Post: post,
+		CompletionWait: completionWait, ReceiveCopy: receiveCopy, Reduction: 0,
+		QueueDepth: 2, Completions: completions, Polls: polls,
+	}
+	sample.AllocBytes = after.TotalAlloc - before.TotalAlloc
+	sample.Allocs = after.Mallocs - before.Mallocs
+	sample.GCPause = time.Duration(after.PauseTotalNs - before.PauseTotalNs)
+	res.wireSamples = []wireBenchSample{sample}
+	finishRDMABench(res, time.Since(start), uint64(size*2), 1)
+	res.Latency = summarizeWireLatency(res.wireSamples)
+	return nil
+}
+
+func runRDMASGServerLoop(r *rdmaResources, segments int, res *rdmaBenchResult) error {
+	size := segments * len(r.buf)
+	dest := make([]byte, size)
+	start := time.Now()
+	if err := r.postRecvSG(0); err != nil {
+		return err
+	}
+	if err := r.poll(1, 15*time.Second); err != nil {
+		return err
+	}
+	if err := r.gather(dest); err != nil {
+		return err
+	}
+	if err := checkRDMAPayload(dest); err != nil {
+		return err
+	}
+	if err := r.postSendSG(0); err != nil {
+		return err
+	}
+	if err := r.poll(1, 15*time.Second); err != nil {
+		return err
+	}
+	finishRDMABench(res, time.Since(start), uint64(size*2), 1)
+	return nil
+}
+
+func writeWireSamples(path string, res *rdmaBenchResult) error {
+	collector := wireSampleCollector{samples: res.wireSamples}
+	return collector.write(path)
 }
 
 func (r *rdmaResources) poll(want int, timeout time.Duration) error {

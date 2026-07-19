@@ -383,6 +383,66 @@ func TestWireBenchSampleJSON(t *testing.T) {
 	t.Logf("wire sample JSON: %s", data)
 }
 
+func TestSGCapabilityWireSampleJSON(t *testing.T) {
+	samples := []wireBenchSample{{
+		Total: 200, StagingCopy: 10, Post: 20, CompletionWait: 150, ReceiveCopy: 15,
+		QueueDepth: 2, Completions: 2, Polls: 4,
+	}}
+	data, err := json.Marshal(samples)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got []wireBenchSample
+	if err := json.Unmarshal(data, &got); err != nil {
+		t.Fatal(err)
+	}
+	if err := validateWireBenchSamples(got); err != nil {
+		t.Fatalf("validateWireBenchSamples() = %v", err)
+	}
+	if len(got) != 1 || got[0].Total != 200 || got[0].QueueDepth != 2 || got[0].Completions != 2 || got[0].Polls != 4 {
+		t.Fatalf("scatter/gather wire sample round trip = %#v", got)
+	}
+}
+
+func TestValidateSGCapability(t *testing.T) {
+	if err := validateSGCapability(":1234", "", 4, 1<<20, "", time.Minute, time.Second); err != nil {
+		t.Fatalf("validateSGCapability() = %v", err)
+	}
+	for _, test := range []struct {
+		name                  string
+		listen, addr, samples string
+		segments, segmentSize int
+		timeout, setupTimeout time.Duration
+	}{
+		{"both roles", ":1234", "127.0.0.1:1234", "", 4, 1 << 20, time.Minute, time.Second},
+		{"bad segments", ":1234", "", "", 3, 1 << 20, time.Minute, time.Second},
+		{"not four mib", ":1234", "", "", 4, 512 << 10, time.Minute, time.Second},
+		{"server samples", ":1234", "", "samples.json", 4, 1 << 20, time.Minute, time.Second},
+		{"setup exceeds total", ":1234", "", "", 4, 1 << 20, time.Second, time.Minute},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			if err := validateSGCapability(test.listen, test.addr, test.segments, test.segmentSize, test.samples, test.timeout, test.setupTimeout); err == nil {
+				t.Fatal("validateSGCapability succeeded")
+			}
+		})
+	}
+}
+
+func TestSGCeilingError(t *testing.T) {
+	for _, test := range []struct {
+		input string
+		want  bool
+	}{
+		{"ibv_post_recv: errno 4294967284", true},
+		{"ibv_post_recv: errno 12 (ENOMEM)", true},
+		{"data mismatch", false},
+	} {
+		if got := isSGCeilingError(test.input); got != test.want {
+			t.Errorf("isSGCeilingError(%q) = %v, want %v", test.input, got, test.want)
+		}
+	}
+}
+
 func TestValidateWireSamples(t *testing.T) {
 	tests := []struct {
 		name        string
