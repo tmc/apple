@@ -24,6 +24,7 @@
 //go:generate applegen-bootstrap -f "coreml"
 //go:generate applegen-bootstrap -f "coreservices"
 //go:generate applegen-bootstrap -f "corevideo"
+//go:generate applegen-bootstrap -f "devicecheck"
 //go:generate applegen-bootstrap -f "diskarbitration"
 //go:generate applegen-bootstrap -f "dispatch"
 //go:generate applegen-bootstrap -f "endpointsecurity" --go-names
