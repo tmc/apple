@@ -2071,7 +2071,9 @@ func queryRDMADeviceMaxSGE(deviceName string, deviceIndex int, timeout time.Dura
 		return 0, fmt.Errorf("ibv_open_device: %w", err)
 	}
 	defer rdma.IbvCloseDevice(ctx)
-	buf := make([]byte, unsafe.Sizeof(ibvDeviceAttr{}))
+	// ibv_query_device writes the complete ABI struct. Keep a full-size
+	// buffer even though this command reads only its max_sge prefix.
+	buf := make([]byte, 4096)
 	rc, err := rdma.IbvQueryDevice(ctx, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
 	runtime.KeepAlive(buf)
 	if err != nil || rc != 0 {
