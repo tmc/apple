@@ -151,7 +151,7 @@ type IGTMioHeatmapImpl interface {
 	ValueForPixelXPixelYSlice(x uint64, y uint64, slice uint64) uint64
 	Values() unsafe.Pointer
 	Width() uint64
-	InitWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl
+	InitWithEncoderInfoWitdhHeightDepthQuadDataType(info *GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl
 }
 
 // Init initializes the instance.
@@ -173,7 +173,7 @@ func NewGTMioHeatmapImpl() GTMioHeatmapImpl {
 	return rv
 }
 
-func NewGTMioHeatmapImplWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
+func NewGTMioHeatmapImplWithEncoderInfoWitdhHeightDepthQuadDataType(info *GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
 	instance := getGTMioHeatmapImplClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEncoderInfo:witdh:height:depth:quadData:type:"), info, witdh, height, depth, data, type_)
 	return GTMioHeatmapImplFromID(rv)
@@ -214,7 +214,7 @@ func (g GTMioHeatmapImpl) ValueForPixelXPixelYSlice(x uint64, y uint64, slice ui
 	rv := objc.Send[uint64](g.ID, objc.Sel("valueForPixelX:pixelY:slice:"), x, y, slice)
 	return rv
 }
-func (g GTMioHeatmapImpl) InitWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
+func (g GTMioHeatmapImpl) InitWithEncoderInfoWitdhHeightDepthQuadDataType(info *GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
 	rv := objc.Send[GTMioHeatmapImpl](g.ID, objc.Sel("initWithEncoderInfo:witdh:height:depth:quadData:type:"), info, witdh, height, depth, data, type_)
 	return rv
 }

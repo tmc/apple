@@ -98,7 +98,7 @@ type IGTMioMGPUTraceData interface {
 	// Topic: Methods
 
 	CostCount() uint64
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	Costs() unsafe.Pointer
 	Index() uint64
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
@@ -139,7 +139,7 @@ func NewGTMioMGPUTraceDataWithMGPUDataParent(mGPUData unsafe.Pointer, parent obj
 	return GTMioMGPUTraceDataFromID(rv)
 }
 
-func (g GTMioMGPUTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
+func (g GTMioMGPUTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }

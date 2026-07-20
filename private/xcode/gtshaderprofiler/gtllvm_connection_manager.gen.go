@@ -326,8 +326,7 @@ func (g GTLLVMConnectionManager) CanTryAcquireHost() bool {
 }
 func (g GTLLVMConnectionManager) BinaryInfo(info uint32) GTAPSBinaryInfo {
 	rv := objc.Send[GTAPSBinaryInfo](g.ID, objc.Sel("binaryInfo:"), info)
-	_ = rv
-	return GTAPSBinaryInfo{}
+	return GTAPSBinaryInfo(rv)
 }
 func (g GTLLVMConnectionManager) BinarySize(size uint32) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("binarySize:"), size)
@@ -359,8 +358,7 @@ func (g GTLLVMConnectionManager) IsLLVMValid(lLVMValid uint32) bool {
 }
 func (g GTLLVMConnectionManager) ShaderProfilerBinaryInfo(info uint32) GTShaderProfilerBinaryInfo {
 	rv := objc.Send[GTShaderProfilerBinaryInfo](g.ID, objc.Sel("shaderProfilerBinaryInfo:"), info)
-	_ = rv
-	return GTShaderProfilerBinaryInfo{}
+	return GTShaderProfilerBinaryInfo(rv)
 }
 func (g GTLLVMConnectionManager) InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients(gPUName objectivec.IObject, index int, path objectivec.IObject, gen byte, name objectivec.IObject, clients uint32) GTLLVMConnectionManager {
 	rv := objc.Send[GTLLVMConnectionManager](g.ID, objc.Sel("initWithGPUName:withTargetIndex:binaryPath:withGen:withSocketName:forNumClients:"), gPUName, index, path, gen, name, clients)

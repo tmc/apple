@@ -206,9 +206,9 @@ type IGTMioShaderBinaryData interface {
 	CachedISAFileURL() foundation.NSURL
 	Cost() unsafe.Pointer
 	CostCount() uint64
-	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
-	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool
+	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	Costs() unsafe.Pointer
 	DebugBinaryRangeCount() uint64
 	DebugBinaryRanges() unsafe.Pointer
@@ -234,7 +234,7 @@ type IGTMioShaderBinaryData interface {
 	FullPathIndexForFilePath(path objectivec.IObject) uint32
 	HasRaytracing() bool
 	Index() uint64
-	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool
+	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 *GTMioCostInfo) bool
 	InstructionCosts() unsafe.Pointer
 	InstructionCostsForDraw(draw uint32) unsafe.Pointer
 	InstructionCostsForEncoder(encoder uint32) unsafe.Pointer
@@ -305,15 +305,15 @@ func (g GTMioShaderBinaryData) CachedISAFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cachedISAFileURL"))
 	return foundation.NSURLFromID(rv)
 }
-func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
+func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:"), range_, scope, identifier, cost, instructions)
 	return rv
 }
-func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
+func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:"), line, index, scope, identifier, cost, instructions)
 	return rv
 }
-func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
+func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
@@ -381,7 +381,7 @@ func (g GTMioShaderBinaryData) FullPathIndexForFilePath(path objectivec.IObject)
 	rv := objc.Send[uint32](g.ID, objc.Sel("fullPathIndexForFilePath:"), path)
 	return rv
 }
-func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool {
+func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("instructionCost:scope:scopeIdentifier:cost:"), cost, scope, identifier, cost2)
 	return rv
 }

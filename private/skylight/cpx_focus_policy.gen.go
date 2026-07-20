@@ -78,8 +78,8 @@ type ICPXFocusPolicy interface {
 
 	// Topic: Methods
 
-	BringNextApplicationToFrontInternal(internal CPSProcessRec)
-	BringNextProcessToFront(front CPSProcessRec)
+	BringNextApplicationToFrontInternal(internal *CPSProcessRec)
+	BringNextProcessToFront(front *CPSProcessRec)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -105,10 +105,10 @@ func NewCPXFocusPolicy() CPXFocusPolicy {
 	return rv
 }
 
-func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
+func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal *CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
-func (c CPXFocusPolicy) BringNextProcessToFront(front CPSProcessRec) {
+func (c CPXFocusPolicy) BringNextProcessToFront(front *CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextProcessToFront:"), front)
 }
 

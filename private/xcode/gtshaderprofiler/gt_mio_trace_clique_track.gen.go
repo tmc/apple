@@ -74,7 +74,7 @@ type IGTMioTraceCliqueTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take GTMioUSCCliqueMetadata)
+	Take(take *GTMioUSCCliqueMetadata)
 	TraceCount() uint64
 	Traces() *GTMioUSCCliqueMetadataRef
 }
@@ -107,7 +107,7 @@ func NewGTMioTraceCliqueTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id i
 func (g GTMioTraceCliqueTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-func (g GTMioTraceCliqueTrack) Take(take GTMioUSCCliqueMetadata) {
+func (g GTMioTraceCliqueTrack) Take(take *GTMioUSCCliqueMetadata) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 

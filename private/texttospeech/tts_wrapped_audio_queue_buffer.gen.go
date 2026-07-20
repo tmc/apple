@@ -5,8 +5,8 @@ package texttospeech
 import (
 	"context"
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -80,8 +80,8 @@ type ITTSWrappedAudioQueueBuffer interface {
 
 	// Topic: Methods
 
-	AqBuffer() unsafe.Pointer
-	SetAqBuffer(value *AudioQueueBuffer)
+	AqBuffer() avfaudio.AudioQueueBuffer
+	SetAqBuffer(value avfaudio.AudioQueueBuffer)
 	ByteSize() uint64
 	QueuedTimeStamp() coreaudiotypes.AudioTimeStamp
 	SetQueuedTimeStamp(value coreaudiotypes.AudioTimeStamp)
@@ -112,11 +112,11 @@ func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler ErrorHandler) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 
-func (t TTSWrappedAudioQueueBuffer) AqBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("aqBuffer"))
-	return rv
+func (t TTSWrappedAudioQueueBuffer) AqBuffer() avfaudio.AudioQueueBuffer {
+	rv := objc.Send[avfaudio.AudioQueueBuffer](t.ID, objc.Sel("aqBuffer"))
+	return avfaudio.AudioQueueBuffer(rv)
 }
-func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value *AudioQueueBuffer) {
+func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value avfaudio.AudioQueueBuffer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
 }
 func (t TTSWrappedAudioQueueBuffer) ByteSize() uint64 {

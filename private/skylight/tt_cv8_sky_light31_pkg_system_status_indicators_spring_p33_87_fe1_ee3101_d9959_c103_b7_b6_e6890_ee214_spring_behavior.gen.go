@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior] class.
+// The class instance for the [SpringBehavior] class.
 var (
-	_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass     TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass
-	_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClassOnce sync.Once
+	_SpringBehaviorClass     SpringBehaviorClass
+	_SpringBehaviorClassOnce sync.Once
 )
 
-func getTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass {
-	_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClassOnce.Do(func() {
-		_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass = TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass{class: objc.GetClass("_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior")}
+func getSpringBehaviorClass() SpringBehaviorClass {
+	_SpringBehaviorClassOnce.Do(func() {
+		_SpringBehaviorClass = SpringBehaviorClass{class: objc.GetClass("_TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior")}
 	})
-	return _TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass
+	return _SpringBehaviorClass
 }
 
-// GetTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass returns the class object for _TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior.
-func GetTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass {
-	return getTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass()
+// GetSpringBehaviorClass returns the class object for _TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP33_87FE1EE3101D9959C103B7B6E6890EE214SpringBehavior.
+func GetSpringBehaviorClass() SpringBehaviorClass {
+	return getSpringBehaviorClass()
 }
 
-type TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass struct {
+type SpringBehaviorClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass) Class() objc.Class {
-	return tc.class
+func (sc SpringBehaviorClass) Class() objc.Class {
+	return sc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass) Alloc() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior {
-	rv := objc.Send[TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior](objc.ID(tc.class), objc.Sel("alloc"))
+func (sc SpringBehaviorClass) Alloc() SpringBehavior {
+	rv := objc.Send[SpringBehavior](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior struct {
+type SpringBehavior struct {
 	objectivec.Object
 }
 
-// TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorFromID constructs a [TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior] from an objc.ID.
-func TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorFromID(id objc.ID) TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior {
-	return TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior{objectivec.Object{ID: id}}
+// SpringBehaviorFromID constructs a [SpringBehavior] from an objc.ID.
+func SpringBehaviorFromID(id objc.ID) SpringBehavior {
+	return SpringBehavior{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior struct embeds objectivec.Object (parent type unavailable) but
-// ITtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior embeds the parent interface; skip compile-time assertion.
+// NOTE: SpringBehavior struct embeds objectivec.Object (parent type unavailable) but
+// ISpringBehavior embeds the parent interface; skip compile-time assertion.
 
-// An interface definition for the [TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior] class.
-type ITtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior interface {
+// An interface definition for the [SpringBehavior] class.
+type ISpringBehavior interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior) Init() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior {
-	rv := objc.Send[TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior](t.ID, objc.Sel("init"))
+func (s SpringBehavior) Init() SpringBehavior {
+	rv := objc.Send[SpringBehavior](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior) Autorelease() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior {
-	rv := objc.Send[TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior](t.ID, objc.Sel("autorelease"))
+func (s SpringBehavior) Autorelease() SpringBehavior {
+	rv := objc.Send[SpringBehavior](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior creates a new TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior instance.
-func NewTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior() TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior {
-	class := getTtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehaviorClass()
-	rv := objc.Send[TtCV8SkyLight31PKGSystemStatusIndicatorsSpringP3387FE1EE3101D9959C103B7B6E6890EE214SpringBehavior](objc.ID(class.class), objc.Sel("new"))
+// NewSpringBehavior creates a new SpringBehavior instance.
+func NewSpringBehavior() SpringBehavior {
+	class := getSpringBehaviorClass()
+	rv := objc.Send[SpringBehavior](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

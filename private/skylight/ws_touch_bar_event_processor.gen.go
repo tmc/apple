@@ -77,7 +77,7 @@ func NewWSTouchBarEventProcessor() WSTouchBarEventProcessor {
 	return rv
 }
 
-func NewWSTouchBarEventProcessorWithSession(session CGXSession) WSTouchBarEventProcessor {
+func NewWSTouchBarEventProcessorWithSession(session *CGXSession) WSTouchBarEventProcessor {
 	instance := getWSTouchBarEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSTouchBarEventProcessorFromID(rv)

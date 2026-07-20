@@ -67,7 +67,7 @@ type IWSSLSToHIDEventTranslator interface {
 
 	// Topic: Methods
 
-	HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr
+	HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecord, descriptor []objectivec.IObject) uintptr
 }
 
 // Init initializes the instance.
@@ -89,7 +89,7 @@ func NewWSSLSToHIDEventTranslator() WSSLSToHIDEventTranslator {
 	return rv
 }
 
-func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr {
+func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecord, descriptor []objectivec.IObject) uintptr {
 	rv := objc.Send[uintptr](w.ID, objc.Sel("hidEventForSLSEvent:outSenderDescriptor:"), sLSEvent, objectivec.IObjectSliceToNSArray(descriptor))
 	return rv
 }

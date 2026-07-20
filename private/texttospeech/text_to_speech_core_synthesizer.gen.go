@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -440,7 +441,7 @@ func (t TextToSpeechCoreSynthesizer) VoiceWithLocale(ctx context.Context, locale
 
 // WriteToBufferCallbackToMarkerCallbackSynth is a synchronous wrapper around [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject) error {
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback func(*foundation.NSError), callback2 objectivec.IObject, synth kernel.ID) error {
 	done := make(chan error, 1)
 	t.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write, callback, callback2, synth, func(err error) {
 		done <- err

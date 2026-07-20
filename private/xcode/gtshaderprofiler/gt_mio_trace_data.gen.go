@@ -259,14 +259,14 @@ type IGTMioTraceData interface {
 	BuildNonOverlappingCounters(counters unsafe.Pointer)
 	Cancel()
 	CancelToken(token uint64)
-	CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer
+	CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) unsafe.Pointer
 	ComputePositionCount() uint64
 	ComputePositions() unsafe.Pointer
 	ConsistentStateAchieved() bool
 	CostCount() uint64
-	CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool
-	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool
+	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	CostTimeline() unsafe.Pointer
 	Costs() unsafe.Pointer
 	DrawCount() uint64
@@ -282,12 +282,12 @@ type IGTMioTraceData interface {
 	EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
-	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
 	EnumerateEncoders(encoders VoidHandler)
-	EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler)
 	EnumeratePipelineStates(states VoidHandler)
@@ -336,7 +336,7 @@ type IGTMioTraceData interface {
 	UseMinimumTracingMode() bool
 	InitWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error)
 	InitWithCoder(coder foundation.INSCoder) GTMioTraceData
-	InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData
+	InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData
 	InitWithTraceDatabaseDeallocator(database uint64, deallocator VoidHandler) GTMioTraceData
 	Version() uint32
 }
@@ -377,7 +377,7 @@ func NewGTMioTraceDataWithCoder(coder objectivec.IObject) GTMioTraceData {
 	return GTMioTraceDataFromID(rv)
 }
 
-func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
+func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData {
 	instance := getGTMioTraceDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
 	return GTMioTraceDataFromID(rv)
@@ -451,7 +451,7 @@ func (g GTMioTraceData) Cancel() {
 func (g GTMioTraceData) CancelToken(token uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancelToken:"), token)
 }
-func (g GTMioTraceData) CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer {
+func (g GTMioTraceData) CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
 	return rv
 }
@@ -467,15 +467,15 @@ func (g GTMioTraceData) CostCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-func (g GTMioTraceData) CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool {
+func (g GTMioTraceData) CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForContext:cost:"), context, cost)
 	return rv
 }
-func (g GTMioTraceData) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool {
+func (g GTMioTraceData) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, cost)
 	return rv
 }
-func (g GTMioTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
+func (g GTMioTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
@@ -534,7 +534,7 @@ func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumerator(state uint64
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, _block1)
 }
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, _block2)
 }
@@ -554,7 +554,7 @@ func (g GTMioTraceData) EnumerateEncoders(encoders VoidHandler) {
 	_block0, _ := NewVoidBlock(encoders)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEncoders:"), _block0)
 }
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, _block2)
 }
@@ -703,7 +703,7 @@ func (g GTMioTraceData) InitWithCoder(coder foundation.INSCoder) GTMioTraceData 
 	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
+func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData {
 	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
 	return rv
 }
@@ -885,7 +885,7 @@ func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumeratorSync(ctx cont
 
 // EnumerateBinaryRangesForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateBinaryRangesForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique GTMioUSCCliqueMetadata, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadata, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateBinaryRangesForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}
@@ -960,7 +960,7 @@ func (g GTMioTraceData) EnumerateEncodersSync(ctx context.Context) error {
 
 // EnumerateInstructionsForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateInstructionsForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique GTMioUSCCliqueMetadata, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadata, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateInstructionsForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}

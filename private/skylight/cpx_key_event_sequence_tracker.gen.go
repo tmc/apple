@@ -74,8 +74,8 @@ type ICPXKeyEventSequenceTracker interface {
 	// Topic: Methods
 
 	Count() uint64
-	DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject
-	NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool
+	DestinationForEventExtras(event *SLSEventRecord, extras []objectivec.IObject) objectivec.IObject
+	NoteKeyEventProcessedDestination(processed *SLSEventRecord, destination objectivec.IObject) bool
 	InitWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker
 }
 
@@ -108,11 +108,11 @@ func (c CPXKeyEventSequenceTracker) Count() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("count"))
 	return rv
 }
-func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
+func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event *SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:extras:"), event, objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
-func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool {
+func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed *SLSEventRecord, destination objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("noteKeyEventProcessed:destination:"), processed, destination)
 	return rv
 }

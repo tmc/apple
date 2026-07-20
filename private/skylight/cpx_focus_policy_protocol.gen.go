@@ -12,10 +12,10 @@ type CPXFocusPolicyProtocol interface {
 	objectivec.IObject
 
 	// BringNextApplicationToFrontInternal protocol.
-	BringNextApplicationToFrontInternal(internal CPSProcessRec)
+	BringNextApplicationToFrontInternal(internal *CPSProcessRec)
 
 	// BringNextProcessToFront protocol.
-	BringNextProcessToFront(front CPSProcessRec)
+	BringNextProcessToFront(front *CPSProcessRec)
 }
 
 // CPXFocusPolicyProtocolObject wraps an existing Objective-C object that conforms to the CPXFocusPolicyProtocol protocol.
@@ -35,9 +35,9 @@ func CPXFocusPolicyProtocolObjectFromID(id objc.ID) CPXFocusPolicyProtocolObject
 	}
 }
 
-func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
+func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal *CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
-func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front CPSProcessRec) {
+func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front *CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextProcessToFront:"), front)
 }

@@ -80,9 +80,9 @@ type ICPXEventDispatcher interface {
 
 	// Topic: Methods
 
-	PostBackgroundEvent(event SLSEventRecord)
-	PostEventToConnectionID(event SLSEventRecord, id uint32)
-	PostEventToDestination(event SLSEventRecord, destination objectivec.IObject)
+	PostBackgroundEvent(event *SLSEventRecord)
+	PostEventToConnectionID(event *SLSEventRecord, id uint32)
+	PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -108,13 +108,13 @@ func NewCPXEventDispatcher() CPXEventDispatcher {
 	return rv
 }
 
-func (c CPXEventDispatcher) PostBackgroundEvent(event SLSEventRecord) {
+func (c CPXEventDispatcher) PostBackgroundEvent(event *SLSEventRecord) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postBackgroundEvent:"), event)
 }
-func (c CPXEventDispatcher) PostEventToConnectionID(event SLSEventRecord, id uint32) {
+func (c CPXEventDispatcher) PostEventToConnectionID(event *SLSEventRecord, id uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
 }
-func (c CPXEventDispatcher) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
+func (c CPXEventDispatcher) PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toDestination:"), event, destination)
 }
 

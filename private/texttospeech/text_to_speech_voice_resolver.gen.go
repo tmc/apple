@@ -196,7 +196,7 @@ func (t TextToSpeechVoiceResolver) CurrentSystemLocale(ctx context.Context) erro
 
 // FallbackForVoice is a synchronous wrapper around [TextToSpeechVoiceResolver.FallbackForVoiceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechVoiceResolver) FallbackForVoice(ctx context.Context, voice ITTSSpeechVoice) error {
+func (t TextToSpeechVoiceResolver) FallbackForVoice(ctx context.Context, voice TTSSpeechVoice) error {
 	done := make(chan error, 1)
 	t.FallbackForVoiceCompletionHandler(voice, func(err error) {
 		done <- err

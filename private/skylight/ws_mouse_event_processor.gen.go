@@ -77,7 +77,7 @@ func NewWSMouseEventProcessor() WSMouseEventProcessor {
 	return rv
 }
 
-func NewWSMouseEventProcessorWithSession(session CGXSession) WSMouseEventProcessor {
+func NewWSMouseEventProcessorWithSession(session *CGXSession) WSMouseEventProcessor {
 	instance := getWSMouseEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSMouseEventProcessorFromID(rv)

@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -78,10 +79,9 @@ func NewTTSSpeakUPAUManager() TTSSpeakUPAUManager {
 	return rv
 }
 
-func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() AudioComponentDescription {
-	rv := objc.Send[AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
-	_ = rv
-	return AudioComponentDescription{}
+func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() avfaudio.AudioComponentDescription {
+	rv := objc.Send[avfaudio.AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
+	return avfaudio.AudioComponentDescription(rv)
 }
 func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) RegisterAU() {
 	objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("registerAU"))

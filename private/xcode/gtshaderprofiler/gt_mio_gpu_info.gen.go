@@ -91,7 +91,7 @@ type IGTMioGPUInfo interface {
 	NumGPs() uint64
 	NumMGPUs() uint64
 	NumShaderCores() uint64
-	InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo
+	InitWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo
 }
 
 // Init initializes the instance.
@@ -113,7 +113,7 @@ func NewGTMioGPUInfo() GTMioGPUInfo {
 	return rv
 }
 
-func NewGTMioGPUInfoWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
+func NewGTMioGPUInfoWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo {
 	instance := getGTMioGPUInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
 	return GTMioGPUInfoFromID(rv)
@@ -127,7 +127,7 @@ func (g GTMioGPUInfo) GpuType() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuType"))
 	return rv
 }
-func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
+func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo {
 	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
 	return rv
 }

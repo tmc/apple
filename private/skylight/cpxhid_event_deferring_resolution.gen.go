@@ -94,8 +94,8 @@ type ICPXHIDEventDeferringResolution interface {
 	Pid() int
 	ProcessRecord() unsafe.Pointer
 	Token() unsafe.Pointer
-	InitWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution
-	InitWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution
+	InitWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution
+	InitWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -121,23 +121,23 @@ func NewCPXHIDEventDeferringResolution() CPXHIDEventDeferringResolution {
 	return rv
 }
 
-func NewCPXHIDEventDeferringResolutionWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
+func NewCPXHIDEventDeferringResolutionWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-func NewCPXHIDEventDeferringResolutionWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
+func NewCPXHIDEventDeferringResolutionWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-func (c CPXHIDEventDeferringResolution) InitWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
+func (c CPXHIDEventDeferringResolution) InitWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution {
 	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:"), process)
 	return rv
 }
-func (c CPXHIDEventDeferringResolution) InitWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
+func (c CPXHIDEventDeferringResolution) InitWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
 	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
 	return rv
 }

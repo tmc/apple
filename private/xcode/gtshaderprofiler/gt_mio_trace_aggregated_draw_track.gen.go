@@ -74,7 +74,7 @@ type IGTMioTraceAggregatedDrawTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take GTMioDrawTrace)
+	Take(take *GTMioDrawTrace)
 	TraceCount() uint64
 	Traces() unsafe.Pointer
 }
@@ -107,7 +107,7 @@ func NewGTMioTraceAggregatedDrawTrackWithIdScopeScopeIdentifierLevelLevelIdentif
 func (g GTMioTraceAggregatedDrawTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-func (g GTMioTraceAggregatedDrawTrack) Take(take GTMioDrawTrace) {
+func (g GTMioTraceAggregatedDrawTrack) Take(take *GTMioDrawTrace) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 

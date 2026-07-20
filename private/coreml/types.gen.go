@@ -14,6 +14,8 @@ type CGImage struct {
 
 // KDBoundingBox
 type KDBoundingBox struct {
+	Field1 unsafe.Pointer
+	Field2 uint64
 }
 
 // MLModelDescriptionSpecification
@@ -34,10 +36,17 @@ type OpaqueVTPixelTransferSession struct {
 
 // Path
 type Path struct {
+	Field1 unsafe.Pointer
 }
 
 // Prediction
 type Prediction struct {
+	Field1 float64
+	Field2 float64
+	Field3 float64
+	Field4 float64
+	Field5 float64
+	Field6 bool
 }
 
 // CVBuffer
@@ -100,6 +109,18 @@ type Os_unfair_lock_s = OSUnfairLockS
 
 // SvmModel
 type SvmModel struct {
+	Field1  unsafe.Pointer
+	Field2  int
+	Field3  int
+	Field4  *SvmNodeRef
+	Field5  []float64
+	Field6  []float64
+	Field7  []float64
+	Field8  []float64
+	Field9  []int
+	Field10 []int
+	Field11 []int
+	Field12 int
 }
 
 // Svm_model is a type alias for SvmModel for use in objc.Send[T] calls.
@@ -107,7 +128,31 @@ type Svm_model = SvmModel
 
 // SvmNode
 type SvmNode struct {
+	Field1 int
+	Field2 float64
 }
 
 // Svm_node is a type alias for SvmNode for use in objc.Send[T] calls.
 type Svm_node = SvmNode
+
+// Vimage2espressoParam
+type Vimage2espressoParam struct {
+	Field1  float32
+	Field2  int
+	Field3  int
+	Field4  int
+	Field5  float32
+	Field6  float32
+	Field7  float32
+	Field8  float32
+	Field9  int
+	Field10 uint
+	Field11 uint
+	Field12 uint
+	Field13 int
+	Field14 int
+	Field15 int
+}
+
+// Vimage2espresso_param is a type alias for Vimage2espressoParam for use in objc.Send[T] calls.
+type Vimage2espresso_param = Vimage2espressoParam

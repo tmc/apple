@@ -104,13 +104,13 @@ func NewSLSSkyLightGestureEventAuthenticationMessageWithCoder(coder objectivec.I
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)

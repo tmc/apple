@@ -98,7 +98,7 @@ type IVZSpiceAgentCore interface {
 	Pause()
 	Resume()
 	Stop()
-	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore
+	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -124,7 +124,7 @@ func NewVZSpiceAgentCore() VZSpiceAgentCore {
 	return rv
 }
 
-func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
+func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore {
 	instance := getVZSpiceAgentCoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
 	return VZSpiceAgentCoreFromID(rv)
@@ -152,7 +152,7 @@ func (v VZSpiceAgentCore) Resume() {
 func (v VZSpiceAgentCore) Stop() {
 	objc.Send[objc.ID](v.ID, objc.Sel("stop"))
 }
-func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
+func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore {
 	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
 	return rv
 }

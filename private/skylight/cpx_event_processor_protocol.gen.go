@@ -35,7 +35,7 @@ func CPXEventProcessorObjectFromID(id objc.ID) CPXEventProcessorObject {
 func (o CPXEventProcessorObject) ClearEventState() {
 	objc.Send[struct{}](o.ID, objc.Sel("clearEventState"))
 }
-func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }

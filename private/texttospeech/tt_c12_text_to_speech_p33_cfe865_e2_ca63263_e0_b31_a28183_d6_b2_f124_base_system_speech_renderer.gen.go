@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer] class.
+// The class instance for the [BaseSystemSpeechRenderer] class.
 var (
-	_TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass     TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass
-	_TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClassOnce sync.Once
+	_BaseSystemSpeechRendererClass     BaseSystemSpeechRendererClass
+	_BaseSystemSpeechRendererClassOnce sync.Once
 )
 
-func getTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass {
-	_TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClassOnce.Do(func() {
-		_TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass = TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass{class: objc.GetClass("_TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer")}
+func getBaseSystemSpeechRendererClass() BaseSystemSpeechRendererClass {
+	_BaseSystemSpeechRendererClassOnce.Do(func() {
+		_BaseSystemSpeechRendererClass = BaseSystemSpeechRendererClass{class: objc.GetClass("_TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer")}
 	})
-	return _TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass
+	return _BaseSystemSpeechRendererClass
 }
 
-// GetTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass returns the class object for _TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer.
-func GetTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass {
-	return getTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass()
+// GetBaseSystemSpeechRendererClass returns the class object for _TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer.
+func GetBaseSystemSpeechRendererClass() BaseSystemSpeechRendererClass {
+	return getBaseSystemSpeechRendererClass()
 }
 
-type TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass struct {
+type BaseSystemSpeechRendererClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass) Class() objc.Class {
-	return tc.class
+func (bc BaseSystemSpeechRendererClass) Class() objc.Class {
+	return bc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass) Alloc() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
-	rv := objc.Send[TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer](objc.ID(tc.class), objc.Sel("alloc"))
+func (bc BaseSystemSpeechRendererClass) Alloc() BaseSystemSpeechRenderer {
+	rv := objc.Send[BaseSystemSpeechRenderer](objc.ID(bc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer struct {
+type BaseSystemSpeechRenderer struct {
 	objectivec.Object
 }
 
-// TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererFromID constructs a [TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer] from an objc.ID.
-func TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererFromID(id objc.ID) TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
-	return TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer{objectivec.Object{ID: id}}
+// BaseSystemSpeechRendererFromID constructs a [BaseSystemSpeechRenderer] from an objc.ID.
+func BaseSystemSpeechRendererFromID(id objc.ID) BaseSystemSpeechRenderer {
+	return BaseSystemSpeechRenderer{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer struct embeds objectivec.Object (parent type unavailable) but
-// ITtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer embeds the parent interface; skip compile-time assertion.
+// NOTE: BaseSystemSpeechRenderer struct embeds objectivec.Object (parent type unavailable) but
+// IBaseSystemSpeechRenderer embeds the parent interface; skip compile-time assertion.
 
-// An interface definition for the [TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer] class.
-type ITtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer interface {
+// An interface definition for the [BaseSystemSpeechRenderer] class.
+type IBaseSystemSpeechRenderer interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer) Init() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
-	rv := objc.Send[TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer](t.ID, objc.Sel("init"))
+func (b BaseSystemSpeechRenderer) Init() BaseSystemSpeechRenderer {
+	rv := objc.Send[BaseSystemSpeechRenderer](b.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer) Autorelease() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
-	rv := objc.Send[TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer](t.ID, objc.Sel("autorelease"))
+func (b BaseSystemSpeechRenderer) Autorelease() BaseSystemSpeechRenderer {
+	rv := objc.Send[BaseSystemSpeechRenderer](b.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer creates a new TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer instance.
-func NewTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer() TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
-	class := getTtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass()
-	rv := objc.Send[TtC12TextToSpeechP33CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer](objc.ID(class.class), objc.Sel("new"))
+// NewBaseSystemSpeechRenderer creates a new BaseSystemSpeechRenderer instance.
+func NewBaseSystemSpeechRenderer() BaseSystemSpeechRenderer {
+	class := getBaseSystemSpeechRendererClass()
+	rv := objc.Send[BaseSystemSpeechRenderer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

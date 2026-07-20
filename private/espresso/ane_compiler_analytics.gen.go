@@ -9,7 +9,6 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [ANECompilerAnalytics] class.
@@ -102,19 +101,19 @@ type IANECompilerAnalytics interface {
 
 	AnalyticsBuffer() foundation.NSData
 	BufferSizeInBytes() foundation.NSNumber
-	DataInfoAt(at uint64) *appleneuralengine.AnalyticsDataRef
+	DataInfoAt(at uint64) unsafe.Pointer
 	GetBOOLDataValueAt(at uint64) bool
 	GetDataValueAt(at uint64) uint64
-	GroupInfoAt(at uint64) *appleneuralengine.AnalyticsGroupInfoRef
-	LayerInfoAt(at uint64) *appleneuralengine.AnalyticsLayerInfoRef
+	GroupInfoAt(at uint64) unsafe.Pointer
+	LayerInfoAt(at uint64) unsafe.Pointer
 	OffsetTableAtCount(at uint64, count uint32) unsafe.Pointer
 	PopulateAnalytics() bool
 	ProcedureAnalytics() foundation.INSArray
 	SetProcedureAnalytics(value foundation.INSArray)
-	ProcedureInfoAt(at uint64) *appleneuralengine.AnalyticsProcedureInfoRef
+	ProcedureInfoAt(at uint64) unsafe.Pointer
 	Serialize() objectivec.IObject
 	StringForAnalyticsType(type_ uint32) objectivec.IObject
-	TaskInfoAt(at uint64) *appleneuralengine.AnalyticsTaskInfoRef
+	TaskInfoAt(at uint64) unsafe.Pointer
 	InitWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics
 }
 
@@ -143,9 +142,9 @@ func NewANECompilerAnalyticsWithBuffer(buffer objectivec.IObject) ANECompilerAna
 	return ANECompilerAnalyticsFromID(rv)
 }
 
-func (a ANECompilerAnalytics) DataInfoAt(at uint64) *appleneuralengine.AnalyticsDataRef {
+func (a ANECompilerAnalytics) DataInfoAt(at uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("dataInfoAt:"), at)
-	return (*appleneuralengine.AnalyticsDataRef)(rv)
+	return rv
 }
 func (a ANECompilerAnalytics) GetBOOLDataValueAt(at uint64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("getBOOLDataValueAt:"), at)
@@ -155,13 +154,13 @@ func (a ANECompilerAnalytics) GetDataValueAt(at uint64) uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("getDataValueAt:"), at)
 	return rv
 }
-func (a ANECompilerAnalytics) GroupInfoAt(at uint64) *appleneuralengine.AnalyticsGroupInfoRef {
+func (a ANECompilerAnalytics) GroupInfoAt(at uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("groupInfoAt:"), at)
-	return (*appleneuralengine.AnalyticsGroupInfoRef)(rv)
+	return rv
 }
-func (a ANECompilerAnalytics) LayerInfoAt(at uint64) *appleneuralengine.AnalyticsLayerInfoRef {
+func (a ANECompilerAnalytics) LayerInfoAt(at uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("layerInfoAt:"), at)
-	return (*appleneuralengine.AnalyticsLayerInfoRef)(rv)
+	return rv
 }
 func (a ANECompilerAnalytics) OffsetTableAtCount(at uint64, count uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("offsetTableAt:count:"), at, count)
@@ -171,9 +170,9 @@ func (a ANECompilerAnalytics) PopulateAnalytics() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("populateAnalytics"))
 	return rv
 }
-func (a ANECompilerAnalytics) ProcedureInfoAt(at uint64) *appleneuralengine.AnalyticsProcedureInfoRef {
+func (a ANECompilerAnalytics) ProcedureInfoAt(at uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("procedureInfoAt:"), at)
-	return (*appleneuralengine.AnalyticsProcedureInfoRef)(rv)
+	return rv
 }
 func (a ANECompilerAnalytics) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
@@ -183,9 +182,9 @@ func (a ANECompilerAnalytics) StringForAnalyticsType(type_ uint32) objectivec.IO
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stringForAnalyticsType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-func (a ANECompilerAnalytics) TaskInfoAt(at uint64) *appleneuralengine.AnalyticsTaskInfoRef {
+func (a ANECompilerAnalytics) TaskInfoAt(at uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("taskInfoAt:"), at)
-	return (*appleneuralengine.AnalyticsTaskInfoRef)(rv)
+	return rv
 }
 func (a ANECompilerAnalytics) InitWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics {
 	rv := objc.Send[ANECompilerAnalytics](a.ID, objc.Sel("initWithBuffer:"), buffer)

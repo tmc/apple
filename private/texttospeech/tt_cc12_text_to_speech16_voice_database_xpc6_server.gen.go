@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCC12TextToSpeech16VoiceDatabaseXPC6Server] class.
+// The class instance for the [Server] class.
 var (
-	_TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass     TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass
-	_TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClassOnce sync.Once
+	_ServerClass     ServerClass
+	_ServerClassOnce sync.Once
 )
 
-func getTtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass() TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass {
-	_TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClassOnce.Do(func() {
-		_TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass = TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass{class: objc.GetClass("_TtCC12TextToSpeech16VoiceDatabaseXPC6Server")}
+func getServerClass() ServerClass {
+	_ServerClassOnce.Do(func() {
+		_ServerClass = ServerClass{class: objc.GetClass("_TtCC12TextToSpeech16VoiceDatabaseXPC6Server")}
 	})
-	return _TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass
+	return _ServerClass
 }
 
-// GetTtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass returns the class object for _TtCC12TextToSpeech16VoiceDatabaseXPC6Server.
-func GetTtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass() TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass {
-	return getTtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass()
+// GetServerClass returns the class object for _TtCC12TextToSpeech16VoiceDatabaseXPC6Server.
+func GetServerClass() ServerClass {
+	return getServerClass()
 }
 
-type TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass struct {
+type ServerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass) Class() objc.Class {
-	return tc.class
+func (sc ServerClass) Class() objc.Class {
+	return sc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass) Alloc() TtCC12TextToSpeech16VoiceDatabaseXPC6Server {
-	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Server](objc.ID(tc.class), objc.Sel("alloc"))
+func (sc ServerClass) Alloc() Server {
+	rv := objc.Send[Server](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC12TextToSpeech16VoiceDatabaseXPC6Server struct {
+type Server struct {
 	objectivec.Object
 }
 
-// TtCC12TextToSpeech16VoiceDatabaseXPC6ServerFromID constructs a [TtCC12TextToSpeech16VoiceDatabaseXPC6Server] from an objc.ID.
-func TtCC12TextToSpeech16VoiceDatabaseXPC6ServerFromID(id objc.ID) TtCC12TextToSpeech16VoiceDatabaseXPC6Server {
-	return TtCC12TextToSpeech16VoiceDatabaseXPC6Server{objectivec.Object{ID: id}}
+// ServerFromID constructs a [Server] from an objc.ID.
+func ServerFromID(id objc.ID) Server {
+	return Server{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCC12TextToSpeech16VoiceDatabaseXPC6Server struct embeds objectivec.Object (parent type unavailable) but
-// ITtCC12TextToSpeech16VoiceDatabaseXPC6Server embeds the parent interface; skip compile-time assertion.
+// NOTE: Server struct embeds objectivec.Object (parent type unavailable) but
+// IServer embeds the parent interface; skip compile-time assertion.
 
-// An interface definition for the [TtCC12TextToSpeech16VoiceDatabaseXPC6Server] class.
-type ITtCC12TextToSpeech16VoiceDatabaseXPC6Server interface {
+// An interface definition for the [Server] class.
+type IServer interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCC12TextToSpeech16VoiceDatabaseXPC6Server) Init() TtCC12TextToSpeech16VoiceDatabaseXPC6Server {
-	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Server](t.ID, objc.Sel("init"))
+func (s Server) Init() Server {
+	rv := objc.Send[Server](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC12TextToSpeech16VoiceDatabaseXPC6Server) Autorelease() TtCC12TextToSpeech16VoiceDatabaseXPC6Server {
-	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Server](t.ID, objc.Sel("autorelease"))
+func (s Server) Autorelease() Server {
+	rv := objc.Send[Server](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC12TextToSpeech16VoiceDatabaseXPC6Server creates a new TtCC12TextToSpeech16VoiceDatabaseXPC6Server instance.
-func NewTtCC12TextToSpeech16VoiceDatabaseXPC6Server() TtCC12TextToSpeech16VoiceDatabaseXPC6Server {
-	class := getTtCC12TextToSpeech16VoiceDatabaseXPC6ServerClass()
-	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Server](objc.ID(class.class), objc.Sel("new"))
+// NewServer creates a new Server instance.
+func NewServer() Server {
+	class := getServerClass()
+	rv := objc.Send[Server](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

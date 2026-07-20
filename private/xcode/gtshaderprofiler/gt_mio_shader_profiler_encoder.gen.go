@@ -101,7 +101,7 @@ type IGTMioShaderProfilerEncoder interface {
 	PointerId() uint64
 	StoreTime() uint64
 	TimingInfo() IGTShaderProfilerTimingInfo
-	InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder
+	InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -127,13 +127,13 @@ func NewGTMioShaderProfilerEncoder() GTMioShaderProfilerEncoder {
 	return rv
 }
 
-func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
+func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
 	instance := getGTMioShaderProfilerEncoderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
 	return GTMioShaderProfilerEncoderFromID(rv)
 }
 
-func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
+func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
 	rv := objc.Send[GTMioShaderProfilerEncoder](g.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
 	return rv
 }

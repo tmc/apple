@@ -91,7 +91,7 @@ type ISLSEventAuthenticationMessageEventType interface {
 	HidType() uint32
 	IsCGType() bool
 	InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageEventType
-	InitWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType
+	InitWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType
 	InitWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType
 }
 
@@ -120,7 +120,7 @@ func NewSLSEventAuthenticationMessageEventTypeWithCoder(coder objectivec.IObject
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
-func NewSLSEventAuthenticationMessageEventTypeWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
+func NewSLSEventAuthenticationMessageEventTypeWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:"), record)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
@@ -142,7 +142,7 @@ func (s SLSEventAuthenticationMessageEventType) InitWithCoder(coder foundation.I
 	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (s SLSEventAuthenticationMessageEventType) InitWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
+func (s SLSEventAuthenticationMessageEventType) InitWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType {
 	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithEventRecord:"), record)
 	return rv
 }

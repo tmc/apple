@@ -204,7 +204,7 @@ func (s SLSRemoteViewEventClient) Superclass() objectivec.Class {
 
 // ActivateWithHandlerInvalidationHandlerSync is a synchronous wrapper around [SLSRemoteViewEventClient.ActivateWithHandlerInvalidationHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLSRemoteViewEventClient) ActivateWithHandlerInvalidationHandlerSync(ctx context.Context, handler VoidHandler) error {
+func (s SLSRemoteViewEventClient) ActivateWithHandlerInvalidationHandlerSync(ctx context.Context, handler func()) error {
 	done := make(chan struct{}, 1)
 	s.ActivateWithHandlerInvalidationHandler(handler, func() {
 		done <- struct{}{}

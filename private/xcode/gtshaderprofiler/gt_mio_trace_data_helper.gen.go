@@ -183,7 +183,7 @@ type IGTMioTraceDataHelper interface {
 	GenerateTopDrawTracks() objectivec.IObject
 	GenerateTopKickTracks() objectivec.IObject
 	GenerateTopRIATracks() objectivec.IObject
-	GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject
+	GenerateTrackForCliqueIndexesCountGroup(indexes *GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject
 	ShowDriverInternalShaders() bool
 	SetShowDriverInternalShaders(value bool)
 	ShowDriverIntersectionShaders() bool
@@ -354,7 +354,7 @@ func (g GTMioTraceDataHelper) GenerateTopRIATracks() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopRIATracks"))
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes *GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject {
 	_block2, _ := NewVoidBlock(group)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTrackForCliqueIndexes:count:group:"), indexes, count, _block2)
 	return objectivec.Object{ID: rv}
@@ -403,7 +403,7 @@ func (g GTMioTraceDataHelper) TraceData() unsafe.Pointer {
 
 // GenerateTrackForCliqueIndexesCountGroupSync is a synchronous wrapper around [GTMioTraceDataHelper.GenerateTrackForCliqueIndexesCountGroup].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes GTMioUSCCliqueIndex, count uint64) error {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes *GTMioUSCCliqueIndex, count uint64) error {
 	done := make(chan struct{}, 1)
 	g.GenerateTrackForCliqueIndexesCountGroup(indexes, count, func() {
 		done <- struct{}{}

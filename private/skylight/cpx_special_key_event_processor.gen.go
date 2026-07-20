@@ -95,16 +95,16 @@ type ICPXSpecialKeyEventProcessor interface {
 
 	// Topic: Methods
 
-	CleanupForProcessDeath(death CPSProcessRec)
+	CleanupForProcessDeath(death *CPSProcessRec)
 	ClearEventState()
-	ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec)
+	ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRec)
 	HotKeyChanged(changed unsafe.Pointer)
-	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int
-	UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecord, id uint64, down bool, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int
+	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int
 	InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXSpecialKeyEventProcessor
-	InitWithSession(session CGXSession) CPXSpecialKeyEventProcessor
+	InitWithSession(session *CGXSession) CPXSpecialKeyEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -136,37 +136,37 @@ func NewCPXSpecialKeyEventProcessorWithProcessManagerFocusManagerSymbolicHotKeyR
 	return CPXSpecialKeyEventProcessorFromID(rv)
 }
 
-func NewCPXSpecialKeyEventProcessorWithSession(session CGXSession) CPXSpecialKeyEventProcessor {
+func NewCPXSpecialKeyEventProcessorWithSession(session *CGXSession) CPXSpecialKeyEventProcessor {
 	instance := getCPXSpecialKeyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXSpecialKeyEventProcessorFromID(rv)
 }
 
-func (c CPXSpecialKeyEventProcessor) CleanupForProcessDeath(death CPSProcessRec) {
+func (c CPXSpecialKeyEventProcessor) CleanupForProcessDeath(death *CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 func (c CPXSpecialKeyEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-func (c CPXSpecialKeyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec) {
+func (c CPXSpecialKeyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("exitSpecialKeyMode:forProcess:"), mode, process)
 }
 func (c CPXSpecialKeyEventProcessor) HotKeyChanged(changed unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("hotKeyChanged:"), changed)
 }
-func (c CPXSpecialKeyEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (c CPXSpecialKeyEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
-func (c CPXSpecialKeyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (c CPXSpecialKeyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecord, id uint64, down bool, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), event, id, down, context, dispatcher)
 	return rv
 }
-func (c CPXSpecialKeyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int {
+func (c CPXSpecialKeyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, connection, process)
 	return rv
 }
-func (c CPXSpecialKeyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int {
+func (c CPXSpecialKeyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, process)
 	return rv
 }
@@ -174,7 +174,7 @@ func (c CPXSpecialKeyEventProcessor) InitWithProcessManagerFocusManagerSymbolicH
 	rv := objc.Send[CPXSpecialKeyEventProcessor](c.ID, objc.Sel("initWithProcessManager:focusManager:symbolicHotKeyRegistry:callbackScheduler:notificationCenter:"), manager, manager2, registry, scheduler, center)
 	return rv
 }
-func (c CPXSpecialKeyEventProcessor) InitWithSession(session CGXSession) CPXSpecialKeyEventProcessor {
+func (c CPXSpecialKeyEventProcessor) InitWithSession(session *CGXSession) CPXSpecialKeyEventProcessor {
 	rv := objc.Send[CPXSpecialKeyEventProcessor](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

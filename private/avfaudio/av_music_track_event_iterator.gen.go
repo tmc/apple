@@ -98,7 +98,7 @@ type IAVMusicTrackEventIterator interface {
 	Seek(seek float64)
 	SetEventInfoData(info uint32, data unsafe.Pointer) bool
 	SetEventTime(time float64) bool
-	InitWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator
+	InitWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator
 }
 
 // Init initializes the instance.
@@ -120,7 +120,7 @@ func NewAVMusicTrackEventIterator() AVMusicTrackEventIterator {
 	return rv
 }
 
-func NewMusicTrackEventIteratorWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
+func NewMusicTrackEventIteratorWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
 	instance := getAVMusicTrackEventIteratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVMusicTrackEventIteratorFromID(rv)
@@ -163,7 +163,7 @@ func (a AVMusicTrackEventIterator) SetEventTime(time float64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("setEventTime:"), time)
 	return rv
 }
-func (a AVMusicTrackEventIterator) InitWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
+func (a AVMusicTrackEventIterator) InitWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
 	rv := objc.Send[AVMusicTrackEventIterator](a.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }

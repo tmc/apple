@@ -157,8 +157,7 @@ func (m MLModelStructurePath) Components() foundation.INSArray {
 }
 func (m MLModelStructurePath) CppPath() Path {
 	rv := objc.Send[Path](m.ID, objc.Sel("cppPath"))
-	_ = rv
-	return Path{}
+	return Path(rv)
 }
 func (m MLModelStructurePath) IsMLProgramOperationPath() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMLProgramOperationPath"))

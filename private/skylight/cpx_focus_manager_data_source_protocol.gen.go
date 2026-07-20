@@ -20,10 +20,10 @@ type CPXFocusManagerDataSource interface {
 	FrontmostProcess() unsafe.Pointer
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
+	GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
@@ -35,7 +35,7 @@ type CPXFocusManagerDataSource interface {
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
-	SetFrontmostProcess(process CPSProcessRec) int16
+	SetFrontmostProcess(process *CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
 	SetKeyThiefConnectionID(id uint32)
@@ -69,11 +69,11 @@ func (o CPXFocusManagerDataSourceObject) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
+func (o CPXFocusManagerDataSourceObject) GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
+func (o CPXFocusManagerDataSourceObject) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
@@ -89,7 +89,7 @@ func (o CPXFocusManagerDataSourceObject) RemoveFromPermittedFrontList(list CPSPr
 	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) SetFrontmostProcess(process CPSProcessRec) int16 {
+func (o CPXFocusManagerDataSourceObject) SetFrontmostProcess(process *CPSProcessRec) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
 	return rv
 }

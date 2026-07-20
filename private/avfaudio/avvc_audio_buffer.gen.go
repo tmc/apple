@@ -117,7 +117,7 @@ type IAVVCAudioBuffer interface {
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
 	UpsamplingSourceAudio() bool
-	InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
+	InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
 }
 
 // Init initializes the instance.
@@ -139,7 +139,7 @@ func NewAVVCAudioBuffer() AVVCAudioBuffer {
 	return rv
 }
 
-func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	instance := getAVVCAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return AVVCAudioBufferFromID(rv)
@@ -148,7 +148,7 @@ func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBu
 func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
-func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return rv
 }

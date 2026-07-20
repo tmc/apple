@@ -71,8 +71,8 @@ type ICPXEntryPointsService interface {
 
 	// Topic: Methods
 
-	ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
-	ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
+	ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
+	ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
 	InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService
 }
 
@@ -101,11 +101,11 @@ func NewCPXEntryPointsServiceWithFocusControllerProcessManager(controller object
 	return CPXEntryPointsServiceFromID(rv)
 }
 
-func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
+func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), client, list)
 	return rv
 }
-func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
+func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), client, list)
 	return rv
 }

@@ -127,13 +127,13 @@ func NewSLSSkyLightEventAuthenticationMessageWithCoder(coder objectivec.IObject)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
+func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightEventAuthenticationMessage {
+func NewSLSSkyLightEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)

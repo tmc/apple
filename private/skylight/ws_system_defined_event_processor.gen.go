@@ -77,7 +77,7 @@ func NewWSSystemDefinedEventProcessor() WSSystemDefinedEventProcessor {
 	return rv
 }
 
-func NewWSSystemDefinedEventProcessorWithSession(session CGXSession) WSSystemDefinedEventProcessor {
+func NewWSSystemDefinedEventProcessorWithSession(session *CGXSession) WSSystemDefinedEventProcessor {
 	instance := getWSSystemDefinedEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSSystemDefinedEventProcessorFromID(rv)

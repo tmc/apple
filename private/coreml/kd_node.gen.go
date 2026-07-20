@@ -192,8 +192,7 @@ func (_KDNodeClass KDNodeClass) SupportsSecureCoding() bool {
 
 func (k KDNode) BoundingBox() KDBoundingBox {
 	rv := objc.Send[KDBoundingBox](k.ID, objc.Sel("boundingBox"))
-	_ = rv
-	return KDBoundingBox{}
+	return KDBoundingBox(rv)
 }
 func (k KDNode) SetBoundingBox(value KDBoundingBox) {
 	objc.Send[struct{}](k.ID, objc.Sel("setBoundingBox:"), value)

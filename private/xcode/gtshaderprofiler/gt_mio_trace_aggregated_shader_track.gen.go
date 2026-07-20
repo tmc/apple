@@ -74,7 +74,7 @@ type IGTMioTraceAggregatedShaderTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take GTMioBinaryTrace)
+	Take(take *GTMioBinaryTrace)
 	TraceCount() uint64
 	Traces() unsafe.Pointer
 }
@@ -107,7 +107,7 @@ func NewGTMioTraceAggregatedShaderTrackWithIdScopeScopeIdentifierLevelLevelIdent
 func (g GTMioTraceAggregatedShaderTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-func (g GTMioTraceAggregatedShaderTrack) Take(take GTMioBinaryTrace) {
+func (g GTMioTraceAggregatedShaderTrack) Take(take *GTMioBinaryTrace) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 

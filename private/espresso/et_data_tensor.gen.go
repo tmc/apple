@@ -229,8 +229,7 @@ func (e ETDataTensor) SetDataPointer(value unsafe.Pointer) {
 }
 func (e ETDataTensor) Float_buffer() FloatBuffer {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("float_buffer"))
-	_ = rv
-	return FloatBuffer{}
+	return FloatBuffer(rv)
 }
 func (e ETDataTensor) SetFloat_buffer(value FloatBuffer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffer:"), value)

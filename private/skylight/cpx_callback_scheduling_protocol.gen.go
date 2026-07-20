@@ -18,7 +18,7 @@ type CPXCallbackScheduling interface {
 	DescheduleKillProcessCallback()
 
 	// ScheduleFixBadForegroundCallbackForProcess protocol.
-	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
+	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec)
 
 	// ScheduleForceLogoutCallbackForTime protocol.
 	ScheduleForceLogoutCallbackForTime(time float64)
@@ -50,7 +50,7 @@ func (o CPXCallbackSchedulingObject) DescheduleForceLogoutCallback() {
 func (o CPXCallbackSchedulingObject) DescheduleKillProcessCallback() {
 	objc.Send[struct{}](o.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
+func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
 func (o CPXCallbackSchedulingObject) ScheduleForceLogoutCallbackForTime(time float64) {

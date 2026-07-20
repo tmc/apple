@@ -107,7 +107,7 @@ type ISpeexEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status AudioQueueBuffer) int
+	GetStatus(status *AudioQueueBuffer) int
 	GetStatusCount(status []float32, count uint32) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
@@ -147,7 +147,7 @@ func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2
 	rv := objc.Send[bool](s.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (s SpeexEndpointer) GetStatus(status AudioQueueBuffer) int {
+func (s SpeexEndpointer) GetStatus(status *AudioQueueBuffer) int {
 	rv := objc.Send[int](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

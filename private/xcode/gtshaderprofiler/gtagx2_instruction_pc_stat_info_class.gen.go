@@ -91,6 +91,5 @@ func NewGTAGX2InstructionPCStatInfoClass() GTAGX2InstructionPCStatInfoClass {
 
 func (g GTAGX2InstructionPCStatInfoClass) InstructionPCStatInfo() InstructionPCStatInfo {
 	rv := objc.Send[InstructionPCStatInfo](g.ID, objc.Sel("instructionPCStatInfo"))
-	_ = rv
-	return InstructionPCStatInfo{}
+	return InstructionPCStatInfo(rv)
 }

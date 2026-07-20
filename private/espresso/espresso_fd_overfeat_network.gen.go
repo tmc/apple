@@ -282,8 +282,7 @@ func (e EspressoFDOverfeatNetwork) Setup_retile() {
 }
 func (e EspressoFDOverfeatNetwork) StrideConfiguration() NetStridesConfiguration {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("strideConfiguration"))
-	_ = rv
-	return NetStridesConfiguration{}
+	return NetStridesConfiguration(rv)
 }
 func (e EspressoFDOverfeatNetwork) WipeLayersMemory() {
 	objc.Send[objc.ID](e.ID, objc.Sel("wipeLayersMemory"))

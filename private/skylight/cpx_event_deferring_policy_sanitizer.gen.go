@@ -75,7 +75,7 @@ type ICPXEventDeferringPolicySanitizer interface {
 
 	// Topic: Methods
 
-	_isValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool
+	_isValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool
 	_sanitizeFrontmost(frontmost objectivec.IObject)
 	_sanitizeKeyThief(thief objectivec.IObject)
 	Sanitize(sanitize objectivec.IObject) objectivec.IObject
@@ -107,13 +107,13 @@ func NewCPXEventDeferringPolicySanitizerWithFocusManagerDataSourceProcessManager
 	return CPXEventDeferringPolicySanitizerFromID(rv)
 }
 
-func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool {
+func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"), process, history, type_)
 	return rv
 }
 
 // IsValidProcessAuditHistoryDebugProcessType is an exported wrapper for the private method _isValidProcessAuditHistoryDebugProcessType.
-func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) (bool, error) {
+func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) (bool, error) {
 	if !objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_isValidProcess:auditHistory:debugProcessType:"}
 		return false, err

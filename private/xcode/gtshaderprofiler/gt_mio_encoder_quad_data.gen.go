@@ -140,7 +140,7 @@ type IGTMioEncoderQuadData interface {
 	_buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
-	_handleClique(clique GTMioUSCCliqueMetadata)
+	_handleClique(clique *GTMioUSCCliqueMetadata)
 	BuildEncoderFunctionIndexCliqueFilter(build objectivec.IObject, index uint32, filter VoidHandler) bool
 	CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count *uint32) unsafe.Pointer
 	CliqueIndexesForQuadLocationCount(location uint64, count *uint32) unsafe.Pointer
@@ -148,10 +148,10 @@ type IGTMioEncoderQuadData interface {
 	Depth() uint32
 	DrawCount() uint64
 	DrawIndexes() unsafe.Pointer
-	DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject
+	DrawIndexesForQuad(quad *GTMioQuadLocation) objectivec.IObject
 	DrawIndexesForQuadLocation(location uint64) objectivec.IObject
 	EncoderInfo() unsafe.Pointer
-	EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler)
+	EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocation, enumerator VoidHandler)
 	EnumerateCliquesForQuadLocationEnumerator(location uint64, enumerator VoidHandler)
 	EnumerateOrderedQuads(quads VoidHandler)
 	HeatmapType() uint64
@@ -164,7 +164,7 @@ type IGTMioEncoderQuadData interface {
 	Options() uint64
 	ProgramType() uint16
 	QuadCount() uint64
-	QuadIndexForQuad(quad GTMioQuadLocation) uint32
+	QuadIndexForQuad(quad *GTMioQuadLocation) uint32
 	Quads() unsafe.Pointer
 	ReferenceComputePosition() unsafe.Pointer
 	TraceData() unsafe.Pointer
@@ -268,12 +268,12 @@ func (g GTMioEncoderQuadData) BuildFragmentEncoderFunctionIndexProgramTypeClique
 func (g GTMioEncoderQuadData) CanBuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"))
 }
-func (g GTMioEncoderQuadData) _handleClique(clique GTMioUSCCliqueMetadata) {
+func (g GTMioEncoderQuadData) _handleClique(clique *GTMioUSCCliqueMetadata) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_handleClique:"), clique)
 }
 
 // HandleClique is an exported wrapper for the private method _handleClique.
-func (g GTMioEncoderQuadData) HandleClique(clique GTMioUSCCliqueMetadata) error {
+func (g GTMioEncoderQuadData) HandleClique(clique *GTMioUSCCliqueMetadata) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_handleClique:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_handleClique:"}
 		return err
@@ -303,7 +303,7 @@ func (g GTMioEncoderQuadData) ContainsDraw(draw uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("containsDraw:"), draw)
 	return rv
 }
-func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject {
+func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad *GTMioQuadLocation) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuad:"), quad)
 	return objectivec.Object{ID: rv}
 }
@@ -311,7 +311,7 @@ func (g GTMioEncoderQuadData) DrawIndexesForQuadLocation(location uint64) object
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuadLocation:"), location)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler) {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocation, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuad:enumerator:"), quad, _block1)
 }
@@ -326,7 +326,7 @@ func (g GTMioEncoderQuadData) EnumerateOrderedQuads(quads VoidHandler) {
 func (g GTMioEncoderQuadData) InstructionsExecutedForQuadLocationThreadInstructionsExectuedActiveThreadInstructionsExecutedTotalInstructionsExectuedNumActiveThreads(location uint64, exectued *uint64, executed *uint64, exectued2 *uint64, threads *uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("instructionsExecutedForQuadLocation:threadInstructionsExectued:activeThreadInstructionsExecuted:totalInstructionsExectued:numActiveThreads:"), location, exectued, executed, exectued2, threads)
 }
-func (g GTMioEncoderQuadData) QuadIndexForQuad(quad GTMioQuadLocation) uint32 {
+func (g GTMioEncoderQuadData) QuadIndexForQuad(quad *GTMioQuadLocation) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("quadIndexForQuad:"), quad)
 	return rv
 }
@@ -474,7 +474,7 @@ func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilterSync(ctx cont
 
 // EnumerateCliquesForQuadEnumeratorSync is a synchronous wrapper around [GTMioEncoderQuadData.EnumerateCliquesForQuadEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad GTMioQuadLocation) error {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad *GTMioQuadLocation) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateCliquesForQuadEnumerator(quad, func() {
 		done <- struct{}{}

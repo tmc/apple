@@ -129,7 +129,7 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBloc
 
 // ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, block VoidHandler) error {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, block func()) error {
 	done := make(chan struct{}, 1)
 	e.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage, network, block, func() {
 		done <- struct{}{}
@@ -144,7 +144,7 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBloc
 
 // ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block VoidHandler) error {
+func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndexSync(ctx context.Context, storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block func()) error {
 	done := make(chan struct{}, 1)
 	e.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage, network, network2, block, func() {
 		done <- struct{}{}

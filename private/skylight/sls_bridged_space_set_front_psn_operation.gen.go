@@ -114,8 +114,7 @@ func (s SLSBridgedSpaceSetFrontPSNOperation) InitWithSpaceIDPsn(id uint64, psn C
 
 func (s SLSBridgedSpaceSetFrontPSNOperation) Psn() CPSProcessSerNum {
 	rv := objc.Send[CPSProcessSerNum](s.ID, objc.Sel("psn"))
-	_ = rv
-	return CPSProcessSerNum{}
+	return CPSProcessSerNum(rv)
 }
 func (s SLSBridgedSpaceSetFrontPSNOperation) SpaceID() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))

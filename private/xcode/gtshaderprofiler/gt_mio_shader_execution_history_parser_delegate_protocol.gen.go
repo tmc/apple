@@ -47,10 +47,10 @@ func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheObject() objective
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cacheObject"))
 	return objectivec.Object{ID: rv}
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryStyle() uint32 {
@@ -64,16 +64,16 @@ func (o GTMioShaderExecutionHistoryParserDelegateObject) HandleCachedObject(obje
 func (o GTMioShaderExecutionHistoryParserDelegateObject) LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) PopFunctionBinaryRangeBinary(function *GTMioShaderBinaryDebugLocation, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function *GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {

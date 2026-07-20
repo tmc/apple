@@ -123,7 +123,7 @@ type IMLBayesianProbitRegression interface {
 	FeatureCount() uint64
 	ConvertOutputFeatureToPredictionValuesEventImportanceError(values objectivec.IObject) (bool, float64, error)
 	CreateCheckpoint()
-	CreateRegressorResult(result Prediction) objectivec.IObject
+	CreateRegressorResult(result *Prediction) objectivec.IObject
 	GetArrayFeatureValue(value objectivec.IObject) objectivec.IObject
 	GetFeatureValueForNameWithType(value objectivec.IObject, name objectivec.IObject, type_ int64) float64
 	GetOptimism(optimism objectivec.IObject) float64
@@ -211,7 +211,7 @@ func (m MLBayesianProbitRegression) ConvertOutputFeatureToPredictionValuesEventI
 func (m MLBayesianProbitRegression) CreateCheckpoint() {
 	objc.Send[objc.ID](m.ID, objc.Sel("createCheckpoint"))
 }
-func (m MLBayesianProbitRegression) CreateRegressorResult(result Prediction) objectivec.IObject {
+func (m MLBayesianProbitRegression) CreateRegressorResult(result *Prediction) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("createRegressorResult:"), result)
 	return objectivec.Object{ID: rv}
 }

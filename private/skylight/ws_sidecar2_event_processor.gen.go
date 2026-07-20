@@ -77,7 +77,7 @@ func NewWSSidecar2EventProcessor() WSSidecar2EventProcessor {
 	return rv
 }
 
-func NewWSSidecar2EventProcessorWithSession(session CGXSession) WSSidecar2EventProcessor {
+func NewWSSidecar2EventProcessorWithSession(session *CGXSession) WSSidecar2EventProcessor {
 	instance := getWSSidecar2EventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSSidecar2EventProcessorFromID(rv)

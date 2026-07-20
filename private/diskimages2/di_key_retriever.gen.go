@@ -94,7 +94,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySize
 	return rv, nil
 
 }
-func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data AuthData, key string, size uint64) (bool, error) {
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data *AuthData, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithAuthData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

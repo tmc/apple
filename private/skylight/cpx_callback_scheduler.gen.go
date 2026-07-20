@@ -88,10 +88,10 @@ type ICPXCallbackScheduler interface {
 
 	DescheduleForceLogoutCallback()
 	DescheduleKillProcessCallback()
-	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
+	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec)
 	ScheduleForceLogoutCallbackForTime(time float64)
 	ScheduleKillProcessCallbackForTime(time float64)
-	InitWithSession(session CGXSession) CPXCallbackScheduler
+	InitWithSession(session *CGXSession) CPXCallbackScheduler
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -117,7 +117,7 @@ func NewCPXCallbackScheduler() CPXCallbackScheduler {
 	return rv
 }
 
-func NewCPXCallbackSchedulerWithSession(session CGXSession) CPXCallbackScheduler {
+func NewCPXCallbackSchedulerWithSession(session *CGXSession) CPXCallbackScheduler {
 	instance := getCPXCallbackSchedulerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXCallbackSchedulerFromID(rv)
@@ -129,7 +129,7 @@ func (c CPXCallbackScheduler) DescheduleForceLogoutCallback() {
 func (c CPXCallbackScheduler) DescheduleKillProcessCallback() {
 	objc.Send[objc.ID](c.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
+func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
 func (c CPXCallbackScheduler) ScheduleForceLogoutCallbackForTime(time float64) {
@@ -138,7 +138,7 @@ func (c CPXCallbackScheduler) ScheduleForceLogoutCallbackForTime(time float64) {
 func (c CPXCallbackScheduler) ScheduleKillProcessCallbackForTime(time float64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
 }
-func (c CPXCallbackScheduler) InitWithSession(session CGXSession) CPXCallbackScheduler {
+func (c CPXCallbackScheduler) InitWithSession(session *CGXSession) CPXCallbackScheduler {
 	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

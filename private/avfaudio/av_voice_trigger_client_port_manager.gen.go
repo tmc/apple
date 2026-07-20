@@ -285,7 +285,7 @@ func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlockS
 
 // InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync is a synchronous wrapper around [AVVoiceTriggerClientPortManager.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync(ctx context.Context, queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler) error {
+func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync(ctx context.Context, queue objectivec.IObject, type_ uint64, seconds float32, block func()) error {
 	done := make(chan struct{}, 1)
 	a.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue, type_, seconds, block, func() {
 		done <- struct{}{}

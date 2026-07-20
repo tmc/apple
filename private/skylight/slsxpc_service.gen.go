@@ -356,7 +356,7 @@ func (s SLSXPCService) Superclass() objectivec.Class {
 
 // CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync is a synchronous wrapper around [SLSXPCService.CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLSXPCService) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync(ctx context.Context, queue objectivec.IObject, handler VoidHandler) error {
+func (s SLSXPCService) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync(ctx context.Context, queue objectivec.IObject, handler func()) error {
 	done := make(chan struct{}, 1)
 	s.CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler(queue, handler, func() {
 		done <- struct{}{}
@@ -431,7 +431,7 @@ func (s SLSXPCService) SetNotificationBlockSync(ctx context.Context) error {
 
 // InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlockSync is a synchronous wrapper around [SLSXPCService.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLSXPCService) InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlockSync(ctx context.Context, name objectivec.IObject, queue objectivec.IObject, autoreconnect bool, handler VoidHandler) error {
+func (s SLSXPCService) InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlockSync(ctx context.Context, name objectivec.IObject, queue objectivec.IObject, autoreconnect bool, handler func()) error {
 	done := make(chan struct{}, 1)
 	s.InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock(name, queue, autoreconnect, handler, func() {
 		done <- struct{}{}
@@ -446,7 +446,7 @@ func (s SLSXPCService) InitConnectionWithNameNotificationQueueWithAutoreconnectE
 
 // InitWithConnectionErrorHandlerNotificationBlockSync is a synchronous wrapper around [SLSXPCService.InitWithConnectionErrorHandlerNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLSXPCService) InitWithConnectionErrorHandlerNotificationBlockSync(ctx context.Context, connection objectivec.IObject, handler VoidHandler) error {
+func (s SLSXPCService) InitWithConnectionErrorHandlerNotificationBlockSync(ctx context.Context, connection objectivec.IObject, handler func()) error {
 	done := make(chan struct{}, 1)
 	s.InitWithConnectionErrorHandlerNotificationBlock(connection, handler, func() {
 		done <- struct{}{}

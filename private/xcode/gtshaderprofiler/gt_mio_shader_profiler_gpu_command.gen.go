@@ -116,7 +116,7 @@ type IGTMioShaderProfilerGPUCommand interface {
 	PipelineStateObjectId() uint64
 	SubCommandIndex() int
 	TimingInfo() IGTShaderProfilerTimingInfo
-	InitWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand
+	InitWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand *GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -142,7 +142,7 @@ func NewGTMioShaderProfilerGPUCommand() GTMioShaderProfilerGPUCommand {
 	return rv
 }
 
-func NewGTMioShaderProfilerGPUCommandWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand {
+func NewGTMioShaderProfilerGPUCommandWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand *GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand {
 	instance := getGTMioShaderProfilerGPUCommandClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMioGPUCommand:streamGPUCommand:traceData:"), gPUCommand, gPUCommand2, data)
 	return GTMioShaderProfilerGPUCommandFromID(rv)
@@ -151,7 +151,7 @@ func NewGTMioShaderProfilerGPUCommandWithMioGPUCommandStreamGPUCommandTraceData(
 func (g GTMioShaderProfilerGPUCommand) AddBinaryKeyForType(key objectivec.IObject, type_ uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addBinaryKey:forType:"), key, type_)
 }
-func (g GTMioShaderProfilerGPUCommand) InitWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand {
+func (g GTMioShaderProfilerGPUCommand) InitWithMioGPUCommandStreamGPUCommandTraceData(gPUCommand *GTMioDrawMetadata, gPUCommand2 unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerGPUCommand {
 	rv := objc.Send[GTMioShaderProfilerGPUCommand](g.ID, objc.Sel("initWithMioGPUCommand:streamGPUCommand:traceData:"), gPUCommand, gPUCommand2, data)
 	return rv
 }

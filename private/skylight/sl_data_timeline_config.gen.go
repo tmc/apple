@@ -224,7 +224,7 @@ func (s SLDataTimelineConfig) SetUpdateBlockQueue(value objectivec.Object) {
 
 // CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync is a synchronous wrapper around [SLDataTimelineConfig.CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s SLDataTimelineConfig) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync(ctx context.Context, queue objectivec.IObject, handler VoidHandler) error {
+func (s SLDataTimelineConfig) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync(ctx context.Context, queue objectivec.IObject, handler func()) error {
 	done := make(chan struct{}, 1)
 	s.CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler(queue, handler, func() {
 		done <- struct{}{}

@@ -119,8 +119,7 @@ func (v VZHIDDeviceConfiguration) MakeHIDDeviceForVirtualMachineHidDeviceIndex(m
 
 func (v VZHIDDeviceConfiguration) _hidDevice() AvpHidGenericDevice {
 	rv := objc.Send[AvpHidGenericDevice](v.ID, objc.Sel("_hidDevice"))
-	_ = rv
-	return AvpHidGenericDevice{}
+	return AvpHidGenericDevice(rv)
 }
 
 // CanHidDevice reports whether the receiver responds to the private selector _hidDevice.

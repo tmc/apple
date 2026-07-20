@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -68,7 +69,7 @@ type ITextToSpeechTTSMagicFirstPartyAudioUnit interface {
 
 	// Topic: Methods
 
-	InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
+	InitWithComponentDescriptionOptionsError(description avfaudio.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
 }
 
 // Init initializes the instance.
@@ -90,7 +91,7 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstParty
 	return rv
 }
 
-func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description avfaudio.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	instance := getTextToSpeechTTSMagicFirstPartyAudioUnitClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
@@ -101,7 +102,7 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 }
 
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description avfaudio.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

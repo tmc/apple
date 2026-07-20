@@ -14,7 +14,7 @@ type CPXFocusManaging interface {
 	objectivec.IObject
 
 	// CleanupForProcessDeath protocol.
-	CleanupForProcessDeath(death CPSProcessRec)
+	CleanupForProcessDeath(death *CPSProcessRec)
 
 	// FrontVisibleProcess protocol.
 	FrontVisibleProcess() unsafe.Pointer
@@ -23,10 +23,10 @@ type CPXFocusManaging interface {
 	FrontmostProcess() unsafe.Pointer
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
+	GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
@@ -55,7 +55,7 @@ func CPXFocusManagingObjectFromID(id objc.ID) CPXFocusManagingObject {
 	}
 }
 
-func (o CPXFocusManagingObject) CleanupForProcessDeath(death CPSProcessRec) {
+func (o CPXFocusManagingObject) CleanupForProcessDeath(death *CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 func (o CPXFocusManagingObject) FocusController() objectivec.IObject {
@@ -70,11 +70,11 @@ func (o CPXFocusManagingObject) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
 	return rv
 }
-func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
+func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
+func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }

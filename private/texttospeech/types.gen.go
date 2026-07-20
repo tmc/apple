@@ -4,14 +4,6 @@ package texttospeech
 
 // C struct types
 
-// AudioComponentDescription
-type AudioComponentDescription struct {
-}
-
-// AudioQueueBuffer
-type AudioQueueBuffer struct {
-}
-
 // OpaqueATAudioProcessingNode
 type OpaqueATAudioProcessingNode struct {
 }

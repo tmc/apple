@@ -99,10 +99,10 @@ type IGTMioHeatmapBuilder interface {
 
 	// Topic: Methods
 
-	BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
-	BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
+	BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
+	BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
 	BuildQuadData()
-	BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
+	BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
 	Depth() uint32
 	DrawIndex() uint32
 	EncoderInfo() unsafe.Pointer
@@ -160,18 +160,18 @@ func NewGTMioHeatmapBuilderWithTraceDataInitPCEncoderFunctionIndexProgramTypeOpt
 	return GTMioHeatmapBuilderFromID(rv)
 }
 
-func (g GTMioHeatmapBuilder) BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
+func (g GTMioHeatmapBuilder) BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildCliqueHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioHeatmapBuilder) BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
+func (g GTMioHeatmapBuilder) BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioHeatmapBuilder) BuildQuadData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("buildQuadData"))
 }
-func (g GTMioHeatmapBuilder) BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
+func (g GTMioHeatmapBuilder) BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildTileHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }

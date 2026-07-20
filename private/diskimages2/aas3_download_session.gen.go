@@ -131,13 +131,13 @@ type IAAS3DownloadSession interface {
 	CacheLock() foundation.NSLock
 	Cancelled() objectivec.IObject
 	SetCancelled(value objectivec.IObject)
-	EnqueueRequestWithSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) objectivec.IObject
+	EnqueueRequestWithSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) objectivec.IObject
 	InvalidateAndCancel()
 	IsCancelled() int
 	MaxAttempts() uint32
 	MaxRequests() uint32
 	PauseInterval() float32
-	ReadToAsyncByteStreamSizeAtOffset(stream AAAsyncByteStreamImpl, size uint64, offset int64) int
+	ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int
 	ReadToBufferSizeAtOffset(buffer unsafe.Pointer, size uint64, offset int64) int64
 	RemoveRequest(request objectivec.IObject)
 	Requests() foundation.INSSet
@@ -185,7 +185,7 @@ func (a AAS3DownloadSession) AddRequest(request objectivec.IObject) int {
 func (a AAS3DownloadSession) CacheDocument(document objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("cacheDocument:"), document)
 }
-func (a AAS3DownloadSession) EnqueueRequestWithSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) objectivec.IObject {
+func (a AAS3DownloadSession) EnqueueRequestWithSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("enqueueRequestWithSize:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return objectivec.Object{ID: rv}
 }
@@ -196,7 +196,7 @@ func (a AAS3DownloadSession) IsCancelled() int {
 	rv := objc.Send[int](a.ID, objc.Sel("isCancelled"))
 	return rv
 }
-func (a AAS3DownloadSession) ReadToAsyncByteStreamSizeAtOffset(stream AAAsyncByteStreamImpl, size uint64, offset int64) int {
+func (a AAS3DownloadSession) ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int {
 	rv := objc.Send[int](a.ID, objc.Sel("readToAsyncByteStream:size:atOffset:"), stream, size, offset)
 	return rv
 }

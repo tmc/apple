@@ -204,7 +204,7 @@ type ITTSWrappedAudioQueue interface {
 	AudioQueueActive() bool
 	AudioQueueFlags() uint32
 	SetAudioQueueFlags(value uint32)
-	BufferCallback(callback AudioQueueBuffer)
+	BufferCallback(callback avfaudio.AudioQueueBuffer)
 	CachedAudioConverter() avfaudio.AVAudioConverter
 	SetCachedAudioConverter(value avfaudio.AVAudioConverter)
 	CallbackQueue() objectivec.Object
@@ -480,7 +480,7 @@ func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() error {
 func (t TTSWrappedAudioQueue) CanTearDownDSPGraphAU() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_tearDownDSPGraphAU"))
 }
-func (t TTSWrappedAudioQueue) BufferCallback(callback AudioQueueBuffer) {
+func (t TTSWrappedAudioQueue) BufferCallback(callback avfaudio.AudioQueueBuffer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
 func (t TTSWrappedAudioQueue) ConvertBufferIfNecessary(necessary objectivec.IObject) objectivec.IObject {

@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCC6CoreML17BNNSComputeStream15ComputeFunction] class.
+// The class instance for the [ComputeFunction] class.
 var (
-	_TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass     TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass
-	_TtCC6CoreML17BNNSComputeStream15ComputeFunctionClassOnce sync.Once
+	_ComputeFunctionClass     ComputeFunctionClass
+	_ComputeFunctionClassOnce sync.Once
 )
 
-func getTtCC6CoreML17BNNSComputeStream15ComputeFunctionClass() TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass {
-	_TtCC6CoreML17BNNSComputeStream15ComputeFunctionClassOnce.Do(func() {
-		_TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass = TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass{class: objc.GetClass("_TtCC6CoreML17BNNSComputeStream15ComputeFunction")}
+func getComputeFunctionClass() ComputeFunctionClass {
+	_ComputeFunctionClassOnce.Do(func() {
+		_ComputeFunctionClass = ComputeFunctionClass{class: objc.GetClass("_TtCC6CoreML17BNNSComputeStream15ComputeFunction")}
 	})
-	return _TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass
+	return _ComputeFunctionClass
 }
 
-// GetTtCC6CoreML17BNNSComputeStream15ComputeFunctionClass returns the class object for _TtCC6CoreML17BNNSComputeStream15ComputeFunction.
-func GetTtCC6CoreML17BNNSComputeStream15ComputeFunctionClass() TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass {
-	return getTtCC6CoreML17BNNSComputeStream15ComputeFunctionClass()
+// GetComputeFunctionClass returns the class object for _TtCC6CoreML17BNNSComputeStream15ComputeFunction.
+func GetComputeFunctionClass() ComputeFunctionClass {
+	return getComputeFunctionClass()
 }
 
-type TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass struct {
+type ComputeFunctionClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass) Class() objc.Class {
-	return tc.class
+func (cc ComputeFunctionClass) Class() objc.Class {
+	return cc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC6CoreML17BNNSComputeStream15ComputeFunctionClass) Alloc() TtCC6CoreML17BNNSComputeStream15ComputeFunction {
-	rv := objc.Send[TtCC6CoreML17BNNSComputeStream15ComputeFunction](objc.ID(tc.class), objc.Sel("alloc"))
+func (cc ComputeFunctionClass) Alloc() ComputeFunction {
+	rv := objc.Send[ComputeFunction](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC6CoreML17BNNSComputeStream15ComputeFunction struct {
+type ComputeFunction struct {
 	objectivec.Object
 }
 
-// TtCC6CoreML17BNNSComputeStream15ComputeFunctionFromID constructs a [TtCC6CoreML17BNNSComputeStream15ComputeFunction] from an objc.ID.
-func TtCC6CoreML17BNNSComputeStream15ComputeFunctionFromID(id objc.ID) TtCC6CoreML17BNNSComputeStream15ComputeFunction {
-	return TtCC6CoreML17BNNSComputeStream15ComputeFunction{objectivec.Object{ID: id}}
+// ComputeFunctionFromID constructs a [ComputeFunction] from an objc.ID.
+func ComputeFunctionFromID(id objc.ID) ComputeFunction {
+	return ComputeFunction{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCC6CoreML17BNNSComputeStream15ComputeFunction struct embeds objectivec.Object (parent type unavailable) but
-// ITtCC6CoreML17BNNSComputeStream15ComputeFunction embeds the parent interface; skip compile-time assertion.
+// NOTE: ComputeFunction struct embeds objectivec.Object (parent type unavailable) but
+// IComputeFunction embeds the parent interface; skip compile-time assertion.
 
-// An interface definition for the [TtCC6CoreML17BNNSComputeStream15ComputeFunction] class.
-type ITtCC6CoreML17BNNSComputeStream15ComputeFunction interface {
+// An interface definition for the [ComputeFunction] class.
+type IComputeFunction interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCC6CoreML17BNNSComputeStream15ComputeFunction) Init() TtCC6CoreML17BNNSComputeStream15ComputeFunction {
-	rv := objc.Send[TtCC6CoreML17BNNSComputeStream15ComputeFunction](t.ID, objc.Sel("init"))
+func (c ComputeFunction) Init() ComputeFunction {
+	rv := objc.Send[ComputeFunction](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC6CoreML17BNNSComputeStream15ComputeFunction) Autorelease() TtCC6CoreML17BNNSComputeStream15ComputeFunction {
-	rv := objc.Send[TtCC6CoreML17BNNSComputeStream15ComputeFunction](t.ID, objc.Sel("autorelease"))
+func (c ComputeFunction) Autorelease() ComputeFunction {
+	rv := objc.Send[ComputeFunction](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC6CoreML17BNNSComputeStream15ComputeFunction creates a new TtCC6CoreML17BNNSComputeStream15ComputeFunction instance.
-func NewTtCC6CoreML17BNNSComputeStream15ComputeFunction() TtCC6CoreML17BNNSComputeStream15ComputeFunction {
-	class := getTtCC6CoreML17BNNSComputeStream15ComputeFunctionClass()
-	rv := objc.Send[TtCC6CoreML17BNNSComputeStream15ComputeFunction](objc.ID(class.class), objc.Sel("new"))
+// NewComputeFunction creates a new ComputeFunction instance.
+func NewComputeFunction() ComputeFunction {
+	class := getComputeFunctionClass()
+	rv := objc.Send[ComputeFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

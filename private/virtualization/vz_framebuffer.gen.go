@@ -113,7 +113,7 @@ func (v VZFramebuffer) CanTakeScreenshotWithCompletionHandlerImageConversionBloc
 
 // _takeScreenshotWithCompletionHandlerImageConversionBlockSync is a synchronous wrapper around [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlockSync(ctx context.Context, handler VoidHandler) error {
+func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlockSync(ctx context.Context, handler func()) error {
 	done := make(chan struct{}, 1)
 	v._takeScreenshotWithCompletionHandlerImageConversionBlock(handler, func() {
 		done <- struct{}{}

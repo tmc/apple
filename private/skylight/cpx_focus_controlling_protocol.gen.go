@@ -18,7 +18,7 @@ type CPXFocusControlling interface {
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
-	SetFrontmostProcess(process CPSProcessRec) int16
+	SetFrontmostProcess(process *CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
 	SetKeyThiefConnectionID(id uint32)
@@ -52,7 +52,7 @@ func (o CPXFocusControllingObject) RemoveFromPermittedFrontList(list CPSProcessS
 	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-func (o CPXFocusControllingObject) SetFrontmostProcess(process CPSProcessRec) int16 {
+func (o CPXFocusControllingObject) SetFrontmostProcess(process *CPSProcessRec) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
 	return rv
 }

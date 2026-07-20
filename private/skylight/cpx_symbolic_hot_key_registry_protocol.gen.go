@@ -15,10 +15,10 @@ type CPXSymbolicHotKeyRegistry interface {
 	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int
 
 	// RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc protocol.
-	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
+	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
 
 	// UnregisterHotKeyConnectionHotKeyID protocol.
-	UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int
+	UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int
 }
 
 // CPXSymbolicHotKeyRegistryObject wraps an existing Objective-C object that conforms to the CPXSymbolicHotKeyRegistry protocol.
@@ -42,11 +42,11 @@ func (o CPXSymbolicHotKeyRegistryObject) GetSymbolicHotKeyValueOutTriggerOutKeyC
 	rv := objc.Send[int](o.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, trigger, char, key, modifiers)
 	return rv
 }
-func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
+func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
 	rv := objc.Send[int](o.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, func_)
 	return rv
 }
-func (o CPXSymbolicHotKeyRegistryObject) UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int {
+func (o CPXSymbolicHotKeyRegistryObject) UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int {
 	rv := objc.Send[int](o.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), connection, id)
 	return rv
 }

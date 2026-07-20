@@ -100,8 +100,8 @@ type ICPXFocusManagerDataSourceLaunchServices interface {
 	AddToPermittedFrontList(list CPSProcessSerNum) int16
 	AppendDescriptionToStream(stream objectivec.IObject)
 	FrontmostProcess() unsafe.Pointer
-	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
-	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool
+	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 	KeyThiefConnectionID() uint32
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
@@ -146,11 +146,11 @@ func (c CPXFocusManagerDataSourceLaunchServices) AddToPermittedFrontList(list CP
 func (c CPXFocusManagerDataSourceLaunchServices) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-func (c CPXFocusManagerDataSourceLaunchServices) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
+func (c CPXFocusManagerDataSourceLaunchServices) GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
-func (c CPXFocusManagerDataSourceLaunchServices) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
+func (c CPXFocusManagerDataSourceLaunchServices) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }

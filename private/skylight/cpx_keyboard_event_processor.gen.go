@@ -83,9 +83,9 @@ type ICPXKeyboardEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	InitWithDeliveryManagerSpecialKeyEventProcessorProcessManagerDestinationGeneratorNotificationCenterKeyEventTracker(manager objectivec.IObject, processor objectivec.IObject, manager2 objectivec.IObject, generator objectivec.IObject, center objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventProcessor
-	InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor
+	InitWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -117,7 +117,7 @@ func NewCPXKeyboardEventProcessorWithDeliveryManagerSpecialKeyEventProcessorProc
 	return CPXKeyboardEventProcessorFromID(rv)
 }
 
-func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
+func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
 	instance := getCPXKeyboardEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
 	return CPXKeyboardEventProcessorFromID(rv)
@@ -126,7 +126,7 @@ func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session CGX
 func (c CPXKeyboardEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
@@ -134,7 +134,7 @@ func (c CPXKeyboardEventProcessor) InitWithDeliveryManagerSpecialKeyEventProcess
 	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithDeliveryManager:specialKeyEventProcessor:processManager:destinationGenerator:notificationCenter:keyEventTracker:"), manager, processor, manager2, generator, center, tracker)
 	return rv
 }
-func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
+func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
 	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
 	return rv
 }

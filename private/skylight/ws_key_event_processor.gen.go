@@ -77,7 +77,7 @@ func NewWSKeyEventProcessor() WSKeyEventProcessor {
 	return rv
 }
 
-func NewWSKeyEventProcessorWithSession(session CGXSession) WSKeyEventProcessor {
+func NewWSKeyEventProcessorWithSession(session *CGXSession) WSKeyEventProcessor {
 	instance := getWSKeyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSKeyEventProcessorFromID(rv)

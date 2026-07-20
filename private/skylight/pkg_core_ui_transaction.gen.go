@@ -160,7 +160,7 @@ func (p PKGCoreUITransaction) InitWithThemeUseAX(theme uint32, ax bool) PKGCoreU
 
 // _scheduleRendererWorkMainThreadWorkSync is a synchronous wrapper around [PKGCoreUITransaction._scheduleRendererWorkMainThreadWork].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWorkSync(ctx context.Context, work VoidHandler) error {
+func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWorkSync(ctx context.Context, work func()) error {
 	done := make(chan struct{}, 1)
 	p._scheduleRendererWorkMainThreadWork(work, func() {
 		done <- struct{}{}

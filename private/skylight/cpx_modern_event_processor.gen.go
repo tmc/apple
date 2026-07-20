@@ -79,7 +79,7 @@ type ICPXModernEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event SLSEventRecordRef, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -108,7 +108,7 @@ func NewCPXModernEventProcessor() CPXModernEventProcessor {
 func (c CPXModernEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }

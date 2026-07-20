@@ -25,7 +25,7 @@ type Endpointer interface {
 	EndpointMode() int
 
 	// GetStatus protocol.
-	GetStatus(status AudioQueueBuffer) int
+	GetStatus(status *AudioQueueBuffer) int
 
 	// InterspeechWaitTime protocol.
 	InterspeechWaitTime() float64
@@ -82,7 +82,7 @@ func (o EndpointerObject) EndpointMode() int {
 	rv := objc.Send[int](o.ID, objc.Sel("endpointMode"))
 	return rv
 }
-func (o EndpointerObject) GetStatus(status AudioQueueBuffer) int {
+func (o EndpointerObject) GetStatus(status *AudioQueueBuffer) int {
 	rv := objc.Send[int](o.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

@@ -146,8 +146,7 @@ func (g GTShaderProfilerAnalyzer) CanExecuteTaskArgumentsEnvironmentStandardOutp
 }
 func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) MCAOutput {
 	rv := objc.Send[MCAOutput](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
-	_ = rv
-	return MCAOutput{}
+	return MCAOutput(rv)
 }
 
 // GenerateMCAOutputSync is an exported wrapper for the private method _generateMCAOutputSync.

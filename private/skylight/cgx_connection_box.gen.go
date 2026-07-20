@@ -77,7 +77,7 @@ type ICGXConnectionBox interface {
 	Connection() unsafe.Pointer
 	SetConnection(value *CGXConnection)
 	InvalidateBackreference()
-	InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox
+	InitWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox
 }
 
 // Init initializes the instance.
@@ -99,7 +99,7 @@ func NewCGXConnectionBox() CGXConnectionBox {
 	return rv
 }
 
-func NewXConnectionBoxWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
+func NewXConnectionBoxWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
 	instance := getCGXConnectionBoxClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return CGXConnectionBoxFromID(rv)
@@ -108,7 +108,7 @@ func NewXConnectionBoxWithCGXConnection(cGXConnection CGXConnection) CGXConnecti
 func (c CGXConnectionBox) InvalidateBackreference() {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateBackreference"))
 }
-func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
+func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
 	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return rv
 }

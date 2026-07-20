@@ -4,6 +4,8 @@ package virtualization
 
 import (
 	"unsafe"
+
+	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -16,6 +18,11 @@ type AvpBreadcrumb struct {
 
 // AvpHidGenericDevice
 type AvpHidGenericDevice struct {
+	Field1 uint16
+	Field2 uint16
+	Field3 uint
+	Field4 uint
+	Field5 unsafe.Pointer
 }
 
 // AvpSerialNumber
@@ -35,6 +42,8 @@ type CpuExitInfo struct {
 
 // DebugStub
 type DebugStub struct {
+	Field1 int
+	Field2 FileDescriptor
 }
 
 // Descriptor
@@ -47,14 +56,18 @@ type Descriptor struct {
 
 // DiskImageFormat
 type DiskImageFormat struct {
+	Field1 unsafe.Pointer
 }
 
 // DispatchGroupSession
 type DispatchGroupSession struct {
+	Field1 objectivec.Object
+	Field2 unsafe.Pointer
 }
 
 // Element
 type Element struct {
+	Field1              unsafe.Pointer
 	Bytes_written       uint
 	Guest_read_buffers  unsafe.Pointer
 	Guest_write_buffers unsafe.Pointer
@@ -64,6 +77,7 @@ type Element struct {
 
 // FileDescriptor
 type FileDescriptor struct {
+	Field1 int
 }
 
 // IoService
@@ -73,6 +87,7 @@ type IoService struct {
 
 // MailboxHandle
 type MailboxHandle struct {
+	Field1 unsafe.Pointer
 }
 
 // Mutex
@@ -122,6 +137,9 @@ type SecKey struct {
 
 // Sockaddr
 type Sockaddr struct {
+	Field1 uint8
+	Field2 uint8
+	Field3 unsafe.Pointer
 }
 
 // SockaddrStorage

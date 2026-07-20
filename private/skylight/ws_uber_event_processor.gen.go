@@ -81,8 +81,8 @@ type IWSUberEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	InitWithSession(session CGXSession) WSUberEventProcessor
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	InitWithSession(session *CGXSession) WSUberEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -108,7 +108,7 @@ func NewWSUberEventProcessor() WSUberEventProcessor {
 	return rv
 }
 
-func NewWSUberEventProcessorWithSession(session CGXSession) WSUberEventProcessor {
+func NewWSUberEventProcessorWithSession(session *CGXSession) WSUberEventProcessor {
 	instance := getWSUberEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSUberEventProcessorFromID(rv)
@@ -117,11 +117,11 @@ func NewWSUberEventProcessorWithSession(session CGXSession) WSUberEventProcessor
 func (w WSUberEventProcessor) ClearEventState() {
 	objc.Send[objc.ID](w.ID, objc.Sel("clearEventState"))
 }
-func (w WSUberEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+func (w WSUberEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
-func (w WSUberEventProcessor) InitWithSession(session CGXSession) WSUberEventProcessor {
+func (w WSUberEventProcessor) InitWithSession(session *CGXSession) WSUberEventProcessor {
 	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

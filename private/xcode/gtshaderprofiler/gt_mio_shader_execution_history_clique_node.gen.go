@@ -74,7 +74,7 @@ type IGTMioShaderExecutionHistoryCliqueNode interface {
 
 	Clique() unsafe.Pointer
 	Usc() IGTMioUSCTraceData
-	InitWithCliqueUscParent(clique GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode
+	InitWithCliqueUscParent(clique *GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode
 }
 
 // Init initializes the instance.
@@ -96,7 +96,7 @@ func NewGTMioShaderExecutionHistoryCliqueNode() GTMioShaderExecutionHistoryCliqu
 	return rv
 }
 
-func NewGTMioShaderExecutionHistoryCliqueNodeWithCliqueUscParent(clique GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
+func NewGTMioShaderExecutionHistoryCliqueNodeWithCliqueUscParent(clique *GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
 	instance := getGTMioShaderExecutionHistoryCliqueNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClique:usc:parent:"), clique, usc, parent)
 	return GTMioShaderExecutionHistoryCliqueNodeFromID(rv)
@@ -108,7 +108,7 @@ func NewGTMioShaderExecutionHistoryCliqueNodeWithTypeParent(type_ uint32, parent
 	return GTMioShaderExecutionHistoryCliqueNodeFromID(rv)
 }
 
-func (g GTMioShaderExecutionHistoryCliqueNode) InitWithCliqueUscParent(clique GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
+func (g GTMioShaderExecutionHistoryCliqueNode) InitWithCliqueUscParent(clique *GTMioUSCCliqueMetadata, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryCliqueNode](g.ID, objc.Sel("initWithClique:usc:parent:"), clique, usc, parent)
 	return rv
 }

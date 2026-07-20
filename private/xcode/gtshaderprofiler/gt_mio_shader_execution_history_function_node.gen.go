@@ -122,8 +122,8 @@ type IGTMioShaderExecutionHistoryFunctionNode interface {
 	Inlined() bool
 	Location() unsafe.Pointer
 	Synthesized() bool
-	InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode
-	InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode
+	InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode
+	InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location *GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode
 }
 
 // Init initializes the instance.
@@ -145,13 +145,13 @@ func NewGTMioShaderExecutionHistoryFunctionNode() GTMioShaderExecutionHistoryFun
 	return rv
 }
 
-func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
+func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBinary:clique:parent:identifier:"), binary, clique, parent, identifier)
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(rv)
 }
 
-func NewGTMioShaderExecutionHistoryFunctionNodeWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
+func NewGTMioShaderExecutionHistoryFunctionNodeWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location *GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:inlined:binaryRangeIndex:binary:callerLocation:callerBinaryRangeIndex:callerBinary:identifier:parent:"), location, inlined, index, binary, location2, index2, binary2, identifier, parent)
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(rv)
@@ -166,11 +166,11 @@ func NewGTMioShaderExecutionHistoryFunctionNodeWithTypeParent(type_ uint32, pare
 func (g GTMioShaderExecutionHistoryFunctionNode) IncrementCallCount() {
 	objc.Send[objc.ID](g.ID, objc.Sel("incrementCallCount"))
 }
-func (g GTMioShaderExecutionHistoryFunctionNode) InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
+func (g GTMioShaderExecutionHistoryFunctionNode) InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadata, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryFunctionNode](g.ID, objc.Sel("initWithBinary:clique:parent:identifier:"), binary, clique, parent, identifier)
 	return rv
 }
-func (g GTMioShaderExecutionHistoryFunctionNode) InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
+func (g GTMioShaderExecutionHistoryFunctionNode) InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location *GTMioShaderBinaryDebugLocation, inlined bool, index uint32, binary objectivec.IObject, location2 *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryFunctionNode](g.ID, objc.Sel("initWithLocation:inlined:binaryRangeIndex:binary:callerLocation:callerBinaryRangeIndex:callerBinary:identifier:parent:"), location, inlined, index, binary, location2, index2, binary2, identifier, parent)
 	return rv
 }

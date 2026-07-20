@@ -1099,7 +1099,7 @@ func (a AVVoiceController) StartRecordForStreamCompletionSync(ctx context.Contex
 
 // StartRecordWithSettingsCompletionAlertCompletionAudioCallbackSync is a synchronous wrapper around [AVVoiceController.StartRecordWithSettingsCompletionAlertCompletionAudioCallback].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVVoiceController) StartRecordWithSettingsCompletionAlertCompletionAudioCallbackSync(ctx context.Context, settings objectivec.IObject, completion VoidHandler, completion2 VoidHandler) error {
+func (a AVVoiceController) StartRecordWithSettingsCompletionAlertCompletionAudioCallbackSync(ctx context.Context, settings objectivec.IObject, completion func(), completion2 func()) error {
 	done := make(chan struct{}, 1)
 	a.StartRecordWithSettingsCompletionAlertCompletionAudioCallback(settings, completion, completion2, func() {
 		done <- struct{}{}

@@ -105,7 +105,7 @@ type IVoiceVerificationEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status AudioQueueBuffer) int
+	GetStatus(status *AudioQueueBuffer) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -144,7 +144,7 @@ func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate fl
 	rv := objc.Send[bool](v.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (v VoiceVerificationEndpointer) GetStatus(status AudioQueueBuffer) int {
+func (v VoiceVerificationEndpointer) GetStatus(status *AudioQueueBuffer) int {
 	rv := objc.Send[int](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

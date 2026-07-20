@@ -17,7 +17,7 @@ type GTMioCostProvider interface {
 	CostCount() uint64
 
 	// CostForScopeScopeIdentifierCost protocol.
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 
 	// Costs protocol.
 	Costs() unsafe.Pointer
@@ -50,7 +50,7 @@ func (o GTMioCostProviderObject) CostCount() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("costCount"))
 	return rv
 }
-func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
+func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }

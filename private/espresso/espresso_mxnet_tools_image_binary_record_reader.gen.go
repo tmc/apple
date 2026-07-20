@@ -159,8 +159,7 @@ func (e EspressoMxnetToolsImageBinaryRecordReader) ImageData() objectivec.IObjec
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) ImageID() MxnetToolsImageIDT {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageID"))
-	_ = rv
-	return MxnetToolsImageIDT{}
+	return MxnetToolsImageIDT(rv)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) Labels() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("labels"))
@@ -212,8 +211,7 @@ func (e EspressoMxnetToolsImageBinaryRecordReader) SetCurrentOffset(value uint64
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) ImageHeader() MxnetToolsImageHeaderT {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageHeader"))
-	_ = rv
-	return MxnetToolsImageHeaderT{}
+	return MxnetToolsImageHeaderT(rv)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SetImageHeader(value MxnetToolsImageHeaderT) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageHeader:"), value)
@@ -234,8 +232,7 @@ func (e EspressoMxnetToolsImageBinaryRecordReader) SetRecFileHandle(value founda
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) RecordHeader() MxnetToolsRecordHeaderT {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("recordHeader"))
-	_ = rv
-	return MxnetToolsRecordHeaderT{}
+	return MxnetToolsRecordHeaderT(rv)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SetRecordHeader(value MxnetToolsRecordHeaderT) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRecordHeader:"), value)

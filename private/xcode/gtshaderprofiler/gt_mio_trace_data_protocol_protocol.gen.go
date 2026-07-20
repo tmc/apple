@@ -14,10 +14,10 @@ type GTMioTraceDataProtocol interface {
 	objectivec.IObject
 
 	// ChildCliqueOfClique protocol.
-	ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
+	ChildCliqueOfClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer
 
 	// CliqueFromCliqueIndex protocol.
-	CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer
+	CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) unsafe.Pointer
 
 	// CoalescedFunctionIndexForEncoderFunctionIndex protocol.
 	CoalescedFunctionIndexForEncoderFunctionIndex(index uint32) uint32
@@ -32,10 +32,10 @@ type GTMioTraceDataProtocol interface {
 	ConsistentStateAchieved() bool
 
 	// CostForContextCost protocol.
-	CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool
+	CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool
 
 	// CostForLevelLevelIdentifierScopeScopeIdentifierCost protocol.
-	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool
+	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool
 
 	// DataType protocol.
 	DataType() uint32
@@ -146,7 +146,7 @@ type GTMioTraceDataProtocol interface {
 	PipelineStateCount() uint64
 
 	// PipelineStateIdForCliqueIndex protocol.
-	PipelineStateIdForCliqueIndex(index GTMioUSCCliqueIndex) uint64
+	PipelineStateIdForCliqueIndex(index *GTMioUSCCliqueIndex) uint64
 
 	// ProfiledState protocol.
 	ProfiledState() uint32
@@ -155,7 +155,7 @@ type GTMioTraceDataProtocol interface {
 	ProfiledWithOverlapEnabled() bool
 
 	// ReferenceComputePositionForClique protocol.
-	ReferenceComputePositionForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
+	ReferenceComputePositionForClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer
 
 	// RiaTraceCount protocol.
 	RiaTraceCount() uint64
@@ -238,11 +238,11 @@ func (o GTMioTraceDataProtocolObject) BinaryForPipelineStateProgramType(state ui
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("binaryForPipelineState:programType:"), state, type_)
 	return objectivec.Object{ID: rv}
 }
-func (o GTMioTraceDataProtocolObject) ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) ChildCliqueOfClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("childCliqueOfClique:"), clique)
 	return rv
 }
-func (o GTMioTraceDataProtocolObject) CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
 	return rv
 }
@@ -262,11 +262,11 @@ func (o GTMioTraceDataProtocolObject) ConsistentStateAchieved() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("consistentStateAchieved"))
 	return rv
 }
-func (o GTMioTraceDataProtocolObject) CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool {
+func (o GTMioTraceDataProtocolObject) CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForContext:cost:"), context, cost)
 	return rv
 }
-func (o GTMioTraceDataProtocolObject) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool {
+func (o GTMioTraceDataProtocolObject) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, cost)
 	return rv
 }
@@ -322,7 +322,7 @@ func (o GTMioTraceDataProtocolObject) EnumerateBinariesForForCliqueAtIndexUscInd
 func (o GTMioTraceDataProtocolObject) EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator GTMioShaderBinaryDataHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, enumerator)
 }
-func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderBinaryDataGTMioShaderBinaryDebugBinaryRangeUintHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderBinaryDataGTMioShaderBinaryDebugBinaryRangeUintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, enumerator)
 }
 func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator GTMioShaderBinaryDataGTMioShaderBinaryDebugBinaryRangeUintHandler) {
@@ -337,7 +337,7 @@ func (o GTMioTraceDataProtocolObject) EnumerateDrawsForPipelineStateEnumerator(s
 func (o GTMioTraceDataProtocolObject) EnumerateEncoders(encoders UintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateEncoders:"), encoders)
 }
-func (o GTMioTraceDataProtocolObject) EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderBinaryDataGTMioShaderInstructionInfoUintHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderBinaryDataGTMioShaderInstructionInfoUintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, enumerator)
 }
 func (o GTMioTraceDataProtocolObject) EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator GTMioShaderBinaryDataGTMioShaderInstructionInfoUintHandler) {
@@ -429,7 +429,7 @@ func (o GTMioTraceDataProtocolObject) PipelineStateCount() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("pipelineStateCount"))
 	return rv
 }
-func (o GTMioTraceDataProtocolObject) PipelineStateIdForCliqueIndex(index GTMioUSCCliqueIndex) uint64 {
+func (o GTMioTraceDataProtocolObject) PipelineStateIdForCliqueIndex(index *GTMioUSCCliqueIndex) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("pipelineStateIdForCliqueIndex:"), index)
 	return rv
 }
@@ -441,7 +441,7 @@ func (o GTMioTraceDataProtocolObject) ProfiledWithOverlapEnabled() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("profiledWithOverlapEnabled"))
 	return rv
 }
-func (o GTMioTraceDataProtocolObject) ReferenceComputePositionForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) ReferenceComputePositionForClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("referenceComputePositionForClique:"), clique)
 	return rv
 }

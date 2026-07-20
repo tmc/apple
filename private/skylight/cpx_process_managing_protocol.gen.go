@@ -26,7 +26,7 @@ type CPXProcessManaging interface {
 	ProcessForPSN(psn CPSProcessSerNum) unsafe.Pointer
 
 	// ProcessOwningConnection protocol.
-	ProcessOwningConnection(connection CGXConnection) unsafe.Pointer
+	ProcessOwningConnection(connection *CGXConnection) unsafe.Pointer
 
 	// ProcessOwningConnectionID protocol.
 	ProcessOwningConnectionID(id uint32) unsafe.Pointer
@@ -35,16 +35,16 @@ type CPXProcessManaging interface {
 	ProcessPendingKill() unsafe.Pointer
 
 	// ProcessRepresentedByConnection protocol.
-	ProcessRepresentedByConnection(connection CGXConnection) unsafe.Pointer
+	ProcessRepresentedByConnection(connection *CGXConnection) unsafe.Pointer
 
 	// ProcessRepresentedByConnectionID protocol.
 	ProcessRepresentedByConnectionID(id uint32) unsafe.Pointer
 
 	// SetProcessPendingKill protocol.
-	SetProcessPendingKill(kill CPSProcessRec)
+	SetProcessPendingKill(kill *CPSProcessRec)
 
 	// UpdateProcessApplicationTypeIfNecessary protocol.
-	UpdateProcessApplicationTypeIfNecessary(necessary CPSProcessRec) byte
+	UpdateProcessApplicationTypeIfNecessary(necessary *CPSProcessRec) byte
 }
 
 // CPXProcessManagingObject wraps an existing Objective-C object that conforms to the CPXProcessManaging protocol.
@@ -80,7 +80,7 @@ func (o CPXProcessManagingObject) ProcessForPSN(psn CPSProcessSerNum) unsafe.Poi
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processForPSN:"), psn)
 	return rv
 }
-func (o CPXProcessManagingObject) ProcessOwningConnection(connection CGXConnection) unsafe.Pointer {
+func (o CPXProcessManagingObject) ProcessOwningConnection(connection *CGXConnection) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processOwningConnection:"), connection)
 	return rv
 }
@@ -92,7 +92,7 @@ func (o CPXProcessManagingObject) ProcessPendingKill() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processPendingKill"))
 	return rv
 }
-func (o CPXProcessManagingObject) ProcessRepresentedByConnection(connection CGXConnection) unsafe.Pointer {
+func (o CPXProcessManagingObject) ProcessRepresentedByConnection(connection *CGXConnection) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processRepresentedByConnection:"), connection)
 	return rv
 }
@@ -100,10 +100,10 @@ func (o CPXProcessManagingObject) ProcessRepresentedByConnectionID(id uint32) un
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processRepresentedByConnectionID:"), id)
 	return rv
 }
-func (o CPXProcessManagingObject) SetProcessPendingKill(kill CPSProcessRec) {
+func (o CPXProcessManagingObject) SetProcessPendingKill(kill *CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProcessPendingKill:"), kill)
 }
-func (o CPXProcessManagingObject) UpdateProcessApplicationTypeIfNecessary(necessary CPSProcessRec) byte {
+func (o CPXProcessManagingObject) UpdateProcessApplicationTypeIfNecessary(necessary *CPSProcessRec) byte {
 	rv := objc.Send[byte](o.ID, objc.Sel("updateProcessApplicationTypeIfNecessary:"), necessary)
 	return rv
 }

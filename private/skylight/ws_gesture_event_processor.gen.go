@@ -78,13 +78,13 @@ func NewWSGestureEventProcessor() WSGestureEventProcessor {
 	return rv
 }
 
-func NewWSGestureEventProcessorWithSession(session CGXSession) WSGestureEventProcessor {
+func NewWSGestureEventProcessorWithSession(session *CGXSession) WSGestureEventProcessor {
 	instance := getWSGestureEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSGestureEventProcessorFromID(rv)
 }
 
-func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event SLSEventRecord, conn uint32, id *uint64, captured bool, params objectivec.IObject) int {
+func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event *SLSEventRecord, conn uint32, id *uint64, captured bool, params objectivec.IObject) int {
 	rv := objc.Send[int](objc.ID(_WSGestureEventProcessorClass.class), objc.Sel("annotate_scroll_zoom_event:windowConn:eventRegionID:isCaptured:annotationParams:"), annotate_scroll_zoom_event, conn, id, captured, params)
 	return rv
 }

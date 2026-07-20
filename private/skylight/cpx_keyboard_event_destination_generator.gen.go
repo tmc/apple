@@ -69,7 +69,7 @@ type ICPXKeyboardEventDestinationGenerator interface {
 
 	// Topic: Methods
 
-	DestinationForEventContextTargetExtras(event SLSEventRecord, target CPSProcessRec, extras []objectivec.IObject) objectivec.IObject
+	DestinationForEventContextTargetExtras(event *SLSEventRecord, target *CPSProcessRec, extras []objectivec.IObject) objectivec.IObject
 	InitWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator
 }
 
@@ -98,7 +98,7 @@ func NewCPXKeyboardEventDestinationGeneratorWithDeliveryManagerFocusManagerSeque
 	return CPXKeyboardEventDestinationGeneratorFromID(rv)
 }
 
-func (c CPXKeyboardEventDestinationGenerator) DestinationForEventContextTargetExtras(event SLSEventRecord, target CPSProcessRec, extras []objectivec.IObject) objectivec.IObject {
+func (c CPXKeyboardEventDestinationGenerator) DestinationForEventContextTargetExtras(event *SLSEventRecord, target *CPSProcessRec, extras []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:contextTarget:extras:"), event, target, objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }

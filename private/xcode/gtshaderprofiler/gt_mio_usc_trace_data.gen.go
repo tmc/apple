@@ -174,31 +174,31 @@ type IGTMioUSCTraceData interface {
 
 	BinaryTrace() unsafe.Pointer
 	BinaryTraceCount() uint64
-	ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
+	ChildCliqueOfClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer
 	CliqueFirstPCCount() uint64
 	CliqueFirstPCs() unsafe.Pointer
 	Cliques() unsafe.Pointer
 	CliquesCount() uint64
 	CostCount() uint64
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	Costs() unsafe.Pointer
 	DatabaseInternal() uint64
 	DrawTrace() unsafe.Pointer
 	DrawTraceCount() uint64
 	EnumerateCliquesForTimeRangeBeginEndEnumerator(begin uint64, end uint64, enumerator VoidHandler)
-	EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique GTMioUSCCliqueMetadata, timestamps bool, enumerator VoidHandler)
+	EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique *GTMioUSCCliqueMetadata, timestamps bool, enumerator VoidHandler)
 	EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler)
-	EnumerateKickCliquesEnumerator(cliques GTMioUSCKickMetadata, enumerator VoidHandler)
+	EnumerateKickCliquesEnumerator(cliques *GTMioUSCKickMetadata, enumerator VoidHandler)
 	EnumerateKickCliquesAtFunctionIndexDataMasterEnumerator(index uint32, master uint16, enumerator VoidHandler)
-	EnumerateKickTilesEnumerator(tiles GTMioUSCKickMetadata, enumerator VoidHandler)
+	EnumerateKickTilesEnumerator(tiles *GTMioUSCKickMetadata, enumerator VoidHandler)
 	EnumerateKickTilesAtFunctionIndexDataMasterEnumerator(index uint32, master uint16, enumerator VoidHandler)
-	EnumerateTileCliquesEnumerator(cliques GTMioUSCTileMetadata, enumerator VoidHandler)
+	EnumerateTileCliquesEnumerator(cliques *GTMioUSCTileMetadata, enumerator VoidHandler)
 	FirstBinaryAddressForCliqueAtIndex(index uint32) uint64
 	FirstBinaryIndexForCliqueAtIndex(index uint32) uint32
 	FirstPCForCliqueAtIndex(index uint32) uint64
 	Index() uint64
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
-	InstructionTraceInfoForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
+	InstructionTraceInfoForClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer
 	InstructionTraceInfoForCliqueAtIndex(index uint32) unsafe.Pointer
 	KickCliqueIndexes() unsafe.Pointer
 	KickCliqueIndexesCount() uint64
@@ -251,11 +251,11 @@ func NewGTMioUSCTraceDataWithUSCDataMGPUIndexParent(uSCData unsafe.Pointer, gPUI
 	return GTMioUSCTraceDataFromID(rv)
 }
 
-func (g GTMioUSCTraceData) ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
+func (g GTMioUSCTraceData) ChildCliqueOfClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("childCliqueOfClique:"), clique)
 	return rv
 }
-func (g GTMioUSCTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
+func (g GTMioUSCTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
@@ -263,7 +263,7 @@ func (g GTMioUSCTraceData) EnumerateCliquesForTimeRangeBeginEndEnumerator(begin 
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForTimeRangeBegin:end:enumerator:"), begin, end, _block2)
 }
-func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique GTMioUSCCliqueMetadata, timestamps bool, enumerator VoidHandler) {
+func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique *GTMioUSCCliqueMetadata, timestamps bool, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionTracesForClique:requiresTimestamps:enumerator:"), clique, timestamps, _block2)
 }
@@ -271,7 +271,7 @@ func (g GTMioUSCTraceData) EnumerateKickAtFunctionIndexEnumerator(index uint32, 
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickAtFunctionIndex:enumerator:"), index, _block1)
 }
-func (g GTMioUSCTraceData) EnumerateKickCliquesEnumerator(cliques GTMioUSCKickMetadata, enumerator VoidHandler) {
+func (g GTMioUSCTraceData) EnumerateKickCliquesEnumerator(cliques *GTMioUSCKickMetadata, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickCliques:enumerator:"), cliques, _block1)
 }
@@ -279,7 +279,7 @@ func (g GTMioUSCTraceData) EnumerateKickCliquesAtFunctionIndexDataMasterEnumerat
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickCliquesAtFunctionIndex:dataMaster:enumerator:"), index, master, _block2)
 }
-func (g GTMioUSCTraceData) EnumerateKickTilesEnumerator(tiles GTMioUSCKickMetadata, enumerator VoidHandler) {
+func (g GTMioUSCTraceData) EnumerateKickTilesEnumerator(tiles *GTMioUSCKickMetadata, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickTiles:enumerator:"), tiles, _block1)
 }
@@ -287,7 +287,7 @@ func (g GTMioUSCTraceData) EnumerateKickTilesAtFunctionIndexDataMasterEnumerator
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickTilesAtFunctionIndex:dataMaster:enumerator:"), index, master, _block2)
 }
-func (g GTMioUSCTraceData) EnumerateTileCliquesEnumerator(cliques GTMioUSCTileMetadata, enumerator VoidHandler) {
+func (g GTMioUSCTraceData) EnumerateTileCliquesEnumerator(cliques *GTMioUSCTileMetadata, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateTileCliques:enumerator:"), cliques, _block1)
 }
@@ -307,7 +307,7 @@ func (g GTMioUSCTraceData) InstructionCountForScopeScopeIdentifierDataMaster(sco
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
-func (g GTMioUSCTraceData) InstructionTraceInfoForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
+func (g GTMioUSCTraceData) InstructionTraceInfoForClique(clique *GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionTraceInfoForClique:"), clique)
 	return rv
 }
@@ -478,7 +478,7 @@ func (g GTMioUSCTraceData) EnumerateCliquesForTimeRangeBeginEndEnumeratorSync(ct
 
 // EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync is a synchronous wrapper around [GTMioUSCTraceData.EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync(ctx context.Context, clique GTMioUSCCliqueMetadata, timestamps bool) error {
+func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadata, timestamps bool) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique, timestamps, func() {
 		done <- struct{}{}
@@ -508,7 +508,7 @@ func (g GTMioUSCTraceData) EnumerateKickAtFunctionIndexEnumeratorSync(ctx contex
 
 // EnumerateKickCliquesEnumeratorSync is a synchronous wrapper around [GTMioUSCTraceData.EnumerateKickCliquesEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioUSCTraceData) EnumerateKickCliquesEnumeratorSync(ctx context.Context, cliques GTMioUSCKickMetadata) error {
+func (g GTMioUSCTraceData) EnumerateKickCliquesEnumeratorSync(ctx context.Context, cliques *GTMioUSCKickMetadata) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateKickCliquesEnumerator(cliques, func() {
 		done <- struct{}{}
@@ -538,7 +538,7 @@ func (g GTMioUSCTraceData) EnumerateKickCliquesAtFunctionIndexDataMasterEnumerat
 
 // EnumerateKickTilesEnumeratorSync is a synchronous wrapper around [GTMioUSCTraceData.EnumerateKickTilesEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioUSCTraceData) EnumerateKickTilesEnumeratorSync(ctx context.Context, tiles GTMioUSCKickMetadata) error {
+func (g GTMioUSCTraceData) EnumerateKickTilesEnumeratorSync(ctx context.Context, tiles *GTMioUSCKickMetadata) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateKickTilesEnumerator(tiles, func() {
 		done <- struct{}{}
@@ -568,7 +568,7 @@ func (g GTMioUSCTraceData) EnumerateKickTilesAtFunctionIndexDataMasterEnumerator
 
 // EnumerateTileCliquesEnumeratorSync is a synchronous wrapper around [GTMioUSCTraceData.EnumerateTileCliquesEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioUSCTraceData) EnumerateTileCliquesEnumeratorSync(ctx context.Context, cliques GTMioUSCTileMetadata) error {
+func (g GTMioUSCTraceData) EnumerateTileCliquesEnumeratorSync(ctx context.Context, cliques *GTMioUSCTileMetadata) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateTileCliquesEnumerator(cliques, func() {
 		done <- struct{}{}

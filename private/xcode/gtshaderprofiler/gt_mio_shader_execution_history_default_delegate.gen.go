@@ -78,7 +78,7 @@ type IGTMioShaderExecutionHistoryDefaultDelegate interface {
 
 	// Topic: Methods
 
-	ExecutionHistoryProcessCliqueTotal(clique GTMioUSCCliqueMetadata, total uint32)
+	ExecutionHistoryProcessCliqueTotal(clique *GTMioUSCCliqueMetadata, total uint32)
 	UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64
 	DebugDescription() string
 	Description() string
@@ -105,7 +105,7 @@ func NewGTMioShaderExecutionHistoryDefaultDelegate() GTMioShaderExecutionHistory
 	return rv
 }
 
-func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique GTMioUSCCliqueMetadata, total uint32) {
+func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique *GTMioUSCCliqueMetadata, total uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryProcessClique:total:"), clique, total)
 }
 func (g GTMioShaderExecutionHistoryDefaultDelegate) UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64 {
