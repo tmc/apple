@@ -44,6 +44,7 @@
 //go:generate applegen-bootstrap -f "network" --go-names
 //go:generate applegen-bootstrap -f "networkextension"
 //go:generate applegen-bootstrap -f "objectivec"
+//go:generate applegen-bootstrap -f "oslog"
 //go:generate applegen-bootstrap -f "pdfkit"
 //go:generate applegen-bootstrap -f "quartzcore"
 //go:generate applegen-bootstrap -f "screencapturekit"
