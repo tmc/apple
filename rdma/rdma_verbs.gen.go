@@ -7,6 +7,8 @@ import (
 	"runtime"
 	"sync"
 	"unsafe"
+
+	_ "github.com/ebitengine/purego"
 )
 
 const (
@@ -219,12 +221,13 @@ func rdmaContextOp(context RDMAContext, off uintptr) uintptr {
 
 var ibvFuncMu sync.Mutex
 
-// rdmaCall3Args mirrors purego v0.10.1's syscall15Args. The purego trampoline
-// reads it by offset, so TestRDMACall3ABI guards its layout.
+// rdmaCall3Args mirrors purego v0.11.0-alpha.6's syscallArgs. The purego
+// trampoline reads it by offset, so TestRDMACall3ABI guards its layout.
 type rdmaCall3Args struct {
-	fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15 uintptr
-	f1, f2, f3, f4, f5, f6, f7, f8                                       uintptr
-	arm64R8                                                              uintptr
+	fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15                uintptr
+	a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32 uintptr
+	f1, f2, f3, f4, f5, f6, f7, f8                                                      uintptr
+	arm64R8                                                                             uintptr
 }
 
 var rdmaCall3ArgsPool = sync.Pool{New: func() any { return new(rdmaCall3Args) }}
@@ -232,8 +235,14 @@ var rdmaCall3ArgsPool = sync.Pool{New: func() any { return new(rdmaCall3Args) }}
 //go:linkname rdmaRuntimeCgocall runtime.cgocall
 func rdmaRuntimeCgocall(fn uintptr, arg unsafe.Pointer) int32
 
-//go:linkname rdmaSyscall15XABI0 github.com/ebitengine/purego.syscall15XABI0
-var rdmaSyscall15XABI0 uintptr
+//go:linkname rdmaSyscallXABI0 github.com/ebitengine/purego.syscallXABI0
+var rdmaSyscallXABI0 uintptr
+
+func init() {
+	if rdmaSyscallXABI0 == 0 {
+		panic("rdma: purego syscall trampoline is unavailable")
+	}
+}
 
 // rdmaCall3 invokes an RDMA context operation with its three machine-word arguments.
 //
@@ -241,7 +250,7 @@ var rdmaSyscall15XABI0 uintptr
 func rdmaCall3(fn, a1, a2, a3 uintptr) uintptr {
 	s := rdmaCall3ArgsPool.Get().(*rdmaCall3Args)
 	*s = rdmaCall3Args{fn: fn, a1: a1, a2: a2, a3: a3, f1: a1, f2: a2, f3: a3}
-	rdmaRuntimeCgocall(rdmaSyscall15XABI0, unsafe.Pointer(s))
+	rdmaRuntimeCgocall(rdmaSyscallXABI0, unsafe.Pointer(s))
 	r1 := s.a1
 	rdmaCall3ArgsPool.Put(s)
 	return r1

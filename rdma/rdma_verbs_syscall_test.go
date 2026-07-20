@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 	"unsafe"
 
@@ -13,7 +14,7 @@ import (
 
 func TestRDMACall3ABI(t *testing.T) {
 	const word = unsafe.Sizeof(uintptr(0))
-	if got, want := unsafe.Sizeof(rdmaCall3Args{}), 25*word; got != want {
+	if got, want := unsafe.Sizeof(rdmaCall3Args{}), 42*word; got != want {
 		t.Fatalf("rdmaCall3Args size = %d, want %d", got, want)
 	}
 	var args rdmaCall3Args
@@ -23,15 +24,42 @@ func TestRDMACall3ABI(t *testing.T) {
 		want uintptr
 	}{
 		{"a1", unsafe.Offsetof(args.a1) / word, 1},
-		{"f1", unsafe.Offsetof(args.f1) / word, 16},
-		{"arm64R8", unsafe.Offsetof(args.arm64R8) / word, 24},
+		{"f1", unsafe.Offsetof(args.f1) / word, 33},
+		{"arm64R8", unsafe.Offsetof(args.arm64R8) / word, 41},
 	} {
 		if tt.got != tt.want {
 			t.Fatalf("rdmaCall3Args %s offset = %d words, want %d", tt.name, tt.got, tt.want)
 		}
 	}
-	if rdmaSyscall15XABI0 == 0 {
-		t.Fatal("purego syscall15X trampoline is unavailable")
+	if rdmaSyscallXABI0 == 0 {
+		t.Fatal("purego syscall trampoline is unavailable")
+	}
+}
+
+func TestRDMACall3ProductionLink(t *testing.T) {
+	binary := filepath.Join(t.TempDir(), "rdma-call3-smoke")
+	build := exec.Command("go", "build", "-o", binary, "./cmd/rdma-call3-smoke")
+	build.Dir = ".."
+	if out, err := build.CombinedOutput(); err != nil {
+		t.Fatalf("build production smoke: %v\n%s", err, out)
+	}
+
+	nm := exec.Command("go", "tool", "nm", "-size", binary)
+	out, err := nm.CombinedOutput()
+	if err != nil {
+		t.Fatalf("inspect production smoke: %v\n%s", err, out)
+	}
+	if !strings.Contains(string(out), " R github.com/ebitengine/purego.syscallXABI0") {
+		t.Fatalf("production smoke does not link initialized purego syscallXABI0:\n%s", out)
+	}
+
+	run := exec.Command(binary)
+	out, err = run.CombinedOutput()
+	if err != nil {
+		t.Fatalf("run production smoke: %v\n%s", err, out)
+	}
+	if got, want := string(out), "rdma Call3 trampoline: available\n"; got != want {
+		t.Fatalf("production smoke output = %q, want %q", got, want)
 	}
 }
 
