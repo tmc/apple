@@ -41,6 +41,7 @@ main(void)
 	OFFSET(struct ibv_mr, rkey);
 	OFFSET(struct ibv_comp_channel, fd);
 	OFFSET(struct ibv_cq, channel);
+	OFFSET(struct ibv_port_attr, active_mtu);
 	OFFSET(struct ibv_port_attr, gid_tbl_len);
 	OFFSET(struct ibv_port_attr, lid);
 	OFFSET(struct ibv_port_attr, link_layer);

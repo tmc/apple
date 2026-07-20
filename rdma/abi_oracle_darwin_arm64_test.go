@@ -58,6 +58,7 @@ func TestAppleHeaderABI(t *testing.T) {
 		"struct ibv_mr.rkey":                   40,
 		"struct ibv_comp_channel.fd":           8,
 		"struct ibv_cq.channel":                8,
+		"struct ibv_port_attr.active_mtu":      8,
 		"struct ibv_port_attr.gid_tbl_len":     12,
 		"struct ibv_port_attr.lid":             34,
 		"struct ibv_port_attr.link_layer":      46,
