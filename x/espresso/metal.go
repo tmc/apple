@@ -202,7 +202,7 @@ func (a *ANESurface) AliasingMem() objectivec.IObject {
 
 // SetAliasingMem sets the external storage blob for aliasing memory.
 func (a *ANESurface) SetAliasingMem(blob objectivec.IObject) {
-	a.s.SetExternal_storage_blob_for_aliasing_mem(objectKernelPointer(blob))
+	a.s.SetExternal_storage_blob_for_aliasing_mem(objectPointer(blob))
 }
 
 // WriteFrame writes raw bytes to the IOSurface backing the given frame.

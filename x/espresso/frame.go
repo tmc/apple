@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/espresso"
@@ -32,15 +31,11 @@ func NewFrame() *Frame {
 	}
 }
 
-func kernelPointer(p unsafe.Pointer) kernel.Pointer {
-	return kernel.Pointer(uintptr(p))
-}
-
-func objectKernelPointer(obj objectivec.IObject) kernel.Pointer {
+func objectPointer(obj objectivec.IObject) unsafe.Pointer {
 	if obj == nil {
-		return 0
+		return nil
 	}
-	return kernel.Pointer(uintptr(obj.GetID()))
+	return unsafe.Pointer(uintptr(obj.GetID()))
 }
 
 // SetInput attaches a named float32 input tensor.
@@ -54,7 +49,7 @@ func (f *Frame) SetInput(name string, data []float32, shape Shape) error {
 
 	att := espresso.NewEspressoDataFrameTensorAttachment()
 	raw := unsafe.Pointer(unsafe.SliceData(data))
-	att.SetRawPointer(kernelPointer(raw))
+	att.SetRawPointer(raw)
 	att.SetSize(uint64(len(data)) * 4) // float32 = 4 bytes
 
 	// Pin the data to prevent GC.
@@ -70,7 +65,7 @@ func (f *Frame) SetInput(name string, data []float32, shape Shape) error {
 // SetInputBytes attaches a named raw byte input.
 func (f *Frame) SetInputBytes(name string, data []byte) error {
 	att := espresso.NewEspressoDataFrameTensorAttachment()
-	att.SetRawPointer(kernelPointer(unsafe.Pointer(unsafe.SliceData(data))))
+	att.SetRawPointer(unsafe.Pointer(unsafe.SliceData(data)))
 	att.SetSize(uint64(len(data)))
 	f.inputs[name] = data
 
@@ -91,7 +86,7 @@ func (f *Frame) SetInputIOSurface(name string, ref coregraphics.IOSurfaceRef) er
 	size := iosurface.IOSurfaceGetAllocSize(surfRef)
 
 	att := espresso.NewEspressoDataFrameTensorAttachment()
-	att.SetRawPointer(kernelPointer(base))
+	att.SetRawPointer(base)
 	att.SetSize(uint64(size))
 
 	dict := f.inputDict()
@@ -133,7 +128,7 @@ func (f *Frame) SetInputImage(name string, data []byte, nChannels int) error {
 	att := espresso.NewEspressoDataFrameImageAttachment()
 	att.SetNChannels(nChannels)
 	raw := unsafe.Pointer(unsafe.SliceData(data))
-	att.SetRawPointer(kernelPointer(raw))
+	att.SetRawPointer(raw)
 	att.SetSize(uint64(len(data)))
 	f.inputs[name] = data
 
@@ -151,7 +146,7 @@ func (f *Frame) SetGroundTruth(name string, data []float32, shape Shape) error {
 
 	att := espresso.NewEspressoDataFrameTensorAttachment()
 	raw := unsafe.Pointer(unsafe.SliceData(data))
-	att.SetRawPointer(kernelPointer(raw))
+	att.SetRawPointer(raw)
 	att.SetSize(uint64(len(data)) * 4)
 
 	dict := f.groundTruthDict()
@@ -170,7 +165,7 @@ func (f *Frame) SetOutputIOSurface(name string, ref coregraphics.IOSurfaceRef) e
 	size := iosurface.IOSurfaceGetAllocSize(surfRef)
 
 	att := espresso.NewEspressoDataFrameTensorAttachment()
-	att.SetRawPointer(kernelPointer(base))
+	att.SetRawPointer(base)
 	att.SetSize(uint64(size))
 
 	dict := f.outputDict()
