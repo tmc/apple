@@ -146,6 +146,14 @@ func TestRDMAHardwareProviderMatrix(t *testing.T) {
 	success = true
 }
 
+func deviceNames(devs []Device) []string {
+	names := make([]string, 0, len(devs))
+	for _, dev := range devs {
+		names = append(names, dev.Name)
+	}
+	return names
+}
+
 func hardwareStepHandle[T ~uintptr](name string, fn func() (T, error)) (T, error) {
 	hardwareLog(name+".start", "")
 	v, err := fn()
