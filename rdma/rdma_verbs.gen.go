@@ -168,7 +168,8 @@ type IbvWC struct {
 
 // IbvPortAttr exposes the fields used by RDMA examples.
 type IbvPortAttr struct {
-	_         [12]byte
+	_         [8]byte
+	ActiveMTU int32
 	GIDTblLen uint32
 	_         [18]byte
 	LID       uint16
