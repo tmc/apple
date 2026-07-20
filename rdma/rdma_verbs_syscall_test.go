@@ -35,6 +35,41 @@ func TestRDMACall3ABI(t *testing.T) {
 	}
 }
 
+func TestRDMACall3DeepNest(t *testing.T) {
+	roundtrip := buildDatapathTestSymbol(t, "roundtrip")
+	store := buildDatapathTestSymbol(t, "store")
+
+	const depth = 6
+	var scratch int64
+	var pin runtime.Pinner
+	defer pin.Unpin()
+
+	var nest func(int)
+	nest = func(level int) {
+		sentinel := int64(0x1000000000000000) | int64(level)
+		cell := new(int64)
+		*cell = sentinel
+		pin.Pin(cell)
+
+		cb := purego.NewCallback(func() {
+			for i := int64(0); i < 8; i++ {
+				rdmaCall3(store, uintptr(unsafe.Pointer(&scratch)), uintptr(int64(level)*1000+i+1), 0)
+			}
+			runtime.KeepAlive(&scratch)
+			if level > 0 {
+				nest(level - 1)
+			}
+		})
+
+		got := rdmaCall3(roundtrip, cb, uintptr(unsafe.Pointer(cell)), 0)
+		runtime.KeepAlive(cell)
+		if int64(got) != sentinel {
+			t.Fatalf("level %d: Call3 read %#x, want %#x", level, uint64(got), uint64(sentinel))
+		}
+	}
+	nest(depth)
+}
+
 func TestDatapathWrappersCall3(t *testing.T) {
 	fn := buildDatapathTestFunction(t)
 
@@ -77,6 +112,10 @@ func TestDatapathWrappersCall3Allocs(t *testing.T) {
 }
 
 func buildDatapathTestFunction(tb testing.TB) uintptr {
+	return buildDatapathTestSymbol(tb, "datapath")
+}
+
+func buildDatapathTestSymbol(tb testing.TB, symbol string) uintptr {
 	tb.Helper()
 	dir := tb.TempDir()
 	src := filepath.Join(dir, "datapath.c")
@@ -91,7 +130,16 @@ int datapath(uintptr_t handle, uintptr_t n, void *out) {
   uint64_t value = handle + n;
   *(uint64_t *)out = value;
   return (int)value;
-}`
+}
+typedef void (*cb_t)(void);
+int64_t roundtrip(cb_t cb, int64_t *p, uintptr_t ignored) {
+  int64_t saved = *p;
+  cb();
+  (void)saved;
+  return *p;
+}
+void store(int64_t *p, int64_t v, uintptr_t ignored) { *p = v; }
+`
 	if err := os.WriteFile(src, []byte(code), 0o644); err != nil {
 		tb.Fatal(err)
 	}
@@ -103,9 +151,9 @@ int datapath(uintptr_t handle, uintptr_t n, void *out) {
 		tb.Fatalf("Dlopen: %v", err)
 	}
 	tb.Cleanup(func() { _ = purego.Dlclose(h) })
-	fn, err := purego.Dlsym(h, "datapath")
+	fn, err := purego.Dlsym(h, symbol)
 	if err != nil {
-		tb.Fatalf("Dlsym: %v", err)
+		tb.Fatalf("Dlsym(%s): %v", symbol, err)
 	}
 	runtime.KeepAlive(lib)
 	return fn
