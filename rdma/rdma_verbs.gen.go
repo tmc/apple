@@ -4,10 +4,9 @@ package rdma
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 	"unsafe"
-
-	"github.com/ebitengine/purego"
 )
 
 const (
@@ -218,50 +217,39 @@ func rdmaContextOp(context RDMAContext, off uintptr) uintptr {
 	return *(*uintptr)(unsafe.Pointer(context + 8 + off))
 }
 
-type ibvPollCQFunc func(RDMACQ, int, *IbvWC) int
-type ibvPostSendFunc func(RDMAQP, *IbvSendWR, **IbvSendWR) int
-type ibvPostRecvFunc func(RDMAQP, *IbvRecvWR, **IbvRecvWR) int
+var ibvFuncMu sync.Mutex
 
-var (
-	ibvPollCQFuncs   sync.Map // map[uintptr]ibvPollCQFunc
-	ibvPostSendFuncs sync.Map // map[uintptr]ibvPostSendFunc
-	ibvPostRecvFuncs sync.Map // map[uintptr]ibvPostRecvFunc
-	ibvFuncMu        sync.Mutex
-)
-
-func rdmaPollCQFunc(fnPtr uintptr) ibvPollCQFunc {
-	if fn, ok := ibvPollCQFuncs.Load(fnPtr); ok {
-		return fn.(ibvPollCQFunc)
-	}
-	var fn ibvPollCQFunc
-	purego.RegisterFunc(&fn, fnPtr)
-	actual, _ := ibvPollCQFuncs.LoadOrStore(fnPtr, fn)
-	return actual.(ibvPollCQFunc)
+// rdmaCall3Args mirrors purego v0.10.1's syscall15Args. The purego trampoline
+// reads it by offset, so TestRDMACall3ABI guards its layout.
+type rdmaCall3Args struct {
+	fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15 uintptr
+	f1, f2, f3, f4, f5, f6, f7, f8                                       uintptr
+	arm64R8                                                              uintptr
 }
 
-func rdmaPostSendFunc(fnPtr uintptr) ibvPostSendFunc {
-	if fn, ok := ibvPostSendFuncs.Load(fnPtr); ok {
-		return fn.(ibvPostSendFunc)
-	}
-	var fn ibvPostSendFunc
-	purego.RegisterFunc(&fn, fnPtr)
-	actual, _ := ibvPostSendFuncs.LoadOrStore(fnPtr, fn)
-	return actual.(ibvPostSendFunc)
-}
+var rdmaCall3ArgsPool = sync.Pool{New: func() any { return new(rdmaCall3Args) }}
 
-func rdmaPostRecvFunc(fnPtr uintptr) ibvPostRecvFunc {
-	if fn, ok := ibvPostRecvFuncs.Load(fnPtr); ok {
-		return fn.(ibvPostRecvFunc)
-	}
-	var fn ibvPostRecvFunc
-	purego.RegisterFunc(&fn, fnPtr)
-	actual, _ := ibvPostRecvFuncs.LoadOrStore(fnPtr, fn)
-	return actual.(ibvPostRecvFunc)
+//go:linkname rdmaRuntimeCgocall runtime.cgocall
+func rdmaRuntimeCgocall(fn uintptr, arg unsafe.Pointer) int32
+
+//go:linkname rdmaSyscall15XABI0 github.com/ebitengine/purego.syscall15XABI0
+var rdmaSyscall15XABI0 uintptr
+
+// rdmaCall3 invokes an RDMA context operation with its three machine-word arguments.
+//
+//go:uintptrescapes
+func rdmaCall3(fn, a1, a2, a3 uintptr) uintptr {
+	s := rdmaCall3ArgsPool.Get().(*rdmaCall3Args)
+	*s = rdmaCall3Args{fn: fn, a1: a1, a2: a2, a3: a3, f1: a1, f2: a2, f3: a3}
+	rdmaRuntimeCgocall(rdmaSyscall15XABI0, unsafe.Pointer(s))
+	r1 := s.a1
+	rdmaCall3ArgsPool.Put(s)
+	return r1
 }
 
 type IbvCQPoller struct {
-	cq RDMACQ
-	fn ibvPollCQFunc
+	cq    RDMACQ
+	fnPtr uintptr
 }
 
 func NewIbvCQPoller(cq RDMACQ) (IbvCQPoller, error) {
@@ -269,17 +257,22 @@ func NewIbvCQPoller(cq RDMACQ) (IbvCQPoller, error) {
 	if fnPtr == 0 {
 		return IbvCQPoller{}, fmt.Errorf("rdma: ibv_poll_cq unavailable")
 	}
-	return IbvCQPoller{cq: cq, fn: rdmaPollCQFunc(fnPtr)}, nil
+	return IbvCQPoller{cq: cq, fnPtr: fnPtr}, nil
 }
 
 func (p IbvCQPoller) Poll(numEntries int, wc *IbvWC) int {
-	return p.fn(p.cq, numEntries, wc)
+	if p.fnPtr == 0 {
+		return -1
+	}
+	r1 := rdmaCall3(p.fnPtr, uintptr(p.cq), uintptr(numEntries), uintptr(unsafe.Pointer(wc)))
+	runtime.KeepAlive(wc)
+	return int(r1)
 }
 
 type IbvQPPoster struct {
-	qp   RDMAQP
-	send ibvPostSendFunc
-	recv ibvPostRecvFunc
+	qp      RDMAQP
+	sendPtr uintptr
+	recvPtr uintptr
 }
 
 func NewIbvQPPoster(qp RDMAQP) (IbvQPPoster, error) {
@@ -293,18 +286,30 @@ func NewIbvQPPoster(qp RDMAQP) (IbvQPPoster, error) {
 		return IbvQPPoster{}, fmt.Errorf("rdma: ibv_post_recv unavailable")
 	}
 	return IbvQPPoster{
-		qp:   qp,
-		send: rdmaPostSendFunc(sendPtr),
-		recv: rdmaPostRecvFunc(recvPtr),
+		qp:      qp,
+		sendPtr: sendPtr,
+		recvPtr: recvPtr,
 	}, nil
 }
 
 func (p IbvQPPoster) PostSend(wr *IbvSendWR, badWR **IbvSendWR) int {
-	return p.send(p.qp, wr, badWR)
+	if p.sendPtr == 0 {
+		return -1
+	}
+	r1 := rdmaCall3(p.sendPtr, uintptr(p.qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
+	runtime.KeepAlive(wr)
+	runtime.KeepAlive(badWR)
+	return int(r1)
 }
 
 func (p IbvQPPoster) PostRecv(wr *IbvRecvWR, badWR **IbvRecvWR) int {
-	return p.recv(p.qp, wr, badWR)
+	if p.recvPtr == 0 {
+		return -1
+	}
+	r1 := rdmaCall3(p.recvPtr, uintptr(p.qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
+	runtime.KeepAlive(wr)
+	runtime.KeepAlive(badWR)
+	return int(r1)
 }
 
 // Ibv_poll_cq calls the SDK inline ibv_poll_cq wrapper through ibv_context_ops.
@@ -313,8 +318,9 @@ func Ibv_poll_cq(cq RDMACQ, numEntries int, wc *IbvWC) (int, error) {
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_poll_cq unavailable")
 	}
-	fn := rdmaPollCQFunc(fnPtr)
-	return fn(cq, numEntries, wc), nil
+	r1 := rdmaCall3(fnPtr, uintptr(cq), uintptr(numEntries), uintptr(unsafe.Pointer(wc)))
+	runtime.KeepAlive(wc)
+	return int(r1), nil
 }
 
 // Ibv_post_send calls the SDK inline ibv_post_send wrapper through ibv_context_ops.
@@ -323,8 +329,10 @@ func Ibv_post_send(qp RDMAQP, wr *IbvSendWR, badWR **IbvSendWR) (int, error) {
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_send unavailable")
 	}
-	fn := rdmaPostSendFunc(fnPtr)
-	return fn(qp, wr, badWR), nil
+	r1 := rdmaCall3(fnPtr, uintptr(qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
+	runtime.KeepAlive(wr)
+	runtime.KeepAlive(badWR)
+	return int(r1), nil
 }
 
 // Ibv_post_recv calls the SDK inline ibv_post_recv wrapper through ibv_context_ops.
@@ -333,6 +341,8 @@ func Ibv_post_recv(qp RDMAQP, wr *IbvRecvWR, badWR **IbvRecvWR) (int, error) {
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_recv unavailable")
 	}
-	fn := rdmaPostRecvFunc(fnPtr)
-	return fn(qp, wr, badWR), nil
+	r1 := rdmaCall3(fnPtr, uintptr(qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
+	runtime.KeepAlive(wr)
+	runtime.KeepAlive(badWR)
+	return int(r1), nil
 }
