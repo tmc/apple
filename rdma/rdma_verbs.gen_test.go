@@ -34,6 +34,7 @@ func TestRDMAExtraStructLayouts(t *testing.T) {
 		{"IbvQPAttr.PKeyIndex", unsafe.Offsetof(IbvQPAttr{}.PKeyIndex), 120},
 		{"IbvQPAttr.PortNum", unsafe.Offsetof(IbvQPAttr{}.PortNum), 129},
 		{"IbvSendWR.WR", unsafe.Offsetof(IbvSendWR{}.WR), 40},
+		{"IbvPortAttr.ActiveMTU", unsafe.Offsetof(IbvPortAttr{}.ActiveMTU), 8},
 		{"IbvPortAttr.GIDTblLen", unsafe.Offsetof(IbvPortAttr{}.GIDTblLen), 12},
 		{"IbvPortAttr.LID", unsafe.Offsetof(IbvPortAttr{}.LID), 34},
 		{"ibv_context.ops", 8, 8},
