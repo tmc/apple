@@ -194,7 +194,7 @@ type ICIFilterGenerator interface {
 	// Topic: Creating a Filter from a Filter Chain
 
 	// Creates a filter object based on the filter chain.
-	Filter() CIFilter
+	Filter() ICIFilter
 
 	InitWithCoder(coder foundation.INSCoder) CIFilterGenerator
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -408,7 +408,7 @@ func (f CIFilterGenerator) RegisterFilterName(name string) {
 // filter holds the export input and output keys.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/filter()
-func (f CIFilterGenerator) Filter() CIFilter {
+func (f CIFilterGenerator) Filter() ICIFilter {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filter"))
 	return CIFilterFromID(rv)
 }
@@ -429,7 +429,7 @@ func (f CIFilterGenerator) Filter() CIFilter {
 // instance of the [CIFilter] subclass for your custom filter.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
-func (f CIFilterGenerator) FilterWithName(name string) CIFilter {
+func (f CIFilterGenerator) FilterWithName(name string) ICIFilter {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filterWithName:"), objc.String(name))
 	return CIFilterFromID(rv)
 }

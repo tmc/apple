@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -472,7 +471,7 @@ type IAVMutableMovie interface {
 
 	// The locales of the asset’s chapter metadata.
 	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value kernel.Pointer)
+	SetAvailableChapterLocales(value unsafe.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -1640,7 +1639,7 @@ func (m AVMutableMovie) AvailableChapterLocales() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableChapterLocales"))
 	return rv
 }
-func (m AVMutableMovie) SetAvailableChapterLocales(value kernel.Pointer) {
+func (m AVMutableMovie) SetAvailableChapterLocales(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 

@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -71,7 +70,7 @@ type IEspressoBrickTensorMetal interface {
 	// Topic: Methods
 
 	Texture() unsafe.Pointer
-	SetTexture(value kernel.Pointer)
+	SetTexture(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -97,6 +96,6 @@ func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("texture"))
 	return rv
 }
-func (e EspressoBrickTensorMetal) SetTexture(value kernel.Pointer) {
+func (e EspressoBrickTensorMetal) SetTexture(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }

@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -87,9 +86,9 @@ type IETDataPointDictionary interface {
 	DataArrayForKeyError(key objectivec.IObject) (objectivec.IObject, error)
 	DataForKeyError(key objectivec.IObject) (unsafe.Pointer, error)
 	Float_buffers() unsafe.Pointer
-	SetFloat_buffers(value kernel.Pointer)
+	SetFloat_buffers(value unsafe.Pointer)
 	Image_buffers() unsafe.Pointer
-	SetImage_buffers(value kernel.Pointer)
+	SetImage_buffers(value unsafe.Pointer)
 	SetDataSizeForKeyFreeWhenDone(size uint64, key objectivec.IObject, done bool) (float32, bool)
 	SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool
 }
@@ -147,13 +146,13 @@ func (e ETDataPointDictionary) Float_buffers() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("float_buffers"))
 	return rv
 }
-func (e ETDataPointDictionary) SetFloat_buffers(value kernel.Pointer) {
+func (e ETDataPointDictionary) SetFloat_buffers(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffers:"), value)
 }
 func (e ETDataPointDictionary) Image_buffers() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("image_buffers"))
 	return rv
 }
-func (e ETDataPointDictionary) SetImage_buffers(value kernel.Pointer) {
+func (e ETDataPointDictionary) SetImage_buffers(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImage_buffers:"), value)
 }

@@ -41,7 +41,7 @@ type BDMediaType = uint32
 type BDTrackInfo = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/block0
-type Block0 = kernel.Pointer
+type Block0 = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/cdatip
 type CDATIP = kernel.Pointer
@@ -113,7 +113,7 @@ type ColorSpec = kernel.Pointer
 type ColorSpecPtr = applicationservices.ColorSpec
 
 // See: https://developer.apple.com/documentation/iokit/dasdmodeparameterblockdescriptor
-type DASDModeParameterBlockDescriptor = kernel.Pointer
+type DASDModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclcallcommandproc
 type DCLCallCommandProc = kernel.Pointer
@@ -311,7 +311,7 @@ type FWSBP2NotifyParams = kernel.Pointer
 type FWSBP2ReconnectParams = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2statusblock
-type FWSBP2StatusBlock = kernel.Pointer
+type FWSBP2StatusBlock = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2virtualrange
 type FWSBP2VirtualRange = kernel.Pointer
@@ -1612,7 +1612,7 @@ type IOVideoStreamDescription = kernel.Pointer
 type IOVirtualAddress = kernel.MachVmAddress
 
 // See: https://developer.apple.com/documentation/iokit/longlbamodeparameterblockdescriptor
-type LongLBAModeParameterBlockDescriptor = kernel.Pointer
+type LongLBAModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/lowlatencyuserbufferinfo
 type LowLatencyUserBufferInfo = kernel.Pointer
@@ -1632,7 +1632,7 @@ type MMCDeviceInterface = kernel.Pointer
 type ModePageFormatHeader = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/modeparameterblockdescriptor
-type ModeParameterBlockDescriptor = kernel.Pointer
+type ModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/nvmeidentifycontrollerstruct
 type NVMeIdentifyControllerStruct = kernel.Pointer
@@ -2222,7 +2222,7 @@ type VDConvolutionInfoRec = kernel.Pointer
 type VDDDCBlockPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdddcblockrec
-type VDDDCBlockRec = kernel.Pointer
+type VDDDCBlockRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddefmode
 type VDDefMode = kernel.Pointer
@@ -2407,7 +2407,7 @@ type VDVideoParametersInfoPtr = unsafe.Pointer
 type VDVideoParametersInfoRec = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vpblock
-type VPBlock = kernel.Pointer
+type VPBlock = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vpblockptr
 type VPBlockPtr = unsafe.Pointer

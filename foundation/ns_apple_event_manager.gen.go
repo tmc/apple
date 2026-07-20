@@ -135,7 +135,7 @@ type INSAppleEventManager interface {
 	// If an Apple event handler has been registered for the event specified by `eventClass` and `eventID`, removes it.
 	RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32)
 	// Registers the Apple event handler specified by `handler` for the event specified by `eventClass` and `eventID`.
-	SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32)
+	SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objc.SEL, eventClass uint32, eventID uint32)
 
 	// Topic: Working with events
 
@@ -201,7 +201,7 @@ func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClas
 // following:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)
-func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32) {
+func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objc.SEL, eventClass uint32, eventID uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), handler, handleEventSelector, eventClass, eventID)
 }
 

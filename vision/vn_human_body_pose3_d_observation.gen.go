@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -150,7 +149,7 @@ type IVNHumanBodyPose3DObservation interface {
 	CameraOriginMatrix() unsafe.Pointer
 
 	// Gets a position relative to the camera for the body joint you specify.
-	GetCameraRelativePositionForJointNameError(modelPositionOut kernel.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error)
+	GetCameraRelativePositionForJointNameError(modelPositionOut unsafe.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error)
 }
 
 // Init initializes the instance.
@@ -269,7 +268,7 @@ func (h VNHumanBodyPose3DObservation) ParentJointNameForJointName(jointName VNHu
 // A Boolean value that indicates the success of determining the position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/getCameraRelativePosition:forJointName:error:
-func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut kernel.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
+func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut unsafe.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](h.ID, objc.Sel("getCameraRelativePosition:forJointName:error:"), modelPositionOut, jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

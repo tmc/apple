@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -282,7 +281,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 // [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 // [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy kernel.ID, error_ foundation.NSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"), output, deferredPhotoProxy, error_)
 }
 

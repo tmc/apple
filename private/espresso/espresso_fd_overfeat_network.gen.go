@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,14 +50,12 @@ func (ec EspressoFDOverfeatNetworkClass) Alloc() EspressoFDOverfeatNetwork {
 //   - [EspressoFDOverfeatNetwork.AutoSetupNetBaseNameWeightsScaleConfigSetupModeComputePathAutoAspectRatioForceResetUseLowPriorityModeGpuPriority]
 //   - [EspressoFDOverfeatNetwork.Basename]
 //   - [EspressoFDOverfeatNetwork.SetBasename]
-//   - [EspressoFDOverfeatNetwork.BoxBlobForScale]
 //   - [EspressoFDOverfeatNetwork.Context_cpu]
 //   - [EspressoFDOverfeatNetwork.SetContext_cpu]
 //   - [EspressoFDOverfeatNetwork.Context_metal]
 //   - [EspressoFDOverfeatNetwork.SetContext_metal]
 //   - [EspressoFDOverfeatNetwork.Cpin]
 //   - [EspressoFDOverfeatNetwork.SetCpin]
-//   - [EspressoFDOverfeatNetwork.Cpu_net]
 //   - [EspressoFDOverfeatNetwork.Default_retile_outputs]
 //   - [EspressoFDOverfeatNetwork.ErrorForLayers]
 //   - [EspressoFDOverfeatNetwork.ForceMaxNScales]
@@ -67,24 +64,18 @@ func (ec EspressoFDOverfeatNetworkClass) Alloc() EspressoFDOverfeatNetwork {
 //   - [EspressoFDOverfeatNetwork.GeneratePyramidTex]
 //   - [EspressoFDOverfeatNetwork.GetNumScales]
 //   - [EspressoFDOverfeatNetwork.GetScale]
-//   - [EspressoFDOverfeatNetwork.Gpu_net]
 //   - [EspressoFDOverfeatNetwork.MaxScale]
 //   - [EspressoFDOverfeatNetwork.SetMaxScale]
 //   - [EspressoFDOverfeatNetwork.Mode]
 //   - [EspressoFDOverfeatNetwork.SetMode]
 //   - [EspressoFDOverfeatNetwork.NeedRetiling]
-//   - [EspressoFDOverfeatNetwork.ProbBlobForScale]
 //   - [EspressoFDOverfeatNetwork.ProcessBlobTex]
 //   - [EspressoFDOverfeatNetwork.ProcessBlobNoRotationTexDoBGRA2RGBA]
-//   - [EspressoFDOverfeatNetwork.ProcessPyramid]
-//   - [EspressoFDOverfeatNetwork.ProcessPyramidGpu_resizer]
 //   - [EspressoFDOverfeatNetwork.ProcessVimageNoRotationTexDoBGRA2RGBA]
 //   - [EspressoFDOverfeatNetwork.Reset]
-//   - [EspressoFDOverfeatNetwork.ResizerAtIndex]
 //   - [EspressoFDOverfeatNetwork.ResizerCount]
 //   - [EspressoFDOverfeatNetwork.Retile_and_forward_espresso_gpu_network_at_indexNetPyr]
 //   - [EspressoFDOverfeatNetwork.Retile_and_forward_espresso_network_at_indexNetPyr]
-//   - [EspressoFDOverfeatNetwork.RetryLoadingCaffeNetNameWeightsContextCp]
 //   - [EspressoFDOverfeatNetwork.ScaleConfig]
 //   - [EspressoFDOverfeatNetwork.SetScaleConfig]
 //   - [EspressoFDOverfeatNetwork.ScalingMode]
@@ -92,7 +83,6 @@ func (ec EspressoFDOverfeatNetworkClass) Alloc() EspressoFDOverfeatNetwork {
 //   - [EspressoFDOverfeatNetwork.SetContextCpu]
 //   - [EspressoFDOverfeatNetwork.SetContextMetal]
 //   - [EspressoFDOverfeatNetwork.Setup_retile]
-//   - [EspressoFDOverfeatNetwork.StoreDataForPruningProb]
 //   - [EspressoFDOverfeatNetwork.StrideConfiguration]
 //   - [EspressoFDOverfeatNetwork.UseGPUScaler]
 //   - [EspressoFDOverfeatNetwork.SetUseGPUScaler]
@@ -119,14 +109,12 @@ var _ IEspressoFDOverfeatNetwork = EspressoFDOverfeatNetwork{}
 //   - [IEspressoFDOverfeatNetwork.AutoSetupNetBaseNameWeightsScaleConfigSetupModeComputePathAutoAspectRatioForceResetUseLowPriorityModeGpuPriority]
 //   - [IEspressoFDOverfeatNetwork.Basename]
 //   - [IEspressoFDOverfeatNetwork.SetBasename]
-//   - [IEspressoFDOverfeatNetwork.BoxBlobForScale]
 //   - [IEspressoFDOverfeatNetwork.Context_cpu]
 //   - [IEspressoFDOverfeatNetwork.SetContext_cpu]
 //   - [IEspressoFDOverfeatNetwork.Context_metal]
 //   - [IEspressoFDOverfeatNetwork.SetContext_metal]
 //   - [IEspressoFDOverfeatNetwork.Cpin]
 //   - [IEspressoFDOverfeatNetwork.SetCpin]
-//   - [IEspressoFDOverfeatNetwork.Cpu_net]
 //   - [IEspressoFDOverfeatNetwork.Default_retile_outputs]
 //   - [IEspressoFDOverfeatNetwork.ErrorForLayers]
 //   - [IEspressoFDOverfeatNetwork.ForceMaxNScales]
@@ -135,24 +123,18 @@ var _ IEspressoFDOverfeatNetwork = EspressoFDOverfeatNetwork{}
 //   - [IEspressoFDOverfeatNetwork.GeneratePyramidTex]
 //   - [IEspressoFDOverfeatNetwork.GetNumScales]
 //   - [IEspressoFDOverfeatNetwork.GetScale]
-//   - [IEspressoFDOverfeatNetwork.Gpu_net]
 //   - [IEspressoFDOverfeatNetwork.MaxScale]
 //   - [IEspressoFDOverfeatNetwork.SetMaxScale]
 //   - [IEspressoFDOverfeatNetwork.Mode]
 //   - [IEspressoFDOverfeatNetwork.SetMode]
 //   - [IEspressoFDOverfeatNetwork.NeedRetiling]
-//   - [IEspressoFDOverfeatNetwork.ProbBlobForScale]
 //   - [IEspressoFDOverfeatNetwork.ProcessBlobTex]
 //   - [IEspressoFDOverfeatNetwork.ProcessBlobNoRotationTexDoBGRA2RGBA]
-//   - [IEspressoFDOverfeatNetwork.ProcessPyramid]
-//   - [IEspressoFDOverfeatNetwork.ProcessPyramidGpu_resizer]
 //   - [IEspressoFDOverfeatNetwork.ProcessVimageNoRotationTexDoBGRA2RGBA]
 //   - [IEspressoFDOverfeatNetwork.Reset]
-//   - [IEspressoFDOverfeatNetwork.ResizerAtIndex]
 //   - [IEspressoFDOverfeatNetwork.ResizerCount]
 //   - [IEspressoFDOverfeatNetwork.Retile_and_forward_espresso_gpu_network_at_indexNetPyr]
 //   - [IEspressoFDOverfeatNetwork.Retile_and_forward_espresso_network_at_indexNetPyr]
-//   - [IEspressoFDOverfeatNetwork.RetryLoadingCaffeNetNameWeightsContextCp]
 //   - [IEspressoFDOverfeatNetwork.ScaleConfig]
 //   - [IEspressoFDOverfeatNetwork.SetScaleConfig]
 //   - [IEspressoFDOverfeatNetwork.ScalingMode]
@@ -160,7 +142,6 @@ var _ IEspressoFDOverfeatNetwork = EspressoFDOverfeatNetwork{}
 //   - [IEspressoFDOverfeatNetwork.SetContextCpu]
 //   - [IEspressoFDOverfeatNetwork.SetContextMetal]
 //   - [IEspressoFDOverfeatNetwork.Setup_retile]
-//   - [IEspressoFDOverfeatNetwork.StoreDataForPruningProb]
 //   - [IEspressoFDOverfeatNetwork.StrideConfiguration]
 //   - [IEspressoFDOverfeatNetwork.UseGPUScaler]
 //   - [IEspressoFDOverfeatNetwork.SetUseGPUScaler]
@@ -176,14 +157,12 @@ type IEspressoFDOverfeatNetwork interface {
 	AutoSetupNetBaseNameWeightsScaleConfigSetupModeComputePathAutoAspectRatioForceResetUseLowPriorityModeGpuPriority(name objectivec.IObject, weights objectivec.IObject, config int, mode int, path int, ratio float32, reset bool, mode2 bool, priority uint32)
 	Basename() string
 	SetBasename(value string)
-	BoxBlobForScale(scale int) unsafe.Pointer
 	Context_cpu() unsafe.Pointer
-	SetContext_cpu(value kernel.Pointer)
+	SetContext_cpu(value unsafe.Pointer)
 	Context_metal() unsafe.Pointer
-	SetContext_metal(value kernel.Pointer)
+	SetContext_metal(value unsafe.Pointer)
 	Cpin() int
 	SetCpin(value int)
-	Cpu_net(cpu_net int) unsafe.Pointer
 	Default_retile_outputs() int
 	ErrorForLayers() objectivec.IObject
 	ForceMaxNScales() int
@@ -192,24 +171,18 @@ type IEspressoFDOverfeatNetwork interface {
 	GeneratePyramidTex(pyramid unsafe.Pointer, tex objectivec.IObject)
 	GetNumScales() int
 	GetScale(scale int) float64
-	Gpu_net(gpu_net int) unsafe.Pointer
 	MaxScale() float32
 	SetMaxScale(value float32)
 	Mode() int
 	SetMode(value int)
 	NeedRetiling(retiling int) bool
-	ProbBlobForScale(scale int) unsafe.Pointer
 	ProcessBlobTex(blob unsafe.Pointer, tex objectivec.IObject)
 	ProcessBlobNoRotationTexDoBGRA2RGBA(rotation unsafe.Pointer, tex objectivec.IObject, bgra2rgba bool)
-	ProcessPyramid(pyramid unsafe.Pointer)
-	ProcessPyramidGpu_resizer(pyramid unsafe.Pointer, gpu_resizer objectivec.IObject)
 	ProcessVimageNoRotationTexDoBGRA2RGBA(rotation unsafe.Pointer, tex objectivec.IObject, bgra2rgba bool)
 	Reset()
-	ResizerAtIndex(index int) unsafe.Pointer
 	ResizerCount() int
 	Retile_and_forward_espresso_gpu_network_at_indexNetPyr(retile_and_forward_espresso_gpu_network_at_index int, net unsafe.Pointer, pyr unsafe.Pointer)
 	Retile_and_forward_espresso_network_at_indexNetPyr(retile_and_forward_espresso_network_at_index int, net unsafe.Pointer, pyr unsafe.Pointer)
-	RetryLoadingCaffeNetNameWeightsContextCp(net unsafe.Pointer, name objectivec.IObject, weights objectivec.IObject, context unsafe.Pointer, cp int)
 	ScaleConfig() int
 	SetScaleConfig(value int)
 	ScalingMode() int
@@ -217,7 +190,6 @@ type IEspressoFDOverfeatNetwork interface {
 	SetContextCpu(cpu objectivec.IObject)
 	SetContextMetal(metal objectivec.IObject)
 	Setup_retile()
-	StoreDataForPruningProb(pruning unsafe.Pointer, prob float32)
 	StrideConfiguration() NetStridesConfiguration
 	UseGPUScaler() bool
 	SetUseGPUScaler(value bool)
@@ -251,14 +223,6 @@ func (e EspressoFDOverfeatNetwork) AutoResizeForAspectRatioUseLowPriorityModeGpu
 func (e EspressoFDOverfeatNetwork) AutoSetupNetBaseNameWeightsScaleConfigSetupModeComputePathAutoAspectRatioForceResetUseLowPriorityModeGpuPriority(name objectivec.IObject, weights objectivec.IObject, config int, mode int, path int, ratio float32, reset bool, mode2 bool, priority uint32) {
 	objc.Send[objc.ID](e.ID, objc.Sel("autoSetupNetBaseName:weights:scaleConfig:setupMode:computePath:autoAspectRatio:forceReset:useLowPriorityMode:gpuPriority:"), name, weights, config, mode, path, ratio, reset, mode2, priority)
 }
-func (e EspressoFDOverfeatNetwork) BoxBlobForScale(scale int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("boxBlobForScale:"), scale)
-	return rv
-}
-func (e EspressoFDOverfeatNetwork) Cpu_net(cpu_net int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("cpu_net:"), cpu_net)
-	return rv
-}
 func (e EspressoFDOverfeatNetwork) Default_retile_outputs() int {
 	rv := objc.Send[int](e.ID, objc.Sel("default_retile_outputs"))
 	return rv
@@ -281,16 +245,8 @@ func (e EspressoFDOverfeatNetwork) GetScale(scale int) float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("getScale:"), scale)
 	return rv
 }
-func (e EspressoFDOverfeatNetwork) Gpu_net(gpu_net int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("gpu_net:"), gpu_net)
-	return rv
-}
 func (e EspressoFDOverfeatNetwork) NeedRetiling(retiling int) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("needRetiling:"), retiling)
-	return rv
-}
-func (e EspressoFDOverfeatNetwork) ProbBlobForScale(scale int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("probBlobForScale:"), scale)
 	return rv
 }
 func (e EspressoFDOverfeatNetwork) ProcessBlobTex(blob unsafe.Pointer, tex objectivec.IObject) {
@@ -299,21 +255,11 @@ func (e EspressoFDOverfeatNetwork) ProcessBlobTex(blob unsafe.Pointer, tex objec
 func (e EspressoFDOverfeatNetwork) ProcessBlobNoRotationTexDoBGRA2RGBA(rotation unsafe.Pointer, tex objectivec.IObject, bgra2rgba bool) {
 	objc.Send[objc.ID](e.ID, objc.Sel("processBlobNoRotation:tex:doBGRA2RGBA:"), rotation, tex, bgra2rgba)
 }
-func (e EspressoFDOverfeatNetwork) ProcessPyramid(pyramid unsafe.Pointer) {
-	objc.Send[objc.ID](e.ID, objc.Sel("processPyramid:"), pyramid)
-}
-func (e EspressoFDOverfeatNetwork) ProcessPyramidGpu_resizer(pyramid unsafe.Pointer, gpu_resizer objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("processPyramid:gpu_resizer:"), pyramid, gpu_resizer)
-}
 func (e EspressoFDOverfeatNetwork) ProcessVimageNoRotationTexDoBGRA2RGBA(rotation unsafe.Pointer, tex objectivec.IObject, bgra2rgba bool) {
 	objc.Send[objc.ID](e.ID, objc.Sel("processVimageNoRotation:tex:doBGRA2RGBA:"), rotation, tex, bgra2rgba)
 }
 func (e EspressoFDOverfeatNetwork) Reset() {
 	objc.Send[objc.ID](e.ID, objc.Sel("reset"))
-}
-func (e EspressoFDOverfeatNetwork) ResizerAtIndex(index int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("resizerAtIndex:"), index)
-	return rv
 }
 func (e EspressoFDOverfeatNetwork) ResizerCount() int {
 	rv := objc.Send[int](e.ID, objc.Sel("resizerCount"))
@@ -325,9 +271,6 @@ func (e EspressoFDOverfeatNetwork) Retile_and_forward_espresso_gpu_network_at_in
 func (e EspressoFDOverfeatNetwork) Retile_and_forward_espresso_network_at_indexNetPyr(retile_and_forward_espresso_network_at_index int, net unsafe.Pointer, pyr unsafe.Pointer) {
 	objc.Send[objc.ID](e.ID, objc.Sel("retile_and_forward_espresso_network_at_index:net:pyr:"), retile_and_forward_espresso_network_at_index, net, pyr)
 }
-func (e EspressoFDOverfeatNetwork) RetryLoadingCaffeNetNameWeightsContextCp(net unsafe.Pointer, name objectivec.IObject, weights objectivec.IObject, context unsafe.Pointer, cp int) {
-	objc.Send[objc.ID](e.ID, objc.Sel("retryLoadingCaffeNet:name:weights:context:cp:"), net, name, weights, context, cp)
-}
 func (e EspressoFDOverfeatNetwork) SetContextCpu(cpu objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setContextCpu:"), cpu)
 }
@@ -336,9 +279,6 @@ func (e EspressoFDOverfeatNetwork) SetContextMetal(metal objectivec.IObject) {
 }
 func (e EspressoFDOverfeatNetwork) Setup_retile() {
 	objc.Send[objc.ID](e.ID, objc.Sel("setup_retile"))
-}
-func (e EspressoFDOverfeatNetwork) StoreDataForPruningProb(pruning unsafe.Pointer, prob float32) {
-	objc.Send[objc.ID](e.ID, objc.Sel("storeDataForPruning:prob:"), pruning, prob)
 }
 func (e EspressoFDOverfeatNetwork) StrideConfiguration() NetStridesConfiguration {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("strideConfiguration"))
@@ -360,14 +300,14 @@ func (e EspressoFDOverfeatNetwork) Context_cpu() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("context_cpu"))
 	return rv
 }
-func (e EspressoFDOverfeatNetwork) SetContext_cpu(value kernel.Pointer) {
+func (e EspressoFDOverfeatNetwork) SetContext_cpu(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setContext_cpu:"), value)
 }
 func (e EspressoFDOverfeatNetwork) Context_metal() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("context_metal"))
 	return rv
 }
-func (e EspressoFDOverfeatNetwork) SetContext_metal(value kernel.Pointer) {
+func (e EspressoFDOverfeatNetwork) SetContext_metal(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setContext_metal:"), value)
 }
 func (e EspressoFDOverfeatNetwork) Cpin() int {

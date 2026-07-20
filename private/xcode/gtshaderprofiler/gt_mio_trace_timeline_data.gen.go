@@ -597,7 +597,7 @@ func (g GTMioTraceTimelineData) ExecutionHistoryForCliqueUscDelegate(clique GTMi
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:usc:delegate:"), clique, usc, delegate)
 }
 func (g GTMioTraceTimelineData) ExecutionHistoryForCliqueUscDelegateRequiresTimestampCount(clique GTMioUSCCliqueMetadata, usc unsafe.Pointer, delegate objectivec.IObject, timestamp bool, count uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:usc:delegate:requiresTimestamp:count:"), clique, usc, delegate, timestamp, count)
+	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:usc:delegate:requiresTimestamp:count:"), clique, objc.CArray(usc), delegate, timestamp, count)
 }
 func (g GTMioTraceTimelineData) ExecutionHistoryForCliqueUscIndexDelegate(clique uint32, index uint32, delegate objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:uscIndex:delegate:"), clique, index, delegate)

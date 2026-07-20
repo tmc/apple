@@ -4742,19 +4742,19 @@ type NSURLError int
 
 const (
 	// NSURLErrorAppTransportSecurityRequiresSecureConnection: App Transport Security disallowed a connection because there is no secure network connection.
-	NSURLErrorAppTransportSecurityRequiresSecureConnection NSURLError = -1016
+	NSURLErrorAppTransportSecurityRequiresSecureConnection NSURLError = -1022
 	// NSURLErrorBackgroundSessionInUseByAnotherProcess: An app or app extension attempted to connect to a background session that is already connected to a process.
-	NSURLErrorBackgroundSessionInUseByAnotherProcess NSURLError = -3001
+	NSURLErrorBackgroundSessionInUseByAnotherProcess NSURLError = -996
 	// NSURLErrorBackgroundSessionRequiresSharedContainer: The shared container identifier of the URL session configuration is needed but hasn’t been set.
-	NSURLErrorBackgroundSessionRequiresSharedContainer NSURLError = -3002
+	NSURLErrorBackgroundSessionRequiresSharedContainer NSURLError = -995
 	// NSURLErrorBackgroundSessionWasDisconnected: The app is suspended or exits while a background data task is processing.
-	NSURLErrorBackgroundSessionWasDisconnected NSURLError = -3000
+	NSURLErrorBackgroundSessionWasDisconnected NSURLError = -997
 	// NSURLErrorBadServerResponse: The URL Loading System received bad data from the server.
 	NSURLErrorBadServerResponse NSURLError = -1011
 	// NSURLErrorBadURL: A malformed URL prevented a URL request from being initiated.
 	NSURLErrorBadURL NSURLError = -1000
 	// NSURLErrorCallIsActive: A connection was attempted while a phone call was active on a network that doesn’t support simultaneous phone and data communication, such as EDGE or GPRS.
-	NSURLErrorCallIsActive NSURLError = -3005
+	NSURLErrorCallIsActive NSURLError = -1019
 	// NSURLErrorCancelled: An asynchronous load has been canceled.
 	NSURLErrorCancelled NSURLError = -999
 	// NSURLErrorCannotCloseFile: A download task couldn’t close the downloaded file on disk.
@@ -4788,9 +4788,9 @@ const (
 	// NSURLErrorDNSLookupFailed: The host address couldn’t be found via DNS lookup.
 	NSURLErrorDNSLookupFailed NSURLError = -1006
 	// NSURLErrorDataLengthExceedsMaximum: The length of the resource data exceeded the maximum allowed.
-	NSURLErrorDataLengthExceedsMaximum NSURLError = -1101
+	NSURLErrorDataLengthExceedsMaximum NSURLError = -1103
 	// NSURLErrorDataNotAllowed: The cellular network disallowed a connection.
-	NSURLErrorDataNotAllowed NSURLError = -3004
+	NSURLErrorDataNotAllowed NSURLError = -1020
 	// NSURLErrorDownloadDecodingFailedMidStream: A download task failed to decode an encoded file during the download.
 	NSURLErrorDownloadDecodingFailedMidStream NSURLError = -3006
 	// NSURLErrorDownloadDecodingFailedToComplete: A download task failed to decode an encoded file after downloading.
@@ -4800,11 +4800,11 @@ const (
 	// NSURLErrorFileIsDirectory: A request for an FTP file resulted in the server responding that the file is not a plain file, but a directory.
 	NSURLErrorFileIsDirectory NSURLError = -1101
 	// NSURLErrorFileOutsideSafeArea: An internal file operation failed.
-	NSURLErrorFileOutsideSafeArea NSURLError = -1100
+	NSURLErrorFileOutsideSafeArea NSURLError = -1104
 	// NSURLErrorHTTPTooManyRedirects: A redirect loop was detected or the threshold for number of allowable redirects was exceeded (currently 16).
 	NSURLErrorHTTPTooManyRedirects NSURLError = -1007
 	// NSURLErrorInternationalRoamingOff: The attempted connection required activating a data context while roaming, but international roaming is disabled.
-	NSURLErrorInternationalRoamingOff NSURLError = -3006
+	NSURLErrorInternationalRoamingOff NSURLError = -1018
 	// NSURLErrorNetworkConnectionLost: A client or server connection was severed in the middle of an in-progress load.
 	NSURLErrorNetworkConnectionLost NSURLError = -1005
 	// NSURLErrorNoPermissionsToReadFile: A resource couldn’t be read because of insufficient permissions.
@@ -4814,7 +4814,7 @@ const (
 	// NSURLErrorRedirectToNonExistentLocation: A redirect was specified by way of server response code, but the server didn’t accompany this code with a redirect URL.
 	NSURLErrorRedirectToNonExistentLocation NSURLError = -1010
 	// NSURLErrorRequestBodyStreamExhausted: A body stream was needed but the client did not provide one.
-	NSURLErrorRequestBodyStreamExhausted NSURLError = -3003
+	NSURLErrorRequestBodyStreamExhausted NSURLError = -1021
 	// NSURLErrorResourceUnavailable: A requested resource couldn’t be retrieved.
 	NSURLErrorResourceUnavailable NSURLError = -1008
 	// NSURLErrorSecureConnectionFailed: An attempt to establish a secure connection failed for reasons that can’t be expressed more specifically.
@@ -4859,14 +4859,24 @@ func (e NSURLError) String() string {
 		return "NSURLErrorCallIsActive"
 	case NSURLErrorCancelled:
 		return "NSURLErrorCancelled"
+	case NSURLErrorCannotCloseFile:
+		return "NSURLErrorCannotCloseFile"
 	case NSURLErrorCannotConnectToHost:
 		return "NSURLErrorCannotConnectToHost"
+	case NSURLErrorCannotCreateFile:
+		return "NSURLErrorCannotCreateFile"
+	case NSURLErrorCannotDecodeContentData:
+		return "NSURLErrorCannotDecodeContentData"
 	case NSURLErrorCannotDecodeRawData:
 		return "NSURLErrorCannotDecodeRawData"
 	case NSURLErrorCannotFindHost:
 		return "NSURLErrorCannotFindHost"
 	case NSURLErrorCannotLoadFromNetwork:
 		return "NSURLErrorCannotLoadFromNetwork"
+	case NSURLErrorCannotMoveFile:
+		return "NSURLErrorCannotMoveFile"
+	case NSURLErrorCannotOpenFile:
+		return "NSURLErrorCannotOpenFile"
 	case NSURLErrorCannotParseResponse:
 		return "NSURLErrorCannotParseResponse"
 	case NSURLErrorCannotRemoveFile:
@@ -4881,14 +4891,22 @@ func (e NSURLError) String() string {
 		return "NSURLErrorDNSLookupFailed"
 	case NSURLErrorDataLengthExceedsMaximum:
 		return "NSURLErrorDataLengthExceedsMaximum"
+	case NSURLErrorDataNotAllowed:
+		return "NSURLErrorDataNotAllowed"
 	case NSURLErrorDownloadDecodingFailedMidStream:
 		return "NSURLErrorDownloadDecodingFailedMidStream"
 	case NSURLErrorDownloadDecodingFailedToComplete:
 		return "NSURLErrorDownloadDecodingFailedToComplete"
 	case NSURLErrorFileDoesNotExist:
 		return "NSURLErrorFileDoesNotExist"
+	case NSURLErrorFileIsDirectory:
+		return "NSURLErrorFileIsDirectory"
+	case NSURLErrorFileOutsideSafeArea:
+		return "NSURLErrorFileOutsideSafeArea"
 	case NSURLErrorHTTPTooManyRedirects:
 		return "NSURLErrorHTTPTooManyRedirects"
+	case NSURLErrorInternationalRoamingOff:
+		return "NSURLErrorInternationalRoamingOff"
 	case NSURLErrorNetworkConnectionLost:
 		return "NSURLErrorNetworkConnectionLost"
 	case NSURLErrorNoPermissionsToReadFile:
@@ -4897,6 +4915,8 @@ func (e NSURLError) String() string {
 		return "NSURLErrorNotConnectedToInternet"
 	case NSURLErrorRedirectToNonExistentLocation:
 		return "NSURLErrorRedirectToNonExistentLocation"
+	case NSURLErrorRequestBodyStreamExhausted:
+		return "NSURLErrorRequestBodyStreamExhausted"
 	case NSURLErrorResourceUnavailable:
 		return "NSURLErrorResourceUnavailable"
 	case NSURLErrorSecureConnectionFailed:
@@ -6228,3 +6248,6 @@ func (e NSXPCConnectionOptions) String() string {
 type UIPreferredPresentationStyle int
 
 const ()
+
+// Protocol is an alias for referenced enum type NSURLSessionTaskMetricsDomainResolutionProtocol.
+type Protocol = NSURLSessionTaskMetricsDomainResolutionProtocol

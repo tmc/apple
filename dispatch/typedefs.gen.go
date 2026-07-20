@@ -5,7 +5,6 @@ package dispatch
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -21,7 +20,7 @@ type Dispatch_block_t = func()
 // Dispatch_data_applier_t is a block to invoke for every contiguous memory region in a data object.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_data_applier_t
-type Dispatch_data_applier_t = func(objectivec.Object, uint32, kernel.Pointer, uint32) bool
+type Dispatch_data_applier_t = func(objectivec.Object, uint32, unsafe.Pointer, uint32) bool
 
 // Dispatch_data_t is an immutable object representing a contiguous or sparse region of memory.
 //
@@ -182,7 +181,7 @@ type DispatchBlockFlags = Dispatch_block_flags_t
 // DispatchDataApplier is a Go-name alias for Dispatch_data_applier_t.
 type DispatchDataApplier = Dispatch_data_applier_t
 
-// DispatchData is a Go-name alias for dispatch_data_t.
+// DispatchData is a Go-name alias for Dispatch_data_t.
 type DispatchData = dispatch_data_t
 
 // DispatchFd is a Go-name alias for Dispatch_fd_t.
@@ -191,7 +190,7 @@ type DispatchFd = Dispatch_fd_t
 // DispatchFunction is a Go-name alias for Dispatch_function_t.
 type DispatchFunction = Dispatch_function_t
 
-// DispatchGroup is a Go-name alias for dispatch_group_t.
+// DispatchGroup is a Go-name alias for Dispatch_group_t.
 type DispatchGroup = dispatch_group_t
 
 // DispatchIOCloseFlags is a Go-name alias for Dispatch_io_close_flags_t.
@@ -203,13 +202,13 @@ type DispatchIOHandler = Dispatch_io_handler_t
 // DispatchIOIntervalFlags is a Go-name alias for Dispatch_io_interval_flags_t.
 type DispatchIOIntervalFlags = Dispatch_io_interval_flags_t
 
-// DispatchIO is a Go-name alias for dispatch_io_t.
+// DispatchIO is a Go-name alias for Dispatch_io_t.
 type DispatchIO = dispatch_io_t
 
-// DispatchIOType is a Go-name alias for dispatch_io_type_t.
+// DispatchIOType is a Go-name alias for Dispatch_io_type_t.
 type DispatchIOType = dispatch_io_type_t
 
-// DispatchObject is a Go-name alias for dispatch_object_t.
+// DispatchObject is a Go-name alias for Dispatch_object_t.
 type DispatchObject = dispatch_object_t
 
 // DispatchOnce is a Go-name alias for Dispatch_once_t.
@@ -218,7 +217,7 @@ type DispatchOnce = Dispatch_once_t
 // DispatchQosClass is a Go-name alias for Dispatch_qos_class_t.
 type DispatchQosClass = Dispatch_qos_class_t
 
-// DispatchQueueAttr is a Go-name alias for dispatch_queue_attr_t.
+// DispatchQueueAttr is a Go-name alias for Dispatch_queue_attr_t.
 type DispatchQueueAttr = dispatch_queue_attr_t
 
 // DispatchQueueConcurrent is a Go-name alias for Dispatch_queue_concurrent_t.
@@ -239,10 +238,10 @@ type DispatchQueueSerialExecutor = Dispatch_queue_serial_executor_t
 // DispatchQueueSerial is a Go-name alias for Dispatch_queue_serial_t.
 type DispatchQueueSerial = Dispatch_queue_serial_t
 
-// DispatchQueue is a Go-name alias for dispatch_queue_t.
+// DispatchQueue is a Go-name alias for Dispatch_queue_t.
 type DispatchQueue = dispatch_queue_t
 
-// DispatchSemaphore is a Go-name alias for dispatch_semaphore_t.
+// DispatchSemaphore is a Go-name alias for Dispatch_semaphore_t.
 type DispatchSemaphore = dispatch_semaphore_t
 
 // DispatchSourceMachRecvFlags is a Go-name alias for Dispatch_source_mach_recv_flags_t.
@@ -257,13 +256,13 @@ type DispatchSourceMemorypressureFlags = Dispatch_source_memorypressure_flags_t
 // DispatchSourceProcFlags is a Go-name alias for Dispatch_source_proc_flags_t.
 type DispatchSourceProcFlags = Dispatch_source_proc_flags_t
 
-// DispatchSource is a Go-name alias for dispatch_source_t.
+// DispatchSource is a Go-name alias for Dispatch_source_t.
 type DispatchSource = dispatch_source_t
 
 // DispatchSourceTimerFlags is a Go-name alias for Dispatch_source_timer_flags_t.
 type DispatchSourceTimerFlags = Dispatch_source_timer_flags_t
 
-// DispatchSourceType is a Go-name alias for dispatch_source_type_t.
+// DispatchSourceType is a Go-name alias for Dispatch_source_type_t.
 type DispatchSourceType = dispatch_source_type_t
 
 // DispatchSourceVnodeFlags is a Go-name alias for Dispatch_source_vnode_flags_t.

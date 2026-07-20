@@ -139,7 +139,7 @@ type ICARenderer interface {
 	// Topic: Rendering a Frame
 
 	// Begin rendering a frame at the specified time.
-	BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp)
+	BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts *corevideo.CVTimeStamp)
 	// Returns the bounds of the update region that contains all pixels that will be rendered by the current frame.
 	UpdateBounds() corefoundation.CGRect
 	// Adds the rectangle to the update region of the current frame.
@@ -190,7 +190,7 @@ func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSD
 // ts: The display timestamp associated with timeInterval. Can be null.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/beginFrame(atTime:timeStamp:)
-func (r CARenderer) BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp) {
+func (r CARenderer) BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts *corevideo.CVTimeStamp) {
 	objc.Send[objc.ID](r.ID, objc.Sel("beginFrameAtTime:timeStamp:"), t, ts)
 }
 

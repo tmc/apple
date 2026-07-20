@@ -141,7 +141,7 @@ type INotificationCenter interface {
 	// Adds an entry to the notification center to receive notifications that passed to the provided block.
 	AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object
 	// Adds an entry to the notification center to call the provided selector with the notification.
-	AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objectivec.SEL, aName NSNotificationName, anObject objectivec.IObject)
+	AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject)
 	// Removes matching entries from the notification center’s dispatch table.
 	RemoveObserverNameObject(observer objectivec.IObject, aName NSNotificationName, anObject objectivec.IObject)
 	// Removes all entries specifying an observer from the notification center’s dispatch table.
@@ -241,7 +241,7 @@ func NewNotificationCenter() NotificationCenter {
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object {
 	_block3, _ := NewNotificationBlock(block)
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
-	return objectivec.Object{ID: rv}
+	return objectivec.ObjectFromID(rv)
 }
 
 // Adds an entry to the notification center to call the provided selector with
@@ -281,7 +281,7 @@ func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotif
 // time it would have posted to it.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/addObserver(_:selector:name:object:)
-func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objectivec.SEL, aName NSNotificationName, anObject objectivec.IObject) {
+func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("addObserver:selector:name:object:"), observer, aSelector, objc.String(string(aName)), anObject)
 }
 

@@ -1870,15 +1870,19 @@ func (e IOUSBHostCICommandMessage) String() string {
 type IOUSBHostCIControllerState uint
 
 const (
-	IOUSBHostCIControllerStateActive IOUSBHostCIControllerState = 0
+	IOUSBHostCIControllerStateActive IOUSBHostCIControllerState = 2
 	IOUSBHostCIControllerStateOff    IOUSBHostCIControllerState = 0
-	IOUSBHostCIControllerStatePaused IOUSBHostCIControllerState = 0
+	IOUSBHostCIControllerStatePaused IOUSBHostCIControllerState = 1
 )
 
 func (e IOUSBHostCIControllerState) String() string {
 	switch e {
 	case IOUSBHostCIControllerStateActive:
 		return "IOUSBHostCIControllerStateActive"
+	case IOUSBHostCIControllerStateOff:
+		return "IOUSBHostCIControllerStateOff"
+	case IOUSBHostCIControllerStatePaused:
+		return "IOUSBHostCIControllerStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIControllerState(%d)", e)
 	}
@@ -1962,15 +1966,19 @@ func (e IOUSBHostCIDeviceSpeed) String() string {
 type IOUSBHostCIDeviceState uint
 
 const (
-	IOUSBHostCIDeviceStateActive    IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStateActive    IOUSBHostCIDeviceState = 2
 	IOUSBHostCIDeviceStateDestroyed IOUSBHostCIDeviceState = 0
-	IOUSBHostCIDeviceStatePaused    IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStatePaused    IOUSBHostCIDeviceState = 1
 )
 
 func (e IOUSBHostCIDeviceState) String() string {
 	switch e {
 	case IOUSBHostCIDeviceStateActive:
 		return "IOUSBHostCIDeviceStateActive"
+	case IOUSBHostCIDeviceStateDestroyed:
+		return "IOUSBHostCIDeviceStateDestroyed"
+	case IOUSBHostCIDeviceStatePaused:
+		return "IOUSBHostCIDeviceStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIDeviceState(%d)", e)
 	}
@@ -2078,16 +2086,22 @@ func (e IOUSBHostCIEndpointSetNextTransferCommandData1) String() string {
 type IOUSBHostCIEndpointState uint
 
 const (
-	IOUSBHostCIEndpointStateActive    IOUSBHostCIEndpointState = 0
+	IOUSBHostCIEndpointStateActive    IOUSBHostCIEndpointState = 3
 	IOUSBHostCIEndpointStateDestroyed IOUSBHostCIEndpointState = 0
-	IOUSBHostCIEndpointStateHalted    IOUSBHostCIEndpointState = 0
-	IOUSBHostCIEndpointStatePaused    IOUSBHostCIEndpointState = 0
+	IOUSBHostCIEndpointStateHalted    IOUSBHostCIEndpointState = 1
+	IOUSBHostCIEndpointStatePaused    IOUSBHostCIEndpointState = 2
 )
 
 func (e IOUSBHostCIEndpointState) String() string {
 	switch e {
 	case IOUSBHostCIEndpointStateActive:
 		return "IOUSBHostCIEndpointStateActive"
+	case IOUSBHostCIEndpointStateDestroyed:
+		return "IOUSBHostCIEndpointStateDestroyed"
+	case IOUSBHostCIEndpointStateHalted:
+		return "IOUSBHostCIEndpointStateHalted"
+	case IOUSBHostCIEndpointStatePaused:
+		return "IOUSBHostCIEndpointStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIEndpointState(%d)", e)
 	}
@@ -2114,18 +2128,18 @@ func (e IOUSBHostCIEndpointUpdateCommandData1) String() string {
 type IOUSBHostCIExceptionType uint
 
 const (
-	IOUSBHostCIExceptionTypeCapabilitiesInvalid   IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandFailure        IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandReadCollision  IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandTimeout        IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandWriteFailed    IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeDoorbellOverflow      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeDoorbellReadCollision IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeFrameUpdateError      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeInterruptInvalid      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeInterruptOverflow     IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeProtocolError         IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeTerminated            IOUSBHostCIExceptionType = 0
+	IOUSBHostCIExceptionTypeCapabilitiesInvalid   IOUSBHostCIExceptionType = 1
+	IOUSBHostCIExceptionTypeCommandFailure        IOUSBHostCIExceptionType = 6
+	IOUSBHostCIExceptionTypeCommandReadCollision  IOUSBHostCIExceptionType = 3
+	IOUSBHostCIExceptionTypeCommandTimeout        IOUSBHostCIExceptionType = 5
+	IOUSBHostCIExceptionTypeCommandWriteFailed    IOUSBHostCIExceptionType = 4
+	IOUSBHostCIExceptionTypeDoorbellOverflow      IOUSBHostCIExceptionType = 10
+	IOUSBHostCIExceptionTypeDoorbellReadCollision IOUSBHostCIExceptionType = 9
+	IOUSBHostCIExceptionTypeFrameUpdateError      IOUSBHostCIExceptionType = 12
+	IOUSBHostCIExceptionTypeInterruptInvalid      IOUSBHostCIExceptionType = 7
+	IOUSBHostCIExceptionTypeInterruptOverflow     IOUSBHostCIExceptionType = 8
+	IOUSBHostCIExceptionTypeProtocolError         IOUSBHostCIExceptionType = 11
+	IOUSBHostCIExceptionTypeTerminated            IOUSBHostCIExceptionType = 2
 	IOUSBHostCIExceptionTypeUnknown               IOUSBHostCIExceptionType = 0
 )
 
@@ -2133,6 +2147,30 @@ func (e IOUSBHostCIExceptionType) String() string {
 	switch e {
 	case IOUSBHostCIExceptionTypeCapabilitiesInvalid:
 		return "IOUSBHostCIExceptionTypeCapabilitiesInvalid"
+	case IOUSBHostCIExceptionTypeCommandFailure:
+		return "IOUSBHostCIExceptionTypeCommandFailure"
+	case IOUSBHostCIExceptionTypeCommandReadCollision:
+		return "IOUSBHostCIExceptionTypeCommandReadCollision"
+	case IOUSBHostCIExceptionTypeCommandTimeout:
+		return "IOUSBHostCIExceptionTypeCommandTimeout"
+	case IOUSBHostCIExceptionTypeCommandWriteFailed:
+		return "IOUSBHostCIExceptionTypeCommandWriteFailed"
+	case IOUSBHostCIExceptionTypeDoorbellOverflow:
+		return "IOUSBHostCIExceptionTypeDoorbellOverflow"
+	case IOUSBHostCIExceptionTypeDoorbellReadCollision:
+		return "IOUSBHostCIExceptionTypeDoorbellReadCollision"
+	case IOUSBHostCIExceptionTypeFrameUpdateError:
+		return "IOUSBHostCIExceptionTypeFrameUpdateError"
+	case IOUSBHostCIExceptionTypeInterruptInvalid:
+		return "IOUSBHostCIExceptionTypeInterruptInvalid"
+	case IOUSBHostCIExceptionTypeInterruptOverflow:
+		return "IOUSBHostCIExceptionTypeInterruptOverflow"
+	case IOUSBHostCIExceptionTypeProtocolError:
+		return "IOUSBHostCIExceptionTypeProtocolError"
+	case IOUSBHostCIExceptionTypeTerminated:
+		return "IOUSBHostCIExceptionTypeTerminated"
+	case IOUSBHostCIExceptionTypeUnknown:
+		return "IOUSBHostCIExceptionTypeUnknown"
 	default:
 		return fmt.Sprintf("IOUSBHostCIExceptionType(%d)", e)
 	}
@@ -2141,7 +2179,7 @@ func (e IOUSBHostCIExceptionType) String() string {
 type IOUSBHostCIIsochronousTransferControl uint
 
 const (
-	IOUSBHostCIIsochronousTransferControlASAP             IOUSBHostCIIsochronousTransferControl = 16777216
+	IOUSBHostCIIsochronousTransferControlASAP             IOUSBHostCIIsochronousTransferControl = 0x1000000
 	IOUSBHostCIIsochronousTransferControlFrameNumber      IOUSBHostCIIsochronousTransferControl = 16711680
 	IOUSBHostCIIsochronousTransferControlFrameNumberPhase IOUSBHostCIIsochronousTransferControl = 16
 )
@@ -2267,12 +2305,12 @@ func (e IOUSBHostCILinkState) String() string {
 type IOUSBHostCIMessageControl uint
 
 const (
-	IOUSBHostCIMessageControlNoResponse  IOUSBHostCIMessageControl = 16384
+	IOUSBHostCIMessageControlNoResponse  IOUSBHostCIMessageControl = 0x4000
 	IOUSBHostCIMessageControlStatus      IOUSBHostCIMessageControl = 3840
 	IOUSBHostCIMessageControlStatusPhase IOUSBHostCIMessageControl = 8
 	IOUSBHostCIMessageControlType        IOUSBHostCIMessageControl = 63
 	IOUSBHostCIMessageControlTypePhase   IOUSBHostCIMessageControl = 0
-	IOUSBHostCIMessageControlValid       IOUSBHostCIMessageControl = 32768
+	IOUSBHostCIMessageControlValid       IOUSBHostCIMessageControl = 0x8000
 )
 
 func (e IOUSBHostCIMessageControl) String() string {
@@ -2297,26 +2335,52 @@ func (e IOUSBHostCIMessageControl) String() string {
 type IOUSBHostCIMessageStatus int
 
 const (
-	IOUSBHostCIMessageStatusBadArgument        IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusEndpointStopped    IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusError              IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusMissedServiceError IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusNoResources        IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusNotPermitted       IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusOffline            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusOverrunError       IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusProtocolError      IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusBadArgument        IOUSBHostCIMessageStatus = 4
+	IOUSBHostCIMessageStatusEndpointStopped    IOUSBHostCIMessageStatus = 7
+	IOUSBHostCIMessageStatusError              IOUSBHostCIMessageStatus = 13
+	IOUSBHostCIMessageStatusMissedServiceError IOUSBHostCIMessageStatus = 12
+	IOUSBHostCIMessageStatusNoResources        IOUSBHostCIMessageStatus = 6
+	IOUSBHostCIMessageStatusNotPermitted       IOUSBHostCIMessageStatus = 3
+	IOUSBHostCIMessageStatusOffline            IOUSBHostCIMessageStatus = 2
+	IOUSBHostCIMessageStatusOverrunError       IOUSBHostCIMessageStatus = 10
+	IOUSBHostCIMessageStatusProtocolError      IOUSBHostCIMessageStatus = 8
 	IOUSBHostCIMessageStatusReserved           IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusStallError         IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusSuccess            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusTimeout            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusTransactionError   IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusStallError         IOUSBHostCIMessageStatus = 11
+	IOUSBHostCIMessageStatusSuccess            IOUSBHostCIMessageStatus = 1
+	IOUSBHostCIMessageStatusTimeout            IOUSBHostCIMessageStatus = 5
+	IOUSBHostCIMessageStatusTransactionError   IOUSBHostCIMessageStatus = 9
 )
 
 func (e IOUSBHostCIMessageStatus) String() string {
 	switch e {
 	case IOUSBHostCIMessageStatusBadArgument:
 		return "IOUSBHostCIMessageStatusBadArgument"
+	case IOUSBHostCIMessageStatusEndpointStopped:
+		return "IOUSBHostCIMessageStatusEndpointStopped"
+	case IOUSBHostCIMessageStatusError:
+		return "IOUSBHostCIMessageStatusError"
+	case IOUSBHostCIMessageStatusMissedServiceError:
+		return "IOUSBHostCIMessageStatusMissedServiceError"
+	case IOUSBHostCIMessageStatusNoResources:
+		return "IOUSBHostCIMessageStatusNoResources"
+	case IOUSBHostCIMessageStatusNotPermitted:
+		return "IOUSBHostCIMessageStatusNotPermitted"
+	case IOUSBHostCIMessageStatusOffline:
+		return "IOUSBHostCIMessageStatusOffline"
+	case IOUSBHostCIMessageStatusOverrunError:
+		return "IOUSBHostCIMessageStatusOverrunError"
+	case IOUSBHostCIMessageStatusProtocolError:
+		return "IOUSBHostCIMessageStatusProtocolError"
+	case IOUSBHostCIMessageStatusReserved:
+		return "IOUSBHostCIMessageStatusReserved"
+	case IOUSBHostCIMessageStatusStallError:
+		return "IOUSBHostCIMessageStatusStallError"
+	case IOUSBHostCIMessageStatusSuccess:
+		return "IOUSBHostCIMessageStatusSuccess"
+	case IOUSBHostCIMessageStatusTimeout:
+		return "IOUSBHostCIMessageStatusTimeout"
+	case IOUSBHostCIMessageStatusTransactionError:
+		return "IOUSBHostCIMessageStatusTransactionError"
 	default:
 		return fmt.Sprintf("IOUSBHostCIMessageStatus(%d)", e)
 	}
@@ -2328,40 +2392,40 @@ const (
 	IOUSBHostCIMessageTypeCommandMax              IOUSBHostCIMessageType = 0x37
 	IOUSBHostCIMessageTypeCommandMin              IOUSBHostCIMessageType = 0x10
 	IOUSBHostCIMessageTypeControllerCapabilities  IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerFrameNumber   IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerPause         IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerPowerOff      IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeControllerFrameNumber   IOUSBHostCIMessageType = 20
+	IOUSBHostCIMessageTypeControllerPause         IOUSBHostCIMessageType = 19
+	IOUSBHostCIMessageTypeControllerPowerOff      IOUSBHostCIMessageType = 17
 	IOUSBHostCIMessageTypeControllerPowerOn       IOUSBHostCIMessageType = 0x10
-	IOUSBHostCIMessageTypeControllerStart         IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeControllerStart         IOUSBHostCIMessageType = 18
 	IOUSBHostCIMessageTypeDeviceCreate            IOUSBHostCIMessageType = 0x20
-	IOUSBHostCIMessageTypeDeviceDestroy           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDevicePause             IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDeviceStart             IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDeviceUpdate            IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeDeviceDestroy           IOUSBHostCIMessageType = 33
+	IOUSBHostCIMessageTypeDevicePause             IOUSBHostCIMessageType = 35
+	IOUSBHostCIMessageTypeDeviceStart             IOUSBHostCIMessageType = 34
+	IOUSBHostCIMessageTypeDeviceUpdate            IOUSBHostCIMessageType = 36
 	IOUSBHostCIMessageTypeEndpointCreate          IOUSBHostCIMessageType = 0x28
-	IOUSBHostCIMessageTypeEndpointDestroy         IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointPause           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointReset           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointSetNextTransfer IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointUpdate          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpoint_reserved_      IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeFrameNumberUpdate       IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeFrameTimestampUpdate    IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeIsochronousTransfer     IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeLink                    IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeNormalTransfer          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortCapabilities        IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortDisable             IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeEndpointDestroy         IOUSBHostCIMessageType = 41
+	IOUSBHostCIMessageTypeEndpointPause           IOUSBHostCIMessageType = 43
+	IOUSBHostCIMessageTypeEndpointReset           IOUSBHostCIMessageType = 45
+	IOUSBHostCIMessageTypeEndpointSetNextTransfer IOUSBHostCIMessageType = 46
+	IOUSBHostCIMessageTypeEndpointUpdate          IOUSBHostCIMessageType = 44
+	IOUSBHostCIMessageTypeEndpoint_reserved_      IOUSBHostCIMessageType = 42
+	IOUSBHostCIMessageTypeFrameNumberUpdate       IOUSBHostCIMessageType = 9
+	IOUSBHostCIMessageTypeFrameTimestampUpdate    IOUSBHostCIMessageType = 10
+	IOUSBHostCIMessageTypeIsochronousTransfer     IOUSBHostCIMessageType = 59
+	IOUSBHostCIMessageTypeLink                    IOUSBHostCIMessageType = 60
+	IOUSBHostCIMessageTypeNormalTransfer          IOUSBHostCIMessageType = 57
+	IOUSBHostCIMessageTypePortCapabilities        IOUSBHostCIMessageType = 1
+	IOUSBHostCIMessageTypePortDisable             IOUSBHostCIMessageType = 29
 	IOUSBHostCIMessageTypePortEvent               IOUSBHostCIMessageType = 0x8
-	IOUSBHostCIMessageTypePortPowerOff            IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortPowerOff            IOUSBHostCIMessageType = 25
 	IOUSBHostCIMessageTypePortPowerOn             IOUSBHostCIMessageType = 0x18
-	IOUSBHostCIMessageTypePortReset               IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortResume              IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortStatus              IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortSuspend             IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortReset               IOUSBHostCIMessageType = 28
+	IOUSBHostCIMessageTypePortResume              IOUSBHostCIMessageType = 26
+	IOUSBHostCIMessageTypePortStatus              IOUSBHostCIMessageType = 30
+	IOUSBHostCIMessageTypePortSuspend             IOUSBHostCIMessageType = 27
 	IOUSBHostCIMessageTypeSetupTransfer           IOUSBHostCIMessageType = 0x38
-	IOUSBHostCIMessageTypeStatusTransfer          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeTransferComplete        IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeStatusTransfer          IOUSBHostCIMessageType = 58
+	IOUSBHostCIMessageTypeTransferComplete        IOUSBHostCIMessageType = 61
 )
 
 func (e IOUSBHostCIMessageType) String() string {
@@ -2372,16 +2436,72 @@ func (e IOUSBHostCIMessageType) String() string {
 		return "IOUSBHostCIMessageTypeCommandMin"
 	case IOUSBHostCIMessageTypeControllerCapabilities:
 		return "IOUSBHostCIMessageTypeControllerCapabilities"
+	case IOUSBHostCIMessageTypeControllerFrameNumber:
+		return "IOUSBHostCIMessageTypeControllerFrameNumber"
+	case IOUSBHostCIMessageTypeControllerPause:
+		return "IOUSBHostCIMessageTypeControllerPause"
+	case IOUSBHostCIMessageTypeControllerPowerOff:
+		return "IOUSBHostCIMessageTypeControllerPowerOff"
+	case IOUSBHostCIMessageTypeControllerStart:
+		return "IOUSBHostCIMessageTypeControllerStart"
 	case IOUSBHostCIMessageTypeDeviceCreate:
 		return "IOUSBHostCIMessageTypeDeviceCreate"
+	case IOUSBHostCIMessageTypeDeviceDestroy:
+		return "IOUSBHostCIMessageTypeDeviceDestroy"
+	case IOUSBHostCIMessageTypeDevicePause:
+		return "IOUSBHostCIMessageTypeDevicePause"
+	case IOUSBHostCIMessageTypeDeviceStart:
+		return "IOUSBHostCIMessageTypeDeviceStart"
+	case IOUSBHostCIMessageTypeDeviceUpdate:
+		return "IOUSBHostCIMessageTypeDeviceUpdate"
 	case IOUSBHostCIMessageTypeEndpointCreate:
 		return "IOUSBHostCIMessageTypeEndpointCreate"
+	case IOUSBHostCIMessageTypeEndpointDestroy:
+		return "IOUSBHostCIMessageTypeEndpointDestroy"
+	case IOUSBHostCIMessageTypeEndpointPause:
+		return "IOUSBHostCIMessageTypeEndpointPause"
+	case IOUSBHostCIMessageTypeEndpointReset:
+		return "IOUSBHostCIMessageTypeEndpointReset"
+	case IOUSBHostCIMessageTypeEndpointSetNextTransfer:
+		return "IOUSBHostCIMessageTypeEndpointSetNextTransfer"
+	case IOUSBHostCIMessageTypeEndpointUpdate:
+		return "IOUSBHostCIMessageTypeEndpointUpdate"
+	case IOUSBHostCIMessageTypeEndpoint_reserved_:
+		return "IOUSBHostCIMessageTypeEndpoint_reserved_"
+	case IOUSBHostCIMessageTypeFrameNumberUpdate:
+		return "IOUSBHostCIMessageTypeFrameNumberUpdate"
+	case IOUSBHostCIMessageTypeFrameTimestampUpdate:
+		return "IOUSBHostCIMessageTypeFrameTimestampUpdate"
+	case IOUSBHostCIMessageTypeIsochronousTransfer:
+		return "IOUSBHostCIMessageTypeIsochronousTransfer"
+	case IOUSBHostCIMessageTypeLink:
+		return "IOUSBHostCIMessageTypeLink"
+	case IOUSBHostCIMessageTypeNormalTransfer:
+		return "IOUSBHostCIMessageTypeNormalTransfer"
+	case IOUSBHostCIMessageTypePortCapabilities:
+		return "IOUSBHostCIMessageTypePortCapabilities"
+	case IOUSBHostCIMessageTypePortDisable:
+		return "IOUSBHostCIMessageTypePortDisable"
 	case IOUSBHostCIMessageTypePortEvent:
 		return "IOUSBHostCIMessageTypePortEvent"
+	case IOUSBHostCIMessageTypePortPowerOff:
+		return "IOUSBHostCIMessageTypePortPowerOff"
 	case IOUSBHostCIMessageTypePortPowerOn:
 		return "IOUSBHostCIMessageTypePortPowerOn"
+	case IOUSBHostCIMessageTypePortReset:
+		return "IOUSBHostCIMessageTypePortReset"
+	case IOUSBHostCIMessageTypePortResume:
+		return "IOUSBHostCIMessageTypePortResume"
+	case IOUSBHostCIMessageTypePortStatus:
+		return "IOUSBHostCIMessageTypePortStatus"
+	case IOUSBHostCIMessageTypePortSuspend:
+		return "IOUSBHostCIMessageTypePortSuspend"
 	case IOUSBHostCIMessageTypeSetupTransfer:
 		return "IOUSBHostCIMessageTypeSetupTransfer"
+	case IOUSBHostCIMessageTypeStatusTransfer:
+		return "IOUSBHostCIMessageTypeStatusTransfer"
+	case IOUSBHostCIMessageTypeTransferComplete:
+		return "IOUSBHostCIMessageTypeTransferComplete"
 	default:
 		return fmt.Sprintf("IOUSBHostCIMessageType(%d)", e)
 	}
@@ -2428,7 +2548,7 @@ type IOUSBHostCIPortCapabilitiesMessage uint
 const (
 	IOUSBHostCIPortCapabilitiesMessageControlConnectorType      IOUSBHostCIPortCapabilitiesMessage = 4278190080
 	IOUSBHostCIPortCapabilitiesMessageControlConnectorTypePhase IOUSBHostCIPortCapabilitiesMessage = 24
-	IOUSBHostCIPortCapabilitiesMessageControlInternalConnector  IOUSBHostCIPortCapabilitiesMessage = 8388608
+	IOUSBHostCIPortCapabilitiesMessageControlInternalConnector  IOUSBHostCIPortCapabilitiesMessage = 0x800000
 	IOUSBHostCIPortCapabilitiesMessageControlPortNumber         IOUSBHostCIPortCapabilitiesMessage = 983040
 	IOUSBHostCIPortCapabilitiesMessageControlPortNumberPhase    IOUSBHostCIPortCapabilitiesMessage = 16
 	IOUSBHostCIPortCapabilitiesMessageData0MaxPower             IOUSBHostCIPortCapabilitiesMessage = 255
@@ -2477,16 +2597,22 @@ func (e IOUSBHostCIPortEventMessageData0Port) String() string {
 type IOUSBHostCIPortState uint
 
 const (
-	IOUSBHostCIPortStateActive    IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStateActive    IOUSBHostCIPortState = 3
 	IOUSBHostCIPortStateOff       IOUSBHostCIPortState = 0
-	IOUSBHostCIPortStatePowered   IOUSBHostCIPortState = 0
-	IOUSBHostCIPortStateSuspended IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStatePowered   IOUSBHostCIPortState = 1
+	IOUSBHostCIPortStateSuspended IOUSBHostCIPortState = 2
 )
 
 func (e IOUSBHostCIPortState) String() string {
 	switch e {
 	case IOUSBHostCIPortStateActive:
 		return "IOUSBHostCIPortStateActive"
+	case IOUSBHostCIPortStateOff:
+		return "IOUSBHostCIPortStateOff"
+	case IOUSBHostCIPortStatePowered:
+		return "IOUSBHostCIPortStatePowered"
+	case IOUSBHostCIPortStateSuspended:
+		return "IOUSBHostCIPortStateSuspended"
 	default:
 		return fmt.Sprintf("IOUSBHostCIPortState(%d)", e)
 	}
@@ -2495,14 +2621,14 @@ func (e IOUSBHostCIPortState) String() string {
 type IOUSBHostCIPortStatus int
 
 const (
-	IOUSBHostCIPortStatusChangeMask        IOUSBHostCIPortStatus = 0x160000
-	IOUSBHostCIPortStatusConnectChange     IOUSBHostCIPortStatus = 262144
+	IOUSBHostCIPortStatusChangeMask        IOUSBHostCIPortStatus = 1048576
+	IOUSBHostCIPortStatusConnectChange     IOUSBHostCIPortStatus = 0x40000
 	IOUSBHostCIPortStatusConnected         IOUSBHostCIPortStatus = 4
 	IOUSBHostCIPortStatusLinkState         IOUSBHostCIPortStatus = 240
-	IOUSBHostCIPortStatusLinkStateChange   IOUSBHostCIPortStatus = 1048576
+	IOUSBHostCIPortStatusLinkStateChange   IOUSBHostCIPortStatus = 0x100000
 	IOUSBHostCIPortStatusLinkStatePhase    IOUSBHostCIPortStatus = 4
 	IOUSBHostCIPortStatusOvercurrent       IOUSBHostCIPortStatus = 2
-	IOUSBHostCIPortStatusOvercurrentChange IOUSBHostCIPortStatus = 131072
+	IOUSBHostCIPortStatusOvercurrentChange IOUSBHostCIPortStatus = 0x20000
 	IOUSBHostCIPortStatusPowered           IOUSBHostCIPortStatus = 1
 	IOUSBHostCIPortStatusSpeed             IOUSBHostCIPortStatus = 1792
 	IOUSBHostCIPortStatusSpeedPhase        IOUSBHostCIPortStatus = 8
@@ -2518,8 +2644,6 @@ func (e IOUSBHostCIPortStatus) String() string {
 		return "IOUSBHostCIPortStatusConnected"
 	case IOUSBHostCIPortStatusLinkState:
 		return "IOUSBHostCIPortStatusLinkState"
-	case IOUSBHostCIPortStatusLinkStateChange:
-		return "IOUSBHostCIPortStatusLinkStateChange"
 	case IOUSBHostCIPortStatusOvercurrent:
 		return "IOUSBHostCIPortStatusOvercurrent"
 	case IOUSBHostCIPortStatusOvercurrentChange:
@@ -4340,7 +4464,7 @@ const (
 	KBluetoothGeneralInquiryAccessCodeIndex    KBluetooth = 0
 	KBluetoothGeneralInquiryAccessCodeLAPValue KBluetooth = 0x9e8b33
 	KBluetoothL2CAPMaxPacketSize               KBluetooth = 65535
-	KBluetoothLimitedInquiryAccessCodeEnd      KBluetooth = 0
+	KBluetoothLimitedInquiryAccessCodeEnd      KBluetooth = 10390273
 	KBluetoothLimitedInquiryAccessCodeIndex    KBluetooth = 1
 	KBluetoothLimitedInquiryAccessCodeLAPValue KBluetooth = 0x9e8b00
 )
@@ -4359,6 +4483,8 @@ func (e KBluetooth) String() string {
 		return "KBluetoothGeneralInquiryAccessCodeLAPValue"
 	case KBluetoothL2CAPMaxPacketSize:
 		return "KBluetoothL2CAPMaxPacketSize"
+	case KBluetoothLimitedInquiryAccessCodeEnd:
+		return "KBluetoothLimitedInquiryAccessCodeEnd"
 	case KBluetoothLimitedInquiryAccessCodeLAPValue:
 		return "KBluetoothLimitedInquiryAccessCodeLAPValue"
 	default:
@@ -4411,7 +4537,7 @@ const (
 	KBluetoothDeviceClassMajorAny            KBluetoothDeviceClassMajor = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 	KBluetoothDeviceClassMajorAudio          KBluetoothDeviceClassMajor = 0x4
 	KBluetoothDeviceClassMajorComputer       KBluetoothDeviceClassMajor = 0x1
-	KBluetoothDeviceClassMajorEnd            KBluetoothDeviceClassMajor = 0
+	KBluetoothDeviceClassMajorEnd            KBluetoothDeviceClassMajor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothDeviceClassMajorHealth         KBluetoothDeviceClassMajor = 0x9
 	KBluetoothDeviceClassMajorImaging        KBluetoothDeviceClassMajor = 0x6
 	KBluetoothDeviceClassMajorLANAccessPoint KBluetoothDeviceClassMajor = 0x3
@@ -4440,6 +4566,8 @@ func (e KBluetoothDeviceClassMajor) String() string {
 		return "KBluetoothDeviceClassMajorImaging"
 	case KBluetoothDeviceClassMajorLANAccessPoint:
 		return "KBluetoothDeviceClassMajorLANAccessPoint"
+	case KBluetoothDeviceClassMajorMiscellaneous:
+		return "KBluetoothDeviceClassMajorMiscellaneous"
 	case KBluetoothDeviceClassMajorNone:
 		return "KBluetoothDeviceClassMajorNone"
 	case KBluetoothDeviceClassMajorPeripheral:
@@ -4487,7 +4615,7 @@ const (
 	KBluetoothDeviceClassMinorComputerServer                  KBluetoothDeviceClassMinor = 0x2
 	KBluetoothDeviceClassMinorComputerUnclassified            KBluetoothDeviceClassMinor = 0
 	KBluetoothDeviceClassMinorComputerWearable                KBluetoothDeviceClassMinor = 0x6
-	KBluetoothDeviceClassMinorEnd                             KBluetoothDeviceClassMinor = 0
+	KBluetoothDeviceClassMinorEnd                             KBluetoothDeviceClassMinor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothDeviceClassMinorHealthBloodPressureMonitor      KBluetoothDeviceClassMinor = 0x1
 	KBluetoothDeviceClassMinorHealthDataDisplay               KBluetoothDeviceClassMinor = 0x7
 	KBluetoothDeviceClassMinorHealthGlucoseMeter              KBluetoothDeviceClassMinor = 0x4
@@ -4576,6 +4704,8 @@ func (e KBluetoothDeviceClassMinor) String() string {
 		return "KBluetoothDeviceClassMinorAudioVideoDisplayAndLoudspeaker"
 	case KBluetoothDeviceClassMinorAudioVideoMonitor:
 		return "KBluetoothDeviceClassMinorAudioVideoMonitor"
+	case KBluetoothDeviceClassMinorEnd:
+		return "KBluetoothDeviceClassMinorEnd"
 	case KBluetoothDeviceClassMinorImaging1Printer:
 		return "KBluetoothDeviceClassMinorImaging1Printer"
 	case KBluetoothDeviceClassMinorNone:
@@ -5082,9 +5212,9 @@ const (
 	KBluetoothHCIEventUserPasskeyNotification                           KBluetoothHCI = 0x3b
 	KBluetoothHCIEventUserPasskeyRequest                                KBluetoothHCI = 0x34
 	KBluetoothHCIEventVendorSpecific                                    KBluetoothHCI = 0xff
-	KBluetoothHCIMaxCommandPacketSize                                   KBluetoothHCI = 258
-	KBluetoothHCIMaxDataPacketSize                                      KBluetoothHCI = 65539
-	KBluetoothHCIMaxEventPacketSize                                     KBluetoothHCI = 257
+	KBluetoothHCIMaxCommandPacketSize                                   KBluetoothHCI = 3
+	KBluetoothHCIMaxDataPacketSize                                      KBluetoothHCI = 4
+	KBluetoothHCIMaxEventPacketSize                                     KBluetoothHCI = 2
 	KBluetoothHCIOpCodeNoOp                                             KBluetoothHCI = 0
 	KBluetoothHCISubEventLEAdvertisingReport                            KBluetoothHCI = 0x2
 	KBluetoothHCISubEventLEAdvertisingSetTerminated                     KBluetoothHCI = 0x12
@@ -5107,11 +5237,11 @@ const (
 	KBluetoothHCISubEventLEScanRequestReceived                          KBluetoothHCI = 0x13
 	KBluetoothHCISubEventLEScanTimeout                                  KBluetoothHCI = 0x11
 	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcast KBluetoothHCI = 65
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcast KBluetoothHCI = 70
 	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcastData KBluetoothHCI = 118
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcastData KBluetoothHCI = 130
 	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcastReceive KBluetoothHCI = 66
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcastReceive KBluetoothHCI = 71
 )
 
 func (e KBluetoothHCI) String() string {
@@ -5372,12 +5502,8 @@ func (e KBluetoothHCI) String() string {
 		return "KBluetoothHCIDataPacketMaxDataSize"
 	case KBluetoothHCIEventLogoTesting:
 		return "KBluetoothHCIEventLogoTesting"
-	case KBluetoothHCIMaxCommandPacketSize:
-		return "KBluetoothHCIMaxCommandPacketSize"
-	case KBluetoothHCIMaxDataPacketSize:
-		return "KBluetoothHCIMaxDataPacketSize"
-	case KBluetoothHCIMaxEventPacketSize:
-		return "KBluetoothHCIMaxEventPacketSize"
+	case KBluetoothHCICommandSetConnectionlessSlaveBroadcastData:
+		return "KBluetoothHCICommandSetConnectionlessSlaveBroadcastData"
 	default:
 		return fmt.Sprintf("KBluetoothHCI(%d)", e)
 	}
@@ -5854,7 +5980,7 @@ const (
 	KBluetoothL2CAPQoSPeakBandwidthDefault   KBluetoothL2CAP = 0
 	KBluetoothL2CAPQoSTokenBucketSizeDefault KBluetoothL2CAP = 0
 	KBluetoothL2CAPQoSTokenRateDefault       KBluetoothL2CAP = 0
-	KBluetoothL2CAPQoSTypeDefault            KBluetoothL2CAP = (1)
+	KBluetoothL2CAPQoSTypeDefault            KBluetoothL2CAP = 1
 )
 
 func (e KBluetoothL2CAP) String() string {
@@ -5971,7 +6097,7 @@ func (e KBluetoothL2CAPConfigurationOption) String() string {
 type KBluetoothL2CAPFlushTimeout uint
 
 const (
-	KBluetoothL2CAPFlushTimeoutEnd         KBluetoothL2CAPFlushTimeout = 0
+	KBluetoothL2CAPFlushTimeoutEnd         KBluetoothL2CAPFlushTimeout = 65536
 	KBluetoothL2CAPFlushTimeoutForever     KBluetoothL2CAPFlushTimeout = 0xffff
 	KBluetoothL2CAPFlushTimeoutImmediate   KBluetoothL2CAPFlushTimeout = 0x1
 	KBluetoothL2CAPFlushTimeoutUseExisting KBluetoothL2CAPFlushTimeout = 0
@@ -5985,6 +6111,8 @@ func (e KBluetoothL2CAPFlushTimeout) String() string {
 		return "KBluetoothL2CAPFlushTimeoutForever"
 	case KBluetoothL2CAPFlushTimeoutImmediate:
 		return "KBluetoothL2CAPFlushTimeoutImmediate"
+	case KBluetoothL2CAPFlushTimeoutUseExisting:
+		return "KBluetoothL2CAPFlushTimeoutUseExisting"
 	default:
 		return fmt.Sprintf("KBluetoothL2CAPFlushTimeout(%d)", e)
 	}
@@ -6282,7 +6410,7 @@ const (
 	KBluetoothPacketTypeDM3       KBluetoothPacket = 0x400
 	KBluetoothPacketTypeDM5       KBluetoothPacket = 0x4000
 	KBluetoothPacketTypeDV        KBluetoothPacket = 0x100
-	KBluetoothPacketTypeEnd       KBluetoothPacket = 0
+	KBluetoothPacketTypeEnd       KBluetoothPacket = 32769
 	KBluetoothPacketTypeHV1       KBluetoothPacket = 0x20
 	KBluetoothPacketTypeHV2       KBluetoothPacket = 0x40
 	KBluetoothPacketTypeHV3       KBluetoothPacket = 0x80
@@ -6402,9 +6530,9 @@ const (
 	KBluetoothRoleBecomeCentral    KBluetoothRole = 0
 	KBluetoothRoleRemainPeripheral KBluetoothRole = 0x1
 	// Deprecated.
-	KBluetoothRoleBecomeMaster KBluetoothRole = 0
+	KBluetoothRoleBecomeMaster KBluetoothRole = 2
 	// Deprecated.
-	KBluetoothRoleRemainSlave KBluetoothRole = 1
+	KBluetoothRoleRemainSlave KBluetoothRole = 3
 )
 
 func (e KBluetoothRole) String() string {
@@ -6413,6 +6541,10 @@ func (e KBluetoothRole) String() string {
 		return "KBluetoothRoleBecomeCentral"
 	case KBluetoothRoleRemainPeripheral:
 		return "KBluetoothRoleRemainPeripheral"
+	case KBluetoothRoleBecomeMaster:
+		return "KBluetoothRoleBecomeMaster"
+	case KBluetoothRoleRemainSlave:
+		return "KBluetoothRoleRemainSlave"
 	default:
 		return fmt.Sprintf("KBluetoothRole(%d)", e)
 	}
@@ -6923,7 +7055,7 @@ const (
 	KBluetoothServiceClassMajorAny                     KBluetoothServiceClassMajor = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 	KBluetoothServiceClassMajorAudio                   KBluetoothServiceClassMajor = 0x100
 	KBluetoothServiceClassMajorCapturing               KBluetoothServiceClassMajor = 0x40
-	KBluetoothServiceClassMajorEnd                     KBluetoothServiceClassMajor = 0
+	KBluetoothServiceClassMajorEnd                     KBluetoothServiceClassMajor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothServiceClassMajorInformation             KBluetoothServiceClassMajor = 0x400
 	KBluetoothServiceClassMajorLimitedDiscoverableMode KBluetoothServiceClassMajor = 0x1
 	KBluetoothServiceClassMajorNetworking              KBluetoothServiceClassMajor = 0x10
@@ -6982,7 +7114,7 @@ const (
 	KBluetoothSynchronousConnectionPacketTypeEV3       KBluetoothSynchronousConnectionPacket = 0x8
 	KBluetoothSynchronousConnectionPacketTypeEV4       KBluetoothSynchronousConnectionPacket = 0x10
 	KBluetoothSynchronousConnectionPacketTypeEV5       KBluetoothSynchronousConnectionPacket = 0x20
-	KBluetoothSynchronousConnectionPacketTypeEnd       KBluetoothSynchronousConnectionPacket = 0
+	KBluetoothSynchronousConnectionPacketTypeEnd       KBluetoothSynchronousConnectionPacket = 65536
 	KBluetoothSynchronousConnectionPacketTypeFutureUse KBluetoothSynchronousConnectionPacket = 0xfc00
 	KBluetoothSynchronousConnectionPacketTypeHV1       KBluetoothSynchronousConnectionPacket = 0x1
 	KBluetoothSynchronousConnectionPacketTypeHV2       KBluetoothSynchronousConnectionPacket = 0x2
@@ -7018,6 +7150,8 @@ func (e KBluetoothSynchronousConnectionPacket) String() string {
 		return "KBluetoothSynchronousConnectionPacketTypeHV2"
 	case KBluetoothSynchronousConnectionPacketTypeHV3:
 		return "KBluetoothSynchronousConnectionPacketTypeHV3"
+	case KBluetoothSynchronousConnectionPacketTypeNone:
+		return "KBluetoothSynchronousConnectionPacketTypeNone"
 	default:
 		return fmt.Sprintf("KBluetoothSynchronousConnectionPacket(%d)", e)
 	}
@@ -7451,169 +7585,81 @@ func (e KCFormat) String() string {
 type KCSRNodeID uint
 
 const (
-	KCSRArgumentHiAddress                KCSRNodeID = 0xf0000020
-	KCSRArgumentLoAddress                KCSRNodeID = 0xf0000024
-	KCSRBandwidthAvailable               KCSRNodeID = 0xf0000220
-	KCSRBroadcastChannel                 KCSRNodeID = 0xf0000234
-	KCSRBusDependentRegistersBaseAddress KCSRNodeID = 0xf0000200
-	KCSRBusManagerID                     KCSRNodeID = 0xf000021c
-	KCSRBusyTimeout                      KCSRNodeID = 0xf0000210
-	KCSRChannelsAvailable31_0            KCSRNodeID = 0xf0000224
-	KCSRChannelsAvailable63_32           KCSRNodeID = 0xf0000228
-	KCSRClockInfo0Address                KCSRNodeID = 0xf0000070
-	KCSRClockInfo1Address                KCSRNodeID = 0xf0000074
-	KCSRClockInfo2Address                KCSRNodeID = 0xf0000078
-	KCSRClockInfo3Address                KCSRNodeID = 0xf000007c
-	KCSRClockStrobeArrivedHiAddress      KCSRNodeID = 0xf0000068
-	KCSRClockStrobeArrivedMidAddress     KCSRNodeID = 0xf000006c
-	KCSRClockTickPeriodLoAddress         KCSRNodeID = 0xf0000064
-	KCSRClockTickPeriodMidAddress        KCSRNodeID = 0xf0000060
-	KCSRClockValueHiAddress              KCSRNodeID = 0xf0000058
-	KCSRClockValueMidAddress             KCSRNodeID = 0xf000005c
+	KCSRArgumentHiAddress                KCSRNodeID = 4026531840
+	KCSRArgumentLoAddress                KCSRNodeID = 4026531840
+	KCSRBandwidthAvailable               KCSRNodeID = 4026531840
+	KCSRBroadcastChannel                 KCSRNodeID = 4026531840
+	KCSRBusDependentRegistersBaseAddress KCSRNodeID = 4026531840
+	KCSRBusManagerID                     KCSRNodeID = 4026531840
+	KCSRBusyTimeout                      KCSRNodeID = 4026531840
+	KCSRChannelsAvailable31_0            KCSRNodeID = 4026531840
+	KCSRChannelsAvailable63_32           KCSRNodeID = 4026531840
+	KCSRClockInfo0Address                KCSRNodeID = 4026531840
+	KCSRClockInfo1Address                KCSRNodeID = 4026531840
+	KCSRClockInfo2Address                KCSRNodeID = 4026531840
+	KCSRClockInfo3Address                KCSRNodeID = 4026531840
+	KCSRClockStrobeArrivedHiAddress      KCSRNodeID = 4026531840
+	KCSRClockStrobeArrivedMidAddress     KCSRNodeID = 4026531840
+	KCSRClockTickPeriodLoAddress         KCSRNodeID = 4026531840
+	KCSRClockTickPeriodMidAddress        KCSRNodeID = 4026531840
+	KCSRClockValueHiAddress              KCSRNodeID = 4026531840
+	KCSRClockValueMidAddress             KCSRNodeID = 4026531840
 	KCSRCoreRegistersBaseAddress         KCSRNodeID = 4026531840
-	KCSRErrorLogBufferAddress            KCSRNodeID = 0xf0000180
-	KCSRIndirectAddressAddress           KCSRNodeID = 0xf0000010
-	KCSRIndirectDataAddress              KCSRNodeID = 0xf0000014
+	KCSRErrorLogBufferAddress            KCSRNodeID = 4026531840
+	KCSRIndirectAddressAddress           KCSRNodeID = 4026531840
+	KCSRIndirectDataAddress              KCSRNodeID = 4026531840
 	KCSRInitialMemorySpaceBaseAddressHi  KCSRNodeID = 0
 	KCSRInitialMemorySpaceBaseAddressLo  KCSRNodeID = 0
-	KCSRInterruptMaskAddress             KCSRNodeID = 0xf0000054
-	KCSRInterruptTargetAddress           KCSRNodeID = 0xf0000050
-	KCSRMemoryBaseHiAddress              KCSRNodeID = 0xf0000040
-	KCSRMemoryBaseLoAddress              KCSRNodeID = 0xf0000044
-	KCSRMemoryBoundHiAddress             KCSRNodeID = 0xf0000048
-	KCSRMemoryBoundLoAddress             KCSRNodeID = 0xf000004c
-	KCSRMessageRequestAddress            KCSRNodeID = 0xf0000080
-	KCSRMessageResponseAddress           KCSRNodeID = 0xf00000c0
-	KCSRNodeIDValue                      KCSRNodeID = 65535
-	KCSRNodeIDPhase                      KCSRNodeID = (31 - (15))
-	KCSRNodeIDsAddress                   KCSRNodeID = 0xf0000008
+	KCSRInterruptMaskAddress             KCSRNodeID = 4026531840
+	KCSRInterruptTargetAddress           KCSRNodeID = 4026531840
+	KCSRMemoryBaseHiAddress              KCSRNodeID = 4026531840
+	KCSRMemoryBaseLoAddress              KCSRNodeID = 4026531840
+	KCSRMemoryBoundHiAddress             KCSRNodeID = 4026531840
+	KCSRMemoryBoundLoAddress             KCSRNodeID = 4026531840
+	KCSRMessageRequestAddress            KCSRNodeID = 4026531840
+	KCSRMessageResponseAddress           KCSRNodeID = 4026531840
+	KCSRNodeIDValue                      KCSRNodeID = 0xffff0000
+	KCSRNodeIDPhase                      KCSRNodeID = 16
+	KCSRNodeIDsAddress                   KCSRNodeID = 4026531840
 	KCSRPrivateSpaceBaseAddressHi        KCSRNodeID = 0xffff
 	KCSRPrivateSpaceBaseAddressLo        KCSRNodeID = 0xe0000000
 	KCSRRegisterSpaceBaseAddressHi       KCSRNodeID = 0xffff
 	KCSRRegisterSpaceBaseAddressLo       KCSRNodeID = 0xf0000000
-	KCSRResetStartAddress                KCSRNodeID = 0xf000000c
-	KCSRSplitTimeoutHiAddress            KCSRNodeID = 0xf0000018
-	KCSRSplitTimeoutLoAddress            KCSRNodeID = 0xf000001c
-	KCSRStateClearAddress                KCSRNodeID = 0xf0000000
-	KCSRStateSetAddress                  KCSRNodeID = 0xf0000004
-	KCSRTestStartAddress                 KCSRNodeID = 0xf0000028
-	KCSRTestStatusAddress                KCSRNodeID = 0xf000002c
-	KCSRUnitsBaseHiAddress               KCSRNodeID = 0xf0000030
-	KCSRUnitsBaseLoAddress               KCSRNodeID = 0xf0000034
-	KCSRUnitsBoundHiAddress              KCSRNodeID = 0xf0000038
-	KCSRUnitsBoundLoAddress              KCSRNodeID = 0xf000003c
-	KConfigBIBBusNameAddress             KCSRNodeID = 4026532868
+	KCSRResetStartAddress                KCSRNodeID = 4026531840
+	KCSRSplitTimeoutHiAddress            KCSRNodeID = 4026531840
+	KCSRSplitTimeoutLoAddress            KCSRNodeID = 4026531840
+	KCSRStateClearAddress                KCSRNodeID = 4026531840
+	KCSRStateSetAddress                  KCSRNodeID = 4026531840
+	KCSRTestStartAddress                 KCSRNodeID = 4026531840
+	KCSRTestStatusAddress                KCSRNodeID = 4026531840
+	KCSRUnitsBaseHiAddress               KCSRNodeID = 4026531840
+	KCSRUnitsBaseLoAddress               KCSRNodeID = 4026531840
+	KCSRUnitsBoundHiAddress              KCSRNodeID = 4026531840
+	KCSRUnitsBoundLoAddress              KCSRNodeID = 4026531840
+	KConfigBIBBusNameAddress             KCSRNodeID = 4026532864
 	KConfigBIBHeaderAddress              KCSRNodeID = 4026532864
-	KConfigROMBaseAddress                KCSRNodeID = 0xf0000400
-	KFCPCommandAddress                   KCSRNodeID = 0xf0000b00
-	KFCPResponseAddress                  KCSRNodeID = 0xf0000d00
-	KPCRBaseAddress                      KCSRNodeID = 0xf0000900
+	KConfigROMBaseAddress                KCSRNodeID = 4026531840
+	KFCPCommandAddress                   KCSRNodeID = 4026531840
+	KFCPResponseAddress                  KCSRNodeID = 4026531840
+	KPCRBaseAddress                      KCSRNodeID = 4026531840
 )
 
 func (e KCSRNodeID) String() string {
 	switch e {
 	case KCSRArgumentHiAddress:
 		return "KCSRArgumentHiAddress"
-	case KCSRArgumentLoAddress:
-		return "KCSRArgumentLoAddress"
-	case KCSRBandwidthAvailable:
-		return "KCSRBandwidthAvailable"
-	case KCSRBroadcastChannel:
-		return "KCSRBroadcastChannel"
-	case KCSRBusDependentRegistersBaseAddress:
-		return "KCSRBusDependentRegistersBaseAddress"
-	case KCSRBusManagerID:
-		return "KCSRBusManagerID"
-	case KCSRBusyTimeout:
-		return "KCSRBusyTimeout"
-	case KCSRChannelsAvailable31_0:
-		return "KCSRChannelsAvailable31_0"
-	case KCSRChannelsAvailable63_32:
-		return "KCSRChannelsAvailable63_32"
-	case KCSRClockInfo0Address:
-		return "KCSRClockInfo0Address"
-	case KCSRClockInfo1Address:
-		return "KCSRClockInfo1Address"
-	case KCSRClockInfo2Address:
-		return "KCSRClockInfo2Address"
-	case KCSRClockInfo3Address:
-		return "KCSRClockInfo3Address"
-	case KCSRClockStrobeArrivedHiAddress:
-		return "KCSRClockStrobeArrivedHiAddress"
-	case KCSRClockStrobeArrivedMidAddress:
-		return "KCSRClockStrobeArrivedMidAddress"
-	case KCSRClockTickPeriodLoAddress:
-		return "KCSRClockTickPeriodLoAddress"
-	case KCSRClockTickPeriodMidAddress:
-		return "KCSRClockTickPeriodMidAddress"
-	case KCSRClockValueHiAddress:
-		return "KCSRClockValueHiAddress"
-	case KCSRClockValueMidAddress:
-		return "KCSRClockValueMidAddress"
-	case KCSRCoreRegistersBaseAddress:
-		return "KCSRCoreRegistersBaseAddress"
-	case KCSRErrorLogBufferAddress:
-		return "KCSRErrorLogBufferAddress"
-	case KCSRIndirectAddressAddress:
-		return "KCSRIndirectAddressAddress"
-	case KCSRIndirectDataAddress:
-		return "KCSRIndirectDataAddress"
 	case KCSRInitialMemorySpaceBaseAddressHi:
 		return "KCSRInitialMemorySpaceBaseAddressHi"
-	case KCSRInterruptMaskAddress:
-		return "KCSRInterruptMaskAddress"
-	case KCSRInterruptTargetAddress:
-		return "KCSRInterruptTargetAddress"
-	case KCSRMemoryBaseHiAddress:
-		return "KCSRMemoryBaseHiAddress"
-	case KCSRMemoryBaseLoAddress:
-		return "KCSRMemoryBaseLoAddress"
-	case KCSRMemoryBoundHiAddress:
-		return "KCSRMemoryBoundHiAddress"
-	case KCSRMemoryBoundLoAddress:
-		return "KCSRMemoryBoundLoAddress"
-	case KCSRMessageRequestAddress:
-		return "KCSRMessageRequestAddress"
-	case KCSRMessageResponseAddress:
-		return "KCSRMessageResponseAddress"
 	case KCSRNodeIDValue:
 		return "KCSRNodeIDValue"
 	case KCSRNodeIDPhase:
 		return "KCSRNodeIDPhase"
-	case KCSRNodeIDsAddress:
-		return "KCSRNodeIDsAddress"
+	case KCSRPrivateSpaceBaseAddressHi:
+		return "KCSRPrivateSpaceBaseAddressHi"
 	case KCSRPrivateSpaceBaseAddressLo:
 		return "KCSRPrivateSpaceBaseAddressLo"
-	case KCSRResetStartAddress:
-		return "KCSRResetStartAddress"
-	case KCSRSplitTimeoutHiAddress:
-		return "KCSRSplitTimeoutHiAddress"
-	case KCSRSplitTimeoutLoAddress:
-		return "KCSRSplitTimeoutLoAddress"
-	case KCSRStateSetAddress:
-		return "KCSRStateSetAddress"
-	case KCSRTestStartAddress:
-		return "KCSRTestStartAddress"
-	case KCSRTestStatusAddress:
-		return "KCSRTestStatusAddress"
-	case KCSRUnitsBaseHiAddress:
-		return "KCSRUnitsBaseHiAddress"
-	case KCSRUnitsBaseLoAddress:
-		return "KCSRUnitsBaseLoAddress"
-	case KCSRUnitsBoundHiAddress:
-		return "KCSRUnitsBoundHiAddress"
-	case KCSRUnitsBoundLoAddress:
-		return "KCSRUnitsBoundLoAddress"
 	case KConfigBIBBusNameAddress:
 		return "KConfigBIBBusNameAddress"
-	case KConfigBIBHeaderAddress:
-		return "KConfigBIBHeaderAddress"
-	case KFCPCommandAddress:
-		return "KFCPCommandAddress"
-	case KFCPResponseAddress:
-		return "KFCPResponseAddress"
-	case KPCRBaseAddress:
-		return "KPCRBaseAddress"
 	default:
 		return fmt.Sprintf("KCSRNodeID(%d)", e)
 	}
@@ -7622,21 +7668,21 @@ func (e KCSRNodeID) String() string {
 type KCSRState uint
 
 const (
-	KCSRStateAtn               KCSRState = 268435456
-	KCSRStateBusDepend         KCSRState = 16711680
-	KCSRStateBusDependPhase    KCSRState = (31 - (23))
-	KCSRStateDReq              KCSRState = 33554432
-	KCSRStateELog              KCSRState = 134217728
-	KCSRStateLost              KCSRState = 16777216
-	KCSRStateOff               KCSRState = 536870912
-	KCSRStateState             KCSRState = 3221225472
+	KCSRStateAtn               KCSRState = 8
+	KCSRStateBusDepend         KCSRState = 0xffffff00
+	KCSRStateBusDependPhase    KCSRState = 8
+	KCSRStateDReq              KCSRState = 64
+	KCSRStateELog              KCSRState = 16
+	KCSRStateLost              KCSRState = 128
+	KCSRStateOff               KCSRState = 4
+	KCSRStateState             KCSRState = 0xffffffff
 	KCSRStateStateDead         KCSRState = 3
 	KCSRStateStateInitializing KCSRState = 1
-	KCSRStateStatePhase        KCSRState = (31 - (31))
+	KCSRStateStatePhase        KCSRState = 0
 	KCSRStateStateRunning      KCSRState = 0
 	KCSRStateStateTesting      KCSRState = 2
-	KCSRStateUnitDepend        KCSRState = 65535
-	KCSRStateUnitDependPhase   KCSRState = (31 - (15))
+	KCSRStateUnitDepend        KCSRState = 0xffff0000
+	KCSRStateUnitDependPhase   KCSRState = 16
 )
 
 func (e KCSRState) String() string {
@@ -7645,8 +7691,6 @@ func (e KCSRState) String() string {
 		return "KCSRStateAtn"
 	case KCSRStateBusDepend:
 		return "KCSRStateBusDepend"
-	case KCSRStateBusDependPhase:
-		return "KCSRStateBusDependPhase"
 	case KCSRStateDReq:
 		return "KCSRStateDReq"
 	case KCSRStateELog:
@@ -7667,8 +7711,6 @@ func (e KCSRState) String() string {
 		return "KCSRStateStateTesting"
 	case KCSRStateUnitDepend:
 		return "KCSRStateUnitDepend"
-	case KCSRStateUnitDependPhase:
-		return "KCSRStateUnitDependPhase"
 	default:
 		return fmt.Sprintf("KCSRState(%d)", e)
 	}
@@ -7837,19 +7879,19 @@ type KConfig uint
 
 const (
 	KConfigBusDependentInfoKey     KConfig = 0x2
-	KConfigBusInfoBlockLength      KConfig = 255
-	KConfigBusInfoBlockLengthPhase KConfig = (31 - (7))
-	KConfigEntryKeyType            KConfig = 3
-	KConfigEntryKeyTypePhase       KConfig = (31 - (1))
-	KConfigEntryKeyValue           KConfig = 252
-	KConfigEntryKeyValuePhase      KConfig = (31 - (7))
-	KConfigEntryValue              KConfig = 4294967040
-	KConfigEntryValuePhase         KConfig = (31 - (31))
+	KConfigBusInfoBlockLength      KConfig = 0xff000000
+	KConfigBusInfoBlockLengthPhase KConfig = 24
+	KConfigEntryKeyType            KConfig = 0xc0000000
+	KConfigEntryKeyTypePhase       KConfig = 30
+	KConfigEntryKeyValue           KConfig = 0xff000000
+	KConfigEntryKeyValuePhase      KConfig = 24
+	KConfigEntryValue              KConfig = 0xffffffff
+	KConfigEntryValuePhase         KConfig = 0
 	KConfigGenerationKey           KConfig = 0x38
-	KConfigLeafDirCRC              KConfig = 4294901760
-	KConfigLeafDirCRCPhase         KConfig = (31 - (31))
-	KConfigLeafDirLength           KConfig = 65535
-	KConfigLeafDirLengthPhase      KConfig = (31 - (15))
+	KConfigLeafDirCRC              KConfig = 0xffffffff
+	KConfigLeafDirCRCPhase         KConfig = 0
+	KConfigLeafDirLength           KConfig = 0xffff0000
+	KConfigLeafDirLengthPhase      KConfig = 16
 	KConfigModelIdKey              KConfig = 0x17
 	KConfigModuleDependentInfoKey  KConfig = 0x7
 	KConfigModuleHwVersionKey      KConfig = 0x4
@@ -7865,10 +7907,10 @@ const (
 	KConfigNodeUniqueIdKey         KConfig = 0xd
 	KConfigNodeUnitsExtentKey      KConfig = 0xe
 	KConfigNodeVendorIdKey         KConfig = 0x8
-	KConfigROMCRCLength            KConfig = 65280
-	KConfigROMCRCLengthPhase       KConfig = (31 - (15))
-	KConfigROMCRCValue             KConfig = 4294901760
-	KConfigROMCRCValuePhase        KConfig = (31 - (31))
+	KConfigROMCRCLength            KConfig = 0xffff0000
+	KConfigROMCRCLengthPhase       KConfig = 16
+	KConfigROMCRCValue             KConfig = 0xffffffff
+	KConfigROMCRCValuePhase        KConfig = 0
 	KConfigRootDirectoryKey        KConfig = 0xffff
 	KConfigTextualDescriptorKey    KConfig = 0x1
 	KConfigUnitDependentInfoKey    KConfig = 0x14
@@ -7891,16 +7933,12 @@ func (e KConfig) String() string {
 		return "KConfigEntryKeyType"
 	case KConfigEntryKeyTypePhase:
 		return "KConfigEntryKeyTypePhase"
-	case KConfigEntryKeyValue:
-		return "KConfigEntryKeyValue"
 	case KConfigEntryValue:
 		return "KConfigEntryValue"
 	case KConfigEntryValuePhase:
 		return "KConfigEntryValuePhase"
 	case KConfigGenerationKey:
 		return "KConfigGenerationKey"
-	case KConfigLeafDirCRC:
-		return "KConfigLeafDirCRC"
 	case KConfigLeafDirLength:
 		return "KConfigLeafDirLength"
 	case KConfigLeafDirLengthPhase:
@@ -7915,6 +7953,8 @@ func (e KConfig) String() string {
 		return "KConfigModuleSpecIdKey"
 	case KConfigModuleSwVersionKey:
 		return "KConfigModuleSwVersionKey"
+	case KConfigModuleVendorIdKey:
+		return "KConfigModuleVendorIdKey"
 	case KConfigNodeCapabilitiesKey:
 		return "KConfigNodeCapabilitiesKey"
 	case KConfigNodeHwVersionKey:
@@ -7931,8 +7971,8 @@ func (e KConfig) String() string {
 		return "KConfigNodeUnitsExtentKey"
 	case KConfigNodeVendorIdKey:
 		return "KConfigNodeVendorIdKey"
-	case KConfigROMCRCLength:
-		return "KConfigROMCRCLength"
+	case KConfigRootDirectoryKey:
+		return "KConfigRootDirectoryKey"
 	case KConfigTextualDescriptorKey:
 		return "KConfigTextualDescriptorKey"
 	case KConfigUnitDependentInfoKey:
@@ -9533,14 +9573,14 @@ func (e KFFTDirection) String() string {
 type KFW uint
 
 const (
-	KFWAddressBusID                KFW = 0xffffffc00000
-	KFWAddressBusIDPhase           KFW = (31 - (25)) + (31 - (15))
-	KFWAddressNodeID               KFW = 0xffffffff0000
-	KFWAddressNodeIDPhase          KFW = (31 - (31)) + (31 - (15))
-	KFWAllowMultiMode              KFW = 0
-	KFWAlwaysMultiMode             KFW = 0
+	KFWAddressBusID                KFW = 0xffc00000
+	KFWAddressBusIDPhase           KFW = 22
+	KFWAddressNodeID               KFW = 0x3f0000
+	KFWAddressNodeIDPhase          KFW = 16
+	KFWAllowMultiMode              KFW = 1
+	KFWAlwaysMultiMode             KFW = 3
 	KFWBadNodeID                   KFW = 0xffff
-	KFWBroadcastAddress            KFW = (63) << ((31 - (31)) + (31 - (15)))
+	KFWBroadcastAddress            KFW = 63
 	KFWBroadcastNodeID             KFW = 63
 	KFWConfigurationPacketID       KFW = 0
 	KFWDCLInvalidNotification      KFW = 0
@@ -9548,7 +9588,7 @@ const (
 	KFWDCLUpdateNotification       KFW = 1
 	KFWDefaultIsochResourceFlags   KFW = 0
 	KFWLinkOnPacketID              KFW = 1
-	KFWLocalBusAddress             KFW = (1023) << ((31 - (25)) + (31 - (15)))
+	KFWLocalBusAddress             KFW = 1023
 	KFWLocalBusID                  KFW = 1023
 	KFWNeverMultiMode              KFW = 0
 	KFWNuDCLModifyJumpNotification KFW = 4
@@ -9564,7 +9604,7 @@ const (
 	KFWSpeedReserved               KFW = 3
 	KFWSpeedReserved1              KFW = 7
 	KFWSpeedUnknownMask            KFW = 0x80
-	KFWSuggestMultiMode            KFW = 0
+	KFWSuggestMultiMode            KFW = 2
 )
 
 func (e KFW) String() string {
@@ -9579,24 +9619,20 @@ func (e KFW) String() string {
 		return "KFWAddressNodeIDPhase"
 	case KFWAllowMultiMode:
 		return "KFWAllowMultiMode"
+	case KFWAlwaysMultiMode:
+		return "KFWAlwaysMultiMode"
 	case KFWBadNodeID:
 		return "KFWBadNodeID"
 	case KFWBroadcastAddress:
 		return "KFWBroadcastAddress"
-	case KFWBroadcastNodeID:
-		return "KFWBroadcastNodeID"
+	case KFWConfigurationPacketID:
+		return "KFWConfigurationPacketID"
 	case KFWDCLModifyNotification:
 		return "KFWDCLModifyNotification"
-	case KFWDCLUpdateNotification:
-		return "KFWDCLUpdateNotification"
 	case KFWLocalBusAddress:
 		return "KFWLocalBusAddress"
-	case KFWLocalBusID:
-		return "KFWLocalBusID"
 	case KFWNuDCLModifyJumpNotification:
 		return "KFWNuDCLModifyJumpNotification"
-	case KFWNuDCLModifyNotification:
-		return "KFWNuDCLModifyNotification"
 	case KFWNuDCLUpdateNotification:
 		return "KFWNuDCLUpdateNotification"
 	case KFWSpeedInvalid:
@@ -9901,26 +9937,26 @@ func (e KFWAsynchSpd) String() string {
 type KFWBIB uint
 
 const (
-	KFWBIBBmc                     KFWBIB = 268435456
+	KFWBIBBmc                     KFWBIB = 0x10000000
 	KFWBIBBusName                 KFWBIB = 0x31333934
 	KFWBIBBusNameAddress          KFWBIB = 4026532868
-	KFWBIBCmc                     KFWBIB = 1073741824
-	KFWBIBCycClkAcc               KFWBIB = 16711680
+	KFWBIBCmc                     KFWBIB = 0x40000000
+	KFWBIBCycClkAcc               KFWBIB = 0xffff0000
 	KFWBIBCycClkAccPhase          KFWBIB = 16
-	KFWBIBGeneration              KFWBIB = 240
+	KFWBIBGeneration              KFWBIB = 0xfffffff0
 	KFWBIBGenerationPhase         KFWBIB = 4
 	KFWBIBHeaderAddress           KFWBIB = 4026532864
-	KFWBIBIrmc                    KFWBIB = 2147483648
-	KFWBIBIsc                     KFWBIB = 536870912
-	KFWBIBLinkSpeed               KFWBIB = 7
+	KFWBIBIrmc                    KFWBIB = 0x80000000
+	KFWBIBIsc                     KFWBIB = 0x20000000
+	KFWBIBLinkSpeed               KFWBIB = 0xffffffff
 	KFWBIBLinkSpeedPhase          KFWBIB = 0
-	KFWBIBMaxROM                  KFWBIB = 3072
+	KFWBIBMaxROM                  KFWBIB = 0xfffffc00
 	KFWBIBMaxROMPhase             KFWBIB = 10
-	KFWBIBMaxRec                  KFWBIB = 61440
+	KFWBIBMaxRec                  KFWBIB = 0xfffff000
 	KFWBIBMaxRecPhase             KFWBIB = 12
-	KFWBIBNodeCapabilitiesAddress KFWBIB = 4026532872
-	KFWBIBNodeUniqueIDHiAddress   KFWBIB = 4026532876
-	KFWBIBNodeUniqueIDLoAddress   KFWBIB = 4026532880
+	KFWBIBNodeCapabilitiesAddress KFWBIB = 4026532864
+	KFWBIBNodeUniqueIDHiAddress   KFWBIB = 4026532864
+	KFWBIBNodeUniqueIDLoAddress   KFWBIB = 4026532864
 )
 
 func (e KFWBIB) String() string {
@@ -9959,12 +9995,6 @@ func (e KFWBIB) String() string {
 		return "KFWBIBMaxRec"
 	case KFWBIBMaxRecPhase:
 		return "KFWBIBMaxRecPhase"
-	case KFWBIBNodeCapabilitiesAddress:
-		return "KFWBIBNodeCapabilitiesAddress"
-	case KFWBIBNodeUniqueIDHiAddress:
-		return "KFWBIBNodeUniqueIDHiAddress"
-	case KFWBIBNodeUniqueIDLoAddress:
-		return "KFWBIBNodeUniqueIDLoAddress"
 	default:
 		return fmt.Sprintf("KFWBIB(%d)", e)
 	}
@@ -9989,7 +10019,7 @@ type KFWCSRState uint
 
 const (
 	KFWCSRStateCMstr   KFWCSRState = 256
-	KFWCSRStateGone    KFWCSRState = 32768
+	KFWCSRStateGone    KFWCSRState = 0x8000
 	KFWCSRStateLinkOff KFWCSRState = 512
 )
 
@@ -10030,10 +10060,10 @@ func (e KFWDCL) String() string {
 type KFWDCLOp uint
 
 const (
-	KFWDCLOpDynamicFlag       KFWDCLOp = 65536
-	KFWDCLOpFlagMask          KFWDCLOp = 4294901760
+	KFWDCLOpDynamicFlag       KFWDCLOp = 0x10000
+	KFWDCLOpFlagMask          KFWDCLOp = 0xffff0000
 	KFWDCLOpFlagPhase         KFWDCLOp = 16
-	KFWDCLOpVendorDefinedFlag KFWDCLOp = 131072
+	KFWDCLOpVendorDefinedFlag KFWDCLOp = 0x20000
 )
 
 func (e KFWDCLOp) String() string {
@@ -10103,19 +10133,19 @@ type KFWIsoch uint
 
 const (
 	KFWIsochBigEndianUpdates            KFWIsoch = 8
-	KFWIsochChanNum                     KFWIsoch = 16128
+	KFWIsochChanNum                     KFWIsoch = 0xffffff00
 	KFWIsochChanNumPhase                KFWIsoch = 8
-	KFWIsochDataLength                  KFWIsoch = 4294901760
+	KFWIsochDataLength                  KFWIsoch = 0xffff0000
 	KFWIsochDataLengthPhase             KFWIsoch = 16
 	KFWIsochEnableRobustness            KFWIsoch = 4
 	KFWIsochPortDefaultOptions          KFWIsoch = 0
 	KFWIsochPortUseSeparateKernelThread KFWIsoch = 2
 	KFWIsochRequireLastContext          KFWIsoch = 16
-	KFWIsochSy                          KFWIsoch = 15
+	KFWIsochSy                          KFWIsoch = 0xffffffff
 	KFWIsochSyPhase                     KFWIsoch = 0
-	KFWIsochTCode                       KFWIsoch = 240
+	KFWIsochTCode                       KFWIsoch = 0xfffffff0
 	KFWIsochTCodePhase                  KFWIsoch = 4
-	KFWIsochTag                         KFWIsoch = 49152
+	KFWIsochTag                         KFWIsoch = 0xffffc000
 	KFWIsochTagPhase                    KFWIsoch = 14
 )
 
@@ -12091,7 +12121,7 @@ const (
 	KMSCProtocolUSBAttachedSCSI                KHubSuperSpeedProtocol = 0x62
 	KUSB2ComplianceDeviceProtocol              KHubSuperSpeedProtocol = 0x1
 	KUSBBluetoothProgrammingInterfaceProtocol  KHubSuperSpeedProtocol = 0x1
-	KUSBInterfaceAssociationDescriptorProtocol KHubSuperSpeedProtocol = 1
+	KUSBInterfaceAssociationDescriptorProtocol KHubSuperSpeedProtocol = 0x1
 	KUSBVendorSpecificProtocol                 KHubSuperSpeedProtocol = 0xff
 )
 
@@ -17621,7 +17651,7 @@ const (
 	KIOPCICommandSERR             KIOPCICommand = 0x100
 	KIOPCICommandSpecialCycles    KIOPCICommand = 0x8
 	// Deprecated.
-	KIOPCICommandBusMaster KIOPCICommand = (4)
+	KIOPCICommandBusMaster KIOPCICommand = 4
 )
 
 func (e KIOPCICommand) String() string {
@@ -17998,7 +18028,7 @@ const (
 	KIOPCIStatusTargetAbortCapable KIOPCIStatus = 0x800
 	KIOPCIStatusUDF                KIOPCIStatus = 0x40
 	// Deprecated.
-	KIOPCIStatusMasterAbortActive KIOPCIStatus = (8192)
+	KIOPCIStatusMasterAbortActive KIOPCIStatus = 8192
 )
 
 func (e KIOPCIStatus) String() string {
@@ -27171,7 +27201,7 @@ const (
 	// KUSBAddExtraResetTimeBit: Request extra time after reset.
 	KUSBAddExtraResetTimeBit KUSB = 31
 	// KUSBAddExtraResetTimeMask: The mask to request extra time after reset.
-	KUSBAddExtraResetTimeMask              KUSB = 0x80000000
+	KUSBAddExtraResetTimeMask              KUSB = 2147483648
 	KUSBAddress_Mask                       KUSB = 65280
 	KUSBAddress_Shift                      KUSB = 8
 	KUSBAllStreams                         KUSB = 0xffffffff
@@ -27229,7 +27259,7 @@ const (
 	KUSBImageInterfaceClass              KUSB = 6
 	KUSBIn                               KUSB = 1
 	KUSBInterface                        KUSB = 1
-	KUSBInterfaceIDMask                  KUSB = 255
+	KUSBInterfaceIDMask                  KUSB = 256
 	KUSBInterfaceIDShift                 KUSB = 8
 	KUSBInterrupt                        KUSB = 3
 	KUSBIrDABridgeSubClass               KUSB = 0x2
@@ -27244,7 +27274,7 @@ const (
 	KUSBMassStorageSCSISubClass          KUSB = 0x6
 	KUSBMassStorageSFF8070iSubClass      KUSB = 0x5
 	KUSBMassStorageUFISubClass           KUSB = 0x4
-	KUSBMaxDevice                        KUSB = 127
+	KUSBMaxDevice                        KUSB = 128
 	KUSBMaxDevices                       KUSB = 128
 	KUSBMaxInterfaces                    KUSB = 256
 	KUSBMaxPipes                         KUSB = 32
@@ -27267,11 +27297,11 @@ const (
 	// KUSBReEnumerateCaptureDeviceBit: The bit to capture the device.
 	KUSBReEnumerateCaptureDeviceBit KUSB = 30
 	// KUSBReEnumerateCaptureDeviceMask: The mask to capture the device.
-	KUSBReEnumerateCaptureDeviceMask KUSB = 0x40000000
+	KUSBReEnumerateCaptureDeviceMask KUSB = 1073741824
 	// KUSBReEnumerateReleaseDeviceBit: The bit to release the device.
 	KUSBReEnumerateReleaseDeviceBit KUSB = 29
 	// KUSBReEnumerateReleaseDeviceMask: The mask to release the device.
-	KUSBReEnumerateReleaseDeviceMask          KUSB = 0x20000000
+	KUSBReEnumerateReleaseDeviceMask          KUSB = 536870912
 	KUSBRel10                                 KUSB = 0x100
 	KUSBRel11                                 KUSB = 0x110
 	KUSBRel20                                 KUSB = 0x200
@@ -27297,11 +27327,11 @@ const (
 	KUSBSpeed_Shift                           KUSB = 0
 	KUSBStandard                              KUSB = 0
 	KUSBStream0                               KUSB = 0
-	KUSBStreamIDAllStreamsMask                KUSB = 0x80000000
+	KUSBStreamIDAllStreamsMask                KUSB = 2147483648
 	KUSBStreamIDMask                          KUSB = 0xffff
 	KUSBTestMeasurementSubClass               KUSB = 0x3
 	KUSBTooManyDevicesAddress                 KUSB = 0xfffe
-	KUSBUCRequestWithoutUSBNotificationMask   KUSB = 0x40000000
+	KUSBUCRequestWithoutUSBNotificationMask   KUSB = 1073741824
 	KUSBVendor                                KUSB = 2
 	KUSBVendorSpecificClass                   KUSB = 255
 	KUSBVendorSpecificInterfaceClass          KUSB = 255
@@ -27378,8 +27408,8 @@ func (e KUSB) String() string {
 		return "KUSBHighSpeedMicrosecondsInFrame"
 	case KUSBHubClass:
 		return "KUSBHubClass"
-	case KUSBMaxInterfaces:
-		return "KUSBMaxInterfaces"
+	case KUSBInterfaceIDMask:
+		return "KUSBInterfaceIDMask"
 	case KUSBMaxPipes:
 		return "KUSBMaxPipes"
 	case KUSBMaxStream:
@@ -27983,11 +28013,11 @@ const (
 	// KUSBHostPortStatusOvercurrent: The port status overcurrent.
 	KUSBHostPortStatusOvercurrent KUSBHostPortStatus = 16384
 	// KUSBHostPortStatusPortTypeAccessory: The accessory port type.
-	KUSBHostPortStatusPortTypeAccessory KUSBHostPortStatus = ((3) << (0))
+	KUSBHostPortStatusPortTypeAccessory KUSBHostPortStatus = (3)
 	// KUSBHostPortStatusPortTypeCaptive: The captive port type.
-	KUSBHostPortStatusPortTypeCaptive KUSBHostPortStatus = ((1) << (0))
+	KUSBHostPortStatusPortTypeCaptive KUSBHostPortStatus = (1)
 	// KUSBHostPortStatusPortTypeInternal: The internal port type.
-	KUSBHostPortStatusPortTypeInternal KUSBHostPortStatus = ((2) << (0))
+	KUSBHostPortStatusPortTypeInternal KUSBHostPortStatus = (2)
 	// KUSBHostPortStatusPortTypeMask: The port type mask.
 	KUSBHostPortStatusPortTypeMask KUSBHostPortStatus = 15
 	// KUSBHostPortStatusPortTypePhase: The port type phase.
@@ -28255,7 +28285,7 @@ const (
 	// KUSBInformationDeviceIsAttachedToEnclosure: The hub port that the USB device connects to has a USB connector on the enclosure.
 	KUSBInformationDeviceIsAttachedToEnclosure KUSBInformation = 12
 	// KUSBInformationDeviceIsAttachedToEnclosureMask: The mask indicating that the USB device has attached to an enclosure.
-	KUSBInformationDeviceIsAttachedToEnclosureMask KUSBInformation = 0x1000
+	KUSBInformationDeviceIsAttachedToEnclosureMask KUSBInformation = 4096
 	// KUSBInformationDeviceIsAttachedToRootHubBit: The USB device has directly attached to the root hub.
 	KUSBInformationDeviceIsAttachedToRootHubBit KUSBInformation = 1
 	// KUSBInformationDeviceIsAttachedToRootHubMask: The mask indicating that the USB device has attached to a root hub.
@@ -28283,7 +28313,7 @@ const (
 	// KUSBInformationDeviceIsOnThunderboltBit: The bit indicating that the USB device is on a Thunderbolt port.
 	KUSBInformationDeviceIsOnThunderboltBit KUSBInformation = 13
 	// KUSBInformationDeviceIsOnThunderboltMask: The mask indicating that the USB device is on a Thunderbolt port.
-	KUSBInformationDeviceIsOnThunderboltMask KUSBInformation = 0x2000
+	KUSBInformationDeviceIsOnThunderboltMask KUSBInformation = 8192
 	// KUSBInformationDeviceIsRemote: This device attaches to the controller through a remote connection.
 	KUSBInformationDeviceIsRemote KUSBInformation = 11
 	// KUSBInformationDeviceIsRemoteMask: The mask indicating that the USB device is remote.
@@ -28844,7 +28874,7 @@ type KXHCISSRootHubAddress uint
 const (
 	KSuperSpeedBusBitMask      KXHCISSRootHubAddress = 0x1000000
 	KXHCISSRootHubAddressValue KXHCISSRootHubAddress = 128
-	KXHCIUSB2RootHubAddress    KXHCISSRootHubAddress = 129
+	KXHCIUSB2RootHubAddress    KXHCISSRootHubAddress = 128
 )
 
 func (e KXHCISSRootHubAddress) String() string {
@@ -28853,8 +28883,6 @@ func (e KXHCISSRootHubAddress) String() string {
 		return "KSuperSpeedBusBitMask"
 	case KXHCISSRootHubAddressValue:
 		return "KXHCISSRootHubAddressValue"
-	case KXHCIUSB2RootHubAddress:
-		return "KXHCIUSB2RootHubAddress"
 	default:
 		return fmt.Sprintf("KXHCISSRootHubAddress(%d)", e)
 	}
@@ -38860,3 +38888,12 @@ const (
 	XDRBUF_BUFFER uint = 1
 	XDRBUF_NONE   uint = 0
 )
+
+// IODisplayModeID is an alias for referenced enum type KIODisplayModeID.
+type IODisplayModeID = KIODisplayModeID
+
+// Label is an alias for referenced enum type KIOAudioChannelLabel.
+type Label = KIOAudioChannelLabel
+
+// Long is an alias for referenced enum type KscsiserviceactionWriteLong.
+type Long = KscsiserviceactionWriteLong

@@ -9,7 +9,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -267,7 +266,7 @@ type IAVVoiceController interface {
 	EncodeError(error_ int)
 	EndpointDetectedAtTime(time float64)
 	EndpointerDelegate() unsafe.Pointer
-	SetEndpointerDelegate(value kernel.Pointer)
+	SetEndpointerDelegate(value unsafe.Pointer)
 	FinishedRecordingStatus(recording uint64, status int)
 	GetAveragePowerForStreamForChannel(stream uint64, channel uint64) float32
 	GetCurrentSessionState() int64
@@ -298,7 +297,7 @@ type IAVVoiceController interface {
 	PrepareRecordForStreamCompletion(stream objectivec.IObject, completion VoidHandler)
 	PrepareRecordForStreamError(stream objectivec.IObject) (bool, error)
 	RecordDelegate() unsafe.Pointer
-	SetRecordDelegate(value kernel.Pointer)
+	SetRecordDelegate(value unsafe.Pointer)
 	RecordEndWaitTime() float64
 	SetRecordEndWaitTime(value float64)
 	RecordEndpointMode() int
@@ -852,7 +851,7 @@ func (a AVVoiceController) EndpointerDelegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("endpointerDelegate"))
 	return rv
 }
-func (a AVVoiceController) SetEndpointerDelegate(value kernel.Pointer) {
+func (a AVVoiceController) SetEndpointerDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEndpointerDelegate:"), value)
 }
 func (a AVVoiceController) Hash() uint64 {
@@ -867,7 +866,7 @@ func (a AVVoiceController) RecordDelegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("recordDelegate"))
 	return rv
 }
-func (a AVVoiceController) SetRecordDelegate(value kernel.Pointer) {
+func (a AVVoiceController) SetRecordDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRecordDelegate:"), value)
 }
 func (a AVVoiceController) RecordEndWaitTime() float64 {

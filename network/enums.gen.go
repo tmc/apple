@@ -951,3 +951,6 @@ func (e NWParametersAttribution) String() string {
 		return fmt.Sprintf("NWParametersAttribution(%d)", e)
 	}
 }
+
+// Nw_parameters_attribution_t is a C-name alias for NWParametersAttribution.
+type Nw_parameters_attribution_t = NWParametersAttribution

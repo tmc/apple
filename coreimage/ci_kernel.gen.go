@@ -128,7 +128,7 @@ type ICIKernel interface {
 	// Topic: Identifying the Region of Interest for the Kernel
 
 	// Sets the selector Core Image uses to query the region of interest for image processing with the kernel.
-	SetROISelector(method objectivec.SEL)
+	SetROISelector(method objc.SEL)
 
 	// Topic: Applying a Kernel to Filter an Image
 
@@ -311,7 +311,7 @@ func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name st
 //
 // [CGRectNull]: https://developer.apple.com/documentation/CoreGraphics/CGRectNull
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
-func (k CIKernel) SetROISelector(method objectivec.SEL) {
+func (k CIKernel) SetROISelector(method objc.SEL) {
 	objc.Send[objc.ID](k.ID, objc.Sel("setROISelector:"), method)
 }
 

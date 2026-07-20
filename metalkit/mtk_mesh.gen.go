@@ -112,7 +112,7 @@ type IMTKMesh interface {
 	// Topic: Initialization
 
 	// Initializes a MetalKit mesh and its submeshes from a Model I/O mesh.
-	InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error)
+	InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error)
 
 	// Topic: Submeshes
 
@@ -182,7 +182,7 @@ func NewMTKMesh() MTKMesh {
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
+func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	instance := getMTKMeshClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
@@ -223,7 +223,7 @@ func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func (m MTKMesh) InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
+func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

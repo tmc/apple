@@ -3,6 +3,8 @@
 package metal
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -208,7 +210,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the fragment shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-	SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetFragmentBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns an intersection function table to an entry in the fragment shader argument table.
 	//
@@ -283,7 +285,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-	SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetMeshBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns a sampler state to an entry in the mesh shader argument table.
 	//
@@ -333,7 +335,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the object shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-	SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetObjectBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns a sampler state to an entry in the object shader argument table.
 	//
@@ -443,7 +445,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-	SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetTileBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns an intersection function table to an entry in the tile shader argument table.
 	//
@@ -543,12 +545,12 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-	SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetVertexBytesLengthAtIndex(bytes []byte, index uint)
 
 	// SetVertexBytesLengthAttributeStrideAtIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
+	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
 
 	// Assigns an intersection function table to an entry in the vertex shader argument table.
 	//
@@ -1953,8 +1955,8 @@ func (o MTLRenderCommandEncoderObject) SetFragmentBuffersOffsetsWithRange(buffer
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // Assigns an intersection function table to an entry in the fragment shader
@@ -2297,8 +2299,8 @@ func (o MTLRenderCommandEncoderObject) SetMeshBuffersOffsetsWithRange(buffers []
 // it to [SetMeshBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // Assigns a sampler state to an entry in the mesh shader argument table.
@@ -2545,8 +2547,8 @@ func (o MTLRenderCommandEncoderObject) SetObjectBuffersOffsetsWithRange(buffers 
 // it to [SetObjectBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // Assigns a sampler state to an entry in the object shader argument table.
@@ -3057,8 +3059,8 @@ func (o MTLRenderCommandEncoderObject) SetTileBuffersOffsetsWithRange(buffers []
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // Assigns an intersection function table to an entry in the tile shader
@@ -3463,13 +3465,13 @@ func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsWithRange(buffers 
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
 }
 
 // Assigns an intersection function table to an entry in the vertex shader

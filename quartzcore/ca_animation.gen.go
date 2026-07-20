@@ -222,6 +222,7 @@ type ICAAnimation interface {
 	PreferredFrameRateRange() CAFrameRateRange
 	SetPreferredFrameRateRange(value CAFrameRateRange)
 
+	InitWithCoder(coder foundation.INSCoder) CAAnimation
 	EncodeWithCoder(coder foundation.INSCoder)
 	// Sets the value of the property identified by the given key.
 	SetValueForKey(value objectivec.IObject, key string)
@@ -246,6 +247,13 @@ func NewCAAnimation() CAAnimation {
 	class := getCAAnimationClass()
 	rv := objc.Send[CAAnimation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewAnimationWithCoder(coder foundation.INSCoder) CAAnimation {
+	instance := getCAAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAAnimationFromID(rv)
 }
 
 // Creates an animation from a SceneKit animation.
@@ -309,6 +317,12 @@ func (a CAAnimation) Duration() corefoundation.CFTimeInterval {
 func (a CAAnimation) FillMode() CAMediaTimingFillMode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func (a CAAnimation) InitWithCoder(coder foundation.INSCoder) CAAnimation {
+	rv := objc.Send[CAAnimation](a.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Determines the number of times the animation will repeat.

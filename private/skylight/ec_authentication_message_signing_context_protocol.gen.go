@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -12,7 +14,7 @@ type ECAuthenticationMessageSigningContext interface {
 	objectivec.IObject
 
 	// UpdateSigningContextWithBytesLength protocol.
-	UpdateSigningContextWithBytesLength(bytes []byte, length uint64)
+	UpdateSigningContextWithBytesLength(bytes []byte)
 }
 
 // ECAuthenticationMessageSigningContextObject wraps an existing Objective-C object that conforms to the ECAuthenticationMessageSigningContext protocol.
@@ -36,8 +38,8 @@ func (o ECAuthenticationMessageSigningContextObject) FinalizedData() objectivec.
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("finalizedData"))
 	return objectivec.Object{ID: rv}
 }
-func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte, length uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
+func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte) {
+	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 }
 func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithData(data objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithData:"), data)

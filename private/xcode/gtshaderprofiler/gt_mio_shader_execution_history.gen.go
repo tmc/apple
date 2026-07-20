@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -140,7 +139,7 @@ type IGTMioShaderExecutionHistory interface {
 	CliqueExecutionHistoryStyle() uint32
 	Compact() IGTMioShaderExecutionHistoryRootNode
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DumpTree(tree objectivec.IObject)
 	Full() IGTMioShaderExecutionHistoryRootNode
 	FullInstructionHistory() bool
@@ -284,7 +283,7 @@ func (g GTMioShaderExecutionHistory) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTMioShaderExecutionHistory) SetDelegate(value kernel.Pointer) {
+func (g GTMioShaderExecutionHistory) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTMioShaderExecutionHistory) Full() IGTMioShaderExecutionHistoryRootNode {

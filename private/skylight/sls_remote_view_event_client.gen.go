@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,7 +100,7 @@ type ISLSRemoteViewEventClient interface {
 	DeferringEnvironmentFromEvent(event unsafe.Pointer) objectivec.IObject
 	DeferringTokenFromEvent(event unsafe.Pointer) objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	Invalidate()
 	SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler)
 	ServicePassEventUpstreamToHostFullDispatchReply(host unsafe.Pointer, dispatch bool, reply VoidHandler)
@@ -187,7 +186,7 @@ func (s SLSRemoteViewEventClient) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLSRemoteViewEventClient) SetDelegate(value kernel.Pointer) {
+func (s SLSRemoteViewEventClient) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLSRemoteViewEventClient) Description() string {

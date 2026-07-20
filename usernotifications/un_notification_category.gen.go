@@ -135,6 +135,7 @@ type IUNNotificationCategory interface {
 	// Options for how to handle notifications of this type.
 	Options() UNNotificationCategoryOptions
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationCategory
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -155,6 +156,13 @@ func NewUNNotificationCategory() UNNotificationCategory {
 	class := getUNNotificationCategoryClass()
 	rv := objc.Send[UNNotificationCategory](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/init(coder:)
+func NewUNNotificationCategoryWithCoder(coder foundation.INSCoder) UNNotificationCategory {
+	instance := getUNNotificationCategoryClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationCategoryFromID(rv)
 }
 
 // Creates a category object containing the specified actions, options,
@@ -280,6 +288,11 @@ func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersOptions(iden
 	return UNNotificationCategoryFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/init(coder:)
+func (u UNNotificationCategory) InitWithCoder(coder foundation.INSCoder) UNNotificationCategory {
+	rv := objc.Send[UNNotificationCategory](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationCategory) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

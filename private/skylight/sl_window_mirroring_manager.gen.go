@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -124,7 +123,7 @@ type ISLWindowMirroringManager interface {
 	AppsMirroredToDisplay(display objectivec.IObject) objectivec.IObject
 	ContextForDisplay(display objectivec.IObject) objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	Extend(extend objectivec.IObject) bool
 	FilterForDisplay(display objectivec.IObject) objectivec.IObject
 	InvokeDelegateContentChanged(changed objectivec.IObject)
@@ -270,6 +269,6 @@ func (s SLWindowMirroringManager) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLWindowMirroringManager) SetDelegate(value kernel.Pointer) {
+func (s SLWindowMirroringManager) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }

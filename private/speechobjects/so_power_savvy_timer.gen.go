@@ -125,7 +125,7 @@ func (s SOPowerSavvyTimer) IsValid() bool {
 	return rv
 }
 
-func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objectivec.SEL, object objectivec.IObject, delay float64) {
+func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objc.SEL, object objectivec.IObject, delay float64) {
 	objc.Send[objc.ID](objc.ID(_SOPowerSavvyTimerClass.class), objc.Sel("requestTarget:performSelector:withObject:afterDelay:"), target, selector, object, delay)
 }
 
@@ -137,7 +137,7 @@ func (s SOPowerSavvyTimer) SetRepeats(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRepeats:"), value)
 }
 func (s SOPowerSavvyTimer) Selector() objectivec.SEL {
-	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selector"))
+	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selector"))
 	return objectivec.SEL(rv)
 }
 func (s SOPowerSavvyTimer) SetSelector(value objectivec.SEL) {

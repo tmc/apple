@@ -263,7 +263,7 @@ type IAVCompositionTrack interface {
 	SetSelfContained(value bool)
 	// The total number of bytes of sample data the track requires.
 	TotalSampleDataLength() unsafe.Pointer
-	SetTotalSampleDataLength(value kernel.Pointer)
+	SetTotalSampleDataLength(value unsafe.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -547,7 +547,7 @@ func (c AVCompositionTrack) TotalSampleDataLength() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("totalSampleDataLength"))
 	return rv
 }
-func (c AVCompositionTrack) SetTotalSampleDataLength(value kernel.Pointer) {
+func (c AVCompositionTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 

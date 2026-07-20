@@ -10,21 +10,37 @@ import (
 type IOURLError int32
 
 const (
-	KIOURLImproperArgumentsError       IOURLError = 0
-	KIOURLPropertyKeyUnavailableError  IOURLError = 0
-	KIOURLRemoteHostUnavailableError   IOURLError = 0
-	KIOURLResourceAccessViolationError IOURLError = 0
-	KIOURLResourceNotFoundError        IOURLError = 0
-	KIOURLTimeoutError                 IOURLError = 0
-	KIOURLUnknownError                 IOURLError = 0
-	KIOURLUnknownPropertyKeyError      IOURLError = 0
-	KIOURLUnknownSchemeError           IOURLError = 0
+	KIOURLImproperArgumentsError       IOURLError = -15
+	KIOURLPropertyKeyUnavailableError  IOURLError = -17
+	KIOURLRemoteHostUnavailableError   IOURLError = -14
+	KIOURLResourceAccessViolationError IOURLError = -13
+	KIOURLResourceNotFoundError        IOURLError = -12
+	KIOURLTimeoutError                 IOURLError = -18
+	KIOURLUnknownError                 IOURLError = -10
+	KIOURLUnknownPropertyKeyError      IOURLError = -16
+	KIOURLUnknownSchemeError           IOURLError = -11
 )
 
 func (e IOURLError) String() string {
 	switch e {
 	case KIOURLImproperArgumentsError:
 		return "KIOURLImproperArgumentsError"
+	case KIOURLPropertyKeyUnavailableError:
+		return "KIOURLPropertyKeyUnavailableError"
+	case KIOURLRemoteHostUnavailableError:
+		return "KIOURLRemoteHostUnavailableError"
+	case KIOURLResourceAccessViolationError:
+		return "KIOURLResourceAccessViolationError"
+	case KIOURLResourceNotFoundError:
+		return "KIOURLResourceNotFoundError"
+	case KIOURLTimeoutError:
+		return "KIOURLTimeoutError"
+	case KIOURLUnknownError:
+		return "KIOURLUnknownError"
+	case KIOURLUnknownPropertyKeyError:
+		return "KIOURLUnknownPropertyKeyError"
+	case KIOURLUnknownSchemeError:
+		return "KIOURLUnknownSchemeError"
 	default:
 		return fmt.Sprintf("IOURLError(%d)", e)
 	}

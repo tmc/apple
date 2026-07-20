@@ -42,10 +42,10 @@ type MTLComputeCommandEncoder interface {
 	SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange)
 
 	// SetBytesLengthAtIndex protocol.
-	SetBytesLengthAtIndex(bytes []byte, length uint64, index uint64)
+	SetBytesLengthAtIndex(bytes []byte, index uint64)
 
 	// SetBytesLengthAttributeStrideAtIndex protocol.
-	SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint64, stride uint64, index uint64)
+	SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint64, index uint64)
 
 	// SetImageblockWidthHeight protocol.
 	SetImageblockWidthHeight(width uint64, height uint64)
@@ -144,11 +144,11 @@ func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsAttributeStridesWithRan
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, length uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), bytes, length, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint64, stride uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint64, index uint64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
 }
 func (o MTLComputeCommandEncoderObject) SetComputePipelineState(state objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:"), state)

@@ -4,10 +4,10 @@ package servicemanagement
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/security"
 )
 
 type unavailableSymbolError struct {
@@ -124,10 +124,10 @@ func SMJobCopyDictionary(domain corefoundation.CFStringRef, jobLabel corefoundat
 	return result
 }
 
-var _sMJobRemove func(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth unsafe.Pointer, wait bool, outError *corefoundation.CFErrorRef) bool
+var _sMJobRemove func(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth security.AuthorizationRef, wait bool, outError *corefoundation.CFErrorRef) bool
 var _sMJobRemoveErr error
 
-func trySMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth unsafe.Pointer, wait bool, outError *corefoundation.CFErrorRef) (bool, error) {
+func trySMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth security.AuthorizationRef, wait bool, outError *corefoundation.CFErrorRef) (bool, error) {
 	if _sMJobRemove == nil {
 		return false, symbolCallError("SMJobRemove", "10.6", _sMJobRemoveErr)
 	}
@@ -139,7 +139,7 @@ func trySMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.C
 // Deprecated: Deprecated since macOS 10.10.
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMJobRemove(_:_:_:_:_:)
-func SMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth unsafe.Pointer, wait bool, outError *corefoundation.CFErrorRef) bool {
+func SMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef, auth security.AuthorizationRef, wait bool, outError *corefoundation.CFErrorRef) bool {
 	result, callErr := trySMJobRemove(domain, jobLabel, auth, wait, outError)
 	if callErr != nil {
 		panic(callErr)
@@ -147,10 +147,10 @@ func SMJobRemove(domain corefoundation.CFStringRef, jobLabel corefoundation.CFSt
 	return result
 }
 
-var _sMJobSubmit func(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth unsafe.Pointer, outError *corefoundation.CFErrorRef) bool
+var _sMJobSubmit func(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth security.AuthorizationRef, outError *corefoundation.CFErrorRef) bool
 var _sMJobSubmitErr error
 
-func trySMJobSubmit(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth unsafe.Pointer, outError *corefoundation.CFErrorRef) (bool, error) {
+func trySMJobSubmit(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth security.AuthorizationRef, outError *corefoundation.CFErrorRef) (bool, error) {
 	if _sMJobSubmit == nil {
 		return false, symbolCallError("SMJobSubmit", "10.6", _sMJobSubmitErr)
 	}
@@ -162,7 +162,7 @@ func trySMJobSubmit(domain corefoundation.CFStringRef, job corefoundation.CFDict
 // Deprecated: Deprecated since macOS 10.10.
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMJobSubmit(_:_:_:_:)
-func SMJobSubmit(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth unsafe.Pointer, outError *corefoundation.CFErrorRef) bool {
+func SMJobSubmit(domain corefoundation.CFStringRef, job corefoundation.CFDictionaryRef, auth security.AuthorizationRef, outError *corefoundation.CFErrorRef) bool {
 	result, callErr := trySMJobSubmit(domain, job, auth, outError)
 	if callErr != nil {
 		panic(callErr)

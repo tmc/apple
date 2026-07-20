@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,6 +19,11 @@ type NSTextSelectionDataSource interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
 	EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler)
+
+	// Enumerates the textual segment boundaries starting at the location you specify.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
+	EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block StringTextRangeTextRangeBoolHandler)
 
 	// Returns a new location using the location and offset you specify.
 	//
@@ -86,6 +92,25 @@ func NSTextSelectionDataSourceObjectFromID(id objc.ID) NSTextSelectionDataSource
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
 func (o NSTextSelectionDataSourceObject) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, block)
+}
+
+// Enumerates the textual segment boundaries starting at the location you
+// specify.
+//
+// location: The location where the enumeration starts.
+//
+// options: One or more of the available [NSString.EnumerationOptions].
+//
+// block: A closure to invoke to evaluate the substrings; end the enumeration early
+// by returning `false`.
+//
+// # Discussion
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
+//
+// [NSString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSString/EnumerationOptions
+func (o NSTextSelectionDataSourceObject) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block StringTextRangeTextRangeBoolHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("enumerateSubstringsFromLocation:options:usingBlock:"), location, options, block)
 }
 
 // Returns a new location using the location and offset you specify.

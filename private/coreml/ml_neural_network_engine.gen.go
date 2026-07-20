@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -499,7 +500,7 @@ type IMLNeuralNetworkEngine interface {
 	SupportFromEspressoPlatform(platform int) uint64
 	TransferOneComponent16HalfPixelBufferToPixelBufferWithScaleBias(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef, scale float32, bias float32) bool
 	TransferPixelBufferToPixelBuffer(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef) bool
-	TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf unsafe.Pointer) (int, error)
+	TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf kernel.Pointer) (int, error)
 	UpdateDynamicOutputBlobIndicatorCacheAndReturnError() (bool, error)
 	UsingCPU() bool
 	SetUsingCPU(value bool)
@@ -1103,8 +1104,6 @@ func (m MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe
 	return rv, nil
 
 }
-
-// preprocessing is a [*appleneuralengine.vimage2espresso_param].
 func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
 	return corevideo.CVImageBufferRef(rv)
@@ -1391,7 +1390,7 @@ func (m MLNeuralNetworkEngine) TransferPixelBufferToPixelBuffer(buffer corevideo
 	rv := objc.Send[bool](m.ID, objc.Sel("transferPixelBuffer:toPixelBuffer:"), buffer, buffer2)
 	return rv
 }
-func (m MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf unsafe.Pointer) (int, error) {
+func (m MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf kernel.Pointer) (int, error) {
 	var flags int
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("tryToSetOutputBacking:forFeatureName:toEbuf:reportPointerFlags:error:"), backing, name, ebuf, unsafe.Pointer(&flags), unsafe.Pointer(&errorPtr))

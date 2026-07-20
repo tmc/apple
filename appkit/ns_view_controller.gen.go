@@ -339,7 +339,7 @@ type INSViewController interface {
 	// Topic: NSEditor Conformance
 
 	// Attempt to commit any currently edited results of the receiver.
-	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
 	// Returns whether the receiver was able to commit any pending edits.
 	CommitEditing() bool
 	// Causes the receiver to discard any changes, restoring the previous values.
@@ -615,7 +615,7 @@ func (v NSViewController) LoadView() {
 //
 // [objectDidBeginEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidBeginEditing:
 // [objectDidEndEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidEndEditing:
-func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](v.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
 

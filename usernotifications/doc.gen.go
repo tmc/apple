@@ -99,8 +99,8 @@
 //   - [UNNotificationSound] - The sound played upon delivery of a notification.
 //   - [UNNotificationAction] - A task your app performs in response to a notification that the system delivers.
 //   - [UNTextInputNotificationAction] - An action that accepts user-typed text.
-//   - [UNNotificationAttachment] - A media file associated with a notification.
 //   - [UNNotificationRequest] - A request to schedule a local notification, which includes the content of the notification and the trigger conditions for delivery.
+//   - [UNCalendarNotificationTrigger] - A trigger condition that causes a notification the system delivers at a specific date and time.
 //
 // [APS Environment Entitlement]: https://developer.apple.com/documentation/BundleResources/Entitlements/aps-environment
 // [Asking permission to use notifications]: https://developer.apple.com/documentation/usernotifications/asking-permission-to-use-notifications

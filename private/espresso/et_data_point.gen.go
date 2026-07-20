@@ -47,7 +47,6 @@ func (ec ETDataPointClass) Alloc() ETDataPoint {
 // # Methods
 //
 //   - [ETDataPoint.BufferWithKey]
-//   - [ETDataPoint.GetSampleData]
 //   - [ETDataPoint.ImageWithKey]
 //   - [ETDataPoint.IterateBuffersByKey]
 //   - [ETDataPoint.SetDataSizeForKeyFreeWhenDone]
@@ -69,7 +68,6 @@ var _ IETDataPoint = ETDataPoint{}
 // # Methods
 //
 //   - [IETDataPoint.BufferWithKey]
-//   - [IETDataPoint.GetSampleData]
 //   - [IETDataPoint.ImageWithKey]
 //   - [IETDataPoint.IterateBuffersByKey]
 //   - [IETDataPoint.SetDataSizeForKeyFreeWhenDone]
@@ -80,7 +78,6 @@ type IETDataPoint interface {
 	// Topic: Methods
 
 	BufferWithKey(key objectivec.IObject) unsafe.Pointer
-	GetSampleData() unsafe.Pointer
 	ImageWithKey(key objectivec.IObject) unsafe.Pointer
 	IterateBuffersByKey(key VoidHandler)
 	SetDataSizeForKeyFreeWhenDone(data *float32, size uint64, key objectivec.IObject, done bool)
@@ -108,10 +105,6 @@ func NewETDataPoint() ETDataPoint {
 
 func (e ETDataPoint) BufferWithKey(key objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithKey:"), key)
-	return rv
-}
-func (e ETDataPoint) GetSampleData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("getSampleData"))
 	return rv
 }
 func (e ETDataPoint) ImageWithKey(key objectivec.IObject) unsafe.Pointer {

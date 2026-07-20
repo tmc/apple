@@ -132,7 +132,7 @@ func (v AVVideoCompositionInstruction) EncodeWithCoder(coder foundation.INSCoder
 // Pass-through initializer, for internal use in AVFoundation only
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/videoCompositionInstructionWithInstruction:
-func (_AVVideoCompositionInstructionClass AVVideoCompositionInstructionClass) VideoCompositionInstructionWithInstruction(instruction AVVideoCompositionInstruction) AVVideoCompositionInstruction {
+func (_AVVideoCompositionInstructionClass AVVideoCompositionInstructionClass) VideoCompositionInstructionWithInstruction(instruction IAVVideoCompositionInstruction) AVVideoCompositionInstruction {
 	rv := objc.Send[objc.ID](objc.ID(_AVVideoCompositionInstructionClass.class), objc.Sel("videoCompositionInstructionWithInstruction:"), instruction)
 	return AVVideoCompositionInstructionFromID(rv)
 }

@@ -181,7 +181,7 @@ type IThread interface {
 	// Topic: Initializing an NSThread Object
 
 	// Returns an [NSThread] object initialized with the given arguments.
-	InitWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread
+	InitWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread
 
 	// Topic: Starting a Thread
 
@@ -271,7 +271,7 @@ func NewThread() Thread {
 // the detached thread. They are released when the thread finally exits.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(target:selector:object:)
-func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread {
+func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread {
 	instance := getThreadClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:selector:object:"), target, selector, argument)
 	return ThreadFromID(rv)
@@ -296,7 +296,7 @@ func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objec
 // the detached thread. They are released when the thread finally exits.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(target:selector:object:)
-func (t Thread) InitWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, argument objectivec.IObject) Thread {
+func (t Thread) InitWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, argument objectivec.IObject) Thread {
 	rv := objc.Send[Thread](t.ID, objc.Sel("initWithTarget:selector:object:"), target, selector, argument)
 	return rv
 }
@@ -392,7 +392,7 @@ func (t Thread) InitWithBlock(block VoidHandler) Thread {
 // See: https://developer.apple.com/documentation/Foundation/Thread/detachNewThreadSelector(_:toTarget:with:)
 //
 // [NSWillBecomeMultiThreaded]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSWillBecomeMultiThreaded
-func (_ThreadClass ThreadClass) DetachNewThreadSelectorToTargetWithObject(selector objectivec.SEL, target objectivec.IObject, argument objectivec.IObject) {
+func (_ThreadClass ThreadClass) DetachNewThreadSelectorToTargetWithObject(selector objc.SEL, target objectivec.IObject, argument objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("detachNewThreadSelector:toTarget:withObject:"), selector, target, argument)
 }
 

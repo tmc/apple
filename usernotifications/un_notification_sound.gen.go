@@ -114,6 +114,7 @@ func UNNotificationSoundFromID(id objc.ID) UNNotificationSound {
 type IUNNotificationSound interface {
 	objectivec.IObject
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationSound
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -164,6 +165,18 @@ func NewUNNotificationSoundNamed(name UNNotificationSoundName) UNNotificationSou
 	return UNNotificationSoundFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSound/init(coder:)
+func NewUNNotificationSoundWithCoder(coder foundation.INSCoder) UNNotificationSound {
+	instance := getUNNotificationSoundClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationSoundFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSound/init(coder:)
+func (u UNNotificationSound) InitWithCoder(coder foundation.INSCoder) UNNotificationSound {
+	rv := objc.Send[UNNotificationSound](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationSound) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

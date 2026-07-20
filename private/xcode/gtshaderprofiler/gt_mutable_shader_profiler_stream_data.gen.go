@@ -4,9 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -113,13 +113,13 @@ type IGTMutableShaderProfilerStreamData interface {
 	AddAPSData(aPSData objectivec.IObject) bool
 	AddAPSTimelineData(data objectivec.IObject) bool
 	AddBatchIdFilteredCounterData(data objectivec.IObject) bool
-	AddCommandBuffersCount(buffers []kernel.Pointer, count uint64)
-	AddEncodersCount(encoders []kernel.Pointer, count uint64)
-	AddGPUCommandsCount(gPUCommands []kernel.Pointer, count uint64)
+	AddCommandBuffersCount(buffers unsafe.Pointer, count uint64)
+	AddEncodersCount(encoders unsafe.Pointer, count uint64)
+	AddGPUCommandsCount(gPUCommands unsafe.Pointer, count uint64)
 	AddGPUTimelineData(data objectivec.IObject) bool
 	AddPipelinePerformanceStatisticsData(data objectivec.IObject)
-	AddPipelineStatesCount(states []kernel.Pointer, count uint64)
-	AddShaderFunctionInfoCount(info []kernel.Pointer, count uint64)
+	AddPipelineStatesCount(states unsafe.Pointer, count uint64)
+	AddShaderFunctionInfoCount(info unsafe.Pointer, count uint64)
 	AddShaderProfilerData(data objectivec.IObject) bool
 	AddString(string_ objectivec.IObject) uint64
 	RemoveAPSCounterData()
@@ -218,13 +218,13 @@ func (g GTMutableShaderProfilerStreamData) AddBatchIdFilteredCounterData(data ob
 	rv := objc.Send[bool](g.ID, objc.Sel("addBatchIdFilteredCounterData:"), data)
 	return rv
 }
-func (g GTMutableShaderProfilerStreamData) AddCommandBuffersCount(buffers []kernel.Pointer, count uint64) {
+func (g GTMutableShaderProfilerStreamData) AddCommandBuffersCount(buffers unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addCommandBuffers:count:"), objc.CArray(buffers), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddEncodersCount(encoders []kernel.Pointer, count uint64) {
+func (g GTMutableShaderProfilerStreamData) AddEncodersCount(encoders unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addEncoders:count:"), objc.CArray(encoders), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddGPUCommandsCount(gPUCommands []kernel.Pointer, count uint64) {
+func (g GTMutableShaderProfilerStreamData) AddGPUCommandsCount(gPUCommands unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addGPUCommands:count:"), objc.CArray(gPUCommands), count)
 }
 func (g GTMutableShaderProfilerStreamData) AddGPUTimelineData(data objectivec.IObject) bool {
@@ -234,10 +234,10 @@ func (g GTMutableShaderProfilerStreamData) AddGPUTimelineData(data objectivec.IO
 func (g GTMutableShaderProfilerStreamData) AddPipelinePerformanceStatisticsData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addPipelinePerformanceStatisticsData:"), data)
 }
-func (g GTMutableShaderProfilerStreamData) AddPipelineStatesCount(states []kernel.Pointer, count uint64) {
+func (g GTMutableShaderProfilerStreamData) AddPipelineStatesCount(states unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addPipelineStates:count:"), objc.CArray(states), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddShaderFunctionInfoCount(info []kernel.Pointer, count uint64) {
+func (g GTMutableShaderProfilerStreamData) AddShaderFunctionInfoCount(info unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addShaderFunctionInfo:count:"), objc.CArray(info), count)
 }
 func (g GTMutableShaderProfilerStreamData) AddShaderProfilerData(data objectivec.IObject) bool {

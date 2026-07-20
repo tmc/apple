@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -79,9 +78,9 @@ type IEspressoTrainingConvolutionWeightsForMPS interface {
 	// Topic: Methods
 
 	BiasesBuffer() unsafe.Pointer
-	SetBiasesBuffer(value kernel.Pointer)
+	SetBiasesBuffer(value unsafe.Pointer)
 	WeightsBuffer() unsafe.Pointer
-	SetWeightsBuffer(value kernel.Pointer)
+	SetWeightsBuffer(value unsafe.Pointer)
 	WeightsLayout() uint32
 	InitWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS
 }
@@ -130,13 +129,13 @@ func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() unsafe.Pointer 
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
 	return rv
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value kernel.Pointer) {
+func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
 	return rv
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value kernel.Pointer) {
+func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }

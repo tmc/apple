@@ -88,7 +88,7 @@ type INSAssertionHandler interface {
 	objectivec.IObject
 
 	HandleFailureInFunctionFileLineNumberDescription(functionName string, fileName string, line int, format string)
-	HandleFailureInMethodObjectFileLineNumberDescription(selector objectivec.SEL, object objectivec.IObject, fileName string, line int, format string)
+	HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string)
 }
 
 // Init initializes the instance.
@@ -116,7 +116,7 @@ func (a NSAssertionHandler) HandleFailureInFunctionFileLineNumberDescription(fun
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSAssertionHandler/handleFailureInMethod:object:file:lineNumber:description:
-func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objectivec.SEL, object objectivec.IObject, fileName string, line int, format string) {
+func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("handleFailureInMethod:object:file:lineNumber:description:"), selector, object, objc.String(fileName), line, objc.String(format))
 }
 

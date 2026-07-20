@@ -67,7 +67,6 @@ func (gc GTMioNonOverlappingCountersClass) Alloc() GTMioNonOverlappingCounters {
 //   - [GTMioNonOverlappingCounters.StatsForDrawCounterAtDataIndexMinValueMaxValueTotalMedian]
 //   - [GTMioNonOverlappingCounters.StatsForEncoderCounterAtDataIndexMinValueMaxValueTotalMedian]
 //   - [GTMioNonOverlappingCounters.UpdatePerDrawCounters]
-//   - [GTMioNonOverlappingCounters.UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters]
 //   - [GTMioNonOverlappingCounters.InitBatchIDCountersDrawFunctionIndexes]
 //   - [GTMioNonOverlappingCounters.InitWithNonOverlappingCountersScopeScopeIndexDatabase]
 type GTMioNonOverlappingCounters struct {
@@ -107,7 +106,6 @@ var _ IGTMioNonOverlappingCounters = GTMioNonOverlappingCounters{}
 //   - [IGTMioNonOverlappingCounters.StatsForDrawCounterAtDataIndexMinValueMaxValueTotalMedian]
 //   - [IGTMioNonOverlappingCounters.StatsForEncoderCounterAtDataIndexMinValueMaxValueTotalMedian]
 //   - [IGTMioNonOverlappingCounters.UpdatePerDrawCounters]
-//   - [IGTMioNonOverlappingCounters.UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters]
 //   - [IGTMioNonOverlappingCounters.InitBatchIDCountersDrawFunctionIndexes]
 //   - [IGTMioNonOverlappingCounters.InitWithNonOverlappingCountersScopeScopeIndexDatabase]
 type IGTMioNonOverlappingCounters interface {
@@ -136,7 +134,6 @@ type IGTMioNonOverlappingCounters interface {
 	StatsForDrawCounterAtDataIndexMinValueMaxValueTotalMedian(index uint64, value []float64, value2 []float64, total []float64, median []float64)
 	StatsForEncoderCounterAtDataIndexMinValueMaxValueTotalMedian(index uint64, value []float64, value2 []float64, total []float64, median []float64)
 	UpdatePerDrawCounters()
-	UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters(data unsafe.Pointer, indexes unsafe.Pointer, dMCounters unsafe.Pointer)
 	InitBatchIDCountersDrawFunctionIndexes(iDCounters unsafe.Pointer, indexes unsafe.Pointer) GTMioNonOverlappingCounters
 	InitWithNonOverlappingCountersScopeScopeIndexDatabase(counters unsafe.Pointer, scope uint16, index uint32, database objectivec.IObject) GTMioNonOverlappingCounters
 }
@@ -220,9 +217,6 @@ func (g GTMioNonOverlappingCounters) StatsForEncoderCounterAtDataIndexMinValueMa
 }
 func (g GTMioNonOverlappingCounters) UpdatePerDrawCounters() {
 	objc.Send[objc.ID](g.ID, objc.Sel("updatePerDrawCounters"))
-}
-func (g GTMioNonOverlappingCounters) UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters(data unsafe.Pointer, indexes unsafe.Pointer, dMCounters unsafe.Pointer) {
-	objc.Send[objc.ID](g.ID, objc.Sel("updatePerGPUCommandCounterData:drawIndexes:perDrawPerDMCounters:"), data, indexes, dMCounters)
 }
 func (g GTMioNonOverlappingCounters) InitBatchIDCountersDrawFunctionIndexes(iDCounters unsafe.Pointer, indexes unsafe.Pointer) GTMioNonOverlappingCounters {
 	rv := objc.Send[GTMioNonOverlappingCounters](g.ID, objc.Sel("initBatchIDCounters:drawFunctionIndexes:"), iDCounters, indexes)

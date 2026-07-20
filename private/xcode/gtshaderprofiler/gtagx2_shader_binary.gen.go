@@ -4,9 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -150,7 +150,7 @@ type IGTAGX2ShaderBinary interface {
 	AddString(string_ objectivec.IObject) uint64
 	AddrEnd() uint32
 	AddrStart() uint32
-	AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64)
+	AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64)
 	AnalysisResult() IGTShaderProfilerBinaryAnalysisResult
 	SetAnalysisResult(value IGTShaderProfilerBinaryAnalysisResult)
 	BinaryRanges() foundation.INSArray
@@ -228,7 +228,7 @@ func (g GTAGX2ShaderBinary) AddString(string_ objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
-func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64) {
+func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("adjustLatencyForALUBlocks:count:"), objc.CArray(aLUBlocks), count)
 }
 func (g GTAGX2ShaderBinary) CostForAddress(address uint32) float64 {

@@ -29,6 +29,20 @@ func NewCKAccountStatusErrorBlock(handler CKAccountStatusErrorHandler) (objc.ID,
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CKApplicationPermissionBlock handles A closure that processes the outcome of a permissions request.
+
+// NewCKApplicationPermissionBlock wraps a Go [CKApplicationPermissionBlock] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKApplicationPermissionBlock(handler CKApplicationPermissionBlock) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive CKApplicationPermissionStatus, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // CKRecordErrorHandler handles The closure to execute with the fetch results.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -409,6 +423,34 @@ func NewCKShareParticipantErrorBlock(handler CKShareParticipantErrorHandler) (ob
 			result = &v
 		}
 		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// CKSharePreparationCompletionHandler handles completion with primitive and object results.
+
+// NewCKSharePreparationCompletionHandlerBlock wraps a Go [CKSharePreparationCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKSharePreparationCompletionHandlerBlock(handler CKSharePreparationCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive CKShare, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// CKSharePreparationHandler handles completion with a primitive value.
+
+// NewCKSharePreparationHandlerBlock wraps a Go [CKSharePreparationHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKSharePreparationHandlerBlock(handler CKSharePreparationHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal func(*CKShare, *foundation.NSError)) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

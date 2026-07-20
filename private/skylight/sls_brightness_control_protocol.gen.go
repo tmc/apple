@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -20,7 +19,7 @@ type SLSBrightnessControl interface {
 	AbortContrastEnhancerRampError() (float32, error)
 
 	// AbortWhitePointRampError protocol.
-	AbortWhitePointRampError(ramp kernel.Pointer) (bool, error)
+	AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error)
 
 	// BrightnessAvailable protocol.
 	BrightnessAvailable() bool
@@ -59,7 +58,7 @@ type SLSBrightnessControl interface {
 	SetLinearBrightnessError(brightness float32) (bool, error)
 
 	// SetWhitePointRampDurationError protocol.
-	SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error)
+	SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error)
 
 	// UnregisterNotificationBlocks protocol.
 	UnregisterNotificationBlocks()
@@ -104,7 +103,7 @@ func (o SLSBrightnessControlObject) AbortContrastEnhancerRampError() (float32, e
 	}
 	return ramp, nil
 }
-func (o SLSBrightnessControlObject) AbortWhitePointRampError(ramp kernel.Pointer) (bool, error) {
+func (o SLSBrightnessControlObject) AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("abortWhitePointRamp:error:"), ramp)
 	if err != nil {
 		return false, err
@@ -197,7 +196,7 @@ func (o SLSBrightnessControlObject) SetLinearBrightnessError(brightness float32)
 func (o SLSBrightnessControlObject) SetNotificationQueue(queue objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNotificationQueue:"), queue)
 }
-func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error) {
+func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setWhitePoint:rampDuration:error:"), point, duration)
 	if err != nil {
 		return false, err

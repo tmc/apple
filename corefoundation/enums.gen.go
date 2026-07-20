@@ -2375,3 +2375,6 @@ func (e KCFUserNotification) String() string {
 		return fmt.Sprintf("KCFUserNotification(%d)", e)
 	}
 }
+
+// ByteOrder is an alias for referenced enum type CFByteOrder.
+type ByteOrder = CFByteOrder

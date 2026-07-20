@@ -7,7 +7,6 @@ package avfoundation
 import (
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ import (
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setDynamicAspectRatio(_:completionHandler:)
 //
 // [AVCaptureDevice.AspectRatio]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/AspectRatio
-func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRatio kernel.ID, handler CMTimeErrorHandler) {
+func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRatio objectivec.IObject, handler CMTimeErrorHandler) {
 	_block1, _ := NewCMTimeErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setDynamicAspectRatio:completionHandler:"), dynamicAspectRatio, _block1)
 }

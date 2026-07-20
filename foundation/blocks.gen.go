@@ -167,6 +167,20 @@ func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CompletionHandler handles A completion handler for getting an asynchronous attributed string.
+
+// NewCompletionHandlerBlock wraps a Go [CompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCompletionHandlerBlock(handler CompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSAttributedString, extra0 INSDictionary, extra1 unsafe.Pointer) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // DataBoolErrorHandler handles The completion handler to call when all bytes are read, or an error occurs.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -710,6 +724,20 @@ func NewInputStreamOutputStreamErrorBlock(handler InputStreamOutputStreamErrorHa
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSBackgroundActivityCompletionHandler handles completion with a primitive value.
+
+// NewNSBackgroundActivityCompletionHandlerBlock wraps a Go [NSBackgroundActivityCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSBackgroundActivityCompletionHandlerBlock(handler NSBackgroundActivityCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSBackgroundActivityResult) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSFileVersionArrayErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -776,6 +804,34 @@ func NewNSHTTPCookieArrayBlock(handler NSHTTPCookieArrayHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSItemProviderCompletionHandler handles A block that receives the item provider’s data.
+
+// NewNSItemProviderCompletionHandlerBlock wraps a Go [NSItemProviderCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSItemProviderCompletionHandlerBlock(handler NSItemProviderCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSSecureCoding, extra0 NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSItemProviderLoadHandler handles A block that loads the item provider’s data and coerces it to the specified type.
+
+// NewNSItemProviderLoadHandlerBlock wraps a Go [NSItemProviderLoadHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSItemProviderLoadHandlerBlock(handler NSItemProviderLoadHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive func(objectivec.IObject, *NSError), extra0 objectivec.Class, extra1 INSDictionary) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSItemProviderReadingErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -798,6 +854,20 @@ func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandle
 			result = NSItemProviderReadingObjectFromID(resultID)
 		}
 		handler(result, SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSProgressUnpublishingHandler handles A block that the system calls when an observed progress object terminates the subscription.
+
+// NewNSProgressUnpublishingHandlerBlock wraps a Go [NSProgressUnpublishingHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSProgressUnpublishingHandlerBlock(handler NSProgressUnpublishingHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) {
+		handler()
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -975,6 +1045,62 @@ func NewNSURLSessionTaskArrayBlock(handler NSURLSessionTaskArrayHandler) (objc.I
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSUserAppleScriptTaskCompletionHandler handles Implement this block to retrieve the result of the AppleScript executed by [execute(withAppleEvent:completionHandler:)].
+
+// NewNSUserAppleScriptTaskCompletionHandlerBlock wraps a Go [NSUserAppleScriptTaskCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSUserAppleScriptTaskCompletionHandlerBlock(handler NSUserAppleScriptTaskCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive NSAppleEventDescriptor, extra0 NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSUserAutomatorTaskCompletionHandler handles Implement this block to retrieve the output of the Automator workflow executed by [execute(withInput:completionHandler:)].
+
+// NewNSUserAutomatorTaskCompletionHandlerBlock wraps a Go [NSUserAutomatorTaskCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSUserAutomatorTaskCompletionHandlerBlock(handler NSUserAutomatorTaskCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive objectivec.IObject, extra0 NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSUserScriptTaskCompletionHandler handles Implement this block to retrieve the error of the script executed by [execute(completionHandler:)].
+
+// NewNSUserScriptTaskCompletionHandlerBlock wraps a Go [NSUserScriptTaskCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSUserScriptTaskCompletionHandlerBlock(handler NSUserScriptTaskCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSError) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSUserUnixTaskCompletionHandler handles Implement this block to retrieve an error from the Unix scripted executed by [execute(withArguments:completionHandler:)].
+
+// NewNSUserUnixTaskCompletionHandlerBlock wraps a Go [NSUserUnixTaskCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSUserUnixTaskCompletionHandlerBlock(handler NSUserUnixTaskCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSError) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NotificationHandler handles The block that executes when receiving a notification.
 //
 // Used by:
@@ -1035,7 +1161,27 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSString.EnumerateLinesUsingBlock]
-type StringBoolHandler = func(*string, *bool)
+type StringBoolHandler = func(*string, bool)
+
+// NewStringBoolBlock wraps a Go [StringBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSString.EnumerateLinesUsingBlock]
+func NewStringBoolBlock(handler StringBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringNSFileProviderServiceDictionaryErrorHandler handles A block that is called on an anonymous background queue.
 //
@@ -1051,7 +1197,28 @@ type StringNSFileProviderServiceDictionaryErrorHandler = func(*INSDictionary, er
 // Used by:
 //   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
 //   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-type StringNSRangeBoolHandler = func(*string, *NSRange, *bool)
+type StringNSRangeBoolHandler = func(*string, NSRange, bool)
+
+// NewStringNSRangeBoolBlock wraps a Go [StringNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
+//   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
+func NewStringNSRangeBoolBlock(handler StringNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 NSRange, extra1 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringNSRangeNSRangeBoolHandler handles The block to apply to ranges of the string.
 //   - tag: The located linguistic tag.
@@ -1063,13 +1230,68 @@ type StringNSRangeBoolHandler = func(*string, *NSRange, *bool)
 //   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
 //   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
 //   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
-type StringNSRangeNSRangeBoolHandler = func(*string, *NSRange, *NSRange, *bool)
+type StringNSRangeNSRangeBoolHandler = func(*string, NSRange, NSRange, bool)
+
+// NewStringNSRangeNSRangeBoolBlock wraps a Go [StringNSRangeNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
+//   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
+//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
+func NewStringNSRangeNSRangeBoolBlock(handler StringNSRangeNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 NSRange, extra1 NSRange, extra2 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result, extra0, extra1, extra2)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringNSURLCredentialDictionaryHandler handles A completion handler that receives a single argument with the credentials for the specified protection space and task.
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetCredentialsForProtectionSpaceTaskCompletionHandler]
 type StringNSURLCredentialDictionaryHandler = func(*INSDictionary)
+
+// StringStringImageHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion]
+type StringStringImageHandler = func(*string, string, *objectivec.Object)
+
+// NewStringStringImageBlock wraps a Go [StringStringImageHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion]
+func NewStringStringImageBlock(handler StringStringImageHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		var extra0 string = string(extra0ID)
+		var extra1 *objectivec.Object
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			v := objectivec.ObjectFromID(extra1ID)
+			extra1 = &v
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringidDictionaryNSRangeBoolHandler handles The closure or block to apply to ranges of attributes in the attributed string, taking three arguments:
 //
@@ -1488,7 +1710,6 @@ func NewUnsafePointerNSRangeBoolBlock(handler UnsafePointerNSRangeBoolHandler) (
 // Used by:
 //   - [NSBlockOperation.AddExecutionBlock]
 //   - [NSBlockOperation.BlockOperationWithBlock]
-//   - [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion]
 //   - [NSOperationQueue.AddBarrierBlock]
 //   - [NSOperationQueue.AddOperationWithBlock]
 //   - [NSProcessInfo.PerformActivityWithOptionsReasonUsingBlock]
@@ -1510,7 +1731,6 @@ type VoidHandler = func()
 // Used by:
 //   - [NSBlockOperation.AddExecutionBlock]
 //   - [NSBlockOperation.BlockOperationWithBlock]
-//   - [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion]
 //   - [NSOperationQueue.AddBarrierBlock]
 //   - [NSOperationQueue.AddOperationWithBlock]
 //   - [NSProcessInfo.PerformActivityWithOptionsReasonUsingBlock]

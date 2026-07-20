@@ -488,6 +488,27 @@ func Vmnet_network_configuration_set_external_interface(config Vmnet_network_con
 	return result
 }
 
+var _vmnet_network_configuration_set_ipv6_prefix func(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t
+var _vmnet_network_configuration_set_ipv6_prefixErr error
+
+func tryVmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) (Vmnet_return_t, error) {
+	if _vmnet_network_configuration_set_ipv6_prefix == nil {
+		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_set_ipv6_prefix", "26.0", _vmnet_network_configuration_set_ipv6_prefixErr)
+	}
+	return _vmnet_network_configuration_set_ipv6_prefix(config, prefix, len_), nil
+}
+
+// Vmnet_network_configuration_set_ipv6_prefix.
+//
+// See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_set_ipv6_prefix(_:_:_:)
+func Vmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t {
+	result, callErr := tryVmnet_network_configuration_set_ipv6_prefix(config, prefix, len_)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _vmnet_network_configuration_set_mtu func(config Vmnet_network_configuration_ref, mtu uint32) Vmnet_return_t
 var _vmnet_network_configuration_set_mtuErr error
 
@@ -570,6 +591,26 @@ func Vmnet_network_create_with_serialization(network unsafe.Pointer, status *Vmn
 		panic(callErr)
 	}
 	return result
+}
+
+var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len *byte)
+var _vmnet_network_get_ipv6_prefixErr error
+
+func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) error {
+	if _vmnet_network_get_ipv6_prefix == nil {
+		return symbolCallError("vmnet_network_get_ipv6_prefix", "26.0", _vmnet_network_get_ipv6_prefixErr)
+	}
+	_vmnet_network_get_ipv6_prefix(network, prefix, unsafe.SliceData(prefix_len))
+	return nil
+}
+
+// Vmnet_network_get_ipv6_prefix.
+//
+// See: https://developer.apple.com/documentation/vmnet/vmnet_network_get_ipv6_prefix(_:_:_:)
+func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) {
+	if callErr := tryVmnet_network_get_ipv6_prefix(network, prefix, prefix_len); callErr != nil {
+		panic(callErr)
+	}
 }
 
 var _vmnet_read func(interface_ Interface_ref, packets *Vmpktdesc, pktcnt *int) Vmnet_return_t
@@ -686,10 +727,12 @@ func init() {
 	registerFunc(&_vmnet_network_configuration_disable_nat66, &_vmnet_network_configuration_disable_nat66Err, frameworkHandle, "vmnet_network_configuration_disable_nat66", "26.0")
 	registerFunc(&_vmnet_network_configuration_disable_router_advertisement, &_vmnet_network_configuration_disable_router_advertisementErr, frameworkHandle, "vmnet_network_configuration_disable_router_advertisement", "26.0")
 	registerFunc(&_vmnet_network_configuration_set_external_interface, &_vmnet_network_configuration_set_external_interfaceErr, frameworkHandle, "vmnet_network_configuration_set_external_interface", "26.0")
+	registerFunc(&_vmnet_network_configuration_set_ipv6_prefix, &_vmnet_network_configuration_set_ipv6_prefixErr, frameworkHandle, "vmnet_network_configuration_set_ipv6_prefix", "26.0")
 	registerFunc(&_vmnet_network_configuration_set_mtu, &_vmnet_network_configuration_set_mtuErr, frameworkHandle, "vmnet_network_configuration_set_mtu", "26.0")
 	registerFunc(&_vmnet_network_copy_serialization, &_vmnet_network_copy_serializationErr, frameworkHandle, "vmnet_network_copy_serialization", "26.0")
 	registerFunc(&_vmnet_network_create, &_vmnet_network_createErr, frameworkHandle, "vmnet_network_create", "26.0")
 	registerFunc(&_vmnet_network_create_with_serialization, &_vmnet_network_create_with_serializationErr, frameworkHandle, "vmnet_network_create_with_serialization", "26.0")
+	registerFunc(&_vmnet_network_get_ipv6_prefix, &_vmnet_network_get_ipv6_prefixErr, frameworkHandle, "vmnet_network_get_ipv6_prefix", "26.0")
 	registerFunc(&_vmnet_read, &_vmnet_readErr, frameworkHandle, "vmnet_read", "10.10")
 	registerFunc(&_vmnet_start_interface, &_vmnet_start_interfaceErr, frameworkHandle, "vmnet_start_interface", "10.10")
 	registerFunc(&_vmnet_stop_interface, &_vmnet_stop_interfaceErr, frameworkHandle, "vmnet_stop_interface", "10.10")

@@ -149,8 +149,6 @@ func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescriptio
 //
 // audioComponentDescription: The audio component description.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // A new [AVAudioUnitGenerator] instance.

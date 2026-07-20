@@ -625,3 +625,342 @@ func NWWsResponseFromID(id objc.ID) NWWsResponse {
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_subprotocol_enumerator_t
 type NWWsSubprotocolEnumerator = func(string) bool
+
+// Nw_advertise_descriptor_t is a C-name alias for NWAdvertiseDescriptor.
+type Nw_advertise_descriptor_t = NWAdvertiseDescriptor
+
+// Nw_browse_descriptor_t is a C-name alias for NWBrowseDescriptor.
+type Nw_browse_descriptor_t = NWBrowseDescriptor
+
+// Nw_browse_result_change_t is a C-name alias for NWBrowseResultChange.
+type Nw_browse_result_change_t = NWBrowseResultChange
+
+// Nw_browse_result_enumerate_interface_t is a C-name alias for NWBrowseResultEnumerateInterface.
+type Nw_browse_result_enumerate_interface_t = NWBrowseResultEnumerateInterface
+
+// Nw_browse_result_t is a C-name alias for NWBrowseResult.
+type Nw_browse_result_t = NWBrowseResult
+
+// Nw_browser_browse_results_changed_handler_t is a C-name alias for NWBrowserBrowseResultsChangedHandler.
+type Nw_browser_browse_results_changed_handler_t = NWBrowserBrowseResultsChangedHandler
+
+// Nw_browser_state_changed_handler_t is a C-name alias for NWBrowserStateChangedHandler.
+type Nw_browser_state_changed_handler_t = NWBrowserStateChangedHandler
+
+// Nw_browser_state_t is a C-name alias for NWBrowserState.
+type Nw_browser_state_t = NWBrowserState
+
+// Nw_browser_t is a C-name alias for NWBrowser.
+type Nw_browser_t = NWBrowser
+
+// Nw_connection_boolean_event_handler_t is a C-name alias for NWConnectionBooleanEventHandler.
+type Nw_connection_boolean_event_handler_t = NWConnectionBooleanEventHandler
+
+// Nw_connection_group_new_connection_handler_t is a C-name alias for NWConnectionGroupNewConnectionHandler.
+type Nw_connection_group_new_connection_handler_t = NWConnectionGroupNewConnectionHandler
+
+// Nw_connection_group_receive_handler_t is a C-name alias for NWConnectionGroupReceiveHandler.
+type Nw_connection_group_receive_handler_t = NWConnectionGroupReceiveHandler
+
+// Nw_connection_group_send_completion_t is a C-name alias for NWConnectionGroupSendCompletion.
+type Nw_connection_group_send_completion_t = NWConnectionGroupSendCompletion
+
+// Nw_connection_group_state_changed_handler_t is a C-name alias for NWConnectionGroupStateChangedHandler.
+type Nw_connection_group_state_changed_handler_t = NWConnectionGroupStateChangedHandler
+
+// Nw_connection_group_state_t is a C-name alias for NWConnectionGroupState.
+type Nw_connection_group_state_t = NWConnectionGroupState
+
+// Nw_connection_group_t is a C-name alias for NWConnectionGroup.
+type Nw_connection_group_t = NWConnectionGroup
+
+// Nw_connection_path_event_handler_t is a C-name alias for NWConnectionPathEventHandler.
+type Nw_connection_path_event_handler_t = NWConnectionPathEventHandler
+
+// Nw_connection_receive_completion_t is a C-name alias for NWConnectionReceiveCompletion.
+type Nw_connection_receive_completion_t = NWConnectionReceiveCompletion
+
+// Nw_connection_send_completion_t is a C-name alias for NWConnectionSendCompletion.
+type Nw_connection_send_completion_t = NWConnectionSendCompletion
+
+// Nw_connection_state_changed_handler_t is a C-name alias for NWConnectionStateChangedHandler.
+type Nw_connection_state_changed_handler_t = NWConnectionStateChangedHandler
+
+// Nw_connection_state_t is a C-name alias for NWConnectionState.
+type Nw_connection_state_t = NWConnectionState
+
+// Nw_connection_t is a C-name alias for NWConnection.
+type Nw_connection_t = NWConnection
+
+// Nw_content_context_t is a C-name alias for NWContentContext.
+type Nw_content_context_t = NWContentContext
+
+// Nw_data_transfer_report_collect_block_t is a C-name alias for NWDataTransferReportCollectBlock.
+type Nw_data_transfer_report_collect_block_t = NWDataTransferReportCollectBlock
+
+// Nw_data_transfer_report_state_t is a C-name alias for NWDataTransferReportState.
+type Nw_data_transfer_report_state_t = NWDataTransferReportState
+
+// Nw_data_transfer_report_t is a C-name alias for NWDataTransferReport.
+type Nw_data_transfer_report_t = NWDataTransferReport
+
+// Nw_endpoint_t is a C-name alias for NWEndpoint.
+type Nw_endpoint_t = NWEndpoint
+
+// Nw_endpoint_type_t is a C-name alias for NWEndpointType.
+type Nw_endpoint_type_t = NWEndpointType
+
+// Nw_error_domain_t is a C-name alias for NWErrorDomain.
+type Nw_error_domain_t = NWErrorDomain
+
+// Nw_establishment_report_access_block_t is a C-name alias for NWEstablishmentReportAccessBlock.
+type Nw_establishment_report_access_block_t = NWEstablishmentReportAccessBlock
+
+// Nw_establishment_report_t is a C-name alias for NWEstablishmentReport.
+type Nw_establishment_report_t = NWEstablishmentReport
+
+// Nw_ethernet_address_t is a C-name alias for NWEthernetAddress.
+type Nw_ethernet_address_t = NWEthernetAddress
+
+// Nw_ethernet_channel_receive_handler_t is a C-name alias for NWEthernetChannelReceiveHandler.
+type Nw_ethernet_channel_receive_handler_t = NWEthernetChannelReceiveHandler
+
+// Nw_ethernet_channel_send_completion_t is a C-name alias for NWEthernetChannelSendCompletion.
+type Nw_ethernet_channel_send_completion_t = NWEthernetChannelSendCompletion
+
+// Nw_ethernet_channel_state_changed_handler_t is a C-name alias for NWEthernetChannelStateChangedHandler.
+type Nw_ethernet_channel_state_changed_handler_t = NWEthernetChannelStateChangedHandler
+
+// Nw_ethernet_channel_state_t is a C-name alias for NWEthernetChannelState.
+type Nw_ethernet_channel_state_t = NWEthernetChannelState
+
+// Nw_ethernet_channel_t is a C-name alias for NWEthernetChannel.
+type Nw_ethernet_channel_t = NWEthernetChannel
+
+// Nw_framer_block_t is a C-name alias for NWFramerBlock.
+type Nw_framer_block_t = NWFramerBlock
+
+// Nw_framer_cleanup_handler_t is a C-name alias for NWFramerCleanupHandler.
+type Nw_framer_cleanup_handler_t = NWFramerCleanupHandler
+
+// Nw_framer_input_handler_t is a C-name alias for NWFramerInputHandler.
+type Nw_framer_input_handler_t = NWFramerInputHandler
+
+// Nw_framer_message_dispose_value_t is a C-name alias for NWFramerMessageDisposeValue.
+type Nw_framer_message_dispose_value_t = NWFramerMessageDisposeValue
+
+// Nw_framer_message_t is a C-name alias for NWFramerMessage.
+type Nw_framer_message_t = NWFramerMessage
+
+// Nw_framer_output_handler_t is a C-name alias for NWFramerOutputHandler.
+type Nw_framer_output_handler_t = NWFramerOutputHandler
+
+// Nw_framer_parse_completion_t is a C-name alias for NWFramerParseCompletion.
+type Nw_framer_parse_completion_t = NWFramerParseCompletion
+
+// Nw_framer_start_handler_t is a C-name alias for NWFramerStartHandler.
+type Nw_framer_start_handler_t = NWFramerStartHandler
+
+// Nw_framer_start_result_t is a C-name alias for NWFramerStartResult.
+type Nw_framer_start_result_t = NWFramerStartResult
+
+// Nw_framer_stop_handler_t is a C-name alias for NWFramerStopHandler.
+type Nw_framer_stop_handler_t = NWFramerStopHandler
+
+// Nw_framer_t is a C-name alias for NWFramer.
+type Nw_framer_t = NWFramer
+
+// Nw_framer_wakeup_handler_t is a C-name alias for NWFramerWakeupHandler.
+type Nw_framer_wakeup_handler_t = NWFramerWakeupHandler
+
+// Nw_group_descriptor_enumerate_endpoints_block_t is a C-name alias for NWGroupDescriptorEnumerateEndpointsBlock.
+type Nw_group_descriptor_enumerate_endpoints_block_t = NWGroupDescriptorEnumerateEndpointsBlock
+
+// Nw_group_descriptor_t is a C-name alias for NWGroupDescriptor.
+type Nw_group_descriptor_t = NWGroupDescriptor
+
+// Nw_interface_radio_type_t is a C-name alias for NWInterfaceRadioType.
+type Nw_interface_radio_type_t = NWInterfaceRadioType
+
+// Nw_interface_t is a C-name alias for NWInterface.
+type Nw_interface_t = NWInterface
+
+// Nw_interface_type_t is a C-name alias for NWInterfaceType.
+type Nw_interface_type_t = NWInterfaceType
+
+// Nw_ip_ecn_flag_t is a C-name alias for NWIPEcnFlag.
+type Nw_ip_ecn_flag_t = NWIPEcnFlag
+
+// Nw_ip_local_address_preference_t is a C-name alias for NWIPLocalAddressPreference.
+type Nw_ip_local_address_preference_t = NWIPLocalAddressPreference
+
+// Nw_ip_version_t is a C-name alias for NWIPVersion.
+type Nw_ip_version_t = NWIPVersion
+
+// Nw_link_quality_t is a C-name alias for NWLinkQuality.
+type Nw_link_quality_t = NWLinkQuality
+
+// Nw_listener_advertised_endpoint_changed_handler_t is a C-name alias for NWListenerAdvertisedEndpointChangedHandler.
+type Nw_listener_advertised_endpoint_changed_handler_t = NWListenerAdvertisedEndpointChangedHandler
+
+// Nw_listener_new_connection_group_handler_t is a C-name alias for NWListenerNewConnectionGroupHandler.
+type Nw_listener_new_connection_group_handler_t = NWListenerNewConnectionGroupHandler
+
+// Nw_listener_new_connection_handler_t is a C-name alias for NWListenerNewConnectionHandler.
+type Nw_listener_new_connection_handler_t = NWListenerNewConnectionHandler
+
+// Nw_listener_state_changed_handler_t is a C-name alias for NWListenerStateChangedHandler.
+type Nw_listener_state_changed_handler_t = NWListenerStateChangedHandler
+
+// Nw_listener_state_t is a C-name alias for NWListenerState.
+type Nw_listener_state_t = NWListenerState
+
+// Nw_listener_t is a C-name alias for NWListener.
+type Nw_listener_t = NWListener
+
+// Nw_multipath_service_t is a C-name alias for NWMultipathService.
+type Nw_multipath_service_t = NWMultipathService
+
+// Nw_multipath_version_t is a C-name alias for NWMultipathVersion.
+type Nw_multipath_version_t = NWMultipathVersion
+
+// Nw_object_t is a C-name alias for NWObject.
+type Nw_object_t = NWObject
+
+// Nw_parameters_configure_protocol_block_t is a C-name alias for NWParametersConfigureProtocolBlock.
+type Nw_parameters_configure_protocol_block_t = NWParametersConfigureProtocolBlock
+
+// Nw_parameters_expired_dns_behavior_t is a C-name alias for NWParametersExpiredDnsBehavior.
+type Nw_parameters_expired_dns_behavior_t = NWParametersExpiredDnsBehavior
+
+// Nw_parameters_iterate_interface_types_block_t is a C-name alias for NWParametersIterateInterfaceTypesBlock.
+type Nw_parameters_iterate_interface_types_block_t = NWParametersIterateInterfaceTypesBlock
+
+// Nw_parameters_iterate_interfaces_block_t is a C-name alias for NWParametersIterateInterfacesBlock.
+type Nw_parameters_iterate_interfaces_block_t = NWParametersIterateInterfacesBlock
+
+// Nw_parameters_t is a C-name alias for NWParameters.
+type Nw_parameters_t = NWParameters
+
+// Nw_path_enumerate_gateways_block_t is a C-name alias for NWPathEnumerateGatewaysBlock.
+type Nw_path_enumerate_gateways_block_t = NWPathEnumerateGatewaysBlock
+
+// Nw_path_enumerate_interfaces_block_t is a C-name alias for NWPathEnumerateInterfacesBlock.
+type Nw_path_enumerate_interfaces_block_t = NWPathEnumerateInterfacesBlock
+
+// Nw_path_monitor_cancel_handler_t is a C-name alias for NWPathMonitorCancelHandler.
+type Nw_path_monitor_cancel_handler_t = NWPathMonitorCancelHandler
+
+// Nw_path_monitor_t is a C-name alias for NWPathMonitor.
+type Nw_path_monitor_t = NWPathMonitor
+
+// Nw_path_monitor_update_handler_t is a C-name alias for NWPathMonitorUpdateHandler.
+type Nw_path_monitor_update_handler_t = NWPathMonitorUpdateHandler
+
+// Nw_path_status_t is a C-name alias for NWPathStatus.
+type Nw_path_status_t = NWPathStatus
+
+// Nw_path_t is a C-name alias for NWPath.
+type Nw_path_t = NWPath
+
+// Nw_path_unsatisfied_reason_t is a C-name alias for NWPathUnsatisfiedReason.
+type Nw_path_unsatisfied_reason_t = NWPathUnsatisfiedReason
+
+// Nw_privacy_context_t is a C-name alias for NWPrivacyContext.
+type Nw_privacy_context_t = NWPrivacyContext
+
+// Nw_protocol_definition_t is a C-name alias for NWProtocolDefinition.
+type Nw_protocol_definition_t = NWProtocolDefinition
+
+// Nw_protocol_metadata_t is a C-name alias for NWProtocolMetadata.
+type Nw_protocol_metadata_t = NWProtocolMetadata
+
+// Nw_protocol_options_t is a C-name alias for NWProtocolOptions.
+type Nw_protocol_options_t = NWProtocolOptions
+
+// Nw_protocol_stack_iterate_protocols_block_t is a C-name alias for NWProtocolStackIterateProtocolsBlock.
+type Nw_protocol_stack_iterate_protocols_block_t = NWProtocolStackIterateProtocolsBlock
+
+// Nw_protocol_stack_t is a C-name alias for NWProtocolStack.
+type Nw_protocol_stack_t = NWProtocolStack
+
+// Nw_proxy_config_t is a C-name alias for NWProxyConfig.
+type Nw_proxy_config_t = NWProxyConfig
+
+// Nw_proxy_domain_enumerator_t is a C-name alias for NWProxyDomainEnumerator.
+type Nw_proxy_domain_enumerator_t = NWProxyDomainEnumerator
+
+// Nw_quic_stream_type_t is a C-name alias for NWQuicStreamType.
+type Nw_quic_stream_type_t = NWQuicStreamType
+
+// Nw_relay_hop_t is a C-name alias for NWRelayHop.
+type Nw_relay_hop_t = NWRelayHop
+
+// Nw_report_protocol_enumerator_t is a C-name alias for NWReportProtocolEnumerator.
+type Nw_report_protocol_enumerator_t = NWReportProtocolEnumerator
+
+// Nw_report_resolution_enumerator_t is a C-name alias for NWReportResolutionEnumerator.
+type Nw_report_resolution_enumerator_t = NWReportResolutionEnumerator
+
+// Nw_report_resolution_protocol_t is a C-name alias for NWReportResolutionProtocol.
+type Nw_report_resolution_protocol_t = NWReportResolutionProtocol
+
+// Nw_report_resolution_report_enumerator_t is a C-name alias for NWReportResolutionReportEnumerator.
+type Nw_report_resolution_report_enumerator_t = NWReportResolutionReportEnumerator
+
+// Nw_report_resolution_source_t is a C-name alias for NWReportResolutionSource.
+type Nw_report_resolution_source_t = NWReportResolutionSource
+
+// Nw_resolution_report_t is a C-name alias for NWResolutionReport.
+type Nw_resolution_report_t = NWResolutionReport
+
+// Nw_resolver_config_t is a C-name alias for NWResolverConfig.
+type Nw_resolver_config_t = NWResolverConfig
+
+// Nw_service_class_t is a C-name alias for NWServiceClass.
+type Nw_service_class_t = NWServiceClass
+
+// Nw_txt_record_access_bytes_t is a C-name alias for NWTXTRecordAccessBytes.
+type Nw_txt_record_access_bytes_t = NWTXTRecordAccessBytes
+
+// Nw_txt_record_access_key_t is a C-name alias for NWTXTRecordAccessKey.
+type Nw_txt_record_access_key_t = NWTXTRecordAccessKey
+
+// Nw_txt_record_applier_t is a C-name alias for NWTXTRecordApplier.
+type Nw_txt_record_applier_t = NWTXTRecordApplier
+
+// Nw_txt_record_find_key_t is a C-name alias for NWTXTRecordFindKey.
+type Nw_txt_record_find_key_t = NWTXTRecordFindKey
+
+// Nw_txt_record_t is a C-name alias for NWTXTRecord.
+type Nw_txt_record_t = NWTXTRecord
+
+// Nw_ws_additional_header_enumerator_t is a C-name alias for NWWsAdditionalHeaderEnumerator.
+type Nw_ws_additional_header_enumerator_t = NWWsAdditionalHeaderEnumerator
+
+// Nw_ws_client_request_handler_t is a C-name alias for NWWsClientRequestHandler.
+type Nw_ws_client_request_handler_t = NWWsClientRequestHandler
+
+// Nw_ws_close_code_t is a C-name alias for NWWsCloseCode.
+type Nw_ws_close_code_t = NWWsCloseCode
+
+// Nw_ws_opcode_t is a C-name alias for NWWsOpcode.
+type Nw_ws_opcode_t = NWWsOpcode
+
+// Nw_ws_pong_handler_t is a C-name alias for NWWsPongHandler.
+type Nw_ws_pong_handler_t = NWWsPongHandler
+
+// Nw_ws_request_t is a C-name alias for NWWsRequest.
+type Nw_ws_request_t = NWWsRequest
+
+// Nw_ws_response_status_t is a C-name alias for NWWsResponseStatus.
+type Nw_ws_response_status_t = NWWsResponseStatus
+
+// Nw_ws_response_t is a C-name alias for NWWsResponse.
+type Nw_ws_response_t = NWWsResponse
+
+// Nw_ws_subprotocol_enumerator_t is a C-name alias for NWWsSubprotocolEnumerator.
+type Nw_ws_subprotocol_enumerator_t = NWWsSubprotocolEnumerator
+
+// Nw_ws_version_t is a C-name alias for NWWsVersion.
+type Nw_ws_version_t = NWWsVersion

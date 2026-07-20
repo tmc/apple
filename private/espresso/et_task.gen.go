@@ -62,7 +62,6 @@ func (ec ETTaskClass) Alloc() ETTask {
 //   - [ETTask.MoveToGPUError]
 //   - [ETTask.Optimizer]
 //   - [ETTask.SetOptimizer]
-//   - [ETTask.ReinitializeVariables]
 //   - [ETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
 //   - [ETTask.RunInferenceOutputNamesBatchCallback]
 //   - [ETTask.SaveNetwork]
@@ -101,7 +100,6 @@ var _ IETTask = ETTask{}
 //   - [IETTask.MoveToGPUError]
 //   - [IETTask.Optimizer]
 //   - [IETTask.SetOptimizer]
-//   - [IETTask.ReinitializeVariables]
 //   - [IETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
 //   - [IETTask.RunInferenceOutputNamesBatchCallback]
 //   - [IETTask.SaveNetwork]
@@ -129,7 +127,6 @@ type IETTask interface {
 	MoveToGPUError(gpu int) (bool, error)
 	Optimizer() IETOptimizerDef
 	SetOptimizer(value IETOptimizerDef)
-	ReinitializeVariables() unsafe.Pointer
 	RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool
 	RunInferenceOutputNamesBatchCallback(inference objectivec.IObject, names objectivec.IObject, callback VoidHandler) bool
 	SaveNetwork(network objectivec.IObject)
@@ -219,10 +216,6 @@ func (e ETTask) MoveToGPUError(gpu int) (bool, error) {
 	}
 	return rv, nil
 
-}
-func (e ETTask) ReinitializeVariables() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("reinitializeVariables"))
-	return rv
 }
 func (e ETTask) RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)

@@ -304,9 +304,9 @@ type INSDocumentController interface {
 	// Topic: Closing Documents
 
 	// Iterates through all the open documents and tries to close them one by one using the specified delegate.
-	CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo unsafe.Pointer)
+	CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo uintptr)
 	// Displays an alert asking if the user wants to review unsaved documents, quit regardless of unsaved documents, or cancel the save operation.
-	ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo unsafe.Pointer)
+	ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo uintptr)
 
 	// Topic: Responding to Action Messages
 
@@ -355,7 +355,7 @@ type INSDocumentController interface {
 	// Presents an error alert to the user as a modal panel.
 	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a modal panel.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Indicates an error condition and provides the opportunity to return the same or a different error.
 	WillPresentError(error_ foundation.NSError) foundation.NSError
 
@@ -893,7 +893,7 @@ func (d NSDocumentController) TypeForContentsOfURLError(url foundation.NSURL) (s
 // the following signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/closeAllDocuments(withDelegate:didCloseAllSelector:contextInfo:)
-func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("closeAllDocumentsWithDelegate:didCloseAllSelector:contextInfo:"), delegate, didCloseAllSelector, contextInfo)
 }
 
@@ -924,7 +924,7 @@ func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorCo
 // signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reviewUnsavedDocuments(withAlertTitle:cancellable:delegate:didReviewAllSelector:contextInfo:)
-func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("reviewUnsavedDocumentsWithAlertTitle:cancellable:delegate:didReviewAllSelector:contextInfo:"), objc.String(title), cancellable, delegate, didReviewAllSelector, contextInfo)
 }
 
@@ -1249,7 +1249,7 @@ func (d NSDocumentController) PresentError(error_ foundation.NSError) bool {
 // should instead override [NSDocumentController.WillPresentError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/presentError(_:modalFor:delegate:didPresent:contextInfo:)
-func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 

@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -242,7 +241,7 @@ type ICKRecord interface {
 	RecordID() ICKRecordID
 	// The value that your app defines to identify the type of record.
 	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	SetRecordType(value unsafe.Pointer)
 	// The time when CloudKit first saves the record to the server.
 	CreationDate() foundation.NSDate
 	// The ID of the user who creates the record.
@@ -519,7 +518,7 @@ func (c CKRecord) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKRecord) SetRecordType(value kernel.Pointer) {
+func (c CKRecord) SetRecordType(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }
 

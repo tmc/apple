@@ -10,6 +10,20 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
+// AVAssetImageGeneratorCompletionHandler handles A type alias for a closure that provides the result of an image generation request.
+
+// NewAVAssetImageGeneratorCompletionHandlerBlock wraps a Go [AVAssetImageGeneratorCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVAssetImageGeneratorCompletionHandlerBlock(handler AVAssetImageGeneratorCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive coremedia.CMTime, extra0 *coregraphics.CGImageRef, extra1 coremedia.CMTime, extra2 AVAssetImageGeneratorResult, extra3 foundation.NSError) {
+		handler(primitive, extra0, extra1, extra2, extra3)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // AVAssetTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
@@ -1160,12 +1174,10 @@ func NewStringIntBlock(handler StringIntHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// VoidHandler handles A callback the system passes an array of AVFileType structures when it determines the compatible file types.
+// VoidHandler handles A callback the system invokes when it finishes successfully, or in the event of writing failure.
 //
 // Used by:
-//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
 //   - [AVAssetExportSession.ExportAsynchronouslyWithCompletionHandler]
-//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
 //   - [AVAssetWriter.FinishWritingWithCompletionHandler]
 //   - [AVMetadataItem.LoadValuesAsynchronouslyForKeysCompletionHandler]
 //   - [AVPlaybackCoordinatorPlaybackControlDelegate.PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler]
@@ -1186,9 +1198,7 @@ type VoidHandler = func()
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
 //   - [AVAssetExportSession.ExportAsynchronouslyWithCompletionHandler]
-//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
 //   - [AVAssetWriter.FinishWritingWithCompletionHandler]
 //   - [AVMetadataItem.LoadValuesAsynchronouslyForKeysCompletionHandler]
 //   - [AVPlaybackCoordinatorPlaybackControlDelegate.PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler]
@@ -1231,6 +1241,41 @@ func Newint64_tErrorBlock(handler int64_tErrorHandler) (objc.ID, func()) {
 	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int64, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// stringArrayHandler handles A callback the system passes an array of AVFileType structures when it determines the compatible file types.
+//
+// Used by:
+//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
+//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
+type stringArrayHandler = func(*[]string)
+
+// NewstringArrayBlock wraps a Go [stringArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
+//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
+func NewstringArrayBlock(handler stringArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]string
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]string, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = objc.IDToString(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

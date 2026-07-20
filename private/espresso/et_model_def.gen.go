@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -49,7 +48,6 @@ func (ec ETModelDefClass) Alloc() ETModelDef {
 //
 //   - [ETModelDef.All_variables]
 //   - [ETModelDef.SetAll_variables]
-//   - [ETModelDef.BiasesForLayer]
 //   - [ETModelDef.ConfigureLayersToTrainReinitializeVariables]
 //   - [ETModelDef.Gb]
 //   - [ETModelDef.SetGb]
@@ -59,14 +57,11 @@ func (ec ETModelDefClass) Alloc() ETModelDef {
 //   - [ETModelDef.SetNetwork]
 //   - [ETModelDef.RandomizeWeightsForLayerWithSeed]
 //   - [ETModelDef.SetupVariablesDef]
-//   - [ETModelDef.TopNamesForLayerIndex]
-//   - [ETModelDef.TransformForTraining]
 //   - [ETModelDef.UpdateLayerWithBiasesLength]
 //   - [ETModelDef.UpdateLayerWithWeightsLength]
 //   - [ETModelDef.VariableForLayerKind]
 //   - [ETModelDef.VariableNameForLayerKind]
 //   - [ETModelDef.Variables]
-//   - [ETModelDef.WeightsForLayer]
 //   - [ETModelDef.InitWithNetwork]
 type ETModelDef struct {
 	objectivec.Object
@@ -86,7 +81,6 @@ var _ IETModelDef = ETModelDef{}
 //
 //   - [IETModelDef.All_variables]
 //   - [IETModelDef.SetAll_variables]
-//   - [IETModelDef.BiasesForLayer]
 //   - [IETModelDef.ConfigureLayersToTrainReinitializeVariables]
 //   - [IETModelDef.Gb]
 //   - [IETModelDef.SetGb]
@@ -96,14 +90,11 @@ var _ IETModelDef = ETModelDef{}
 //   - [IETModelDef.SetNetwork]
 //   - [IETModelDef.RandomizeWeightsForLayerWithSeed]
 //   - [IETModelDef.SetupVariablesDef]
-//   - [IETModelDef.TopNamesForLayerIndex]
-//   - [IETModelDef.TransformForTraining]
 //   - [IETModelDef.UpdateLayerWithBiasesLength]
 //   - [IETModelDef.UpdateLayerWithWeightsLength]
 //   - [IETModelDef.VariableForLayerKind]
 //   - [IETModelDef.VariableNameForLayerKind]
 //   - [IETModelDef.Variables]
-//   - [IETModelDef.WeightsForLayer]
 //   - [IETModelDef.InitWithNetwork]
 type IETModelDef interface {
 	objectivec.IObject
@@ -112,24 +103,20 @@ type IETModelDef interface {
 
 	All_variables() foundation.INSArray
 	SetAll_variables(value foundation.INSArray)
-	BiasesForLayer(layer objectivec.IObject) unsafe.Pointer
 	ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int
 	Gb() unsafe.Pointer
-	SetGb(value kernel.Pointer)
+	SetGb(value unsafe.Pointer)
 	LayerForName(name objectivec.IObject) unsafe.Pointer
 	LayerNames() objectivec.IObject
 	Network() unsafe.Pointer
-	SetNetwork(value kernel.Pointer)
+	SetNetwork(value unsafe.Pointer)
 	RandomizeWeightsForLayerWithSeed(layer objectivec.IObject, seed float32)
 	SetupVariablesDef()
-	TopNamesForLayerIndex(index int) unsafe.Pointer
-	TransformForTraining(training unsafe.Pointer)
 	UpdateLayerWithBiasesLength(layer objectivec.IObject, biases unsafe.Pointer, length uint64)
 	UpdateLayerWithWeightsLength(layer objectivec.IObject, weights unsafe.Pointer, length uint64)
 	VariableForLayerKind(layer objectivec.IObject, kind uint64) objectivec.IObject
 	VariableNameForLayerKind(layer objectivec.IObject, kind uint64) objectivec.IObject
 	Variables() objectivec.IObject
-	WeightsForLayer(layer objectivec.IObject) unsafe.Pointer
 	InitWithNetwork(network objectivec.IObject) ETModelDef
 }
 
@@ -158,10 +145,6 @@ func NewETModelDefWithNetwork(network objectivec.IObject) ETModelDef {
 	return ETModelDefFromID(rv)
 }
 
-func (e ETModelDef) BiasesForLayer(layer objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesForLayer:"), layer)
-	return rv
-}
 func (e ETModelDef) ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int {
 	rv := objc.Send[int](e.ID, objc.Sel("configureLayersToTrain:reinitializeVariables:"), train, variables)
 	return rv
@@ -179,13 +162,6 @@ func (e ETModelDef) RandomizeWeightsForLayerWithSeed(layer objectivec.IObject, s
 }
 func (e ETModelDef) SetupVariablesDef() {
 	objc.Send[objc.ID](e.ID, objc.Sel("setupVariablesDef"))
-}
-func (e ETModelDef) TopNamesForLayerIndex(index int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("topNamesForLayerIndex:"), index)
-	return rv
-}
-func (e ETModelDef) TransformForTraining(training unsafe.Pointer) {
-	objc.Send[objc.ID](e.ID, objc.Sel("transformForTraining:"), training)
 }
 func (e ETModelDef) UpdateLayerWithBiasesLength(layer objectivec.IObject, biases unsafe.Pointer, length uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("updateLayer:withBiases:length:"), layer, biases, length)
@@ -205,10 +181,6 @@ func (e ETModelDef) Variables() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("variables"))
 	return objectivec.Object{ID: rv}
 }
-func (e ETModelDef) WeightsForLayer(layer objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsForLayer:"), layer)
-	return rv
-}
 func (e ETModelDef) InitWithNetwork(network objectivec.IObject) ETModelDef {
 	rv := objc.Send[ETModelDef](e.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
@@ -225,13 +197,13 @@ func (e ETModelDef) Gb() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("gb"))
 	return rv
 }
-func (e ETModelDef) SetGb(value kernel.Pointer) {
+func (e ETModelDef) SetGb(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setGb:"), value)
 }
 func (e ETModelDef) Network() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("network"))
 	return rv
 }
-func (e ETModelDef) SetNetwork(value kernel.Pointer) {
+func (e ETModelDef) SetNetwork(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNetwork:"), value)
 }

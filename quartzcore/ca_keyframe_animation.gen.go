@@ -207,6 +207,13 @@ func NewCAKeyframeAnimation() CAKeyframeAnimation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewKeyframeAnimationWithCoder(coder foundation.INSCoder) CAKeyframeAnimation {
+	instance := getCAKeyframeAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAKeyframeAnimationFromID(rv)
+}
+
 // Creates and returns an [CAPropertyAnimation] instance for the specified key
 // path.
 //

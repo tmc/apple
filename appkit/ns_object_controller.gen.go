@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -286,9 +285,9 @@ type INSObjectController interface {
 	SetFetchPredicate(value foundation.NSPredicate)
 	// The receiver’s managed object context.
 	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value kernel.Pointer)
+	SetManagedObjectContext(value unsafe.Pointer)
 	// Subclasses should override this method to customize a fetch request, for example to specify fetch limits.
-	FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error)
+	FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error)
 
 	// Topic: Obtaining selections
 
@@ -531,7 +530,7 @@ func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
 // and then invoke `super`’s implementation with the new fetch request.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
-func (o NSObjectController) FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error) {
+func (o NSObjectController) FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -710,7 +709,7 @@ func (o NSObjectController) ManagedObjectContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("managedObjectContext"))
 	return rv
 }
-func (o NSObjectController) SetManagedObjectContext(value kernel.Pointer) {
+func (o NSObjectController) SetManagedObjectContext(value unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 

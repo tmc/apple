@@ -99,6 +99,7 @@ type IUNNotification interface {
 	// The delivery date of the notification.
 	Date() foundation.NSDate
 
+	InitWithCoder(coder foundation.INSCoder) UNNotification
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -121,6 +122,18 @@ func NewUNNotification() UNNotification {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotification/init(coder:)
+func NewUNNotificationWithCoder(coder foundation.INSCoder) UNNotification {
+	instance := getUNNotificationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotification/init(coder:)
+func (u UNNotification) InitWithCoder(coder foundation.INSCoder) UNNotification {
+	rv := objc.Send[UNNotification](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotification) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

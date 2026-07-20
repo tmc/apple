@@ -152,8 +152,6 @@ func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription u
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // A new [AVAudioUnitEffect] instance.

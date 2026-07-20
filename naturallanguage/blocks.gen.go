@@ -112,7 +112,30 @@ func NewNSRangeNLTokenizerAttributesBoolBlock(handler NSRangeNLTokenizerAttribut
 //   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock]
 //   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock]
 //   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock]
-type StringNLDistanceBoolHandler = func(*string, *NLDistance, *bool)
+type StringNLDistanceBoolHandler = func(*string, NLDistance, bool)
+
+// NewStringNLDistanceBoolBlock wraps a Go [StringNLDistanceBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock]
+//   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock]
+func NewStringNLDistanceBoolBlock(handler StringNLDistanceBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 NLDistance, extra1 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringNSRangeBoolHandler handles The block this method uses to iterate over the tagger’s string property.
 //   - tag: The tag of the token.
@@ -121,4 +144,24 @@ type StringNLDistanceBoolHandler = func(*string, *NLDistance, *bool)
 //
 // Used by:
 //   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-type StringNSRangeBoolHandler = func(*string, *foundation.NSRange, *bool)
+type StringNSRangeBoolHandler = func(*string, foundation.NSRange, bool)
+
+// NewStringNSRangeBoolBlock wraps a Go [StringNSRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
+func NewStringNSRangeBoolBlock(handler StringNSRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 foundation.NSRange, extra1 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}

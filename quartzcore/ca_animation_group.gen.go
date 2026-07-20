@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -118,6 +119,13 @@ func NewCAAnimationGroup() CAAnimationGroup {
 	class := getCAAnimationGroupClass()
 	rv := objc.Send[CAAnimationGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewAnimationGroupWithCoder(coder foundation.INSCoder) CAAnimationGroup {
+	instance := getCAAnimationGroupClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAAnimationGroupFromID(rv)
 }
 
 // An array of [CAAnimation] objects to be evaluated in the time space of the

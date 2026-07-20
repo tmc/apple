@@ -7,7 +7,6 @@ package avfoundation
 import (
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -167,7 +166,7 @@ func (p AVPlayerItem) NextContentProposal() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("nextContentProposal"))
 	return rv
 }
-func (p AVPlayerItem) SetNextContentProposal(value kernel.Pointer) {
+func (p AVPlayerItem) SetNextContentProposal(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNextContentProposal:"), value)
 }
 

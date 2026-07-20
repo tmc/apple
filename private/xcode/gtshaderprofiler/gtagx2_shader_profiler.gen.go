@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -172,7 +171,7 @@ type IGTAGX2ShaderProfiler interface {
 	EvaluateStreamingSamplesWithUSCSampleNumWithProgramAddressLUTTargetIndexForRingBufferIndexWithMinEncoderIndexWithMaxEncoderIndexWithEncoderIdToEncoderIndexMapWithProfilingData(samples *uint64, num uint32, lut unsafe.Pointer, index int, index2 uint32, index3 uint32, index4 uint32, map_ unsafe.Pointer, data objectivec.IObject)
 	HandleHarvestedBinaryInfo(info objectivec.IObject)
 	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value kernel.Pointer)
+	SetIsaPrinter(value unsafe.Pointer)
 	LoadActionTimes() foundation.INSArray
 	PerRingPerFrameLimiterData() foundation.INSDictionary
 	SetRingBufferCount(count uint32)
@@ -653,7 +652,7 @@ func (g GTAGX2ShaderProfiler) IsaPrinter() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
 	return rv
 }
-func (g GTAGX2ShaderProfiler) SetIsaPrinter(value kernel.Pointer) {
+func (g GTAGX2ShaderProfiler) SetIsaPrinter(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 func (g GTAGX2ShaderProfiler) LoadActionTimes() foundation.INSArray {

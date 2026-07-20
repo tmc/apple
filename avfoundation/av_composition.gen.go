@@ -365,7 +365,7 @@ type IAVComposition interface {
 
 	// The locales of the asset’s chapter metadata.
 	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value kernel.Pointer)
+	SetAvailableChapterLocales(value unsafe.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -1012,7 +1012,7 @@ func (c AVComposition) AvailableChapterLocales() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("availableChapterLocales"))
 	return rv
 }
-func (c AVComposition) SetAvailableChapterLocales(value kernel.Pointer) {
+func (c AVComposition) SetAvailableChapterLocales(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 

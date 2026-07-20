@@ -106,6 +106,7 @@ func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 // # Automatic Spelling Correction
 //
 //   - [NSSpellChecker.CorrectionForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns a single proposed correction if a word is mis-spelled.
+//   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]: Display a suitable user interface to indicate a correction may need to be made.
 //   - [NSSpellChecker.RecordResponseToCorrectionForWordLanguageInSpellDocumentWithTag]: Records the user response to the correction indicator being displayed.
 //   - [NSSpellChecker.DismissCorrectionIndicatorForView]: Dismisses the correction indicator for the specified view.
 //
@@ -186,6 +187,7 @@ func NSSpellCheckerFromID(id objc.ID) NSSpellChecker {
 // # Automatic Spelling Correction
 //
 //   - [INSSpellChecker.CorrectionForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns a single proposed correction if a word is mis-spelled.
+//   - [INSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]: Display a suitable user interface to indicate a correction may need to be made.
 //   - [INSSpellChecker.RecordResponseToCorrectionForWordLanguageInSpellDocumentWithTag]: Records the user response to the correction indicator being displayed.
 //   - [INSSpellChecker.DismissCorrectionIndicatorForView]: Dismisses the correction indicator for the specified view.
 //
@@ -285,6 +287,8 @@ type INSSpellChecker interface {
 
 	// Returns a single proposed correction if a word is mis-spelled.
 	CorrectionForWordRangeInStringLanguageInSpellDocumentWithTag(range_ foundation.NSRange, string_ string, language string, tag int) string
+	// Display a suitable user interface to indicate a correction may need to be made.
+	ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler(type_ NSCorrectionIndicatorType, primaryString string, alternativeStrings []string, rectOfTypedString corefoundation.CGRect, view INSView, completionBlock StringHandler)
 	// Records the user response to the correction indicator being displayed.
 	RecordResponseToCorrectionForWordLanguageInSpellDocumentWithTag(response NSCorrectionResponse, correction string, word string, language string, tag int)
 	// Dismisses the correction indicator for the specified view.
@@ -810,6 +814,43 @@ func (s NSSpellChecker) MenuForResultStringOptionsAtLocationInView(result founda
 func (s NSSpellChecker) CorrectionForWordRangeInStringLanguageInSpellDocumentWithTag(range_ foundation.NSRange, string_ string, language string, tag int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("correctionForWordRange:inString:language:inSpellDocumentWithTag:"), range_, objc.String(string_), objc.String(language), tag)
 	return foundation.NSStringFromID(rv).String()
+}
+
+// Display a suitable user interface to indicate a correction may need to be
+// made.
+//
+// type: The correction type to display. See
+// [NSSpellChecker.CorrectionIndicatorType] for possible values.
+//
+// primaryString: The first string to be displayed, a correction or reversion according to
+// the `type` of indicator.
+//
+// alternativeStrings: An array of alternative strings to insert. This array may be empty.
+//
+// rectOfTypedString: The rectangle of the typed text.
+//
+// view: The view in which the correction indicator is to be displayed.
+//
+// completionBlock: The Block called when a the correction indicator is dismissed.
+//
+// The Block takes one argument:
+//
+// acceptedString: The correction string the user excepted. If the user does
+// not select a correction string nil is returned.
+//
+// # Discussion
+//
+// Only one indicator at a time may be displayed for a given view, and the
+// only thing a client may do with the indicator after displaying it is to
+// dismiss it using the [NSSpellChecker.DismissCorrectionIndicatorForView]
+// method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/showCorrectionIndicator(of:primaryString:alternativeStrings:forStringIn:view:completionHandler:)
+//
+// [NSSpellChecker.CorrectionIndicatorType]: https://developer.apple.com/documentation/AppKit/NSSpellChecker/CorrectionIndicatorType
+func (s NSSpellChecker) ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler(type_ NSCorrectionIndicatorType, primaryString string, alternativeStrings []string, rectOfTypedString corefoundation.CGRect, view INSView, completionBlock StringHandler) {
+	_block5, _ := NewStringBlock(completionBlock)
+	objc.Send[objc.ID](s.ID, objc.Sel("showCorrectionIndicatorOfType:primaryString:alternativeStrings:forStringInRect:view:completionHandler:"), type_, objc.String(primaryString), alternativeStrings, rectOfTypedString, view, _block5)
 }
 
 // Records the user response to the correction indicator being displayed.

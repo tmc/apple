@@ -97,6 +97,7 @@ type IUNNotificationTrigger interface {
 	// A Boolean value indicating whether the system reschedules the notification after it’s delivered.
 	Repeats() bool
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationTrigger
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -119,6 +120,18 @@ func NewUNNotificationTrigger() UNNotificationTrigger {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/init(coder:)
+func NewUNNotificationTriggerWithCoder(coder foundation.INSCoder) UNNotificationTrigger {
+	instance := getUNNotificationTriggerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationTriggerFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/init(coder:)
+func (u UNNotificationTrigger) InitWithCoder(coder foundation.INSCoder) UNNotificationTrigger {
+	rv := objc.Send[UNNotificationTrigger](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationTrigger) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

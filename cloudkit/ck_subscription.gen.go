@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -166,7 +165,7 @@ type ICKSubscription interface {
 
 	// The names of fields to include in the push notification’s payload.
 	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	SetDesiredKeys(value unsafe.Pointer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -255,6 +254,6 @@ func (c CKSubscription) DesiredKeys() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
 	return rv
 }
-func (c CKSubscription) SetDesiredKeys(value kernel.Pointer) {
+func (c CKSubscription) SetDesiredKeys(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
 }

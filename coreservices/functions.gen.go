@@ -19289,7 +19289,7 @@ func tryNewIndexToUCStringUPP(userRoutine IndexToUCStringProcPtr) (IndexToUCStri
 	if _newIndexToUCStringUPP == nil {
 		return *new(IndexToUCStringUPP), symbolCallError("NewIndexToUCStringUPP", "10.4", _newIndexToUCStringUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) kernel.Pointer {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) unsafe.Pointer {
 		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()

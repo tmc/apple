@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -109,13 +108,13 @@ type ICKFetchSubscriptionsOperation interface {
 
 	// The IDs of the subscriptions to fetch.
 	SubscriptionIDs() unsafe.Pointer
-	SetSubscriptionIDs(value kernel.Pointer)
+	SetSubscriptionIDs(value unsafe.Pointer)
 
 	// Topic: Processing the Fetch Subscription Results
 
 	// The block to execute with the fetch results.
-	FetchSubscriptionCompletionBlock() func(kernel.Pointer, kernel.Pointer)
-	SetFetchSubscriptionCompletionBlock(value func(kernel.Pointer, kernel.Pointer))
+	FetchSubscriptionCompletionBlock() func(unsafe.Pointer, unsafe.Pointer)
+	SetFetchSubscriptionCompletionBlock(value func(unsafe.Pointer, unsafe.Pointer))
 }
 
 // Init initializes the instance.
@@ -159,7 +158,7 @@ func (c CKFetchSubscriptionsOperation) SubscriptionIDs() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("subscriptionIDs"))
 	return rv
 }
-func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value kernel.Pointer) {
+func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDs:"), value)
 }
 

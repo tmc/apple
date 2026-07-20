@@ -172,6 +172,36 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// IObjectStringHandler handles A reply handler block to execute with the response to send back to the webpage.
+//   - reply: An object that contains the data to return to the webpage. Allowed types for this parameter are [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>), [NSString](<doc://com.apple.documentation/documentation/Foundation/NSString>), [NSDate](<doc://com.apple.documentation/documentation/Foundation/NSDate>), [NSArray](<doc://com.apple.documentation/documentation/Foundation/NSArray>), [NSDictionary](<doc://com.apple.documentation/documentation/Foundation/NSDictionary>), and [NSNull](<doc://com.apple.documentation/documentation/Foundation/NSNull>). Specify `nil` if an error occurred.
+//   - errorMessage: `nil` on success, or a string that describes the error that occurred.
+//
+// Used by:
+//   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
+type IObjectStringHandler = func(objectivec.IObject, string)
+
+// NewIObjectStringBlock wraps a Go [IObjectStringHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
+func NewIObjectStringBlock(handler IObjectStringHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, extra0ID objc.ID) {
+		var primitive objectivec.IObject
+		if primitiveID != 0 {
+			objc.Send[objc.ID](primitiveID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(primitiveID)
+			primitive = &obj
+		}
+		var extra0 string = string(extra0ID)
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // ImageErrorHandler handles The completion handler to call when the image is ready.
 //   - snapshotImage: A platform-native image that contains the specified portion of the web view.
 //   - error: An error object if a problem occurred, or `nil` on success.
@@ -320,6 +350,20 @@ func NewLocaleErrorBlock(handler LocaleErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSAttributedStringCompletionHandler handles completion with primitive and object results.
+
+// NewNSAttributedStringCompletionHandlerBlock wraps a Go [NSAttributedStringCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSAttributedStringCompletionHandlerBlock(handler NSAttributedStringCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive foundation.NSAttributedString, extra0 foundation.INSDictionary, extra1 foundation.NSError) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSHTTPCookieArrayHandler handles A completion handler block to execute asynchronously with the results.
 //   - cookieArray: An array of [HTTPCookie](<doc://com.apple.documentation/documentation/Foundation/HTTPCookie>) objects. If the store contains no cookies, this parameter contains an empty array.
 //
@@ -453,40 +497,31 @@ func NewObjectErrorBlock(handler ObjectErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// ObjectHandler handles A reply handler block to execute with the response to send back to the webpage.
-//   - reply: An object that contains the data to return to the webpage. Allowed types for this parameter are [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>), [NSString](<doc://com.apple.documentation/documentation/Foundation/NSString>), [NSDate](<doc://com.apple.documentation/documentation/Foundation/NSDate>), [NSArray](<doc://com.apple.documentation/documentation/Foundation/NSArray>), [NSDictionary](<doc://com.apple.documentation/documentation/Foundation/NSDictionary>), and [NSNull](<doc://com.apple.documentation/documentation/Foundation/NSNull>). Specify `nil` if an error occurred.
-//   - errorMessage: `nil` on success, or a string that describes the error that occurred.
-//
-// Used by:
-//   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
-type ObjectHandler = func(objectivec.IObject)
-
-// NewObjectBlock wraps a Go [ObjectHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [WKScriptMessageHandlerWithReply.UserContentControllerDidReceiveScriptMessageReplyHandler]
-func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
-		var val objectivec.IObject
-		if valID != 0 {
-			objc.Send[objc.ID](valID, objc.Sel("retain"))
-			obj := objectivec.ObjectFromID(valID)
-			val = &obj
-		}
-		handler(val)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // StringHandler handles The completion handler to call after the text input panel has been dismissed.
 //
 // Used by:
 //   - [WKUIDelegate.WebViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler]
 type StringHandler = func(*string)
+
+// NewStringBlock wraps a Go [StringHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKUIDelegate.WebViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler]
+func NewStringBlock(handler StringHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringSetDateHandler handles A block to be called with the set of allowed permissions and an optional expiration date.
 //
@@ -555,11 +590,9 @@ func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 //   - [WKWebExtensionControllerDelegate.WebExtensionControllerPromptForPermissionToAccessURLsInTabForExtensionContextCompletionHandler]
 type URLSetDateHandler = func(*foundation.INSSet, *foundation.NSDate)
 
-// VoidHandler handles A completion handler block to call with the results.
-//   - identifierArray: An array of strings, each of which corresponds to an identifier for a rule list in the data store. Use each string to look up the associated [WKContentRuleList](<doc://com.apple.webkit/documentation/WebKit/WKContentRuleList>) object. If the data store has no rule lists, the array is empty.
+// VoidHandler handles A completion handler block to execute asynchronously after the method successfully stores the cookie.
 //
 // Used by:
-//   - [WKContentRuleListStore.GetAvailableContentRuleListIdentifiers]
 //   - [WKDownloadDelegate.DownloadDidReceivePlaceholderURLCompletionHandler]
 //   - [WKHTTPCookieStore.DeleteCookieCompletionHandler]
 //   - [WKHTTPCookieStore.SetCookieCompletionHandler]
@@ -580,7 +613,6 @@ type VoidHandler = func()
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [WKContentRuleListStore.GetAvailableContentRuleListIdentifiers]
 //   - [WKDownloadDelegate.DownloadDidReceivePlaceholderURLCompletionHandler]
 //   - [WKHTTPCookieStore.DeleteCookieCompletionHandler]
 //   - [WKHTTPCookieStore.SetCookieCompletionHandler]
@@ -1026,6 +1058,40 @@ func NewWKWebsiteDataRecordArrayBlock(handler WKWebsiteDataRecordArrayHandler) (
 			for i := uint(0); i < count; i++ {
 				item := obj.ObjectAtIndex(i)
 				res[i] = WKWebsiteDataRecordFromID(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// stringArrayHandler handles A completion handler block to call with the results.
+//   - identifierArray: An array of strings, each of which corresponds to an identifier for a rule list in the data store. Use each string to look up the associated [WKContentRuleList](<doc://com.apple.webkit/documentation/WebKit/WKContentRuleList>) object. If the data store has no rule lists, the array is empty.
+//
+// Used by:
+//   - [WKContentRuleListStore.GetAvailableContentRuleListIdentifiers]
+type stringArrayHandler = func(*[]string)
+
+// NewstringArrayBlock wraps a Go [stringArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKContentRuleListStore.GetAvailableContentRuleListIdentifiers]
+func NewstringArrayBlock(handler stringArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]string
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]string, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = objc.IDToString(item.GetID())
 			}
 			result = &res
 		}

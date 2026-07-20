@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -243,6 +244,34 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VNRequestCompletionHandler handles A type alias to encapsulate the syntax for the completion handler the system calls after the request finishes processing.
+
+// NewVNRequestCompletionHandlerBlock wraps a Go [VNRequestCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewVNRequestCompletionHandlerBlock(handler VNRequestCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive VNRequest, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VNRequestProgressHandler handles A block executed at intervals during the processing of a Vision request.
+
+// NewVNRequestProgressHandlerBlock wraps a Go [VNRequestProgressHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewVNRequestProgressHandlerBlock(handler VNRequestProgressHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive VNRequest, extra0 float64, extra1 foundation.NSError) {
+		handler(primitive, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

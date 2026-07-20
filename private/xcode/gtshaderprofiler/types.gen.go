@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -91,7 +90,7 @@ type GTMioKVDataReader struct {
 	Blocks           unsafe.Pointer
 	NameToBlockIndex foundation.NSDictionary
 	Meta             foundation.NSDictionary
-	Header           kernel.Pointer
+	Header           unsafe.Pointer
 }
 
 // GTMioKickTrace

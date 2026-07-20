@@ -153,7 +153,7 @@ func (m MLNearestNeighborsSingleKdTreeIndex) ConstructTree() objectivec.IObject 
 	return objectivec.Object{ID: rv}
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) ConstructTreeForPointsBoundedByStartingIndexCount(by unsafe.Pointer, index uint64, count uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("constructTreeForPointsBoundedBy:startingIndex:count:"), by, index, count)
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("constructTreeForPointsBoundedBy:startingIndex:count:"), objc.CArray(by), index, count)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) DataPointCount() uint64 {

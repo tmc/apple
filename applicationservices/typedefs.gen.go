@@ -74,7 +74,7 @@ type ATSFontNotificationInfoRef = kernel.Pointer
 type ATSFontNotificationRef = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontquerycallback
-type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) kernel.Pointer
+type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/CoreText/ATSFontRef
 type ATSFontRef = uint32
@@ -283,13 +283,13 @@ type CQDProcsPtr = *CQDProcs
 type CSpecArray = ColorSpec
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementprocptr
-type ColorComplementProcPtr = func(unsafe.Pointer) kernel.Pointer
+type ColorComplementProcPtr = func(unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementupp
 type ColorComplementUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchprocptr
-type ColorSearchProcPtr = func(unsafe.Pointer, unsafe.Pointer) kernel.Pointer
+type ColorSearchProcPtr = func(unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchupp
 type ColorSearchUPP = unsafe.Pointer
@@ -577,7 +577,7 @@ type QDArcProcPtr = func(GrafVerb, unsafe.Pointer, int16, int16)
 type QDArcUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsprocptr
-type QDBitsProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int16, kernel.Pointer)
+type QDBitsProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int16, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsupp
 type QDBitsUPP = unsafe.Pointer
@@ -625,7 +625,7 @@ type QDPolyProcPtr = func(GrafVerb, PolyHandle)
 type QDPolyUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusprocptr
-type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, kernel.Pointer, unsafe.Pointer) int32
+type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusupp
 type QDPrinterStatusUPP = unsafe.Pointer
@@ -652,7 +652,7 @@ type QDRectUPP = unsafe.Pointer
 type QDRegionParseDirection = int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnprocptr
-type QDRgnProcPtr = func(GrafVerb, kernel.Pointer)
+type QDRgnProcPtr = func(GrafVerb, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnupp
 type QDRgnUPP = unsafe.Pointer
@@ -676,13 +676,13 @@ type QDTxMeasProcPtr = func(int16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointe
 type QDTxMeasUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundprocptr
-type RedrawBackgroundProcPtr = func(kernel.Pointer, coreservices.UniCharArrayOffset, int, unsafe.Pointer, int) kernel.Pointer
+type RedrawBackgroundProcPtr = func(unsafe.Pointer, coreservices.UniCharArrayOffset, int, unsafe.Pointer, int) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundupp
 type RedrawBackgroundUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsprocptr
-type RegionToRectsProcPtr = func(uint16, kernel.Pointer, unsafe.Pointer, unsafe.Pointer) int32
+type RegionToRectsProcPtr = func(uint16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsupp
 type RegionToRectsUPP = unsafe.Pointer

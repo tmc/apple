@@ -9,7 +9,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -287,7 +286,7 @@ type ITTSSpeechSynthesizer interface {
 	CoreSynth() unsafe.Pointer
 	SetCoreSynth(value unsafe.Pointer)
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DelegateTargetQueue() objectivec.Object
 	SetDelegateTargetQueue(value objectivec.Object)
 	Footprint() int64
@@ -322,7 +321,7 @@ type ITTSSpeechSynthesizer interface {
 	SkipLuthorRules() bool
 	SetSkipLuthorRules(value bool)
 	SpeakingRequestClientContext() unsafe.Pointer
-	SetSpeakingRequestClientContext(value kernel.Pointer)
+	SetSpeakingRequestClientContext(value unsafe.Pointer)
 	SpeechRequestDidStopWithSuccessPhonemesSpokenError(request objectivec.IObject, success bool, spoken objectivec.IObject, error_ objectivec.IObject)
 	SpeechRequestWithMarker(request objectivec.IObject, marker objectivec.IObject)
 	SpeechRequestDidContinue(continue_ objectivec.IObject)
@@ -958,7 +957,7 @@ func (t TTSSpeechSynthesizer) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("delegate"))
 	return rv
 }
-func (t TTSSpeechSynthesizer) SetDelegate(value kernel.Pointer) {
+func (t TTSSpeechSynthesizer) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 func (t TTSSpeechSynthesizer) DelegateTargetQueue() objectivec.Object {
@@ -1039,7 +1038,7 @@ func (t TTSSpeechSynthesizer) SpeakingRequestClientContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("speakingRequestClientContext"))
 	return rv
 }
-func (t TTSSpeechSynthesizer) SetSpeakingRequestClientContext(value kernel.Pointer) {
+func (t TTSSpeechSynthesizer) SetSpeakingRequestClientContext(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSpeakingRequestClientContext:"), value)
 }
 func (t TTSSpeechSynthesizer) SpeechSource() string {

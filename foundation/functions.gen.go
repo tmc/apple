@@ -2475,12 +2475,12 @@ func NSZoneRealloc(zone *NSZone, ptr unsafe.Pointer, size uint) unsafe.Pointer {
 	return result
 }
 
-var _nXReadNSObjectFromCoder func(decoder *NSCoder) *objectivec.NSObject
+var _nXReadNSObjectFromCoder func(decoder *NSCoder) objectivec.Object
 var _nXReadNSObjectFromCoderErr error
 
-func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.NSObject, error) {
+func tryNXReadNSObjectFromCoder(decoder *NSCoder) (objectivec.Object, error) {
 	if _nXReadNSObjectFromCoder == nil {
-		return nil, symbolCallError("NXReadNSObjectFromCoder", "10.0", _nXReadNSObjectFromCoderErr)
+		return objectivec.Object{}, symbolCallError("NXReadNSObjectFromCoder", "10.0", _nXReadNSObjectFromCoderErr)
 	}
 	return _nXReadNSObjectFromCoder(decoder), nil
 }
@@ -2490,7 +2490,7 @@ func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.NSObject, error) 
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/Foundation/NXReadNSObjectFromCoder
-func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.NSObject {
+func NXReadNSObjectFromCoder(decoder *NSCoder) objectivec.Object {
 	result, callErr := tryNXReadNSObjectFromCoder(decoder)
 	if callErr != nil {
 		panic(callErr)

@@ -53,16 +53,6 @@ type DiskImageFormat struct {
 type DispatchGroupSession struct {
 }
 
-// DispatchQueue
-type DispatchQueue struct {
-	_object OpaqueIdRef
-}
-
-// DispatchSource
-type DispatchSource struct {
-	_object OpaqueIdRef
-}
-
 // Element
 type Element struct {
 	Bytes_written       uint
@@ -142,3 +132,6 @@ type SockaddrStorage struct {
 	__ss_align int64
 	__ss_pad2  unsafe.Pointer
 }
+
+// Sockaddr_storage is a type alias for SockaddrStorage for use in objc.Send[T] calls.
+type Sockaddr_storage = SockaddrStorage

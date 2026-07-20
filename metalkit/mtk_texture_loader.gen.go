@@ -9,7 +9,6 @@ import (
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -191,13 +190,13 @@ type IMTKTextureLoader interface {
 	// Topic: Loading Textures from Asset Catalogs
 
 	// Synchronously loads image data and creates a Metal texture from the named texture asset in an asset catalog.
-	NewTextureWithNameScaleFactorBundleOptionsError(name string, scaleFactor float64, bundle foundation.Bundle, options foundation.INSDictionary) (metal.MTLTexture, error)
+	NewTextureWithNameScaleFactorBundleOptionsError(name string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error)
 	// Asynchronously loads image data and creates a Metal texture from the named texture asset in an asset catalog.
 	NewTextureWithNameScaleFactorBundleOptionsCompletionHandler(name string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler)
 	// Asynchronously loads image data and creates Metal textures from the specified list of named texture assets in an asset catalog.
 	NewTexturesWithNamesScaleFactorBundleOptionsCompletionHandler(names []string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler)
 	// Synchronously loads image data and creates a Metal texture from the named texture asset in an asset catalog, using a specified display gamut.
-	NewTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.Bundle, options foundation.INSDictionary) (metal.MTLTexture, error)
+	NewTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error)
 	// Asynchronously loads image data and creates a Metal texture from the named texture asset in an asset catalog.
 	NewTextureWithNameScaleFactorDisplayGamutBundleOptionsCompletionHandler(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler)
 	// Asynchronously loads image data and creates Metal textures from the specified list of named texture assets in an asset catalog.
@@ -220,9 +219,9 @@ type IMTKTextureLoader interface {
 	// Topic: Loading Textures from Model I/O Representations
 
 	// Synchronously loads image data and creates a Metal texture from the specified Model I/O texture.
-	NewTextureWithMDLTextureOptionsError(texture kernel.ID, options foundation.INSDictionary) (metal.MTLTexture, error)
+	NewTextureWithMDLTextureOptionsError(texture objectivec.IObject, options foundation.INSDictionary) (metal.MTLTexture, error)
 	// Asynchronously loads image data and creates a Metal texture from the specified Model I/O texture.
-	NewTextureWithMDLTextureOptionsCompletionHandler(texture kernel.ID, options foundation.INSDictionary, completionHandler ErrorHandler)
+	NewTextureWithMDLTextureOptionsCompletionHandler(texture objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -407,7 +406,7 @@ func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsCompletionHandler(
 // [cubeLayout]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/cubeLayout
 // [generateMipmaps]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/generateMipmaps
 // [origin]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/origin
-func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsError(name string, scaleFactor float64, bundle foundation.Bundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
+func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsError(name string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:bundle:options:error:"), objc.String(name), scaleFactor, bundle, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -536,7 +535,7 @@ func (t MTKTextureLoader) NewTexturesWithNamesScaleFactorBundleOptionsCompletion
 // [cubeLayout]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/cubeLayout
 // [generateMipmaps]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/generateMipmaps
 // [origin]: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Option/origin
-func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.Bundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
+func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:displayGamut:bundle:options:error:"), objc.String(name), scaleFactor, displayGamut, bundle, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -748,7 +747,7 @@ func (t MTKTextureLoader) NewTextureWithDataOptionsCompletionHandler(data founda
 // occurred.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(texture:options:)
-func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture kernel.ID, options foundation.INSDictionary) (metal.MTLTexture, error) {
+func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture objectivec.IObject, options foundation.INSDictionary) (metal.MTLTexture, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithMDLTexture:options:error:"), texture, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -775,7 +774,7 @@ func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture kernel.ID
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(texture:options:completionHandler:)
-func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsCompletionHandler(texture kernel.ID, options foundation.INSDictionary, completionHandler ErrorHandler) {
+func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsCompletionHandler(texture objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithMDLTexture:options:completionHandler:"), texture, options, _block2)
 }

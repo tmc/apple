@@ -115,7 +115,7 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// The rendering context of the video composition.
 	RenderContext() IAVVideoCompositionRenderContext
 	// A video composition instruction that indicates how to compose the frame.
-	VideoCompositionInstruction() AVVideoCompositionInstruction
+	VideoCompositionInstruction() IAVVideoCompositionInstruction
 
 	// Topic: Accessing source data
 
@@ -268,7 +268,7 @@ func (a AVAsynchronousVideoCompositionRequest) RenderContext() IAVVideoCompositi
 // A video composition instruction that indicates how to compose the frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/videoCompositionInstruction
-func (a AVAsynchronousVideoCompositionRequest) VideoCompositionInstruction() AVVideoCompositionInstruction {
+func (a AVAsynchronousVideoCompositionRequest) VideoCompositionInstruction() IAVVideoCompositionInstruction {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoCompositionInstruction"))
 	return AVVideoCompositionInstructionFromID(objc.ID(rv))
 }

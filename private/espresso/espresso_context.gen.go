@@ -48,7 +48,6 @@ func (ec EspressoContextClass) Alloc() EspressoContext {
 //   - [EspressoContext.Ctx]
 //   - [EspressoContext.Platform]
 //   - [EspressoContext.Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority]
-//   - [EspressoContext.InitWithContext]
 //   - [EspressoContext.InitWithDeviceAndWisdomParams]
 //   - [EspressoContext.InitWithNetworkContext]
 //   - [EspressoContext.InitWithPlatform]
@@ -71,7 +70,6 @@ var _ IEspressoContext = EspressoContext{}
 //   - [IEspressoContext.Ctx]
 //   - [IEspressoContext.Platform]
 //   - [IEspressoContext.Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority]
-//   - [IEspressoContext.InitWithContext]
 //   - [IEspressoContext.InitWithDeviceAndWisdomParams]
 //   - [IEspressoContext.InitWithNetworkContext]
 //   - [IEspressoContext.InitWithPlatform]
@@ -83,7 +81,6 @@ type IEspressoContext interface {
 	Ctx() unsafe.Pointer
 	Platform() int
 	Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32)
-	InitWithContext(context unsafe.Pointer) EspressoContext
 	InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext
 	InitWithNetworkContext(context objectivec.IObject) EspressoContext
 	InitWithPlatform(platform int) EspressoContext
@@ -134,10 +131,6 @@ func NewEspressoContextWithPlatform(platform int) EspressoContext {
 
 func (e EspressoContext) Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32) {
 	objc.Send[objc.ID](e.ID, objc.Sel("set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:"), set_priority, low_priority_max_ms_per_command_buffer, gpu_priority)
-}
-func (e EspressoContext) InitWithContext(context unsafe.Pointer) EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithContext:"), context)
-	return rv
 }
 func (e EspressoContext) InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext {
 	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)

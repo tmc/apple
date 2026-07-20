@@ -115,6 +115,13 @@ func NewUNTextInputNotificationAction() UNTextInputNotificationAction {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(coder:)
+func NewUNTextInputNotificationActionWithCoder(coder foundation.INSCoder) UNTextInputNotificationAction {
+	instance := getUNTextInputNotificationActionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNTextInputNotificationActionFromID(rv)
+}
+
 // Creates an action object by using the specified title and options.
 //
 // identifier: The string that you use internally to identify the action. This string must

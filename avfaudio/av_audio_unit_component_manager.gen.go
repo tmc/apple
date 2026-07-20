@@ -145,8 +145,6 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 
 // Gets an array of audio component objects that match the description.
 //
-// desc is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // An array of [AVAudioComponent] objects that match the `description`.

@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -74,7 +73,7 @@ type IGTMioWeakPerDrawCounterObserver interface {
 	// Topic: Methods
 
 	Observer() unsafe.Pointer
-	SetObserver(value kernel.Pointer)
+	SetObserver(value unsafe.Pointer)
 	InitWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver
 }
 
@@ -112,6 +111,6 @@ func (g GTMioWeakPerDrawCounterObserver) Observer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("observer"))
 	return rv
 }
-func (g GTMioWeakPerDrawCounterObserver) SetObserver(value kernel.Pointer) {
+func (g GTMioWeakPerDrawCounterObserver) SetObserver(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setObserver:"), value)
 }

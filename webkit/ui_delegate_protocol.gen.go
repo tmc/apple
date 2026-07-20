@@ -120,6 +120,32 @@ func (o WKUIDelegateObject) WebViewRunJavaScriptConfirmPanelWithMessageInitiated
 	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:"), webView, objc.String(message), frame, completionHandler)
 }
 
+// Displays a JavaScript text input panel.
+//
+// webView: The web view invoking the delegate method.
+//
+// prompt: The message to be displayed.
+//
+// defaultText: The initial text to display in the text entry field.
+//
+// frame: Information about the frame whose JavaScript process initiated this call.
+//
+// completionHandler: The completion handler to call after the text input panel has been
+// dismissed. Pass the entered text if the user chose OK, otherwise `nil`.
+//
+// # Discussion
+//
+// For user security, implementations of this method should call attention to
+// the fact that a specific website controls the content in this panel. A
+// simple formula for identifying the controlling website is
+// `frame.Request().URL.Host()`. The panel should have two buttons (typically
+// OK and Cancel) and a field in which to enter text.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:)
+func (o WKUIDelegateObject) WebViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler(webView IWKWebView, prompt string, defaultText string, frame IWKFrameInfo, completionHandler StringHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:"), webView, objc.String(prompt), objc.String(defaultText), frame, completionHandler)
+}
+
 // Displays a custom Lockdown Mode first use message.
 //
 // webView: The web view that is requesting to display the Lockdown Mode first use

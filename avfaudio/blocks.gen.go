@@ -3,6 +3,7 @@
 package avfaudio
 
 import (
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -24,6 +25,62 @@ func NewAVAudioApplicationMicrophoneInjectionPermissionBlock(handler AVAudioAppl
 	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal AVAudioApplicationMicrophoneInjectionPermission) {
 		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVAudioIONodeInputBlock handles The type that represents a block to render operation calls to get input data when in manual rendering mode.
+
+// NewAVAudioIONodeInputBlock wraps a Go [AVAudioIONodeInputBlock] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVAudioIONodeInputBlock(handler AVAudioIONodeInputBlock) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal uint32) *coreaudiotypes.AudioBufferList {
+		return handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVAudioNodeCompletionHandler handles A general callback handler for an audio node.
+
+// NewAVAudioNodeCompletionHandlerBlock wraps a Go [AVAudioNodeCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVAudioNodeCompletionHandlerBlock(handler AVAudioNodeCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) {
+		handler()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVAudioPlayerNodeCompletionHandler handles The callback handler for buffer or file completion.
+
+// NewAVAudioPlayerNodeCompletionHandlerBlock wraps a Go [AVAudioPlayerNodeCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVAudioPlayerNodeCompletionHandlerBlock(handler AVAudioPlayerNodeCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal AVAudioPlayerNodeCompletionCallbackType) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVAudioSequencerUserCallback handles A callback the sequencer calls asynchronously during playback when it encounters a user event.
+
+// NewAVAudioSequencerUserCallbackBlock wraps a Go [AVAudioSequencerUserCallback] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVAudioSequencerUserCallbackBlock(handler AVAudioSequencerUserCallback) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive AVMusicTrack, extra0 foundation.NSData, extra1 float64) {
+		handler(primitive, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -106,6 +163,34 @@ func NewAVAudioVoiceProcessingSpeechActivityEventBlock(handler AVAudioVoiceProce
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVMIDIPlayerCompletionHandler handles A callback the system invokes when MIDI playback completes.
+
+// NewAVMIDIPlayerCompletionHandlerBlock wraps a Go [AVMIDIPlayerCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVMIDIPlayerCompletionHandlerBlock(handler AVMIDIPlayerCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) {
+		handler()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVMusicEventEnumerationBlock handles A type you use to enumerate and remove music events, if necessary.
+
+// NewAVMusicEventEnumerationBlock wraps a Go [AVMusicEventEnumerationBlock] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVMusicEventEnumerationBlock(handler AVMusicEventEnumerationBlock) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive AVMusicEvent, extra0 []float64, extra1 *int8) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // AVSpeechSynthesisPersonalVoiceAuthorizationStatusHandler handles A completion handler that the system calls after the user responds to a request to authorize use of personal voices, which receives the authorization status as an argument.
 //
 // Used by:
@@ -122,6 +207,48 @@ func NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler AVSpeechS
 		return 0, func() {}
 	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal AVSpeechSynthesisPersonalVoiceAuthorizationStatus) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVSpeechSynthesisProviderOutputBlock handles A type that represents the method for sending marker information to the host.
+
+// NewAVSpeechSynthesisProviderOutputBlock wraps a Go [AVSpeechSynthesisProviderOutputBlock] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVSpeechSynthesisProviderOutputBlock(handler AVSpeechSynthesisProviderOutputBlock) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive []AVSpeechSynthesisMarker, extra0 AVSpeechSynthesisProviderRequest) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVSpeechSynthesizerBufferCallback handles A type that defines a callback that receives a buffer of generated speech.
+
+// NewAVSpeechSynthesizerBufferCallbackBlock wraps a Go [AVSpeechSynthesizerBufferCallback] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVSpeechSynthesizerBufferCallbackBlock(handler AVSpeechSynthesizerBufferCallback) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal AVAudioBuffer) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// AVSpeechSynthesizerMarkerCallback handles A type that defines a callback that receives speech markers.
+
+// NewAVSpeechSynthesizerMarkerCallbackBlock wraps a Go [AVSpeechSynthesizerMarkerCallback] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewAVSpeechSynthesizerMarkerCallbackBlock(handler AVSpeechSynthesizerMarkerCallback) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal []AVSpeechSynthesisMarker) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }

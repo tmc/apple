@@ -10,9 +10,6 @@ import (
 // SLDataTimelineSnapshotCollection protocol.
 type SLDataTimelineSnapshotCollection interface {
 	objectivec.IObject
-
-	// SnapshotsApplyBlock protocol.
-	SnapshotsApplyBlock(block SLDataTimelineServerSnapshotHandler)
 }
 
 // SLDataTimelineSnapshotCollectionObject wraps an existing Objective-C object that conforms to the SLDataTimelineSnapshotCollection protocol.
@@ -35,7 +32,4 @@ func SLDataTimelineSnapshotCollectionObjectFromID(id objc.ID) SLDataTimelineSnap
 func (o SLDataTimelineSnapshotCollectionObject) Snapshots() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("snapshots"))
 	return objectivec.Object{ID: rv}
-}
-func (o SLDataTimelineSnapshotCollectionObject) SnapshotsApplyBlock(block SLDataTimelineServerSnapshotHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("snapshotsApplyBlock:"), block)
 }

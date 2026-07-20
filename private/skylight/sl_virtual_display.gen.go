@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -83,7 +82,7 @@ type ISLVirtualDisplay interface {
 
 	ApplySettingsError(settings objectivec.IObject) (bool, error)
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	Destroy()
 	DisplayID() uint32
 	InitWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error)
@@ -155,7 +154,7 @@ func (s SLVirtualDisplay) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLVirtualDisplay) SetDelegate(value kernel.Pointer) {
+func (s SLVirtualDisplay) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLVirtualDisplay) DisplayID() uint32 {

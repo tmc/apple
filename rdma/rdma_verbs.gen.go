@@ -114,9 +114,7 @@ type IbvQPAttr struct {
 	RNRetry          uint8
 	AltPortNum       uint8
 	AltTimeout       uint8
-	_                uint8
-	RateLimit        uint32
-	_                [4]byte
+	_                [9]byte
 }
 
 // IbvSGE matches struct ibv_sge.
@@ -168,31 +166,13 @@ type IbvWC struct {
 	_            uint8
 }
 
-// IbvPortAttr matches struct ibv_port_attr.
+// IbvPortAttr exposes the fields used by RDMA examples.
 type IbvPortAttr struct {
-	State         int32
-	MaxMTU        int32
-	ActiveMTU     int32
-	GIDTblLen     int32
-	PortCapFlags  uint32
-	MaxMsgSZ      uint32
-	BadPKeyCntr   uint32
-	QKeyViolCntr  uint32
-	PKeyTblLen    uint16
-	LID           uint16
-	SMLID         uint16
-	LMC           uint8
-	MaxVLNum      uint8
-	SMSL          uint8
-	SubnetTimeout uint8
-	InitTypeReply uint8
-	ActiveWidth   uint8
-	ActiveSpeed   uint8
-	PhysState     uint8
-	LinkLayer     uint8
-	Flags         uint8
-	PortCapFlags2 uint16
-	_             uint16
+	_         [12]byte
+	GIDTblLen uint32
+	_         [18]byte
+	LID       uint16
+	_         [16]byte
 }
 
 func Ibv_qp_num(qp RDMAQP) uint32 {
@@ -252,11 +232,6 @@ func rdmaPollCQFunc(fnPtr uintptr) ibvPollCQFunc {
 	if fn, ok := ibvPollCQFuncs.Load(fnPtr); ok {
 		return fn.(ibvPollCQFunc)
 	}
-	ibvFuncMu.Lock()
-	defer ibvFuncMu.Unlock()
-	if fn, ok := ibvPollCQFuncs.Load(fnPtr); ok {
-		return fn.(ibvPollCQFunc)
-	}
 	var fn ibvPollCQFunc
 	purego.RegisterFunc(&fn, fnPtr)
 	actual, _ := ibvPollCQFuncs.LoadOrStore(fnPtr, fn)
@@ -267,11 +242,6 @@ func rdmaPostSendFunc(fnPtr uintptr) ibvPostSendFunc {
 	if fn, ok := ibvPostSendFuncs.Load(fnPtr); ok {
 		return fn.(ibvPostSendFunc)
 	}
-	ibvFuncMu.Lock()
-	defer ibvFuncMu.Unlock()
-	if fn, ok := ibvPostSendFuncs.Load(fnPtr); ok {
-		return fn.(ibvPostSendFunc)
-	}
 	var fn ibvPostSendFunc
 	purego.RegisterFunc(&fn, fnPtr)
 	actual, _ := ibvPostSendFuncs.LoadOrStore(fnPtr, fn)
@@ -279,11 +249,6 @@ func rdmaPostSendFunc(fnPtr uintptr) ibvPostSendFunc {
 }
 
 func rdmaPostRecvFunc(fnPtr uintptr) ibvPostRecvFunc {
-	if fn, ok := ibvPostRecvFuncs.Load(fnPtr); ok {
-		return fn.(ibvPostRecvFunc)
-	}
-	ibvFuncMu.Lock()
-	defer ibvFuncMu.Unlock()
 	if fn, ok := ibvPostRecvFuncs.Load(fnPtr); ok {
 		return fn.(ibvPostRecvFunc)
 	}
@@ -307,15 +272,7 @@ func NewIbvCQPoller(cq RDMACQ) (IbvCQPoller, error) {
 }
 
 func (p IbvCQPoller) Poll(numEntries int, wc *IbvWC) int {
-	if p.cq == 0 || p.fn == nil || wc == nil {
-		return -1
-	}
-	rc := rdmaProviderCall(func() int {
-		return p.fn(p.cq, numEntries, wc)
-	})
-	rdmaKeepAlive(p.cq)
-	rdmaKeepAlive(wc)
-	return rc
+	return p.fn(p.cq, numEntries, wc)
 }
 
 type IbvQPPoster struct {
@@ -342,98 +299,39 @@ func NewIbvQPPoster(qp RDMAQP) (IbvQPPoster, error) {
 }
 
 func (p IbvQPPoster) PostSend(wr *IbvSendWR, badWR **IbvSendWR) int {
-	if p.qp == 0 || p.send == nil || wr == nil || badWR == nil {
-		return -1
-	}
-	rc := rdmaProviderCall(func() int {
-		return p.send(p.qp, wr, badWR)
-	})
-	rdmaKeepAlive(p.qp)
-	rdmaKeepAlive(wr)
-	rdmaKeepAlive(badWR)
-	return rc
+	return p.send(p.qp, wr, badWR)
 }
 
 func (p IbvQPPoster) PostRecv(wr *IbvRecvWR, badWR **IbvRecvWR) int {
-	if p.qp == 0 || p.recv == nil || wr == nil || badWR == nil {
-		return -1
-	}
-	rc := rdmaProviderCall(func() int {
-		return p.recv(p.qp, wr, badWR)
-	})
-	rdmaKeepAlive(p.qp)
-	rdmaKeepAlive(wr)
-	rdmaKeepAlive(badWR)
-	return rc
+	return p.recv(p.qp, wr, badWR)
 }
 
 // Ibv_poll_cq calls the SDK inline ibv_poll_cq wrapper through ibv_context_ops.
 func Ibv_poll_cq(cq RDMACQ, numEntries int, wc *IbvWC) (int, error) {
-	if wc == nil {
-		return 0, rdmaNilPointerError("ibv_poll_cq", "work completion")
-	}
 	fnPtr := rdmaContextOp(rdmaContextFromCQ(cq), 88)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_poll_cq unavailable")
 	}
 	fn := rdmaPollCQFunc(fnPtr)
-	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
-		return fn(cq, numEntries, wc)
-	})
-	rdmaKeepAlive(cq)
-	rdmaKeepAlive(wc)
-	if rc < 0 {
-		return rc, rdmaNegativeProviderReturnError("ibv_poll_cq", rc, errno, errnoSet, rdmaContextFromCQ(cq), true)
-	}
-	return rc, nil
+	return fn(cq, numEntries, wc), nil
 }
 
 // Ibv_post_send calls the SDK inline ibv_post_send wrapper through ibv_context_ops.
 func Ibv_post_send(qp RDMAQP, wr *IbvSendWR, badWR **IbvSendWR) (int, error) {
-	if wr == nil {
-		return 0, rdmaNilPointerError("ibv_post_send", "send work request")
-	}
-	if badWR == nil {
-		return 0, rdmaNilPointerError("ibv_post_send", "bad send work request")
-	}
 	fnPtr := rdmaContextOp(rdmaContextFromQP(qp), 200)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_send unavailable")
 	}
 	fn := rdmaPostSendFunc(fnPtr)
-	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
-		return fn(qp, wr, badWR)
-	})
-	rdmaKeepAlive(qp)
-	rdmaKeepAlive(wr)
-	rdmaKeepAlive(badWR)
-	if rc < 0 {
-		return rc, rdmaNegativeProviderReturnError("ibv_post_send", rc, errno, errnoSet, rdmaContextFromQP(qp), true)
-	}
-	return rc, nil
+	return fn(qp, wr, badWR), nil
 }
 
 // Ibv_post_recv calls the SDK inline ibv_post_recv wrapper through ibv_context_ops.
 func Ibv_post_recv(qp RDMAQP, wr *IbvRecvWR, badWR **IbvRecvWR) (int, error) {
-	if wr == nil {
-		return 0, rdmaNilPointerError("ibv_post_recv", "receive work request")
-	}
-	if badWR == nil {
-		return 0, rdmaNilPointerError("ibv_post_recv", "bad receive work request")
-	}
 	fnPtr := rdmaContextOp(rdmaContextFromQP(qp), 208)
 	if fnPtr == 0 {
 		return 0, fmt.Errorf("rdma: ibv_post_recv unavailable")
 	}
 	fn := rdmaPostRecvFunc(fnPtr)
-	rc, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
-		return fn(qp, wr, badWR)
-	})
-	rdmaKeepAlive(qp)
-	rdmaKeepAlive(wr)
-	rdmaKeepAlive(badWR)
-	if rc < 0 {
-		return rc, rdmaNegativeProviderReturnError("ibv_post_recv", rc, errno, errnoSet, rdmaContextFromQP(qp), true)
-	}
-	return rc, nil
+	return fn(qp, wr, badWR), nil
 }

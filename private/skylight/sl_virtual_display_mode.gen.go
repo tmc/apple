@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -103,7 +102,7 @@ type ISLVirtualDisplayMode interface {
 	RefreshRate() float32
 	SizeInPixels() unsafe.Pointer
 	SizeInPoints() unsafe.Pointer
-	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error)
+	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error)
 }
 
 // Init initializes the instance.
@@ -125,7 +124,7 @@ func NewSLVirtualDisplayMode() SLVirtualDisplayMode {
 	return rv
 }
 
-func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
+func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayModeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
@@ -144,7 +143,7 @@ func (s SLVirtualDisplayMode) IsEqualToMode(mode objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToMode:"), mode)
 	return rv
 }
-func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
+func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

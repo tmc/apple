@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -176,13 +175,13 @@ type ICKQueryOperation interface {
 	SetResultsLimit(value uint)
 	// The fields of the records to fetch.
 	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	SetDesiredKeys(value unsafe.Pointer)
 
 	// Topic: Instance Properties
 
 	// The closure to execute when a record match is available.
 	RecordMatchedBlock() unsafe.Pointer
-	SetRecordMatchedBlock(value kernel.Pointer)
+	SetRecordMatchedBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -389,7 +388,7 @@ func (c CKQueryOperation) DesiredKeys() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
 	return rv
 }
-func (c CKQueryOperation) SetDesiredKeys(value kernel.Pointer) {
+func (c CKQueryOperation) SetDesiredKeys(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
 }
 
@@ -400,6 +399,6 @@ func (c CKQueryOperation) RecordMatchedBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordMatchedBlock"))
 	return rv
 }
-func (c CKQueryOperation) SetRecordMatchedBlock(value kernel.Pointer) {
+func (c CKQueryOperation) SetRecordMatchedBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordMatchedBlock:"), value)
 }

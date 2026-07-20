@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -150,7 +149,7 @@ type ICKQuerySubscription interface {
 
 	// The type of record that the subscription queries.
 	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	SetRecordType(value unsafe.Pointer)
 	// The ID of the record zone that the subscription queries.
 	ZoneID() ICKRecordZoneID
 	SetZoneID(value ICKRecordZoneID)
@@ -237,7 +236,7 @@ func (c CKQuerySubscription) RecordType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
 	return rv
 }
-func (c CKQuerySubscription) SetRecordType(value kernel.Pointer) {
+func (c CKQuerySubscription) SetRecordType(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
 }
 

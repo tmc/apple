@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -189,7 +188,7 @@ type ISLSSpaceWindowManager interface {
 	ConnectionID() uint32
 	SetConnectionID(value uint32)
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DisplayCurrentSpaces() foundation.INSDictionary
 	SetDisplayCurrentSpaces(value foundation.INSDictionary)
 	DisplaySpaceList() foundation.INSDictionary
@@ -575,7 +574,7 @@ func (s SLSSpaceWindowManager) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLSSpaceWindowManager) SetDelegate(value kernel.Pointer) {
+func (s SLSSpaceWindowManager) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLSSpaceWindowManager) DisplayCurrentSpaces() foundation.INSDictionary {

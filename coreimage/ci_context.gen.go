@@ -298,15 +298,15 @@ type ICIContext interface {
 	// Topic: Creating Depth Blur Filters
 
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) ICIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) ICIFilter
 
 	// Topic: Customizing Render Destination
 
@@ -1207,7 +1207,7 @@ func (c CIContext) WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICII
 // [auxiliarySemanticSegmentationHairMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationHairMatte
 // [auxiliarySemanticSegmentationGlassesMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationGlassesMatte
 // [auxiliaryHDRGainMap]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryHDRGainMap
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:glassesMatte:gainMap:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, glassesMatte, gainMap, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1242,7 +1242,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // [auxiliaryDisparity]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryDisparity
 // [auxiliaryPortraitEffectsMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryPortraitEffectsMatte
 // [auxiliarySemanticSegmentationHairMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationHairMatte
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1273,7 +1273,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 //
 // [auxiliaryDisparity]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryDisparity
 // [auxiliaryPortraitEffectsMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryPortraitEffectsMatte
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:orientation:options:"), image, disparityImage, portraitEffectsMatte, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1291,7 +1291,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageData:options:)
-func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageData:options:"), data, options)
 	return CIFilterFromID(rv)
 }
@@ -1309,7 +1309,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSDa
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageURL:options:)
-func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageURL:options:"), url, options)
 	return CIFilterFromID(rv)
 }

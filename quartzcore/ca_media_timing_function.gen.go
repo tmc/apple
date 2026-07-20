@@ -104,6 +104,7 @@ type ICAMediaTimingFunction interface {
 	// Returns the control point for the specified index.
 	GetControlPointAtIndexValues(idx uintptr, ptr [2]float32)
 
+	InitWithCoder(coder foundation.INSCoder) CAMediaTimingFunction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -124,6 +125,13 @@ func NewCAMediaTimingFunction() CAMediaTimingFunction {
 	class := getCAMediaTimingFunctionClass()
 	rv := objc.Send[CAMediaTimingFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/init(coder:)
+func NewMediaTimingFunctionWithCoder(coder foundation.INSCoder) CAMediaTimingFunction {
+	instance := getCAMediaTimingFunctionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAMediaTimingFunctionFromID(rv)
 }
 
 // Returns an initialized timing function modeled as a cubic Bézier curve
@@ -223,6 +231,12 @@ func (m CAMediaTimingFunction) InitWithControlPoints(c1x float32, c1y float32, c
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/getControlPoint(at:values:)
 func (m CAMediaTimingFunction) GetControlPointAtIndexValues(idx uintptr, ptr [2]float32) {
 	objc.Send[objc.ID](m.ID, objc.Sel("getControlPointAtIndex:values:"), idx, ptr)
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/init(coder:)
+func (m CAMediaTimingFunction) InitWithCoder(coder foundation.INSCoder) CAMediaTimingFunction {
+	rv := objc.Send[CAMediaTimingFunction](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (m CAMediaTimingFunction) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)

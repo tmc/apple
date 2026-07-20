@@ -146,8 +146,6 @@ func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescripti
 //
 // audioComponentDescription: The description of the audio unit to create.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // A new [AVAudioUnitTimeEffect] instance.

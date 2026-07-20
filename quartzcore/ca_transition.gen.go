@@ -165,6 +165,13 @@ func NewCATransition() CATransition {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewTransitionWithCoder(coder foundation.INSCoder) CATransition {
+	instance := getCATransitionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CATransitionFromID(rv)
+}
+
 // Indicates the start point of the receiver as a fraction of the entire
 // transition.
 //

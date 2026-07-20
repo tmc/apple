@@ -231,7 +231,7 @@ type ITimer interface {
 	// Initializes a timer for the specified date and time interval with the specified block.
 	InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float64, repeats bool, block TimerHandler) Timer
 	// Initializes a timer using the specified object and selector.
-	InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer
+	InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer
 
 	// Topic: Firing a Timer
 
@@ -319,7 +319,7 @@ func NewTimer() Timer {
 // timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fireAt:interval:target:selector:userInfo:repeats:)
-func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer {
+func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer {
 	instance := getTimerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFireDate:interval:target:selector:userInfo:repeats:"), date, ti, t, s, ui, rep)
 	return TimerFromID(rv)
@@ -390,7 +390,7 @@ func NewTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocat
 // need to subsequently re-add the timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:target:selector:userInfo:repeats:)
-func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objectivec.SEL, userInfo objectivec.IObject, yesOrNo bool) Timer {
+func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) Timer {
 	rv := objc.Send[objc.ID](objc.ID(getTimerClass().class), objc.Sel("timerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return TimerFromID(rv)
 }
@@ -466,7 +466,7 @@ func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float
 // timer to the run loop.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fireAt:interval:target:selector:userInfo:repeats:)
-func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objectivec.SEL, ui objectivec.IObject, rep bool) Timer {
+func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti float64, t objectivec.IObject, s objc.SEL, ui objectivec.IObject, rep bool) Timer {
 	rv := objc.Send[Timer](t_.ID, objc.Sel("initWithFireDate:interval:target:selector:userInfo:repeats:"), date, ti, t, s, ui, rep)
 	return rv
 }
@@ -570,7 +570,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interva
 // `aSelector` to `target`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(timeInterval:target:selector:userInfo:repeats:)
-func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objectivec.SEL, userInfo objectivec.IObject, yesOrNo bool) NSTimer {
+func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) NSTimer {
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return NSTimerFromID(rv)
 }

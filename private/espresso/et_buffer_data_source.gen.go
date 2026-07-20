@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -107,17 +106,17 @@ type IETBufferDataSource interface {
 	BatchSize() uint64
 	SetBatchSize(value uint64)
 	BlobShapes() unsafe.Pointer
-	SetBlobShapes(value kernel.Pointer)
+	SetBlobShapes(value unsafe.Pointer)
 	DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer
 	DataPointAtIndexError(index uint64) (objectivec.IObject, error)
 	DataStorage() unsafe.Pointer
-	SetDataStorage(value kernel.Pointer)
+	SetDataStorage(value unsafe.Pointer)
 	NonBatchBlobNames() unsafe.Pointer
-	SetNonBatchBlobNames(value kernel.Pointer)
+	SetNonBatchBlobNames(value unsafe.Pointer)
 	NumberOfDataPoints() uint64
 	Number_of_data_points() uint64
 	SetNumber_of_data_points(value uint64)
-	InitWithBlobShapesNumberOfDataPointsBatchSizeError(shapes kernel.Pointer, points uint64, size uint64) (ETBufferDataSource, error)
+	InitWithBlobShapesNumberOfDataPointsBatchSizeError(shapes unsafe.Pointer, points uint64, size uint64) (ETBufferDataSource, error)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -143,7 +142,7 @@ func NewETBufferDataSource() ETBufferDataSource {
 	return rv
 }
 
-func NewETBufferDataSourceWithBlobShapesNumberOfDataPointsBatchSizeError(shapes kernel.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
+func NewETBufferDataSourceWithBlobShapesNumberOfDataPointsBatchSizeError(shapes unsafe.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
 	var errorPtr objc.ID
 	instance := getETBufferDataSourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlobShapes:numberOfDataPoints:batchSize:error:"), shapes, points, size, unsafe.Pointer(&errorPtr))
@@ -172,7 +171,7 @@ func (e ETBufferDataSource) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-func (e ETBufferDataSource) InitWithBlobShapesNumberOfDataPointsBatchSizeError(shapes kernel.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
+func (e ETBufferDataSource) InitWithBlobShapesNumberOfDataPointsBatchSizeError(shapes unsafe.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithBlobShapes:numberOfDataPoints:batchSize:error:"), shapes, points, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -194,14 +193,14 @@ func (e ETBufferDataSource) BlobShapes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blobShapes"))
 	return rv
 }
-func (e ETBufferDataSource) SetBlobShapes(value kernel.Pointer) {
+func (e ETBufferDataSource) SetBlobShapes(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlobShapes:"), value)
 }
 func (e ETBufferDataSource) DataStorage() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataStorage"))
 	return rv
 }
-func (e ETBufferDataSource) SetDataStorage(value kernel.Pointer) {
+func (e ETBufferDataSource) SetDataStorage(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataStorage:"), value)
 }
 func (e ETBufferDataSource) DebugDescription() string {
@@ -220,7 +219,7 @@ func (e ETBufferDataSource) NonBatchBlobNames() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("nonBatchBlobNames"))
 	return rv
 }
-func (e ETBufferDataSource) SetNonBatchBlobNames(value kernel.Pointer) {
+func (e ETBufferDataSource) SetNonBatchBlobNames(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNonBatchBlobNames:"), value)
 }
 func (e ETBufferDataSource) Number_of_data_points() uint64 {

@@ -299,8 +299,8 @@ type ICIRAWFilter interface {
 	IsLensCorrectionEnabled() bool
 	SetLensCorrectionEnabled(value bool)
 	// An optional filter you can apply to the RAW image while it’s in linear space.
-	LinearSpaceFilter() CIFilter
-	SetLinearSpaceFilter(value CIFilter)
+	LinearSpaceFilter() ICIFilter
+	SetLinearSpaceFilter(value ICIFilter)
 	// A value that indicates the amount of local tone curve to apply to the image.
 	LocalToneMapAmount() float32
 	SetLocalToneMapAmount(value float32)
@@ -773,11 +773,11 @@ func (r CIRAWFilter) SetLensCorrectionEnabled(value bool) {
 // space.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/linearSpaceFilter
-func (r CIRAWFilter) LinearSpaceFilter() CIFilter {
+func (r CIRAWFilter) LinearSpaceFilter() ICIFilter {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("linearSpaceFilter"))
 	return CIFilterFromID(objc.ID(rv))
 }
-func (r CIRAWFilter) SetLinearSpaceFilter(value CIFilter) {
+func (r CIRAWFilter) SetLinearSpaceFilter(value ICIFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLinearSpaceFilter:"), value)
 }
 

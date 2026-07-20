@@ -735,6 +735,34 @@ func NewNSBezierPathArrayBlock(handler NSBezierPathArrayHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSCollectionLayoutGroupCustomItemProvider handles A closure that creates and returns each of the custom group’s items.
+
+// NewNSCollectionLayoutGroupCustomItemProviderBlock wraps a Go [NSCollectionLayoutGroupCustomItemProvider] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSCollectionLayoutGroupCustomItemProviderBlock(handler NSCollectionLayoutGroupCustomItemProvider) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSCollectionLayoutEnvironment) []NSCollectionLayoutGroupCustomItem {
+		return handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSCollectionLayoutSectionVisibleItemsInvalidationHandler handles A closure called before each layout cycle to allow modification of items in a section immediately before they’re displayed.
+
+// NewNSCollectionLayoutSectionVisibleItemsInvalidationHandlerBlock wraps a Go [NSCollectionLayoutSectionVisibleItemsInvalidationHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSCollectionLayoutSectionVisibleItemsInvalidationHandlerBlock(handler NSCollectionLayoutSectionVisibleItemsInvalidationHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive []objectivec.IObject, extra0 corefoundation.CGPoint, extra1 NSCollectionLayoutEnvironment) {
+		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSRangeUUIDHandler handles A handler to execute with the required information.
 //
 // Used by:
@@ -758,6 +786,20 @@ func NewNSRangeUUIDBlock(handler NSRangeUUIDHandler) (objc.ID, func()) {
 			extra0 = &v
 		}
 		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSStoryboardControllerCreator handles A block that you use to handle the custom creation of controller objects from your storyboard file.
+
+// NewNSStoryboardControllerCreatorBlock wraps a Go [NSStoryboardControllerCreator] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSStoryboardControllerCreatorBlock(handler NSStoryboardControllerCreator) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSCoder) objectivec.IObject {
+		return handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -1000,6 +1042,26 @@ func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
 //   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
 type StringHandler = func(*string)
 
+// NewStringBlock wraps a Go [StringHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
+func NewStringBlock(handler StringHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // StringSetErrorHandler handles A block the system invokes after detecting patterns on the pasteboard.
 //
 // Used by:
@@ -1012,7 +1074,40 @@ type StringSetErrorHandler = func(*foundation.INSSet, error)
 // Used by:
 //   - [NSTextLayoutManager.EnumerateSubstringsFromLocationOptionsUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateSubstringsFromLocationOptionsUsingBlock]
-type StringTextRangeTextRangeBoolHandler = func(*string, *NSTextRange, *NSTextRange, *bool)
+type StringTextRangeTextRangeBoolHandler = func(*string, *NSTextRange, *NSTextRange, bool)
+
+// NewStringTextRangeTextRangeBoolBlock wraps a Go [StringTextRangeTextRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateSubstringsFromLocationOptionsUsingBlock]
+//   - [NSTextSelectionDataSource.EnumerateSubstringsFromLocationOptionsUsingBlock]
+func NewStringTextRangeTextRangeBoolBlock(handler StringTextRangeTextRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID, extra2 bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		var extra0 *NSTextRange
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := NSTextRangeFromID(extra0ID)
+			extra0 = &v
+		}
+		var extra1 *NSTextRange
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			v := NSTextRangeFromID(extra1ID)
+			extra1 = &v
+		}
+		handler(result, extra0, extra1, extra2)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringidDictionaryErrorHandler handles A block the system invokes after detecting metadata on the pasteboard.
 //

@@ -123,6 +123,13 @@ func NewUNTextInputNotificationResponse() UNTextInputNotificationResponse {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse/init(coder:)
+func NewUNTextInputNotificationResponseWithCoder(coder foundation.INSCoder) UNTextInputNotificationResponse {
+	instance := getUNTextInputNotificationResponseClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNTextInputNotificationResponseFromID(rv)
+}
+
 // The text response provided by the user.
 //
 // # Discussion

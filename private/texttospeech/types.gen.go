@@ -27,3 +27,6 @@ type URegularExpression struct {
 // Pcre2RealCode8
 type Pcre2RealCode8 struct {
 }
+
+// Pcre2_real_code_8 is a type alias for Pcre2RealCode8 for use in objc.Send[T] calls.
+type Pcre2_real_code_8 = Pcre2RealCode8

@@ -672,6 +672,26 @@ func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsin
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 
+// Enumerates the textual segment boundaries starting at the location you
+// specify.
+//
+// location: The location where the enumeration starts.
+//
+// options: One or more of the available [NSString.EnumerationOptions].
+//
+// block: A closure to invoke to evaluate the substrings; end the enumeration early
+// by returning `false`.
+//
+// # Discussion
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
+//
+// [NSString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSString/EnumerationOptions
+func (t NSTextLayoutManager) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block StringTextRangeTextRangeBoolHandler) {
+	_block2, _ := NewStringTextRangeTextRangeBoolBlock(block)
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateSubstringsFromLocation:options:usingBlock:"), location, options, _block2)
+}
+
 // Returns the range of the line fragment that contains the point you specify.
 //
 // point: The starting point that contains the line fragment, in the coordinate

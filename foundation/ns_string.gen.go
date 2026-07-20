@@ -285,6 +285,8 @@ func (nc NSStringClass) Alloc() NSString {
 //   - [NSString.RangeOfStringOptionsRange]: Finds and returns the range of the first occurrence of a given string, within the given range of the string, subject to given options.
 //   - [NSString.RangeOfStringOptionsRangeLocale]: Finds and returns the range of the first occurrence of a given string within a given range of the string, subject to given options, using the specified locale, if any.
 //   - [NSString.LocalizedStandardRangeOfString]: Finds and returns the range of the first occurrence of a given string within the string by performing a case and diacritic insensitive, locale-aware search.
+//   - [NSString.EnumerateLinesUsingBlock]: Enumerates all the lines in the string.
+//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]: Enumerates the substrings of the specified type in the specified range of the string.
 //
 // # Replacing Substrings
 //
@@ -515,6 +517,8 @@ func NSStringFromID(id objc.ID) NSString {
 //   - [INSString.RangeOfStringOptionsRange]: Finds and returns the range of the first occurrence of a given string, within the given range of the string, subject to given options.
 //   - [INSString.RangeOfStringOptionsRangeLocale]: Finds and returns the range of the first occurrence of a given string within a given range of the string, subject to given options, using the specified locale, if any.
 //   - [INSString.LocalizedStandardRangeOfString]: Finds and returns the range of the first occurrence of a given string within the string by performing a case and diacritic insensitive, locale-aware search.
+//   - [INSString.EnumerateLinesUsingBlock]: Enumerates all the lines in the string.
+//   - [INSString.EnumerateSubstringsInRangeOptionsUsingBlock]: Enumerates the substrings of the specified type in the specified range of the string.
 //
 // # Replacing Substrings
 //
@@ -791,6 +795,10 @@ type INSString interface {
 	RangeOfStringOptionsRangeLocale(searchString string, mask NSStringCompareOptions, rangeOfReceiverToSearch NSRange, locale INSLocale) NSRange
 	// Finds and returns the range of the first occurrence of a given string within the string by performing a case and diacritic insensitive, locale-aware search.
 	LocalizedStandardRangeOfString(str string) NSRange
+	// Enumerates all the lines in the string.
+	EnumerateLinesUsingBlock(block StringBoolHandler)
+	// Enumerates the substrings of the specified type in the specified range of the string.
+	EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block StringNSRangeNSRangeBoolHandler)
 
 	// Topic: Replacing Substrings
 
@@ -3048,6 +3056,72 @@ func (s NSString) LocalizedStandardRangeOfString(str string) NSRange {
 	return NSRange(rv)
 }
 
+// Enumerates all the lines in the string.
+//
+// block: The block executed for the enumeration.
+//
+// The block takes two arguments:
+//
+// line: The current line of the string being enumerated. The line contains
+// just the contents of the line, without the line terminators. See
+// [NSString.GetLineStartEndContentsEndForRange] for a discussion of line
+// terminators. stop: A reference to a Boolean value that the block can use to
+// stop the enumeration by setting `*stop = YES`; it should not touch `*stop`
+// otherwise.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/enumerateLines(_:)
+func (s NSString) EnumerateLinesUsingBlock(block StringBoolHandler) {
+	_block0, _ := NewStringBoolBlock(block)
+	objc.Send[objc.ID](s.ID, objc.Sel("enumerateLinesUsingBlock:"), _block0)
+}
+
+// Enumerates the substrings of the specified type in the specified range of
+// the string.
+//
+// range: The range within the string to enumerate substrings.
+//
+// opts: Options specifying types of substrings and enumeration styles.
+//
+// block: The block executed for the enumeration.
+//
+// The block takes four arguments:
+//
+// substring: The enumerated string. substringRange: The range of the
+// enumerated string in the receiver. enclosingRange: The range that includes
+// the substring as well as any separator or filler characters that follow.
+// For instance, for lines, `enclosingRange` contains the line terminators.
+// The `enclosingRange` for the first string enumerated also contains any
+// characters that occur before the string. Consecutive enclosing ranges are
+// guaranteed not to overlap, and every single character in the enumerated
+// range is included in one and only one enclosing range. stop: A reference to
+// a Boolean value that the block can use to stop the enumeration by setting
+// `*stop = YES`; it should not touch `*stop` otherwise.
+//
+// # Discussion
+//
+// If this method is sent to an instance of [NSMutableString], mutation
+// (deletion, addition, or change) is allowed, as long as it is within
+// `enclosingRange`. After a mutation, the enumeration continues with the
+// range immediately following the processed range, after the length of the
+// processed range is adjusted for the mutation. (The enumerator assumes any
+// change in length occurs in the specified range.)
+//
+// For example, if the block is called with a range starting at location N,
+// and the block deletes all the characters in the supplied range, the next
+// call will also pass N as the index of the range. This is the case even if
+// mutation of the previous range changes the string in such a way that the
+// following substring would have extended to include the already enumerated
+// range. For example, if the string “Hello World” is enumerated via
+// words, and the block changes “Hello “ to “Hello”, thus forming
+// “HelloWorld”, the next enumeration will return “World” rather than
+// “HelloWorld”.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/enumerateSubstrings(in:options:using:)
+func (s NSString) EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block StringNSRangeNSRangeBoolHandler) {
+	_block2, _ := NewStringNSRangeNSRangeBoolBlock(block)
+	objc.Send[objc.ID](s.ID, objc.Sel("enumerateSubstringsInRange:options:usingBlock:"), range_, opts, _block2)
+}
+
 // Returns a new string in which all occurrences of a target string in the
 // receiver are replaced by another given string.
 //
@@ -4069,7 +4143,7 @@ var _nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key byte
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
 func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(kernel.Pointer, uint64)) NSString {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(kernel.Pointer(uintptr(arg0)), arg1) })
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, objc.ID(_block3))
 	objc.AssociateBlockWithReceiver(rv.ID, &_nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key, _block3)
 	return rv

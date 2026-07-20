@@ -85,7 +85,7 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // a prior instruction
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingInvalidTimeRangeIn:)
-func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTimeRangeInInstruction(videoComposition IAVVideoComposition, videoCompositionInstruction AVVideoCompositionInstruction) bool {
+func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTimeRangeInInstruction(videoComposition IAVVideoComposition, videoCompositionInstruction IAVVideoCompositionInstruction) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingInvalidTimeRangeInInstruction:"), videoComposition, videoCompositionInstruction)
 	return rv
 }
@@ -113,7 +113,7 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // [AVVideoComposition.IsValidForAssetTimeRangeValidationDelegate] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingInvalidTrackIDIn:layerInstruction:asset:)
-func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTrackIDInInstructionLayerInstructionAsset(videoComposition IAVVideoComposition, videoCompositionInstruction AVVideoCompositionInstruction, layerInstruction IAVVideoCompositionLayerInstruction, asset IAVAsset) bool {
+func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTrackIDInInstructionLayerInstructionAsset(videoComposition IAVVideoComposition, videoCompositionInstruction IAVVideoCompositionInstruction, layerInstruction IAVVideoCompositionLayerInstruction, asset IAVAsset) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingInvalidTrackIDInInstruction:layerInstruction:asset:"), videoComposition, videoCompositionInstruction, layerInstruction, asset)
 	return rv
 }

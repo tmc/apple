@@ -141,7 +141,7 @@ func NewMutableVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVMutableVi
 //
 // [duration]: https://developer.apple.com/documentation/AVFoundation/AVAsset/duration
 // [tracks]: https://developer.apple.com/documentation/AVFoundation/AVAsset/tracks
-func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset IAVAsset, prototypeInstruction AVVideoCompositionInstruction) AVMutableVideoComposition {
+func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset IAVAsset, prototypeInstruction IAVVideoCompositionInstruction) AVMutableVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableVideoCompositionClass().class), objc.Sel("videoCompositionWithPropertiesOfAsset:prototypeInstruction:"), asset, prototypeInstruction)
 	return AVMutableVideoCompositionFromID(rv)
 }

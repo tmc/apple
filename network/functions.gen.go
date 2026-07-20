@@ -3432,11 +3432,11 @@ func NWFramerMessageSetObjectValue(message NWFramerMessage, key string, value ob
 var _nWFramerMessageSetValue func(message NWFramerMessage, key string, value unsafe.Pointer, dispose_value unsafe.Pointer)
 var _nWFramerMessageSetValueErr error
 
-func tryNWFramerMessageSetValue(message NWFramerMessage, key string, value unsafe.Pointer, dispose_value NWFramerMessageDisposeValue) error {
+func tryNWFramerMessageSetValue(message NWFramerMessage, key string, value unsafe.Pointer, dispose_value func(kernel.Pointer)) error {
 	if _nWFramerMessageSetValue == nil {
 		return symbolCallError("nw_framer_message_set_value", "10.15", _nWFramerMessageSetValueErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { dispose_value(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { dispose_value(kernel.Pointer(uintptr(blockArg0))) })
 	retainNetworkAsyncBlock(message.ID, "nw_framer_message_set_value:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nWFramerMessageSetValue(message, key, value, _block0)
@@ -3446,7 +3446,7 @@ func tryNWFramerMessageSetValue(message NWFramerMessage, key string, value unsaf
 // NWFramerMessageSetValue sets a value to be stored in a framer message, with a completion to call to disposed the stored value when the message is released.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_message_set_value(_:_:_:_:)
-func NWFramerMessageSetValue(message NWFramerMessage, key string, value unsafe.Pointer, dispose_value NWFramerMessageDisposeValue) {
+func NWFramerMessageSetValue(message NWFramerMessage, key string, value unsafe.Pointer, dispose_value func(kernel.Pointer)) {
 	if callErr := tryNWFramerMessageSetValue(message, key, value, dispose_value); callErr != nil {
 		panic(callErr)
 	}

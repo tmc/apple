@@ -320,9 +320,6 @@ func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetGainOnDevice(
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetMuteOnDeviceIsInputDevice(mute bool, device uint32, device2 bool) {
 	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setMute:onDevice:isInputDevice:"), mute, device, device2)
 }
-func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetReporterIDsOnDevice(iDs unsafe.Pointer, device objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setReporterIDs:onDevice:"), iDs, device)
-}
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SuppressRecordingIndicator(indicator uint32) {
 	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("suppressRecordingIndicator:"), indicator)
 }

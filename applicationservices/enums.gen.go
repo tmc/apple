@@ -4946,3 +4946,9 @@ func (e Tt) String() string {
 		return fmt.Sprintf("Tt(%d)", e)
 	}
 }
+
+// Fixed is an alias for referenced enum type KICMapFixed.
+type Fixed = KICMapFixed
+
+// IconRef is an alias for referenced enum type KPlotIconRef.
+type IconRef = KPlotIconRef

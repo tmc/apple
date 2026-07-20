@@ -5,9 +5,9 @@ package naturallanguage
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -164,7 +164,7 @@ type INLTagger interface {
 	GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer
 
 	// Enumerates a block over the tagger’s string, given a range, token unit, and tag scheme.
-	EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, kernel.Pointer, *bool))
+	EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, unsafe.Pointer, *bool))
 	// Sets the language for a range of text within the tagger’s string.
 	SetLanguageRange(language NLLanguage, range_ foundation.NSRange)
 	// Sets the orthography for the specified range.
@@ -339,8 +339,8 @@ func (t NLTagger) GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer {
 // [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 // [lemma]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lemma
 // [lexicalClass]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lexicalClass
-func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, kernel.Pointer, *bool)) {
-	_block4 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 kernel.Pointer, arg2 *bool) {
+func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, unsafe.Pointer, *bool)) {
+	_block4 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 unsafe.Pointer, arg2 *bool) {
 		block(objc.IDToStringPtr(arg0), arg1, arg2)
 	})
 	defer _block4.Release()

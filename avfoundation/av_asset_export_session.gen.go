@@ -223,7 +223,7 @@ type IAVAssetExportSession interface {
 	// The name of the preset that the asset export session uses.
 	PresetName() string
 	// Determines the output file types an asset export session supports writing in its current configuration.
-	DetermineCompatibleFileTypesWithCompletionHandler(handler VoidHandler)
+	DetermineCompatibleFileTypesWithCompletionHandler(handler stringArrayHandler)
 
 	// Topic: Configuring output
 
@@ -364,8 +364,8 @@ func (a AVAssetExportSession) InitWithAssetPresetName(asset IAVAsset, presetName
 // determines the compatible file types.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/determineCompatibleFileTypes(completionHandler:)
-func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(handler VoidHandler) {
-	_block0, _ := NewVoidBlock(handler)
+func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(handler stringArrayHandler) {
+	_block0, _ := NewstringArrayBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("determineCompatibleFileTypesWithCompletionHandler:"), _block0)
 }
 
@@ -742,16 +742,20 @@ func (a AVAssetExportSession) Asset() IAVAsset {
 
 // DetermineCompatibleFileTypes is a synchronous wrapper around [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetExportSession) DetermineCompatibleFileTypes(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	a.DetermineCompatibleFileTypesWithCompletionHandler(func() {
-		done <- struct{}{}
+func (a AVAssetExportSession) DetermineCompatibleFileTypes(ctx context.Context) ([]string, error) {
+	done := make(chan []string, 1)
+	a.DetermineCompatibleFileTypesWithCompletionHandler(func(val *[]string) {
+		var out []string
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
 	})
 	select {
-	case <-done:
-		return nil
+	case r := <-done:
+		return r, nil
 	case <-ctx.Done():
-		return ctx.Err()
+		return nil, ctx.Err()
 	}
 }
 

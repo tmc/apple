@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -93,7 +94,7 @@ func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromOutputArch
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromOutputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
-func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCompilerVersionModelVersionError(archive unsafe.Pointer, version []objectivec.IObject, version2 []objectivec.IObject) (int, error) {
+func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCompilerVersionModelVersionError(archive kernel.Pointer, version []objectivec.IObject, version2 []objectivec.IObject) (int, error) {
 	var type_ int
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("parseModelArchive:modelType:compilerVersion:modelVersion:error:"), archive, unsafe.Pointer(&type_), version, version2, unsafe.Pointer(&errorPtr))

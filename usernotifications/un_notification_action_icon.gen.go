@@ -66,6 +66,7 @@ func UNNotificationActionIconFromID(id objc.ID) UNNotificationActionIcon {
 type IUNNotificationActionIcon interface {
 	objectivec.IObject
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationActionIcon
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -86,6 +87,13 @@ func NewUNNotificationActionIcon() UNNotificationActionIcon {
 	class := getUNNotificationActionIconClass()
 	rv := objc.Send[UNNotificationActionIcon](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionIcon/init(coder:)
+func NewUNNotificationActionIconWithCoder(coder foundation.INSCoder) UNNotificationActionIcon {
+	instance := getUNNotificationActionIconClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationActionIconFromID(rv)
 }
 
 // Creates an action icon by using a system symbol image.
@@ -129,6 +137,11 @@ func NewUNNotificationActionIconWithTemplateImageName(templateImageName string) 
 	return UNNotificationActionIconFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionIcon/init(coder:)
+func (u UNNotificationActionIcon) InitWithCoder(coder foundation.INSCoder) UNNotificationActionIcon {
+	rv := objc.Send[UNNotificationActionIcon](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationActionIcon) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

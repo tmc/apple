@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -192,7 +191,7 @@ type MTLDevice interface {
 	// Creates a buffer that wraps an existing contiguous memory allocation.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
-	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer
+	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer
 
 	// Creates a buffer the method clears with zero values.
 	//
@@ -252,7 +251,7 @@ type MTLDevice interface {
 	// Creates a Metal library instance that contains the functions in a bundle’s default Metal library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-	NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error)
+	NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error)
 
 	// Creates a depth-stencil state instance.
 	//
@@ -1357,8 +1356,8 @@ var _mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key 
 // [MTLResourceOptions]: https://developer.apple.com/documentation/Metal/MTLResourceOptions
 // [Resource fundamentals]: https://developer.apple.com/documentation/Metal/resource-fundamentals
 // [Setting resource storage modes]: https://developer.apple.com/documentation/Metal/setting-resource-storage-modes
-func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer {
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, objc.ID(_block3))
 	objc.AssociateBlockWithReceiver(rv, &_mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key, _block3)
 	return MTLBufferObjectFromID(rv)
@@ -1625,7 +1624,7 @@ func (o MTLDeviceObject) NewDefaultLibrary() MTLLibrary {
 // Swift throws an error and Objective-C returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error) {
+func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDefaultLibraryWithBundle:error:"), bundle)
 	if err != nil {
 		return nil, err

@@ -14,9 +14,6 @@ type SLDataTimelineSessionProcessCollection interface {
 	// ForegroundAppPID protocol.
 	ForegroundAppPID() int
 
-	// ProcessesApplyBlock protocol.
-	ProcessesApplyBlock(block SLDataTimelineProcessHandler)
-
 	// SessionSnapshotIndex protocol.
 	SessionSnapshotIndex() uint64
 
@@ -48,9 +45,6 @@ func (o SLDataTimelineSessionProcessCollectionObject) ForegroundAppPID() int {
 func (o SLDataTimelineSessionProcessCollectionObject) Processes() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("processes"))
 	return objectivec.Object{ID: rv}
-}
-func (o SLDataTimelineSessionProcessCollectionObject) ProcessesApplyBlock(block SLDataTimelineProcessHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("processesApplyBlock:"), block)
 }
 func (o SLDataTimelineSessionProcessCollectionObject) SessionSnapshotIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("sessionSnapshotIndex"))

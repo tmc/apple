@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -126,22 +125,22 @@ type ICKModifySubscriptionsOperation interface {
 	SetSubscriptionsToSave(value []CKSubscription)
 	// The IDs of the subscriptions that you want to delete.
 	SubscriptionIDsToDelete() unsafe.Pointer
-	SetSubscriptionIDsToDelete(value kernel.Pointer)
+	SetSubscriptionIDsToDelete(value unsafe.Pointer)
 
 	// Topic: Processing the Modify Subscription Results
 
 	// The closure to execute after the operation modifies the subscriptions.
-	ModifySubscriptionsCompletionBlock() func(kernel.Pointer, kernel.Pointer, kernel.Pointer)
-	SetModifySubscriptionsCompletionBlock(value func(kernel.Pointer, kernel.Pointer, kernel.Pointer))
+	ModifySubscriptionsCompletionBlock() func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
+	SetModifySubscriptionsCompletionBlock(value func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer))
 
 	// Topic: Instance Properties
 
 	// The closure to execute when CloudKit deletes a subscription.
 	PerSubscriptionDeleteBlock() unsafe.Pointer
-	SetPerSubscriptionDeleteBlock(value kernel.Pointer)
+	SetPerSubscriptionDeleteBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit saves a subscription.
 	PerSubscriptionSaveBlock() unsafe.Pointer
-	SetPerSubscriptionSaveBlock(value kernel.Pointer)
+	SetPerSubscriptionSaveBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -194,7 +193,7 @@ func (c CKModifySubscriptionsOperation) SubscriptionIDsToDelete() unsafe.Pointer
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("subscriptionIDsToDelete"))
 	return rv
 }
-func (c CKModifySubscriptionsOperation) SetSubscriptionIDsToDelete(value kernel.Pointer) {
+func (c CKModifySubscriptionsOperation) SetSubscriptionIDsToDelete(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDsToDelete:"), value)
 }
 
@@ -216,7 +215,7 @@ func (c CKModifySubscriptionsOperation) PerSubscriptionDeleteBlock() unsafe.Poin
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perSubscriptionDeleteBlock"))
 	return rv
 }
-func (c CKModifySubscriptionsOperation) SetPerSubscriptionDeleteBlock(value kernel.Pointer) {
+func (c CKModifySubscriptionsOperation) SetPerSubscriptionDeleteBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerSubscriptionDeleteBlock:"), value)
 }
 
@@ -227,6 +226,6 @@ func (c CKModifySubscriptionsOperation) PerSubscriptionSaveBlock() unsafe.Pointe
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perSubscriptionSaveBlock"))
 	return rv
 }
-func (c CKModifySubscriptionsOperation) SetPerSubscriptionSaveBlock(value kernel.Pointer) {
+func (c CKModifySubscriptionsOperation) SetPerSubscriptionSaveBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerSubscriptionSaveBlock:"), value)
 }

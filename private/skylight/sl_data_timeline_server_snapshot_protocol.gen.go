@@ -14,9 +14,6 @@ type SLDataTimelineServerSnapshot interface {
 	// Index protocol.
 	Index() uint64
 
-	// SessionsApplyBlock protocol.
-	SessionsApplyBlock(block SLDataTimelineSessionHandler)
-
 	// Timestamp protocol.
 	Timestamp() float64
 }
@@ -45,9 +42,6 @@ func (o SLDataTimelineServerSnapshotObject) Index() uint64 {
 func (o SLDataTimelineServerSnapshotObject) Sessions() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sessions"))
 	return objectivec.Object{ID: rv}
-}
-func (o SLDataTimelineServerSnapshotObject) SessionsApplyBlock(block SLDataTimelineSessionHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("sessionsApplyBlock:"), block)
 }
 func (o SLDataTimelineServerSnapshotObject) Timestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("timestamp"))

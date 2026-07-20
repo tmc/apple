@@ -198,8 +198,6 @@ func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description unsafe.
 //
 // description: The description of the audio component.
 //
-// description is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // A new [AVAudioUnitMIDIInstrument] instance.

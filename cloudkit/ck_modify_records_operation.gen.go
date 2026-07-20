@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -185,10 +184,10 @@ type ICKModifyRecordsOperation interface {
 
 	// The closure to execute when CloudKit deletes a record.
 	PerRecordDeleteBlock() unsafe.Pointer
-	SetPerRecordDeleteBlock(value kernel.Pointer)
+	SetPerRecordDeleteBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit saves a record.
 	PerRecordSaveBlock() unsafe.Pointer
-	SetPerRecordSaveBlock(value kernel.Pointer)
+	SetPerRecordSaveBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -399,7 +398,7 @@ func (c CKModifyRecordsOperation) PerRecordDeleteBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordDeleteBlock"))
 	return rv
 }
-func (c CKModifyRecordsOperation) SetPerRecordDeleteBlock(value kernel.Pointer) {
+func (c CKModifyRecordsOperation) SetPerRecordDeleteBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordDeleteBlock:"), value)
 }
 
@@ -410,6 +409,6 @@ func (c CKModifyRecordsOperation) PerRecordSaveBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordSaveBlock"))
 	return rv
 }
-func (c CKModifyRecordsOperation) SetPerRecordSaveBlock(value kernel.Pointer) {
+func (c CKModifyRecordsOperation) SetPerRecordSaveBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordSaveBlock:"), value)
 }

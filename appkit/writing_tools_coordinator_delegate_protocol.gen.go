@@ -5,7 +5,6 @@ package appkit
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -24,42 +23,42 @@ type NSWritingToolsCoordinatorDelegate interface {
 	// Tells the delegate that there are text changes to incorporate into the view.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:replace:in:proposedText:reason:animationParameters:completion:)
-	WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters kernel.ID, completion AttributedStringHandler)
+	WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters objectivec.IObject, completion AttributedStringHandler)
 
 	// Asks the delegate to update your view’s current text selection.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:select:in:completion:)
-	WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context kernel.ID, completion VoidHandler)
+	WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context objectivec.IObject, completion VoidHandler)
 
 	// Asks the delegate for a preview image and layout information for the specified text.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:of:in:completion:)
-	WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion NSTextPreviewArrayHandler)
+	WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion NSTextPreviewArrayHandler)
 
 	// Asks the delegate for a preview image and layout information for the specified text.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:in:completion:)
-	WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context kernel.ID, completion TextPreviewHandler)
+	WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context objectivec.IObject, completion TextPreviewHandler)
 
 	// Prepare for animations for the content that Writing Tools is evaluating.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:prepareFor:for:in:completion:)
-	WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler)
+	WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler)
 
 	// Asks the delegate to clean up any state related to the specified Writing Tools animation.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:finish:for:in:completion:)
-	WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler)
+	WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler)
 
 	// Asks the delegate to provide the bounding paths for the specified text in your view.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsBoundingBezierPathsFor:in:completion:)
-	WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler)
+	WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion NSBezierPathArrayHandler)
 
 	// Asks the delegate to provide an underline shape for the specified text during a proofreading session.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsUnderlinePathsFor:in:completion:)
-	WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler)
+	WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion NSBezierPathArrayHandler)
 }
 
 // NSWritingToolsCoordinatorDelegateObject wraps an existing Objective-C object that conforms to the NSWritingToolsCoordinatorDelegate protocol.
@@ -190,7 +189,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // animations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:replace:in:proposedText:reason:animationParameters:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters kernel.ID, completion AttributedStringHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextReplacementReason, animationParameters objectivec.IObject, completion AttributedStringHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:"), writingToolsCoordinator, range_, context, replacementText, reason, animationParameters, completion)
 }
 
@@ -222,7 +221,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorReplaceR
 // you’re finished.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:select:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context kernel.ID, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, ranges []foundation.NSValue, context objectivec.IObject, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:selectRanges:inContext:completion:"), writingToolsCoordinator, objectivec.IObjectSliceToNSArray(ranges), context, completion)
 }
 
@@ -279,7 +278,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorSelectRa
 // check the `textAnimation` parameter to differentiate sequences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:of:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion NSTextPreviewArrayHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion NSTextPreviewArrayHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsPreviewForTextAnimation:ofRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
 }
 
@@ -328,7 +327,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // check the `textAnimation` parameter to differentiate sequences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsPreviewFor:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context kernel.ID, completion TextPreviewHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, rect corefoundation.CGRect, context objectivec.IObject, completion TextPreviewHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsPreviewForRect:inContext:completion:"), writingToolsCoordinator, rect, context, completion)
 }
 
@@ -385,7 +384,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // sequences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:prepareFor:for:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:prepareForTextAnimation:forRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
 }
 
@@ -428,7 +427,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorPrepareF
 // don’t interfere with other in-flight animations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:finish:for:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context kernel.ID, completion VoidHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, textAnimation NSWritingToolsCoordinatorTextAnimation, range_ foundation.NSRange, context objectivec.IObject, completion VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:finishTextAnimation:forRange:inContext:completion:"), writingToolsCoordinator, textAnimation, range_, context, completion)
 }
 
@@ -477,7 +476,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorFinishTe
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsBoundingBezierPathsFor:in:completion:)
 //
 // [NSTextLayoutManager]: https://developer.apple.com/documentation/UIKit/NSTextLayoutManager
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion NSBezierPathArrayHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsBoundingBezierPathsForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }
 
@@ -523,7 +522,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsUnderlinePathsFor:in:completion:)
 //
 // [NSTextLayoutManager]: https://developer.apple.com/documentation/UIKit/NSTextLayoutManager
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSBezierPathArrayHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion NSBezierPathArrayHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsUnderlinePathsForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }
 
@@ -603,7 +602,7 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorWillChan
 // [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 //
 // [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion NSValueArrayHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion NSValueArrayHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsSingleContainerSubrangesOfRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }
 
@@ -646,6 +645,6 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 // view to use for proofreading marks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/Delegate-swift.protocol/writingToolsCoordinator(_:requestsDecorationContainerViewFor:in:completion:)
-func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context kernel.ID, completion ViewHandler) {
+func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion ViewHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsDecorationContainerViewForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 }

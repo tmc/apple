@@ -843,7 +843,7 @@ type IconRef = kernel.Pointer
 type IconServicesUsageFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringprocptr
-type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) kernel.Pointer
+type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringupp
 type IndexToUCStringUPP = unsafe.Pointer
@@ -1350,7 +1350,7 @@ type PEFSectionHeader = kernel.Pointer
 type PEFSplitHashWord = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/paramblockrec
-type ParamBlockRec = kernel.Pointer
+type ParamBlockRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/parmblkptr
 type ParmBlkPtr = unsafe.Pointer
@@ -1508,7 +1508,7 @@ type SKSearchRef uintptr
 // SKSearchResultsFilterCallBack is deprecated. Use [SKSearchCreate] and [SKSearchFindMatches] instead, which do not use a callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/sksearchresultsfiltercallback
-type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) kernel.Pointer
+type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) unsafe.Pointer
 
 // SKSearchResultsRef is deprecated. Use asynchronous searching with SKSearchCreate instead, which does not employ search groups.
 //

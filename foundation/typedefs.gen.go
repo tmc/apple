@@ -13,7 +13,7 @@ import (
 // CompletionHandler is a completion handler for getting an asynchronous attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/CompletionHandler
-type CompletionHandler = func(NSAttributedString, INSDictionary, kernel.Pointer)
+type CompletionHandler = func(NSAttributedString, INSDictionary, unsafe.Pointer)
 
 // NSAppleEventManagerSuspensionID is identifies an Apple event whose handling has been suspended. Can be used to resume handling of the Apple event.
 //

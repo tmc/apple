@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -115,7 +114,7 @@ type ISLSharingSessionManager interface {
 	ContextForPayload(payload objectivec.IObject) objectivec.IObject
 	CopyAllSessions() objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DispatchToClientDelegate(delegate objectivec.IObject)
 	EndSharingSession(session objectivec.IObject)
 	NotificationDictionary() objectivec.IObject
@@ -123,7 +122,7 @@ type ISLSharingSessionManager interface {
 	RegisterNotification()
 	SetDelegateBlock(block VoidHandler)
 	SystemDelegate() unsafe.Pointer
-	SetSystemDelegate(value kernel.Pointer)
+	SetSystemDelegate(value unsafe.Pointer)
 	UnregisterNotification()
 	InitPrivate() SLSharingSessionManager
 }
@@ -217,14 +216,14 @@ func (s SLSharingSessionManager) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLSharingSessionManager) SetDelegate(value kernel.Pointer) {
+func (s SLSharingSessionManager) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLSharingSessionManager) SystemDelegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("systemDelegate"))
 	return rv
 }
-func (s SLSharingSessionManager) SetSystemDelegate(value kernel.Pointer) {
+func (s SLSharingSessionManager) SetSystemDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSystemDelegate:"), value)
 }
 

@@ -153,7 +153,7 @@ type INSProxy interface {
 
 	AllowsWeakReference() bool
 	// Raises [NSInvalidArgumentException]. Override this method in your concrete subclass to return a proper [NSMethodSignature] object for the given selector and the class your proxy objects stand in for.
-	MethodSignatureForSelector(sel objectivec.SEL) INSMethodSignature
+	MethodSignatureForSelector(sel objc.SEL) INSMethodSignature
 	RetainWeakReference() bool
 }
 
@@ -252,7 +252,7 @@ func (p NSProxy) AllowsWeakReference() bool {
 // like this:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/methodSignatureForSelector:
-func (p NSProxy) MethodSignatureForSelector(sel objectivec.SEL) INSMethodSignature {
+func (p NSProxy) MethodSignatureForSelector(sel objc.SEL) INSMethodSignature {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("methodSignatureForSelector:"), sel)
 	return NSMethodSignatureFromID(rv)
 }

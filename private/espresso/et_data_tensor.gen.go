@@ -8,7 +8,6 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -68,8 +67,6 @@ func (ec ETDataTensorClass) Alloc() ETDataTensor {
 //   - [ETDataTensor.SetStrides]
 //   - [ETDataTensor.Type]
 //   - [ETDataTensor.SetType]
-//   - [ETDataTensor.InitWithBlobContainer]
-//   - [ETDataTensor.InitWithBlobContainerDirectBind]
 //   - [ETDataTensor.InitWithCVPixelBufferImageParametersError]
 //   - [ETDataTensor.InitWithDataTypeShapeStrides]
 type ETDataTensor struct {
@@ -108,8 +105,6 @@ var _ IETDataTensor = ETDataTensor{}
 //   - [IETDataTensor.SetStrides]
 //   - [IETDataTensor.Type]
 //   - [IETDataTensor.SetType]
-//   - [IETDataTensor.InitWithBlobContainer]
-//   - [IETDataTensor.InitWithBlobContainerDirectBind]
 //   - [IETDataTensor.InitWithCVPixelBufferImageParametersError]
 //   - [IETDataTensor.InitWithDataTypeShapeStrides]
 type IETDataTensor interface {
@@ -118,17 +113,17 @@ type IETDataTensor interface {
 	// Topic: Methods
 
 	AllocatedImageData() unsafe.Pointer
-	SetAllocatedImageData(value kernel.Pointer)
+	SetAllocatedImageData(value unsafe.Pointer)
 	Blob() unsafe.Pointer
-	SetBlob(value kernel.Pointer)
+	SetBlob(value unsafe.Pointer)
 	DataArray() foundation.INSArray
 	SetDataArray(value foundation.INSArray)
 	DataPointer() unsafe.Pointer
-	SetDataPointer(value kernel.Pointer)
+	SetDataPointer(value unsafe.Pointer)
 	Float_buffer() FloatBuffer
 	SetFloat_buffer(value FloatBuffer)
 	ImageBuffer() unsafe.Pointer
-	SetImageBuffer(value kernel.Pointer)
+	SetImageBuffer(value unsafe.Pointer)
 	MaxNumberOfElements() foundation.NSNumber
 	SetMaxNumberOfElements(value foundation.NSNumber)
 	Shape() foundation.INSArray
@@ -137,8 +132,6 @@ type IETDataTensor interface {
 	SetStrides(value foundation.INSArray)
 	Type() uint64
 	SetType(value uint64)
-	InitWithBlobContainer(container unsafe.Pointer) ETDataTensor
-	InitWithBlobContainerDirectBind(container unsafe.Pointer, bind bool) ETDataTensor
 	InitWithCVPixelBufferImageParametersError(buffer corevideo.CVImageBufferRef, parameters objectivec.IObject) (ETDataTensor, error)
 	InitWithDataTypeShapeStrides(data unsafe.Pointer, type_ uint64, shape objectivec.IObject, strides objectivec.IObject) ETDataTensor
 }
@@ -191,14 +184,6 @@ func NewETDataTensorWithDataTypeShapeStrides(data unsafe.Pointer, type_ uint64, 
 	return ETDataTensorFromID(rv)
 }
 
-func (e ETDataTensor) InitWithBlobContainer(container unsafe.Pointer) ETDataTensor {
-	rv := objc.Send[ETDataTensor](e.ID, objc.Sel("initWithBlobContainer:"), container)
-	return rv
-}
-func (e ETDataTensor) InitWithBlobContainerDirectBind(container unsafe.Pointer, bind bool) ETDataTensor {
-	rv := objc.Send[ETDataTensor](e.ID, objc.Sel("initWithBlobContainer:directBind:"), container, bind)
-	return rv
-}
 func (e ETDataTensor) InitWithCVPixelBufferImageParametersError(buffer corevideo.CVImageBufferRef, parameters objectivec.IObject) (ETDataTensor, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithCVPixelBuffer:imageParameters:error:"), buffer, parameters, unsafe.Pointer(&errorPtr))
@@ -218,14 +203,14 @@ func (e ETDataTensor) AllocatedImageData() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("allocatedImageData"))
 	return rv
 }
-func (e ETDataTensor) SetAllocatedImageData(value kernel.Pointer) {
+func (e ETDataTensor) SetAllocatedImageData(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAllocatedImageData:"), value)
 }
 func (e ETDataTensor) Blob() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blob"))
 	return rv
 }
-func (e ETDataTensor) SetBlob(value kernel.Pointer) {
+func (e ETDataTensor) SetBlob(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlob:"), value)
 }
 func (e ETDataTensor) DataArray() foundation.INSArray {
@@ -239,7 +224,7 @@ func (e ETDataTensor) DataPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataPointer"))
 	return rv
 }
-func (e ETDataTensor) SetDataPointer(value kernel.Pointer) {
+func (e ETDataTensor) SetDataPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataPointer:"), value)
 }
 func (e ETDataTensor) Float_buffer() FloatBuffer {
@@ -254,7 +239,7 @@ func (e ETDataTensor) ImageBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("imageBuffer"))
 	return rv
 }
-func (e ETDataTensor) SetImageBuffer(value kernel.Pointer) {
+func (e ETDataTensor) SetImageBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageBuffer:"), value)
 }
 func (e ETDataTensor) MaxNumberOfElements() foundation.NSNumber {

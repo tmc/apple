@@ -8143,3 +8143,6 @@ func (e HVBootState) String() string {
 		return fmt.Sprintf("HVBootState(%d)", e)
 	}
 }
+
+// Hv_boot_state is a C-name alias for HVBootState.
+type Hv_boot_state = HVBootState

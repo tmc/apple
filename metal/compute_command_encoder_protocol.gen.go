@@ -3,6 +3,8 @@
 package metal
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -43,12 +45,12 @@ type MTLComputeCommandEncoder interface {
 	// Copies data directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-	SetBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Copies data with a given stride directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-	SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
+	SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
 
 	// Binds a texture to the texture argument table, allowing compute kernels to access its data on the GPU.
 	//
@@ -380,8 +382,8 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(of
 // especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), bytes, length, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 }
 
 // Copies data with a given stride directly to the GPU to populate an entry in
@@ -403,8 +405,8 @@ func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, leng
 // can improve performance, especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
 }
 
 // Binds a texture to the texture argument table, allowing compute kernels to

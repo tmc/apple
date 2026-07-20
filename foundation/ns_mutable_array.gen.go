@@ -274,7 +274,7 @@ type INSMutableArray interface {
 	// Sorts the receiver in ascending order as defined by the comparison function `compare`.
 	SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
 	// Sorts the receiver in ascending order, as determined by the comparison method specified by a given selector.
-	SortUsingSelector(comparator objectivec.SEL)
+	SortUsingSelector(comparator objc.SEL)
 
 	ApplyDifference(difference INSOrderedCollectionDifference)
 	// Replaces the object at the index with the new object, possibly adding the object.
@@ -917,7 +917,7 @@ func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, con
 // [NSOrderedSame] if they are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(using:)-537vs
-func (m NSMutableArray) SortUsingSelector(comparator objectivec.SEL) {
+func (m NSMutableArray) SortUsingSelector(comparator objc.SEL) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingSelector:"), comparator)
 }
 

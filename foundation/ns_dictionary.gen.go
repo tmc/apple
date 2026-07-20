@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -408,7 +409,7 @@ type INSDictionary interface {
 	// Topic: Sorting Dictionaries
 
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values.
-	KeysSortedByValueUsingSelector(comparator objectivec.SEL) []objectivec.IObject
+	KeysSortedByValueUsingSelector(comparator objc.SEL) []objectivec.IObject
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values using a given comparator block.
 	KeysSortedByValueUsingComparator(cmptr NSComparator) []objectivec.IObject
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values using a given comparator block and a specified set of options.
@@ -1063,7 +1064,7 @@ func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumer
 // values and has as its single argument the other value from the dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(using:)
-func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objectivec.SEL) []objectivec.IObject {
+func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objc.SEL) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingSelector:"), comparator)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -1549,7 +1550,7 @@ func (d NSDictionary) CanSwiftInitWithDictionary_NSDictionary() bool {
 // is finished.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/countByEnumeratingWithState:objects:count:
-func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []unsafe.Pointer, len_ uint) uint {
+func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []kernel.Pointer, len_ uint) uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }

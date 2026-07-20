@@ -131,7 +131,7 @@ type INSSortDescriptor interface {
 	// Creates a sort descriptor with a specified string key path and sort order.
 	InitWithKeyAscending(key string, ascending bool) NSSortDescriptor
 	// Creates a sort descriptor with a specified string key path, ordering, and comparison selector.
-	InitWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor
+	InitWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor
 	// Creates a sort descriptor with a specified string key path and ordering, and a comparator block.
 	InitWithKeyAscendingComparator(key string, ascending bool, cmptr NSComparator) NSSortDescriptor
 
@@ -261,7 +261,7 @@ func NewSortDescriptorWithKeyAscendingComparator(key string, ascending bool, cmp
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func NewSortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
+func NewSortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
 	instance := getNSSortDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return NSSortDescriptorFromID(rv)
@@ -315,7 +315,7 @@ func (s NSSortDescriptor) InitWithKeyAscending(key string, ascending bool) NSSor
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSSortDescriptor) InitWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
+func (s NSSortDescriptor) InitWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
 	rv := objc.Send[NSSortDescriptor](s.ID, objc.Sel("initWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return rv
 }
@@ -492,7 +492,7 @@ func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendi
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objectivec.SEL) NSSortDescriptor {
+func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_NSSortDescriptorClass.class), objc.Sel("sortDescriptorWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return NSSortDescriptorFromID(rv)
 }
@@ -522,7 +522,7 @@ func (s NSSortDescriptor) Key() string {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/selector
 func (s NSSortDescriptor) Selector() objectivec.SEL {
-	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selector"))
+	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selector"))
 	return objectivec.SEL(rv)
 }
 

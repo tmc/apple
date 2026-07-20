@@ -247,7 +247,7 @@ type IXRGPUAPSDataProcessor interface {
 	CounterConfigForGRCCounterSet(grc bool, set uint64) objectivec.IObject
 	CounterTypeFromGroupNameCounterName(name string, name2 string) uint32
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DeriveAPSCountersNumCoresCounterSet(aPSCounters unsafe.Pointer, cores uint32, set uint64) bool
 	DeriveRDECountersCounterIndexesRawCounterIdsDerivedCounterIdsDeltaSecondsIndex(rDECounters unsafe.Pointer, indexes unsafe.Pointer, ids unsafe.Pointer, ids2 unsafe.Pointer, index uint64) bool
 	DeriveRDESourceBuffer(buffer unsafe.Pointer) bool
@@ -301,7 +301,7 @@ type IXRGPUAPSDataProcessor interface {
 	ShaderFromId(id uint32) objectivec.IObject
 	ShaderFromPCPidTimeUscIndex(pc uint64, pid int, time uint64, index uint32) objectivec.IObject
 	TimestampRefToNsUscTimeIndexUscIndex(ns uint64, index uint64, index2 uint32) uint64
-	TimestampRefsToNsCountResultUscIndex(ns []kernel.Pointer, count uint64, result *uint64, index uint32)
+	TimestampRefsToNsCountResultUscIndex(ns unsafe.Pointer, count uint64, result *uint64, index uint32)
 	InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config objectivec.IObject, options uint32) XRGPUAPSDataProcessor
 }
 
@@ -636,7 +636,7 @@ func (x XRGPUAPSDataProcessor) TimestampRefToNsUscTimeIndexUscIndex(ns uint64, i
 	rv := objc.Send[uint64](x.ID, objc.Sel("timestampRefToNs:uscTimeIndex:uscIndex:"), ns, index, index2)
 	return rv
 }
-func (x XRGPUAPSDataProcessor) TimestampRefsToNsCountResultUscIndex(ns []kernel.Pointer, count uint64, result *uint64, index uint32) {
+func (x XRGPUAPSDataProcessor) TimestampRefsToNsCountResultUscIndex(ns unsafe.Pointer, count uint64, result *uint64, index uint32) {
 	objc.Send[objc.ID](x.ID, objc.Sel("timestampRefsToNs:count:result:uscIndex:"), objc.CArray(ns), count, result, index)
 }
 func (x XRGPUAPSDataProcessor) InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config objectivec.IObject, options uint32) XRGPUAPSDataProcessor {
@@ -685,7 +685,7 @@ func (x XRGPUAPSDataProcessor) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](x.ID, objc.Sel("delegate"))
 	return rv
 }
-func (x XRGPUAPSDataProcessor) SetDelegate(value kernel.Pointer) {
+func (x XRGPUAPSDataProcessor) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
 func (x XRGPUAPSDataProcessor) FirstAPSTimestamp() uint64 {

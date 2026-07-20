@@ -489,8 +489,6 @@ func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNod
 // real-time thread. The host can tap the MIDI data of the source node through
 // this block.
 //
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
-//
 // # Discussion
 //
 // Use this to establish a MIDI connection between a source node and a
@@ -527,8 +525,6 @@ func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode
 // tapBlock: If not [NULL], the source node’s event list block calls this on the
 // real-time thread. The host can tap the MIDI data of the source node through
 // this block.
-//
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // # Discussion
 //

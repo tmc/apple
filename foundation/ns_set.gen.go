@@ -299,9 +299,9 @@ type INSSet interface {
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelector(aSelector objectivec.SEL)
+	MakeObjectsPerformSelector(aSelector objc.SEL)
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject)
+	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -1010,7 +1010,7 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:
-func (s NSSet) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
+func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
@@ -1029,7 +1029,7 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
 // [NSInvalidArgumentException] if `aSelector` is [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:withObject:
-func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject) {
+func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 

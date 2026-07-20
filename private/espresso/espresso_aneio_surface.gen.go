@@ -8,7 +8,6 @@ import (
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -115,7 +114,7 @@ type IEspressoANEIOSurface interface {
 	CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) coregraphics.IOSurfaceRef
 	DoNonLazyAllocation(allocation objectivec.IObject)
 	External_storage_blob_for_aliasing_mem() unsafe.Pointer
-	SetExternal_storage_blob_for_aliasing_mem(value kernel.Pointer)
+	SetExternal_storage_blob_for_aliasing_mem(value unsafe.Pointer)
 	IoSurfaceForMultiBufferFrame(frame uint64) coregraphics.IOSurfaceRef
 	IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) coregraphics.IOSurfaceRef
 	LazilyAutoCreateSurfaceForFrame(frame uint64)
@@ -216,7 +215,7 @@ func (e EspressoANEIOSurface) External_storage_blob_for_aliasing_mem() unsafe.Po
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("external_storage_blob_for_aliasing_mem"))
 	return rv
 }
-func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value kernel.Pointer) {
+func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
 }
 func (e EspressoANEIOSurface) PixelFormat() uint32 {

@@ -369,6 +369,7 @@ type ICAEmitterCell interface {
 	// Returns a Boolean value indicating whether the value for a given key should be archived.
 	ShouldArchiveValueForKey(key string) bool
 
+	InitWithCoder(coder foundation.INSCoder) CAEmitterCell
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -389,6 +390,13 @@ func NewCAEmitterCell() CAEmitterCell {
 	class := getCAEmitterCellClass()
 	rv := objc.Send[CAEmitterCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/init(coder:)
+func NewEmitterCellWithCoder(coder foundation.INSCoder) CAEmitterCell {
+	instance := getCAEmitterCellClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAEmitterCellFromID(rv)
 }
 
 // Returns a Boolean value indicating whether the value for a given key should
@@ -443,6 +451,12 @@ func (e CAEmitterCell) Duration() corefoundation.CFTimeInterval {
 func (e CAEmitterCell) FillMode() CAMediaTimingFillMode {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/init(coder:)
+func (e CAEmitterCell) InitWithCoder(coder foundation.INSCoder) CAEmitterCell {
+	rv := objc.Send[CAEmitterCell](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Determines the number of times the animation will repeat.

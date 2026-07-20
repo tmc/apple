@@ -127,6 +127,14 @@ type INLEmbedding interface {
 
 	// Calculates the distance between two strings in the vocabulary space.
 	DistanceBetweenStringAndStringDistanceType(firstString string, secondString string, distanceType NLDistanceType) NLDistance
+	// Passes the nearest strings of a string in the vocabulary to a block.
+	EnumerateNeighborsForStringMaximumCountDistanceTypeUsingBlock(string_ string, maxCount uint, distanceType NLDistanceType, block StringNLDistanceBoolHandler)
+	// Passes the nearest strings, within a radius of a string in the vocabulary, to a block.
+	EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock(string_ string, maxCount uint, maxDistance NLDistance, distanceType NLDistanceType, block StringNLDistanceBoolHandler)
+	// Passes the nearest strings of a location in the vocabulary space to a closure.
+	EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock(vector []foundation.NSNumber, maxCount uint, distanceType NLDistanceType, block StringNLDistanceBoolHandler)
+	// Passes the nearest strings, within a radius of a location in the vocabulary space, to a block.
+	EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock(vector []foundation.NSNumber, maxCount uint, maxDistance NLDistance, distanceType NLDistanceType, block StringNLDistanceBoolHandler)
 	// Copies a vector into the given a pointer to a float array.
 	GetVectorForString(string_ string) (float32, bool)
 	// Retrieves a limited number of strings near a string in the vocabulary.
@@ -215,6 +223,93 @@ func (e NLEmbedding) ContainsString(string_ string) bool {
 func (e NLEmbedding) DistanceBetweenStringAndStringDistanceType(firstString string, secondString string, distanceType NLDistanceType) NLDistance {
 	rv := objc.Send[NLDistance](e.ID, objc.Sel("distanceBetweenString:andString:distanceType:"), objc.String(firstString), objc.String(secondString), distanceType)
 	return NLDistance(rv)
+}
+
+// Passes the nearest strings of a string in the vocabulary to a block.
+//
+// string: A location in the vocabulary space.
+//
+// maxCount: The largest number of times the method calls `block`.
+//
+// distanceType: A means of calculating distance that determines which formula the method
+// uses to evaluate a neighbor’s distance from `string`.
+//
+// block: A block with the following parameters:
+//
+// `neighbor`: A neighboring string. `distance`: The distance from `string` to
+// the neighboring string. `stop`: A Boolean that indicates whether to stop
+// enumerating neighbors.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/enumerateNeighborsForString:maximumCount:distanceType:usingBlock:
+func (e NLEmbedding) EnumerateNeighborsForStringMaximumCountDistanceTypeUsingBlock(string_ string, maxCount uint, distanceType NLDistanceType, block StringNLDistanceBoolHandler) {
+	_block3, _ := NewStringNLDistanceBoolBlock(block)
+	objc.Send[objc.ID](e.ID, objc.Sel("enumerateNeighborsForString:maximumCount:distanceType:usingBlock:"), objc.String(string_), maxCount, distanceType, _block3)
+}
+
+// Passes the nearest strings, within a radius of a string in the vocabulary,
+// to a block.
+//
+// string: A string in the embedding vocabulary.
+//
+// maxCount: The largest number of times the method calls `block`.
+//
+// distanceType: A means of calculating distance that determines which formula the method
+// uses to evaluate a neighbor’s distance from `string`.
+//
+// block: A block with the following parameters:
+//
+// `neighbor`: A neighboring string. `distance`: The distance from `string` to
+// the neighboring string. `stop`: A Boolean that indicates whether to stop
+// enumerating neighbors.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/enumerateNeighborsForString:maximumCount:maximumDistance:distanceType:usingBlock:
+func (e NLEmbedding) EnumerateNeighborsForStringMaximumCountMaximumDistanceDistanceTypeUsingBlock(string_ string, maxCount uint, maxDistance NLDistance, distanceType NLDistanceType, block StringNLDistanceBoolHandler) {
+	_block4, _ := NewStringNLDistanceBoolBlock(block)
+	objc.Send[objc.ID](e.ID, objc.Sel("enumerateNeighborsForString:maximumCount:maximumDistance:distanceType:usingBlock:"), objc.String(string_), maxCount, maxDistance, distanceType, _block4)
+}
+
+// Passes the nearest strings of a location in the vocabulary space to a
+// closure.
+//
+// vector: A location in the vocabulary space.
+//
+// maxCount: The largest number of times the method calls `block`.
+//
+// distanceType: A means of calculating distance that determines which formula the method
+// uses to evaluate a neighbor’s distance from `vector`.
+//
+// block: A closure with the following parameters:
+//
+// `neighbor`: A neighboring string. `distance`: The distance from `vector` to
+// the neighboring string. `stop`: In Objective-C, a Boolean that indicates
+// whether to stop enumerating neighbors.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/enumerateNeighborsForVector:maximumCount:distanceType:usingBlock:
+func (e NLEmbedding) EnumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock(vector []foundation.NSNumber, maxCount uint, distanceType NLDistanceType, block StringNLDistanceBoolHandler) {
+	_block3, _ := NewStringNLDistanceBoolBlock(block)
+	objc.Send[objc.ID](e.ID, objc.Sel("enumerateNeighborsForVector:maximumCount:distanceType:usingBlock:"), vector, maxCount, distanceType, _block3)
+}
+
+// Passes the nearest strings, within a radius of a location in the vocabulary
+// space, to a block.
+//
+// vector: A location in the vocabulary space.
+//
+// maxCount: The largest number of times the method calls `block`.
+//
+// distanceType: A means of calculating distance that determines which formula the method
+// uses to evaluate a neighbor’s distance from `vector`.
+//
+// block: A block with the following parameters:
+//
+// `neighbor`: A neighboring string. `distance`: The distance from `vector` to
+// the neighboring string. `stop`: A Boolean that indicates whether to stop
+// enumerating neighbors.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/enumerateNeighborsForVector:maximumCount:maximumDistance:distanceType:usingBlock:
+func (e NLEmbedding) EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock(vector []foundation.NSNumber, maxCount uint, maxDistance NLDistance, distanceType NLDistanceType, block StringNLDistanceBoolHandler) {
+	_block4, _ := NewStringNLDistanceBoolBlock(block)
+	objc.Send[objc.ID](e.ID, objc.Sel("enumerateNeighborsForVector:maximumCount:maximumDistance:distanceType:usingBlock:"), vector, maxCount, maxDistance, distanceType, _block4)
 }
 
 // Copies a vector into the given a pointer to a float array.

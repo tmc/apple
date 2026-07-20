@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -133,7 +132,7 @@ type INSPersistentDocument interface {
 
 	// The managed object context for the document.
 	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value kernel.Pointer)
+	SetManagedObjectContext(value unsafe.Pointer)
 	// The managed object model of the document.
 	ManagedObjectModel() unsafe.Pointer
 	// Configures the receiver’s persistent store coordinator with the appropriate stores for a given URL.
@@ -355,7 +354,7 @@ func (p NSPersistentDocument) ManagedObjectContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectContext"))
 	return rv
 }
-func (p NSPersistentDocument) SetManagedObjectContext(value kernel.Pointer) {
+func (p NSPersistentDocument) SetManagedObjectContext(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 

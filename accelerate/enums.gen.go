@@ -1562,23 +1562,29 @@ const (
 	// KRotate0DegreesCounterClockwise: A constant that specifies rotation by 0° (that is, copy without rotating).
 	KRotate0DegreesCounterClockwise KRotate0DegreesClockwise = 0
 	// KRotate180DegreesClockwise: A constant that specifies rotation by 180° clockwise.
-	KRotate180DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate180DegreesClockwise KRotate0DegreesClockwise = 2
 	// KRotate180DegreesCounterClockwise: A constant that specifies rotation by 180° counterclockwise.
-	KRotate180DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate180DegreesCounterClockwise KRotate0DegreesClockwise = 2
 	// KRotate270DegreesClockwise: A constant that specifies rotation by 270° clockwise.
-	KRotate270DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate270DegreesClockwise KRotate0DegreesClockwise = 1
 	// KRotate270DegreesCounterClockwise: A constant that specifies rotation by 270° counterclockwise.
-	KRotate270DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate270DegreesCounterClockwise KRotate0DegreesClockwise = 3
 	// KRotate90DegreesClockwise: A constant that specifies rotation by 90° clockwise.
-	KRotate90DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate90DegreesClockwise KRotate0DegreesClockwise = 3
 	// KRotate90DegreesCounterClockwise: A constant that specifies rotation by 90° counterclockwise.
-	KRotate90DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate90DegreesCounterClockwise KRotate0DegreesClockwise = 1
 )
 
 func (e KRotate0DegreesClockwise) String() string {
 	switch e {
 	case KRotate0DegreesClockwiseValue:
 		return "KRotate0DegreesClockwiseValue"
+	case KRotate180DegreesClockwise:
+		return "KRotate180DegreesClockwise"
+	case KRotate270DegreesClockwise:
+		return "KRotate270DegreesClockwise"
+	case KRotate270DegreesCounterClockwise:
+		return "KRotate270DegreesCounterClockwise"
 	default:
 		return fmt.Sprintf("KRotate0DegreesClockwise(%d)", e)
 	}
@@ -1588,35 +1594,57 @@ type Kv uint
 
 const (
 	// KvImage420Yp8_Cb8_Cr8: Any y420 or f420 (planar component Y’CbCr 8-bit 4:2:0) buffer.
-	KvImage420Yp8_Cb8_Cr8 Kv = 0
+	KvImage420Yp8_Cb8_Cr8 Kv = 3
 	// KvImage420Yp8_CbCr8: Any 420v or 420f (biplanar component Y’CbCr 8-bit 4:2:0, video-range) buffer.
-	KvImage420Yp8_CbCr8 Kv = 0
+	KvImage420Yp8_CbCr8 Kv = 4
 	// KvImage422CbYpCrYp16: Any v216 (component Y’CbCr 10,12,14,16-bit 4:2:2) buffer.
-	KvImage422CbYpCrYp16 Kv = 0
+	KvImage422CbYpCrYp16 Kv = 13
 	// KvImage422CbYpCrYp8: Any 2vuy (component Y’CbCr 8-bit 4:2:2) buffer.
 	KvImage422CbYpCrYp8 Kv = 0
 	// KvImage422CbYpCrYp8_AA8: Any a2vy (first plane: video-range component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1; second plane: alpha 8-bit) buffer.
-	KvImage422CbYpCrYp8_AA8 Kv = 0
+	KvImage422CbYpCrYp8_AA8 Kv = 2
 	// KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10: Any v210 (component Y’CbCr 10-bit 4:2:2) buffer.
-	KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10 Kv = 0
+	KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10 Kv = 9
 	// KvImage422YpCbYpCr8: Any yuvs or yuvf (component Y’CbCr 8-bit 4:2:2, ordered Y’0 Cb Y’1 Cr) buffer.
-	KvImage422YpCbYpCr8 Kv = 0
+	KvImage422YpCbYpCr8 Kv = 1
 	// KvImage444AYpCbCr16: Any y416 (component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
-	KvImage444AYpCbCr16 Kv = 0
+	KvImage444AYpCbCr16 Kv = 14
 	// KvImage444AYpCbCr8: Any r408 or y408 (component Y’CbCrA 8-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
-	KvImage444AYpCbCr8 Kv = 0
+	KvImage444AYpCbCr8 Kv = 5
 	// KvImage444CbYpCrA8: Any v408 (component Y’CbCrA 8-bit 4:4:4:4) buffer.
-	KvImage444CbYpCrA8 Kv = 0
+	KvImage444CbYpCrA8 Kv = 7
 	// KvImage444CrYpCb10: Any v410 (component Y’CbCr 10-bit 4:4:4) buffer.
-	KvImage444CrYpCb10 Kv = 0
+	KvImage444CrYpCb10 Kv = 8
 	// KvImage444CrYpCb8: Any v308 (component Y’CbCr 8-bit 4:4:4) buffer.
-	KvImage444CrYpCb8 Kv = 0
+	KvImage444CrYpCb8 Kv = 6
 )
 
 func (e Kv) String() string {
 	switch e {
 	case KvImage420Yp8_Cb8_Cr8:
 		return "KvImage420Yp8_Cb8_Cr8"
+	case KvImage420Yp8_CbCr8:
+		return "KvImage420Yp8_CbCr8"
+	case KvImage422CbYpCrYp16:
+		return "KvImage422CbYpCrYp16"
+	case KvImage422CbYpCrYp8:
+		return "KvImage422CbYpCrYp8"
+	case KvImage422CbYpCrYp8_AA8:
+		return "KvImage422CbYpCrYp8_AA8"
+	case KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10:
+		return "KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10"
+	case KvImage422YpCbYpCr8:
+		return "KvImage422YpCbYpCr8"
+	case KvImage444AYpCbCr16:
+		return "KvImage444AYpCbCr16"
+	case KvImage444AYpCbCr8:
+		return "KvImage444AYpCbCr8"
+	case KvImage444CbYpCrA8:
+		return "KvImage444CbYpCrA8"
+	case KvImage444CrYpCb10:
+		return "KvImage444CrYpCb10"
+	case KvImage444CrYpCb8:
+		return "KvImage444CrYpCb8"
 	default:
 		return fmt.Sprintf("Kv(%d)", e)
 	}
@@ -1640,13 +1668,13 @@ const (
 	// KvImageEdgeExtend: A flag that extends the edges of the image infinitely.
 	KvImageEdgeExtend KvImage = 0
 	// KvImageFullInterpolation: Full linear interpolation.
-	KvImageFullInterpolation KvImage = 0
+	KvImageFullInterpolation KvImage = 1
 	// KvImageGetTempBufferSize: A flag that returns the minimum temporary buffer size for the operation, given the parameters provided.
 	KvImageGetTempBufferSize KvImage = 0
 	// KvImageHDRContent: A flag that uses HDR-aware methods.
 	KvImageHDRContent KvImage = 0
 	// KvImageHalfInterpolation: Partial linear interpolation.
-	KvImageHalfInterpolation KvImage = 0
+	KvImageHalfInterpolation KvImage = 2
 	// KvImageHighQualityResampling: A flag that uses a higher-quality, slower resampling filter for geometry operations.
 	KvImageHighQualityResampling KvImage = 0
 	// KvImageInternalError: A serious error occured inside vImage, which prevented vImage from continuing.
@@ -1698,6 +1726,10 @@ func (e KvImage) String() string {
 	switch e {
 	case KvImageBackgroundColorFill:
 		return "KvImageBackgroundColorFill"
+	case KvImageFullInterpolation:
+		return "KvImageFullInterpolation"
+	case KvImageHalfInterpolation:
+		return "KvImageHalfInterpolation"
 	default:
 		return fmt.Sprintf("KvImage(%d)", e)
 	}
@@ -1707,9 +1739,9 @@ type KvImageARG uint
 
 const (
 	// KvImageARGB16Q12: Any 8-bit four-channel interleaved buffer.
-	KvImageARGB16Q12 KvImageARG = 0
+	KvImageARGB16Q12 KvImageARG = 2
 	// KvImageARGB16U: Any 16-bit unsigned, four-channel interleaved buffer.
-	KvImageARGB16U KvImageARG = 0
+	KvImageARGB16U KvImageARG = 1
 	// KvImageARGB8888: Any 16-bit signed fixed-point, four-channel interleaved buffer.
 	KvImageARGB8888 KvImageARG = 0
 )
@@ -1718,6 +1750,10 @@ func (e KvImageARG) String() string {
 	switch e {
 	case KvImageARGB16Q12:
 		return "KvImageARGB16Q12"
+	case KvImageARGB16U:
+		return "KvImageARGB16U"
+	case KvImageARGB8888:
+		return "KvImageARGB8888"
 	default:
 		return fmt.Sprintf("KvImageARG(%d)", e)
 	}
@@ -1873,35 +1909,57 @@ type KvImageGamma uint
 
 const (
 	// KvImageGamma_11_over_5_half_precision: A half-precision calculation using a gamma value of 11/5 or 2.2.
-	KvImageGamma_11_over_5_half_precision KvImageGamma = 0
+	KvImageGamma_11_over_5_half_precision KvImageGamma = 5
 	// KvImageGamma_11_over_9_half_precision: A half-precision calculation using a gamma value of 11/9 or (11/5)/(9/5).
-	KvImageGamma_11_over_9_half_precision KvImageGamma = 0
+	KvImageGamma_11_over_9_half_precision KvImageGamma = 8
 	// KvImageGamma_5_over_11_half_precision: A half-precision calculation using a gamma value of 5/11 or 1/2.2.
-	KvImageGamma_5_over_11_half_precision KvImageGamma = 0
+	KvImageGamma_5_over_11_half_precision KvImageGamma = 4
 	// KvImageGamma_5_over_9_half_precision: A half-precision calculation using a gamma value of 5/9 or 1/1.8.
-	KvImageGamma_5_over_9_half_precision KvImageGamma = 0
+	KvImageGamma_5_over_9_half_precision KvImageGamma = 2
 	// KvImageGamma_9_over_11_half_precision: A half-precision calculation using a gamma value of 9/11 or (9/5)/(11/5).
-	KvImageGamma_9_over_11_half_precision KvImageGamma = 0
+	KvImageGamma_9_over_11_half_precision KvImageGamma = 9
 	// KvImageGamma_9_over_5_half_precision: A half-precision calculation using a gamma value of 9/5 or 1.8.
-	KvImageGamma_9_over_5_half_precision KvImageGamma = 0
+	KvImageGamma_9_over_5_half_precision KvImageGamma = 3
 	// KvImageGamma_BT709_forward_half_precision: The ITU-R BT.709 standard.
-	KvImageGamma_BT709_forward_half_precision KvImageGamma = 0
+	KvImageGamma_BT709_forward_half_precision KvImageGamma = 10
 	// KvImageGamma_BT709_reverse_half_precision: The ITU-R BT.709 standard reverse.
-	KvImageGamma_BT709_reverse_half_precision KvImageGamma = 0
+	KvImageGamma_BT709_reverse_half_precision KvImageGamma = 11
 	// KvImageGamma_UseGammaValue: A user-defined gamma value with full-precision calculation.
 	KvImageGamma_UseGammaValue KvImageGamma = 0
 	// KvImageGamma_UseGammaValue_half_precision: A user-defined gamma value with half-precision calculation.
-	KvImageGamma_UseGammaValue_half_precision KvImageGamma = 0
+	KvImageGamma_UseGammaValue_half_precision KvImageGamma = 1
 	// KvImageGamma_sRGB_forward_half_precision: A half-precision calculation using the sRGB standard gamma value of 2.2.
-	KvImageGamma_sRGB_forward_half_precision KvImageGamma = 0
+	KvImageGamma_sRGB_forward_half_precision KvImageGamma = 6
 	// KvImageGamma_sRGB_reverse_half_precision: A half-precision calculation using the sRGB standard gamma value of 1/2.2.
-	KvImageGamma_sRGB_reverse_half_precision KvImageGamma = 0
+	KvImageGamma_sRGB_reverse_half_precision KvImageGamma = 7
 )
 
 func (e KvImageGamma) String() string {
 	switch e {
 	case KvImageGamma_11_over_5_half_precision:
 		return "KvImageGamma_11_over_5_half_precision"
+	case KvImageGamma_11_over_9_half_precision:
+		return "KvImageGamma_11_over_9_half_precision"
+	case KvImageGamma_5_over_11_half_precision:
+		return "KvImageGamma_5_over_11_half_precision"
+	case KvImageGamma_5_over_9_half_precision:
+		return "KvImageGamma_5_over_9_half_precision"
+	case KvImageGamma_9_over_11_half_precision:
+		return "KvImageGamma_9_over_11_half_precision"
+	case KvImageGamma_9_over_5_half_precision:
+		return "KvImageGamma_9_over_5_half_precision"
+	case KvImageGamma_BT709_forward_half_precision:
+		return "KvImageGamma_BT709_forward_half_precision"
+	case KvImageGamma_BT709_reverse_half_precision:
+		return "KvImageGamma_BT709_reverse_half_precision"
+	case KvImageGamma_UseGammaValue:
+		return "KvImageGamma_UseGammaValue"
+	case KvImageGamma_UseGammaValue_half_precision:
+		return "KvImageGamma_UseGammaValue_half_precision"
+	case KvImageGamma_sRGB_forward_half_precision:
+		return "KvImageGamma_sRGB_forward_half_precision"
+	case KvImageGamma_sRGB_reverse_half_precision:
+		return "KvImageGamma_sRGB_reverse_half_precision"
 	default:
 		return fmt.Sprintf("KvImageGamma(%d)", e)
 	}
@@ -1929,15 +1987,17 @@ type KvImageMDTableHint uint
 
 const (
 	// KvImageMDTableHint_16Q12: A table for transforming 16Q12 data.
-	KvImageMDTableHint_16Q12 KvImageMDTableHint = 0
+	KvImageMDTableHint_16Q12 KvImageMDTableHint = 1
 	// KvImageMDTableHint_Float: A table for transforming floating-point data.
-	KvImageMDTableHint_Float KvImageMDTableHint = 0
+	KvImageMDTableHint_Float KvImageMDTableHint = 2
 )
 
 func (e KvImageMDTableHint) String() string {
 	switch e {
 	case KvImageMDTableHint_16Q12:
 		return "KvImageMDTableHint_16Q12"
+	case KvImageMDTableHint_Float:
+		return "KvImageMDTableHint_Float"
 	default:
 		return fmt.Sprintf("KvImageMDTableHint(%d)", e)
 	}
@@ -1963,21 +2023,29 @@ type KvimagePNGFilterValue uint
 
 const (
 	// KvImage_PNG_FILTER_VALUE_AVG: A filter that predicts a pixel value from the average of the pixels to the left and above the predicted pixel location.
-	KvImage_PNG_FILTER_VALUE_AVG KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_AVG KvimagePNGFilterValue = 3
 	// KvImage_PNG_FILTER_VALUE_NONE: No filtering.
 	KvImage_PNG_FILTER_VALUE_NONE KvimagePNGFilterValue = 0
 	// KvImage_PNG_FILTER_VALUE_PAETH: A filter that predicts a pixel value by applying a linear function to the pixels located to the left, above, and to the upper-left of the predicted pixel location.
-	KvImage_PNG_FILTER_VALUE_PAETH KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_PAETH KvimagePNGFilterValue = 4
 	// KvImage_PNG_FILTER_VALUE_SUB: A filter that computes the difference between each byte of a pixel and the value of the corresponding byte of the pixel located to the left.
-	KvImage_PNG_FILTER_VALUE_SUB KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_SUB KvimagePNGFilterValue = 1
 	// KvImage_PNG_FILTER_VALUE_UP: A filter that computes the difference between each byte of a pixel and the value of the corresponding byte of the pixel located above.
-	KvImage_PNG_FILTER_VALUE_UP KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_UP KvimagePNGFilterValue = 2
 )
 
 func (e KvimagePNGFilterValue) String() string {
 	switch e {
 	case KvImage_PNG_FILTER_VALUE_AVG:
 		return "KvImage_PNG_FILTER_VALUE_AVG"
+	case KvImage_PNG_FILTER_VALUE_NONE:
+		return "KvImage_PNG_FILTER_VALUE_NONE"
+	case KvImage_PNG_FILTER_VALUE_PAETH:
+		return "KvImage_PNG_FILTER_VALUE_PAETH"
+	case KvImage_PNG_FILTER_VALUE_SUB:
+		return "KvImage_PNG_FILTER_VALUE_SUB"
+	case KvImage_PNG_FILTER_VALUE_UP:
+		return "KvImage_PNG_FILTER_VALUE_UP"
 	default:
 		return fmt.Sprintf("KvimagePNGFilterValue(%d)", e)
 	}

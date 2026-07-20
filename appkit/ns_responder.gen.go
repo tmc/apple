@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -482,7 +481,7 @@ type INSResponder interface {
 	// Presents an error alert to the user as an application-modal dialog.
 	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a document-modal sheet attached to document window.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Returns a custom version of the supplied error object that’s more suitable for presentation in alert sheets and dialogs.
 	WillPresentError(error_ foundation.NSError) foundation.NSError
 
@@ -1325,7 +1324,7 @@ func (r NSResponder) PresentError(error_ foundation.NSError) bool {
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:modalFor:delegate:didPresent:contextInfo:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](r.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 

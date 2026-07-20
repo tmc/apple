@@ -76,7 +76,7 @@ type ISLSCCHmacContext interface {
 	// Topic: Methods
 
 	FinalizedData() foundation.NSData
-	UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64)
+	UpdateSigningContextWithBytesLength(bytes []byte)
 	UpdateSigningContextWithData(data objectivec.IObject)
 	UpdateSigningContextWithObject(object objectivec.IObject)
 }
@@ -100,19 +100,14 @@ func NewSLSCCHmacContext() SLSCCHmacContext {
 	return rv
 }
 
-func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
+func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes []byte) {
+	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 }
 func (s SLSCCHmacContext) UpdateSigningContextWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithData:"), data)
 }
 func (s SLSCCHmacContext) UpdateSigningContextWithObject(object objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithObject:"), object)
-}
-
-func (_SLSCCHmacContextClass SLSCCHmacContextClass) ContextWithImplementingDigester(digester unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSCCHmacContextClass.class), objc.Sel("contextWithImplementingDigester:"), digester)
-	return objectivec.Object{ID: rv}
 }
 
 func (s SLSCCHmacContext) FinalizedData() foundation.NSData {

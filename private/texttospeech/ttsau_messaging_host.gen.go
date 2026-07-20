@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -88,7 +87,7 @@ type ITTSAUMessagingHost interface {
 	AllowedClasses() foundation.INSSet
 	SetAllowedClasses(value foundation.INSSet)
 	Channel() unsafe.Pointer
-	SetChannel(value kernel.Pointer)
+	SetChannel(value unsafe.Pointer)
 	Methods() foundation.INSDictionary
 	SetMethods(value foundation.INSDictionary)
 	InitWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost
@@ -172,7 +171,7 @@ func (t TTSAUMessagingHost) Channel() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("channel"))
 	return rv
 }
-func (t TTSAUMessagingHost) SetChannel(value kernel.Pointer) {
+func (t TTSAUMessagingHost) SetChannel(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
 func (t TTSAUMessagingHost) Methods() foundation.INSDictionary {

@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -99,10 +98,10 @@ type IFSItem interface {
 
 	// The attributes successfully used by the file system.
 	ConsumedAttributes() unsafe.Pointer
-	SetConsumedAttributes(value kernel.Pointer)
+	SetConsumedAttributes(value unsafe.Pointer)
 	// The attributes requested by the request.
 	WantedAttributes() unsafe.Pointer
-	SetWantedAttributes(value kernel.Pointer)
+	SetWantedAttributes(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -131,7 +130,7 @@ func (i FSItem) ConsumedAttributes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("consumedAttributes"))
 	return rv
 }
-func (i FSItem) SetConsumedAttributes(value kernel.Pointer) {
+func (i FSItem) SetConsumedAttributes(value unsafe.Pointer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setConsumedAttributes:"), value)
 }
 
@@ -142,6 +141,6 @@ func (i FSItem) WantedAttributes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("wantedAttributes"))
 	return rv
 }
-func (i FSItem) SetWantedAttributes(value kernel.Pointer) {
+func (i FSItem) SetWantedAttributes(value unsafe.Pointer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setWantedAttributes:"), value)
 }

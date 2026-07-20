@@ -367,7 +367,7 @@ type KAudioAggregateDevicePropertyMasterSub uint
 
 const (
 	// Deprecated: use kAudioAggregateDevicePropertyMainSubDevice.
-	KAudioAggregateDevicePropertyMasterSubDevice KAudioAggregateDevicePropertyMasterSub = 0
+	KAudioAggregateDevicePropertyMasterSubDevice KAudioAggregateDevicePropertyMasterSub = 'a'<<24 | 'm'<<16 | 's'<<8 | 't' // 'amst'
 )
 
 func (e KAudioAggregateDevicePropertyMasterSub) String() string {
@@ -382,10 +382,10 @@ func (e KAudioAggregateDevicePropertyMasterSub) String() string {
 type KAudioAggregateDriftCompensation uint
 
 const (
-	KAudioAggregateDriftCompensationHighQuality   KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationLowQuality    KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationMaxQuality    KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationMediumQuality KAudioAggregateDriftCompensation = 0
+	KAudioAggregateDriftCompensationHighQuality   KAudioAggregateDriftCompensation = 0x60
+	KAudioAggregateDriftCompensationLowQuality    KAudioAggregateDriftCompensation = 0x20
+	KAudioAggregateDriftCompensationMaxQuality    KAudioAggregateDriftCompensation = 0x7f
+	KAudioAggregateDriftCompensationMediumQuality KAudioAggregateDriftCompensation = 0x40
 	KAudioAggregateDriftCompensationMinQuality    KAudioAggregateDriftCompensation = 0
 )
 
@@ -393,6 +393,14 @@ func (e KAudioAggregateDriftCompensation) String() string {
 	switch e {
 	case KAudioAggregateDriftCompensationHighQuality:
 		return "KAudioAggregateDriftCompensationHighQuality"
+	case KAudioAggregateDriftCompensationLowQuality:
+		return "KAudioAggregateDriftCompensationLowQuality"
+	case KAudioAggregateDriftCompensationMaxQuality:
+		return "KAudioAggregateDriftCompensationMaxQuality"
+	case KAudioAggregateDriftCompensationMediumQuality:
+		return "KAudioAggregateDriftCompensationMediumQuality"
+	case KAudioAggregateDriftCompensationMinQuality:
+		return "KAudioAggregateDriftCompensationMinQuality"
 	default:
 		return fmt.Sprintf("KAudioAggregateDriftCompensation(%d)", e)
 	}
@@ -542,7 +550,7 @@ func (e KAudioClockDeviceProperty) String() string {
 type KAudioClockSourceControlPropertyItem uint
 
 const (
-	KAudioClockSourceControlPropertyItemKind KAudioClockSourceControlPropertyItem = 0
+	KAudioClockSourceControlPropertyItemKind KAudioClockSourceControlPropertyItem = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'k' // 'clkk'
 )
 
 func (e KAudioClockSourceControlPropertyItem) String() string {
@@ -940,7 +948,7 @@ type KAudioDevicePropertyScope uint
 const (
 	KAudioDevicePropertyScopeInput       KAudioDevicePropertyScope = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
 	KAudioDevicePropertyScopeOutput      KAudioDevicePropertyScope = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
-	KAudioDevicePropertyScopePlayThrough KAudioDevicePropertyScope = 0
+	KAudioDevicePropertyScopePlayThrough KAudioDevicePropertyScope = 'p'<<24 | 't'<<16 | 'r'<<8 | 'u' // 'ptru'
 )
 
 func (e KAudioDevicePropertyScope) String() string {
@@ -959,15 +967,19 @@ func (e KAudioDevicePropertyScope) String() string {
 type KAudioDeviceStartTime uint
 
 const (
-	KAudioDeviceStartTimeDontConsultDeviceFlag KAudioDeviceStartTime = 0
-	KAudioDeviceStartTimeDontConsultHALFlag    KAudioDeviceStartTime = 0
-	KAudioDeviceStartTimeIsInputFlag           KAudioDeviceStartTime = 0
+	KAudioDeviceStartTimeDontConsultDeviceFlag KAudioDeviceStartTime = 2
+	KAudioDeviceStartTimeDontConsultHALFlag    KAudioDeviceStartTime = 4
+	KAudioDeviceStartTimeIsInputFlag           KAudioDeviceStartTime = 1
 )
 
 func (e KAudioDeviceStartTime) String() string {
 	switch e {
 	case KAudioDeviceStartTimeDontConsultDeviceFlag:
 		return "KAudioDeviceStartTimeDontConsultDeviceFlag"
+	case KAudioDeviceStartTimeDontConsultHALFlag:
+		return "KAudioDeviceStartTimeDontConsultHALFlag"
+	case KAudioDeviceStartTimeIsInputFlag:
+		return "KAudioDeviceStartTimeIsInputFlag"
 	default:
 		return fmt.Sprintf("KAudioDeviceStartTime(%d)", e)
 	}
@@ -993,7 +1005,7 @@ const (
 	KAudioDeviceTransportTypeUnknown                   KAudioDeviceTransportType = 0
 	KAudioDeviceTransportTypeVirtual                   KAudioDeviceTransportType = 'v'<<24 | 'i'<<16 | 'r'<<8 | 't' // 'virt'
 	// Deprecated.
-	KAudioDeviceTransportTypeContinuityCapture KAudioDeviceTransportType = 0
+	KAudioDeviceTransportTypeContinuityCapture KAudioDeviceTransportType = 'c'<<24 | 'c'<<16 | 'a'<<8 | 'p' // 'ccap'
 )
 
 func (e KAudioDeviceTransportType) String() string {
@@ -1030,6 +1042,8 @@ func (e KAudioDeviceTransportType) String() string {
 		return "KAudioDeviceTransportTypeUnknown"
 	case KAudioDeviceTransportTypeVirtual:
 		return "KAudioDeviceTransportTypeVirtual"
+	case KAudioDeviceTransportTypeContinuityCapture:
+		return "KAudioDeviceTransportTypeContinuityCapture"
 	default:
 		return fmt.Sprintf("KAudioDeviceTransportType(%d)", e)
 	}
@@ -1137,7 +1151,7 @@ const (
 	KAudioHardwarePropertyUserIDChanged                       KAudioHardwareProperty = 'e'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'euid'
 	KAudioHardwarePropertyUserSessionIsActiveOrHeadless       KAudioHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
 	// Deprecated: use KAudioHardwarePropertyProcessIsMain.
-	KAudioHardwarePropertyProcessIsMaster KAudioHardwareProperty = 0
+	KAudioHardwarePropertyProcessIsMaster KAudioHardwareProperty = 'm'<<24 | 'a'<<16 | 's'<<8 | 't' // 'mast'
 )
 
 func (e KAudioHardwareProperty) String() string {
@@ -1455,7 +1469,7 @@ func (e KAudioObjectPropertyCustomPropertyInfo) String() string {
 type KAudioObjectPropertyElement uint
 
 const (
-	KAudioObjectPropertyElementWildcard KAudioObjectPropertyElement = 0
+	KAudioObjectPropertyElementWildcard KAudioObjectPropertyElement = 0xffffffff
 )
 
 func (e KAudioObjectPropertyElement) String() string {
@@ -1500,7 +1514,7 @@ func (e KAudioObjectPropertySelector) String() string {
 type KAudioObjectSystem uint
 
 const (
-	KAudioObjectSystemObject KAudioObjectSystem = 0
+	KAudioObjectSystemObject KAudioObjectSystem = 1
 )
 
 func (e KAudioObjectSystem) String() string {
@@ -1641,14 +1655,16 @@ func (e KAudioProcessProperty) String() string {
 type KAudioPropertyWildcard uint
 
 const (
-	KAudioPropertyWildcardChannel KAudioPropertyWildcard = 0
-	KAudioPropertyWildcardSection KAudioPropertyWildcard = 0
+	KAudioPropertyWildcardChannel KAudioPropertyWildcard = 4294967295
+	KAudioPropertyWildcardSection KAudioPropertyWildcard = 0xff
 )
 
 func (e KAudioPropertyWildcard) String() string {
 	switch e {
 	case KAudioPropertyWildcardChannel:
 		return "KAudioPropertyWildcardChannel"
+	case KAudioPropertyWildcardSection:
+		return "KAudioPropertyWildcardSection"
 	default:
 		return fmt.Sprintf("KAudioPropertyWildcard(%d)", e)
 	}
@@ -1657,7 +1673,7 @@ func (e KAudioPropertyWildcard) String() string {
 type KAudioPropertyWildcardPropertyI uint
 
 const (
-	KAudioPropertyWildcardPropertyID KAudioPropertyWildcardPropertyI = 0
+	KAudioPropertyWildcardPropertyID KAudioPropertyWildcardPropertyI = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 )
 
 func (e KAudioPropertyWildcardPropertyI) String() string {
@@ -1957,13 +1973,13 @@ type KAudioSubDeviceDriftCompensation uint
 
 const (
 	// Deprecated: use kAudioAggregateDriftCompensationHighQuality.
-	KAudioSubDeviceDriftCompensationHighQuality KAudioSubDeviceDriftCompensation = 0
+	KAudioSubDeviceDriftCompensationHighQuality KAudioSubDeviceDriftCompensation = 0x60
 	// Deprecated: use kAudioAggregateDriftCompensationLowQuality.
-	KAudioSubDeviceDriftCompensationLowQuality KAudioSubDeviceDriftCompensation = 0
+	KAudioSubDeviceDriftCompensationLowQuality KAudioSubDeviceDriftCompensation = 0x20
 	// Deprecated: use kAudioAggregateDriftCompensationMaxQuality.
-	KAudioSubDeviceDriftCompensationMaxQuality KAudioSubDeviceDriftCompensation = 0
+	KAudioSubDeviceDriftCompensationMaxQuality KAudioSubDeviceDriftCompensation = 0x7f
 	// Deprecated: use kAudioAggregateDriftCompensationMediumQuality.
-	KAudioSubDeviceDriftCompensationMediumQuality KAudioSubDeviceDriftCompensation = 0
+	KAudioSubDeviceDriftCompensationMediumQuality KAudioSubDeviceDriftCompensation = 0x40
 	// Deprecated: use kAudioAggregateDriftCompensationMinQuality.
 	KAudioSubDeviceDriftCompensationMinQuality KAudioSubDeviceDriftCompensation = 0
 )
@@ -1972,6 +1988,14 @@ func (e KAudioSubDeviceDriftCompensation) String() string {
 	switch e {
 	case KAudioSubDeviceDriftCompensationHighQuality:
 		return "KAudioSubDeviceDriftCompensationHighQuality"
+	case KAudioSubDeviceDriftCompensationLowQuality:
+		return "KAudioSubDeviceDriftCompensationLowQuality"
+	case KAudioSubDeviceDriftCompensationMaxQuality:
+		return "KAudioSubDeviceDriftCompensationMaxQuality"
+	case KAudioSubDeviceDriftCompensationMediumQuality:
+		return "KAudioSubDeviceDriftCompensationMediumQuality"
+	case KAudioSubDeviceDriftCompensationMinQuality:
+		return "KAudioSubDeviceDriftCompensationMinQuality"
 	default:
 		return fmt.Sprintf("KAudioSubDeviceDriftCompensation(%d)", e)
 	}

@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -165,7 +164,7 @@ type ICKFetchShareMetadataOperation interface {
 
 	// The fields to return when fetching the root record.
 	RootRecordDesiredKeys() unsafe.Pointer
-	SetRootRecordDesiredKeys(value kernel.Pointer)
+	SetRootRecordDesiredKeys(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -272,6 +271,6 @@ func (c CKFetchShareMetadataOperation) RootRecordDesiredKeys() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("rootRecordDesiredKeys"))
 	return rv
 }
-func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value kernel.Pointer) {
+func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), value)
 }

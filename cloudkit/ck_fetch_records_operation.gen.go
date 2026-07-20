@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -149,7 +148,7 @@ type ICKFetchRecordsOperation interface {
 	SetRecordIDs(value []CKRecordID)
 	// The fields of the records to fetch.
 	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	SetDesiredKeys(value unsafe.Pointer)
 
 	// Topic: Processing Record Fetch Results
 
@@ -280,7 +279,7 @@ func (c CKFetchRecordsOperation) DesiredKeys() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
 	return rv
 }
-func (c CKFetchRecordsOperation) SetDesiredKeys(value kernel.Pointer) {
+func (c CKFetchRecordsOperation) SetDesiredKeys(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
 }
 

@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,7 +100,7 @@ type IGTShaderProfilerProcessedData interface {
 	SetGpuGeneration(value uint32)
 	MioData() IGTMioTraceData
 	ShaderProfilerResult() unsafe.Pointer
-	SetShaderProfilerResult(value kernel.Pointer)
+	SetShaderProfilerResult(value unsafe.Pointer)
 	StreamData() IGTShaderProfilerStreamData
 	SetStreamData(value IGTShaderProfilerStreamData)
 	TimelineInfo() IDYWorkloadGPUTimelineInfo
@@ -206,7 +205,7 @@ func (g GTShaderProfilerProcessedData) ShaderProfilerResult() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
 	return rv
 }
-func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value kernel.Pointer) {
+func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShaderProfilerResult:"), value)
 }
 func (g GTShaderProfilerProcessedData) StreamData() IGTShaderProfilerStreamData {

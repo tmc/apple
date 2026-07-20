@@ -37,6 +37,9 @@ type HVAPICState struct {
 	Ver           uint32
 }
 
+// Hv_apic_state is a type alias for HVAPICState for use in objc.Send[T] calls.
+type Hv_apic_state = HVAPICState
+
 // HVAPICStateExt
 //
 // [Full Topic]
@@ -45,6 +48,9 @@ type HVAPICStateExt struct {
 	State   HVAPICState
 	Version uint32
 }
+
+// Hv_apic_state_ext_t is a type alias for HVAPICStateExt for use in objc.Send[T] calls.
+type Hv_apic_state_ext_t = HVAPICStateExt
 
 // HVAtpicState
 //
@@ -69,6 +75,9 @@ type HVAtpicState struct {
 	Smm          bool
 }
 
+// Hv_atpic_state is a type alias for HVAtpicState for use in objc.Send[T] calls.
+type Hv_atpic_state = HVAtpicState
+
 // HVAtpicStateExt
 //
 // [Full Topic]
@@ -77,6 +86,9 @@ type HVAtpicStateExt struct {
 	State   HVAtpicState
 	Version uint32
 }
+
+// Hv_atpic_state_ext_t is a type alias for HVAtpicStateExt for use in objc.Send[T] calls.
+type Hv_atpic_state_ext_t = HVAtpicStateExt
 
 // HVIoapicState
 //
@@ -89,6 +101,9 @@ type HVIoapicState struct {
 	Rtbl     uint64
 }
 
+// Hv_ioapic_state is a type alias for HVIoapicState for use in objc.Send[T] calls.
+type Hv_ioapic_state = HVIoapicState
+
 // HVIoapicStateExt
 //
 // [Full Topic]
@@ -97,6 +112,9 @@ type HVIoapicStateExt struct {
 	State   HVIoapicState
 	Version uint32
 }
+
+// Hv_ioapic_state_ext_t is a type alias for HVIoapicStateExt for use in objc.Send[T] calls.
+type Hv_ioapic_state_ext_t = HVIoapicStateExt
 
 // HVIonMessage - The structure that describes the Mach message that the Hypervisor sends when an I/O notifier delivers the notifications you request.
 //
@@ -111,6 +129,9 @@ type HVIonMessage struct {
 
 }
 
+// Hv_ion_message_t is a type alias for HVIonMessage for use in objc.Send[T] calls.
+type Hv_ion_message_t = HVIonMessage
+
 // HVVCPUExitException - The structure that describes information about an exit from the virtual CPU (vCPU) to the host.
 //
 // [Full Topic]
@@ -122,6 +143,9 @@ type HVVCPUExitException struct {
 
 }
 
+// Hv_vcpu_exit_exception_t is a type alias for HVVCPUExitException for use in objc.Send[T] calls.
+type Hv_vcpu_exit_exception_t = HVVCPUExitException
+
 // HVVCPUExit - Information about an exit from the vCPU to the host.
 //
 // [Full Topic]
@@ -132,6 +156,9 @@ type HVVCPUExit struct {
 
 }
 
+// Hv_vcpu_exit_t is a type alias for HVVCPUExit for use in objc.Send[T] calls.
+type Hv_vcpu_exit_t = HVVCPUExit
+
 // HVVCPUSMEState
 //
 // [Full Topic]
@@ -140,3 +167,6 @@ type HVVCPUSMEState struct {
 	Streaming_sve_mode_enabled bool
 	Za_storage_enabled         bool
 }
+
+// Hv_vcpu_sme_state_t is a type alias for HVVCPUSMEState for use in objc.Send[T] calls.
+type Hv_vcpu_sme_state_t = HVVCPUSMEState

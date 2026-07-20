@@ -170,8 +170,6 @@ func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.NSURL) (bool, 
 // completionHandler: A handler the framework calls in an arbitrary thread context when creation
 // completes. Retain the [AVAudioUnit] this handler provides.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Discussion
 //
 // You must create components with flags that include

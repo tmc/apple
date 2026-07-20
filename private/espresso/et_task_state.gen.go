@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,7 +50,6 @@ func (ec ETTaskStateClass) Alloc() ETTaskState {
 //   - [ETTaskState.NetworkPointer]
 //   - [ETTaskState.SetNetworkPointer]
 //   - [ETTaskState.InitWithBlobMap]
-//   - [ETTaskState.InitWithNetwork]
 type ETTaskState struct {
 	objectivec.Object
 }
@@ -73,18 +71,16 @@ var _ IETTaskState = ETTaskState{}
 //   - [IETTaskState.NetworkPointer]
 //   - [IETTaskState.SetNetworkPointer]
 //   - [IETTaskState.InitWithBlobMap]
-//   - [IETTaskState.InitWithNetwork]
 type IETTaskState interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	Blobs() unsafe.Pointer
-	SetBlobs(value kernel.Pointer)
+	SetBlobs(value unsafe.Pointer)
 	NetworkPointer() unsafe.Pointer
-	SetNetworkPointer(value kernel.Pointer)
+	SetNetworkPointer(value unsafe.Pointer)
 	InitWithBlobMap(map_ unsafe.Pointer) ETTaskState
-	InitWithNetwork(network unsafe.Pointer) ETTaskState
 }
 
 // Init initializes the instance.
@@ -122,22 +118,18 @@ func (e ETTaskState) InitWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithBlobMap:"), map_)
 	return rv
 }
-func (e ETTaskState) InitWithNetwork(network unsafe.Pointer) ETTaskState {
-	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithNetwork:"), network)
-	return rv
-}
 
 func (e ETTaskState) Blobs() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blobs"))
 	return rv
 }
-func (e ETTaskState) SetBlobs(value kernel.Pointer) {
+func (e ETTaskState) SetBlobs(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlobs:"), value)
 }
 func (e ETTaskState) NetworkPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("networkPointer"))
 	return rv
 }
-func (e ETTaskState) SetNetworkPointer(value kernel.Pointer) {
+func (e ETTaskState) SetNetworkPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNetworkPointer:"), value)
 }

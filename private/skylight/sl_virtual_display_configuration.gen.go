@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -118,7 +117,7 @@ type ISLVirtualDisplayConfiguration interface {
 	Uti() string
 	SetUti(value string)
 	VendorID() uint64
-	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error)
+	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error)
 }
 
 // Init initializes the instance.
@@ -140,7 +139,7 @@ func NewSLVirtualDisplayConfiguration() SLVirtualDisplayConfiguration {
 	return rv
 }
 
-func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
+func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
@@ -155,7 +154,7 @@ func (s SLVirtualDisplayConfiguration) DictionaryRepresentation() objectivec.IOb
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
+func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

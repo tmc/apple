@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -120,7 +119,7 @@ type ISLSDisplayManager interface {
 	SetLastPowerStateNotification(value byte)
 	RegisterPowerStateNotificationRegistrationIDSendInitialStateQueueRefconNotificationOptionNotificationBlockNotificationPayloadBlock(notification []objectivec.IObject, id objectivec.IObject, state bool, queue objectivec.IObject, refcon uintptr, option uint32, block VoidHandler, block2 VoidHandler) bool
 	RegisteredNotifiers() unsafe.Pointer
-	SetRegisteredNotifiers(value kernel.Pointer)
+	SetRegisteredNotifiers(value unsafe.Pointer)
 	RunningInServer() bool
 	SetRunningInServer(value bool)
 	Semaphore() objectivec.Object
@@ -215,7 +214,7 @@ func (s SLSDisplayManager) RegisteredNotifiers() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("registeredNotifiers"))
 	return rv
 }
-func (s SLSDisplayManager) SetRegisteredNotifiers(value kernel.Pointer) {
+func (s SLSDisplayManager) SetRegisteredNotifiers(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRegisteredNotifiers:"), value)
 }
 func (s SLSDisplayManager) RunningInServer() bool {

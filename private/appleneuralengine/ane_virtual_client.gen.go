@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -202,7 +201,7 @@ type IANEVirtualClient interface {
 	AneBoardtype() int64
 	BeginRealTimeTask() bool
 	CallIOUserClientInParamsOutParams(client uint32, params VirtANEModel, params2 VirtANEModel) bool
-	CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 kernel.Pointer) (unsafe.Pointer, error)
+	CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 unsafe.Pointer) (unsafe.Pointer, error)
 	CheckKernReturnValueSelectorOutParams(value int, selector uint32, params VirtANEModel)
 	CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	CompiledModelExistsFor(for_ objectivec.IObject) bool
@@ -305,7 +304,7 @@ func (a ANEVirtualClient) CallIOUserClientInParamsOutParams(client uint32, param
 	rv := objc.Send[bool](a.ID, objc.Sel("callIOUserClient:inParams:outParams:"), client, params, params2)
 	return rv
 }
-func (a ANEVirtualClient) CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 kernel.Pointer) (unsafe.Pointer, error) {
+func (a ANEVirtualClient) CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 unsafe.Pointer) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("callIOUserClientWithDictionary:inDictionary:error:"), dictionary, dictionary2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

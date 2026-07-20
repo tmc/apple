@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/kernel"
 )
 
 // C struct types
@@ -16,6 +15,7 @@ import (
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Security/AuthorizationCallbacks
 type AuthorizationCallbacks struct {
+	Version               uint32                                                        // The engine callback version.
 	SetResult             func(uintptr, AuthorizationResult) int                        // Returns the result of an authorization operation.
 	RequestInterrupt      func(uintptr) int                                             // Requests the authorization engine to interrupt the currently active authorization mechanism.
 	DidDeactivate         func(uintptr) int                                             // Reports the successful deactivation of an authorization mechanism.
@@ -31,7 +31,6 @@ type AuthorizationCallbacks struct {
 	GetLAContext          func(uintptr, unsafe.Pointer) int                             // Constructs a local authentication context.
 	GetTokenIdentities    func(uintptr, unsafe.Pointer, uintptr) int                    // Returns an array of identities available on tokens.
 	GetTKTokenWatcher     func(uintptr, unsafe.Pointer) int                             // Constructs a token watcher.
-	Version               uint32                                                        // The engine callback version.
 
 }
 
@@ -71,12 +70,12 @@ type AuthorizationItemSet struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Security/AuthorizationPluginInterface
 type AuthorizationPluginInterface struct {
+	Version             uint32                                                   // The plug-in interface version.
 	MechanismCreate     func(unsafe.Pointer, uintptr, *byte, unsafe.Pointer) int // Creates an authorization mechanism.
 	MechanismDeactivate func(unsafe.Pointer) int                                 // Deactivates an authorization mechanism.
 	MechanismDestroy    func(unsafe.Pointer) int                                 // Destroys an authorization mechanism.
 	MechanismInvoke     func(unsafe.Pointer) int                                 // Invokes an authorization mechanism to perform an authorization operation.
 	PluginDestroy       func(unsafe.Pointer) int                                 // Notifies the plug-in that it is about to be unloaded.
-	Version             uint32                                                   // The plug-in interface version.
 
 }
 
@@ -85,8 +84,8 @@ type AuthorizationPluginInterface struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Security/AuthorizationValue
 type AuthorizationValue struct {
-	Data   unsafe.Pointer
 	Length uintptr
+	Data   unsafe.Pointer
 }
 
 // AuthorizationValueVector - A structure used to pass arguments from the authorization policy database to the authorization mechanism.
@@ -1317,7 +1316,7 @@ type Cssm_kr_policy_list_item struct {
 	Mode         CSSM_ENCRYPT_MODE
 	PolicyFlags  CSSM_KR_POLICY_FLAGS
 	WorkFactor   uint8
-	Next         kernel.Pointer
+	Next         unsafe.Pointer
 }
 
 // Cssm_kr_profile
@@ -1595,11 +1594,11 @@ type Cssm_spi_cl_funcs struct {
 	CertAbortQuery               func(int, int) int
 	CertCache                    func(int, uintptr, *int) int
 	CertCreateTemplate           func(int, uint, uintptr, uintptr) int
-	CertDescribeFormat           func(int, uint, uintptr) int
-	CertGetAllFields             func(int, uintptr, uint, uintptr) int
-	CertGetAllTemplateFields     func(int, uintptr, uint, uintptr) int
-	CertGetFirstCachedFieldValue func(int, int, uintptr, *int, uint, uintptr) int
-	CertGetFirstFieldValue       func(int, uintptr, uintptr, *int, uint, uintptr) int
+	CertDescribeFormat           func(int, *uint, uintptr) int
+	CertGetAllFields             func(int, uintptr, *uint, uintptr) int
+	CertGetAllTemplateFields     func(int, uintptr, *uint, uintptr) int
+	CertGetFirstCachedFieldValue func(int, int, uintptr, *int, *uint, uintptr) int
+	CertGetFirstFieldValue       func(int, uintptr, uintptr, *int, *uint, uintptr) int
 	CertGetKeyInfo               func(int, uintptr, uintptr) int
 	CertGetNextCachedFieldValue  func(int, int, uintptr) int
 	CertGetNextFieldValue        func(int, int, uintptr) int
@@ -1613,11 +1612,11 @@ type Cssm_spi_cl_funcs struct {
 	CrlAddCert                   func(int, uint64, uintptr, uint, uintptr, uintptr, uintptr) int
 	CrlCache                     func(int, uintptr, *int) int
 	CrlCreateTemplate            func(int, uint, uintptr, uintptr) int
-	CrlDescribeFormat            func(int, uint, uintptr) int
-	CrlGetAllCachedRecordFields  func(int, int, uintptr, uint, uintptr) int
-	CrlGetAllFields              func(int, uintptr, uint, uintptr) int
-	CrlGetFirstCachedFieldValue  func(int, int, uintptr, uintptr, *int, uint, uintptr) int
-	CrlGetFirstFieldValue        func(int, uintptr, uintptr, *int, uint, uintptr) int
+	CrlDescribeFormat            func(int, *uint, uintptr) int
+	CrlGetAllCachedRecordFields  func(int, int, uintptr, *uint, uintptr) int
+	CrlGetAllFields              func(int, uintptr, *uint, uintptr) int
+	CrlGetFirstCachedFieldValue  func(int, int, uintptr, uintptr, *int, *uint, uintptr) int
+	CrlGetFirstFieldValue        func(int, uintptr, uintptr, *int, *uint, uintptr) int
 	CrlGetNextCachedFieldValue   func(int, int, uintptr) int
 	CrlGetNextFieldValue         func(int, int, uintptr) int
 	CrlRemoveCert                func(int, uintptr, uintptr, uintptr) int
@@ -1641,23 +1640,23 @@ type Cssm_spi_csp_funcs struct {
 	ChangeKeyOwner                func(int, uintptr, uintptr, uintptr) int
 	ChangeLoginAcl                func(int, uintptr, uintptr) int
 	ChangeLoginOwner              func(int, uintptr, uintptr) int
-	DecryptData                   func(int, uint64, uintptr, uintptr, uint, uintptr, uint, uint, uintptr, uint64) int
+	DecryptData                   func(int, uint64, uintptr, uintptr, uint, uintptr, uint, *uint, uintptr, uint64) int
 	DecryptDataFinal              func(int, uint64, uintptr) int
 	DecryptDataInit               func(int, uint64, uintptr, uint64) int
-	DecryptDataUpdate             func(int, uint64, uintptr, uint, uintptr, uint, uint) int
+	DecryptDataUpdate             func(int, uint64, uintptr, uint, uintptr, uint, *uint) int
 	DeriveKey                     func(int, uint64, uintptr, uintptr, uint, uint, uintptr, uintptr, uintptr) int
 	DigestData                    func(int, uint64, uintptr, uintptr, uint, uintptr) int
 	DigestDataClone               func(int, uint64, uint64) int
 	DigestDataFinal               func(int, uint64, uintptr) int
 	DigestDataInit                func(int, uint64, uintptr) int
 	DigestDataUpdate              func(int, uint64, uintptr, uint) int
-	EncryptData                   func(int, uint64, uintptr, uintptr, uint, uintptr, uint, uint, uintptr, uint64) int
+	EncryptData                   func(int, uint64, uintptr, uintptr, uint, uintptr, uint, *uint, uintptr, uint64) int
 	EncryptDataFinal              func(int, uint64, uintptr) int
 	EncryptDataInit               func(int, uint64, uintptr, uint64) int
-	EncryptDataUpdate             func(int, uint64, uintptr, uint, uintptr, uint, uint) int
+	EncryptDataUpdate             func(int, uint64, uintptr, uint, uintptr, uint, *uint) int
 	EventNotify                   func(int, uint, uint64, uintptr) int
 	FreeKey                       func(int, uintptr, uintptr, int) int
-	GenerateAlgorithmParams       func(int, uint64, uintptr, uint, uintptr, uint, uintptr) int
+	GenerateAlgorithmParams       func(int, uint64, uintptr, uint, uintptr, *uint, uintptr) int
 	GenerateKey                   func(int, uint64, uintptr, uint, uint, uintptr, uintptr, uintptr, uint64) int
 	GenerateKeyPair               func(int, uint64, uintptr, uint, uint, uintptr, uintptr, uint, uint, uintptr, uintptr, uintptr, uint64) int
 	GenerateMac                   func(int, uint64, uintptr, uintptr, uint, uintptr) int
@@ -1665,9 +1664,9 @@ type Cssm_spi_csp_funcs struct {
 	GenerateMacInit               func(int, uint64, uintptr) int
 	GenerateMacUpdate             func(int, uint64, uintptr, uint) int
 	GenerateRandom                func(int, uint64, uintptr, uintptr) int
-	GetKeyAcl                     func(int, uintptr, kernel.Pointer, uint, uintptr) int
+	GetKeyAcl                     func(int, uintptr, unsafe.Pointer, *uint, uintptr) int
 	GetKeyOwner                   func(int, uintptr, uintptr) int
-	GetLoginAcl                   func(int, kernel.Pointer, uint, uintptr) int
+	GetLoginAcl                   func(int, unsafe.Pointer, *uint, uintptr) int
 	GetLoginOwner                 func(int, uintptr) int
 	GetOperationalStatistics      func(int, uintptr) int
 	GetTimeValue                  func(int, uint, uintptr) int
@@ -1719,7 +1718,7 @@ type Cssm_spi_dl_funcs struct {
 	DestroyRelation           func(Cssm_dl_db_handle, uint) int
 	FreeNameList              func(int, uintptr) int
 	FreeUniqueRecord          func(Cssm_dl_db_handle, uintptr) int
-	GetDbAcl                  func(Cssm_dl_db_handle, kernel.Pointer, uint, uintptr) int
+	GetDbAcl                  func(Cssm_dl_db_handle, unsafe.Pointer, *uint, uintptr) int
 	GetDbNameFromHandle       func(Cssm_dl_db_handle, *byte) int
 	GetDbNames                func(int, uintptr) int
 	GetDbOwner                func(Cssm_dl_db_handle, uintptr) int
@@ -1737,7 +1736,7 @@ type Cssm_spi_kr_funcs struct {
 	ProcessRecoveryFields  func(uint, uint64, uintptr, uint64, uintptr, uintptr, uint, uintptr) int
 	RecoveryRequest        func(uint, uint64, uintptr, uintptr, uintptr, []int, *int) int
 	RecoveryRequestAbort   func(uint, int) int
-	RecoveryRetrieve       func(uint, int, []int, *int, uint) int
+	RecoveryRetrieve       func(uint, int, []int, *int, *uint) int
 	RegistrationRequest    func(uint, uint64, uintptr, uintptr, uintptr, uint, []int, *int) int
 	RegistrationRetrieve   func(uint, int, []int, uintptr) int
 }
@@ -1749,7 +1748,7 @@ type Cssm_spi_kr_funcs struct {
 type Cssm_spi_tp_funcs struct {
 	ApplyCrlToDb              func(int, int, int, uintptr, uintptr, uintptr, uintptr) int
 	CertCreateTemplate        func(int, int, uint, uintptr, uintptr) int
-	CertGetAllTemplateFields  func(int, int, uintptr, uint, uintptr) int
+	CertGetAllTemplateFields  func(int, int, uintptr, *uint, uintptr) int
 	CertGroupConstruct        func(int, int, int, uintptr, unsafe.Pointer, uintptr, uintptr) int
 	CertGroupPrune            func(int, int, uintptr, uintptr, uintptr) int
 	CertGroupToTupleGroup     func(int, int, uintptr, uintptr) int
@@ -2029,7 +2028,7 @@ type Cssm_tuplegroup struct {
 // [Full Topic]: https://developer.apple.com/documentation/Security/cssm_upcalls-c.struct
 type Cssm_upcalls struct {
 	CcToHandle_func    func(uint64, *int) int
-	GetModuleInfo_func func(int, uintptr, uintptr, uint, uint, uint, uint, uintptr, uintptr, uint) int
+	GetModuleInfo_func func(int, uintptr, uintptr, *uint, *uint, *uint, *uint, uintptr, uintptr, uint) int
 	Calloc_func        unsafe.Pointer
 	Free_func          unsafe.Pointer
 	Malloc_func        unsafe.Pointer

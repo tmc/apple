@@ -590,12 +590,12 @@ type SSLContextRef uintptr
 // SSLReadFunc is a pointer to a customized read function that secure transport calls to read data from the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLReadFunc
-type SSLReadFunc = func(kernel.Pointer, kernel.Pointer, uint) int
+type SSLReadFunc = func(kernel.Pointer, kernel.Pointer, *uint) int
 
 // SSLWriteFunc is a pointer to a customized write function that secure transport calls to write data to the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLWriteFunc
-type SSLWriteFunc = func(kernel.Pointer, kernel.Pointer, uint) int
+type SSLWriteFunc = func(kernel.Pointer, kernel.Pointer, *uint) int
 
 // SecACLRef is an opaque type that represents information about an ACL entry.
 //
@@ -657,7 +657,7 @@ type SecKeyAlgorithm = corefoundation.CFStringRef
 // SecKeyGeneratePairBlock is a block called with the results of a call to [SecKeyGeneratePairAsync(_:_:_:)].
 //
 // See: https://developer.apple.com/documentation/Security/SecKeyGeneratePairBlock
-type SecKeyGeneratePairBlock = func(string, string, kernel.Pointer)
+type SecKeyGeneratePairBlock = func(string, string, unsafe.Pointer)
 
 // SecKeyKeyExchangeParameter is the dictionary keys used to specify Diffie-Hellman key exchange parameters.
 //
@@ -702,7 +702,7 @@ type SecKeychainStatus = uint32
 // SecMessageBlock is a block that delivers messages during asynchronous operations.
 //
 // See: https://developer.apple.com/documentation/Security/SecMessageBlock
-type SecMessageBlock = func(kernel.Pointer, kernel.Pointer, uint32)
+type SecMessageBlock = func(unsafe.Pointer, unsafe.Pointer, uint32)
 
 // SecPasswordRef is contains information about a password.
 //
@@ -747,7 +747,7 @@ type SecTaskRef uintptr
 // SecTransformDataBlock is a block used to override the default data handling for a transform.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformDataBlock
-type SecTransformDataBlock = func(kernel.Pointer) kernel.Pointer
+type SecTransformDataBlock = func(unsafe.Pointer) unsafe.Pointer
 
 // SecTransformImplementationRef is an opaque pointer to a block that implements an instance of a transform.
 //
@@ -757,12 +757,12 @@ type SecTransformImplementationRef uintptr
 // SecTransformInstanceBlock is a block that you return from a transform creation function.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformInstanceBlock
-type SecTransformInstanceBlock = func() kernel.Pointer
+type SecTransformInstanceBlock = func() unsafe.Pointer
 
 // SecTrustCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustCallback
-type SecTrustCallback = func(kernel.Pointer, SecTrustResultType)
+type SecTrustCallback = func(unsafe.Pointer, SecTrustResultType)
 
 // SecTrustRef is an object used to evaluate trust.
 //
@@ -772,7 +772,7 @@ type SecTrustRef uintptr
 // SecTrustWithErrorCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustWithErrorCallback
-type SecTrustWithErrorCallback = func(kernel.Pointer, bool, kernel.Pointer)
+type SecTrustWithErrorCallback = func(unsafe.Pointer, bool, unsafe.Pointer)
 
 // SecTrustedApplicationRef is an opaque type that contains information about a trusted app.
 //

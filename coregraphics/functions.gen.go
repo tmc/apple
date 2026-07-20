@@ -9612,7 +9612,7 @@ func tryCGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, 
 	if _cGPDFArrayApplyBlock == nil {
 		return symbolCallError("CGPDFArrayApplyBlock", "10.14", _cGPDFArrayApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CGPDFObjectRef, blockArg2 kernel.Pointer) bool {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
 		return block(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
@@ -10295,7 +10295,7 @@ func tryCGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionary
 	if _cGPDFDictionaryApplyBlock == nil {
 		return symbolCallError("CGPDFDictionaryApplyBlock", "10.14", _cGPDFDictionaryApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *byte, blockArg1 *CGPDFObjectRef, blockArg2 kernel.Pointer) bool {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *byte, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
 		return block(objc.GoString(blockArg0), blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()

@@ -390,7 +390,7 @@ type IAVMutableMovieTrack interface {
 	HasProtectedContent() bool
 	// The total number of bytes of sample data the track requires.
 	TotalSampleDataLength() unsafe.Pointer
-	SetTotalSampleDataLength(value kernel.Pointer)
+	SetTotalSampleDataLength(value unsafe.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -973,7 +973,7 @@ func (m AVMutableMovieTrack) TotalSampleDataLength() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("totalSampleDataLength"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetTotalSampleDataLength(value kernel.Pointer) {
+func (m AVMutableMovieTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 

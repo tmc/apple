@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -127,13 +126,13 @@ type ISLSBrightnessControlClient interface {
 	GetFloatWithKeyFromReply(key string, reply objectivec.IObject) (float32, bool)
 	GetWhitePointMatrixWithKeyFromReply(matrix unsafe.Pointer, key string, reply objectivec.IObject) bool
 	HandleServerMessage(message objectivec.IObject)
-	RequestAbortRampCommandDisplayError(ramp kernel.Pointer, command uint64, display int) (int, error)
+	RequestAbortRampCommandDisplayError(ramp unsafe.Pointer, command uint64, display int) (int, error)
 	RequestBrightnessPolicyError(policy objectivec.IObject) (uint64, error)
 	RequestBrightnessTimeoutsError(timeouts objectivec.IObject) (uint64, error)
 	RequestBulkBrightnessChangeError(change objectivec.IObject) (uint64, error)
-	RequestGetValueCommandDisplayError(value kernel.Pointer, command uint64, display int) (int, error)
+	RequestGetValueCommandDisplayError(value unsafe.Pointer, command uint64, display int) (int, error)
 	RequestSetContrastEnhancerDurationDisplayError(enhancer float32, duration float64, display int) (uint64, error)
-	RequestSetWhitePointDurationDisplayError(point kernel.Pointer, duration float64, display int) (uint64, error)
+	RequestSetWhitePointDurationDisplayError(point unsafe.Pointer, duration float64, display int) (uint64, error)
 	SendRequestCommandError(request objectivec.IObject, command uint64) (uint64, error)
 	SendSynchronousRequestCommandError(request objectivec.IObject, command uint64) (objectivec.IObject, error)
 	Service() ISLSXPCService
@@ -189,7 +188,7 @@ func (s SLSBrightnessControlClient) GetWhitePointMatrixWithKeyFromReply(matrix u
 func (s SLSBrightnessControlClient) HandleServerMessage(message objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("handleServerMessage:"), message)
 }
-func (s SLSBrightnessControlClient) RequestAbortRampCommandDisplayError(ramp kernel.Pointer, command uint64, display int) (int, error) {
+func (s SLSBrightnessControlClient) RequestAbortRampCommandDisplayError(ramp unsafe.Pointer, command uint64, display int) (int, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int](s.ID, objc.Sel("requestAbortRamp:command:display:error:"), ramp, command, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -229,7 +228,7 @@ func (s SLSBrightnessControlClient) RequestBulkBrightnessChangeError(change obje
 	return rv, nil
 
 }
-func (s SLSBrightnessControlClient) RequestGetValueCommandDisplayError(value kernel.Pointer, command uint64, display int) (int, error) {
+func (s SLSBrightnessControlClient) RequestGetValueCommandDisplayError(value unsafe.Pointer, command uint64, display int) (int, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int](s.ID, objc.Sel("requestGetValue:command:display:error:"), value, command, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -249,7 +248,7 @@ func (s SLSBrightnessControlClient) RequestSetContrastEnhancerDurationDisplayErr
 	return rv, nil
 
 }
-func (s SLSBrightnessControlClient) RequestSetWhitePointDurationDisplayError(point kernel.Pointer, duration float64, display int) (uint64, error) {
+func (s SLSBrightnessControlClient) RequestSetWhitePointDurationDisplayError(point unsafe.Pointer, duration float64, display int) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](s.ID, objc.Sel("requestSetWhitePoint:duration:display:error:"), point, duration, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

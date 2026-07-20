@@ -457,7 +457,7 @@ type INSArray interface {
 	// Returns a copy of the receiving array sorted as specified by a given array of sort descriptors.
 	SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given selector.
-	SortedArrayUsingSelector(comparator objectivec.SEL) []objectivec.IObject
+	SortedArrayUsingSelector(comparator objc.SEL) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block.
 	SortedArrayUsingComparator(cmptr NSComparator) []objectivec.IObject
 	// Returns an array that lists the receiving array’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block.
@@ -519,9 +519,9 @@ type INSArray interface {
 	// Initializes a newly allocated array by placing in it the objects in the argument list.
 	InitWithObjects(firstObj objectivec.IObject) NSArray
 	// Sends to each object in the array the message identified by a given selector, starting with the first object and continuing through the array to the last object.
-	MakeObjectsPerformSelector(aSelector objectivec.SEL)
+	MakeObjectsPerformSelector(aSelector objc.SEL)
 	// Sends the `aSelector` message to each object in the array, starting with the first object and continuing through the array to the last object.
-	MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject)
+	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -1678,7 +1678,7 @@ func (a NSArray) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor)
 // this way:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/sortedArray(using:)-9nhh9
-func (a NSArray) SortedArrayUsingSelector(comparator objectivec.SEL) []objectivec.IObject {
+func (a NSArray) SortedArrayUsingSelector(comparator objc.SEL) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sortedArrayUsingSelector:"), comparator)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -2185,7 +2185,7 @@ func (a NSArray) InitWithObjects(firstObj objectivec.IObject) NSArray {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:
-func (a NSArray) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
+func (a NSArray) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
@@ -2205,7 +2205,7 @@ func (a NSArray) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:withObject:
-func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject) {
+func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 

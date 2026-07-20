@@ -249,7 +249,7 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 //
 // [Exception Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objectivec.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
+func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 }

@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -69,79 +68,19 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [SLDataTimelineSessionProcessCollection.ProcessesApplyBlock]
-type SLDataTimelineProcessHandler = func(*kernel.Pointer)
-
-// NewSLDataTimelineProcessBlock wraps a Go [SLDataTimelineProcessHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [SLDataTimelineSessionProcessCollection.ProcessesApplyBlock]
-func NewSLDataTimelineProcessBlock(handler SLDataTimelineProcessHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *kernel.Pointer
-		if resultID != 0 {
-			v := kernel.Pointer(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type SLDataTimelineProcessHandler = func(*unsafe.Pointer)
 
 // SLDataTimelineServerSnapshotHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [SLDataTimelineSnapshotCollection.SnapshotsApplyBlock]
-type SLDataTimelineServerSnapshotHandler = func(*kernel.Pointer)
-
-// NewSLDataTimelineServerSnapshotBlock wraps a Go [SLDataTimelineServerSnapshotHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [SLDataTimelineSnapshotCollection.SnapshotsApplyBlock]
-func NewSLDataTimelineServerSnapshotBlock(handler SLDataTimelineServerSnapshotHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *kernel.Pointer
-		if resultID != 0 {
-			v := kernel.Pointer(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type SLDataTimelineServerSnapshotHandler = func(*unsafe.Pointer)
 
 // SLDataTimelineSessionHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [SLDataTimelineServerSnapshot.SessionsApplyBlock]
-type SLDataTimelineSessionHandler = func(*kernel.Pointer)
-
-// NewSLDataTimelineSessionBlock wraps a Go [SLDataTimelineSessionHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [SLDataTimelineServerSnapshot.SessionsApplyBlock]
-func NewSLDataTimelineSessionBlock(handler SLDataTimelineSessionHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *kernel.Pointer
-		if resultID != 0 {
-			v := kernel.Pointer(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type SLDataTimelineSessionHandler = func(*unsafe.Pointer)
 
 // UnsafePointerHandler handles completion with a primitive value.
 //

@@ -3,6 +3,8 @@
 package corevideo
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/kernel"
 )
 
@@ -17,7 +19,7 @@ type CVBufferRef uintptr
 type CVDisplayLinkOutputCallback = func(uintptr, *CVTimeStamp, *CVTimeStamp, uint64, *uint64, kernel.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkOutputHandler
-type CVDisplayLinkOutputHandler = func(kernel.Pointer, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
+type CVDisplayLinkOutputHandler = func(unsafe.Pointer, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
 
 // CVDisplayLinkRef is a reference to a display link object.
 //

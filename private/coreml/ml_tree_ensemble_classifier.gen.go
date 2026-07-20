@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -183,7 +184,7 @@ func (m MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (o
 
 }
 
-func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector unsafe.Pointer, vector2 unsafe.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
+func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector kernel.Pointer, vector2 kernel.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
 	var type_ int64
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_MLTreeEnsembleClassifierClass.class), objc.Sel("_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:"), vector, vector2, dimensions, label, unsafe.Pointer(&type_), unsafe.Pointer(&errorPtr))
@@ -198,7 +199,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStri
 }
 
 // ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError is an exported wrapper for the private method _convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError.
-func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector unsafe.Pointer, vector2 unsafe.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
+func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector kernel.Pointer, vector2 kernel.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
 	if !objc.RespondsToSelector(objc.ID(_MLTreeEnsembleClassifierClass.class), objc.Sel("_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:"}
 		return 0, err

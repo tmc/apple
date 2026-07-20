@@ -271,7 +271,7 @@ type CGMutablePathRef uintptr
 type CGOpenGLDisplayMask = uint32
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFArrayApplierBlock
-type CGPDFArrayApplierBlock = func(uint32, *CGPDFObjectRef, kernel.Pointer) bool
+type CGPDFArrayApplierBlock = func(uint32, *CGPDFObjectRef, unsafe.Pointer) bool
 
 // CGPDFArrayRef is an opaque type that encapsulates a PDF array.
 //
@@ -289,7 +289,7 @@ type CGPDFBoolean = uint8
 type CGPDFContentStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryApplierBlock
-type CGPDFDictionaryApplierBlock = func(string, *CGPDFObjectRef, kernel.Pointer) bool
+type CGPDFDictionaryApplierBlock = func(string, *CGPDFObjectRef, unsafe.Pointer) bool
 
 // CGPDFDictionaryApplierFunction is performs custom processing on a key-value pair from a PDF dictionary, using optional contextual information.
 //

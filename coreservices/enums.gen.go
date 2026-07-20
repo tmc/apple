@@ -31047,3 +31047,12 @@ func (e WrongApplicationPlatform) String() string {
 		return fmt.Sprintf("WrongApplicationPlatform(%d)", e)
 	}
 }
+
+// Char is an alias for referenced enum type SmChar.
+type Char = SmChar
+
+// Ptr is an alias for referenced enum type ErrInvalidWindowPtr.
+type Ptr = ErrInvalidWindowPtr
+
+// Size is an alias for referenced enum type KLargeIconSize.
+type Size = KLargeIconSize

@@ -274,7 +274,7 @@ type ITTSSpeechManager interface {
 	_didBeginInterruption()
 	_didEndInterruption()
 	_dispatchSpeechAction(action objectivec.IObject)
-	_enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) bool
+	_enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool
 	_handleAudioInterruption(interruption objectivec.IObject)
 	_handleMediaServicesWereLost(lost objectivec.IObject)
 	_handleMediaServicesWereReset(reset objectivec.IObject)
@@ -452,13 +452,13 @@ func (t TTSSpeechManager) CanDidEndInterruption() bool {
 func (t TTSSpeechManager) _dispatchSpeechAction(action objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_dispatchSpeechAction:"), action)
 }
-func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) bool {
+func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"), thread, object, done)
 	return rv
 }
 
 // EnqueueSelectorOnSpeechThreadObjectWaitUntilDone is an exported wrapper for the private method _enqueueSelectorOnSpeechThreadObjectWaitUntilDone.
-func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) (bool, error) {
+func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) (bool, error) {
 	if !objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_enqueueSelectorOnSpeechThread:object:waitUntilDone:"}
 		return false, err

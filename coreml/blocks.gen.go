@@ -9,28 +9,6 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// ErrorHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [MLModelAsset.FunctionNamesWithCompletionHandler]
-type ErrorHandler = func(error)
-
-// NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [MLModelAsset.FunctionNamesWithCompletionHandler]
-func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		handler(foundation.SafeErrorFrom(errID))
-	})
-	objc.SetNSErrorBlockSignature(block)
-	return objc.ID(block), func() { block.Release() }
-}
-
 // MLComputePlanErrorHandler handles When the compute plan is constructed successfully or unsuccessfully, the completion handler is invoked with a valid MLComputePlan instance or NSError object.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -316,6 +294,39 @@ func NewUnsafePointerIntNumberArrayBlock(handler UnsafePointerIntNumberArrayHand
 			extra1 = &v
 		}
 		handler(primitive, extra0, extra1)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// stringArrayErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [MLModelAsset.FunctionNamesWithCompletionHandler]
+type stringArrayErrorHandler = func(*[]string, error)
+
+// NewstringArrayErrorBlock wraps a Go [stringArrayErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLModelAsset.FunctionNamesWithCompletionHandler]
+func NewstringArrayErrorBlock(handler stringArrayErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *[]string
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]string, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = objc.IDToString(item.GetID())
+			}
+			result = &res
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

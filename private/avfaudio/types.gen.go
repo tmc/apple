@@ -48,11 +48,20 @@ type IOSurface struct {
 type MachPort struct {
 }
 
+// Mach_port is a type alias for MachPort for use in objc.Send[T] calls.
+type Mach_port = MachPort
+
 // RecursiveMutex
 type RecursiveMutex struct {
 	__m_ unsafe.Pointer
 }
 
+// Recursive_mutex is a type alias for RecursiveMutex for use in objc.Send[T] calls.
+type Recursive_mutex = RecursiveMutex
+
 // XPCTypeS
 type XPCTypeS struct {
 }
+
+// Xpc_type_s is a type alias for XPCTypeS for use in objc.Send[T] calls.
+type Xpc_type_s = XPCTypeS

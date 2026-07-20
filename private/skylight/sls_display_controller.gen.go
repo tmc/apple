@@ -9,7 +9,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -207,7 +206,7 @@ type ISLSDisplayController interface {
 	// Topic: Methods
 
 	AbortContrastEnhancerRampError() (float32, error)
-	AbortWhitePointRampError(ramp kernel.Pointer) (bool, error)
+	AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error)
 	BrightnessAvailable() bool
 	SetBrightnessAvailable(value bool)
 	BrightnessCapabilities() foundation.INSDictionary
@@ -229,7 +228,7 @@ type ISLSDisplayController interface {
 	MaximumLuminance() float32
 	SetMaximumLuminance(value float32)
 	NativeWhitePoint() unsafe.Pointer
-	SetNativeWhitePoint(value kernel.Pointer)
+	SetNativeWhitePoint(value unsafe.Pointer)
 	NotificationQueue() objectivec.IObject
 	PostNotificationPayload(notification objectivec.IObject, payload objectivec.IObject)
 	ProductId() uint64
@@ -257,7 +256,7 @@ type ISLSDisplayController interface {
 	SetSDRBrightness(sDRBrightness float32)
 	SetShieldingTimeout(timeout float64)
 	SetSleepMessagingTimeout(timeout float64)
-	SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error)
+	SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error)
 	UnregisterNotificationBlocks()
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
@@ -314,7 +313,7 @@ func (s SLSDisplayController) AbortContrastEnhancerRampError() (float32, error) 
 	}
 	return ramp, nil
 }
-func (s SLSDisplayController) AbortWhitePointRampError(ramp kernel.Pointer) (bool, error) {
+func (s SLSDisplayController) AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("abortWhitePointRamp:error:"), ramp, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -460,7 +459,7 @@ func (s SLSDisplayController) SetShieldingTimeout(timeout float64) {
 func (s SLSDisplayController) SetSleepMessagingTimeout(timeout float64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSleepMessagingTimeout:"), timeout)
 }
-func (s SLSDisplayController) SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error) {
+func (s SLSDisplayController) SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("setWhitePoint:rampDuration:error:"), point, duration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -546,7 +545,7 @@ func (s SLSDisplayController) NativeWhitePoint() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("nativeWhitePoint"))
 	return rv
 }
-func (s SLSDisplayController) SetNativeWhitePoint(value kernel.Pointer) {
+func (s SLSDisplayController) SetNativeWhitePoint(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNativeWhitePoint:"), value)
 }
 func (s SLSDisplayController) Online() bool {

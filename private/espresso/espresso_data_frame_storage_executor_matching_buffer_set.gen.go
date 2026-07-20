@@ -8,7 +8,6 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -94,17 +93,17 @@ type IEspressoDataFrameStorageExecutorMatchingBufferSet interface {
 	// Topic: Methods
 
 	Computed_buffer() unsafe.Pointer
-	SetComputed_buffer(value kernel.Pointer)
+	SetComputed_buffer(value unsafe.Pointer)
 	Computed_pb() corevideo.CVImageBufferRef
 	SetComputed_pb(value corevideo.CVImageBufferRef)
 	Groundtruth_buffer() unsafe.Pointer
-	SetGroundtruth_buffer(value kernel.Pointer)
+	SetGroundtruth_buffer(value unsafe.Pointer)
 	Index() uint64
 	SetIndex(value uint64)
 	Name() string
 	SetName(value string)
 	Reference_buffer() unsafe.Pointer
-	SetReference_buffer(value kernel.Pointer)
+	SetReference_buffer(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -130,7 +129,7 @@ func (e EspressoDataFrameStorageExecutorMatchingBufferSet) Computed_buffer() uns
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("computed_buffer"))
 	return rv
 }
-func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetComputed_buffer(value kernel.Pointer) {
+func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetComputed_buffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setComputed_buffer:"), value)
 }
 func (e EspressoDataFrameStorageExecutorMatchingBufferSet) Computed_pb() corevideo.CVImageBufferRef {
@@ -144,7 +143,7 @@ func (e EspressoDataFrameStorageExecutorMatchingBufferSet) Groundtruth_buffer() 
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("groundtruth_buffer"))
 	return rv
 }
-func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetGroundtruth_buffer(value kernel.Pointer) {
+func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetGroundtruth_buffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setGroundtruth_buffer:"), value)
 }
 func (e EspressoDataFrameStorageExecutorMatchingBufferSet) Index() uint64 {
@@ -165,6 +164,6 @@ func (e EspressoDataFrameStorageExecutorMatchingBufferSet) Reference_buffer() un
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("reference_buffer"))
 	return rv
 }
-func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetReference_buffer(value kernel.Pointer) {
+func (e EspressoDataFrameStorageExecutorMatchingBufferSet) SetReference_buffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setReference_buffer:"), value)
 }

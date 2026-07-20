@@ -279,7 +279,7 @@ type INSData interface {
 	// A pointer to the data object’s contents.
 	Bytes() unsafe.Pointer
 	// Enumerates each range of bytes in the data object using a block.
-	EnumerateByteRangesUsingBlock(block func(kernel.Pointer, kernel.Pointer, *bool))
+	EnumerateByteRangesUsingBlock(block func(kernel.Pointer, unsafe.Pointer, *bool))
 	// Copies a number of bytes from the start of the data object into a given buffer.
 	GetBytesLength(buffer unsafe.Pointer, length uint)
 	// Copies a range of bytes from the data object into a given buffer.
@@ -645,7 +645,7 @@ var _nsdata_initwithbytesnocopy_length_deallocator_p2_key byte
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
 func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(kernel.Pointer, uint64)) NSData {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(kernel.Pointer(uintptr(arg0)), arg1) })
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, objc.ID(_block2))
 	objc.AssociateBlockWithReceiver(rv.ID, &_nsdata_initwithbytesnocopy_length_deallocator_p2_key, _block2)
 	return rv
@@ -995,8 +995,10 @@ func (d NSData) Base64EncodedStringWithOptions(options NSDataBase64EncodingOptio
 // See: https://developer.apple.com/documentation/Foundation/NSData/enumerateBytes(_:)
 //
 // [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-func (d NSData) EnumerateByteRangesUsingBlock(block func(kernel.Pointer, kernel.Pointer, *bool)) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 kernel.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
+func (d NSData) EnumerateByteRangesUsingBlock(block func(kernel.Pointer, unsafe.Pointer, *bool)) {
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 *bool) {
+		block(kernel.Pointer(uintptr(arg0)), arg1, arg2)
+	})
 	defer _block0.Release()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateByteRangesUsingBlock:"), objc.ID(_block0))
 }

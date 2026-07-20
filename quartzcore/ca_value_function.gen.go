@@ -108,6 +108,7 @@ type ICAValueFunction interface {
 	// Returns the name of the value function.
 	Name() CAValueFunctionName
 
+	InitWithCoder(coder foundation.INSCoder) CAValueFunction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -128,6 +129,13 @@ func NewCAValueFunction() CAValueFunction {
 	class := getCAValueFunctionClass()
 	rv := objc.Send[CAValueFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAValueFunction/init(coder:)
+func NewValueFunctionWithCoder(coder foundation.INSCoder) CAValueFunction {
+	instance := getCAValueFunctionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAValueFunctionFromID(rv)
 }
 
 // Returns the value function object identified by the name.
@@ -154,6 +162,11 @@ func NewValueFunctionWithName(name CAValueFunctionName) CAValueFunction {
 	return CAValueFunctionFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAValueFunction/init(coder:)
+func (v CAValueFunction) InitWithCoder(coder foundation.INSCoder) CAValueFunction {
+	rv := objc.Send[CAValueFunction](v.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (v CAValueFunction) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
 }

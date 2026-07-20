@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -126,9 +125,9 @@ type IGTShaderProfilerStreamDataProcessor interface {
 	WaitUntilShaderProfilerFinished()
 	WaitUntilTimelineFinished()
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value kernel.Pointer)
+	SetIsaPrinter(value unsafe.Pointer)
 	MioData() IGTMioTraceData
 	ProcessAPSCostData() bool
 	ProcessBatchIDFilteringData(data objectivec.IObject)
@@ -235,14 +234,14 @@ func (g GTShaderProfilerStreamDataProcessor) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value kernel.Pointer) {
+func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
 	return rv
 }
-func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value kernel.Pointer) {
+func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 func (g GTShaderProfilerStreamDataProcessor) MioData() IGTMioTraceData {

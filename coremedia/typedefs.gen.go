@@ -3,6 +3,8 @@
 package coremedia
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/kernel"
 )
@@ -51,7 +53,7 @@ type CMBlockBufferRef uintptr
 type CMBufferCompareCallback = func(kernel.Pointer, kernel.Pointer, kernel.Pointer) corefoundation.CFComparisonResult
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferCompareHandler
-type CMBufferCompareHandler = func(kernel.Pointer, kernel.Pointer) corefoundation.CFComparisonResult
+type CMBufferCompareHandler = func(unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
 
 // CMBufferGetBooleanCallback is callback that returns a Boolean value from a [CMBuffer].
 //
@@ -59,7 +61,7 @@ type CMBufferCompareHandler = func(kernel.Pointer, kernel.Pointer) corefoundatio
 type CMBufferGetBooleanCallback = func(kernel.Pointer, kernel.Pointer) uint8
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetBooleanHandler
-type CMBufferGetBooleanHandler = func(kernel.Pointer) byte
+type CMBufferGetBooleanHandler = func(unsafe.Pointer) byte
 
 // CMBufferGetSizeCallback is a client callback that returns a size.
 //
@@ -67,7 +69,7 @@ type CMBufferGetBooleanHandler = func(kernel.Pointer) byte
 type CMBufferGetSizeCallback = func(kernel.Pointer, kernel.Pointer) uint
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetSizeHandler
-type CMBufferGetSizeHandler = func(kernel.Pointer) uint64
+type CMBufferGetSizeHandler = func(unsafe.Pointer) uint64
 
 // CMBufferGetTimeCallback is callback that returns a [CMTime] from a [CMBuffer].
 //
@@ -75,7 +77,7 @@ type CMBufferGetSizeHandler = func(kernel.Pointer) uint64
 type CMBufferGetTimeCallback = func(kernel.Pointer, kernel.Pointer) CMTime
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferGetTimeHandler
-type CMBufferGetTimeHandler = func(kernel.Pointer) CMTime
+type CMBufferGetTimeHandler = func(unsafe.Pointer) CMTime
 
 // CMBufferQueueRef is a reference to a buffer queue instance.
 //
@@ -95,7 +97,7 @@ type CMBufferQueueTriggerCondition = int32
 // CMBufferQueueTriggerHandler is a type alias for a trigger handler.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueTriggerHandler
-type CMBufferQueueTriggerHandler = func(kernel.Pointer)
+type CMBufferQueueTriggerHandler = func(unsafe.Pointer)
 
 // CMBufferQueueTriggerToken is a type alias for a trigger token.
 //
@@ -115,7 +117,7 @@ type CMBufferValidationCallback = func(uintptr, kernel.Pointer, kernel.Pointer) 
 // CMBufferValidationHandler is a type alias for a handler that tests whether a buffer is in a valid state to add to a queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferValidationHandler
-type CMBufferValidationHandler = func(kernel.Pointer, kernel.Pointer) int
+type CMBufferValidationHandler = func(unsafe.Pointer, unsafe.Pointer) int
 
 // CMClockOrTimebaseRef is a type you use in argument lists and function results to indicate that you can pass either a clock or timebase.
 //
@@ -220,7 +222,7 @@ type CMSampleBufferInvalidateCallback = func(uintptr, uint64)
 // CMSampleBufferInvalidateHandler is client callback called by [CMSampleBufferInvalidate(_:)].
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferInvalidateHandler
-type CMSampleBufferInvalidateHandler = func(kernel.Pointer)
+type CMSampleBufferInvalidateHandler = func(unsafe.Pointer)
 
 // CMSampleBufferMakeDataReadyCallback is client callback called by [CMSampleBufferMakeDataReady(_:)].
 //
@@ -230,7 +232,7 @@ type CMSampleBufferMakeDataReadyCallback = func(uintptr, kernel.Pointer) int
 // CMSampleBufferMakeDataReadyHandler is a block the system calls to make the sample buffer ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferMakeDataReadyHandler
-type CMSampleBufferMakeDataReadyHandler = func(kernel.Pointer) int
+type CMSampleBufferMakeDataReadyHandler = func(unsafe.Pointer) int
 
 // CMSampleBufferRef is a reference to a buffer of media data.
 //

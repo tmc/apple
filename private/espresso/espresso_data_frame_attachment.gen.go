@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -98,7 +97,7 @@ type IEspressoDataFrameAttachment interface {
 	Offset() uint64
 	SetOffset(value uint64)
 	RawPointer() unsafe.Pointer
-	SetRawPointer(value kernel.Pointer)
+	SetRawPointer(value unsafe.Pointer)
 	Size() uint64
 	SetSize(value uint64)
 }
@@ -156,7 +155,7 @@ func (e EspressoDataFrameAttachment) RawPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
 	return rv
 }
-func (e EspressoDataFrameAttachment) SetRawPointer(value kernel.Pointer) {
+func (e EspressoDataFrameAttachment) SetRawPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }
 func (e EspressoDataFrameAttachment) Size() uint64 {

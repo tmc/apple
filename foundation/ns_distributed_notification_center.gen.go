@@ -163,7 +163,7 @@ type IDistributedNotificationCenter interface {
 	// Topic: Managing Observers
 
 	// Adds an entry to the receiver’s dispatch table with a specific observer and suspended-notifications behavior, and optional notification name and sender.
-	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
+	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
 
 	// Topic: Posting Notifications
 
@@ -228,7 +228,7 @@ func NewDistributedNotificationCenter() DistributedNotificationCenter {
 // before releasing `notificationObserver`.
 //
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/addObserver(_:selector:name:object:suspensionBehavior:)
-func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
+func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addObserver:selector:name:object:suspensionBehavior:"), observer, selector, objc.String(string(name)), objc.String(object), suspensionBehavior)
 }
 

@@ -48,7 +48,6 @@ func (ec EspressoDCNEspressoOverfeatDetectorClass) Alloc() EspressoDCNEspressoOv
 //
 //   - [EspressoDCNEspressoOverfeatDetector.CommonInit]
 //   - [EspressoDCNEspressoOverfeatDetector.CompareObjectWithObjectError]
-//   - [EspressoDCNEspressoOverfeatDetector.ComputeBBoxUsingProbBoxAndScalefactorPadXPadY]
 //   - [EspressoDCNEspressoOverfeatDetector.ConfidenceThreshold]
 //   - [EspressoDCNEspressoOverfeatDetector.SetConfidenceThreshold]
 //   - [EspressoDCNEspressoOverfeatDetector.Enet]
@@ -79,7 +78,6 @@ var _ IEspressoDCNEspressoOverfeatDetector = EspressoDCNEspressoOverfeatDetector
 //
 //   - [IEspressoDCNEspressoOverfeatDetector.CommonInit]
 //   - [IEspressoDCNEspressoOverfeatDetector.CompareObjectWithObjectError]
-//   - [IEspressoDCNEspressoOverfeatDetector.ComputeBBoxUsingProbBoxAndScalefactorPadXPadY]
 //   - [IEspressoDCNEspressoOverfeatDetector.ConfidenceThreshold]
 //   - [IEspressoDCNEspressoOverfeatDetector.SetConfidenceThreshold]
 //   - [IEspressoDCNEspressoOverfeatDetector.Enet]
@@ -99,7 +97,6 @@ type IEspressoDCNEspressoOverfeatDetector interface {
 
 	CommonInit()
 	CompareObjectWithObjectError(object objectivec.IObject, object2 objectivec.IObject) (float64, error)
-	ComputeBBoxUsingProbBoxAndScalefactorPadXPadY(prob unsafe.Pointer, box unsafe.Pointer, scalefactor float32, x float32, y float32)
 	ConfidenceThreshold() float64
 	SetConfidenceThreshold(value float64)
 	Enet() IEspressoFDOverfeatNetwork
@@ -157,9 +154,6 @@ func (e EspressoDCNEspressoOverfeatDetector) CompareObjectWithObjectError(object
 	}
 	return rv, nil
 
-}
-func (e EspressoDCNEspressoOverfeatDetector) ComputeBBoxUsingProbBoxAndScalefactorPadXPadY(prob unsafe.Pointer, box unsafe.Pointer, scalefactor float32, x float32, y float32) {
-	objc.Send[objc.ID](e.ID, objc.Sel("computeBBoxUsingProb:box:andScalefactor:padX:padY:"), prob, box, scalefactor, x, y)
 }
 func (e EspressoDCNEspressoOverfeatDetector) FillFaceList() {
 	objc.Send[objc.ID](e.ID, objc.Sel("fillFaceList"))

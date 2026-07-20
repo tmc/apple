@@ -99,7 +99,7 @@ type IMLModelAsset interface {
 	// Topic: Getting function names
 
 	// The list of function names in the model asset.
-	FunctionNamesWithCompletionHandler(handler ErrorHandler)
+	FunctionNamesWithCompletionHandler(handler stringArrayErrorHandler)
 
 	// Topic: Getting the model description
 
@@ -199,8 +199,8 @@ func NewModelAssetWithURLError(compiledModelURL foundation.NSURL) (MLModelAsset,
 // multi-function configuration.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/functionNames(completionHandler:)
-func (m MLModelAsset) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
-	_block0, _ := NewErrorBlock(handler)
+func (m MLModelAsset) FunctionNamesWithCompletionHandler(handler stringArrayErrorHandler) {
+	_block0, _ := NewstringArrayErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
 
@@ -236,16 +236,24 @@ func (m MLModelAsset) ModelDescriptionOfFunctionNamedCompletionHandler(functionN
 
 // FunctionNames is a synchronous wrapper around [MLModelAsset.FunctionNamesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (m MLModelAsset) FunctionNames(ctx context.Context) error {
-	done := make(chan error, 1)
-	m.FunctionNamesWithCompletionHandler(func(err error) {
-		done <- err
+func (m MLModelAsset) FunctionNames(ctx context.Context) ([]string, error) {
+	type result struct {
+		val []string
+		err error
+	}
+	done := make(chan result, 1)
+	m.FunctionNamesWithCompletionHandler(func(val *[]string, err error) {
+		var out []string
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- result{out, err}
 	})
 	select {
-	case err := <-done:
-		return err
+	case r := <-done:
+		return r.val, r.err
 	case <-ctx.Done():
-		return ctx.Err()
+		return nil, ctx.Err()
 	}
 }
 

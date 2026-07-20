@@ -4,8 +4,8 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -232,11 +232,11 @@ type INSIndexSet interface {
 	// Topic: Enumerating Index Set Content
 
 	// Enumerates over the ranges in the range of objects using the block
-	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(kernel.Pointer, *bool))
+	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(unsafe.Pointer, *bool))
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesUsingBlock(block func(kernel.Pointer, *bool))
+	EnumerateRangesUsingBlock(block func(unsafe.Pointer, *bool))
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(kernel.Pointer, *bool))
+	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(unsafe.Pointer, *bool))
 
 	// Topic: Comparing Index Sets
 
@@ -715,8 +715,8 @@ func (i NSIndexSet) IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnum
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(in:options:using:)
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(kernel.Pointer, *bool)) {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block func(unsafe.Pointer, *bool)) {
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block2.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesInRange:options:usingBlock:"), range_, opts, objc.ID(_block2))
 }
@@ -740,8 +740,8 @@ func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(_:)
-func (i NSIndexSet) EnumerateRangesUsingBlock(block func(kernel.Pointer, *bool)) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesUsingBlock(block func(unsafe.Pointer, *bool)) {
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block0.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesUsingBlock:"), objc.ID(_block0))
 }
@@ -774,8 +774,8 @@ func (i NSIndexSet) EnumerateRangesUsingBlock(block func(kernel.Pointer, *bool))
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(options:using:)
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(kernel.Pointer, *bool)) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 *bool) { block(arg0, arg1) })
+func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block func(unsafe.Pointer, *bool)) {
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 *bool) { block(arg0, arg1) })
 	defer _block1.Release()
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesWithOptions:usingBlock:"), opts, objc.ID(_block1))
 }

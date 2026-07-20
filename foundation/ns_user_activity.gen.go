@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -432,7 +431,7 @@ type INSUserActivity interface {
 
 	// Attaches the specified map item to a user activity object.
 	MapItem() unsafe.Pointer
-	SetMapItem(value kernel.Pointer)
+	SetMapItem(value unsafe.Pointer)
 
 	// Topic: Working with ClassKit
 
@@ -1114,7 +1113,7 @@ func (u NSUserActivity) MapItem() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("mapItem"))
 	return rv
 }
-func (u NSUserActivity) SetMapItem(value kernel.Pointer) {
+func (u NSUserActivity) SetMapItem(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMapItem:"), value)
 }
 

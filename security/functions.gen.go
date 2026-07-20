@@ -9,7 +9,6 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -8563,7 +8562,7 @@ func trySecTrustEvaluateAsyncWithError(trust SecTrustRef, queue dispatch.Queue, 
 	if _secTrustEvaluateAsyncWithError == nil {
 		return 0, symbolCallError("SecTrustEvaluateAsyncWithError", "10.15", _secTrustEvaluateAsyncWithErrorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 bool, blockArg2 kernel.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 bool, blockArg2 unsafe.Pointer) {
 		result(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()

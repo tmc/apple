@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -189,7 +188,7 @@ type ITTSSpeechRequest interface {
 	Channels() foundation.INSArray
 	SetChannels(value foundation.INSArray)
 	ClientContext() unsafe.Pointer
-	SetClientContext(value kernel.Pointer)
+	SetClientContext(value unsafe.Pointer)
 	DispatchTime() float64
 	SetDispatchTime(value float64)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -319,7 +318,7 @@ func (t TTSSpeechRequest) ClientContext() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("clientContext"))
 	return rv
 }
-func (t TTSSpeechRequest) SetClientContext(value kernel.Pointer) {
+func (t TTSSpeechRequest) SetClientContext(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setClientContext:"), value)
 }
 func (t TTSSpeechRequest) DispatchTime() float64 {

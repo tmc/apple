@@ -4,7 +4,6 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -65,7 +64,6 @@ func (gc GTLLVMConnectionManagerClass) Alloc() GTLLVMConnectionManager {
 //   - [GTLLVMConnectionManager.GpuName]
 //   - [GTLLVMConnectionManager.IsLLVMValid]
 //   - [GTLLVMConnectionManager.NLLVMClients]
-//   - [GTLLVMConnectionManager.ProcessInstructionTraceForBinariesWithNoTimestamp]
 //   - [GTLLVMConnectionManager.ShaderProfilerBinaryInfo]
 //   - [GTLLVMConnectionManager.TargetIndex]
 //   - [GTLLVMConnectionManager.InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients]
@@ -105,7 +103,6 @@ var _ IGTLLVMConnectionManager = GTLLVMConnectionManager{}
 //   - [IGTLLVMConnectionManager.GpuName]
 //   - [IGTLLVMConnectionManager.IsLLVMValid]
 //   - [IGTLLVMConnectionManager.NLLVMClients]
-//   - [IGTLLVMConnectionManager.ProcessInstructionTraceForBinariesWithNoTimestamp]
 //   - [IGTLLVMConnectionManager.ShaderProfilerBinaryInfo]
 //   - [IGTLLVMConnectionManager.TargetIndex]
 //   - [IGTLLVMConnectionManager.InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients]
@@ -134,7 +131,6 @@ type IGTLLVMConnectionManager interface {
 	GpuName() string
 	IsLLVMValid(lLVMValid uint32) bool
 	NLLVMClients() uint32
-	ProcessInstructionTraceForBinariesWithNoTimestamp(binaries unsafe.Pointer, timestamp bool) unsafe.Pointer
 	ShaderProfilerBinaryInfo(info uint32) GTShaderProfilerBinaryInfo
 	TargetIndex() int
 	InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients(gPUName objectivec.IObject, index int, path objectivec.IObject, gen byte, name objectivec.IObject, clients uint32) GTLLVMConnectionManager
@@ -359,10 +355,6 @@ func (g GTLLVMConnectionManager) EstablishConnectionWithLLVMHosts(lLVMHosts obje
 }
 func (g GTLLVMConnectionManager) IsLLVMValid(lLVMValid uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isLLVMValid:"), lLVMValid)
-	return rv
-}
-func (g GTLLVMConnectionManager) ProcessInstructionTraceForBinariesWithNoTimestamp(binaries unsafe.Pointer, timestamp bool) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("processInstructionTraceForBinaries:withNoTimestamp:"), binaries, timestamp)
 	return rv
 }
 func (g GTLLVMConnectionManager) ShaderProfilerBinaryInfo(info uint32) GTShaderProfilerBinaryInfo {

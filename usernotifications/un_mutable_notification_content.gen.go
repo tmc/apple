@@ -5,6 +5,7 @@ package usernotifications
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -119,4 +120,11 @@ func NewUNMutableNotificationContent() UNMutableNotificationContent {
 	class := getUNMutableNotificationContentClass()
 	rv := objc.Send[UNMutableNotificationContent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationContent/init(coder:)
+func NewUNMutableNotificationContentWithCoder(coder foundation.INSCoder) UNMutableNotificationContent {
+	instance := getUNMutableNotificationContentClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNMutableNotificationContentFromID(rv)
 }

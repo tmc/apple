@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -137,9 +136,9 @@ type IGTAGX2StreamDataShaderProfilerProcessor interface {
 	AnalyzeBinaryGpuGeneration(binary objectivec.IObject, generation uint32) objectivec.IObject
 	AnalyzeBinaryTypeNameDylibDataGpuGeneration(binary objectivec.IObject, name objectivec.IObject, dylib bool, data objectivec.IObject, generation uint32) objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value kernel.Pointer)
+	SetIsaPrinter(value unsafe.Pointer)
 	Process(process objectivec.IObject)
 	ProcessBatchIDFilteringData()
 	ProcessBatchIDFilteringDataWithData(data objectivec.IObject)
@@ -423,14 +422,14 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) Delegate() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTAGX2StreamDataShaderProfilerProcessor) SetDelegate(value kernel.Pointer) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) SetDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) IsaPrinter() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
 	return rv
 }
-func (g GTAGX2StreamDataShaderProfilerProcessor) SetIsaPrinter(value kernel.Pointer) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) SetIsaPrinter(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ShaderProfilerResult() unsafe.Pointer {
