@@ -83,7 +83,16 @@ func tryIbvAllocPd(context RDMAContext) (RDMAPD, error) {
 	if _ibvAllocPd == nil {
 		return *new(RDMAPD), symbolCallError("ibv_alloc_pd", "", _ibvAllocPdErr)
 	}
-	return _ibvAllocPd(context), nil
+	if context == 0 {
+		return *new(RDMAPD), rdmaNilHandleError("ibv_alloc_pd", "context")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMAPD {
+		return _ibvAllocPd(context)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_alloc_pd", "protection domain", int64(rv), errno, errnoSet, context, context != 0)
+	}
+	return rv, nil
 }
 
 // IbvAllocPd.
@@ -97,6 +106,9 @@ var _ibvCloseDeviceErr error
 func tryIbvCloseDevice(context RDMAContext) (int, error) {
 	if _ibvCloseDevice == nil {
 		return 0, symbolCallError("ibv_close_device", "", _ibvCloseDeviceErr)
+	}
+	if context == 0 {
+		return 0, rdmaNilHandleError("ibv_close_device", "context")
 	}
 	return _ibvCloseDevice(context), nil
 }
@@ -113,7 +125,16 @@ func tryIbvCreateCq(context RDMAContext, cqe int, cq_context uintptr, channel ui
 	if _ibvCreateCq == nil {
 		return *new(RDMACQ), symbolCallError("ibv_create_cq", "", _ibvCreateCqErr)
 	}
-	return _ibvCreateCq(context, cqe, cq_context, channel, comp_vector), nil
+	if context == 0 {
+		return *new(RDMACQ), rdmaNilHandleError("ibv_create_cq", "context")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMACQ {
+		return _ibvCreateCq(context, cqe, cq_context, channel, comp_vector)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_create_cq", "completion queue", int64(rv), errno, errnoSet, context, context != 0)
+	}
+	return rv, nil
 }
 
 // IbvCreateCq.
@@ -128,7 +149,16 @@ func tryIbvCreateQp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
 	if _ibvCreateQp == nil {
 		return *new(RDMAQP), symbolCallError("ibv_create_qp", "", _ibvCreateQpErr)
 	}
-	return _ibvCreateQp(pd, qp_init_attr), nil
+	if pd == 0 {
+		return *new(RDMAQP), rdmaNilHandleError("ibv_create_qp", "protection domain")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMAQP {
+		return _ibvCreateQp(pd, qp_init_attr)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_create_qp", "queue pair", int64(rv), errno, errnoSet, 0, false)
+	}
+	return rv, nil
 }
 
 // IbvCreateQp.
@@ -142,6 +172,9 @@ var _ibvDeallocPdErr error
 func tryIbvDeallocPd(pd RDMAPD) (int, error) {
 	if _ibvDeallocPd == nil {
 		return 0, symbolCallError("ibv_dealloc_pd", "", _ibvDeallocPdErr)
+	}
+	if pd == 0 {
+		return 0, rdmaNilHandleError("ibv_dealloc_pd", "protection domain")
 	}
 	return _ibvDeallocPd(pd), nil
 }
@@ -158,6 +191,9 @@ func tryIbvDeregMr(mr RDMAMR) (int, error) {
 	if _ibvDeregMr == nil {
 		return 0, symbolCallError("ibv_dereg_mr", "", _ibvDeregMrErr)
 	}
+	if mr == 0 {
+		return 0, rdmaNilHandleError("ibv_dereg_mr", "memory region")
+	}
 	return _ibvDeregMr(mr), nil
 }
 
@@ -172,6 +208,9 @@ var _ibvDestroyCqErr error
 func tryIbvDestroyCq(cq RDMACQ) (int, error) {
 	if _ibvDestroyCq == nil {
 		return 0, symbolCallError("ibv_destroy_cq", "", _ibvDestroyCqErr)
+	}
+	if cq == 0 {
+		return 0, rdmaNilHandleError("ibv_destroy_cq", "completion queue")
 	}
 	return _ibvDestroyCq(cq), nil
 }
@@ -188,6 +227,9 @@ func tryIbvDestroyQp(qp RDMAQP) (int, error) {
 	if _ibvDestroyQp == nil {
 		return 0, symbolCallError("ibv_destroy_qp", "", _ibvDestroyQpErr)
 	}
+	if qp == 0 {
+		return 0, rdmaNilHandleError("ibv_destroy_qp", "queue pair")
+	}
 	return _ibvDestroyQp(qp), nil
 }
 
@@ -202,6 +244,9 @@ var _ibvFreeDeviceListErr error
 func tryIbvFreeDeviceList(list RDMADeviceList) error {
 	if _ibvFreeDeviceList == nil {
 		return symbolCallError("ibv_free_device_list", "", _ibvFreeDeviceListErr)
+	}
+	if list == 0 {
+		return nil
 	}
 	_ibvFreeDeviceList(list)
 	return nil
@@ -219,7 +264,13 @@ func tryIbvGetDeviceList(num_devices uintptr) (RDMADeviceList, error) {
 	if _ibvGetDeviceList == nil {
 		return *new(RDMADeviceList), symbolCallError("ibv_get_device_list", "", _ibvGetDeviceListErr)
 	}
-	return _ibvGetDeviceList(num_devices), nil
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMADeviceList {
+		return _ibvGetDeviceList(num_devices)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_get_device_list", "device list", int64(rv), errno, errnoSet, 0, false)
+	}
+	return rv, nil
 }
 
 // IbvGetDeviceList.
@@ -233,6 +284,9 @@ var _ibvGetDeviceNameErr error
 func tryIbvGetDeviceName(device RDMADevice) (uintptr, error) {
 	if _ibvGetDeviceName == nil {
 		return 0, symbolCallError("ibv_get_device_name", "", _ibvGetDeviceNameErr)
+	}
+	if device == 0 {
+		return 0, rdmaNilHandleError("ibv_get_device_name", "device")
 	}
 	return _ibvGetDeviceName(device), nil
 }
@@ -249,7 +303,16 @@ func tryIbvModifyQp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
 	if _ibvModifyQp == nil {
 		return 0, symbolCallError("ibv_modify_qp", "", _ibvModifyQpErr)
 	}
-	return _ibvModifyQp(qp, attr, attr_mask), nil
+	if qp == 0 {
+		return 0, rdmaNilHandleError("ibv_modify_qp", "queue pair")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
+		return _ibvModifyQp(qp, attr, attr_mask)
+	})
+	if rv < 0 {
+		return rv, rdmaNegativeProviderReturnError("ibv_modify_qp", int(rv), errno, errnoSet, 0, false)
+	}
+	return rv, nil
 }
 
 // IbvModifyQp.
@@ -264,7 +327,16 @@ func tryIbvOpenDevice(device RDMADevice) (RDMAContext, error) {
 	if _ibvOpenDevice == nil {
 		return *new(RDMAContext), symbolCallError("ibv_open_device", "", _ibvOpenDeviceErr)
 	}
-	return _ibvOpenDevice(device), nil
+	if device == 0 {
+		return *new(RDMAContext), rdmaNilHandleError("ibv_open_device", "device")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMAContext {
+		return _ibvOpenDevice(device)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_open_device", "context", int64(rv), errno, errnoSet, 0, false)
+	}
+	return rv, nil
 }
 
 // IbvOpenDevice.
@@ -279,7 +351,16 @@ func tryIbvQueryDevice(context RDMAContext, device_attr uintptr) (int, error) {
 	if _ibvQueryDevice == nil {
 		return 0, symbolCallError("ibv_query_device", "", _ibvQueryDeviceErr)
 	}
-	return _ibvQueryDevice(context, device_attr), nil
+	if context == 0 {
+		return 0, rdmaNilHandleError("ibv_query_device", "context")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
+		return _ibvQueryDevice(context, device_attr)
+	})
+	if rv < 0 {
+		return rv, rdmaNegativeProviderReturnError("ibv_query_device", int(rv), errno, errnoSet, context, context != 0)
+	}
+	return rv, nil
 }
 
 // IbvQueryDevice.
@@ -294,7 +375,16 @@ func tryIbvQueryGid(context RDMAContext, port_num uint8, index int, gid uintptr)
 	if _ibvQueryGid == nil {
 		return 0, symbolCallError("ibv_query_gid", "", _ibvQueryGidErr)
 	}
-	return _ibvQueryGid(context, port_num, index, gid), nil
+	if context == 0 {
+		return 0, rdmaNilHandleError("ibv_query_gid", "context")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
+		return _ibvQueryGid(context, port_num, index, gid)
+	})
+	if rv < 0 {
+		return rv, rdmaNegativeProviderReturnError("ibv_query_gid", int(rv), errno, errnoSet, context, context != 0)
+	}
+	return rv, nil
 }
 
 // IbvQueryGid.
@@ -309,7 +399,16 @@ func tryIbvQueryPort(context RDMAContext, port_num uint8, port_attr uintptr) (in
 	if _ibvQueryPort == nil {
 		return 0, symbolCallError("ibv_query_port", "", _ibvQueryPortErr)
 	}
-	return _ibvQueryPort(context, port_num, port_attr), nil
+	if context == 0 {
+		return 0, rdmaNilHandleError("ibv_query_port", "context")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() int {
+		return _ibvQueryPort(context, port_num, port_attr)
+	})
+	if rv < 0 {
+		return rv, rdmaNegativeProviderReturnError("ibv_query_port", int(rv), errno, errnoSet, context, context != 0)
+	}
+	return rv, nil
 }
 
 // IbvQueryPort.
@@ -324,7 +423,16 @@ func tryIbvRegMr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, e
 	if _ibvRegMr == nil {
 		return *new(RDMAMR), symbolCallError("ibv_reg_mr", "", _ibvRegMrErr)
 	}
-	return _ibvRegMr(pd, addr, length, access), nil
+	if pd == 0 {
+		return *new(RDMAMR), rdmaNilHandleError("ibv_reg_mr", "protection domain")
+	}
+	rv, errno, errnoSet := rdmaProviderCallWithErrno(func() RDMAMR {
+		return _ibvRegMr(pd, addr, length, access)
+	})
+	if rv == 0 {
+		return rv, rdmaNilProviderResultError("ibv_reg_mr", "memory region", int64(rv), errno, errnoSet, 0, false)
+	}
+	return rv, nil
 }
 
 // IbvRegMr.

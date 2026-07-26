@@ -221,8 +221,13 @@ func rdmaContextOp(context RDMAContext, off uintptr) uintptr {
 
 var ibvFuncMu sync.Mutex
 
-// rdmaCall3Args mirrors purego v0.11.0-alpha.6's syscallArgs. The purego
-// trampoline reads it by offset, so TestRDMACall3ABI guards its layout.
+// The datapath verbs reach the provider through rdmaCall3 rather than a purego
+// closure. Registering a closure per function pointer costs an allocation on
+// every call in the hottest path in the package, which is what
+// TestDatapathWrappersCall3Allocs guards against.
+//
+// rdmaCall3Args mirrors purego's syscallArgs. The purego trampoline reads it by
+// offset, so TestRDMACall3ABI guards its layout.
 type rdmaCall3Args struct {
 	fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15                uintptr
 	a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32 uintptr
@@ -269,8 +274,15 @@ func NewIbvCQPoller(cq RDMACQ) (IbvCQPoller, error) {
 	return IbvCQPoller{cq: cq, fnPtr: fnPtr}, nil
 }
 
+// Poll polls the completion queue. It reports -1 without calling the provider
+// when the poller is the zero value, which happens when NewIbvCQPoller returned
+// an error the caller ignored, or when the work-completion pointer is nil.
+//
+// The pointer checks are not defensive style: the provider dereferences what it
+// is given, so a nil here faults inside C, where the SIGSEGV arrives during cgo
+// execution and no Go recover can reach it.
 func (p IbvCQPoller) Poll(numEntries int, wc *IbvWC) int {
-	if p.fnPtr == 0 {
+	if p.fnPtr == 0 || p.cq == 0 || wc == nil {
 		return -1
 	}
 	r1 := rdmaCall3(p.fnPtr, uintptr(p.cq), uintptr(numEntries), uintptr(unsafe.Pointer(wc)))
@@ -301,8 +313,16 @@ func NewIbvQPPoster(qp RDMAQP) (IbvQPPoster, error) {
 	}, nil
 }
 
+// PostSend posts a send work request. It reports -1 without calling the
+// provider when the poster is the zero value, or when either work-request
+// pointer is nil.
+//
+// badWR is checked along with the rest. The provider writes the offending work
+// request through it on the failure path, so it is dereferenced exactly when a
+// post has already gone wrong; a nil there would turn a recoverable failure
+// into a killed process.
 func (p IbvQPPoster) PostSend(wr *IbvSendWR, badWR **IbvSendWR) int {
-	if p.sendPtr == 0 {
+	if p.sendPtr == 0 || p.qp == 0 || wr == nil || badWR == nil {
 		return -1
 	}
 	r1 := rdmaCall3(p.sendPtr, uintptr(p.qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
@@ -311,8 +331,11 @@ func (p IbvQPPoster) PostSend(wr *IbvSendWR, badWR **IbvSendWR) int {
 	return int(r1)
 }
 
+// PostRecv posts a receive work request. It reports -1 without calling the
+// provider when the poster is the zero value, or when either work-request
+// pointer is nil, as in PostSend.
 func (p IbvQPPoster) PostRecv(wr *IbvRecvWR, badWR **IbvRecvWR) int {
-	if p.recvPtr == 0 {
+	if p.recvPtr == 0 || p.qp == 0 || wr == nil || badWR == nil {
 		return -1
 	}
 	r1 := rdmaCall3(p.recvPtr, uintptr(p.qp), uintptr(unsafe.Pointer(wr)), uintptr(unsafe.Pointer(badWR)))
