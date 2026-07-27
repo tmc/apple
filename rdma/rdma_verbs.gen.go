@@ -35,6 +35,22 @@ const (
 	IBV_QP_DEST_QPN     = 1048576
 
 	IBV_MTU_1024 = 3
+	IBV_MTU_4096 = 5
+
+	// enum ibv_port_state. A port carries traffic only in ACTIVE.
+	IBV_PORT_NOP          = 0
+	IBV_PORT_DOWN         = 1
+	IBV_PORT_INIT         = 2
+	IBV_PORT_ARMED        = 3
+	IBV_PORT_ACTIVE       = 4
+	IBV_PORT_ACTIVE_DEFER = 5
+
+	// enum ibv_link_layer. Thunderbolt is an Apple addition and is why the
+	// value is 100 rather than the next one in sequence.
+	IBV_LINK_LAYER_UNSPECIFIED = 0
+	IBV_LINK_LAYER_INFINIBAND  = 1
+	IBV_LINK_LAYER_ETHERNET    = 2
+	IBV_LINK_LAYER_THUNDERBOLT = 100
 
 	IBV_WR_RDMA_WRITE = 0
 	IBV_WR_SEND       = 2
@@ -167,14 +183,36 @@ type IbvWC struct {
 	_            uint8
 }
 
-// IbvPortAttr exposes the fields used by RDMA examples.
+// IbvPortAttr matches struct ibv_port_attr.
+//
+// Every field is named. The struct has no interior padding: it is 52 bytes of
+// 4-byte-aligned members, so anonymous filler would only hide fields callers
+// need. State and LinkLayer in particular decide whether a port carries traffic
+// and how a route GID must be selected, and a binding that cannot express those
+// checks fails silently rather than loudly.
 type IbvPortAttr struct {
-	_         [8]byte
-	ActiveMTU int32
-	GIDTblLen uint32
-	_         [18]byte
-	LID       uint16
-	_         [16]byte
+	State         int32
+	MaxMTU        int32
+	ActiveMTU     int32
+	GIDTblLen     uint32
+	PortCapFlags  uint32
+	MaxMsgSz      uint32
+	BadPKeyCntr   uint32
+	QKeyViolCntr  uint32
+	PKeyTblLen    uint16
+	LID           uint16
+	SMLID         uint16
+	LMC           uint8
+	MaxVLNum      uint8
+	SMSL          uint8
+	SubnetTimeout uint8
+	InitTypeReply uint8
+	ActiveWidth   uint8
+	ActiveSpeed   uint8
+	PhysState     uint8
+	LinkLayer     uint8
+	Flags         uint8
+	PortCapFlags2 uint16
 }
 
 func Ibv_qp_num(qp RDMAQP) uint32 {
