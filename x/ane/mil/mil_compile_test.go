@@ -29,7 +29,6 @@ func TestCompileGenerators(t *testing.T) {
 	tests := []struct {
 		name string
 		opts ane.CompileOptions
-		skip bool
 	}{
 		{
 			name: "GenIdentity",
@@ -88,7 +87,6 @@ func TestCompileGenerators(t *testing.T) {
 			}(),
 		},
 		{
-			// TODO: GenRMSNorm fails ANE compilation on all tested dimensions.
 			name: "GenRMSNorm",
 			opts: func() ane.CompileOptions {
 				blob, err := mil.BuildWeightBlobV1(onesWeights(4))
@@ -101,7 +99,6 @@ func TestCompileGenerators(t *testing.T) {
 					WeightBlob: blob,
 				}
 			}(),
-			skip: true,
 		},
 		{
 			name: "GenSDPA",
@@ -139,32 +136,36 @@ func TestCompileGenerators(t *testing.T) {
 			}(),
 		},
 		{
-			// ANE compiler rejects small dims for fused FFN kernels.
 			name: "GenFFNForwardRMSReLU2",
 			opts: func() ane.CompileOptions {
-				w := mil.NewBlobWriter()
-				w.AddFloat16(make([]float32, 4))
-				w.AddFloat16(make([]float32, 8*4))
-				w.AddFloat16(make([]float32, 4*8))
-				blob, err := w.Build()
+				const dim, hidden = 4, 8
+				rmsBlob, err := mil.BuildWeightBlobV1(onesWeights(dim))
+				if err != nil {
+					t.Fatal(err)
+				}
+				w1Blob, err := mil.BuildWeightBlob(onesWeights(hidden*dim), hidden, dim)
+				if err != nil {
+					t.Fatal(err)
+				}
+				w2Blob, err := mil.BuildWeightBlob(onesWeights(dim*hidden), dim, hidden)
 				if err != nil {
 					t.Fatal(err)
 				}
 				return ane.CompileOptions{
-					ModelType:  ane.ModelTypeMIL,
-					MILText:    []byte(mil.GenFFNForwardRMSReLU2(4, 8, 1)),
-					WeightBlob: blob,
+					ModelType: ane.ModelTypeMIL,
+					MILText:   []byte(mil.GenFFNForwardRMSReLU2(dim, hidden, 1)),
+					WeightFiles: []ane.WeightFile{
+						{Path: "@model_path/weights/rms2.bin", Blob: rmsBlob},
+						{Path: "@model_path/weights/w1.bin", Blob: w1Blob},
+						{Path: "@model_path/weights/w2.bin", Blob: w2Blob},
+					},
 				}
 			}(),
-			skip: true,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if tt.skip {
-				t.Skip("known ANE compiler limitation")
-			}
 			m, err := c.Compile(tt.opts)
 			if err != nil {
 				t.Fatal(err)

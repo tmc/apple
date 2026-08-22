@@ -209,24 +209,38 @@ func float32ToFP16(f float32) uint16 {
 //
 // The program takes a single fp16 tensor input [1, channels, 1, spatial] and produces
 // the same shape output. The weight vector is loaded from a BLOBFILE.
+//
+// Two spellings here are load-bearing, and getting either wrong fails the whole
+// program with ANECCompile() FAILED and no further detail.
+//
+// Both reductions bind keep_dims to a named const. The ANE compiler rejects a
+// reduce whose keep_dims is an inline bool literal; axes may be inline. This
+// held for reduce_max, reduce_mean, reduce_min, reduce_sum and reduce_l2_norm,
+// each of which compiles with a const keep_dims and fails with an inline one.
+// reduce_prod fails either way and is not supported at all.
+//
+// The weight is declared [1, channels, 1, 1] rather than [channels]. A rank-1
+// weight is rejected even though it broadcasts correctly on paper. Rank alone is
+// not the criterion: [1, 1, 1, spatial] is rejected too.
 func GenRMSNorm(channels, spatial int, eps float64) string {
 	return fmt.Sprintf(`program(1.3)
 %s
 {
     func main<ios18>(tensor<fp16, [1, %d, 1, %d]> x) {
+        bool kd = const()[name = string("kd"), val = bool(true)];
         tensor<fp16, [1, %d, 1, %d]> abs_x = abs(x = x)[name = string("abs")];
-        tensor<fp16, [1, 1, 1, %d]> max_abs = reduce_max(axes = tensor<int32, [1]>([1]), keep_dims = true, x = abs_x)[name = string("reduce_max")];
+        tensor<fp16, [1, 1, 1, %d]> max_abs = reduce_max(axes = tensor<int32, [1]>([1]), keep_dims = kd, x = abs_x)[name = string("reduce_max")];
         fp16 c_eps_floor = const()[name = string("c_eps_floor"), val = fp16(1e-6)];
         tensor<fp16, [1, 1, 1, %d]> safe_max = maximum(x = max_abs, y = c_eps_floor)[name = string("safe_max")];
         tensor<fp16, [1, %d, 1, %d]> x_normed = real_div(x = x, y = safe_max)[name = string("norm_div")];
         tensor<fp16, [1, %d, 1, %d]> x_sq = square(x = x_normed)[name = string("square")];
-        tensor<fp16, [1, 1, 1, %d]> mean_sq = reduce_mean(axes = tensor<int32, [1]>([1]), keep_dims = true, x = x_sq)[name = string("reduce_mean")];
+        tensor<fp16, [1, 1, 1, %d]> mean_sq = reduce_mean(axes = tensor<int32, [1]>([1]), keep_dims = kd, x = x_sq)[name = string("reduce_mean")];
         fp16 c_eps = const()[name = string("c_eps"), val = fp16(%e)];
         tensor<fp16, [1, 1, 1, %d]> mean_sq_eps = add(x = mean_sq, y = c_eps)[name = string("add_eps")];
         tensor<fp16, [1, 1, 1, %d]> rms_normed = sqrt(x = mean_sq_eps)[name = string("sqrt")];
         tensor<fp16, [1, 1, 1, %d]> rms = mul(x = rms_normed, y = safe_max)[name = string("mul_rescale")];
         tensor<fp16, [1, %d, 1, %d]> x_div_rms = real_div(x = x, y = rms)[name = string("rms_div")];
-        tensor<fp16, [%d]> W = const()[name = string("W"), val = tensor<fp16, [%d]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(64)))];
+        tensor<fp16, [1, %d, 1, 1]> W = const()[name = string("W"), val = tensor<fp16, [1, %d, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(64)))];
         tensor<fp16, [1, %d, 1, %d]> y = mul(x = x_div_rms, y = W)[name = string("mul_weight")];
     } -> (y);
 }
