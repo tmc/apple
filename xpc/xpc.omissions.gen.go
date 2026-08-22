@@ -28,6 +28,11 @@ var xpcRawOmissions = []rawSymbolOmission{
 	{Symbols: []string{"xpc_string_create_with_format", "xpc_string_create_with_format_and_arguments"}, Reason: "C varargs are not safely expressible through purego; use fmt.Sprintf before encoding"},
 	{Symbols: []string{"xpc_connection_get_context", "xpc_connection_set_context", "xpc_connection_set_finalizer_f"}, Reason: "storing Go pointers in C context memory violates Go pointer and GC rules; no safe tokenized contract has been defined"},
 	{Symbols: []string{"xpc_main"}, Reason: "never returns and conflicts with the Go runtime main goroutine; Listener plus select is the supported service shape"},
+	{Symbols: []string{"xpc_(array|dictionary)_(create_connection|set_connection)", "xpc_dictionary_get_remote_connection"}, Reason: "connection-valued container entries need a retained peer and a server-side ownership model that the Dictionary codec does not yet define"},
+	{Symbols: []string{"xpc_dictionary_(copy_mach_send|set_mach_send)"}, Reason: "Mach send-right ownership needs an explicit mach_port_deallocate lifecycle type before it can be exposed safely"},
+	{Symbols: []string{"xpc_connection_send_barrier", "xpc_connection_send_message_with_reply"}, Reason: "asynchronous handlers require a cancellable token lifecycle distinct from the synchronous Connection call API"},
+	{Symbols: []string{"xpc_connection_set_peer_entitlement_matches_value_requirement", "xpc_connection_set_peer_lightweight_code_requirement"}, Reason: "the value-bearing requirement setters need a dedicated ownership contract; PeerRequirement constructors are the supported API"},
+	{Symbols: []string{"xpc_activity_get_state", "xpc_activity_set_state", "xpc_activity_set_criteria"}, Reason: "activity state sentinels and mutable criteria require named platform constants and lifecycle semantics beyond the initial retained Activity API"},
 }
 
 var xpcSwiftOmissions = []swiftMemberOmission{
