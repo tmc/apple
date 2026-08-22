@@ -285,6 +285,13 @@ func BuildWeightBlobV1(data []float32) ([]byte, error) {
 
 // GenSDPA generates a MIL text for scaled dot-product attention.
 // Inputs: Q, K, V of shape [1, nHeads, seqLen, headDim]. Scale is 1/sqrt(headDim).
+//
+// The scale is applied by multiplying it into the query rather than by
+// passing it to the operator. The ios18 scaled_dot_product_attention
+// takes query, key, value and an optional attention mask; a scale
+// argument is not part of its signature and the ANE compiler rejects the
+// whole program when one is supplied. Pre-scaling the query is
+// equivalent, since softmax(s*QK^T) = softmax((s*Q)K^T).
 func GenSDPA(headDim, nHeads, seqLen int) string {
 	scale := 1.0 / math.Sqrt(float64(headDim))
 	return fmt.Sprintf(`program(1.3)
@@ -292,7 +299,8 @@ func GenSDPA(headDim, nHeads, seqLen int) string {
 {
     func main<ios18>(tensor<fp16, [1, %d, %d, %d]> Q, tensor<fp16, [1, %d, %d, %d]> K, tensor<fp16, [1, %d, %d, %d]> V) {
         fp16 c_scale = const()[name = string("c_scale"), val = fp16(%e)];
-        tensor<fp16, [1, %d, %d, %d]> y = scaled_dot_product_attention(query = Q, key = K, value = V, scale = c_scale)[name = string("sdpa")];
+        tensor<fp16, [1, %d, %d, %d]> Qs = mul(x = Q, y = c_scale)[name = string("qscale")];
+        tensor<fp16, [1, %d, %d, %d]> y = scaled_dot_product_attention(query = Qs, key = K, value = V)[name = string("sdpa")];
     } -> (y);
 }
 `, buildInfo,
@@ -300,6 +308,7 @@ func GenSDPA(headDim, nHeads, seqLen int) string {
 		nHeads, seqLen, headDim, // K shape
 		nHeads, seqLen, headDim, // V shape
 		scale,                   // scale value
+		nHeads, seqLen, headDim, // scaled query shape
 		nHeads, seqLen, headDim, // output shape
 	)
 }
@@ -310,28 +319,34 @@ func GenReadState(name string, shape [4]int) string {
 	return fmt.Sprintf(`program(1.3)
 %s
 {
-    func main<ios18>() {
-        tensor<fp16, [%d, %d, %d, %d]> y = read_state(name = string("%s"))[name = string("read_%s")];
+    func main<ios18>(state<tensor<fp16, [%d, %d, %d, %d]>> %s) {
+        tensor<fp16, [%d, %d, %d, %d]> y = read_state(input = %s)[name = string("read_%s")];
     } -> (y);
 }
 `, buildInfo,
-		shape[0], shape[1], shape[2], shape[3],
+		shape[0], shape[1], shape[2], shape[3], name, // state parameter
+		shape[0], shape[1], shape[2], shape[3], // output shape
 		name, name,
 	)
 }
 
 // GenUpdateState generates a MIL text for updating a named state buffer.
-// This emits the coreml_update_state op for iOS 18+ stateful inference.
+// coreml_update_state is a coreml-dialect op that the CoreML backend decomposes
+// into write_state followed by read_state, so a serialized program must already
+// carry the decomposed form.
 func GenUpdateState(name string, shape [4]int) string {
 	return fmt.Sprintf(`program(1.3)
 %s
 {
-    func main<ios18>(tensor<fp16, [%d, %d, %d, %d]> value) {
-        tensor<fp16, [%d, %d, %d, %d]> y = coreml_update_state(state = string("%s"), value = value)[name = string("update_%s")];
+    func main<ios18>(state<tensor<fp16, [%d, %d, %d, %d]>> %s, tensor<fp16, [%d, %d, %d, %d]> value) {
+        write_state(input = %s, data = value)[name = string("update_%s_write_state")];
+        tensor<fp16, [%d, %d, %d, %d]> y = read_state(input = %s)[name = string("update_%s")];
     } -> (y);
 }
 `, buildInfo,
+		shape[0], shape[1], shape[2], shape[3], name, // state parameter
 		shape[0], shape[1], shape[2], shape[3], // input shape
+		name, name, // write_state
 		shape[0], shape[1], shape[2], shape[3], // output shape
 		name, name,
 	)

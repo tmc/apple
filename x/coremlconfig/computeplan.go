@@ -41,8 +41,16 @@ type OperationPlan struct {
 	Name   string        // operator name (e.g. "conv", "linear", "softmax")
 	Device ComputeDevice // preferred compute device
 	Cost   float64       // estimated workload fraction [0.0, 1.0]
-	Path   []string      // hierarchical path components from MLModelStructurePath
-	MilID  int64         // MIL operation ID for source mapping
+
+	// Supported lists every device that can execute this operation.
+	// It is usually wider than Device: CoreML routinely reports an
+	// operation as supported on the Neural Engine while preferring the
+	// CPU for it. A zero [Plan.ANEFraction] therefore means "CoreML did
+	// not choose the Neural Engine", not "the Neural Engine cannot run
+	// this"; only Supported answers the latter.
+	Supported []ComputeDevice
+	Path      []string // hierarchical path components from MLModelStructurePath
+	MilID     int64    // MIL operation ID for source mapping
 }
 
 // SupportState classifies a CoreML validation/support message.
@@ -58,13 +66,88 @@ type SupportStatePattern struct {
 type Plan struct {
 	raw        coreml.MLComputePlan
 	operations []OperationPlan
+	units      coreml.MLComputeUnits
+	unreadable string
+}
+
+// Analyzable reports whether the plan's operations could be read.
+//
+// CoreML exposes per-operation devices only for models in the mlprogram
+// form; for any other structure, such as a NeuralNetwork model, the
+// operations cannot be read at all. When Analyzable is false,
+// [Plan.Operations] is empty and every cost fraction is zero, which is
+// indistinguishable from a model that genuinely places no work on a
+// device. Check it before reading a zero fraction as a measurement.
+func (p *Plan) Analyzable() bool { return p.unreadable == "" }
+
+// Unreadable returns why the plan's operations could not be read, or the
+// empty string when they were read.
+func (p *Plan) Unreadable() string { return p.unreadable }
+
+// ComputeUnits selects which compute units a plan load targets.
+//
+// The zero value is [ComputeUnitsDefault], which lets CoreML use every
+// available unit. It is deliberately distinct from [ComputeUnitsCPUOnly]:
+// coreml.MLComputeUnitsCPUOnly is itself zero, so a field of that type
+// cannot distinguish an explicit CPU-only request from an unset field.
+type ComputeUnits int
+
+const (
+	// ComputeUnitsDefault leaves the choice to CoreML, which uses every
+	// available unit including the Neural Engine.
+	ComputeUnitsDefault ComputeUnits = iota
+	// ComputeUnitsCPUOnly limits the model to the CPU.
+	ComputeUnitsCPUOnly
+	// ComputeUnitsCPUAndGPU allows the CPU and GPU, but not the Neural Engine.
+	ComputeUnitsCPUAndGPU
+	// ComputeUnitsCPUAndNeuralEngine allows the CPU and Neural Engine, but not the GPU.
+	ComputeUnitsCPUAndNeuralEngine
+	// ComputeUnitsAll allows every available unit, including the Neural Engine.
+	ComputeUnitsAll
+)
+
+func (u ComputeUnits) String() string {
+	switch u {
+	case ComputeUnitsDefault:
+		return "default"
+	case ComputeUnitsCPUOnly:
+		return "CPUOnly"
+	case ComputeUnitsCPUAndGPU:
+		return "CPUAndGPU"
+	case ComputeUnitsCPUAndNeuralEngine:
+		return "CPUAndNeuralEngine"
+	case ComputeUnitsAll:
+		return "All"
+	default:
+		return fmt.Sprintf("ComputeUnits(%d)", int(u))
+	}
+}
+
+// resolve maps u to the CoreML value actually applied to a configuration.
+// ComputeUnitsDefault resolves to MLComputeUnitsAll; every other value maps
+// to its exact CoreML counterpart. An unrecognized value is an error rather
+// than a silent substitution.
+func (u ComputeUnits) resolve() (coreml.MLComputeUnits, error) {
+	switch u {
+	case ComputeUnitsDefault, ComputeUnitsAll:
+		return coreml.MLComputeUnitsAll, nil
+	case ComputeUnitsCPUOnly:
+		return coreml.MLComputeUnitsCPUOnly, nil
+	case ComputeUnitsCPUAndGPU:
+		return coreml.MLComputeUnitsCPUAndGPU, nil
+	case ComputeUnitsCPUAndNeuralEngine:
+		return coreml.MLComputeUnitsCPUAndNeuralEngine, nil
+	default:
+		return 0, fmt.Errorf("coremlconfig: unknown compute units %d", int(u))
+	}
 }
 
 // PlanOptions configures compute plan loading.
 type PlanOptions struct {
 	// ComputeUnits selects which compute units to target.
-	// Zero value means all units (CPU + GPU + ANE).
-	ComputeUnits coreml.MLComputeUnits
+	// The zero value is [ComputeUnitsDefault]; to restrict a plan to the
+	// CPU, set [ComputeUnitsCPUOnly] explicitly.
+	ComputeUnits ComputeUnits
 
 	// Timeout for the async plan load. Zero means 30 seconds.
 	Timeout time.Duration
@@ -78,12 +161,13 @@ func LoadPlan(path string, opts PlanOptions) (*Plan, error) {
 		return nil, fmt.Errorf("coremlconfig: invalid path %s", path)
 	}
 
-	cfg := coreml.NewMLModelConfiguration()
-	if opts.ComputeUnits != 0 {
-		cfg.SetComputeUnits(opts.ComputeUnits)
-	} else {
-		cfg.SetComputeUnits(coreml.MLComputeUnitsAll)
+	units, err := opts.ComputeUnits.resolve()
+	if err != nil {
+		return nil, err
 	}
+
+	cfg := coreml.NewMLModelConfiguration()
+	cfg.SetComputeUnits(units)
 
 	timeout := opts.Timeout
 	if timeout == 0 {
@@ -100,9 +184,20 @@ func LoadPlan(path string, opts PlanOptions) (*Plan, error) {
 		return nil, fmt.Errorf("coremlconfig: nil plan for %s", path)
 	}
 
-	p := &Plan{raw: *raw}
-	p.operations = p.analyzeOperations()
+	p := &Plan{raw: *raw, units: units}
+	p.operations, p.unreadable = p.analyzeOperations()
 	return p, nil
+}
+
+// RequestedComputeUnits reports the CoreML compute-unit selection that was
+// applied to this plan's configuration.
+//
+// It records what was requested, not where CoreML ultimately placed each
+// operation: compute units are a constraint on the planner, and the per
+// operation devices reported by [Plan.Operations] are CoreML's own plan
+// values. Neither is a measurement of execution.
+func (p *Plan) RequestedComputeUnits() coreml.MLComputeUnits {
+	return p.units
 }
 
 // Operations returns the analyzed operation plans.
@@ -166,20 +261,24 @@ func (p *Plan) costFraction(d ComputeDevice) float64 {
 
 // analyzeOperations walks the ML Program structure and queries device usage
 // and cost for each operation.
-func (p *Plan) analyzeOperations() []OperationPlan {
+// analyzeOperations reads the per-operation plan. The second result
+// explains why nothing could be read, and is empty when the walk
+// succeeded; an empty operation slice with an empty reason means the
+// model really has no operations.
+func (p *Plan) analyzeOperations() ([]OperationPlan, string) {
 	structure := p.raw.ModelStructure()
 	if structure == nil || structure.GetID() == 0 {
-		return nil
+		return nil, "plan exposes no model structure"
 	}
 
 	program := structure.Program()
 	if program == nil || program.GetID() == 0 {
-		return nil
+		return nil, "model structure is not an ML program; per-operation devices are unavailable"
 	}
 
 	funcsDict := program.Functions()
 	if funcsDict == nil || funcsDict.GetID() == 0 {
-		return nil
+		return nil, "ML program exposes no functions"
 	}
 
 	var ops []OperationPlan
@@ -194,16 +293,17 @@ func (p *Plan) analyzeOperations() []OperationPlan {
 		ops = p.walkBlock(coreml.MLModelStructureProgramBlockFromID(block.GetID()), ops)
 	}
 
-	return ops
+	return ops, ""
 }
 
 // walkBlock recursively collects operations from a program block.
 func (p *Plan) walkBlock(block coreml.MLModelStructureProgramBlock, ops []OperationPlan) []OperationPlan {
 	for _, op := range block.Operations() {
 		plan := OperationPlan{
-			Name:   op.OperatorName(),
-			Device: p.deviceForOp(op),
-			Cost:   p.costForOp(op),
+			Name:      op.OperatorName(),
+			Device:    p.deviceForOp(op),
+			Cost:      p.costForOp(op),
+			Supported: p.supportedForOp(op),
 		}
 
 		// Read private fields via private/coreml bindings.
@@ -245,6 +345,35 @@ func (p *Plan) deviceForOp(op coreml.MLModelStructureProgramOperation) ComputeDe
 		return DeviceUnknown
 	}
 	return classifyDevice(dev.GetID())
+}
+
+// supportedForOp lists the devices that can execute op.
+func (p *Plan) supportedForOp(op coreml.MLModelStructureProgramOperation) []ComputeDevice {
+	usage := p.raw.ComputeDeviceUsageForMLProgramOperation(op)
+	if usage == nil || usage.GetID() == 0 {
+		return nil
+	}
+	var out []ComputeDevice
+	for _, d := range usage.SupportedComputeDevices() {
+		if dev := classifyDevice(d.GetID()); dev != DeviceUnknown {
+			out = append(out, dev)
+		}
+	}
+	return out
+}
+
+// SupportsANE reports whether any operation lists the Neural Engine among
+// its supported devices. It answers a different question from
+// [Plan.ANEFraction], which reports only what CoreML preferred.
+func (p *Plan) SupportsANE() bool {
+	for _, op := range p.operations {
+		for _, d := range op.Supported {
+			if d == DeviceNeuralEngine {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func (p *Plan) costForOp(op coreml.MLModelStructureProgramOperation) float64 {

@@ -104,6 +104,13 @@ func TestCompileGenerators(t *testing.T) {
 			skip: true,
 		},
 		{
+			name: "GenSDPA",
+			opts: ane.CompileOptions{
+				ModelType: ane.ModelTypeMIL,
+				MILText:   []byte(mil.GenSDPA(64, 4, 32)),
+			},
+		},
+		{
 			name: "GenGQAExpand",
 			opts: ane.CompileOptions{
 				ModelType: ane.ModelTypeMIL,
@@ -111,23 +118,25 @@ func TestCompileGenerators(t *testing.T) {
 			},
 		},
 		{
-			// ANE compiler rejects small dims for fused FFN kernels.
 			name: "GenFFNForwardReLU2",
 			opts: func() ane.CompileOptions {
-				w := mil.NewBlobWriter()
-				w.AddFloat16(make([]float32, 8*4))
-				w.AddFloat16(make([]float32, 4*8))
-				blob, err := w.Build()
+				w1Blob, err := mil.BuildWeightBlob(onesWeights(1024*256), 1024, 256)
+				if err != nil {
+					t.Fatal(err)
+				}
+				w2Blob, err := mil.BuildWeightBlob(onesWeights(256*1024), 256, 1024)
 				if err != nil {
 					t.Fatal(err)
 				}
 				return ane.CompileOptions{
-					ModelType:  ane.ModelTypeMIL,
-					MILText:    []byte(mil.GenFFNForwardReLU2(4, 8, 1)),
-					WeightBlob: blob,
+					ModelType: ane.ModelTypeMIL,
+					MILText:   []byte(mil.GenFFNForwardReLU2(256, 1024, 32)),
+					WeightFiles: []ane.WeightFile{
+						{Path: "@model_path/weights/w1.bin", Blob: w1Blob},
+						{Path: "@model_path/weights/w2.bin", Blob: w2Blob},
+					},
 				}
 			}(),
-			skip: true,
 		},
 		{
 			// ANE compiler rejects small dims for fused FFN kernels.

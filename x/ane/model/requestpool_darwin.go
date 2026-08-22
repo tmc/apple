@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/private/appleneuralengine"
 	xane "github.com/tmc/apple/x/ane"
 )
@@ -155,15 +156,15 @@ func requestFromExistingSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (a
 	inputArr := foundation.NewNSMutableArray()
 	inputIdxArr := foundation.NewNSMutableArray()
 	for i, ref := range inputs {
-		inputArr.AddObject(ioClass.ObjectWithIOSurface(ref))
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		inputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
 	}
 
 	outputArr := foundation.NewNSMutableArray()
 	outputIdxArr := foundation.NewNSMutableArray()
 	for i, ref := range outputs {
-		outputArr.AddObject(ioClass.ObjectWithIOSurface(ref))
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		outputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)

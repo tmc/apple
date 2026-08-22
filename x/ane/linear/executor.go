@@ -2,11 +2,11 @@ package linear
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
 	"fmt"
-	"hash/fnv"
 	"math"
-	"strconv"
-	"strings"
 	"sync"
 
 	"github.com/tmc/apple/x/ane/mil"
@@ -268,26 +268,22 @@ func fromChannelFirst(dst, src []float32, s, d int) {
 }
 
 func kernelKey(w []float32, batch, inDim, outDim int) string {
-	h := fnv.New64a()
+	h := sha256.New()
+	// Version prefix: "v1:"
+	_, _ = h.Write([]byte("v1:"))
+	var header [24]byte
+	binary.LittleEndian.PutUint64(header[0:8], uint64(batch))
+	binary.LittleEndian.PutUint64(header[8:16], uint64(inDim))
+	binary.LittleEndian.PutUint64(header[16:24], uint64(outDim))
+	_, _ = h.Write(header[:])
+
+	var b [4]byte
 	for _, f := range w {
 		u := math.Float32bits(f)
-		var b [4]byte
-		b[0] = byte(u)
-		b[1] = byte(u >> 8)
-		b[2] = byte(u >> 16)
-		b[3] = byte(u >> 24)
+		binary.LittleEndian.PutUint32(b[:], u)
 		_, _ = h.Write(b[:])
 	}
-	var b strings.Builder
-	b.Grow(64)
-	b.WriteString(strconv.Itoa(batch))
-	b.WriteByte(':')
-	b.WriteString(strconv.Itoa(inDim))
-	b.WriteByte(':')
-	b.WriteString(strconv.Itoa(outDim))
-	b.WriteByte(':')
-	b.WriteString(strconv.FormatUint(h.Sum64(), 16))
-	return b.String()
+	return hex.EncodeToString(h.Sum(nil))
 }
 
 func ctxErr(ctx context.Context) error {

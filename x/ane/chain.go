@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
@@ -49,22 +50,22 @@ func (m *Model) PrepareChain(links []ChainLink) error {
 		inputArr := foundation.NewNSMutableArray()
 		for _, surf := range m.inputs {
 			ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
-			inputArr.AddObject(ioClass.ObjectWithIOSurface(surf))
+			inputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(surf)))
 		}
 
 		outputArr := foundation.NewNSMutableArray()
 		for _, surf := range m.outputs {
 			ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
-			outputArr.AddObject(ioClass.ObjectWithIOSurface(surf))
+			outputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(surf)))
 		}
 
 		lbInputIdx := foundation.NewNSMutableArray()
-		lbInputIdx.AddObject(numClass.NumberWithInt(link.LoopbackInputIdx))
+		lbInputIdx.AddObject(numClass.NumberWithInt(int32(link.LoopbackInputIdx)))
 
 		lbOutputIdx := foundation.NewNSMutableArray()
-		lbOutputIdx.AddObject(numClass.NumberWithInt(link.LoopbackOutputIdx))
+		lbOutputIdx.AddObject(numClass.NumberWithInt(int32(link.LoopbackOutputIdx)))
 
-		procIdx := numClass.NumberWithInt(link.ProcedureIndex)
+		procIdx := numClass.NumberWithInt(int32(link.ProcedureIndex))
 		txnHandle := numClass.NumberWithUnsignedLongLong(1)
 		delay := numClass.NumberWithUnsignedLongLong(link.EnqueueDelay)
 		memPoolId := numClass.NumberWithInt(0)

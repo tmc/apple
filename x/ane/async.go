@@ -2,8 +2,10 @@
 
 package ane
 
-// EvalAsync starts an asynchronous evaluation and returns a channel
-// that receives the result when evaluation completes.
+// EvalAsync launches a Go goroutine wrapper around synchronous Eval and
+// returns a channel that receives the error result when evaluation completes.
+// Note: This is a Go-side background goroutine wrapper, not an asynchronous
+// hardware dispatch or polling API.
 func (m *Model) EvalAsync() <-chan error {
 	ch := make(chan error, 1)
 	go func() {
@@ -12,8 +14,8 @@ func (m *Model) EvalAsync() <-chan error {
 	return ch
 }
 
-// EvalAsyncWithCallback starts an async evaluation and calls fn on completion.
-// fn is called from an arbitrary goroutine.
+// EvalAsyncWithCallback launches a Go goroutine wrapper around synchronous Eval
+// and calls fn on completion from an arbitrary goroutine.
 func (m *Model) EvalAsyncWithCallback(fn func(error)) {
 	go func() {
 		fn(m.Eval())

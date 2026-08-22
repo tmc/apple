@@ -13,8 +13,14 @@
 //			op.Name, op.Device, op.Cost)
 //	}
 //
-// PlanOptions.ComputeUnits controls the target compute unit selection
-// (default: all available units including ANE).
+// PlanOptions.ComputeUnits controls the target compute unit selection. Its
+// zero value is [ComputeUnitsDefault], which allows every available unit
+// including the ANE; restrict a plan with an explicit value such as
+// [ComputeUnitsCPUOnly].
+//
+// The devices reported by a plan are CoreML's own planning values, not a
+// measurement of execution. A compute-unit selection constrains the planner;
+// it does not establish where an operation ran.
 //
 // # Model Configuration
 //

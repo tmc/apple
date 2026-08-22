@@ -50,10 +50,14 @@ func (m *Model) InputSurface(i int) coregraphics.IOSurfaceRef { return m.inputs[
 func (m *Model) OutputSurface(i int) coregraphics.IOSurfaceRef { return m.outputs[i] }
 
 // InputSurfaces returns all input IOSurfaceRefs.
-func (m *Model) InputSurfaces() []coregraphics.IOSurfaceRef { return m.inputs }
+func (m *Model) InputSurfaces() []coregraphics.IOSurfaceRef {
+	return append([]coregraphics.IOSurfaceRef(nil), m.inputs...)
+}
 
 // OutputSurfaces returns all output IOSurfaceRefs.
-func (m *Model) OutputSurfaces() []coregraphics.IOSurfaceRef { return m.outputs }
+func (m *Model) OutputSurfaces() []coregraphics.IOSurfaceRef {
+	return append([]coregraphics.IOSurfaceRef(nil), m.outputs...)
+}
 
 // InputAllocSize returns the IOSurface allocation size in bytes for the i-th input.
 // This includes stride padding and is larger than the logical data size.

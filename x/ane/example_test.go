@@ -48,6 +48,9 @@ func Example() {
 		log.Fatal(err)
 	}
 	fmt.Println(output)
+
+	// Output:
+	// [1 2 3 4]
 }
 
 // Open and close a Client, checking device information.
@@ -59,7 +62,12 @@ func ExampleClient() {
 	defer c.Close()
 
 	info := c.Info()
-	fmt.Printf("HasANE=%v Cores=%d Arch=%s\n", info.HasANE, info.NumCores, info.Architecture)
+	fmt.Println("has ANE:", info.HasANE)
+	fmt.Println("cores > 0:", info.NumCores > 0)
+
+	// Output:
+	// has ANE: true
+	// cores > 0: true
 }
 
 // Write float32 input data and read float32 output data.
@@ -100,4 +108,7 @@ func ExampleModel_WriteInputF32() {
 		log.Fatal(err)
 	}
 	fmt.Println(output)
+
+	// Output:
+	// [3.140625 2.7207031]
 }

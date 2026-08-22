@@ -76,9 +76,18 @@
 // For hardware performance counters, diagnostics, and runtime
 // snapshots, see the [github.com/tmc/apple/x/ane/telemetry] package.
 //
-// Hardware execution counters (HwExecutionTime, PerfCounters) require
-// [CompileOptions].PerfStatsMask to be non-zero. For in-memory MIL
-// models, hardware counters may be unavailable; the telemetry package
-// returns wall-clock time as a fallback. Package-backed models provide
-// full hardware counter access when running on non-VM hosts.
+// Hardware per-task counters (HwExecutionTime, PerfStats,
+// PerfStatsArray) are not available to third-party clients. aned clears
+// the stats mask for clients it classifies as ThirdPartyAppUsingANE, and
+// a forced non-zero mask makes program creation require a
+// stats-descriptor section that only an internal profiling compile emits
+// (mechanism per Bryngelson, arXiv 2606.22283, §33.3; not independently
+// verified here). This project measured those counters reading zero on
+// 2026-08-15 across three evals at masks 0xF and ^0 on package-backed
+// models. [CompileOptions].PerfStatsMask is deprecated accordingly.
+//
+// What does work is wall-clock timing — the telemetry package reports it,
+// and [Client.CompileWithStats] reports compile and load phases — plus
+// the unprivileged IOReport energy rail
+// ([github.com/tmc/apple/x/powersample]).
 package ane

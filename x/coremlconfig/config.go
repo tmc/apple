@@ -38,6 +38,17 @@ func (c *Config) ComputeUnits() coreml.MLComputeUnits {
 	return c.raw.ComputeUnits()
 }
 
+// SetFunctionName selects which entry point of a multi-function model to load.
+// An empty name loads the model's default function.
+func (c *Config) SetFunctionName(name string) {
+	c.raw.SetFunctionName(name)
+}
+
+// FunctionName returns the selected entry point, empty for the default.
+func (c *Config) FunctionName() string {
+	return c.raw.FunctionName()
+}
+
 // DeviceMask bits for E5rtComputeDeviceTypeMask.
 const (
 	DeviceMaskCPU          uint64 = 1 << 0

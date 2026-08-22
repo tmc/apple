@@ -4,12 +4,64 @@ package telemetry_test
 
 import (
 	"errors"
+	"sync"
 	"testing"
 
 	"github.com/tmc/apple/x/ane"
 	"github.com/tmc/apple/x/ane/mil"
 	"github.com/tmc/apple/x/ane/telemetry"
 )
+
+var (
+	sharedClient *ane.Client
+	sharedModel  *ane.Model
+	sharedOnce   sync.Once
+	sharedErr    error
+)
+
+func getSharedModel(t *testing.T) (*ane.Client, *ane.Model) {
+	t.Helper()
+	sharedOnce.Do(func() {
+		c, err := ane.Open()
+		if errors.Is(err, ane.ErrNoANE) {
+			sharedErr = err
+			return
+		}
+		if err != nil {
+			sharedErr = err
+			return
+		}
+		sharedClient = c
+
+		const channels = 1
+		milText := mil.GenIdentity(channels, 1)
+		blob, err := mil.BuildIdentityWeightBlob(channels)
+		if err != nil {
+			sharedErr = err
+			return
+		}
+
+		m, err := c.Compile(ane.CompileOptions{
+			ModelType:     ane.ModelTypeMIL,
+			MILText:       []byte(milText),
+			WeightBlob:    blob,
+			PerfStatsMask: 0xF,
+		})
+		if err != nil {
+			sharedErr = err
+			return
+		}
+		sharedModel = m
+	})
+
+	if errors.Is(sharedErr, ane.ErrNoANE) {
+		t.Skip("no ANE available")
+	}
+	if sharedErr != nil {
+		t.Fatal(sharedErr)
+	}
+	return sharedClient, sharedModel
+}
 
 func openOrSkip(t *testing.T) *ane.Client {
 	t.Helper()
@@ -24,27 +76,9 @@ func openOrSkip(t *testing.T) *ane.Client {
 }
 
 func TestEvalWithStats(t *testing.T) {
-	c := openOrSkip(t)
-	defer c.Close()
+	_, m := getSharedModel(t)
 
 	const channels = 1
-	milText := mil.GenIdentity(channels, 1)
-	blob, err := mil.BuildIdentityWeightBlob(channels)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m, err := c.Compile(ane.CompileOptions{
-		ModelType:     ane.ModelTypeMIL,
-		MILText:       []byte(milText),
-		WeightBlob:    blob,
-		PerfStatsMask: 0xF,
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer m.Close()
-
 	input := []float32{7}
 	if err := m.WriteInputF32(0, input); err != nil {
 		t.Fatal(err)
@@ -71,25 +105,7 @@ func TestEvalWithStats(t *testing.T) {
 }
 
 func TestDiagnosticsExtended(t *testing.T) {
-	c := openOrSkip(t)
-	defer c.Close()
-
-	const channels = 1
-	milText := mil.GenIdentity(channels, 1)
-	blob, err := mil.BuildIdentityWeightBlob(channels)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m, err := c.Compile(ane.CompileOptions{
-		ModelType:  ane.ModelTypeMIL,
-		MILText:    []byte(milText),
-		WeightBlob: blob,
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer m.Close()
+	_, m := getSharedModel(t)
 
 	d := telemetry.ProbeDiagnostics(m)
 	t.Logf("ProgramClass=%s (known=%v)", d.ProgramClass, d.ProgramClassKnown)
@@ -145,26 +161,7 @@ func TestSnapshot(t *testing.T) {
 }
 
 func TestTelemetry(t *testing.T) {
-	c := openOrSkip(t)
-	defer c.Close()
-
-	const channels = 1
-	milText := mil.GenIdentity(channels, 1)
-	blob, err := mil.BuildIdentityWeightBlob(channels)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m, err := c.Compile(ane.CompileOptions{
-		ModelType:     ane.ModelTypeMIL,
-		MILText:       []byte(milText),
-		WeightBlob:    blob,
-		PerfStatsMask: 0xF,
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer m.Close()
+	_, m := getSharedModel(t)
 
 	if err := m.WriteInputF32(0, []float32{7}); err != nil {
 		t.Fatal(err)

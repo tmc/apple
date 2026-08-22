@@ -180,3 +180,59 @@ func TestFP16RoundTrip(t *testing.T) {
 		}
 	}
 }
+
+// TestGenSDPANoScaleArg guards the invariant that the emitted
+// scaled_dot_product_attention call carries no scale argument. The ios18
+// operator has no such parameter and the ANE compiler rejects the entire
+// program when one is present, so a reintroduction breaks every caller.
+// This is a text check so that it still runs where no ANE is present;
+// TestCompileGenerators/GenSDPA proves the program actually compiles.
+func TestGenSDPANoScaleArg(t *testing.T) {
+	text := GenSDPA(64, 4, 32)
+	// Slice the argument list only: the operator's own name contains
+	// "scale" as a substring, so matching the whole call always fires.
+	call := text[strings.Index(text, "scaled_dot_product_attention("):]
+	call = call[strings.Index(call, "(")+1 : strings.Index(call, ")")]
+	if strings.Contains(call, "scale") {
+		t.Errorf("scaled_dot_product_attention call has a scale argument: %s", call)
+	}
+	if !strings.Contains(text, "mul(x = Q, y = c_scale)") {
+		t.Error("scale is no longer folded into the query")
+	}
+}
+
+// TestGenStateOps checks the state ops against the coremltools op definitions:
+// read_state takes a single required "input" bound to a declared state var
+// (iOS18/states.py), and the coreml_update_state dialect op must appear in a
+// serialized program only in its decomposed write_state/read_state form
+// (backend/mil/load.py translate_coreml_update_state_op).
+func TestGenStateOps(t *testing.T) {
+	shape := [4]int{1, 1, 4, 64}
+
+	read := GenReadState("kv", shape)
+	for _, want := range []string{
+		"state<tensor<fp16, [1, 1, 4, 64]>> kv",
+		"read_state(input = kv)",
+	} {
+		if !strings.Contains(read, want) {
+			t.Errorf("GenReadState missing %q\n%s", want, read)
+		}
+	}
+	if strings.Contains(read, "read_state(name") {
+		t.Errorf("GenReadState binds read_state's name attribute as an input\n%s", read)
+	}
+
+	update := GenUpdateState("kv", shape)
+	for _, want := range []string{
+		"state<tensor<fp16, [1, 1, 4, 64]>> kv",
+		"write_state(input = kv, data = value)",
+		"read_state(input = kv)",
+	} {
+		if !strings.Contains(update, want) {
+			t.Errorf("GenUpdateState missing %q\n%s", want, update)
+		}
+	}
+	if strings.Contains(update, "coreml_update_state") {
+		t.Errorf("GenUpdateState emits an undecomposed dialect op\n%s", update)
+	}
+}

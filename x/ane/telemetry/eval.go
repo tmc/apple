@@ -93,7 +93,7 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 		dict := foundation.NSDictionaryFromID(countersObj.GetID())
 		keys := dict.AllKeys()
 		for _, key := range keys {
-			idx := foundation.NSNumberFromID(key.GetID()).IntValue()
+			idx := int(foundation.NSNumberFromID(key.GetID()).IntValue())
 			val := foundation.NSNumberFromID(dict.ObjectForKey(key).GetID()).UnsignedLongLongValue()
 			found := false
 			for j := range stats.PerfCounters {

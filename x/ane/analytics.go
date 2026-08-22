@@ -67,7 +67,7 @@ func (a *CompilerAnalytics) Groups() []AnalyticsGroup {
 			continue
 		}
 		ag := AnalyticsGroup{
-			GroupID: grp.GroupID().IntValue(),
+			GroupID: int(grp.GroupID().IntValue()),
 		}
 		layerArr := grp.LayerInfo()
 		if layerArr != nil {
@@ -101,5 +101,5 @@ func (a *CompilerAnalytics) Serialize() uintptr {
 
 // BufferSize returns the size of the analytics buffer in bytes.
 func (a *CompilerAnalytics) BufferSize() int {
-	return a.raw.BufferSizeInBytes().IntValue()
+	return int(a.raw.BufferSizeInBytes().IntValue())
 }

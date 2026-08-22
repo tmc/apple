@@ -5,12 +5,15 @@ package ane
 import (
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
@@ -77,6 +80,9 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 	}
 	model := appleneuralengine.ANEInMemoryModelFromID(modelObj.GetID())
 
+	// A non-zero mask did not yield counters when this project measured it,
+	// and per the source paper may cause the load to be rejected; neither is
+	// verified here. See CompileOptions.PerfStatsMask.
 	if opts.PerfStatsMask != 0 {
 		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
@@ -178,15 +184,49 @@ func compileWeightFiles(opts CompileOptions) ([]WeightFile, error) {
 
 	seen := make(map[string]struct{}, len(files))
 	for i := range files {
-		if files[i].Path == "" {
-			return nil, fmt.Errorf("weight file path is empty")
+		wf := &files[i]
+		if wf.Blob == nil || len(wf.Blob) == 0 {
+			return nil, fmt.Errorf("weight file %q has empty blob", wf.Path)
 		}
-		if _, ok := seen[files[i].Path]; ok {
-			return nil, fmt.Errorf("duplicate weight path %q", files[i].Path)
+		rel, err := cleanWeightPath(wf.Path)
+		if err != nil {
+			return nil, fmt.Errorf("weight file %q: %w", wf.Path, err)
 		}
-		seen[files[i].Path] = struct{}{}
+		canonical := "@model_path/" + rel
+		if _, ok := seen[canonical]; ok {
+			return nil, fmt.Errorf("duplicate weight path %q", wf.Path)
+		}
+		seen[canonical] = struct{}{}
 	}
 	return files, nil
+}
+
+func cleanWeightPath(p string) (string, error) {
+	if p == "" {
+		return "", fmt.Errorf("empty path")
+	}
+	const prefix = "@model_path/"
+	if !strings.HasPrefix(p, prefix) {
+		return "", fmt.Errorf("must start with %q", prefix)
+	}
+	rel := p[len(prefix):]
+	if rel == "" {
+		return "", fmt.Errorf("path points to root")
+	}
+	if strings.Contains(rel, "\\") {
+		return "", fmt.Errorf("path contains backslashes")
+	}
+	cleaned := path.Clean(rel)
+	if cleaned == "." || cleaned == ".." || strings.HasPrefix(cleaned, "../") {
+		return "", fmt.Errorf("path escapes root")
+	}
+	parts := strings.Split(cleaned, "/")
+	for _, part := range parts {
+		if part == "" || part == "." || part == ".." {
+			return "", fmt.Errorf("invalid path segment %q", part)
+		}
+	}
+	return cleaned, nil
 }
 
 func compilePackage(c *Client, opts CompileOptions) (*Model, error) {
@@ -432,7 +472,7 @@ func dictGetInt(dict objectivec.IObject, key string) int {
 	if id == 0 {
 		return 0
 	}
-	return foundation.NSNumberFromID(id).IntValue()
+	return int(foundation.NSNumberFromID(id).IntValue())
 }
 
 // dictGetString returns the string value for a string key in a dictionary, or "" if not found.
@@ -470,13 +510,13 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 			return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: err}
 		}
 		inputs[i] = ref
-		wrapped := ioClass.ObjectWithIOSurface(ref)
+		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref))
 		inputArr.AddObject(wrapped)
 		symbolIndex := i
 		if layout.SymbolIndex >= 0 {
 			symbolIndex = layout.SymbolIndex
 		}
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(symbolIndex))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndex)))
 	}
 
 	// Create output IOSurfaces.
@@ -489,13 +529,13 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 			return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: err}
 		}
 		outputs[i] = ref
-		wrapped := ioClass.ObjectWithIOSurface(ref)
+		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref))
 		outputArr.AddObject(wrapped)
 		symbolIndex := i
 		if layout.SymbolIndex >= 0 {
 			symbolIndex = layout.SymbolIndex
 		}
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(symbolIndex))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndex)))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
@@ -557,11 +597,15 @@ func prepopulateTempDir(model appleneuralengine.ANEInMemoryModel, milText []byte
 	}
 
 	for _, wf := range weightFiles {
-		relPath := wf.Path
-		if len(relPath) > 12 && relPath[:12] == "@model_path/" {
-			relPath = relPath[12:]
+		relPath, err := cleanWeightPath(wf.Path)
+		if err != nil {
+			return fmt.Errorf("invalid weight path %q: %w", wf.Path, err)
 		}
-		blobPath := filepath.Join(tmpDir, relPath)
+		blobPath := filepath.Join(tmpDir, filepath.FromSlash(relPath))
+		relToTmp, err := filepath.Rel(tmpDir, blobPath)
+		if err != nil || relToTmp == ".." || strings.HasPrefix(relToTmp, ".."+string(filepath.Separator)) {
+			return fmt.Errorf("weight path %q escapes temp directory %s", wf.Path, tmpDir)
+		}
 		blobDir := filepath.Dir(blobPath)
 		if err := os.MkdirAll(blobDir, 0o755); err != nil {
 			return fmt.Errorf("mkdir %s: %w", blobDir, err)

@@ -93,10 +93,24 @@ type CompileOptions struct {
 	// priority on shared hardware.
 	QoS uint32
 
-	// PerfStatsMask enables hardware performance counters during evaluation.
-	// Zero disables stats collection. When non-zero, telemetry.EvalWithStats
-	// returns counter names and timing data. Valid masks are 4 bits wide
-	// (0x1–0xF); higher values are silently converted to zero by the driver.
+	// PerfStatsMask requests hardware performance counters during
+	// evaluation. The mask is 4 bits wide (0x1–0xF). An inherited
+	// comment here held that wider values are converted to zero by the
+	// driver; that is unverified, and if true it would mean the ^0 arm
+	// of the measurement below exercised a zero mask and evidences
+	// nothing about a non-zero one. The 0xF arm is unaffected.
+	//
+	// Deprecated: this cannot work from an unentitled process. aned
+	// classifies such clients as ThirdPartyAppUsingANE and clears the
+	// stats mask for them, and forcing the mask non-zero only makes
+	// ANE_ProgramCreate reach initStatsBufferSection, which bails when
+	// the stats-descriptor section is absent — turning a successful load
+	// into a rejected one (mechanism per Bryngelson, arXiv 2606.22283,
+	// §33.3; not independently verified here). Consistent with that,
+	// this project measured HwExecutionTime, PerfStats and PerfStatsArray
+	// all reading zero on 2026-08-15 across three evals at masks 0xF and
+	// ^0 on package-backed models. Use wall-clock timing, or the IOReport
+	// energy rail via [github.com/tmc/apple/x/powersample], instead.
 	PerfStatsMask uint32
 }
 

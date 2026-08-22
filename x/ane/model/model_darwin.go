@@ -558,8 +558,8 @@ func (k *Kernel) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg 
 	if k == nil || k.closed() {
 		return fmt.Errorf("eval with signal event: kernel is closed")
 	}
-	if k.shared != nil {
-		return fmt.Errorf("eval with signal event: shared MIL kernels do not support shared events (requires package-backed model)")
+	if k.shared != nil || (k.k != nil && k.k.CompileModelType() != xane.ModelTypePackage) {
+		return fmt.Errorf("eval with signal event: %w", xane.ErrSharedEventRequiresPackage)
 	}
 	if k.k == nil {
 		return fmt.Errorf("eval with signal event: no underlying model")
@@ -571,8 +571,8 @@ func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort
 	if k == nil || k.closed() {
 		return fmt.Errorf("eval bidirectional: kernel is closed")
 	}
-	if k.shared != nil {
-		return fmt.Errorf("eval bidirectional: shared MIL kernels do not support shared events (requires package-backed model)")
+	if k.shared != nil || (k.k != nil && k.k.CompileModelType() != xane.ModelTypePackage) {
+		return fmt.Errorf("eval bidirectional: %w", xane.ErrSharedEventRequiresPackage)
 	}
 	if k.k == nil {
 		return fmt.Errorf("eval bidirectional: no underlying model")

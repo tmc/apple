@@ -8,16 +8,46 @@ import (
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
-// maxPoolDepth is the ANE hardware queue limit.
+// maxPoolDepth bounds the number of requests a pool may pre-allocate. It is a
+// limit on ring capacity, not on execution concurrency: it says nothing about
+// how many evaluations the driver or firmware will run at once.
+//
+// TODO(unverified): the value 127 is inherited from earlier code in this
+// package and has not been traced to a documented or measured driver limit.
 const maxPoolDepth = 127
 
-// RequestPool pre-allocates a ring of ANE requests for pipelined evaluation.
-// All requests share the same IOSurface mappings, enabling up to depth
-// requests in flight simultaneously.
+// RequestPool pre-allocates a fixed ring of ANERequest objects for a model, so
+// that a hot loop can reuse validated requests instead of building one per
+// evaluation. It saves the per-call cost of constructing the request object
+// graph (the NSArrays of ANEIOSurfaceObject wrappers and index NSNumbers) and
+// of mapping each new request's surfaces into the model.
+//
+// The pool does not provide concurrency. Every request in the pool references
+// the same IOSurfaces as the model (see NewRequestPool, which builds each slot
+// from the model's own input and output bindings), so two evaluations running
+// at the same time would read and write the same operand memory and clobber
+// each other. Callers must therefore keep evaluation serialized: acquire, eval,
+// and consume the outputs before the next Eval. Round-robin Acquire only
+// spreads reuse across slots; it does not make overlapping use safe.
+//
+// Whether concurrent submissions would serialize below us on the _ANEClient
+// path is not determined by this code: Eval makes a blocking evaluate call and
+// this package does not observe the driver's queueing. Bryngelson (arXiv
+// 2606.22283, section 2.4) reports, for an M1 reached through the e5rt/IOKit
+// route rather than _ANEClient, that the driver keeps at most one firmware
+// command in flight and that two concurrent submission threads serialized at
+// 1.04x. That is the paper's measurement on a different route, not ours.
+//
+// A related hazard for future work, from the same paper (section 6.4) and again
+// on the e5rt route: pipelining several operations within a single stream is
+// sound, but overlapping two or more streams is not, as the completion event of
+// the second and later streams never notifies and the waiter blocks. This
+// package does not use that stream API today.
 type RequestPool struct {
 	model    *Model
 	requests []appleneuralengine.ANERequest
@@ -26,8 +56,11 @@ type RequestPool struct {
 	next     atomic.Uint64
 }
 
-// NewRequestPool creates a pool of depth pre-validated requests for the model.
-// All requests share the model's IOSurfaces. Maximum depth is 127.
+// NewRequestPool creates a pool of depth requests for the model. Slot 0 reuses
+// the model's existing request; the remaining slots are new ANERequest objects
+// built from the model's input and output bindings, so all slots reference the
+// same IOSurfaces and must not be evaluated concurrently. depth must be between
+// 1 and maxPoolDepth.
 func NewRequestPool(m *Model, depth int) (*RequestPool, error) {
 	if depth < 1 {
 		return nil, fmt.Errorf("ane: pool depth must be >= 1")
@@ -101,9 +134,9 @@ func createRequestFromBindingsWithSharedEvents(inputs, outputs []SurfaceBinding,
 		if binding.SymbolIndex < 0 {
 			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("input[%d] has invalid symbol index %d", i, binding.SymbolIndex)}
 		}
-		wrapped := ioClass.ObjectWithIOSurface(binding.Surface)
+		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(binding.Surface))
 		inputArr.AddObject(wrapped)
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(binding.SymbolIndex))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(binding.SymbolIndex)))
 	}
 
 	outputArr := foundation.NewNSMutableArray()
@@ -115,12 +148,12 @@ func createRequestFromBindingsWithSharedEvents(inputs, outputs []SurfaceBinding,
 		if binding.SymbolIndex < 0 {
 			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("output[%d] has invalid symbol index %d", i, binding.SymbolIndex)}
 		}
-		wrapped := ioClass.ObjectWithIOSurface(binding.Surface)
+		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(binding.Surface))
 		outputArr.AddObject(wrapped)
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(binding.SymbolIndex))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(binding.SymbolIndex)))
 	}
 
-	procIdx := foundation.GetNSNumberClass().NumberWithInt(procedureIndex)
+	procIdx := foundation.GetNSNumberClass().NumberWithInt(int32(procedureIndex))
 	txnHandle := foundation.GetNSNumberClass().NumberWithUnsignedLongLong(1)
 
 	reqClass := appleneuralengine.GetANERequestClass()
@@ -156,7 +189,9 @@ type PooledRequest struct {
 	idx     int
 }
 
-// Acquire returns the next request from the pool in round-robin order.
+// Acquire returns the next request from the pool in round-robin order. The
+// index advance is atomic, but the returned request shares IOSurfaces with
+// every other slot, so the caller must still evaluate one request at a time.
 func (p *RequestPool) Acquire() *PooledRequest {
 	idx := int(p.next.Add(1)-1) % p.depth
 	return &PooledRequest{
@@ -166,7 +201,9 @@ func (p *RequestPool) Acquire() *PooledRequest {
 	}
 }
 
-// Eval evaluates this request on the ANE.
+// Eval evaluates this request on the ANE, blocking until the underlying
+// evaluate call returns. The request's operands are the model's IOSurfaces, so
+// the caller must read the outputs before evaluating another pooled request.
 func (pr *PooledRequest) Eval() error {
 	mdl := pr.pool.model
 	if !pr.Request.Validate() {
@@ -183,7 +220,8 @@ func (pr *PooledRequest) Eval() error {
 	}
 }
 
-// Release returns this request to the pool.
+// Release is a no-op. Slots are handed out round-robin by Acquire and are never
+// checked back in; it exists so callers can defer a symmetric call.
 func (pr *PooledRequest) Release() {}
 
 // Close unmaps all pooled requests except the model's original request.

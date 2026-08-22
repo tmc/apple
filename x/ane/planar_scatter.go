@@ -122,7 +122,7 @@ func (p *PlanarScatterPipeline) dispatch(srcBuffer, dstBuffer metal.MTLBuffer, p
 	encoder.SetBufferWithOffsetAtIndex(dstBuffer, 0, 1)
 
 	paramBytes := unsafe.Slice((*byte)(unsafe.Pointer(&params)), unsafe.Sizeof(params))
-	encoder.SetBytesLengthAtIndex(paramBytes, uint(len(paramBytes)), 2)
+	encoder.SetBytesLengthAtIndex(paramBytes, 2)
 
 	threadgroupWidth := p.pipeline.MaxTotalThreadsPerThreadgroup()
 	if threadgroupWidth > uint(params.Count) {

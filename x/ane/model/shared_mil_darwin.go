@@ -338,8 +338,8 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []xane.TensorLayout) (
 			return appleneuralengine.ANERequest{}, nil, nil, err
 		}
 		inputs[i] = ref
-		inputArr.AddObject(ioClass.ObjectWithIOSurface(ref))
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		inputArr.AddObject(ioClass.ObjectWithIOSurface(appleiosurface.IOSurfaceRef(ref)))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
 	}
 
 	outputs := make([]coregraphics.IOSurfaceRef, len(outputLayouts))
@@ -351,8 +351,8 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []xane.TensorLayout) (
 			return appleneuralengine.ANERequest{}, nil, nil, err
 		}
 		outputs[i] = ref
-		outputArr.AddObject(ioClass.ObjectWithIOSurface(ref))
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		outputArr.AddObject(ioClass.ObjectWithIOSurface(appleiosurface.IOSurfaceRef(ref)))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)

@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
@@ -97,7 +98,7 @@ func (t *IOSurfaceTensor) Close() {
 }
 
 // Shape returns the tensor's logical shape.
-func (t *IOSurfaceTensor) Shape() []int { return t.shape }
+func (t *IOSurfaceTensor) Shape() []int { return append([]int(nil), t.shape...) }
 
 // PixelBuffer returns the underlying CVPixelBufferRef.
 func (t *IOSurfaceTensor) PixelBuffer() corevideo.CVPixelBufferRef { return t.pixelBuf }
@@ -219,13 +220,17 @@ func (t *IOSurfaceTensor) DataPointer() (ptr unsafe.Pointer, unlock func(), err 
 	}, nil
 }
 
-// IOSurface returns the raw IOSurface pointer backing this tensor.
-// Returns nil if the tensor is closed.
-func (t *IOSurfaceTensor) IOSurface() unsafe.Pointer {
+// IOSurface returns the IOSurface backing this tensor, or 0 if the tensor is
+// closed. The surface is owned by the pixel buffer and is valid only until
+// Close.
+func (t *IOSurfaceTensor) IOSurface() coregraphics.IOSurfaceRef {
 	if t.pixelBuf == 0 {
-		return nil
+		return 0
 	}
-	return corevideo.CVPixelBufferGetIOSurface(t.pixelBuf)
+	// CVPixelBufferGetIOSurface is generated as returning unsafe.Pointer: the
+	// binding loses the IOSurfaceRef typedef across the framework boundary.
+	// Convert here so this package's API keeps the named type.
+	return coregraphics.IOSurfaceRef(uintptr(corevideo.CVPixelBufferGetIOSurface(t.pixelBuf)))
 }
 
 // NumElements returns the product of the shape dimensions.

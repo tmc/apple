@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"strings"
 	"testing"
 
 	"github.com/tmc/apple/x/ane/mil"
@@ -535,4 +536,101 @@ func repeatedWeights(n int, v float32) []float32 {
 		out[i] = v
 	}
 	return out
+}
+
+func TestWeightPathConfinementAndEmptyBlob(t *testing.T) {
+	c := openOrSkip(t)
+	defer c.Close()
+
+	validBlob, err := mil.BuildIdentityWeightBlob(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name    string
+		files   []WeightFile
+		wantErr string
+	}{
+		{
+			name: "empty_blob",
+			files: []WeightFile{
+				{Path: "@model_path/weights/weight.bin", Blob: nil},
+			},
+			wantErr: "empty blob",
+		},
+		{
+			name: "traversal_dotdot",
+			files: []WeightFile{
+				{Path: "@model_path/../outside.bin", Blob: validBlob},
+			},
+			wantErr: "path escapes root",
+		},
+		{
+			name: "no_prefix",
+			files: []WeightFile{
+				{Path: "weights/weight.bin", Blob: validBlob},
+			},
+			wantErr: "must start with",
+		},
+		{
+			name: "duplicate_canonical_path",
+			files: []WeightFile{
+				{Path: "@model_path/weights/weight.bin", Blob: validBlob},
+				{Path: "@model_path/weights/./weight.bin", Blob: validBlob},
+			},
+			wantErr: "duplicate weight path",
+		},
+	}
+
+	milText := mil.GenIdentity(1, 1)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := c.Compile(CompileOptions{
+				ModelType:   ModelTypeMIL,
+				MILText:     []byte(milText),
+				WeightFiles: tt.files,
+			})
+			if err == nil {
+				t.Fatalf("expected error containing %q, got nil", tt.wantErr)
+			}
+			if !strings.Contains(err.Error(), tt.wantErr) {
+				t.Errorf("error = %v, want substring %q", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestSharedEventMILModelGuard(t *testing.T) {
+	c := openOrSkip(t)
+	defer c.Close()
+
+	blob, err := mil.BuildIdentityWeightBlob(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	m, err := c.Compile(CompileOptions{
+		ModelType:  ModelTypeMIL,
+		MILText:    []byte(mil.GenIdentity(1, 1)),
+		WeightBlob: blob,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer m.Close()
+
+	ev, err := NewSharedEvent()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer ev.Close()
+
+	err = m.EvalWithSignalEvent(ev.Port(), 1, SharedEventEvalOptions{})
+	if err == nil {
+		t.Fatal("expected error calling EvalWithSignalEvent on ModelTypeMIL, got nil")
+	}
+	if !errors.Is(err, ErrSharedEventRequiresPackage) {
+		t.Errorf("error = %v, want errors.Is ErrSharedEventRequiresPackage", err)
+	}
 }

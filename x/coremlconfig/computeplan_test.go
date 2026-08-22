@@ -97,16 +97,87 @@ func TestLoadPlanInvalidPath(t *testing.T) {
 	}
 }
 
-func TestLoadPlanComputeUnits(t *testing.T) {
-	units := []coreml.MLComputeUnits{
-		coreml.MLComputeUnitsAll,
-		coreml.MLComputeUnitsCPUOnly,
-		coreml.MLComputeUnitsCPUAndGPU,
-		coreml.MLComputeUnitsCPUAndNeuralEngine,
+// TestComputeUnitsResolve pins the mapping LoadPlan applies to a
+// configuration. The CPUOnly row is the regression control: coreml's own
+// MLComputeUnitsCPUOnly is 0, so an earlier "if opts.ComputeUnits != 0"
+// treated an explicit CPU-only request as unset and enabled every unit
+// including the Neural Engine. That row fails against the old behavior.
+func TestComputeUnitsResolve(t *testing.T) {
+	tests := []struct {
+		name string
+		in   ComputeUnits
+		want coreml.MLComputeUnits
+	}{
+		{"default", ComputeUnitsDefault, coreml.MLComputeUnitsAll},
+		{"cpu only", ComputeUnitsCPUOnly, coreml.MLComputeUnitsCPUOnly},
+		{"cpu and gpu", ComputeUnitsCPUAndGPU, coreml.MLComputeUnitsCPUAndGPU},
+		{"cpu and ane", ComputeUnitsCPUAndNeuralEngine, coreml.MLComputeUnitsCPUAndNeuralEngine},
+		{"all", ComputeUnitsAll, coreml.MLComputeUnitsAll},
 	}
-	for _, u := range units {
-		if u.String() == "" {
-			t.Errorf("MLComputeUnits(%d).String() is empty", u)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := tt.in.resolve()
+			if err != nil {
+				t.Fatalf("resolve() error = %v", err)
+			}
+			if got != tt.want {
+				t.Errorf("resolve() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+// TestComputeUnitsCPUOnlyIsNotDefault is the narrowest statement of the bug:
+// the zero value and an explicit CPU-only request must not resolve alike.
+func TestComputeUnitsCPUOnlyIsNotDefault(t *testing.T) {
+	zero, err := ComputeUnits(0).resolve()
+	if err != nil {
+		t.Fatalf("resolve() error = %v", err)
+	}
+	cpu, err := ComputeUnitsCPUOnly.resolve()
+	if err != nil {
+		t.Fatalf("resolve() error = %v", err)
+	}
+	if zero == cpu {
+		t.Fatalf("zero value and CPUOnly both resolve to %v; an explicit "+
+			"CPU-only request is indistinguishable from an unset field", zero)
+	}
+	if cpu != coreml.MLComputeUnitsCPUOnly {
+		t.Errorf("CPUOnly resolved to %v, want %v", cpu, coreml.MLComputeUnitsCPUOnly)
+	}
+}
+
+func TestComputeUnitsResolveRejectsUnknown(t *testing.T) {
+	if _, err := ComputeUnits(99).resolve(); err == nil {
+		t.Fatal("expected error for unknown compute units, got nil")
+	}
+}
+
+func TestComputeUnitsString(t *testing.T) {
+	tests := []struct {
+		in   ComputeUnits
+		want string
+	}{
+		{ComputeUnitsDefault, "default"},
+		{ComputeUnitsCPUOnly, "CPUOnly"},
+		{ComputeUnitsCPUAndGPU, "CPUAndGPU"},
+		{ComputeUnitsCPUAndNeuralEngine, "CPUAndNeuralEngine"},
+		{ComputeUnitsAll, "All"},
+		{ComputeUnits(99), "ComputeUnits(99)"},
+	}
+	for _, tt := range tests {
+		if got := tt.in.String(); got != tt.want {
+			t.Errorf("ComputeUnits(%d).String() = %q, want %q", int(tt.in), got, tt.want)
 		}
+	}
+}
+
+// TestLoadPlanRejectsUnknownComputeUnits proves the validation runs on the
+// LoadPlan path, not only on resolve. It uses a path that does not exist, so
+// a nil error would mean the units were never checked.
+func TestLoadPlanRejectsUnknownComputeUnits(t *testing.T) {
+	_, err := LoadPlan(t.TempDir()+"/absent.mlmodelc", PlanOptions{ComputeUnits: ComputeUnits(99)})
+	if err == nil {
+		t.Fatal("expected error for unknown compute units, got nil")
 	}
 }

@@ -118,6 +118,10 @@ func (m *Model) EvalBidirectionalEvents(wait *SharedEvent, waitValue uint64, sig
 }
 
 func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
+	if m.modelType != ModelTypePackage {
+		return ErrSharedEventRequiresPackage
+	}
+
 	m.mu.Lock()
 	m.sharedEventUsed = true
 	m.mu.Unlock()

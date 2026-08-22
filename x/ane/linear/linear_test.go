@@ -118,3 +118,22 @@ func maxAbsDiff(a, b []float32) float32 {
 	}
 	return max
 }
+
+func TestKernelKeyIdentity(t *testing.T) {
+	w1 := []float32{1.0, 2.0, 3.0, 4.0}
+	k1 := kernelKey(w1, 1, 2, 2)
+
+	// Dimension changes must produce different key
+	if k2 := kernelKey(w1, 2, 2, 2); k1 == k2 {
+		t.Errorf("batch change did not change kernel key")
+	}
+	if k2 := kernelKey(w1, 1, 4, 1); k1 == k2 {
+		t.Errorf("dimension change did not change kernel key")
+	}
+
+	// Single float bit flip must produce different key
+	w2 := []float32{1.0, 2.0, math.Float32frombits(math.Float32bits(3.0) ^ 1), 4.0}
+	if k2 := kernelKey(w2, 1, 2, 2); k1 == k2 {
+		t.Errorf("bit flip in float32 weight did not change kernel key")
+	}
+}
