@@ -17,24 +17,44 @@ const FrameworkPath = "/System/Library/PrivateFrameworks/Espresso.framework/Espr
 // Symbols lists the e5rt_* entry points this package resolves, in the order of
 // the five steps: compile, load, bind, dispatch. Each name has been observed to
 // resolve on macOS 26.x; see the package documentation for what that does and
-// does not establish.
+// does not establish. Espresso exports many more e5rt_* names than this;
+// [Lib.Lookup] reaches them.
 var Symbols = []string{
 	// Compile.
+	"e5rt_e5_compiler_config_options_create",
+	"e5rt_e5_compiler_config_options_set_cache_bundle_location",
+	"e5rt_e5_compiler_config_options_release",
 	"e5rt_e5_compiler_create_with_config",
+	"e5rt_e5_compiler_release",
+	"e5rt_e5_compiler_options_create",
+	"e5rt_e5_compiler_options_set_compute_device_types_mask",
+	"e5rt_e5_compiler_options_get_compute_device_types_mask",
+	"e5rt_e5_compiler_options_set_force_recompilation",
+	"e5rt_e5_compiler_options_set_segmenter",
+	"e5rt_e5_compiler_options_set_custom_ane_compiler_options",
+	"e5rt_e5_compiler_options_release",
 	"e5rt_e5_compiler_compile",
 	"e5rt_e5_compiler_is_new_compile_required",
 
 	// Load.
 	"e5rt_program_library_create",
 	"e5rt_program_library_retain_program_function",
+	"e5rt_program_library_release",
 	"e5rt_program_function_load_for_execution",
+	"e5rt_program_function_release",
 	"e5rt_precompiled_compute_op_create_options_create_with_program_function",
+	"e5rt_precompiled_compute_op_create_options_set_operation_name",
+	"e5rt_precompiled_compute_op_create_options_set_allocate_intermediate_buffers",
+	"e5rt_precompiled_compute_op_create_options_release",
 	"e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options",
+	"e5rt_execution_stream_operation_release",
 
 	// Bind.
 	"e5rt_buffer_object_alloc",
 	"e5rt_buffer_object_get_data_ptr",
+	"e5rt_buffer_object_release",
 	"e5rt_io_port_bind_buffer_object",
+	"e5rt_io_port_release",
 	"e5rt_execution_stream_operation_retain_input_port",
 	"e5rt_execution_stream_operation_retain_output_port",
 
@@ -45,14 +65,32 @@ var Symbols = []string{
 	"e5rt_execution_stream_execute_sync",
 	"e5rt_execution_stream_submit_async",
 	"e5rt_execution_stream_reset",
+	"e5rt_execution_stream_release",
 }
+
+// Compute device bits for [Lib.CompilerOptionsSetComputeDeviceTypesMask]. More
+// than one bit lets the compiler choose; ANEForge reports that 0x3 selects BNNS
+// and that any mask including [ComputeDeviceANE] selects the Neural Engine,
+// falling back to BNNS when the Neural Engine compile fails.
+//
+// The values and that selection behavior are ANEForge's empirical finding
+// (aneforge/_lib/e5rt_api.h:46-50, docs/e5rt-dispatch-reference.md:238-240),
+// not an observation made here.
+const (
+	ComputeDeviceCPU uint64 = 0x1 // BNNS
+	ComputeDeviceGPU uint64 = 0x2 // MPSGraph
+	ComputeDeviceANE uint64 = 0x4
+)
 
 // A Lib is the loaded Espresso framework with its e5rt_* entry points resolved.
 // The zero value is not usable; obtain one from [Open]. A Lib is safe for
 // concurrent use.
 type Lib struct {
 	handle uintptr
-	syms   map[string]uintptr
+	syms   map[string]uintptr // the names in Symbols, resolved by Open and never written again
+
+	mu    sync.RWMutex
+	extra map[string]uintptr // names resolved on demand by Lookup
 }
 
 var (
@@ -73,7 +111,11 @@ func Open() (*Lib, error) {
 			openErr = fmt.Errorf("load Espresso framework: %w", err)
 			return
 		}
-		l := &Lib{handle: h, syms: make(map[string]uintptr, len(Symbols))}
+		l := &Lib{
+			handle: h,
+			syms:   make(map[string]uintptr, len(Symbols)),
+			extra:  make(map[string]uintptr),
+		}
 		for _, name := range Symbols {
 			sym, err := purego.Dlsym(h, name)
 			if err != nil || sym == 0 {
@@ -89,7 +131,9 @@ func Open() (*Lib, error) {
 	return openLib, openErr
 }
 
-// Sym returns the address of a resolved e5rt_* entry point. Use it for symbols
+// Sym returns the address of an entry point named in [Symbols] and resolved by
+// [Open]. It is a map lookup, not a live dlsym, so it reaches nothing outside
+// that list; use [Lib.Lookup] for the rest of the framework. Use it for symbols
 // this package does not wrap, whose calling convention the caller must supply.
 func (l *Lib) Sym(name string) (uintptr, error) {
 	if l == nil {
@@ -99,6 +143,38 @@ func (l *Lib) Sym(name string) (uintptr, error) {
 	if !ok {
 		return 0, fmt.Errorf("e5rt: symbol %s unresolved", name)
 	}
+	return sym, nil
+}
+
+// Lookup resolves any exported symbol of the loaded framework by name, whether
+// or not it appears in [Symbols], and caches the result. Espresso exports on the
+// order of two hundred e5rt_* names and this package lists only the ones it
+// documents, so a caller driving a part of the route this package does not cover
+// would otherwise have to dlopen the framework a second time. The caller must
+// supply the calling convention, which this package makes no claim about.
+//
+// Use [Lib.Sym] instead when you want the lookup restricted to [Symbols], as a
+// probe reporting on that list does.
+func (l *Lib) Lookup(name string) (uintptr, error) {
+	if l == nil {
+		return 0, fmt.Errorf("e5rt: library not open")
+	}
+	if sym, ok := l.syms[name]; ok {
+		return sym, nil
+	}
+	l.mu.RLock()
+	sym, ok := l.extra[name]
+	l.mu.RUnlock()
+	if ok {
+		return sym, nil
+	}
+	sym, err := purego.Dlsym(l.handle, name)
+	if err != nil || sym == 0 {
+		return 0, fmt.Errorf("e5rt: resolve %s: %w", name, err)
+	}
+	l.mu.Lock()
+	l.extra[name] = sym
+	l.mu.Unlock()
 	return sym, nil
 }
 
@@ -176,14 +252,86 @@ func cstring(s string) ([]byte, uintptr) {
 	return b, uintptr(unsafe.Pointer(&b[0]))
 }
 
-// CompilerCreateWithConfig creates a compiler from an options handle and
-// returns it.
+// newRef allocates a heap cell holding v, for the e5rt_*_release entry points,
+// which take the address of the handle rather than the handle. See newOut for
+// why the cell must be on the heap.
 //
-// UNVERIFIED: the signature int64_t(void **compiler_out, void *config) is taken
-// from the source paper's listing 6.1, not confirmed against the binary. config
-// may be zero; the paper describes compiler options as a string-keyed
-// dictionary of std::any values rather than a fixed-layout struct, and does not
-// give a constructor for one.
+//go:noinline
+func newRef(v uintptr) *uintptr {
+	p := new(uintptr)
+	*p = v
+	return p
+}
+
+// boolArg encodes a Go bool as the C int the setters take.
+func boolArg(b bool) uintptr {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+// release invokes an e5rt_*_release entry point on handle. The callee is passed
+// a temporary cell, so if it clears the handle the caller's copy still holds the
+// old value; treat a released handle as dead.
+func (l *Lib) release(name string, handle uintptr) error {
+	ref := newRef(handle)
+	err := l.callErr(name, uintptr(unsafe.Pointer(ref)))
+	runtime.KeepAlive(ref)
+	return err
+}
+
+// Argument order across this family follows one rule, taken from the call sites
+// in ANEForge's ane_e5rt_dispatch.mm: an entry point that creates or allocates
+// an object takes the out-parameter FIRST, and every other entry point takes the
+// object it acts on first and any out-parameter LAST. So
+// e5rt_program_library_retain_program_function(library, "main", &function)
+// (ane_e5rt_dispatch.mm:370) sits eight lines above
+// e5rt_precompiled_compute_op_create_options_create_with_program_function(&op_options, function)
+// (:373). The file-level comment in ANEForge's e5rt_api.h:17-18 states the
+// opposite ("out goes LAST"); it is contradicted by three of that file's own
+// per-symbol comments (:64, :76, :84) and by every call site, and is not
+// followed here.
+
+// CompilerConfigOptionsCreate creates a compiler configuration and returns it.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:347): out-parameter first, no other
+// argument. Called from Go on macOS 26.x as the first step of a compile that
+// went on to produce correct results; see the e5rtdispatch example.
+func (l *Lib) CompilerConfigOptionsCreate() (uintptr, error) {
+	out := newOut()
+	err := l.callErr("e5rt_e5_compiler_config_options_create", uintptr(unsafe.Pointer(out)))
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// CompilerConfigOptionsSetCacheBundleLocation sets the directory the compiler
+// writes its compiled bundle into.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:349): (config, const char *path).
+func (l *Lib) CompilerConfigOptionsSetCacheBundleLocation(config uintptr, dir string) error {
+	path, p := cstring(dir)
+	err := l.callErr("e5rt_e5_compiler_config_options_set_cache_bundle_location", config, p)
+	runtime.KeepAlive(path)
+	return err
+}
+
+// CompilerConfigOptionsRelease releases a compiler configuration. ANEForge
+// releases it only after the operation exists (ane_e5rt_dispatch.mm:388).
+func (l *Lib) CompilerConfigOptionsRelease(config uintptr) error {
+	return l.release("e5rt_e5_compiler_config_options_release", config)
+}
+
+// CompilerCreateWithConfig creates a compiler from a configuration handle and
+// returns it. Build the configuration with [Lib.CompilerConfigOptionsCreate].
+//
+// LOCAL OBSERVATION: passing config == 0 returns status 1 on macOS 26.x;
+// creating a configuration first and passing it returns 0. A zero config is
+// therefore not accepted, contrary to the source paper.
+//
+// The signature int64_t(void **compiler_out, void *config) is the paper's
+// listing 6.1 and agrees with ANEForge (e5rt_api.h:40, call site
+// ane_e5rt_dispatch.mm:351).
 func (l *Lib) CompilerCreateWithConfig(config uintptr) (uintptr, error) {
 	out := newOut()
 	err := l.callErr("e5rt_e5_compiler_create_with_config", uintptr(unsafe.Pointer(out)), config)
@@ -191,14 +339,86 @@ func (l *Lib) CompilerCreateWithConfig(config uintptr) (uintptr, error) {
 	return *out, err
 }
 
+// CompilerRelease releases a compiler (ane_e5rt_dispatch.mm:387).
+func (l *Lib) CompilerRelease(compiler uintptr) error {
+	return l.release("e5rt_e5_compiler_release", compiler)
+}
+
+// CompilerOptionsCreate creates the per-compile options object
+// [Lib.CompilerCompile] takes, and returns it.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:354): out-parameter first.
+func (l *Lib) CompilerOptionsCreate() (uintptr, error) {
+	out := newOut()
+	err := l.callErr("e5rt_e5_compiler_options_create", uintptr(unsafe.Pointer(out)))
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// CompilerOptionsSetComputeDeviceTypesMask selects which backends the compiler
+// may target. Pass a bitwise OR of [ComputeDeviceCPU], [ComputeDeviceGPU] and
+// [ComputeDeviceANE].
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:356): (options, uint64_t mask).
+func (l *Lib) CompilerOptionsSetComputeDeviceTypesMask(options uintptr, mask uint64) error {
+	return l.callErr("e5rt_e5_compiler_options_set_compute_device_types_mask", options, uintptr(mask))
+}
+
+// CompilerOptionsGetComputeDeviceTypesMask reports the mask set on options.
+//
+// ANEForge TYPEDEF (e5rt_api.h:55): (options, uint64_t *out). ANEForge does not
+// call it, so the out-last placement rests on the typedef alone.
+func (l *Lib) CompilerOptionsGetComputeDeviceTypesMask(options uintptr) (uint64, error) {
+	out := newOut()
+	err := l.callErr("e5rt_e5_compiler_options_get_compute_device_types_mask", options, uintptr(unsafe.Pointer(out)))
+	runtime.KeepAlive(out)
+	return uint64(*out), err
+}
+
+// CompilerOptionsSetForceRecompilation makes the compiler ignore any cached
+// bundle. ANEForge sets it on every compile (ane_e5rt_dispatch.mm:357).
+func (l *Lib) CompilerOptionsSetForceRecompilation(options uintptr, force bool) error {
+	return l.callErr("e5rt_e5_compiler_options_set_force_recompilation", options, boolArg(force))
+}
+
+// CompilerOptionsSetSegmenter selects how the compiler partitions the network.
+// ANEForge passes "graph" (ane_e5rt_dispatch.mm:358); no other value is known.
+func (l *Lib) CompilerOptionsSetSegmenter(options uintptr, segmenter string) error {
+	s, p := cstring(segmenter)
+	err := l.callErr("e5rt_e5_compiler_options_set_segmenter", options, p)
+	runtime.KeepAlive(s)
+	return err
+}
+
+// CompilerOptionsSetCustomANECompilerOptions passes a string through to the
+// Neural Engine compiler. ANEForge uses it for cross-target compile checks
+// (ane_e5rt_dispatch.mm:441); the accepted syntax is not documented anywhere
+// consulted here.
+func (l *Lib) CompilerOptionsSetCustomANECompilerOptions(options uintptr, custom string) error {
+	s, p := cstring(custom)
+	err := l.callErr("e5rt_e5_compiler_options_set_custom_ane_compiler_options", options, p)
+	runtime.KeepAlive(s)
+	return err
+}
+
+// CompilerOptionsRelease releases a compiler options object
+// (ane_e5rt_dispatch.mm:386).
+func (l *Lib) CompilerOptionsRelease(options uintptr) error {
+	return l.release("e5rt_e5_compiler_options_release", options)
+}
+
 // CompilerCompile compiles the network description at modelPath and returns the
 // resulting program library. The paper describes modelPath as accepting the
 // .espresso.net netplist representation alongside .mil; that has not been
-// verified here.
+// verified here. ANEForge passes a MIL path (ane_e5rt_dispatch.mm:363) and
+// names the parameter mil_or_mlmodelc_path (e5rt_api.h:42).
 //
-// UNVERIFIED: the signature
+// Build options with [Lib.CompilerOptionsCreate]. This is a method on an
+// existing compiler, so the out-parameter comes last.
+//
+// The signature
 // int64_t(compiler, const char *model_path, void *options, void **library_out)
-// is taken from the paper, not confirmed against the binary.
+// is the paper's and agrees with ANEForge (e5rt_api.h:42, call site :363).
 func (l *Lib) CompilerCompile(compiler uintptr, modelPath string, options uintptr) (uintptr, error) {
 	path, p := cstring(modelPath)
 	out := newOut()
@@ -208,12 +428,37 @@ func (l *Lib) CompilerCompile(compiler uintptr, modelPath string, options uintpt
 	return *out, err
 }
 
-// ProgramLibraryRetainProgramFunction retains the callable function a compiled
-// program exposes under fnName.
+// ProgramLibraryCreate opens an already-compiled bundle at bundlePath and
+// returns the program library it holds. The bundle must have been compiled by
+// this process: ANEForge reports (docs/e5rt-dispatch-reference.md:305-309) that
+// the signed program lives only in aned's per-PID cache, so loading a bundle in
+// a fresh process fails.
 //
-// UNVERIFIED: the signature
-// int64_t(library, const char *fn_name, void **function_out) is taken from the
-// paper, not confirmed against the binary.
+// ANEForge TYPEDEF plus an empirical note (e5rt_api.h:64-65): the out-parameter
+// comes first, and the reversed order returns "Invalid E5 path specified. @
+// GetE5PathFromCompositeBundle". ANEForge resolves the symbol but does not call
+// it, so the note is its author's probing, not a call site.
+func (l *Lib) ProgramLibraryCreate(bundlePath string) (uintptr, error) {
+	path, p := cstring(bundlePath)
+	out := newOut()
+	err := l.callErr("e5rt_program_library_create", uintptr(unsafe.Pointer(out)), p)
+	runtime.KeepAlive(path)
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// ProgramLibraryRelease releases a program library (ane_e5rt_dispatch.mm:334).
+func (l *Lib) ProgramLibraryRelease(library uintptr) error {
+	return l.release("e5rt_program_library_release", library)
+}
+
+// ProgramLibraryRetainProgramFunction retains the callable function a compiled
+// program exposes under fnName. ANEForge always asks for "main"
+// (ane_e5rt_dispatch.mm:370).
+//
+// The signature int64_t(library, const char *fn_name, void **function_out) is
+// the paper's and agrees with ANEForge (e5rt_api.h:69, call site :370). It is a
+// method on an existing library, so the out-parameter comes last.
 func (l *Lib) ProgramLibraryRetainProgramFunction(library uintptr, fnName string) (uintptr, error) {
 	name, p := cstring(fnName)
 	out := newOut()
@@ -226,19 +471,97 @@ func (l *Lib) ProgramLibraryRetainProgramFunction(library uintptr, fnName string
 // ProgramFunctionLoadForExecution prepares a retained program function for
 // execution on the device.
 //
-// UNVERIFIED: the single-argument signature int64_t(function) is taken from the
-// paper's chapter 4 and 5 listings. The chapter 6 listings do not call it at
-// all, so its place in the direct-route sequence is inferred from the paper's
-// phase table rather than from a call site.
+// The single-argument signature int64_t(function) is the paper's chapter 4 and
+// 5 listings and agrees with ANEForge's typedef (e5rt_api.h:72). Its place in
+// the sequence remains unestablished: neither the paper's chapter 6 listings nor
+// ANEForge calls it, and ANEForge's documented sequence goes straight from
+// retaining the function to creating the operation options, so this call may not
+// be needed on the direct route at all.
 func (l *Lib) ProgramFunctionLoadForExecution(function uintptr) error {
 	return l.callErr("e5rt_program_function_load_for_execution", function)
 }
 
+// ProgramFunctionRelease releases a retained program function
+// (ane_e5rt_dispatch.mm:332).
+func (l *Lib) ProgramFunctionRelease(function uintptr) error {
+	return l.release("e5rt_program_function_release", function)
+}
+
+// PrecompiledComputeOpOptionsCreate creates the options object that describes an
+// operation built from a loaded program function, and returns it.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:373): (&op_options, function),
+// out-parameter FIRST. The source paper gives this call with the out-parameter
+// in both positions in different listings; ANEForge's e5rt_api.h:76 adds that
+// the reversed order fails with "Cannot provide program function as nullptr. @
+// Create". That settles the order without a local observation.
+func (l *Lib) PrecompiledComputeOpOptionsCreate(function uintptr) (uintptr, error) {
+	out := newOut()
+	err := l.callErr("e5rt_precompiled_compute_op_create_options_create_with_program_function",
+		uintptr(unsafe.Pointer(out)), function)
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// PrecompiledComputeOpOptionsSetOperationName names the operation. ANEForge
+// passes the program function's name, "main" (ane_e5rt_dispatch.mm:375).
+func (l *Lib) PrecompiledComputeOpOptionsSetOperationName(options uintptr, name string) error {
+	s, p := cstring(name)
+	err := l.callErr("e5rt_precompiled_compute_op_create_options_set_operation_name", options, p)
+	runtime.KeepAlive(s)
+	return err
+}
+
+// PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers asks the runtime to
+// allocate the operation's internal buffers. ANEForge passes true
+// (ane_e5rt_dispatch.mm:376); the effect of false is not documented anywhere
+// consulted here.
+func (l *Lib) PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(options uintptr, allocate bool) error {
+	return l.callErr("e5rt_precompiled_compute_op_create_options_set_allocate_intermediate_buffers",
+		options, boolArg(allocate))
+}
+
+// PrecompiledComputeOpOptionsRelease releases an operation options object
+// (ane_e5rt_dispatch.mm:330).
+func (l *Lib) PrecompiledComputeOpOptionsRelease(options uintptr) error {
+	return l.release("e5rt_precompiled_compute_op_create_options_release", options)
+}
+
+// OperationCreatePrecompiled creates the executable operation from an options
+// object built by [Lib.PrecompiledComputeOpOptionsCreate], and returns it.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:378): (&operation, op_options),
+// out-parameter FIRST, matching the typedef at e5rt_api.h:85. As with
+// [Lib.PrecompiledComputeOpOptionsCreate], the paper gives both orders.
+func (l *Lib) OperationCreatePrecompiled(options uintptr) (uintptr, error) {
+	out := newOut()
+	err := l.callErr("e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options",
+		uintptr(unsafe.Pointer(out)), options)
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// OperationRelease releases an operation (ane_e5rt_dispatch.mm:328).
+func (l *Lib) OperationRelease(op uintptr) error {
+	return l.release("e5rt_execution_stream_operation_release", op)
+}
+
 // BufferObjectAlloc allocates a buffer object of nbytes and returns it.
 //
-// UNVERIFIED: the signature int64_t(void **buf_out, size_t nbytes, int type) is
-// taken from the paper, not confirmed against the binary. The paper passes zero
-// for typ and does not say what other values mean.
+// typ selects the backing store:
+//
+//	0  host memory; [Lib.BufferObjectGetDataPtr] yields a plain CPU address
+//	1  Neural Engine mapped
+//	2  IOSurface backed
+//
+// Anything else is rejected with "Invalid BufferType @ AllocMemory". ANEForge
+// passes 0 everywhere (ane_e5rt_dispatch.mm:278); the meanings above are its
+// empirical notes (e5rt_api.h:99-104,
+// docs/e5rt-dispatch-reference.md:235-237), not observations made here, and the
+// note for 1 carries the author's own question mark.
+//
+// The signature int64_t(void **buf_out, size_t nbytes, uint32_t type) is the
+// paper's and agrees with ANEForge (e5rt_api.h:104, call site :278).
 func (l *Lib) BufferObjectAlloc(nbytes uintptr, typ int) (uintptr, error) {
 	out := newOut()
 	err := l.callErr("e5rt_buffer_object_alloc", uintptr(unsafe.Pointer(out)), nbytes, uintptr(typ))
@@ -248,9 +571,10 @@ func (l *Lib) BufferObjectAlloc(nbytes uintptr, typ int) (uintptr, error) {
 
 // BufferObjectGetDataPtr returns the host address of a buffer object's storage.
 //
-// UNVERIFIED: the two-argument shape (buf, &ptr) appears only inside a comment
-// in the paper's listings, never in a call. Both the argument order and the
-// argument count are guesses.
+// LOCAL OBSERVATION: called on macOS 26.x, this returns a pointer backed by
+// writable memory. The two-argument shape (buf, &ptr), which the paper gives
+// only inside a comment, is confirmed by ANEForge (e5rt_api.h:106, call site
+// ane_e5rt_dispatch.mm:286).
 func (l *Lib) BufferObjectGetDataPtr(buf uintptr) (uintptr, error) {
 	out := newOut()
 	err := l.callErr("e5rt_buffer_object_get_data_ptr", buf, uintptr(unsafe.Pointer(out)))
@@ -258,12 +582,16 @@ func (l *Lib) BufferObjectGetDataPtr(buf uintptr) (uintptr, error) {
 	return *out, err
 }
 
+// BufferObjectRelease releases a buffer object (ane_e5rt_dispatch.mm:312).
+func (l *Lib) BufferObjectRelease(buf uintptr) error {
+	return l.release("e5rt_buffer_object_release", buf)
+}
+
 // OperationRetainInputPort retains the named input port of an operation.
 //
-// UNVERIFIED: the signature
-// int64_t(op, const char *port_name, void **port_out) is taken from the paper,
-// not confirmed against the binary. It is at least consistent across every
-// listing in which it appears.
+// The signature int64_t(op, const char *port_name, void **port_out) is the
+// paper's, consistent across every listing in which it appears, and agrees with
+// ANEForge (e5rt_api.h:87, call site ane_e5rt_dispatch.mm:267).
 func (l *Lib) OperationRetainInputPort(op uintptr, portName string) (uintptr, error) {
 	name, p := cstring(portName)
 	out := newOut()
@@ -275,8 +603,9 @@ func (l *Lib) OperationRetainInputPort(op uintptr, portName string) (uintptr, er
 
 // OperationRetainOutputPort retains the named output port of an operation.
 //
-// UNVERIFIED: same claimed shape as [Lib.OperationRetainInputPort], and the
-// paper never calls it inside a chapter 6 listing.
+// Same shape as [Lib.OperationRetainInputPort]. The paper never calls it inside
+// a chapter 6 listing; ANEForge does (e5rt_api.h:88, call site
+// ane_e5rt_dispatch.mm:269).
 func (l *Lib) OperationRetainOutputPort(op uintptr, portName string) (uintptr, error) {
 	name, p := cstring(portName)
 	out := newOut()
@@ -288,17 +617,26 @@ func (l *Lib) OperationRetainOutputPort(op uintptr, portName string) (uintptr, e
 
 // IOPortBindBufferObject binds a buffer object to a retained I/O port.
 //
-// UNVERIFIED: the signature int64_t(port, buffer_object) is taken from the
-// paper. The paper further asserts that binding the same buffer to an input and
-// an output port aliases it so state stays resident on the engine across steps;
-// that behavior has not been observed here.
+// The signature int64_t(port, buffer_object) is the paper's and agrees with
+// ANEForge (e5rt_api.h:96, call site ane_e5rt_dispatch.mm:294). The paper
+// further asserts that binding the same buffer to an input and an output port
+// aliases it so state stays resident on the engine across steps; ANEForge builds
+// its resident-state training path on exactly that
+// (docs/e5rt-dispatch-reference.md:156-191, call site
+// ane_e5rt_dispatch.mm:696). Neither has been reproduced here.
 func (l *Lib) IOPortBindBufferObject(port, buf uintptr) error {
 	return l.callErr("e5rt_io_port_bind_buffer_object", port, buf)
 }
 
+// IOPortRelease releases a retained I/O port (ane_e5rt_dispatch.mm:313).
+func (l *Lib) IOPortRelease(port uintptr) error {
+	return l.release("e5rt_io_port_release", port)
+}
+
 // ExecutionStreamCreate creates an execution stream.
 //
-// UNVERIFIED: the signature int64_t(void **stream_out) is taken from the paper.
+// The signature int64_t(void **stream_out) is the paper's and agrees with
+// ANEForge (e5rt_api.h:111, call site ane_e5rt_dispatch.mm:592).
 func (l *Lib) ExecutionStreamCreate() (uintptr, error) {
 	out := newOut()
 	err := l.callErr("e5rt_execution_stream_create", uintptr(unsafe.Pointer(out)))
@@ -308,52 +646,84 @@ func (l *Lib) ExecutionStreamCreate() (uintptr, error) {
 
 // PrepareOpForEncode prepares an operation before each encode.
 //
-// UNVERIFIED: the signature int64_t(op) is taken from the paper, which places
-// this call inside the hot loop ahead of every encode.
+// The signature int64_t(op) is the paper's and agrees with ANEForge
+// (e5rt_api.h:89). The paper places the call inside the hot loop ahead of every
+// encode; ANEForge reports it is legal only on an operation that has already
+// been encoded once, and so calls it only when re-encoding a used stream
+// (ane_e5rt_dispatch.mm:460-464, call site :483).
 func (l *Lib) PrepareOpForEncode(op uintptr) error {
 	return l.callErr("e5rt_execution_stream_operation_prepare_op_for_encode", op)
 }
 
 // EncodeOperation encodes a prepared operation into a stream.
 //
-// UNVERIFIED: the signature int64_t(stream, op) is taken from the paper.
+// The signature int64_t(stream, op) is the paper's and agrees with ANEForge
+// (e5rt_api.h:113, call site ane_e5rt_dispatch.mm:488). ANEForge encodes each
+// operation once, in submission order.
 func (l *Lib) EncodeOperation(stream, op uintptr) error {
 	return l.callErr("e5rt_execution_stream_encode_operation", stream, op)
 }
 
 // ExecuteSync submits an encoded stream and blocks until it completes.
 //
-// UNVERIFIED: the signature int64_t(stream) is taken from the paper, as is the
-// claim that this form blocks.
+// The signature int64_t(stream) is the paper's and agrees with ANEForge
+// (e5rt_api.h:114, call site ane_e5rt_dispatch.mm:664), which reports this as
+// the production path and says it serializes every encoded operation in the
+// stream. Both hold here on macOS 26.x: the call returns having filled the
+// bound output buffer, and the result matches a CPU reference, so it had
+// completed rather than merely been queued.
 func (l *Lib) ExecuteSync(stream uintptr) error {
 	return l.callErr("e5rt_execution_stream_execute_sync", stream)
 }
 
 // ExecutionStreamReset resets a stream for reuse after execution.
 //
-// UNVERIFIED: the signature int64_t(stream) is taken from the paper.
+// The signature int64_t(stream) is the paper's and agrees with ANEForge
+// (ane_e5rt_dispatch.mm:99, call site :479).
+//
+// ANEForge reports that this call rejects a stream that has not been executed
+// yet (:464). That is NOT reproduced here: on macOS 26.x a freshly created
+// stream is reset successfully, twice in a row, both returning zero. The
+// neighbouring claim in the same comment — that
+// [Lib.PrepareOpForEncode] rejects an operation that has never been encoded —
+// is about operations rather than streams and has not been tested here. Treat
+// the stream half as unconfirmed and version-dependent.
 func (l *Lib) ExecutionStreamReset(stream uintptr) error {
 	return l.callErr("e5rt_execution_stream_reset", stream)
 }
 
-// Deliberately unwrapped, reachable through [Lib.Sym]:
+// ExecutionStreamRelease releases an execution stream
+// (ane_e5rt_dispatch.mm:506).
+func (l *Lib) ExecutionStreamRelease(stream uintptr) error {
+	return l.release("e5rt_execution_stream_release", stream)
+}
+
+// Deliberately unwrapped:
 //
-//   - e5rt_e5_compiler_is_new_compile_required and e5rt_program_library_create
-//     are named only in the paper's phase table, with no call site and no
-//     argument list anywhere in the text.
+//   - e5rt_execution_stream_submit_async takes two arguments, the second an
+//     Objective-C block of type e5rt_error_code_t (^)(void) that the callee
+//     retains unconditionally, so a null second argument crashes inside
+//     objc_retain. ANEForge settles this from the disassembly and drives it with
+//     a real block (ane_e5rt_dispatch.mm:88-92, :891-897, :933-949;
+//     docs/e5rt-dispatch-reference.md:232-234). It is listed in [Symbols] and
+//     reachable through [Lib.Sym], but not wrapped: a raw purego callback where
+//     the callee expects a block is a segfault, and this package has no way to
+//     build an Objective-C block. Wrap it only alongside a real block
+//     constructor. ANEForge also notes that the similarly named
+//     e5rt_execution_stream_async_submit is the older entry point, which answers
+//     with "Use submit_async".
 //
-//   - e5rt_precompiled_compute_op_create_options_create_with_program_function
-//     and
-//     e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options
-//     are called with contradictory argument orders in different listings of
-//     the same paper: out-parameter first in the chapter 6 listings, last
-//     elsewhere. Wrapping either order would encode a coin flip as an API.
-//     TODO: recover the true order from the binary and wrap them; without these
-//     two the load phase of the route cannot be completed from Go.
+//   - e5rt_e5_compiler_is_new_compile_required is named only in the paper's
+//     phase table, with no call site and no argument list anywhere in the text,
+//     and does not appear in ANEForge at all.
 //
-//   - e5rt_execution_stream_submit_async is named but never called. The paper
-//     describes three submission forms (one synchronous, a lightweight
-//     asynchronous one returning submit and complete identifiers, and a full
-//     asynchronous one taking a timeout) but gives only this one asynchronous
-//     symbol, so which form it is remains unknown.
-//     TODO: determine which submission form this symbol implements.
+// The following are exported by Espresso and used by ANEForge but not listed in
+// [Symbols]; reach them with [Lib.Lookup] and supply your own convention:
+// the async event family (e5rt_async_event_create and friends), the operation
+// event bindings (e5rt_execution_stream_operation_bind_completion_event,
+// _bind_dependent_events), and the stream scheduling setters
+// (e5rt_execution_stream_set_quality_of_service,
+// _set_ane_execution_priority). The events are omitted because ANEForge reports
+// they advance only under submit_async
+// (docs/e5rt-dispatch-reference.md:313-317), which this package does not wrap,
+// so wrapping them would ship an inert API.

@@ -42,6 +42,32 @@ func TestSymMissIsAnError(t *testing.T) {
 	}
 }
 
+// TestLookupReachesOutsideSymbols checks the live-dlsym escape hatch on a name
+// this package deliberately does not list, with a negative control.
+func TestLookupReachesOutsideSymbols(t *testing.T) {
+	lib, err := Open()
+	if lib == nil {
+		t.Skipf("Espresso unavailable: %v", err)
+	}
+	const name = "e5rt_async_event_create"
+	if _, err := lib.Sym(name); err == nil {
+		t.Fatalf("Sym(%q) resolved; the test needs a name outside Symbols", name)
+	}
+	sym, err := lib.Lookup(name)
+	if err != nil {
+		t.Fatalf("Lookup(%q) = %v, want an address", name, err)
+	}
+	if sym == 0 {
+		t.Fatalf("Lookup(%q) = 0, want a nonzero address", name)
+	}
+	if again, err := lib.Lookup(name); err != nil || again != sym {
+		t.Errorf("Lookup(%q) again = %#x, %v, want %#x, nil", name, again, err, sym)
+	}
+	if _, err := lib.Lookup("e5rt_this_symbol_does_not_exist"); err == nil {
+		t.Error("Lookup of a nonexistent name succeeded, want an error")
+	}
+}
+
 func TestStatusErr(t *testing.T) {
 	if err := Status(0).Err("op"); err != nil {
 		t.Errorf("Status(0).Err = %v, want nil", err)
