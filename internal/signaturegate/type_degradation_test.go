@@ -113,6 +113,14 @@ const baselineRev = "62547ebc14a6217ff3144ff94f1fefaee8cf342d"
 var knownFindings = map[string]string{}
 
 func TestNoTypeDegradationAgainstBaseline(t *testing.T) {
+	// This gate reads every generated file at two revisions and runs about
+	// 170s, against a 4m default that the rest of the package eats into. A
+	// package that panics on `go test ./...` reports no verdict at all, and a
+	// gate that intermittently reports nothing is worse than one that is
+	// declared expensive: the first teaches readers to rerun until green.
+	if testing.Short() {
+		t.Skip("compares every generated file at two revisions; run without -short")
+	}
 	root := repoRoot(t)
 	base := os.Getenv("APPLE_GATE_BASE")
 	if base == "" {

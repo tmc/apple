@@ -14,6 +14,7 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"path/filepath"
 	"sort"
 	"strings"
 	"testing"
@@ -34,11 +35,27 @@ var erasedContainerRenderings = [2]string{"[]objectivec.IObject", "foundation.IN
 // generated class conformance. A standalone protocol wrapper with no
 // conforming class keeps the rendering faithful to its own declaration.
 //
-// The generator resolves this collision in a pre-pass that records, for each
-// selector, the weaker of the two declarations so that both emitters render the
-// same thing. That pre-pass is keyed on RETURN types and PROPERTY names, so a
-// selector carrying its erased generic in a PARAMETER -- every setter -- is
-// never entered into it and the two emitters diverge silently.
+// The comparison is scoped to a substitutability group (see
+// [substitutabilityGroups]) rather than to a bare method name. The reason is
+// the one this gate can state from its own side: a disagreement is only a
+// defect where a caller could hold either receiver, which is a class, its own
+// interface, and the protocol wrappers it conforms to. Two unrelated classes
+// in unrelated frameworks may share a method name while each faithfully renders
+// its own declaration. That is agreement with the SDK, not disagreement with
+// each other, and no reconciliation could fix it without discarding SDK
+// information from whichever side got weakened.
+//
+// This comment used to describe the generator's collision pre-pass instead --
+// which fields it keys on, and which selectors it therefore misses. That
+// description was wrong, and the failure is structural rather than careless:
+// prose in this package describing another repository's internals is
+// unversioned duplication. Nothing breaks when the generator changes, no test
+// covers the sentence, and sitting inside a gate lends it the authority of
+// something verified. It cost a peer session a full investigation into a
+// generator that was behaving correctly. The rule this file now follows is to
+// state only what it can check from here; the pre-pass is real and lives in
+// appledocs internal/generator/erasure_collisions.go, and that pointer is
+// deliberately the whole of what is said about it.
 //
 // The gate fails loudly with the full reachable population rather than with
 // the first example, so a new collision cannot hide behind a known one.
@@ -71,6 +88,13 @@ func TestErasedContainerRenderingsAgree(t *testing.T) {
 		parsed = append(parsed, parsedGeneratedFile{path: path, file: f})
 	}
 	reachable, protocols := reachableProtocolObjects(parsed)
+	groups := substitutabilityGroups(parsed)
+	// The population under the OLD key -- bare method name, tree-wide -- kept
+	// so the narrowing reports both numbers. A green run whose population
+	// silently shrank is not a fix, so the size of the change has to travel
+	// with the verdict rather than be recoverable only by rerunning an older
+	// revision.
+	byBareName := map[string]bool{}
 	for _, parsed := range parsed {
 		rel := rel(root, parsed.path)
 		for _, decl := range parsed.file.Decls {
@@ -88,13 +112,18 @@ func TestErasedContainerRenderingsAgree(t *testing.T) {
 				exemptedMethods[fn.Name.Name] = true
 				continue
 			}
+			// Compare within a substitutability group, not across the tree.
+			// The bare method name was the old key, and it made every
+			// same-named method in every framework one population.
+			group := groups[qualifiedReceiver(parsed.path, receiver)]
 			for _, got := range renderings {
-				name := fn.Name.Name
+				name := group + " " + fn.Name.Name
+				byBareName[fn.Name.Name] = true
 				if seen[name] == nil {
 					seen[name] = map[string]string{}
 				}
 				if _, dup := seen[name][got]; !dup {
-					seen[name][got] = rel + ": " + receiverName(fn) + "." + name
+					seen[name][got] = rel + ": " + receiver + "." + fn.Name.Name
 				}
 			}
 		}
@@ -116,7 +145,7 @@ func TestErasedContainerRenderingsAgree(t *testing.T) {
 	}
 
 	if len(disagreeing) > 0 {
-		t.Errorf("%d method name(s) rendered as BOTH %s and %s; one selector cannot be both:",
+		t.Errorf("%d substitutable method(s) rendered as BOTH %s and %s; one selector cannot be both:",
 			len(disagreeing), erasedContainerRenderings[0], erasedContainerRenderings[1])
 		for _, name := range disagreeing {
 			sites := seen[name]
@@ -130,8 +159,125 @@ func TestErasedContainerRenderingsAgree(t *testing.T) {
 			exemptedOnly++
 		}
 	}
-	t.Logf("scanned %d file(s); %d unreachable receiver(s) skipped (%d method name(s), %d absent from compared population); %d method name(s) render an erased container; %d disagree",
-		len(files), len(skippedReceivers), len(exemptedMethods), exemptedOnly, len(seen), len(disagreeing))
+	t.Logf("scanned %d file(s); %d unreachable receiver(s) skipped (%d method name(s), %d absent from compared population); %d bare method name(s) render an erased container, which the substitutability key resolves to %d compared method(s); %d disagree",
+		len(files), len(skippedReceivers), len(exemptedMethods), exemptedOnly,
+		len(byBareName), len(seen), len(disagreeing))
+}
+
+// qualifiedReceiver names a concrete receiver uniquely across the tree. Two
+// frameworks may declare the same Go type name, and the old bare-name key
+// merged them.
+func qualifiedReceiver(path, receiver string) string {
+	return filepath.Dir(path) + "." + receiver
+}
+
+// substitutabilityGroups maps each qualified concrete receiver to an identifier
+// it shares with every receiver a caller could hold in its place: the class,
+// and the protocol wrapper object of each protocol the class conforms to. The
+// generator marks conformances with a "Protocol methods for P" heading in the
+// class file, which is the same marker [reachableProtocolObjects] reads.
+//
+// A receiver in no group is its own group. That is the conservative direction:
+// it compares a receiver only against itself, so an unrelated pair is never
+// reported, and a genuinely related pair this function fails to link is a
+// missed detection rather than a false one. The gate says which way it errs
+// because the two are not equally recoverable -- a false report costs an
+// investigation, as this gate has already demonstrated once.
+func substitutabilityGroups(files []parsedGeneratedFile) map[string]string {
+	// Where each protocol wrapper object type is declared, by bare name. A
+	// class may conform to a protocol declared in another framework, and the
+	// heading carries only the bare name, so the link is resolved by search.
+	declared := map[string][]string{}
+	for _, parsed := range files {
+		dir := filepath.Dir(parsed.path)
+		for _, decl := range parsed.file.Decls {
+			gen, ok := decl.(*ast.GenDecl)
+			if !ok {
+				continue
+			}
+			for _, spec := range gen.Specs {
+				if typeSpec, ok := spec.(*ast.TypeSpec); ok {
+					declared[typeSpec.Name.Name] = append(declared[typeSpec.Name.Name], dir+"."+typeSpec.Name.Name)
+				}
+			}
+		}
+	}
+
+	u := newUnionFind()
+	for _, parsed := range files {
+		dir := filepath.Dir(parsed.path)
+		var receivers []string
+		for _, decl := range parsed.file.Decls {
+			fn, ok := decl.(*ast.FuncDecl)
+			if !ok || fn.Recv == nil {
+				continue
+			}
+			receivers = append(receivers, dir+"."+receiverName(fn))
+		}
+		if len(receivers) == 0 {
+			continue
+		}
+		for _, group := range parsed.file.Comments {
+			for _, line := range strings.Split(group.Text(), "\n") {
+				const prefix = "Protocol methods for "
+				if !strings.HasPrefix(line, prefix) {
+					continue
+				}
+				object := strings.TrimSpace(strings.TrimPrefix(line, prefix)) + "Object"
+				for _, wrapper := range declared[object] {
+					for _, receiver := range receivers {
+						u.union(receiver, wrapper)
+					}
+				}
+			}
+		}
+	}
+
+	groups := make(map[string]string, len(declared))
+	for _, parsed := range files {
+		dir := filepath.Dir(parsed.path)
+		for _, decl := range parsed.file.Decls {
+			fn, ok := decl.(*ast.FuncDecl)
+			if !ok || fn.Recv == nil {
+				continue
+			}
+			key := dir + "." + receiverName(fn)
+			groups[key] = u.find(key)
+		}
+	}
+	return groups
+}
+
+type unionFind struct{ parent map[string]string }
+
+func newUnionFind() *unionFind { return &unionFind{parent: map[string]string{}} }
+
+func (u *unionFind) find(x string) string {
+	root, ok := u.parent[x]
+	if !ok {
+		u.parent[x] = x
+		return x
+	}
+	for root != u.parent[root] {
+		u.parent[root] = u.parent[u.parent[root]]
+		root = u.parent[root]
+	}
+	u.parent[x] = root
+	return root
+}
+
+func (u *unionFind) union(a, b string) {
+	ra, rb := u.find(a), u.find(b)
+	if ra == rb {
+		return
+	}
+	// Order by name so the group identifier does not depend on file walk
+	// order; an identifier that moved between runs would make the failure
+	// message unstable for no benefit.
+	if ra > rb {
+		ra, rb = rb, ra
+	}
+	u.parent[rb] = ra
 }
 
 type parsedGeneratedFile struct {
@@ -258,6 +404,58 @@ func (c C) SetCols(cols foundation.INSArray) {}
 	}
 	if len(seen["SetCols"]) != 1 {
 		t.Errorf("SetCols: got %d rendering(s), want 1; the gate reports agreement as disagreement", len(seen["SetCols"]))
+	}
+}
+
+// TestSubstitutabilityGroupsSeparateUnrelatedReceivers proves the narrowing in
+// BOTH directions. A control that only showed the gate still fires on a related
+// pair would not distinguish this key from the old bare-name key, and a control
+// that only showed it stays quiet on an unrelated pair is satisfied by a gate
+// that examines nothing.
+//
+// The unrelated arm is the SetOutputChannels shape: avfaudio's
+// AVSpeechSynthesizer takes NSArray<AVAudioSessionChannelDescription *> * and
+// private/texttospeech's TTSSpeechManager takes bare NSArray *. Both render
+// their own declaration correctly, and the old key called that a defect.
+func TestSubstitutabilityGroupsSeparateUnrelatedReceivers(t *testing.T) {
+	const conformer = `package p
+type FooProtoObject struct{}
+func (o FooProtoObject) SetRows(rows foundation.INSArray) {}
+// Protocol methods for FooProto
+func (c Class) SetRows(rows []objectivec.IObject) {}
+`
+	const unrelated = `package q
+func (d Distant) SetRows(rows foundation.INSArray) {}
+`
+	fset := token.NewFileSet()
+	var parsed []parsedGeneratedFile
+	for _, f := range []struct{ path, src string }{
+		{"avfaudio/a.gen.go", conformer},
+		{"texttospeech/b.gen.go", unrelated},
+	} {
+		file, err := parser.ParseFile(fset, f.path, f.src, parser.ParseComments)
+		if err != nil {
+			t.Fatal(err)
+		}
+		parsed = append(parsed, parsedGeneratedFile{path: f.path, file: file})
+	}
+	groups := substitutabilityGroups(parsed)
+
+	class := groups[qualifiedReceiver("avfaudio/a.gen.go", "Class")]
+	wrapper := groups[qualifiedReceiver("avfaudio/a.gen.go", "FooProtoObject")]
+	distant := groups[qualifiedReceiver("texttospeech/b.gen.go", "Distant")]
+
+	if class == "" || wrapper == "" || distant == "" {
+		t.Fatalf("a receiver got no group at all (class=%q wrapper=%q distant=%q); "+
+			"the grouping did not read the tree", class, wrapper, distant)
+	}
+	if class != wrapper {
+		t.Errorf("Class and the wrapper of a protocol it conforms to are in different groups "+
+			"(%q vs %q); a real erasure disagreement would go undetected", class, wrapper)
+	}
+	if class == distant {
+		t.Errorf("an unrelated receiver in another framework shares Class's group (%q); "+
+			"this is the SetOutputChannels false positive the narrowing removes", class)
 	}
 }
 
