@@ -78,13 +78,24 @@ Two further measurements pin down when a slot is returned:
 | execute and release the stream every 12 | all 40 succeed |
 
 So the slot belongs to a function that has a live operation, and releasing that
-operation returns it. The phased path below rests on the stronger claim that an
-*encoded* operation is held by its stream, so that releasing the operation alone
-is not enough — that was measured when the ceiling was still thought to count
-operations, and it has **not** been re-measured in terms of functions. What is
-directly demonstrated here is only that releasing the operations and the stream
-together frees the slots, which is what the eight-layer run does on every phase
-boundary.
+operation returns it — **unless the operation has been encoded**, in which case
+the stream holds the slot until the stream itself is released. That last point
+was briefly marked unverified here, because it had been established while the
+ceiling was still thought to count operations and a probe that skipped binding
+could not re-establish it (encode fails status 2 with unbound ports). It has
+since been settled directly, in
+[`espressoe5rtstack`](../espressoe5rtstack)'s `probeEncodedStreamRetention`:
+
+| step | result |
+| --- | --- |
+| encode operations on 15 functions, then release the operations | — |
+| take an operation on function 16 | refused, status 13 |
+| release the stream, retry the same function | accepted |
+
+Both polarities are asserted, the refusal is checked for status 13 specifically
+rather than any error, and a run with no function to spare reports UNMEASURED
+instead of a verdict. That is what makes the phase boundary a stream release
+rather than an operation release.
 
 The pool is shared between processes rather than reserved per process. Two
 copies of this program running concurrently reproducibly get 15 and 7, so the

@@ -39,8 +39,11 @@
 // see probeFunctionBudget.
 //
 // Releasing an operation frees its function's slot, but releasing one that has
-// already been encoded does not, because the stream holds it. Releasing the
-// stream frees them all. So a stack deeper than five layers runs in phases:
+// already been encoded does not, because the stream holds it: with fifteen
+// functions encoded and their operations released, a sixteenth is still
+// refused, and is accepted as soon as the stream is released. Releasing the
+// stream frees them all. The espressoe5rtstack example asserts both halves of
+// that as a control. So a stack deeper than five layers runs in phases:
 // encode what fits, execute, release the stream, encode the next group. Every
 // buffer is allocated once and stays bound across the boundary, so the phases
 // hand activations to each other in place — what a phase boundary costs is the
