@@ -181,7 +181,6 @@ func TestPipelineLinksStages(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer p.Close()
 	in, err := p.Input(0, "x")
 	if err != nil {
 		t.Fatal(err)
@@ -215,6 +214,15 @@ func TestPipelineLinksStages(t *testing.T) {
 		if got[0] != want {
 			t.Errorf("output = %v, want %v", got[0], want)
 		}
+	}
+	if err := p.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if got := linked.Bytes(); got != nil {
+		t.Errorf("linked bytes after Close = %v, want nil", got)
+	}
+	if err := p.Execute(); err == nil {
+		t.Error("Execute after Close succeeded, want an error")
 	}
 }
 
