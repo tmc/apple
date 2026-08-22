@@ -4,7 +4,6 @@ package ane
 
 import (
 	"fmt"
-	"math"
 	"runtime"
 	"sync"
 
@@ -414,44 +413,9 @@ func (m *Model) RawRequest() uintptr { return uintptr(m.request.ID) }
 // RawPerfStatsMask returns the driver-converted performance stats mask.
 func (m *Model) RawPerfStatsMask() uint32 { return m.perfStatsMask }
 
-// Float32ToFP16 converts a float32 to IEEE 754 half-precision.
-func Float32ToFP16(f float32) uint16 {
-	b := math.Float32bits(f)
-	sign := (b >> 16) & 0x8000
-	exp := int((b>>23)&0xFF) - 127 + 15
-	frac := b & 0x7FFFFF
-
-	switch {
-	case exp <= 0:
-		return uint16(sign)
-	case exp >= 31:
-		return uint16(sign | 0x7C00)
-	default:
-		return uint16(sign | uint32(exp)<<10 | (frac >> 13))
-	}
-}
+// Float32ToFP16 converts a float32 to IEEE 754 half-precision, rounding to
+// nearest even.
+func Float32ToFP16(f float32) uint16 { return float32ToFP16(f) }
 
 // FP16ToFloat32 converts an IEEE 754 half-precision value to float32.
-func FP16ToFloat32(h uint16) float32 {
-	sign := uint32(h>>15) & 1
-	exp := uint32(h>>10) & 0x1F
-	frac := uint32(h) & 0x3FF
-
-	switch {
-	case exp == 0:
-		if frac == 0 {
-			return math.Float32frombits(sign << 31)
-		}
-		for frac&0x400 == 0 {
-			frac <<= 1
-			exp--
-		}
-		exp++
-		frac &= 0x3FF
-		fallthrough
-	case exp < 31:
-		return math.Float32frombits(sign<<31 | (exp+127-15)<<23 | frac<<13)
-	default:
-		return math.Float32frombits(sign<<31 | 0x7F800000 | frac<<13)
-	}
-}
+func FP16ToFloat32(h uint16) float32 { return fp16ToFloat32(h) }
