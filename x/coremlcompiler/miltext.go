@@ -492,7 +492,8 @@ func float16ToFloat32(h uint16) float32 {
 		if mant == 0 {
 			return math.Float32frombits(sign | 0x7F800000)
 		}
-		return math.Float32frombits(sign | 0x7F800000 | (mant << 13))
+		// Quiet the NaN, as the arm64 FCVTL instruction does.
+		return math.Float32frombits(sign | 0x7FC00000 | (mant << 13))
 	}
 	exp = exp + (127 - 15)
 	return math.Float32frombits(sign | (exp << 23) | (mant << 13))
