@@ -3,6 +3,8 @@
 package e5rt_test
 
 import (
+	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"testing"
@@ -13,18 +15,8 @@ import (
 
 func TestProgramExecuteReusesEncodedOperation(t *testing.T) {
 	dir := t.TempDir()
-	if err := os.Mkdir(filepath.Join(dir, "weights"), 0o755); err != nil {
-		t.Fatal(err)
-	}
-	modelPath := filepath.Join(dir, "model.mil")
-	if err := os.WriteFile(modelPath, []byte(mil.GenConvFP16IO(1, 1, 1)), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	blob, err := mil.BuildWeightBlob([]float32{1}, 1, 1)
+	modelPath, err := writeIdentityModel(dir)
 	if err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(filepath.Join(dir, "weights", "weight.bin"), blob, 0o644); err != nil {
 		t.Fatal(err)
 	}
 
@@ -62,6 +54,68 @@ func TestProgramExecuteReusesEncodedOperation(t *testing.T) {
 			t.Errorf("output = %v, want %v", got, want)
 		}
 	}
+}
+
+func ExampleCompile() {
+	dir, err := os.MkdirTemp("", "e5rt-program-")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer os.RemoveAll(dir)
+	modelPath, err := writeIdentityModel(dir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p, err := e5rt.Compile(e5rt.ProgramOptions{
+		ModelPath: modelPath,
+		CacheDir:  filepath.Join(dir, "cache"),
+		Inputs:    []e5rt.Port{{Name: "x", Size: 2}},
+		Outputs:   []e5rt.Port{{Name: "y", Size: 2}},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer p.Close()
+	in, err := p.Input("x")
+	if err != nil {
+		log.Fatal(err)
+	}
+	out, err := p.Output("y")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := in.WriteFP16([]float32{1.5}); err != nil {
+		log.Fatal(err)
+	}
+	if err := p.Execute(); err != nil {
+		log.Fatal(err)
+	}
+	values := make([]float32, 1)
+	if err := out.ReadFP16(values); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(values)
+
+	// Output:
+	// [1.5]
+}
+
+func writeIdentityModel(dir string) (string, error) {
+	if err := os.MkdirAll(filepath.Join(dir, "weights"), 0o755); err != nil {
+		return "", err
+	}
+	modelPath := filepath.Join(dir, "model.mil")
+	if err := os.WriteFile(modelPath, []byte(mil.GenConvFP16IO(1, 1, 1)), 0o644); err != nil {
+		return "", err
+	}
+	blob, err := mil.BuildWeightBlob([]float32{1}, 1, 1)
+	if err != nil {
+		return "", err
+	}
+	if err := os.WriteFile(filepath.Join(dir, "weights", "weight.bin"), blob, 0o644); err != nil {
+		return "", err
+	}
+	return modelPath, nil
 }
 
 func TestProgramRejectsBadOptions(t *testing.T) {
