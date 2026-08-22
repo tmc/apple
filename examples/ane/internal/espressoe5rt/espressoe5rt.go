@@ -120,7 +120,7 @@ func (l *Lib) Sym(name string) (uintptr, error) {
 	return espresso.SymbolAddress(name)
 }
 
-func check(name string, status int64, err error) error {
+func check(name string, status int32, err error) error {
 	if err != nil {
 		return err
 	}
@@ -143,7 +143,7 @@ func boolInt32(v bool) int32 {
 	return 0
 }
 
-func release(name string, f func(*uintptr) (int64, error), handle uintptr) error {
+func release(name string, f func(*uintptr) (int32, error), handle uintptr) error {
 	p := new(uintptr)
 	*p = handle
 	status, callErr := f(p)
@@ -304,7 +304,7 @@ func (l *Lib) BufferObjectRelease(buffer uintptr) error {
 	return release("buffer_object_release", espresso.E5rtBufferObjectRelease, buffer)
 }
 
-func (l *Lib) retainPort(name string, f func(uintptr, *byte, *uintptr) (int64, error), operation uintptr, portName string) (uintptr, error) {
+func (l *Lib) retainPort(name string, f func(uintptr, *byte, *uintptr) (int32, error), operation uintptr, portName string) (uintptr, error) {
 	b, p := cstring(portName)
 	out := new(uintptr)
 	status, callErr := f(operation, p, out)
