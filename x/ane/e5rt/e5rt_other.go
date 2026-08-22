@@ -103,9 +103,9 @@ func (l *Lib) Lookup(string) (uintptr, error) { return 0, ErrUnsupported }
 // Resolved reports the names from [Symbols] that resolved.
 func (l *Lib) Resolved() []string { return nil }
 
-// Status is the status code returned by an e5rt_* entry point. A zero code
-// means the entry point accepted the call; see the darwin build for effects
-// that remain unverified.
+// Status is a normalized signed 32-bit E5RT status code. A zero code means the
+// entry point accepted the call; see the darwin build for effects that remain
+// unverified.
 type Status int64
 
 // Err reports a non-nil error for any nonzero status.

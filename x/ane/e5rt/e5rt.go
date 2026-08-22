@@ -109,7 +109,7 @@ type Lib struct {
 	extra map[string]uintptr // names resolved on demand by Lookup
 
 	errorStringOnce sync.Once
-	errorString     func(int64) uintptr
+	errorString     func(int32) uintptr
 	errorStringErr  error
 }
 
@@ -212,10 +212,11 @@ func (l *Lib) Resolved() []string {
 	return names
 }
 
-// Status is the int64 code every e5rt_* entry point returns. A zero code means
-// the entry point accepted the call, not necessarily that it had its apparent
-// effect. The meaning of nonzero values is not documented and has not been
-// recovered; [Status.Err] reports the raw code.
+// Status is a normalized E5RT status code. E5RT declares its status carrier as
+// a signed 32-bit C int. A zero code means the entry point accepted the call,
+// not necessarily that it had its apparent effect. The meaning of nonzero
+// values is not documented and has not been recovered; [Status.Err] reports
+// the raw code.
 type Status int64
 
 // Err reports a non-nil error for any nonzero status.
@@ -228,8 +229,8 @@ func (s Status) Err(op string) error {
 
 // ErrorString returns Espresso's static description of status.
 //
-// The recovered ane_bridge declaration says e5rt_error_code_get_string takes
-// an int64 status and returns const char *. Its tests read static descriptions
+// The recovered ane_bridge declaration says e5rt_error_code_get_string takes a
+// signed 32-bit status and returns const char *. Its tests read static descriptions
 // for status values 0 through 6. This method reads the returned C string; it
 // does not retain it.
 func (l *Lib) ErrorString(status Status) (string, error) {
@@ -247,7 +248,7 @@ func (l *Lib) ErrorString(status Status) (string, error) {
 	if l.errorStringErr != nil {
 		return "", l.errorStringErr
 	}
-	ptr := l.errorString(int64(status))
+	ptr := l.errorString(int32(status))
 	if ptr == 0 {
 		return "", fmt.Errorf("e5rt: no description for status %d", status)
 	}
@@ -272,7 +273,11 @@ func (l *Lib) call(name string, args ...uintptr) (Status, error) {
 		return 0, err
 	}
 	r, _, _ := purego.SyscallN(sym, args...)
-	return Status(int64(r)), nil
+	return normalizeStatus(int64(r)), nil
+}
+
+func normalizeStatus(raw int64) Status {
+	return Status(int32(raw))
 }
 
 // callErr invokes a resolved entry point and folds its status into the error.

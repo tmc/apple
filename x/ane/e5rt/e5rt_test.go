@@ -192,6 +192,23 @@ func TestStatusErr(t *testing.T) {
 	}
 }
 
+func TestNormalizeStatus(t *testing.T) {
+	for _, test := range []struct {
+		raw  int64
+		want Status
+	}{
+		{0, 0},
+		{2, 2},
+		{0x0000000100000000, 0},
+		{-4294967294, 2},
+		{-1, -1},
+	} {
+		if got := normalizeStatus(test.raw); got != test.want {
+			t.Errorf("normalizeStatus(%#x) = %d, want %d", test.raw, got, test.want)
+		}
+	}
+}
+
 func TestErrorString(t *testing.T) {
 	lib, err := Open()
 	if lib == nil {
