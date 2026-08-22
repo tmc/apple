@@ -329,6 +329,87 @@ type Connection struct {
 	active   bool
 }
 
+// Activity is a scheduled XPC activity. Values delivered to a handler retain
+// their raw object, so they remain valid after the handler returns; Close
+// releases that reference.
+type Activity struct{ raw unsafe.Pointer }
+
+// ActivityHandler receives an owned activity handle.
+type ActivityHandler func(*Activity)
+
+func (a *Activity) Close() error {
+	if a == nil || a.raw == nil {
+		return nil
+	}
+	if err := requireRawSymbols(rawSyms_Activity_Close...); err != nil {
+		a.raw = nil
+		return err
+	}
+	raw_xpc_release(a.raw)
+	a.raw = nil
+	return nil
+}
+
+// RegisterActivity registers handler under identifier with dictionary criteria.
+func RegisterActivity(identifier string, criteria Dictionary, handler ActivityHandler) error {
+	if identifier == "" || handler == nil {
+		return errors.New("xpc: activity identifier and handler are required")
+	}
+	if err := requireRawSymbols(rawSyms_RegisterActivity...); err != nil {
+		return err
+	}
+	raw, err := dictionaryToRawObject(criteria)
+	if err != nil {
+		return err
+	}
+	defer releaseRaw(raw)
+	block, err := newXPCBlock(func(_ uintptr, activity unsafe.Pointer) { raw_xpc_retain(activity); handler(&Activity{raw: activity}) })
+	if err != nil {
+		return err
+	}
+	raw_xpc_activity_register(identifier, raw, block)
+	return nil
+}
+
+// UnregisterActivity removes identifier's registration.
+func UnregisterActivity(identifier string) error {
+	if identifier == "" {
+		return errors.New("xpc: activity identifier is empty")
+	}
+	if err := requireRawSymbols(rawSyms_UnregisterActivity...); err != nil {
+		return err
+	}
+	raw_xpc_activity_unregister(identifier)
+	return nil
+}
+
+// Criteria returns a copy of a's criteria dictionary.
+func (a *Activity) Criteria() (Dictionary, error) {
+	if a == nil || a.raw == nil {
+		return nil, errors.New("xpc: activity is closed")
+	}
+	if err := requireRawSymbols(rawSyms_Activity_Criteria...); err != nil {
+		return nil, err
+	}
+	raw := raw_xpc_activity_copy_criteria(a.raw)
+	if raw == nil {
+		return nil, nil
+	}
+	defer releaseRaw(raw)
+	return rawObjectToDictionary(raw)
+}
+
+// ShouldDefer reports whether the scheduler requests deferred work.
+func (a *Activity) ShouldDefer() (bool, error) {
+	if a == nil || a.raw == nil {
+		return false, errors.New("xpc: activity is closed")
+	}
+	if err := requireRawSymbols(rawSyms_Activity_ShouldDefer...); err != nil {
+		return false, err
+	}
+	return raw_xpc_activity_should_defer(a.raw), nil
+}
+
 type ReceivedMessage struct {
 	raw     unsafe.Pointer
 	session *Session

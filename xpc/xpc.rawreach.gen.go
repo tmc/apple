@@ -6,6 +6,9 @@ package xpc
 // <Entry>, including through callees. Guards use these instead of
 // hand-listed literals so a newly added raw_ call cannot go unguarded.
 
+var rawSyms_Activity_Close = []string{"xpc_release"}
+var rawSyms_Activity_Criteria = []string{"xpc_activity_copy_criteria", "xpc_array_apply", "xpc_bool_get_value", "xpc_copy_description", "xpc_data_get_bytes_ptr", "xpc_data_get_length", "xpc_date_get_value", "xpc_dictionary_apply", "xpc_double_get_value", "xpc_get_type", "xpc_int64_get_value", "xpc_release", "xpc_retain", "xpc_string_get_string_ptr", "xpc_type_get_name", "xpc_uint64_get_value", "xpc_uuid_get_bytes"}
+var rawSyms_Activity_ShouldDefer = []string{"xpc_activity_should_defer"}
 var rawSyms_Connection_Activate = []string{"xpc_connection_activate"}
 var rawSyms_Connection_AuditSessionID = []string{"xpc_connection_get_asid"}
 var rawSyms_Connection_CallDictionary = []string{"xpc_array_append_value", "xpc_array_apply", "xpc_array_create_empty", "xpc_bool_create", "xpc_bool_get_value", "xpc_connection_send_message_with_reply_sync", "xpc_copy_description", "xpc_data_create", "xpc_data_get_bytes_ptr", "xpc_data_get_length", "xpc_date_create", "xpc_date_get_value", "xpc_dictionary_apply", "xpc_dictionary_create_empty", "xpc_dictionary_set_bool", "xpc_dictionary_set_data", "xpc_dictionary_set_double", "xpc_dictionary_set_int64", "xpc_dictionary_set_string", "xpc_dictionary_set_uint64", "xpc_dictionary_set_value", "xpc_double_create", "xpc_double_get_value", "xpc_get_type", "xpc_int64_create", "xpc_int64_get_value", "xpc_null_create", "xpc_release", "xpc_retain", "xpc_string_create", "xpc_string_get_string_ptr", "xpc_type_get_name", "xpc_uint64_create", "xpc_uint64_get_value", "xpc_uuid_create", "xpc_uuid_get_bytes"}
@@ -71,11 +74,16 @@ var rawSyms_NewSameTeamSignedAsRequirement = []string{"xpc_peer_requirement_crea
 var rawSyms_NewServiceListener = []string{"xpc_array_append_value", "xpc_array_create_empty", "xpc_bool_create", "xpc_data_create", "xpc_date_create", "xpc_dictionary_create_empty", "xpc_dictionary_create_reply", "xpc_dictionary_set_bool", "xpc_dictionary_set_data", "xpc_dictionary_set_double", "xpc_dictionary_set_int64", "xpc_dictionary_set_string", "xpc_dictionary_set_uint64", "xpc_dictionary_set_value", "xpc_double_create", "xpc_int64_create", "xpc_listener_activate", "xpc_listener_create", "xpc_listener_reject_peer", "xpc_listener_set_peer_requirement", "xpc_null_create", "xpc_release", "xpc_retain", "xpc_rich_error_can_retry", "xpc_rich_error_copy_description", "xpc_session_activate", "xpc_session_send_message", "xpc_session_set_cancel_handler", "xpc_session_set_incoming_message_handler", "xpc_string_create", "xpc_uint64_create", "xpc_uuid_create"}
 var rawSyms_NewSharedMemory = []string{"xpc_shmem_create"}
 var rawSyms_PeerRequirementFromHandle = []string{"xpc_retain"}
+var rawSyms_RegisterActivity = []string{"xpc_activity_register", "xpc_array_append_value", "xpc_array_create_empty", "xpc_bool_create", "xpc_data_create", "xpc_date_create", "xpc_dictionary_create_empty", "xpc_dictionary_set_bool", "xpc_dictionary_set_data", "xpc_dictionary_set_double", "xpc_dictionary_set_int64", "xpc_dictionary_set_string", "xpc_dictionary_set_uint64", "xpc_dictionary_set_value", "xpc_double_create", "xpc_int64_create", "xpc_null_create", "xpc_release", "xpc_retain", "xpc_string_create", "xpc_uint64_create", "xpc_uuid_create"}
 var rawSyms_SetEventStreamHandler = []string{"xpc_array_apply", "xpc_bool_get_value", "xpc_copy_description", "xpc_data_get_bytes_ptr", "xpc_data_get_length", "xpc_date_get_value", "xpc_dictionary_apply", "xpc_double_get_value", "xpc_get_type", "xpc_int64_get_value", "xpc_retain", "xpc_set_event_stream_handler", "xpc_string_get_string_ptr", "xpc_type_get_name", "xpc_uint64_get_value", "xpc_uuid_get_bytes"}
 var rawSyms_Transaction = []string{"xpc_transaction_begin", "xpc_transaction_end"}
+var rawSyms_UnregisterActivity = []string{"xpc_activity_unregister"}
 
 // rawReachability indexes the above by entry point, for the tests.
 var rawReachability = map[string][]string{
+	"(*Activity).Close":                                 rawSyms_Activity_Close,
+	"(*Activity).Criteria":                              rawSyms_Activity_Criteria,
+	"(*Activity).ShouldDefer":                           rawSyms_Activity_ShouldDefer,
 	"(*Connection).Activate":                            rawSyms_Connection_Activate,
 	"(*Connection).AuditSessionID":                      rawSyms_Connection_AuditSessionID,
 	"(*Connection).CallDictionary":                      rawSyms_Connection_CallDictionary,
@@ -141,13 +149,15 @@ var rawReachability = map[string][]string{
 	"NewServiceListener":                                rawSyms_NewServiceListener,
 	"NewSharedMemory":                                   rawSyms_NewSharedMemory,
 	"PeerRequirementFromHandle":                         rawSyms_PeerRequirementFromHandle,
+	"RegisterActivity":                                  rawSyms_RegisterActivity,
 	"SetEventStreamHandler":                             rawSyms_SetEventStreamHandler,
 	"Transaction":                                       rawSyms_Transaction,
+	"UnregisterActivity":                                rawSyms_UnregisterActivity,
 }
 
 // rawAllCalledSymbols is the union of raw symbols named by any function in
 // the package, exported or not.
-var rawAllCalledSymbols = []string{"launch_activate_socket", "xpc_array_append_value", "xpc_array_apply", "xpc_array_create_empty", "xpc_bool_create", "xpc_bool_get_value", "xpc_connection_activate", "xpc_connection_cancel", "xpc_connection_copy_invalidation_reason", "xpc_connection_create", "xpc_connection_create_from_endpoint", "xpc_connection_create_mach_service", "xpc_connection_get_asid", "xpc_connection_get_egid", "xpc_connection_get_euid", "xpc_connection_get_name", "xpc_connection_get_pid", "xpc_connection_resume", "xpc_connection_send_message", "xpc_connection_send_message_with_reply_sync", "xpc_connection_set_event_handler", "xpc_connection_set_peer_code_signing_requirement", "xpc_connection_set_peer_entitlement_exists_requirement", "xpc_connection_set_peer_platform_identity_requirement", "xpc_connection_set_peer_requirement", "xpc_connection_set_peer_team_identity_requirement", "xpc_connection_set_target_queue", "xpc_connection_suspend", "xpc_copy", "xpc_copy_description", "xpc_data_create", "xpc_data_get_bytes_ptr", "xpc_data_get_length", "xpc_date_create", "xpc_date_create_from_current", "xpc_date_get_value", "xpc_dictionary_apply", "xpc_dictionary_create_empty", "xpc_dictionary_create_reply", "xpc_dictionary_set_bool", "xpc_dictionary_set_data", "xpc_dictionary_set_double", "xpc_dictionary_set_int64", "xpc_dictionary_set_string", "xpc_dictionary_set_uint64", "xpc_dictionary_set_value", "xpc_double_create", "xpc_double_get_value", "xpc_endpoint_create", "xpc_equal", "xpc_fd_create", "xpc_fd_dup", "xpc_get_type", "xpc_hash", "xpc_int64_create", "xpc_int64_get_value", "xpc_listener_activate", "xpc_listener_cancel", "xpc_listener_copy_description", "xpc_listener_create", "xpc_listener_reject_peer", "xpc_listener_set_peer_code_signing_requirement", "xpc_listener_set_peer_requirement", "xpc_null_create", "xpc_peer_requirement_create_entitlement_exists", "xpc_peer_requirement_create_entitlement_matches_value", "xpc_peer_requirement_create_lwcr", "xpc_peer_requirement_create_platform_identity", "xpc_peer_requirement_create_team_identity", "xpc_peer_requirement_match_received_message", "xpc_release", "xpc_retain", "xpc_rich_error_can_retry", "xpc_rich_error_copy_description", "xpc_session_activate", "xpc_session_cancel", "xpc_session_copy_description", "xpc_session_create_mach_service", "xpc_session_create_xpc_service", "xpc_session_send_message", "xpc_session_send_message_with_reply_async", "xpc_session_send_message_with_reply_sync", "xpc_session_set_cancel_handler", "xpc_session_set_incoming_message_handler", "xpc_session_set_peer_code_signing_requirement", "xpc_session_set_peer_requirement", "xpc_session_set_target_queue", "xpc_set_event_stream_handler", "xpc_shmem_create", "xpc_shmem_map", "xpc_string_create", "xpc_string_get_string_ptr", "xpc_transaction_begin", "xpc_transaction_end", "xpc_type_get_name", "xpc_uint64_create", "xpc_uint64_get_value", "xpc_uuid_create", "xpc_uuid_get_bytes"}
+var rawAllCalledSymbols = []string{"launch_activate_socket", "xpc_activity_copy_criteria", "xpc_activity_register", "xpc_activity_should_defer", "xpc_activity_unregister", "xpc_array_append_value", "xpc_array_apply", "xpc_array_create_empty", "xpc_bool_create", "xpc_bool_get_value", "xpc_connection_activate", "xpc_connection_cancel", "xpc_connection_copy_invalidation_reason", "xpc_connection_create", "xpc_connection_create_from_endpoint", "xpc_connection_create_mach_service", "xpc_connection_get_asid", "xpc_connection_get_egid", "xpc_connection_get_euid", "xpc_connection_get_name", "xpc_connection_get_pid", "xpc_connection_resume", "xpc_connection_send_message", "xpc_connection_send_message_with_reply_sync", "xpc_connection_set_event_handler", "xpc_connection_set_peer_code_signing_requirement", "xpc_connection_set_peer_entitlement_exists_requirement", "xpc_connection_set_peer_platform_identity_requirement", "xpc_connection_set_peer_requirement", "xpc_connection_set_peer_team_identity_requirement", "xpc_connection_set_target_queue", "xpc_connection_suspend", "xpc_copy", "xpc_copy_description", "xpc_data_create", "xpc_data_get_bytes_ptr", "xpc_data_get_length", "xpc_date_create", "xpc_date_create_from_current", "xpc_date_get_value", "xpc_dictionary_apply", "xpc_dictionary_create_empty", "xpc_dictionary_create_reply", "xpc_dictionary_set_bool", "xpc_dictionary_set_data", "xpc_dictionary_set_double", "xpc_dictionary_set_int64", "xpc_dictionary_set_string", "xpc_dictionary_set_uint64", "xpc_dictionary_set_value", "xpc_double_create", "xpc_double_get_value", "xpc_endpoint_create", "xpc_equal", "xpc_fd_create", "xpc_fd_dup", "xpc_get_type", "xpc_hash", "xpc_int64_create", "xpc_int64_get_value", "xpc_listener_activate", "xpc_listener_cancel", "xpc_listener_copy_description", "xpc_listener_create", "xpc_listener_reject_peer", "xpc_listener_set_peer_code_signing_requirement", "xpc_listener_set_peer_requirement", "xpc_null_create", "xpc_peer_requirement_create_entitlement_exists", "xpc_peer_requirement_create_entitlement_matches_value", "xpc_peer_requirement_create_lwcr", "xpc_peer_requirement_create_platform_identity", "xpc_peer_requirement_create_team_identity", "xpc_peer_requirement_match_received_message", "xpc_release", "xpc_retain", "xpc_rich_error_can_retry", "xpc_rich_error_copy_description", "xpc_session_activate", "xpc_session_cancel", "xpc_session_copy_description", "xpc_session_create_mach_service", "xpc_session_create_xpc_service", "xpc_session_send_message", "xpc_session_send_message_with_reply_async", "xpc_session_send_message_with_reply_sync", "xpc_session_set_cancel_handler", "xpc_session_set_incoming_message_handler", "xpc_session_set_peer_code_signing_requirement", "xpc_session_set_peer_requirement", "xpc_session_set_target_queue", "xpc_set_event_stream_handler", "xpc_shmem_create", "xpc_shmem_map", "xpc_string_create", "xpc_string_get_string_ptr", "xpc_transaction_begin", "xpc_transaction_end", "xpc_type_get_name", "xpc_uint64_create", "xpc_uint64_get_value", "xpc_uuid_create", "xpc_uuid_get_bytes"}
 
 // rawReachEdge is one call edge the generator could not follow.
 type rawReachEdge struct {
@@ -161,22 +171,23 @@ type rawReachEdge struct {
 var rawReachUnresolved = []rawReachEdge{
 	{Entry: "(RichError).Error", File: "xpc.highlevel.gen.go", Line: 267, Expr: "e.cause.Error(...)", Kind: "unresolvable receiver expression"},
 	{Entry: "NewSharedMemory", File: "xpc.highlevel.gen.go", Line: 186, Expr: "m.Close(...)", Kind: "unresolved receiver type"},
-	{Entry: "SetEventStreamHandler", File: "xpc.highlevel.gen.go", Line: 727, Expr: "handler(...)", Kind: "func-value or unknown callee"},
-	{Entry: "decodeJSONPayload", File: "xpc.highlevel.gen.go", Line: 1046, Expr: "dec.Decode(...)", Kind: "unresolved receiver type"},
-	{Entry: "encodeMessage", File: "xpc.highlevel.gen.go", Line: 1157, Expr: "iter.Key(...).String(...)", Kind: "unresolvable receiver expression"},
-	{Entry: "entitlementValueToRawObject", File: "xpc.highlevel.gen.go", Line: 936, Expr: "rv.String(...)", Kind: "unresolved receiver type"},
-	{Entry: "freeMemory", File: "xpc.highlevel.gen.go", Line: 2485, Expr: "libcfn_free(...)", Kind: "func-value or unknown callee"},
-	{Entry: "jsonNumbersToWire", File: "xpc.highlevel.gen.go", Line: 1061, Expr: "x.String(...)", Kind: "unresolved receiver type"},
-	{Entry: "mapShared", File: "xpc.highlevel.gen.go", Line: 2462, Expr: "libcfn_mmap(...)", Kind: "func-value or unknown callee"},
-	{Entry: "munmapRegion", File: "xpc.highlevel.gen.go", Line: 2477, Expr: "libcfn_munmap(...)", Kind: "func-value or unknown callee"},
-	{Entry: "newConnection", File: "xpc.highlevel.gen.go", Line: 504, Expr: "handler(...)", Kind: "func-value or unknown callee"},
-	{Entry: "newListener", File: "xpc.highlevel.gen.go", Line: 1300, Expr: "incoming(...)", Kind: "func-value or unknown callee"},
-	{Entry: "newRequirement", File: "xpc.highlevel.gen.go", Line: 903, Expr: "create(...)", Kind: "func-value or unknown callee"},
-	{Entry: "targetQueuePointer", File: "xpc.highlevel.gen.go", Line: 459, Expr: "queue.Handle(...)", Kind: "unresolved receiver type"},
-	{Entry: "xpcCancelTrampoline", File: "xpc.highlevel.gen.go", Line: 2854, Expr: "handler(...)", Kind: "func-value or unknown callee"},
-	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2819, Expr: "handler(...)", Kind: "func-value or unknown callee"},
-	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2827, Expr: "err.Error(...)", Kind: "unresolved receiver type"},
-	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2832, Expr: "encErr.Error(...)", Kind: "unresolved receiver type"},
-	{Entry: "xpcReplyTrampoline", File: "xpc.highlevel.gen.go", Line: 2929, Expr: "reply(...)", Kind: "func-value or unknown callee"},
-	{Entry: "xpcReplyTrampoline", File: "xpc.highlevel.gen.go", Line: 2933, Expr: "reply(...)", Kind: "func-value or unknown callee"},
+	{Entry: "RegisterActivity", File: "xpc.highlevel.gen.go", Line: 348, Expr: "handler(...)", Kind: "func-value or unknown callee"},
+	{Entry: "SetEventStreamHandler", File: "xpc.highlevel.gen.go", Line: 755, Expr: "handler(...)", Kind: "func-value or unknown callee"},
+	{Entry: "decodeJSONPayload", File: "xpc.highlevel.gen.go", Line: 1074, Expr: "dec.Decode(...)", Kind: "unresolved receiver type"},
+	{Entry: "encodeMessage", File: "xpc.highlevel.gen.go", Line: 1185, Expr: "iter.Key(...).String(...)", Kind: "unresolvable receiver expression"},
+	{Entry: "entitlementValueToRawObject", File: "xpc.highlevel.gen.go", Line: 964, Expr: "rv.String(...)", Kind: "unresolved receiver type"},
+	{Entry: "freeMemory", File: "xpc.highlevel.gen.go", Line: 2513, Expr: "libcfn_free(...)", Kind: "func-value or unknown callee"},
+	{Entry: "jsonNumbersToWire", File: "xpc.highlevel.gen.go", Line: 1089, Expr: "x.String(...)", Kind: "unresolved receiver type"},
+	{Entry: "mapShared", File: "xpc.highlevel.gen.go", Line: 2490, Expr: "libcfn_mmap(...)", Kind: "func-value or unknown callee"},
+	{Entry: "munmapRegion", File: "xpc.highlevel.gen.go", Line: 2505, Expr: "libcfn_munmap(...)", Kind: "func-value or unknown callee"},
+	{Entry: "newConnection", File: "xpc.highlevel.gen.go", Line: 532, Expr: "handler(...)", Kind: "func-value or unknown callee"},
+	{Entry: "newListener", File: "xpc.highlevel.gen.go", Line: 1328, Expr: "incoming(...)", Kind: "func-value or unknown callee"},
+	{Entry: "newRequirement", File: "xpc.highlevel.gen.go", Line: 931, Expr: "create(...)", Kind: "func-value or unknown callee"},
+	{Entry: "targetQueuePointer", File: "xpc.highlevel.gen.go", Line: 487, Expr: "queue.Handle(...)", Kind: "unresolved receiver type"},
+	{Entry: "xpcCancelTrampoline", File: "xpc.highlevel.gen.go", Line: 2882, Expr: "handler(...)", Kind: "func-value or unknown callee"},
+	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2847, Expr: "handler(...)", Kind: "func-value or unknown callee"},
+	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2855, Expr: "err.Error(...)", Kind: "unresolved receiver type"},
+	{Entry: "xpcIncomingTrampoline", File: "xpc.highlevel.gen.go", Line: 2860, Expr: "encErr.Error(...)", Kind: "unresolved receiver type"},
+	{Entry: "xpcReplyTrampoline", File: "xpc.highlevel.gen.go", Line: 2957, Expr: "reply(...)", Kind: "func-value or unknown callee"},
+	{Entry: "xpcReplyTrampoline", File: "xpc.highlevel.gen.go", Line: 2961, Expr: "reply(...)", Kind: "func-value or unknown callee"},
 }

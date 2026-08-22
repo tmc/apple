@@ -213,6 +213,7 @@ var newXPCBlockLedger = []blockSite{
 		why:        "one block per process-wide event stream registration; handlers are not installed on the event delivery path",
 	},
 	{fn: "newConnection", perMessage: false, why: "one handler block per connection; connection creation is not a message path"},
+	{fn: "RegisterActivity", perMessage: false, why: "one block per process-global activity registration; activity delivery does not allocate callbacks"},
 }
 
 // wantPerMessageSites is the number of ledgered per-message registrations. It
