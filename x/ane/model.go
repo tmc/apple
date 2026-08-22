@@ -4,6 +4,7 @@ package ane
 
 import (
 	"fmt"
+	"os"
 	"runtime"
 	"sync"
 
@@ -24,6 +25,7 @@ type Model struct {
 
 	// For MIL models.
 	inMemModel appleneuralengine.ANEInMemoryModel
+	tmpDir     string // staging dir for the Espresso IR translator, removed by Close
 
 	// For package models.
 	aneModel  appleneuralengine.ANEModel
@@ -414,6 +416,11 @@ func (m *Model) Close() error {
 	}
 	m.inputs = nil
 	m.outputs = nil
+
+	if m.tmpDir != "" {
+		os.RemoveAll(m.tmpDir)
+		m.tmpDir = ""
+	}
 
 	// Balance retainObjects. Skipped after a shared-event eval for the same
 	// reason the unload above is: dealloc reaches the code that crashes.

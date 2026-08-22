@@ -96,9 +96,19 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 	}
 
 	// Pre-populate the temp directory that the Espresso IR translator expects.
-	if err := prepopulateTempDir(model, opts.MILText, weightFiles); err != nil {
+	// The directory is a few hundred megabytes for a large model, so ownership
+	// passes to the Model below and Close removes it; every path that does not
+	// reach the Model removes it here.
+	tmpDir, err := prepopulateTempDir(model, opts.MILText, weightFiles)
+	if err != nil {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("pre-populate temp dir: %w", err)}
 	}
+	keepTmpDir := false
+	defer func() {
+		if !keepTmpDir {
+			os.RemoveAll(tmpDir)
+		}
+	}()
 
 	emptyOpts := foundation.NewNSMutableDictionary()
 
@@ -167,6 +177,7 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 		modelType:     ModelTypeMIL,
 		qos:           opts.QoS,
 		inMemModel:    model,
+		tmpDir:        tmpDir,
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
@@ -176,6 +187,7 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 		mapped:        true,
 	}
 	m.retainObjects()
+	keepTmpDir = true
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
@@ -596,44 +608,45 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 
 // prepopulateTempDir writes the MIL text and weight blobs to the temp directory
 // that the ANE compiler's Espresso IR translator expects to find them at.
-func prepopulateTempDir(model appleneuralengine.ANEInMemoryModel, milText []byte, weightFiles []WeightFile) error {
+// It returns the directory, which the caller owns and must remove.
+func prepopulateTempDir(model appleneuralengine.ANEInMemoryModel, milText []byte, weightFiles []WeightFile) (string, error) {
 	hexID := model.HexStringIdentifier()
 	if hexID == "" {
-		return fmt.Errorf("model has no hex identifier")
+		return "", fmt.Errorf("model has no hex identifier")
 	}
 
 	tmpDir := filepath.Join(os.TempDir(), hexID)
 
 	weightsDir := filepath.Join(tmpDir, "weights")
 	if err := os.MkdirAll(weightsDir, 0o755); err != nil {
-		return fmt.Errorf("mkdir %s: %w", weightsDir, err)
+		return "", fmt.Errorf("mkdir %s: %w", weightsDir, err)
 	}
 
 	milPath := filepath.Join(tmpDir, "model.mil")
 	if err := os.WriteFile(milPath, milText, 0o644); err != nil {
-		return fmt.Errorf("write %s: %w", milPath, err)
+		return "", fmt.Errorf("write %s: %w", milPath, err)
 	}
 
 	for _, wf := range weightFiles {
 		relPath, err := cleanWeightPath(wf.Path)
 		if err != nil {
-			return fmt.Errorf("invalid weight path %q: %w", wf.Path, err)
+			return "", fmt.Errorf("invalid weight path %q: %w", wf.Path, err)
 		}
 		blobPath := filepath.Join(tmpDir, filepath.FromSlash(relPath))
 		relToTmp, err := filepath.Rel(tmpDir, blobPath)
 		if err != nil || relToTmp == ".." || strings.HasPrefix(relToTmp, ".."+string(filepath.Separator)) {
-			return fmt.Errorf("weight path %q escapes temp directory %s", wf.Path, tmpDir)
+			return "", fmt.Errorf("weight path %q escapes temp directory %s", wf.Path, tmpDir)
 		}
 		blobDir := filepath.Dir(blobPath)
 		if err := os.MkdirAll(blobDir, 0o755); err != nil {
-			return fmt.Errorf("mkdir %s: %w", blobDir, err)
+			return "", fmt.Errorf("mkdir %s: %w", blobDir, err)
 		}
 		if err := os.WriteFile(blobPath, wf.Blob, 0o644); err != nil {
-			return fmt.Errorf("write %s: %w", blobPath, err)
+			return "", fmt.Errorf("write %s: %w", blobPath, err)
 		}
 	}
 
-	return nil
+	return tmpDir, nil
 }
 
 // validateLayout checks that a TensorLayout has valid dimensions and alignment.
@@ -730,9 +743,19 @@ func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Mod
 		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
 
-	if err := prepopulateTempDir(model, opts.MILText, weightFiles); err != nil {
+	// The directory is a few hundred megabytes for a large model, so ownership
+	// passes to the Model below and Close removes it; every path that does not
+	// reach the Model removes it here.
+	tmpDir, err := prepopulateTempDir(model, opts.MILText, weightFiles)
+	if err != nil {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("pre-populate temp dir: %w", err)}
 	}
+	keepTmpDir := false
+	defer func() {
+		if !keepTmpDir {
+			os.RemoveAll(tmpDir)
+		}
+	}()
 
 	emptyOpts := foundation.NewNSMutableDictionary()
 
@@ -802,6 +825,7 @@ func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Mod
 		modelType:     ModelTypeMIL,
 		qos:           opts.QoS,
 		inMemModel:    model,
+		tmpDir:        tmpDir,
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
@@ -811,6 +835,7 @@ func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Mod
 		mapped:        true,
 	}
 	m.retainObjects()
+	keepTmpDir = true
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
