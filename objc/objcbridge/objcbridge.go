@@ -11,10 +11,14 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// AddMethods installs methods on cls using purego callbacks.
+// AddMethods installs methods on cls.
+//
+// Each method's Fn must take (objc.ID, objc.SEL) as its first two arguments;
+// objc.NewIMP panics otherwise. See its documentation for why a missing prefix
+// corrupts the call rather than failing it.
 func AddMethods(cls objc.Class, className string, methods []objc.MethodDef) error {
 	for _, method := range methods {
-		if !objc.AddMethod(cls, method.Cmd, purego.NewCallback(method.Fn), "") {
+		if !objc.AddMethod(cls, method.Cmd, objc.NewIMP(method.Fn), "") {
 			return fmt.Errorf("add method %v to %s", method.Cmd, className)
 		}
 	}

@@ -3,12 +3,15 @@
 package objc_test
 
 import (
+	"os"
+	"os/exec"
+	"path/filepath"
 	"runtime"
+	"strings"
 	"sync"
 	"testing"
 	"unsafe"
 
-	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	privatevirtualization "github.com/tmc/apple/private/virtualization"
@@ -52,15 +55,15 @@ func ensureABIProbeClass() (objc.Class, string) {
 			return
 		}
 
-		if !objc.AddMethod(cls, objc.Sel("takePointer:index:"), purego.NewCallback(abiTakePointer), "v@:^vI") {
+		if !objc.AddMethod(cls, objc.Sel("takePointer:index:"), objc.NewIMP(abiTakePointer), "v@:^vI") {
 			abiProbeErr = "failed adding takePointer:index:"
 			return
 		}
-		if !objc.AddMethod(cls, objc.Sel("takeObject:index:"), purego.NewCallback(abiTakeObject), "v@:@I") {
+		if !objc.AddMethod(cls, objc.Sel("takeObject:index:"), objc.NewIMP(abiTakeObject), "v@:@I") {
 			abiProbeErr = "failed adding takeObject:index:"
 			return
 		}
-		if !objc.AddMethod(cls, objc.Sel("takeStackA:b:c:d:e:f:g:h:i:"), purego.NewCallback(abiTakeStack), "v@:QQQQQQQQS") {
+		if !objc.AddMethod(cls, objc.Sel("takeStackA:b:c:d:e:f:g:h:i:"), objc.NewIMP(abiTakeStack), "v@:QQQQQQQQS") {
 			abiProbeErr = "failed adding takeStackA:b:c:d:e:f:g:h:i:"
 			return
 		}
@@ -203,6 +206,92 @@ func TestSendABIStackPassedScalars(t *testing.T) {
 	})
 }
 
+func TestABIProbeMethodEncodings(t *testing.T) {
+	cls, err := ensureABIProbeClass()
+	if err != "" {
+		t.Fatal(err)
+	}
+
+	encoding := clangObjectiveCTypeEncodings(t)
+	for typ, want := range map[string]string{
+		"uint64_t":           "Q",
+		"unsigned long":      "Q",
+		"unsigned long long": "Q",
+		"uint16_t":           "S",
+	} {
+		if got := encoding[typ]; got != want {
+			t.Fatalf("clang @encode(%s) = %q, want %q", typ, got, want)
+		}
+	}
+
+	prefix := encoding["void"] + encoding["id"] + encoding["SEL"]
+	cases := []struct {
+		selector string
+		want     string
+	}{
+		{selector: "takePointer:index:", want: prefix + encoding["void *"] + encoding["uint32_t"]},
+		{selector: "takeObject:index:", want: prefix + encoding["id"] + encoding["uint32_t"]},
+		{selector: "takeStackA:b:c:d:e:f:g:h:i:", want: prefix + strings.Repeat(encoding["uint64_t"], 8) + encoding["uint16_t"]},
+	}
+	for _, tc := range cases {
+		t.Run(tc.selector, func(t *testing.T) {
+			method := objectivec.Class_getInstanceMethod(cls, objectivec.SEL(objc.Sel(tc.selector)))
+			if method == 0 {
+				t.Fatalf("method %q not found", tc.selector)
+			}
+			if got := objc.GoString(objectivec.Method_getTypeEncoding(method)); got != tc.want {
+				t.Fatalf("encoding = %q, want clang-derived %q", got, tc.want)
+			}
+		})
+	}
+}
+
+func clangObjectiveCTypeEncodings(t *testing.T) map[string]string {
+	t.Helper()
+
+	const source = `
+#include <objc/objc.h>
+#include <stdint.h>
+#include <stdio.h>
+
+int main(void) {
+	printf("void=%s\n", @encode(void));
+	printf("id=%s\n", @encode(id));
+	printf("SEL=%s\n", @encode(SEL));
+	printf("void *=%s\n", @encode(void *));
+	printf("uint16_t=%s\n", @encode(uint16_t));
+	printf("uint32_t=%s\n", @encode(uint32_t));
+	printf("uint64_t=%s\n", @encode(uint64_t));
+	printf("unsigned long=%s\n", @encode(unsigned long));
+	printf("unsigned long long=%s\n", @encode(unsigned long long));
+	return 0;
+}
+`
+	dir := t.TempDir()
+	sourcePath := filepath.Join(dir, "encoding.m")
+	binaryPath := filepath.Join(dir, "encoding")
+	if err := os.WriteFile(sourcePath, []byte(source), 0o600); err != nil {
+		t.Fatalf("write clang encoding probe: %v", err)
+	}
+	if out, err := exec.Command("xcrun", "clang", "-Werror", "-x", "objective-c", sourcePath, "-o", binaryPath).CombinedOutput(); err != nil {
+		t.Fatalf("compile clang encoding probe: %v\n%s", err, out)
+	}
+	out, err := exec.Command(binaryPath).Output()
+	if err != nil {
+		t.Fatalf("run clang encoding probe: %v", err)
+	}
+
+	encodings := make(map[string]string)
+	for _, line := range strings.Split(strings.TrimSpace(string(out)), "\n") {
+		typ, encoding, ok := strings.Cut(line, "=")
+		if !ok || typ == "" || encoding == "" {
+			t.Fatalf("invalid clang encoding row %q", line)
+		}
+		encodings[typ] = encoding
+	}
+	return encodings
+}
+
 func TestVirtualMachineSelectorContracts(t *testing.T) {
 	if runtime.GOARCH != "arm64" {
 		t.Skip("arm64-specific selector probe")
@@ -235,7 +324,7 @@ func TestVirtualMachineSelectorContracts(t *testing.T) {
 			returnType := objc.GoString(objectivec.Method_copyReturnType(method))
 			argCount := objectivec.Method_getNumberOfArguments(method)
 			argTypes := make([]string, 0, argCount)
-			for i := uint(0); i < argCount; i++ {
+			for i := uint32(0); i < argCount; i++ {
 				argTypes = append(argTypes, objc.GoString(objectivec.Method_copyArgumentType(method, i)))
 			}
 
@@ -287,7 +376,7 @@ func TestPrivateObjectInputSelectorContracts(t *testing.T) {
 			returnType := objc.GoString(objectivec.Method_copyReturnType(method))
 			argCount := objectivec.Method_getNumberOfArguments(method)
 			argTypes := make([]string, 0, argCount)
-			for i := uint(0); i < argCount; i++ {
+			for i := uint32(0); i < argCount; i++ {
 				argTypes = append(argTypes, objc.GoString(objectivec.Method_copyArgumentType(method, i)))
 			}
 
