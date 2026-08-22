@@ -120,7 +120,7 @@ func (l *Lib) Sym(name string) (uintptr, error) {
 	return espresso.SymbolAddress(name)
 }
 
-func check(name string, status int32, err error) error {
+func check(name string, status int64, err error) error {
 	if err != nil {
 		return err
 	}
@@ -131,12 +131,19 @@ func check(name string, status int32, err error) error {
 }
 
 // cstring returns a C string whose backing storage remains live through a call.
-func cstring(s string) ([]byte, uintptr) {
+func cstring(s string) ([]byte, *byte) {
 	b := append([]byte(s), 0)
-	return b, uintptr(unsafe.Pointer(&b[0]))
+	return b, (*byte)(unsafe.Pointer(&b[0]))
 }
 
-func release(name string, f func(*uintptr) (int32, error), handle uintptr) error {
+func boolInt32(v bool) int32 {
+	if v {
+		return 1
+	}
+	return 0
+}
+
+func release(name string, f func(*uintptr) (int64, error), handle uintptr) error {
 	p := new(uintptr)
 	*p = handle
 	status, callErr := f(p)
@@ -186,12 +193,12 @@ func (l *Lib) CompilerOptionsCreate() (uintptr, error) {
 }
 
 func (l *Lib) CompilerOptionsSetComputeDeviceTypesMask(options uintptr, mask uint64) error {
-	status, err := espresso.E5rtE5CompilerOptionsSetComputeDeviceTypesMask(options, uintptr(mask))
+	status, err := espresso.E5rtE5CompilerOptionsSetComputeDeviceTypesMask(options, mask)
 	return check("compiler_options_set_compute_device_types_mask", status, err)
 }
 
 func (l *Lib) CompilerOptionsSetForceRecompilation(options uintptr, force bool) error {
-	status, err := espresso.E5rtE5CompilerOptionsSetForceRecompilation(options, force)
+	status, err := espresso.E5rtE5CompilerOptionsSetForceRecompilation(options, boolInt32(force))
 	return check("compiler_options_set_force_recompilation", status, err)
 }
 
@@ -257,7 +264,7 @@ func (l *Lib) PrecompiledComputeOpOptionsSetOperationName(options uintptr, name 
 }
 
 func (l *Lib) PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(options uintptr, allocate bool) error {
-	status, err := espresso.E5rtPrecompiledComputeOpCreateOptionsSetAllocateIntermediateBuffers(options, allocate)
+	status, err := espresso.E5rtPrecompiledComputeOpCreateOptionsSetAllocateIntermediateBuffers(options, boolInt32(allocate))
 	return check("precompiled_compute_op_create_options_set_allocate_intermediate_buffers", status, err)
 }
 
@@ -279,7 +286,7 @@ func (l *Lib) OperationRelease(operation uintptr) error {
 
 func (l *Lib) BufferObjectAlloc(nbytes uintptr, kind int) (uintptr, error) {
 	out := new(uintptr)
-	status, callErr := espresso.E5rtBufferObjectAlloc(out, nbytes, uintptr(kind))
+	status, callErr := espresso.E5rtBufferObjectAlloc(out, uint64(nbytes), uint32(kind))
 	err := check("buffer_object_alloc", status, callErr)
 	runtime.KeepAlive(out)
 	return *out, err
@@ -297,7 +304,7 @@ func (l *Lib) BufferObjectRelease(buffer uintptr) error {
 	return release("buffer_object_release", espresso.E5rtBufferObjectRelease, buffer)
 }
 
-func (l *Lib) retainPort(name string, f func(uintptr, uintptr, *uintptr) (int32, error), operation uintptr, portName string) (uintptr, error) {
+func (l *Lib) retainPort(name string, f func(uintptr, *byte, *uintptr) (int64, error), operation uintptr, portName string) (uintptr, error) {
 	b, p := cstring(portName)
 	out := new(uintptr)
 	status, callErr := f(operation, p, out)
