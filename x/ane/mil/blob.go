@@ -37,6 +37,12 @@ type blobEntry struct {
 // A file begins with a 64-byte header holding the entry count and the format
 // version. Each entry follows at a 64-byte-aligned position as a 64-byte
 // metadata block immediately followed by its raw data.
+//
+// Packing weights into one file is what makes a model with many weights
+// compile. The ANE compiler limits the number of weight files, not the number
+// of weight tensors: on macOS 26.x sixteen separate files compile and seventeen
+// do not, while one file carrying 128 tensors compiles and runs. See
+// [TestWeightsInOneFileExceedFileCeiling].
 type BlobWriter struct {
 	blobs []blobEntry
 }
