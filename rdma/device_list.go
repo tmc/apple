@@ -8,6 +8,12 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
+// The uintptr to unsafe.Pointer conversions in this file all address memory
+// owned by librdma, which the Go collector never moves, so the pointer cannot
+// go stale between the conversion and its use. go vet reports them as a
+// possible misuse because it cannot tell C memory from a Go heap address held
+// in a uintptr. They are correct as written.
+
 // DeviceList owns an ibv_get_device_list result.
 //
 // Device handles returned by [DeviceList.Devices] remain valid until Close is
@@ -70,6 +76,12 @@ func rdmaDeviceListEntries(list RDMADeviceList, n int32) ([]RDMADevice, error) {
 	if n > 0 {
 		return unsafe.Slice((*RDMADevice)(unsafe.Pointer(list)), int(n)), nil
 	}
+	// n == 0 means the provider declined to report a count, so the only way to
+	// find the end is to scan for the NULL terminator. Nothing bounds that scan
+	// but this cap: without it a list the provider failed to terminate would be
+	// read until the read faults. Reaching the cap is reported as an error
+	// rather than treated as the end, so a genuinely longer list cannot be
+	// silently truncated.
 	const maxDeviceListScan = 1024
 	ptrs := (*[maxDeviceListScan]RDMADevice)(unsafe.Pointer(list))
 	for i, dev := range ptrs {

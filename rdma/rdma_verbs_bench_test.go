@@ -2,26 +2,15 @@ package rdma
 
 import "testing"
 
-func benchmarkPollCQ(RDMACQ, int, *IbvWC) int {
-	return 0
-}
-
-func benchmarkPostSend(RDMAQP, *IbvSendWR, **IbvSendWR) int {
-	return 0
-}
-
-func benchmarkPostRecv(RDMAQP, *IbvRecvWR, **IbvRecvWR) int {
-	return 0
-}
-
 func TestDatapathWrappersAllocs(t *testing.T) {
 	var wc IbvWC
 	var sendWR IbvSendWR
 	var badSend *IbvSendWR
 	var recvWR IbvRecvWR
 	var badRecv *IbvRecvWR
-	poller := IbvCQPoller{cq: 1, fn: benchmarkPollCQ}
-	poster := IbvQPPoster{qp: 1, send: benchmarkPostSend, recv: benchmarkPostRecv}
+	fn := buildDatapathTestFunction(t)
+	poller := IbvCQPoller{cq: 1, fnPtr: fn}
+	poster := IbvQPPoster{qp: 1, sendPtr: fn, recvPtr: fn}
 
 	tests := []struct {
 		name string
@@ -44,30 +33,31 @@ func BenchmarkDatapathWrappers(b *testing.B) {
 	var badSend *IbvSendWR
 	var recvWR IbvRecvWR
 	var badRecv *IbvRecvWR
-	poller := IbvCQPoller{cq: 1, fn: benchmarkPollCQ}
-	poster := IbvQPPoster{qp: 1, send: benchmarkPostSend, recv: benchmarkPostRecv}
+	fn := buildDatapathTestFunction(b)
+	poller := IbvCQPoller{cq: 1, fnPtr: fn}
+	poster := IbvQPPoster{qp: 1, sendPtr: fn, recvPtr: fn}
 
 	b.Run("poll", func(b *testing.B) {
 		b.ReportAllocs()
 		for i := 0; i < b.N; i++ {
-			if got := poller.Poll(1, &wc); got != 0 {
-				b.Fatalf("Poll = %d, want 0", got)
+			if got := poller.Poll(1, &wc); got != 2 {
+				b.Fatalf("Poll = %d, want 2", got)
 			}
 		}
 	})
 	b.Run("post_send", func(b *testing.B) {
 		b.ReportAllocs()
 		for i := 0; i < b.N; i++ {
-			if got := poster.PostSend(&sendWR, &badSend); got != 0 {
-				b.Fatalf("PostSend = %d, want 0", got)
+			if got := poster.PostSend(&sendWR, &badSend); got != 1 {
+				b.Fatalf("PostSend = %d, want 1", got)
 			}
 		}
 	})
 	b.Run("post_recv", func(b *testing.B) {
 		b.ReportAllocs()
 		for i := 0; i < b.N; i++ {
-			if got := poster.PostRecv(&recvWR, &badRecv); got != 0 {
-				b.Fatalf("PostRecv = %d, want 0", got)
+			if got := poster.PostRecv(&recvWR, &badRecv); got != 1 {
+				b.Fatalf("PostRecv = %d, want 1", got)
 			}
 		}
 	})

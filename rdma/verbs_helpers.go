@@ -30,9 +30,9 @@ func IbvModifyQpAttr(qp RDMAQP, attr *IbvQPAttr, attrMask int) (int, error) {
 	if attr == nil {
 		return 0, rdmaNilPointerError("ibv_modify_qp", "qp attr")
 	}
-	rc, err := IbvModifyQp(qp, uintptr(unsafe.Pointer(attr)), attrMask)
+	rc, err := IbvModifyQp(qp, uintptr(unsafe.Pointer(attr)), int32(attrMask))
 	rdmaKeepAlive(attr)
-	return rc, err
+	return int(rc), err
 }
 
 // IbvQueryPortAttr calls ibv_query_port with a typed port-attr pointer.
@@ -42,7 +42,7 @@ func IbvQueryPortAttr(context RDMAContext, portNum uint8, attr *IbvPortAttr) (in
 	}
 	rc, err := IbvQueryPort(context, portNum, uintptr(unsafe.Pointer(attr)))
 	rdmaKeepAlive(attr)
-	return rc, err
+	return int(rc), err
 }
 
 // IbvQueryGidInto calls ibv_query_gid with a typed GID pointer.
@@ -50,9 +50,9 @@ func IbvQueryGidInto(context RDMAContext, portNum uint8, index int, gid *IbvGID)
 	if gid == nil {
 		return 0, rdmaNilPointerError("ibv_query_gid", "gid")
 	}
-	rc, err := IbvQueryGid(context, portNum, index, uintptr(unsafe.Pointer(gid)))
+	rc, err := IbvQueryGid(context, portNum, int32(index), uintptr(unsafe.Pointer(gid)))
 	rdmaKeepAlive(gid)
-	return rc, err
+	return int(rc), err
 }
 
 // IbvQueryDeviceBytes calls ibv_query_device with a byte buffer.
@@ -62,5 +62,5 @@ func IbvQueryDeviceBytes(context RDMAContext, buf []byte) (int, error) {
 	}
 	rc, err := IbvQueryDevice(context, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
 	rdmaKeepAlive(buf)
-	return rc, err
+	return int(rc), err
 }

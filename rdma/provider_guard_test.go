@@ -12,23 +12,23 @@ import (
 type savedRDMAFuncs struct {
 	allocPD        func(RDMAContext) RDMAPD
 	ackCQEvents    func(RDMACQ, uint32)
-	closeDevice    func(RDMAContext) int
+	closeDevice    func(RDMAContext) int32
 	createChannel  func(RDMAContext) RDMACompChannel
-	createCQ       func(RDMAContext, int, uintptr, uintptr, int) RDMACQ
+	createCQ       func(RDMAContext, int32, uintptr, uintptr, int32) RDMACQ
 	createQP       func(RDMAPD, uintptr) RDMAQP
-	deallocPD      func(RDMAPD) int
-	deregMR        func(RDMAMR) int
+	deallocPD      func(RDMAPD) int32
+	deregMR        func(RDMAMR) int32
 	destroyChannel func(RDMACompChannel) int
-	destroyCQ      func(RDMACQ) int
-	destroyQP      func(RDMAQP) int
+	destroyCQ      func(RDMACQ) int32
+	destroyQP      func(RDMAQP) int32
 	freeDeviceList func(RDMADeviceList)
 	getCQEvent     func(RDMACompChannel, uintptr, uintptr) int
-	modifyQP       func(RDMAQP, uintptr, int) int
+	modifyQP       func(RDMAQP, uintptr, int32) int32
 	openDevice     func(RDMADevice) RDMAContext
-	queryDevice    func(RDMAContext, uintptr) int
-	queryGID       func(RDMAContext, uint8, int, uintptr) int
-	queryPort      func(RDMAContext, uint8, uintptr) int
-	regMR          func(RDMAPD, uintptr, uintptr, int) RDMAMR
+	queryDevice    func(RDMAContext, uintptr) int32
+	queryGID       func(RDMAContext, uint8, int32, uintptr) int32
+	queryPort      func(RDMAContext, uint8, uintptr) int32
+	regMR          func(RDMAPD, uintptr, uintptr, int32) RDMAMR
 }
 
 func saveRDMAFuncs(t *testing.T) {
@@ -80,11 +80,11 @@ func saveRDMAFuncs(t *testing.T) {
 func TestZeroHandleTeardownRefusesProviderCall(t *testing.T) {
 	saveRDMAFuncs(t)
 	var calls int
-	_ibvCloseDevice = func(RDMAContext) int { calls++; return 0 }
-	_ibvDeallocPd = func(RDMAPD) int { calls++; return 0 }
-	_ibvDeregMr = func(RDMAMR) int { calls++; return 0 }
-	_ibvDestroyCq = func(RDMACQ) int { calls++; return 0 }
-	_ibvDestroyQp = func(RDMAQP) int { calls++; return 0 }
+	_ibvCloseDevice = func(RDMAContext) int32 { calls++; return 0 }
+	_ibvDeallocPd = func(RDMAPD) int32 { calls++; return 0 }
+	_ibvDeregMr = func(RDMAMR) int32 { calls++; return 0 }
+	_ibvDestroyCq = func(RDMACQ) int32 { calls++; return 0 }
+	_ibvDestroyQp = func(RDMAQP) int32 { calls++; return 0 }
 	_ibvFreeDeviceList = func(RDMADeviceList) { calls++ }
 
 	tests := []struct {
@@ -172,10 +172,10 @@ func TestTypedHelpersRejectNilPointers(t *testing.T) {
 	saveRDMAFuncs(t)
 	var calls int
 	_ibvCreateQp = func(RDMAPD, uintptr) RDMAQP { calls++; return 0 }
-	_ibvModifyQp = func(RDMAQP, uintptr, int) int { calls++; return 0 }
-	_ibvQueryPort = func(RDMAContext, uint8, uintptr) int { calls++; return 0 }
-	_ibvQueryGid = func(RDMAContext, uint8, int, uintptr) int { calls++; return 0 }
-	_ibvQueryDevice = func(RDMAContext, uintptr) int { calls++; return 0 }
+	_ibvModifyQp = func(RDMAQP, uintptr, int32) int32 { calls++; return 0 }
+	_ibvQueryPort = func(RDMAContext, uint8, uintptr) int32 { calls++; return 0 }
+	_ibvQueryGid = func(RDMAContext, uint8, int32, uintptr) int32 { calls++; return 0 }
+	_ibvQueryDevice = func(RDMAContext, uintptr) int32 { calls++; return 0 }
 
 	tests := []struct {
 		name string
@@ -224,7 +224,7 @@ func TestNilProviderResultClassified(t *testing.T) {
 
 func TestNegativeProviderReturnClassified(t *testing.T) {
 	saveRDMAFuncs(t)
-	_ibvQueryPort = func(RDMAContext, uint8, uintptr) int { return -1 }
+	_ibvQueryPort = func(RDMAContext, uint8, uintptr) int32 { return -1 }
 	rdmaRememberContext(123, "rdma_en_test")
 	t.Cleanup(func() { rdmaForgetContext(123) })
 
