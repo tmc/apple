@@ -106,13 +106,17 @@ per wrapper in `x/ane/e5rt`. A wrong signature faults in C, where the fault is
 fatal and `recover` cannot see it, so a crash here would be a real result.
 
 This example is what took the package from "every symbol resolves" to "the route
-runs". The calls it does not make — asynchronous submission, the event calls,
-`ProgramLibraryCreate`, `ProgramFunctionLoadForExecution`, `PrepareOpForEncode`
-— have still never been called from Go.
+runs". The calls it does not make are covered by `TestUnverifiedCalls` in
+`x/ane/e5rt`, which runs each in its own process because two of them abort.
+Only asynchronous submission and the event calls have still never been called.
 
-One disagreement with ANEForge was found and is recorded at
-`x/ane/e5rt`.`Lib.ExecutionStreamReset`: ANEForge reports that resetting a
-never-executed stream is rejected, and on macOS 26.x it succeeds.
+Three disagreements with ANEForge came out of that, each recorded at its
+wrapper. `ExecutionStreamReset` is said to reject a never-executed stream and
+does not. `PrepareOpForEncode` is said to reject a never-encoded operation and
+returns zero instead — its error really exists, but it surfaces as an uncaught
+C++ exception when the stream is later released, which no Go code can catch.
+And `ProgramFunctionLoadForExecution`, whose place in the sequence was an open
+question, turns out to have been removed from the runtime altogether.
 
 For symbol resolution reporting without calling anything, see
 [`e5rtprobe`](../e5rtprobe).

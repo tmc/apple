@@ -24,12 +24,21 @@
 // the other two, so the work is placed on the engine and not silently fallen
 // back. See the e5rtdispatch example.
 //
-// That covers only the wrappers that route uses. Everything the example does not
-// reach — [Lib.ProgramLibraryCreate], [Lib.ProgramFunctionLoadForExecution],
-// [Lib.PrepareOpForEncode], [Lib.ExecutionStreamReset] and the asynchronous
-// submission and event calls — still rests on ANEForge alone and has never been
-// called from Go. A wrapper's doc comment names the evidence behind it; where it
-// cites only ANEForge, that is outside evidence and nothing more.
+// That covers only the wrappers that route uses. The rest have since been driven
+// too, by TestUnverifiedCalls, which runs each in its own process because two of
+// them abort:
+//
+//   - [Lib.ProgramLibraryCreate] works. A compiled bundle can be reopened
+//     directly, with no compiler.
+//   - [Lib.ProgramFunctionLoadForExecution] is gone, returning status 2 and
+//     saying so.
+//   - [Lib.PrepareOpForEncode] returns zero everywhere and leaves the stream
+//     unusable and unreleasable. Do not call it.
+//   - [Lib.ExecutionStreamReset] works on a fresh stream, contradicting ANEForge.
+//
+// Only the asynchronous submission and event calls have still never been called
+// from Go. A wrapper's doc comment names the evidence behind it; where it cites
+// only ANEForge, that is outside evidence and nothing more.
 //
 // Every argument list here comes from one of two outside sources, and each doc
 // comment says which:

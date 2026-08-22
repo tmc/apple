@@ -438,6 +438,12 @@ func (l *Lib) CompilerCompile(compiler uintptr, modelPath string, options uintpt
 // comes first, and the reversed order returns "Invalid E5 path specified. @
 // GetE5PathFromCompositeBundle". ANEForge resolves the symbol but does not call
 // it, so the note is its author's probing, not a call site.
+//
+// Confirmed here on macOS 26.x. Given the .bundle directory the compiler leaves
+// under its cache location, this returns a library handle from which "main" can
+// be retained, with no compiler involved. That makes a compiled bundle reusable
+// across processes: compile once, then open the bundle directly.
+// See TestUnverifiedCalls.
 func (l *Lib) ProgramLibraryCreate(bundlePath string) (uintptr, error) {
 	path, p := cstring(bundlePath)
 	out := newOut()
@@ -472,11 +478,20 @@ func (l *Lib) ProgramLibraryRetainProgramFunction(library uintptr, fnName string
 // execution on the device.
 //
 // The single-argument signature int64_t(function) is the paper's chapter 4 and
-// 5 listings and agrees with ANEForge's typedef (e5rt_api.h:72). Its place in
-// the sequence remains unestablished: neither the paper's chapter 6 listings nor
-// ANEForge calls it, and ANEForge's documented sequence goes straight from
-// retaining the function to creating the operation options, so this call may not
-// be needed on the direct route at all.
+// 5 listings and agrees with ANEForge's typedef (e5rt_api.h:72). Neither the
+// paper's chapter 6 listings nor ANEForge calls it, and ANEForge's documented
+// sequence goes straight from retaining the function to creating the operation
+// options.
+//
+// It is gone. On macOS 26.x it returns status 2 and prints:
+//
+//	ProgramFunction LoadForExecution() is no longer supported.
+//	Switch to ExecutionStreamOperation.
+//
+// The route the rest of this package drives is that replacement, and it works
+// without this call, so the answer to where it belonged in the sequence is that
+// it no longer belongs anywhere. Kept as a wrapper only so the status and the
+// message are discoverable. See TestUnverifiedCalls.
 func (l *Lib) ProgramFunctionLoadForExecution(function uintptr) error {
 	return l.callErr("e5rt_program_function_load_for_execution", function)
 }
@@ -644,13 +659,31 @@ func (l *Lib) ExecutionStreamCreate() (uintptr, error) {
 	return *out, err
 }
 
-// PrepareOpForEncode prepares an operation before each encode.
+// PrepareOpForEncode resets an operation to its ready-to-encode state.
 //
 // The signature int64_t(op) is the paper's and agrees with ANEForge
 // (e5rt_api.h:89). The paper places the call inside the hot loop ahead of every
 // encode; ANEForge reports it is legal only on an operation that has already
 // been encoded once, and so calls it only when re-encoding a used stream
 // (ane_e5rt_dispatch.mm:460-464, call site :483).
+//
+// Do not call this. On macOS 26.x it returns zero in every position tried and
+// leaves nothing usable behind. Called on an operation that has never been
+// encoded, it returns zero and the ordinary encode and dispatch still work, so
+// ANEForge's rejection claim does not hold as a status. Called on an encoded
+// operation it also returns zero, and afterwards re-encoding it on the same
+// stream fails with status 2, resetting that stream fails with status 2, and
+// releasing that stream terminates the process:
+//
+//	libc++abi: terminating due to uncaught exception of type E5RT::E5RTError:
+//	Op has not been encoded and hence cannot be reset to "ReadyForEncode" state
+//
+// So ANEForge's error string is real, but it arrives as a C++ exception at
+// release time rather than as a status from this call. An exception thrown
+// through a purego call cannot be caught in Go, which is why this wrapper
+// reports success for a call that has already made the stream unreleasable.
+// There is no known sequence in which this call is useful; encode each
+// operation once. See TestUnverifiedCalls.
 func (l *Lib) PrepareOpForEncode(op uintptr) error {
 	return l.callErr("e5rt_execution_stream_operation_prepare_op_for_encode", op)
 }
@@ -684,10 +717,11 @@ func (l *Lib) ExecuteSync(stream uintptr) error {
 // ANEForge reports that this call rejects a stream that has not been executed
 // yet (:464). That is NOT reproduced here: on macOS 26.x a freshly created
 // stream is reset successfully, twice in a row, both returning zero. The
-// neighbouring claim in the same comment — that
-// [Lib.PrepareOpForEncode] rejects an operation that has never been encoded —
-// is about operations rather than streams and has not been tested here. Treat
-// the stream half as unconfirmed and version-dependent.
+// neighbouring claim in the same comment, about [Lib.PrepareOpForEncode], is
+// also not reproduced; see that wrapper.
+//
+// This does fail with status 2 on a stream whose operation has been passed to
+// [Lib.PrepareOpForEncode], which is one of several reasons not to call that.
 func (l *Lib) ExecutionStreamReset(stream uintptr) error {
 	return l.callErr("e5rt_execution_stream_reset", stream)
 }
