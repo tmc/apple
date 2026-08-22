@@ -303,8 +303,32 @@ func GenSDPA(headDim, nHeads, seqLen int) string {
 	)
 }
 
-// GenReadState generates a MIL text for reading a named state buffer.
-// This is used for iOS 18+ stateful inference (e.g., KV cache on ANE).
+// GenReadState generates a MIL text for reading a named state buffer,
+// the iOS 18+ form for stateful inference such as a KV cache.
+//
+// The program it emits cannot be executed by anything in this module on
+// macOS 26.x. Nothing here binds a state buffer, and neither route reaches
+// an evaluation:
+//
+//   - Through [github.com/tmc/apple/x/ane].Client.Compile this text fails to
+//     compile at all, with "no LiveInputList in model attributes" — a program
+//     whose only parameter is a state has no live inputs.
+//   - Through the private e5rt route it compiles, and the compiler even places
+//     it on the Neural Engine, but the state parameter is not exposed as a
+//     bindable port. Only the tensor inputs and outputs are, so encoding the
+//     operation fails with status 2 for an unsatisfied input.
+//
+// The absence is in the runtime rather than in this text: of the 292 e5rt
+// symbols the framework exports, the only two that mention state are a
+// compiler option and its getter, and there is no call for allocating or
+// binding one. Setting that option does change where the program lands (the
+// bundle's backend directory becomes e5_minimal_cpu0 instead of ane, so the
+// option is live) but does not change the encode result — and it moves the
+// work off the engine, which is the opposite of the point.
+//
+// See [GenUpdateState] for what happens when a program has a tensor input as
+// well. Both generators are kept because the text they produce is correct MIL
+// and compiles; what is missing is a way to run it.
 func GenReadState(name string, shape [4]int) string {
 	return fmt.Sprintf(`program(1.3)
 %s
@@ -324,6 +348,21 @@ func GenReadState(name string, shape [4]int) string {
 // coreml_update_state is a coreml-dialect op that the CoreML backend decomposes
 // into write_state followed by read_state, so a serialized program must already
 // carry the decomposed form.
+//
+// Like [GenReadState], the program it emits cannot be executed on macOS 26.x,
+// though it gets further. It has a tensor input, so it compiles on both routes,
+// and through the public API the model reports one input ("value") and one
+// output ("y@output") — the state parameter is simply not among them. Neither
+// route runs it: e5rt refuses to encode the operation with status 2, and
+// [github.com/tmc/apple/x/ane].Model.Eval reaches the driver and fails with
+// ANEProgramProcessRequestDirect status 0x2, statusType 0x9, "Program
+// Inference error".
+//
+// The ordering here — write before read — is also the only one the compiler
+// survives. Emitting the read first, which is what a cache that returns the
+// previous step's value would need, faults inside the compiler rather than
+// returning an error, and folding the two together as
+// write_state(add(read_state(s), v)) fails to compile with status 11.
 func GenUpdateState(name string, shape [4]int) string {
 	return fmt.Sprintf(`program(1.3)
 %s
