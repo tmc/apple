@@ -1,6 +1,10 @@
 package xpc
 
-import "testing"
+import (
+	"os"
+	"syscall"
+	"testing"
+)
 
 // This file is hand-maintained. It is deliberately NOT generated: it is where
 // a human writes down why a gap in the raw-symbol reachability analysis is
@@ -35,6 +39,15 @@ var rawReachAllowed = map[string]string{
 	"newRequirement|create(...)":              "the create closure is supplied by each New*Requirement constructor and its raw call is recorded at the constructor",
 	"targetQueuePointer|queue.Handle(...)":    "dispatch.Queue.Handle lives in another package and cannot reach an xpc raw_ call",
 	"decodeJSONPayload|dec.Decode(...)":       "encoding/json's Decoder.Decode; it decodes bytes into an any and reaches no xpc raw_ call",
+	// mmap and munmap are bound from libxpc's dependency chain rather than
+	// generated, so they carry no raw_ prefix and the analysis cannot follow
+	// the call. Neither reaches an xpc raw_ call: both are the C library
+	// entry points of the same name.
+	"mapShared|libcfn_mmap(...)":      "libc mmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
+	"munmapRegion|libcfn_munmap(...)": "libc munmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
+	// Mapping.Close is a method on a concrete type the analysis did not
+	// resolve at this site. It reaches munmapRegion and nothing else.
+	"NewSharedMemory|m.Close(...)": "Mapping.Close unmaps the region through munmapRegion; it reaches no xpc raw_ call",
 }
 
 // canaryRow is one proven-firing availability guard.
@@ -93,6 +106,90 @@ var canaries = []canaryRow{
 		}
 		return r.Close()
 	}},
+
+	// The resource types are the second family that can be proven. Unlike a
+	// session or a listener, a boxed descriptor and a shared region can be
+	// built from nothing but a temp file and an mmap, so the negative
+	// control runs the real call path rather than a fabricated pointer.
+	{"NewFileDescriptor", "xpc_fd_create", func(t *testing.T) error {
+		f, err := NewFileDescriptor(canaryFD(t))
+		closeFileDescriptor(f)
+		return err
+	}},
+	{"(*FileDescriptor).Dup", "xpc_fd_dup", func(t *testing.T) error {
+		f, err := NewFileDescriptor(canaryFD(t))
+		if err != nil || f == nil {
+			t.Skipf("cannot box a descriptor to dup: %v", err)
+		}
+		defer closeFileDescriptor(f)
+		fd, err := f.Dup()
+		if err == nil {
+			syscall.Close(fd)
+		}
+		return err
+	}},
+	{"(*FileDescriptor).Close", "xpc_release", func(t *testing.T) error {
+		f, err := NewFileDescriptor(canaryFD(t))
+		if err != nil || f == nil {
+			t.Skipf("cannot box a descriptor to close: %v", err)
+		}
+		return f.Close()
+	}},
+	{"NewSharedMemory", "xpc_shmem_create", func(t *testing.T) error {
+		s, m, err := NewSharedMemory(os.Getpagesize())
+		closeSharedMemory(s, m)
+		return err
+	}},
+	{"(*SharedMemory).Map", "xpc_shmem_map", func(t *testing.T) error {
+		s, m, err := NewSharedMemory(os.Getpagesize())
+		if err != nil || s == nil {
+			t.Skipf("cannot build a region to map: %v", err)
+		}
+		defer closeSharedMemory(s, m)
+		got, err := s.Map()
+		if got != nil {
+			_ = got.Close()
+		}
+		return err
+	}},
+	{"(*SharedMemory).Close", "xpc_release", func(t *testing.T) error {
+		s, m, err := NewSharedMemory(os.Getpagesize())
+		if err != nil || s == nil {
+			t.Skipf("cannot build a region to close: %v", err)
+		}
+		if m != nil {
+			_ = m.Close()
+		}
+		return s.Close()
+	}},
+}
+
+// canaryFD returns a descriptor that is certainly valid. It is a temp file
+// rather than a standard descriptor so that a poisoned run cannot be
+// confused by a test harness that has redirected them.
+func canaryFD(t *testing.T) int {
+	t.Helper()
+	f, err := os.CreateTemp(t.TempDir(), "xpc-canary")
+	if err != nil {
+		t.Skipf("cannot create a file to box: %v", err)
+	}
+	t.Cleanup(func() { f.Close() })
+	return int(f.Fd())
+}
+
+func closeFileDescriptor(f *FileDescriptor) {
+	if f != nil {
+		_ = f.Close()
+	}
+}
+
+func closeSharedMemory(s *SharedMemory, m *Mapping) {
+	if m != nil {
+		_ = m.Close()
+	}
+	if s != nil {
+		_ = s.Close()
+	}
 }
 
 // closeRequirement releases a requirement built by a canary row, ignoring the

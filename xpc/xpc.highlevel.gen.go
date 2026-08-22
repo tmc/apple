@@ -58,9 +58,7 @@ type UUID [16]byte
 
 // Unsupported is an XPC value this package has no Go representation for.
 //
-// It exists so that decoding is never silently lossy. XPC can carry file
-// descriptors and shared memory regions, which are resources with a
-// lifetime, and a Go value describing one is not one. Rather than return
+// It exists so that decoding is never silently lossy. Rather than return
 // something that looks like ordinary data, decoding yields an Unsupported
 // carrying the XPC type name and the description XPC itself prints.
 //
@@ -68,13 +66,186 @@ type UUID [16]byte
 // reconstitute it.
 type Unsupported struct {
 	// Type is the XPC type name, as xpc_type_get_name reports it,
-	// for example "fd" or "shmem".
+	// for example "connection" or "activity".
 	Type string
 
 	// Description is xpc_copy_description output. It is a debugging aid
-	// and nothing more; in particular a descriptor named here may already
-	// be closed by the time it is read.
+	// and nothing more.
 	Description string
+}
+
+// FileDescriptor is a POSIX file descriptor carried in an XPC message.
+//
+// It is a handle, not a descriptor number. XPC boxes a descriptor by
+// duplicating it, and every read hands back a further duplicate, so there is
+// no one descriptor for this value to be: xpc_fd_dup's contract is that
+// repeated calls return equivalent but distinct descriptors. Dup performs
+// that duplication and transfers ownership of the result to the caller.
+//
+// Decoding retains the boxed object, so a FileDescriptor stays valid after
+// the handler that received it returns. Close releases that reference.
+type FileDescriptor struct {
+	raw unsafe.Pointer
+}
+
+// NewFileDescriptor boxes fd for sending.
+//
+// xpc_fd_create duplicates the descriptor, so the caller keeps ownership of
+// fd and may close it as soon as this returns.
+func NewFileDescriptor(fd int) (*FileDescriptor, error) {
+	if err := requireRawSymbols(rawSyms_NewFileDescriptor...); err != nil {
+		return nil, err
+	}
+	raw := raw_xpc_fd_create(int32(fd))
+	if raw == nil {
+		// The header gives one result for both causes, so this cannot say
+		// which: allocation failure and an invalid descriptor are the two.
+		return nil, fmt.Errorf("xpc: cannot box file descriptor %d: invalid descriptor or allocation failure", fd)
+	}
+	return &FileDescriptor{raw: raw}, nil
+}
+
+// Dup returns a new descriptor equivalent to the boxed one, as though it had
+// been created by dup(2). The caller is responsible for closing it.
+//
+// Dup may be called more than once; each call yields a separate descriptor
+// and each must be closed separately.
+func (f *FileDescriptor) Dup() (int, error) {
+	if f == nil || f.raw == nil {
+		return -1, errors.New("xpc: Dup on a closed FileDescriptor")
+	}
+	if err := requireRawSymbols(rawSyms_FileDescriptor_Dup...); err != nil {
+		return -1, err
+	}
+	fd := raw_xpc_fd_dup(f.raw)
+	if fd < 0 {
+		return -1, errors.New("xpc: xpc_fd_dup failed")
+	}
+	return int(fd), nil
+}
+
+// Close releases the reference to the boxed descriptor. Descriptors already
+// handed out by Dup are unaffected; they remain the caller's to close.
+//
+// It is safe to call twice. If xpc_release is unavailable the handle is
+// cleared anyway, so Close stays idempotent, and the error is reported
+// rather than swallowed.
+func (f *FileDescriptor) Close() error {
+	if f == nil || f.raw == nil {
+		return nil
+	}
+	if err := requireRawSymbols(rawSyms_FileDescriptor_Close...); err != nil {
+		f.raw = nil
+		return err
+	}
+	raw_xpc_release(f.raw)
+	f.raw = nil
+	return nil
+}
+
+// SharedMemory is a shared memory region carried in an XPC message.
+//
+// Like FileDescriptor it is a handle: the region is not part of this
+// process's address space until Map places it there, and each Map is a
+// separate mapping that must be closed separately.
+//
+// Decoding retains the boxed object, so a SharedMemory stays valid after the
+// handler that received it returns. Close releases that reference; it does
+// not unmap anything Map returned.
+type SharedMemory struct {
+	raw unsafe.Pointer
+}
+
+// NewSharedMemory allocates size bytes of shared memory and boxes it for
+// sending. It returns the region boxed and the creator's own mapping of it,
+// which is where the caller writes the contents before sending.
+//
+// The region is allocated with mmap and MAP_SHARED because that is what
+// xpc_shmem_create requires. Memory from Go, or from malloc, is owned by an
+// allocator rather than by the caller, and boxing it is API misuse that
+// traps in the sending process with no indication of the cause.
+//
+// Closing the SharedMemory does not unmap the returned Mapping, and closing
+// the Mapping does not invalidate the SharedMemory: XPC holds its own
+// reference to the underlying region.
+func NewSharedMemory(size int) (*SharedMemory, *Mapping, error) {
+	if size <= 0 {
+		return nil, nil, fmt.Errorf("xpc: shared memory size must be positive, got %d", size)
+	}
+	if err := requireRawSymbols(rawSyms_NewSharedMemory...); err != nil {
+		return nil, nil, err
+	}
+	m, err := mapShared(size)
+	if err != nil {
+		return nil, nil, err
+	}
+	raw := raw_xpc_shmem_create(m.addr, uintptr(size))
+	if raw == nil {
+		m.Close()
+		return nil, nil, errors.New("xpc: xpc_shmem_create failed")
+	}
+	return &SharedMemory{raw: raw}, m, nil
+}
+
+// Map places the region in this process's address space.
+//
+// The mapping is always a whole number of pages, so len(Mapping.Bytes) can
+// exceed the size the sender asked for. The caller must close the Mapping.
+func (s *SharedMemory) Map() (*Mapping, error) {
+	if s == nil || s.raw == nil {
+		return nil, errors.New("xpc: Map on a closed SharedMemory")
+	}
+	if err := requireRawSymbols(rawSyms_SharedMemory_Map...); err != nil {
+		return nil, err
+	}
+	var addr unsafe.Pointer
+	n := raw_xpc_shmem_map(s.raw, unsafe.Pointer(&addr))
+	if n == 0 || addr == nil {
+		return nil, errors.New("xpc: xpc_shmem_map failed")
+	}
+	return &Mapping{
+		Bytes: unsafe.Slice((*byte)(addr), n),
+		addr:  addr,
+		len:   n,
+	}, nil
+}
+
+// Close releases the reference to the boxed region. Mappings already made by
+// Map are unaffected; they remain the caller's to close.
+func (s *SharedMemory) Close() error {
+	if s == nil || s.raw == nil {
+		return nil
+	}
+	if err := requireRawSymbols(rawSyms_SharedMemory_Close...); err != nil {
+		s.raw = nil
+		return err
+	}
+	raw_xpc_release(s.raw)
+	s.raw = nil
+	return nil
+}
+
+// Mapping is a shared memory region mapped into this process.
+//
+// Bytes aliases the mapping directly: it is not Go memory, writes through it
+// are visible to every other process holding the region, and it must not be
+// used after Close.
+type Mapping struct {
+	// Bytes is the mapped region. Its length is a whole number of pages.
+	Bytes []byte
+
+	addr unsafe.Pointer
+	len  uintptr
+}
+
+// Close unmaps the region. It is safe to call twice.
+func (m *Mapping) Close() error {
+	if m == nil || m.addr == nil {
+		return nil
+	}
+	addr, length := m.addr, m.len
+	m.addr, m.len, m.Bytes = nil, 0, nil
+	return munmapRegion(addr, length)
 }
 
 type PeerRequirement struct {
@@ -1662,6 +1833,21 @@ func writeRawDictionaryValue(dst unsafe.Pointer, key string, value any) error {
 		defer releaseRaw(uuid)
 		raw_xpc_dictionary_set_value(dst, key, uuid)
 		return nil
+	case *FileDescriptor:
+		// No retain here, unlike scalarToRawObject: this path hands the
+		// object to xpc_dictionary_set_value, which takes its own
+		// reference. The Endpoint case above is the same shape.
+		if v == nil || v.raw == nil {
+			return fmt.Errorf("xpc: closed FileDescriptor for key %q", key)
+		}
+		raw_xpc_dictionary_set_value(dst, key, v.raw)
+		return nil
+	case *SharedMemory:
+		if v == nil || v.raw == nil {
+			return fmt.Errorf("xpc: closed SharedMemory for key %q", key)
+		}
+		raw_xpc_dictionary_set_value(dst, key, v.raw)
+		return nil
 	case Unsupported:
 		// Unsupported records what arrived; it cannot reconstitute it. Say
 		// so rather than sending the description as if it were the value.
@@ -1747,6 +1933,21 @@ func scalarToRawObject(value any) (unsafe.Pointer, error) {
 		}
 		raw_xpc_retain(v.raw)
 		return v.raw, nil
+	case *FileDescriptor:
+		// Decoding yields these, so a message that arrived carrying one has
+		// to be able to go back. The retain matches the one in the Endpoint
+		// case: encoding hands a reference to XPC, which releases it.
+		if v == nil || v.raw == nil {
+			return nil, errors.New("xpc: closed FileDescriptor")
+		}
+		raw_xpc_retain(v.raw)
+		return v.raw, nil
+	case *SharedMemory:
+		if v == nil || v.raw == nil {
+			return nil, errors.New("xpc: closed SharedMemory")
+		}
+		raw_xpc_retain(v.raw)
+		return v.raw, nil
 	case Unsupported:
 		return nil, fmt.Errorf("xpc: cannot encode Unsupported value of type %s", v.Type)
 	default:
@@ -1826,6 +2027,17 @@ func rawObjectToValue(raw unsafe.Pointer) any {
 			copy(u[:], unsafe.Slice(p, len(u)))
 		}
 		return u
+	case typ == xpcTypeSymbol("xpc_type_fd"):
+		// Retained, unlike every case above it. Those decode to Go values
+		// that own their contents; this one hands back a handle into an
+		// object the message owns, and the message is released when the
+		// callback returns. Without the retain a FileDescriptor that
+		// outlived its handler would be a use-after-free.
+		raw_xpc_retain(raw)
+		return &FileDescriptor{raw: raw}
+	case typ == xpcTypeSymbol("xpc_type_shmem"):
+		raw_xpc_retain(raw)
+		return &SharedMemory{raw: raw}
 	}
 	// Not a type this package models. Decoding must not invent a value that
 	// a caller cannot distinguish from real data: returning the description
@@ -1835,6 +2047,65 @@ func rawObjectToValue(raw unsafe.Pointer) any {
 		Type:        goString(raw_xpc_type_get_name(typ)),
 		Description: goString(raw_xpc_copy_description(raw)),
 	}
+}
+
+// mmap and munmap are bound here rather than taken from the syscall package
+// because both sides of a shared region have to use one allocator.
+// syscall.Munmap only accepts a slice its own mmapper created, and the
+// mapping xpc_shmem_map hands back was not created by Go, so the standard
+// library cannot dispose of it. Binding both keeps creation and disposal
+// symmetric instead of splitting them across two allocators.
+//
+// They resolve through the libxpc handle, which is opened RTLD_GLOBAL and
+// whose dependency chain includes libsystem_kernel.
+var (
+	libcfn_mmap   func(addr unsafe.Pointer, length uintptr, prot, flags, fd int32, offset int64) unsafe.Pointer
+	libcfn_munmap func(addr unsafe.Pointer, length uintptr) int32
+)
+
+func init() {
+	if frameworkHandle == 0 {
+		return
+	}
+	registerRawFunc(&libcfn_mmap, frameworkHandle, "mmap")
+	registerRawFunc(&libcfn_munmap, frameworkHandle, "munmap")
+}
+
+// mapSharedFailed is what mmap returns on failure. It is -1 as a pointer,
+// not nil, which is why the check below is not a nil check.
+const mapSharedFailed = ^uintptr(0)
+
+// mapShared allocates size bytes of anonymous shared memory, the only shape
+// xpc_shmem_create accepts.
+func mapShared(size int) (*Mapping, error) {
+	if libcfn_mmap == nil {
+		return nil, errors.New("xpc: mmap unavailable")
+	}
+	const (
+		protRead   = 0x1
+		protWrite  = 0x2
+		mapShared_ = 0x0001
+		mapAnon    = 0x1000
+	)
+	addr := libcfn_mmap(nil, uintptr(size), protRead|protWrite, mapShared_|mapAnon, -1, 0)
+	if addr == nil || uintptr(addr) == mapSharedFailed {
+		return nil, errors.New("xpc: mmap failed")
+	}
+	return &Mapping{
+		Bytes: unsafe.Slice((*byte)(addr), size),
+		addr:  addr,
+		len:   uintptr(size),
+	}, nil
+}
+
+func munmapRegion(addr unsafe.Pointer, length uintptr) error {
+	if libcfn_munmap == nil {
+		return errors.New("xpc: munmap unavailable")
+	}
+	if libcfn_munmap(addr, length) != 0 {
+		return errors.New("xpc: munmap failed")
+	}
+	return nil
 }
 
 func copyRawData(raw unsafe.Pointer) []byte {
