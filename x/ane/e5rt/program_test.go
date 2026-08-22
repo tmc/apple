@@ -287,6 +287,75 @@ func TestPipelineOpensBundleStages(t *testing.T) {
 	}
 }
 
+func TestPipelineReusesOneBundleFunction(t *testing.T) {
+	dir := t.TempDir()
+	model, err := writeIdentityModel(filepath.Join(dir, "model"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	cache := filepath.Join(dir, "cache")
+	p, err := e5rt.Compile(e5rt.ProgramOptions{
+		ModelPath: model,
+		CacheDir:  cache,
+		Inputs:    []e5rt.Port{{Name: "x", Size: 2}},
+		Outputs:   []e5rt.Port{{Name: "y", Size: 2}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := p.Close(); err != nil {
+		t.Fatal(err)
+	}
+	bundle, err := compiledBundle(cache)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	const stages = e5rt.MaxPipelineFunctions + 1
+	opts := e5rt.PipelineOptions{Stages: make([]e5rt.PipelineStage, stages)}
+	links := make([]e5rt.PipelineLink, 0, stages-1)
+	for i := range opts.Stages {
+		opts.Stages[i] = e5rt.PipelineStage{
+			BundlePath: bundle,
+			Inputs:     []e5rt.Port{{Name: "x", Size: 2}},
+			Outputs:    []e5rt.Port{{Name: "y", Size: 2}},
+		}
+		if i > 0 {
+			links = append(links, e5rt.PipelineLink{
+				From: e5rt.PipelinePort{Stage: i - 1, Name: "y"},
+				To:   e5rt.PipelinePort{Stage: i, Name: "x"},
+			})
+		}
+	}
+	opts.Links = links
+	pipeline, err := e5rt.CompilePipeline(opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer pipeline.Close()
+	in, err := pipeline.Input(0, "x")
+	if err != nil {
+		t.Fatal(err)
+	}
+	out, err := pipeline.Output(stages-1, "y")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := in.WriteFP16([]float32{3.5}); err != nil {
+		t.Fatal(err)
+	}
+	if err := pipeline.Execute(); err != nil {
+		t.Fatal(err)
+	}
+	got := make([]float32, 1)
+	if err := out.ReadFP16(got); err != nil {
+		t.Fatal(err)
+	}
+	if got[0] != 3.5 {
+		t.Errorf("output = %v, want 3.5", got[0])
+	}
+}
+
 func ExampleCompilePipeline() {
 	dir, err := os.MkdirTemp("", "e5rt-pipeline-")
 	if err != nil {

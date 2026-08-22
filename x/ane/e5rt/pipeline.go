@@ -9,14 +9,20 @@ import (
 	"unsafe"
 )
 
-// MaxPipelineStages is the largest pipeline one stream may contain.
+// MaxPipelineFunctions is the largest number of distinct compiled functions a
+// pipeline stream may contain.
 //
 // A macOS 26.x stream-retention control measured 15 distinct compiled
 // functions in this process: releasing an encoded operation did not free the
 // next function slot, while releasing its stream did. The pool is shared, so
-// contention can make a smaller pipeline fail. A pipeline with more stages
-// must be planned into separate streams by its caller.
-const MaxPipelineStages = 15
+// contention can make a smaller pipeline fail.
+const MaxPipelineFunctions = 15
+
+// MaxPipelineStages is kept for source compatibility.
+//
+// Deprecated: the measured limit is [MaxPipelineFunctions]. Repeated stages
+// that use the same bundle function do not consume additional function slots.
+const MaxPipelineStages = MaxPipelineFunctions
 
 // A PipelinePort identifies a named port on a pipeline stage.
 type PipelinePort struct {
@@ -73,8 +79,14 @@ type Pipeline struct {
 	lib    *Lib
 	closed bool
 
-	stages []*pipelineStage
-	stream uintptr
+	stages          []*pipelineStage
+	bundleFunctions map[string]*pipelineFunction
+	stream          uintptr
+}
+
+type pipelineFunction struct {
+	library  uintptr
+	function uintptr
 }
 
 type pipelineStage struct {
@@ -85,6 +97,7 @@ type pipelineStage struct {
 	function  uintptr
 	opOptions uintptr
 	op        uintptr
+	bundle    *pipelineFunction
 
 	inputs  map[string]*pipelinePort
 	outputs map[string]*pipelinePort
@@ -108,14 +121,18 @@ func CompilePipeline(opts PipelineOptions) (_ *Pipeline, err error) {
 	if err != nil {
 		return nil, fmt.Errorf("open e5rt: %w", err)
 	}
-	p := &Pipeline{lib: lib, stages: make([]*pipelineStage, len(opts.Stages))}
+	p := &Pipeline{
+		lib:             lib,
+		stages:          make([]*pipelineStage, len(opts.Stages)),
+		bundleFunctions: make(map[string]*pipelineFunction),
+	}
 	defer func() {
 		if err != nil {
 			err = errors.Join(err, p.Close())
 		}
 	}()
 	for i, spec := range opts.Stages {
-		stage, err := compilePipelineStage(lib, filepath.Join(opts.CacheDir, fmt.Sprintf("stage-%02d", i)), spec, opts)
+		stage, err := compilePipelineStage(p, filepath.Join(opts.CacheDir, fmt.Sprintf("stage-%02d", i)), spec, opts)
 		if err != nil {
 			return nil, fmt.Errorf("compile stage %d: %w", i, err)
 		}
@@ -139,9 +156,6 @@ func validatePipelineOptions(opts *PipelineOptions) error {
 	if len(opts.Stages) == 0 {
 		return errors.New("e5rt: pipeline has no stages")
 	}
-	if len(opts.Stages) > MaxPipelineStages {
-		return fmt.Errorf("e5rt: pipeline has %d stages, limit is %d", len(opts.Stages), MaxPipelineStages)
-	}
 	for i := range opts.Stages {
 		stage := &opts.Stages[i]
 		if (stage.ModelPath == "") == (stage.BundlePath == "") {
@@ -153,6 +167,9 @@ func validatePipelineOptions(opts *PipelineOptions) error {
 	}
 	if opts.CacheDir == "" && pipelineNeedsCompile(opts.Stages) {
 		return errors.New("e5rt: empty cache directory for model-backed stage")
+	}
+	if n := pipelineFunctionCount(opts.Stages); n > MaxPipelineFunctions {
+		return fmt.Errorf("e5rt: pipeline has %d distinct compiled functions, limit is %d", n, MaxPipelineFunctions)
 	}
 	if opts.DeviceMask == 0 {
 		opts.DeviceMask = ComputeDeviceANE
@@ -183,6 +200,27 @@ func validatePipelineOptions(opts *PipelineOptions) error {
 		seenTargets[link.To] = true
 	}
 	return nil
+}
+
+func pipelineFunctionCount(stages []PipelineStage) int {
+	count := 0
+	bundles := make(map[string]bool)
+	for _, stage := range stages {
+		if stage.ModelPath != "" {
+			count++
+			continue
+		}
+		key := bundleFunctionKey(stage)
+		if !bundles[key] {
+			bundles[key] = true
+			count++
+		}
+	}
+	return count
+}
+
+func bundleFunctionKey(stage PipelineStage) string {
+	return stage.BundlePath + "\x00" + stage.FunctionName
 }
 
 func pipelineNeedsCompile(stages []PipelineStage) bool {
@@ -220,7 +258,8 @@ func pipelinePortSize(port PipelinePort, stages []PipelineStage, input bool) (in
 	return 0, false
 }
 
-func compilePipelineStage(lib *Lib, cacheDir string, spec PipelineStage, opts PipelineOptions) (_ *pipelineStage, err error) {
+func compilePipelineStage(p *Pipeline, cacheDir string, spec PipelineStage, opts PipelineOptions) (_ *pipelineStage, err error) {
+	lib := p.lib
 	stage := &pipelineStage{
 		inputs:      make(map[string]*pipelinePort, len(spec.Inputs)),
 		outputs:     make(map[string]*pipelinePort, len(spec.Outputs)),
@@ -233,8 +272,17 @@ func compilePipelineStage(lib *Lib, cacheDir string, spec PipelineStage, opts Pi
 		}
 	}()
 	if spec.BundlePath != "" {
-		if stage.library, err = lib.ProgramLibraryCreate(spec.BundlePath); err != nil {
-			return nil, fmt.Errorf("open program bundle: %w", err)
+		key := bundleFunctionKey(spec)
+		stage.bundle = p.bundleFunctions[key]
+		if stage.bundle == nil {
+			stage.bundle = &pipelineFunction{}
+			p.bundleFunctions[key] = stage.bundle
+			if stage.bundle.library, err = lib.ProgramLibraryCreate(spec.BundlePath); err != nil {
+				return nil, fmt.Errorf("open program bundle: %w", err)
+			}
+			if stage.bundle.function, err = lib.ProgramLibraryRetainProgramFunction(stage.bundle.library, spec.FunctionName); err != nil {
+				return nil, err
+			}
 		}
 	} else {
 		if err := os.MkdirAll(cacheDir, 0o755); err != nil {
@@ -265,10 +313,15 @@ func compilePipelineStage(lib *Lib, cacheDir string, spec PipelineStage, opts Pi
 			return nil, err
 		}
 	}
-	if stage.function, err = lib.ProgramLibraryRetainProgramFunction(stage.library, spec.FunctionName); err != nil {
+	var function uintptr
+	if stage.bundle != nil {
+		function = stage.bundle.function
+	} else if stage.function, err = lib.ProgramLibraryRetainProgramFunction(stage.library, spec.FunctionName); err != nil {
 		return nil, err
+	} else {
+		function = stage.function
 	}
-	if stage.opOptions, err = lib.PrecompiledComputeOpOptionsCreate(stage.function); err != nil {
+	if stage.opOptions, err = lib.PrecompiledComputeOpOptionsCreate(function); err != nil {
 		return nil, err
 	}
 	if err := lib.PrecompiledComputeOpOptionsSetOperationName(stage.opOptions, spec.FunctionName); err != nil {
@@ -451,7 +504,21 @@ func (p *Pipeline) Close() error {
 	for _, stage := range p.stages {
 		errs = append(errs, releasePipelineStageHandles(p.lib, stage))
 	}
+	for key, function := range p.bundleFunctions {
+		errs = append(errs, releasePipelineFunction(p.lib, function))
+		delete(p.bundleFunctions, key)
+	}
 	return errors.Join(errs...)
+}
+
+func releasePipelineFunction(lib *Lib, function *pipelineFunction) error {
+	if function == nil {
+		return nil
+	}
+	return errors.Join(
+		releasePipelineHandle("bundle function", &function.function, lib.ProgramFunctionRelease),
+		releasePipelineHandle("bundle library", &function.library, lib.ProgramLibraryRelease),
+	)
 }
 
 func releasePipelineStage(lib *Lib, stage *pipelineStage) error {
