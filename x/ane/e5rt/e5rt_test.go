@@ -206,5 +206,8 @@ func TestErrorString(t *testing.T) {
 		if text == "" {
 			t.Errorf("ErrorString(%d) = empty string", status)
 		}
+		if status == 0 && text != "OK" {
+			t.Errorf("ErrorString(0) = %q, want %q", text, "OK")
+		}
 	}
 }

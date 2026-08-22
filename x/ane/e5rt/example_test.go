@@ -144,3 +144,18 @@ func ExampleLib_Lookup() {
 	// Output:
 	// resolved
 }
+
+func ExampleLib_ErrorString() {
+	lib, err := e5rt.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
+	text, err := lib.ErrorString(0)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(text)
+
+	// Output:
+	// OK
+}
