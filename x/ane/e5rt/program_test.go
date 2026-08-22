@@ -3,12 +3,10 @@
 package e5rt_test
 
 import (
-	"encoding/binary"
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/tmc/apple/x/ane"
 	"github.com/tmc/apple/x/ane/e5rt"
 	"github.com/tmc/apple/x/ane/mil"
 )
@@ -49,11 +47,17 @@ func TestProgramExecuteReusesEncodedOperation(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, want := range []float32{1.5, 2.25} {
-		binary.LittleEndian.PutUint16(in.Bytes(), ane.Float32ToFP16(want))
+		if err := in.WriteFP16([]float32{want}); err != nil {
+			t.Fatal(err)
+		}
 		if err := p.Execute(); err != nil {
 			t.Fatal(err)
 		}
-		got := ane.FP16ToFloat32(binary.LittleEndian.Uint16(out.Bytes()))
+		var gotValues [1]float32
+		if err := out.ReadFP16(gotValues[:]); err != nil {
+			t.Fatal(err)
+		}
+		got := gotValues[0]
 		if got != want {
 			t.Errorf("output = %v, want %v", got, want)
 		}

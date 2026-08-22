@@ -1,11 +1,14 @@
 package e5rt
 
 import (
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"os"
 	"sync"
 	"unsafe"
+
+	"github.com/tmc/apple/x/ane"
 )
 
 // A Port describes one externally bound program port.
@@ -55,6 +58,34 @@ func (b *Buffer) Bytes() []byte {
 		return nil
 	}
 	return b.data
+}
+
+// WriteFP16 stores data as contiguous little-endian IEEE 754 binary16 values.
+func (b *Buffer) WriteFP16(data []float32) error {
+	if b == nil {
+		return errors.New("e5rt: nil buffer")
+	}
+	if len(data) != len(b.data)/2 || len(b.data)%2 != 0 {
+		return fmt.Errorf("e5rt: write %d fp16 values to %d-byte buffer", len(data), len(b.data))
+	}
+	for i, value := range data {
+		binary.LittleEndian.PutUint16(b.data[2*i:], ane.Float32ToFP16(value))
+	}
+	return nil
+}
+
+// ReadFP16 decodes contiguous little-endian IEEE 754 binary16 values into dst.
+func (b *Buffer) ReadFP16(dst []float32) error {
+	if b == nil {
+		return errors.New("e5rt: nil buffer")
+	}
+	if len(dst) != len(b.data)/2 || len(b.data)%2 != 0 {
+		return fmt.Errorf("e5rt: read %d-byte buffer into %d fp16 values", len(b.data), len(dst))
+	}
+	for i := range dst {
+		dst[i] = ane.FP16ToFloat32(binary.LittleEndian.Uint16(b.data[2*i:]))
+	}
+	return nil
 }
 
 // A Program is a compiled, bound, and encoded E5RT function.
