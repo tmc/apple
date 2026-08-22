@@ -64,7 +64,7 @@ func (k *Kernel) newSharedMILPool(depth int) (*KernelRequestPool, error) {
 	requests[0] = h.request
 
 	for i := 1; i < depth; i++ {
-		req, err := requestFromExistingSurfaces(h.inputs, h.outputs)
+		req, err := requestFromExistingSurfaces(h.inputs, h.outputs, h.program.inputLayouts, h.program.outputLayouts)
 		if err != nil {
 			return nil, fmt.Errorf("request pool: request[%d]: %w", i, err)
 		}
@@ -148,23 +148,23 @@ func (p *KernelRequestPool) Close() error {
 }
 
 // requestFromExistingSurfaces builds an ANERequest referencing existing
-// IOSurfaces. This is the model-package equivalent of the ane package's
-// createRequestFromSurfaces.
-func requestFromExistingSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (appleneuralengine.ANERequest, error) {
+// IOSurfaces. The layouts supply each surface's compiled symbol index; see
+// [symbolIndexAt].
+func requestFromExistingSurfaces(inputs, outputs []coregraphics.IOSurfaceRef, inputLayouts, outputLayouts []xane.TensorLayout) (appleneuralengine.ANERequest, error) {
 	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
 
 	inputArr := foundation.NewNSMutableArray()
 	inputIdxArr := foundation.NewNSMutableArray()
 	for i, ref := range inputs {
 		inputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndexAt(inputLayouts, i))))
 	}
 
 	outputArr := foundation.NewNSMutableArray()
 	outputIdxArr := foundation.NewNSMutableArray()
 	for i, ref := range outputs {
 		outputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndexAt(outputLayouts, i))))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)

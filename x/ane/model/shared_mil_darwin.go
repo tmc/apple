@@ -288,6 +288,27 @@ func writeHashU32(h interface{ Write([]byte) (int, error) }, v uint32) {
 	_, _ = h.Write(buf[:])
 }
 
+// symbolIndexAt reports the ANE symbol index to bind the i-th surface to. The
+// ANE numbers symbols by their position in the compiled model's symbol array,
+// which is not in general the order the surfaces appear in, so the index parsed
+// from the model attributes is used when it resolved. A layout whose symbol was
+// not found in the array carries -1, and position is the only remaining guess.
+//
+// No model reachable from this repository has been observed to need it: across
+// the 13 input and output tensors of the 5 generators that compile without
+// weight files, the symbol index equals the position every time. That includes
+// GenSDPA, whose live input list is ordered K, Q, V while its MIL source
+// declares Q, K, V, because the symbol array is reordered the same way. So this
+// is a correctness measure against models that have not been seen here, not a
+// fix for observed misbinding, and it agrees with the ane package rather than
+// resting on its own judgement.
+func symbolIndexAt(layouts []xane.TensorLayout, i int) int {
+	if i < len(layouts) && layouts[i].SymbolIndex >= 0 {
+		return layouts[i].SymbolIndex
+	}
+	return i
+}
+
 func cloneLayoutsFromXANE(k *xane.Model, inputs bool) []xane.TensorLayout {
 	n := k.NumOutputs()
 	if inputs {
@@ -339,7 +360,7 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []xane.TensorLayout) (
 		}
 		inputs[i] = ref
 		inputArr.AddObject(ioClass.ObjectWithIOSurface(appleiosurface.IOSurfaceRef(ref)))
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndexAt(inputLayouts, i))))
 	}
 
 	outputs := make([]coregraphics.IOSurfaceRef, len(outputLayouts))
@@ -352,7 +373,7 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []xane.TensorLayout) (
 		}
 		outputs[i] = ref
 		outputArr.AddObject(ioClass.ObjectWithIOSurface(appleiosurface.IOSurfaceRef(ref)))
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(i)))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndexAt(outputLayouts, i))))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
