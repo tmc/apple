@@ -22,6 +22,12 @@ var xpcRawOmissions = []rawSymbolOmission{
 		Symbols: []string{"xpc_(array|dictionary)_(get|set)_(bool|int64|uint64|double|string|data|date|uuid|array|dictionary|value|count)"},
 		Reason:  "the Dictionary codec exposes these dynamic values as ordinary Go map and slice operations; parallel typed accessors would duplicate and potentially disagree with the codec",
 	},
+	{Symbols: []string{"xpc_array_create", "xpc_dictionary_create", "xpc_string_get_length"}, Reason: "internal construction and inspection are already covered by the codec; no distinct Go operation is needed"},
+	{Symbols: []string{"xpc_array_dup_fd", "xpc_dictionary_dup_fd", "xpc_array_set_fd", "xpc_dictionary_set_fd"}, Reason: "FileDescriptor is the single ownership-safe representation for descriptor transfer"},
+	{Symbols: []string{"xpc_data_create_with_dispatch_data", "xpc_data_get_bytes"}, Reason: "the dispatch bridge and copyRawData already provide the safe Go ownership and copy semantics"},
+	{Symbols: []string{"xpc_string_create_with_format", "xpc_string_create_with_format_and_arguments"}, Reason: "C varargs are not safely expressible through purego; use fmt.Sprintf before encoding"},
+	{Symbols: []string{"xpc_connection_get_context", "xpc_connection_set_context", "xpc_connection_set_finalizer_f"}, Reason: "storing Go pointers in C context memory violates Go pointer and GC rules; no safe tokenized contract has been defined"},
+	{Symbols: []string{"xpc_main"}, Reason: "never returns and conflicts with the Go runtime main goroutine; Listener plus select is the supported service shape"},
 }
 
 var xpcSwiftOmissions = []swiftMemberOmission{
