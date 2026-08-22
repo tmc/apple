@@ -702,30 +702,6 @@ var probes = map[string]func(t *testing.T){
 		}
 	},
 
-	// The control the two probes above need. Both read zero, and zero is also
-	// what a reader that never reports anything else would return, so on its own
-	// it says nothing. Here the event is bound to an operation that is encoded
-	// but never submitted: if the event machinery is live, a wait must block,
-	// because the work it is waiting for has not run. If the wait returns at
-	// once, the wait is inert and neither reading above is evidence about
-	// whether the engine signals.
-	"waitOnAnUnsubmittedEvent": func(t *testing.T) {
-		r := openRouteBeforeStream(t)
-		event := bindExampleEvent(t, r)
-		r.createStream(t)
-		if err := r.lib.EncodeOperation(r.stream, r.op); err != nil {
-			t.Fatal(err)
-		}
-		returned := make(chan error, 1)
-		go func() { returned <- r.lib.AsyncEventSyncWait(event) }()
-		select {
-		case err := <-returned:
-			fmt.Printf("RESULT wait on an unsubmitted event returned at once: %v\n", err)
-		case <-time.After(3 * time.Second):
-			fmt.Println("RESULT wait on an unsubmitted event blocked for 3s")
-		}
-	},
-
 	// Whether the host can signal an event that an operation owns, which the
 	// standalone case rejects with status 2.
 	"signalABoundEvent": func(t *testing.T) {

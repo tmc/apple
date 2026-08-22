@@ -45,16 +45,17 @@
 // operation, that event binds as a second operation's dependency, and the pair
 // encodes and dispatches correctly, while an operation given its own event is
 // refused. [Lib.AsyncEventSignal] moves an event to a caller-supplied value;
-// its one-argument predecessor was wrong. [Lib.AsyncEventSyncWait] still
-// returns immediately on an unreached event and is not a barrier. Completion
-// events under submit_async are probed separately; use [Lib.SubmitAsync]'s
-// completion function for blocking completion.
+// its one-argument predecessor was wrong. [Lib.AsyncEventSyncWait] has a
+// recovered three-argument shape, but its blocking and timeout behavior have
+// not been driven from this package. Completion events under submit_async are
+// probed separately; use [Lib.SubmitAsync]'s completion function for blocking
+// completion.
 //
 // A zero status means only that an E5RT entry point accepted the call. It is
 // not, by itself, evidence that the operation had its apparent effect:
-// [Lib.PrepareOpForEncode] and [Lib.AsyncEventSetActiveFutureValue] both return
-// zero while failing to do so. Treat an effect as established only where the
-// wrapper documentation names a control that observed it.
+// [Lib.PrepareOpForEncode] returns zero while making its stream unusable. Treat
+// an effect as established only where the wrapper documentation names a control
+// that observed it.
 //
 // Every name in [Symbols] now has a wrapper that has been called, save
 // e5rt_e5_compiler_is_new_compile_required, which is listed so the probe reports

@@ -129,9 +129,17 @@ func TestAsyncEventSignalValue(t *testing.T) {
 	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 7 {
 		t.Errorf("after signal the event reports %d, %v, want 7, nil", v, err)
 	}
-	// Accepted, and observed to change nothing.
+	if err := lib.AsyncEventSyncWait(event, 7, 1_000_000); err != nil {
+		t.Errorf("AsyncEventSyncWait for reached value: %v", err)
+	}
+	if v, err := lib.AsyncEventActiveFutureValue(event); err != nil || v != 0 {
+		t.Fatalf("initial active future value = %d, %v, want 0, nil", v, err)
+	}
 	if err := lib.AsyncEventSetActiveFutureValue(event, 8); err != nil {
 		t.Errorf("AsyncEventSetActiveFutureValue: %v", err)
+	}
+	if v, err := lib.AsyncEventActiveFutureValue(event); err != nil || v != 8 {
+		t.Errorf("active future value after setting = %d, %v, want 8, nil", v, err)
 	}
 	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 7 {
 		t.Errorf("after setting an active future value the event reports %d, %v, want 7, nil", v, err)

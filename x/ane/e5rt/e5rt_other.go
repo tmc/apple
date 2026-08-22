@@ -75,6 +75,7 @@ var Symbols = []string{
 	"e5rt_async_event_signal",
 	"e5rt_async_event_sync_wait",
 	"e5rt_async_event_get_last_signaled_value",
+	"e5rt_async_event_get_active_future_value",
 	"e5rt_async_event_set_active_future_value",
 	"e5rt_execution_stream_operation_bind_completion_event",
 	"e5rt_execution_stream_operation_bind_dependent_events",
@@ -267,11 +268,14 @@ func (l *Lib) AsyncEventRelease(uintptr) error { return ErrUnsupported }
 // AsyncEventSignal signals an async event from the host.
 func (l *Lib) AsyncEventSignal(uintptr, uint64) error { return ErrUnsupported }
 
-// AsyncEventSyncWait waits for an async event to be signaled.
-func (l *Lib) AsyncEventSyncWait(uintptr) error { return ErrUnsupported }
+// AsyncEventSyncWait waits for an async event to reach a value.
+func (l *Lib) AsyncEventSyncWait(uintptr, uint64, uint64) error { return ErrUnsupported }
 
 // AsyncEventLastSignaledValue reports how many times an event has been signaled.
 func (l *Lib) AsyncEventLastSignaledValue(uintptr) (uint64, error) { return 0, ErrUnsupported }
+
+// AsyncEventActiveFutureValue reports the event's active future value.
+func (l *Lib) AsyncEventActiveFutureValue(uintptr) (uint64, error) { return 0, ErrUnsupported }
 
 // AsyncEventSetActiveFutureValue sets the value an event is expected to reach.
 func (l *Lib) AsyncEventSetActiveFutureValue(uintptr, uint64) error { return ErrUnsupported }

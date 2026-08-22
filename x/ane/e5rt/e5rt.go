@@ -78,6 +78,7 @@ var Symbols = []string{
 	"e5rt_async_event_signal",
 	"e5rt_async_event_sync_wait",
 	"e5rt_async_event_get_last_signaled_value",
+	"e5rt_async_event_get_active_future_value",
 	"e5rt_async_event_set_active_future_value",
 	"e5rt_execution_stream_operation_bind_completion_event",
 	"e5rt_execution_stream_operation_bind_dependent_events",
@@ -911,16 +912,14 @@ func (l *Lib) AsyncEventSignal(event uintptr, value uint64) error {
 	return l.callErr("e5rt_async_event_signal", event, uintptr(value))
 }
 
-// AsyncEventSyncWait is documented by ANEForge as blocking until the event is
-// signaled. It does not block on macOS 26.x. Do not use it as a barrier.
+// AsyncEventSyncWait waits for event to reach value, for at most timeoutNS.
 //
-// The signature int64_t(event) is ANEForge's (e5rt_api.h:125, call site
-// ane_e5rt_dispatch.mm:974). What is observed here is that it returns zero
-// immediately even when it must not: bound to an operation that is encoded and
-// deliberately never submitted, it returns at once rather than waiting the three
-// seconds the probe allows. See [Lib.AsyncEventLastSignaledValue].
-func (l *Lib) AsyncEventSyncWait(event uintptr) error {
-	return l.callErr("e5rt_async_event_sync_wait", event)
+// The recovered ane_bridge declaration gives the three-argument signature
+// int64_t(event, uint64_t value, uint64_t timeout_ns). Its own test verifies a
+// wait for an already-signaled value returns promptly. This package has not
+// driven an unmet wait or a timeout, so it does not establish blocking behavior.
+func (l *Lib) AsyncEventSyncWait(event uintptr, value, timeoutNS uint64) error {
+	return l.callErr("e5rt_async_event_sync_wait", event, uintptr(value), uintptr(timeoutNS))
 }
 
 // AsyncEventLastSignaledValue reports the event's last signaled value.
@@ -931,8 +930,7 @@ func (l *Lib) AsyncEventSyncWait(event uintptr) error {
 //
 // A child-process probe verifies that [Lib.AsyncEventSignal] moves this value.
 // It separately checks whether an operation's completion event advances under
-// [Lib.SubmitAsync]. [Lib.AsyncEventSyncWait] returns immediately even for an
-// unreached future value, so it is not a completion barrier.
+// [Lib.SubmitAsync].
 //
 // What does work is the shape of the graph rather than its progress:
 // [Lib.OperationBindCompletionEvent] and [Lib.OperationBindDependentEvents]
@@ -948,10 +946,27 @@ func (l *Lib) AsyncEventLastSignaledValue(event uintptr) (uint64, error) {
 	return v, err
 }
 
+// AsyncEventActiveFutureValue reports the event's active future value.
+//
+// The signature is int64_t(event, uint64_t *out). Its shape agrees across the
+// shim, a CoreML call site, and the recovered ane_bridge declaration. The
+// value is useful as a control for [Lib.AsyncEventSetActiveFutureValue]. On
+// macOS 26.x a fresh event reports zero and reports a value set through that
+// method. It is not a completion signal.
+func (l *Lib) AsyncEventActiveFutureValue(event uintptr) (uint64, error) {
+	out := newOut()
+	err := l.callErr("e5rt_async_event_get_active_future_value", event, uintptr(unsafe.Pointer(out)))
+	v := uint64(*out)
+	runtime.KeepAlive(out)
+	return v, err
+}
+
 // AsyncEventSetActiveFutureValue sets the value the event is expected to reach.
 //
-// The signature int64_t(event, uint64_t) is ANEForge's (e5rt_api.h:127). It is
-// resolved and declared there but never called, so its effect is unrecovered.
+// The signature int64_t(event, uint64_t) is ANEForge's (e5rt_api.h:127). On
+// macOS 26.x, [Lib.AsyncEventActiveFutureValue] reads the supplied value back
+// from a fresh event. This does not signal the event: its last-signaled value
+// remains unchanged.
 func (l *Lib) AsyncEventSetActiveFutureValue(event uintptr, value uint64) error {
 	return l.callErr("e5rt_async_event_set_active_future_value", event, uintptr(value))
 }
