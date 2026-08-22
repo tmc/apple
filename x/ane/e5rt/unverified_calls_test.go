@@ -53,6 +53,18 @@ func buildExampleModel(t *testing.T, channels, spatial int) string {
 	return dir
 }
 
+// buildStateModel writes the smallest program that writes a state tensor and
+// returns it. It is deliberately separate from buildExampleModel: a state
+// experiment must not silently fall back to the ordinary tensor-only route.
+func buildStateModel(t *testing.T) string {
+	t.Helper()
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "model.mil"), []byte(mil.GenUpdateState("kv", [4]int{1, 4, 1, 4})), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
 // route holds the handles of a compiled, bound, encodable program.
 type route struct {
 	lib      *e5rt.Lib
@@ -386,6 +398,124 @@ var probes = map[string]func(t *testing.T){
 			}
 		}
 		fmt.Println("RESULT SubmitAsync: the output matches the reference")
+	},
+
+	// The state parameter is not listed by the public model API. Try the
+	// obvious lower-level representation before concluding it needs a private
+	// allocator: retain kv as both an input and an output, bind the same buffer
+	// object to both ports, then run the write/read program. Reaching execution
+	// would justify a second, distinct-value step that distinguishes stored state
+	// from an output that merely echoes the current input.
+	"statePortAlias": func(t *testing.T) {
+		lib, err := e5rt.Open()
+		if err != nil {
+			t.Fatal(err)
+		}
+		dir := buildStateModel(t)
+		config, err := lib.CompilerConfigOptionsCreate()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.CompilerConfigOptionsSetCacheBundleLocation(config, dir); err != nil {
+			t.Fatal(err)
+		}
+		compiler, err := lib.CompilerCreateWithConfig(config)
+		if err != nil {
+			t.Fatal(err)
+		}
+		options, err := lib.CompilerOptionsCreate()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.CompilerOptionsSetComputeDeviceTypesMask(options, e5rt.ComputeDeviceANE); err != nil {
+			t.Fatal(err)
+		}
+		library, err := lib.CompilerCompile(compiler, filepath.Join(dir, "model.mil"), options)
+		if err != nil {
+			fmt.Printf("RESULT state compile: %v\n", err)
+			return
+		}
+		function, err := lib.ProgramLibraryRetainProgramFunction(library, "main")
+		if err != nil {
+			t.Fatal(err)
+		}
+		opOptions, err := lib.PrecompiledComputeOpOptionsCreate(function)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.PrecompiledComputeOpOptionsSetOperationName(opOptions, "main"); err != nil {
+			t.Fatal(err)
+		}
+		op, err := lib.OperationCreatePrecompiled(opOptions)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		valuePort, err := lib.OperationRetainInputPort(op, "value")
+		if err != nil {
+			fmt.Printf("RESULT state value input port: %v\n", err)
+			return
+		}
+		value, err := lib.BufferObjectAlloc(32, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.IOPortBindBufferObject(valuePort, value); err != nil {
+			t.Fatal(err)
+		}
+		valuePtr, err := lib.BufferObjectGetDataPtr(value)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		stateIn, inErr := lib.OperationRetainInputPort(op, "kv")
+		stateOut, outErr := lib.OperationRetainOutputPort(op, "kv")
+		fmt.Printf("RESULT state kv ports: input=%v output=%v\n", inErr, outErr)
+		if inErr != nil || outErr != nil {
+			return
+		}
+		state, err := lib.BufferObjectAlloc(32, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.IOPortBindBufferObject(stateIn, state); err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.IOPortBindBufferObject(stateOut, state); err != nil {
+			t.Fatal(err)
+		}
+		output, err := lib.OperationRetainOutputPort(op, "y")
+		if err != nil {
+			t.Fatal(err)
+		}
+		outBuf, err := lib.BufferObjectAlloc(32, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.IOPortBindBufferObject(output, outBuf); err != nil {
+			t.Fatal(err)
+		}
+		outPtr, err := lib.BufferObjectGetDataPtr(outBuf)
+		if err != nil {
+			t.Fatal(err)
+		}
+		stream, err := lib.ExecutionStreamCreate()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.EncodeOperation(stream, op); err != nil {
+			fmt.Printf("RESULT state alias encode: %v\n", err)
+			return
+		}
+
+		first := []float32{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		writeExampleFP16(valuePtr, first)
+		if err := lib.ExecuteSync(stream); err != nil {
+			fmt.Printf("RESULT state alias first execution: %v\n", err)
+			return
+		}
+		got := readExampleFP16(outPtr, len(first))
+		fmt.Printf("RESULT state alias first output: %v\n", got)
 	},
 
 	// ANEForge (docs/e5rt-dispatch-reference.md:313-317) says a completion event
