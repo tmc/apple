@@ -37,9 +37,15 @@ Two programs, both 1×1 convolutions, whose results are cheap to predict exactly
 
    What that establishes is that the compiler *accepts* the rounded-up
    placement and reads the right tensor back from it. It does not establish that
-   a packed file would be *rejected*: the MIL text takes its offsets from the
-   same writer that lays out the file, so a packed writer would be
-   self-consistent and the compiler would follow it.
+   a packed file would be *rejected*, and in fact it is not:
+   `TestBlobPackedVersusAlignedLayout` in `x/ane/mil` compiles this same shape
+   from a deliberately packed file with matching packed offsets, and it runs and
+   matches its reference too. The compiler follows whatever offsets the MIL text
+   gives as long as the file agrees with them.
+
+   Alignment still matters when *reading* a file this repository did not write.
+   Every Apple-produced blob file examined here is aligned, so a parser using
+   packed arithmetic reads them wrong.
 
 ## What a run establishes
 
