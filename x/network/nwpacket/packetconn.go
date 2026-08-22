@@ -146,8 +146,8 @@ func ListenPacketContext(ctx context.Context, config Config) (net.PacketConn, er
 			}
 		}
 	})
-	applenetwork.NWListenerSetNewConnectionHandler(listener, func(obj objectivec.Object) {
-		c.accept(applenetwork.NWConnectionFromID(obj.ID))
+	applenetwork.NWListenerSetNewConnectionHandler(listener, func(conn applenetwork.NWConnection) {
+		c.accept(conn)
 	})
 	applenetwork.NWListenerStart(listener)
 
@@ -530,7 +530,7 @@ func (c *nwPacketConn) receive(conn applenetwork.NWConnection, addr *net.UDPAddr
 		return
 	default:
 	}
-	applenetwork.NWConnectionReceiveMessage(conn, func(content objectivec.Object, _ objectivec.Object, _ bool, nwErr applenetwork.NWError) {
+	applenetwork.NWConnectionReceiveMessage(conn, func(content objectivec.Object, _ applenetwork.NWContentContext, _ bool, nwErr applenetwork.NWError) {
 		if !nwErr.IsZero() {
 			c.enqueueErrorPacket(addr, nwErr)
 			return

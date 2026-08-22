@@ -7,6 +7,55 @@ import (
 	"github.com/tmc/apple/rdma"
 )
 
+func TestCapPathMTU(t *testing.T) {
+	tests := []struct {
+		name     string
+		mtu, max int32
+		want     int32
+	}{
+		{"no cap (max zero)", 5, 0, 5},
+		{"no cap (max invalid)", 5, 99, 5},
+		{"cap 4096 to 1024", 5, rdma.IBV_MTU_1024, rdma.IBV_MTU_1024},
+		{"cap 2048 to 1024", 4, rdma.IBV_MTU_1024, rdma.IBV_MTU_1024},
+		{"already below cap", rdma.IBV_MTU_1024, 5, rdma.IBV_MTU_1024},
+		{"equal", rdma.IBV_MTU_1024, rdma.IBV_MTU_1024, rdma.IBV_MTU_1024},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := capPathMTU(tt.mtu, tt.max); got != tt.want {
+				t.Fatalf("capPathMTU(%d, %d) = %d, want %d", tt.mtu, tt.max, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRTRAttrMaxPathMTU(t *testing.T) {
+	// Both peers advertise active MTU 5 (4096B); the policy caps to 1024.
+	attr, _, err := RTRAttr(
+		LocalQP{PortNum: 1, ActiveMTU: 5},
+		RemoteQP{LID: 2, QPN: 99, PSN: 7, ActiveMTU: 5},
+		RTRPolicy{MaxPathMTU: rdma.IBV_MTU_1024},
+	)
+	if err != nil {
+		t.Fatalf("RTRAttr: %v", err)
+	}
+	if attr.PathMTU != rdma.IBV_MTU_1024 {
+		t.Fatalf("PathMTU = %d, want %d (capped)", attr.PathMTU, rdma.IBV_MTU_1024)
+	}
+	// Without the cap, the same peers negotiate 4096 (active MTU 5).
+	attr, _, err = RTRAttr(
+		LocalQP{PortNum: 1, ActiveMTU: 5},
+		RemoteQP{LID: 2, QPN: 99, PSN: 7, ActiveMTU: 5},
+		RTRPolicy{},
+	)
+	if err != nil {
+		t.Fatalf("RTRAttr: %v", err)
+	}
+	if attr.PathMTU != 5 {
+		t.Fatalf("PathMTU = %d, want 5 (uncapped)", attr.PathMTU)
+	}
+}
+
 func TestRTRAttrGlobalRoute(t *testing.T) {
 	gid := rdma.IbvGID{0xfe, 0x80, 0, 0, 0, 0, 0, 0, 0xde, 0xad, 0, 0, 0, 0, 0, 1}
 	attr, mask, err := RTRAttr(

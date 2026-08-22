@@ -3,6 +3,8 @@ package rdma
 import (
 	"strings"
 	"testing"
+
+	"github.com/tmc/apple/rdma"
 )
 
 func TestQPChainCloseZero(t *testing.T) {
@@ -17,21 +19,47 @@ func TestQPChainCloseZero(t *testing.T) {
 
 func TestQPChainCloseOrderAndIdempotence(t *testing.T) {
 	var order []string
-	record := func(name string) func(uintptr) (int, error) {
-		return func(uintptr) (int, error) {
+	recordQP := func(name string) func(rdma.RDMAQP) (int32, error) {
+		return func(rdma.RDMAQP) (int32, error) {
 			order = append(order, name)
 			return 0, nil
 		}
 	}
-	defer func(q, m, c, p, x func(uintptr) (int, error)) {
-		destroyQP, deregMR, destroyCQ, deallocPD, closeContext = q, m, c, p, x
-	}(destroyQP, deregMR, destroyCQ, deallocPD, closeContext)
+	recordMR := func(name string) func(rdma.RDMAMR) (int32, error) {
+		return func(rdma.RDMAMR) (int32, error) {
+			order = append(order, name)
+			return 0, nil
+		}
+	}
+	recordCQ := func(name string) func(rdma.RDMACQ) (int32, error) {
+		return func(rdma.RDMACQ) (int32, error) {
+			order = append(order, name)
+			return 0, nil
+		}
+	}
+	recordPD := func(name string) func(rdma.RDMAPD) (int32, error) {
+		return func(rdma.RDMAPD) (int32, error) {
+			order = append(order, name)
+			return 0, nil
+		}
+	}
+	recordCtx := func(name string) func(rdma.RDMAContext) (int32, error) {
+		return func(rdma.RDMAContext) (int32, error) {
+			order = append(order, name)
+			return 0, nil
+		}
+	}
 
-	destroyQP = record("qp")
-	deregMR = record("mr")
-	destroyCQ = record("cq")
-	deallocPD = record("pd")
-	closeContext = record("context")
+	oldQ, oldM, oldC, oldP, oldX := destroyQP, deregMR, destroyCQ, deallocPD, closeContext
+	defer func() {
+		destroyQP, deregMR, destroyCQ, deallocPD, closeContext = oldQ, oldM, oldC, oldP, oldX
+	}()
+
+	destroyQP = recordQP("qp")
+	deregMR = recordMR("mr")
+	destroyCQ = recordCQ("cq")
+	deallocPD = recordPD("pd")
+	closeContext = recordCtx("context")
 
 	chain := &QPChain{Context: 1, PD: 2, MR: 3, CQ: 4, QP: 5}
 	if err := chain.Close(); err != nil {

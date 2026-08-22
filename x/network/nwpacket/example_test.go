@@ -4,7 +4,6 @@ package nwpacket_test
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net"
 
@@ -22,8 +21,8 @@ func ExampleConfig() {
 		RequireInterface:      true,
 		ReuseLocalAddress:     true,
 	}
-	fmt.Println(cfg.InterfaceName, cfg.IncludePeerToPeer)
-	// Output: awdl0 true
+	fmt.Printf("interface=%s p2p=%v reuse=%v addr=%s\n", cfg.InterfaceName, cfg.IncludePeerToPeer, cfg.ReuseLocalAddress, cfg.LocalAddr)
+	// Output: interface=awdl0 p2p=true reuse=true addr=[fe80::1%awdl0]:0
 }
 
 func ExampleListenPacketContext() {
@@ -32,8 +31,8 @@ func ExampleListenPacketContext() {
 	_, err := nwpacket.ListenPacketContext(ctx, nwpacket.Config{
 		LocalAddr: &net.UDPAddr{IP: net.ParseIP("127.0.0.1")},
 	})
-	fmt.Println(errors.Is(err, context.Canceled))
-	// Output: true
+	fmt.Println(err)
+	// Output: context canceled
 }
 
 func ExamplePath_UsesInterface() {
@@ -43,8 +42,9 @@ func ExamplePath_UsesInterface() {
 			{Name: "awdl0", Index: 16, Type: applenetwork.NWInterfaceTypeWifi},
 		},
 	}
-	fmt.Println(path.UsesInterface("awdl0"))
-	// Output: true
+	fmt.Printf("awdl0: %v, en0: %v\n", path.UsesInterface("awdl0"), path.UsesInterface("en0"))
+	// Output:
+	// awdl0: true, en0: false
 }
 
 func ExamplePath_InterfaceNames() {

@@ -1,10 +1,14 @@
-package ext4
+//go:build darwin
+
+package ext4_test
 
 import (
 	"context"
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/tmc/apple/x/guest/ext4"
 )
 
 func ExampleBuild() {
@@ -27,7 +31,7 @@ func ExampleBuild() {
 	defer os.RemoveAll(out)
 	imagePath := filepath.Join(out, "rootfs.ext4")
 
-	if err := Build(context.Background(), rootfs, imagePath); err != nil {
+	if err := ext4.Build(context.Background(), rootfs, imagePath); err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -36,8 +40,8 @@ func ExampleBuild() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(info.Size() > 0)
+	fmt.Printf("Ext4 image created: size=%d bytes\n", info.Size())
 
 	// Output:
-	// true
+	// Ext4 image created: size=134217728 bytes
 }

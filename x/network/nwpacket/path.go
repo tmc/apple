@@ -10,7 +10,6 @@ import (
 
 	applenetwork "github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // PathReporter reports the Network.framework path for a peer connection.
@@ -107,11 +106,10 @@ func pathFromNWPath(path applenetwork.NWPath) (Path, error) {
 		return Path{}, errors.New("nw path is unavailable")
 	}
 	result := Path{Status: applenetwork.NWPathGetStatus(path)}
-	applenetwork.NWPathEnumerateInterfaces(path, func(obj objectivec.Object) bool {
-		if obj.ID == 0 {
+	applenetwork.NWPathEnumerateInterfaces(path, func(iface applenetwork.NWInterface) bool {
+		if iface.ID == 0 {
 			return true
 		}
-		iface := applenetwork.NWInterfaceFromID(obj.ID)
 		result.Interfaces = append(result.Interfaces, PathInterface{
 			Name:  objc.GoString(applenetwork.NWInterfaceGetName(iface)),
 			Index: applenetwork.NWInterfaceGetIndex(iface),

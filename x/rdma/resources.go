@@ -39,7 +39,7 @@ func (r *QPChain) Close() error {
 		qp := r.QP
 		r.QP = 0
 		rc, err := destroyQP(qp)
-		if err := checkProviderReturn("ibv_destroy_qp", rc, err); err != nil {
+		if err := checkProviderReturn("ibv_destroy_qp", int(rc), err); err != nil {
 			errs = append(errs, err)
 		}
 	}
@@ -47,7 +47,7 @@ func (r *QPChain) Close() error {
 		mr := r.MR
 		r.MR = 0
 		rc, err := deregMR(mr)
-		if err := checkProviderReturn("ibv_dereg_mr", rc, err); err != nil {
+		if err := checkProviderReturn("ibv_dereg_mr", int(rc), err); err != nil {
 			errs = append(errs, err)
 		}
 	}
@@ -55,7 +55,7 @@ func (r *QPChain) Close() error {
 		cq := r.CQ
 		r.CQ = 0
 		rc, err := destroyCQ(cq)
-		if err := checkProviderReturn("ibv_destroy_cq", rc, err); err != nil {
+		if err := checkProviderReturn("ibv_destroy_cq", int(rc), err); err != nil {
 			errs = append(errs, err)
 		}
 	}
@@ -63,7 +63,7 @@ func (r *QPChain) Close() error {
 		pd := r.PD
 		r.PD = 0
 		rc, err := deallocPD(pd)
-		if err := checkProviderReturn("ibv_dealloc_pd", rc, err); err != nil {
+		if err := checkProviderReturn("ibv_dealloc_pd", int(rc), err); err != nil {
 			errs = append(errs, err)
 		}
 	}
@@ -71,7 +71,7 @@ func (r *QPChain) Close() error {
 		context := r.Context
 		r.Context = 0
 		rc, err := closeContext(context)
-		if err := checkProviderReturn("ibv_close_device", rc, err); err != nil {
+		if err := checkProviderReturn("ibv_close_device", int(rc), err); err != nil {
 			errs = append(errs, err)
 		}
 	}
