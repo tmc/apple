@@ -159,15 +159,15 @@ func float32ToFP16Cases() []uint32 {
 	}
 
 	// fp16 boundaries.
-	add(6.103515625e-05)  // fp16 min normal 2^-14
-	add(6.0975552e-05)    // just below min normal
-	add(5.9604645e-08)    // fp16 min subnormal 2^-24
-	add(2.9802322e-08)    // half of min subnormal: exact tie to zero/min-sub
-	add(2.9802322e-08*3)  // 1.5x min subnormal: tie
-	add(65504)            // fp16 max
-	add(65519.99)         // just below the overflow threshold 65520
-	add(65520)            // exactly halfway: rounds to inf under RNE
-	add(65535)            // above -> inf
+	add(6.103515625e-05)   // fp16 min normal 2^-14
+	add(6.0975552e-05)     // just below min normal
+	add(5.9604645e-08)     // fp16 min subnormal 2^-24
+	add(2.9802322e-08)     // half of min subnormal: exact tie to zero/min-sub
+	add(2.9802322e-08 * 3) // 1.5x min subnormal: tie
+	add(65504)             // fp16 max
+	add(65519.99)          // just below the overflow threshold 65520
+	add(65520)             // exactly halfway: rounds to inf under RNE
+	add(65535)             // above -> inf
 	add(131008)
 	add(math.Float32frombits(0x477fefff)) // 65503.99...
 
@@ -183,7 +183,7 @@ func float32ToFP16Cases() []uint32 {
 	}
 	// Ties in the subnormal-producing range.
 	for e := -25; e < -14; e++ {
-		base := uint32((e+127)<<23)
+		base := uint32((e + 127) << 23)
 		addBits(base)
 		addBits(base | 0x0040_0000)
 		addBits(base | 0x7fffff)
