@@ -46,11 +46,34 @@ import (
 //
 // Set APPLE_GATE_BASE to compare against something else for a one-off.
 
-// baselineRev is the last tree generated before the regeneration that
-// degraded these types: 77eeb3409 "all: remove duplicate zz_generatedirective
-// .go files". The commit that followed it has since been rewritten, so the
-// revision is spelled in full rather than as a relative of anything.
-const baselineRev = "77eeb3409254935a8637eb6cfbc5a148588fd10f"
+// baselineRev is the v0.7.0 tip. It answers, going forward, "what has degraded
+// since v0.7.0 shipped".
+//
+// It was 77eeb3409, a mid-branch commit, and that is a failure mode worth
+// recording rather than quietly correcting. A revision inside a branch that
+// may be rewritten is a pin that dangles: the history reconstruction of
+// 2026-08-22 collapsed 233 commits to 19 and left 77eeb3409 unreachable. The
+// object survives locally as an unreachable commit, so rev-parse keeps
+// resolving it and this gate keeps passing on the machine that did the
+// rewrite -- and hard-fails on a fresh clone, or here after a gc. A gate that
+// works only where it was written is worse than one that is merely absent.
+//
+// It also asked a question nobody wanted. Pinned mid-branch, the gate reported
+// what changed since an arbitrary Thursday in August. Pinned at a release, it
+// reports what changed since a release.
+//
+// Two things this pin still does NOT fix, both tracked for v0.7.1:
+//
+//   - Moving it laundered the applicationservices/QD.framework damage into the
+//     baseline: CMDeviceInfo, CMMultiFunctLutType, CMDeviceProfileArray and
+//     CMDeviceScope render every field as unsafe.Pointer at this revision, and
+//     comparing against it can no longer see that. They are held by
+//     TestNoAllOpaqueRecords instead, which takes no baseline at all.
+//   - A revision pin is still a pin. The replacement is an in-tree golden
+//     manifest: regenerating a file shows the damage as a reviewable diff,
+//     where moving a hash is a one-line change that reveals nothing. Today the
+//     most consequential act is the least visible one.
+const baselineRev = "62547ebc14a6217ff3144ff94f1fefaee8cf342d"
 
 // knownFindings are the degradations the tree carried when the baseline was
 // pinned, each recorded exactly as the gate reports it — never a pattern, so
@@ -59,31 +82,35 @@ const baselineRev = "77eeb3409254935a8637eb6cfbc5a148588fd10f"
 // An entry that no longer reproduces is a failure, not a pass. An allowlist
 // that only ever suppresses becomes permanent; one that goes red when a
 // finding is fixed forces its own cleanup.
-var knownFindings = map[string]string{
-	// 2026-08-14. Symbols the release SDK does not declare take the value 0
-	// rather than being omitted, so two enumerators land on one value and
-	// String loses a case. Older than the regeneration above; the fix belongs
-	// with SDK-skew handling, not here.
-	//
-	// This baseline can only see the class where the value was once right.
-	// Where the symbol was already absent when the baseline was generated the
-	// constant reads 0 on both sides, and no comparison against it can tell.
-	// Two audiotoolbox constants are exactly that: 0 at the baseline, 7 and 24
-	// in the beta-SDK tree, 0 again now. 278 enum types in the tree currently
-	// have more than one zero-valued constant.
-	"appkit/enums.gen.go: NSViewExclusiveGestureBehaviorExclusive: 1 -> 0 (constant collapsed to zero)":    "sdk skew: symbol absent from 25F70",
-	"appkit/enums.gen.go: NSViewExclusiveGestureBehaviorNotExclusive: 2 -> 0 (constant collapsed to zero)": "sdk skew: symbol absent from 25F70",
-
-	// 2026-08-17, after the whole-tree regeneration. Third instance of the
-	// class above, found by this gate rather than by a build failure: the
-	// collision leaves MTLFloatingPointConversionRoundingModeTowardZero equal
-	// to ToNearestEven, so a caller asking for truncation silently rounds.
-	// Measured, not assumed: MTLFloatingPointConversionRoundingMode appears
-	// nowhere under the 25F70 SDK's System/Library/Frameworks, and the
-	// generated String lost its TowardZero case because a duplicate case
-	// would not compile.
-	"metal/enums.gen.go: MTLFloatingPointConversionRoundingModeTowardZero: 1 -> 0 (constant collapsed to zero)": "sdk skew: symbol absent from 25F70",
-}
+// It is empty at v0.7.0, and that is a consequence of moving the pin rather
+// than a claim that the tree is clean. Every entry it held was a constant that
+// collapsed to zero BEFORE this revision, so against this baseline the value
+// reads 0 on both sides and the comparison can no longer see it. Emptying the
+// map is forced -- the stale-entry rule below would fail on all three.
+//
+// The three findings are not thereby resolved, and are recorded here because
+// deleting the entries would otherwise delete the knowledge:
+//
+//   - appkit NSViewExclusiveGestureBehaviorExclusive (1 -> 0) and
+//     NSViewExclusiveGestureBehaviorNotExclusive (2 -> 0), 2026-08-14.
+//   - metal MTLFloatingPointConversionRoundingModeTowardZero (1 -> 0),
+//     2026-08-17. This one has a runtime consequence, not merely a cosmetic
+//     one: the collision leaves TowardZero equal to ToNearestEven, so a caller
+//     asking for truncation silently rounds. Measured, not assumed --
+//     MTLFloatingPointConversionRoundingMode appears nowhere under the 25F70
+//     SDK's System/Library/Frameworks, and the generated String lost its
+//     TowardZero case because a duplicate case would not compile.
+//
+// All three are SDK skew: the release SDK does not declare the symbol, so it
+// takes 0 rather than being omitted. The fix belongs with SDK-skew handling.
+//
+// This class needs an absolute check for the same reason TestNoAllOpaqueRecords
+// exists -- a comparison cannot see a constant that was already wrong on both
+// sides. 278 enum types in the tree currently have more than one zero-valued
+// constant, and that population is UNMEASURED: it is not known how many are
+// benign (a legitimate zero plus a genuinely absent symbol) and how many are
+// collisions like the metal one. Sizing it is v0.7.1 work.
+var knownFindings = map[string]string{}
 
 func TestNoTypeDegradationAgainstBaseline(t *testing.T) {
 	root := repoRoot(t)
