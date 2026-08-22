@@ -239,16 +239,46 @@ func makeFP16Bytes(vals ...float32) []byte {
 	return out
 }
 
+// float32ToFloat16 rounds to nearest even and underflows gradually, so the
+// fixtures it builds hold the same bytes Apple's converter would write.
 func float32ToFloat16(f float32) uint16 {
-	bits := math.Float32bits(f)
-	sign := uint16((bits >> 31) & 1)
-	exp := int((bits>>23)&0xFF) - 127
-	frac := bits & 0x7FFFFF
-	if exp > 15 {
-		return (sign << 15) | 0x7C00
+	b := math.Float32bits(f)
+	sign := uint16(b>>16) & 0x8000
+	exp := int32((b>>23)&0xFF) - 127
+	frac := b & 0x7FFFFF
+
+	switch {
+	case exp == 128:
+		if frac == 0 {
+			return sign | 0x7C00
+		}
+		return sign | 0x7E00 | uint16(frac>>13)&0x01FF
+	case exp >= 16:
+		return sign | 0x7C00
+	case exp >= -14:
+		e := uint32(exp + 15)
+		m := frac >> 13
+		if r := frac & 0x1FFF; r > 0x1000 || (r == 0x1000 && m&1 == 1) {
+			m++
+			if m == 0x400 {
+				m = 0
+				e++
+				if e == 31 {
+					return sign | 0x7C00
+				}
+			}
+		}
+		return sign | uint16(e<<10) | uint16(m)
+	case exp >= -25:
+		m := frac | 0x800000
+		shift := uint32(-exp - 1)
+		q := m >> shift
+		half := uint32(1) << (shift - 1)
+		if r := m & (half<<1 - 1); r > half || (r == half && q&1 == 1) {
+			q++
+		}
+		return sign | uint16(q)
+	default:
+		return sign
 	}
-	if exp < -14 {
-		return sign << 15
-	}
-	return (sign << 15) | uint16(exp+15)<<10 | uint16(frac>>13)
 }
