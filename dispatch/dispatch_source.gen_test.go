@@ -13,6 +13,27 @@ import (
 	"time"
 )
 
+func sourceWorkMapCount() int {
+	count := 0
+	sourceWorkMap.Range(func(_, _ any) bool {
+		count++
+		return true
+	})
+	return count
+}
+
+func waitForSourceWorkMapCount(t *testing.T, want int) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for time.Now().Before(deadline) {
+		if got := sourceWorkMapCount(); got == want {
+			return
+		}
+		time.Sleep(time.Millisecond)
+	}
+	t.Fatalf("sourceWorkMap entries = %d, want %d", sourceWorkMapCount(), want)
+}
+
 func TestTimerSource(t *testing.T) {
 	var count atomic.Int64
 	q := QueueCreate("com.appledocs.dispatch.test.timer")
@@ -35,6 +56,9 @@ func TestTimerCancel(t *testing.T) {
 	})
 	time.Sleep(50 * time.Millisecond)
 	s.Cancel()
+	// Cancellation is asynchronous: an already-enqueued fire may still run.
+	// Let in-flight work drain before snapshotting.
+	time.Sleep(50 * time.Millisecond)
 	snapshot := count.Load()
 	time.Sleep(50 * time.Millisecond)
 	if count.Load() != snapshot {
@@ -90,6 +114,65 @@ func TestSourceCancelCleanup(t *testing.T) {
 	if !cleaned.Load() {
 		t.Fatal("cancel handler was not called")
 	}
+}
+
+func TestSourceEventCancelAndRegistrationHandlers(t *testing.T) {
+	event := make(chan struct{}, 1)
+	cancel := make(chan struct{}, 1)
+	registration := make(chan struct{}, 1)
+	q := QueueCreate("com.appledocs.dispatch.test.all-source-handlers")
+	s := SourceCreate(SourceTypeDataAdd, 0, 0, q)
+	s.SetEventHandler(func() { event <- struct{}{} })
+	s.SetCancelHandler(func() { cancel <- struct{}{} })
+	s.SetRegistrationHandler(func() { registration <- struct{}{} })
+	s.Activate()
+
+	select {
+	case <-registration:
+	case <-time.After(5 * time.Second):
+		t.Fatal("timeout waiting for registration handler")
+	}
+	s.MergeData(1)
+	select {
+	case <-event:
+	case <-time.After(5 * time.Second):
+		t.Fatal("timeout waiting for event handler")
+	}
+	s.Cancel()
+	select {
+	case <-cancel:
+	case <-time.After(5 * time.Second):
+		t.Fatal("timeout waiting for cancel handler")
+	}
+}
+
+func TestSourceCancelDrainsHandlers(t *testing.T) {
+	before := sourceWorkMapCount()
+	q := QueueCreate("com.appledocs.dispatch.test.source-handler-drain")
+	s := SourceCreate(SourceTypeDataAdd, 0, 0, q)
+	s.SetEventHandler(func() {})
+	if got := sourceWorkMapCount(); got != before+1 {
+		t.Fatalf("sourceWorkMap entries after SetEventHandler = %d, want %d", got, before+1)
+	}
+	s.Activate()
+	s.Cancel()
+	waitForSourceWorkMapCount(t, before)
+	s.Release()
+}
+
+func TestSourceSetEventHandlerReplacesInPlace(t *testing.T) {
+	before := sourceWorkMapCount()
+	q := QueueCreate("com.appledocs.dispatch.test.source-handler-replace")
+	s := SourceCreate(SourceTypeDataAdd, 0, 0, q)
+	s.SetEventHandler(func() {})
+	s.SetEventHandler(func() {})
+	if got := sourceWorkMapCount(); got != before+1 {
+		t.Fatalf("sourceWorkMap entries after two event handlers = %d, want %d", got, before+1)
+	}
+	s.Activate()
+	s.Cancel()
+	waitForSourceWorkMapCount(t, before)
+	s.Release()
 }
 
 func TestSourceGetHandleAndMask(t *testing.T) {
@@ -151,14 +234,13 @@ func TestReadSource(t *testing.T) {
 
 	q := QueueCreate("com.appledocs.dispatch.test.read-source")
 	done := make(chan uintptr, 1)
-	var s Source
-	s = NewReadSource(int(r.Fd()), q, func(bytesAvailable uintptr) {
+	s := NewReadSource(int(r.Fd()), q, func(bytesAvailable uintptr) {
 		select {
 		case done <- bytesAvailable:
 		default:
 		}
-		s.Cancel()
 	})
+	defer s.Cancel()
 	if _, err := w.Write([]byte("hello")); err != nil {
 		t.Fatal(err)
 	}
@@ -181,14 +263,13 @@ func TestProcessSource(t *testing.T) {
 
 	q := QueueCreate("com.appledocs.dispatch.test.process-source")
 	done := make(chan ProcFlags, 1)
-	var s Source
-	s = NewProcessSource(cmd.Process.Pid, ProcExit, q, func(events ProcFlags) {
+	s := NewProcessSource(cmd.Process.Pid, ProcExit, q, func(events ProcFlags) {
 		select {
 		case done <- events:
 		default:
 		}
-		s.Cancel()
 	})
+	defer s.Cancel()
 	if err := cmd.Process.Kill(); err != nil {
 		t.Fatal(err)
 	}
@@ -216,14 +297,13 @@ func TestVnodeSource(t *testing.T) {
 
 	q := QueueCreate("com.appledocs.dispatch.test.vnode-source")
 	done := make(chan VnodeFlags, 1)
-	var s Source
-	s = NewVnodeSource(int(f.Fd()), VnodeWrite, q, func(events VnodeFlags) {
+	s := NewVnodeSource(int(f.Fd()), VnodeWrite, q, func(events VnodeFlags) {
 		select {
 		case done <- events:
 		default:
 		}
-		s.Cancel()
 	})
+	defer s.Cancel()
 	if err := os.WriteFile(path, []byte("after"), 0644); err != nil {
 		t.Fatal(err)
 	}

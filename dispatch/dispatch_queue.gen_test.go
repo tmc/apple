@@ -93,6 +93,23 @@ func TestApplyAuto(t *testing.T) {
 	}
 }
 
+func TestWalltimeFromDate(t *testing.T) {
+	q := QueueCreate("com.appledocs.dispatch.test.walltime")
+	started := time.Now()
+	done := make(chan struct{})
+	After(WalltimeFromDate(started.Add(100*time.Millisecond)), q, func() {
+		close(done)
+	})
+	select {
+	case <-done:
+		if elapsed := time.Since(started); elapsed < 50*time.Millisecond {
+			t.Fatalf("walltime fired after %v, want at least 50ms", elapsed)
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("timeout waiting for walltime dispatch")
+	}
+}
+
 func TestQueueAsyncMoreThanPuregoCallbackLimit(t *testing.T) {
 	runManyAsyncOperations(t, dispatchOperationStressCount)
 }
