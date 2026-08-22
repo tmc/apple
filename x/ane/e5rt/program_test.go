@@ -218,6 +218,59 @@ func TestPipelineLinksStages(t *testing.T) {
 	}
 }
 
+func ExampleCompilePipeline() {
+	dir, err := os.MkdirTemp("", "e5rt-pipeline-")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer os.RemoveAll(dir)
+	first, err := writeIdentityModel(filepath.Join(dir, "first"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	second, err := writeIdentityModel(filepath.Join(dir, "second"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	p, err := e5rt.CompilePipeline(e5rt.PipelineOptions{
+		CacheDir: filepath.Join(dir, "cache"),
+		Stages: []e5rt.PipelineStage{
+			{ModelPath: first, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+			{ModelPath: second, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+		},
+		Links: []e5rt.PipelineLink{{
+			From: e5rt.PipelinePort{Stage: 0, Name: "y"},
+			To:   e5rt.PipelinePort{Stage: 1, Name: "x"},
+		}},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer p.Close()
+	in, err := p.Input(0, "x")
+	if err != nil {
+		log.Fatal(err)
+	}
+	out, err := p.Output(1, "y")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := in.WriteFP16([]float32{1.5}); err != nil {
+		log.Fatal(err)
+	}
+	if err := p.Execute(); err != nil {
+		log.Fatal(err)
+	}
+	values := make([]float32, 1)
+	if err := out.ReadFP16(values); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(values)
+
+	// Output:
+	// [1.5]
+}
+
 func TestPipelineRejectsBadOptions(t *testing.T) {
 	stage := func(inputSize, outputSize int) e5rt.PipelineStage {
 		return e5rt.PipelineStage{
