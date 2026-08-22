@@ -40,7 +40,7 @@ func (ac AVVCAggregateDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCAggregateDeviceClass) Alloc() AVVCAggregateDevice {
-	rv := objc.Send[AVVCAggregateDevice](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCAggregateDevice](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,58 +89,58 @@ type IAVVCAggregateDevice interface {
 
 // Init initializes the instance.
 func (a AVVCAggregateDevice) Init() AVVCAggregateDevice {
-	rv := objc.Send[AVVCAggregateDevice](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCAggregateDevice](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCAggregateDevice) Autorelease() AVVCAggregateDevice {
-	rv := objc.Send[AVVCAggregateDevice](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCAggregateDevice](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCAggregateDevice creates a new AVVCAggregateDevice instance.
 func NewAVVCAggregateDevice() AVVCAggregateDevice {
 	class := getAVVCAggregateDeviceClass()
-	rv := objc.Send[AVVCAggregateDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCAggregateDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVCAggregateDevice) BuildAggregateDevice() int {
-	rv := objc.Send[int](a.ID, objc.Sel("BuildAggregateDevice"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("BuildAggregateDevice"))
 	return rv
 }
 func (a AVVCAggregateDevice) CreateDictionaryForDeviceEnableTap(device uint32, tap bool) corefoundation.CFDictionaryRef {
-	rv := objc.Send[corefoundation.CFDictionaryRef](a.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
+	rv := objc.SendIfResponds[corefoundation.CFDictionaryRef](a.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
 	return corefoundation.CFDictionaryRef(rv)
 }
 func (a AVVCAggregateDevice) DestroyAggregateDevice() int {
-	rv := objc.Send[int](a.ID, objc.Sel("DestroyAggregateDevice"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("DestroyAggregateDevice"))
 	return rv
 }
 func (a AVVCAggregateDevice) GetBuiltinSpeakerDevice() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("GetBuiltinSpeakerDevice"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("GetBuiltinSpeakerDevice"))
 	return rv
 }
 
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) GetAOPDeviceID(id bool) uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("GetAOPDeviceID:"), id)
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("GetAOPDeviceID:"), id)
 	return rv
 }
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) IsAOPDevicePresent() bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("IsAOPDevicePresent"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("IsAOPDevicePresent"))
 	return rv
 }
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) SharedAggregateDevice() AVVCAggregateDevice {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("sharedAggregateDevice"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("sharedAggregateDevice"))
 	return AVVCAggregateDeviceFromID(rv)
 }
 
 func (a AVVCAggregateDevice) AggregateDeviceID() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("aggregateDeviceID"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("aggregateDeviceID"))
 	return rv
 }
 func (a AVVCAggregateDevice) AggregateDeviceUID() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("aggregateDeviceUID"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("aggregateDeviceUID"))
 	return foundation.NSStringFromID(rv).String()
 }

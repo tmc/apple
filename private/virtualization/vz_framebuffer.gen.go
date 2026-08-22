@@ -39,7 +39,7 @@ func (vc VZFramebufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZFramebufferClass) Alloc() VZFramebuffer {
-	rv := objc.Send[VZFramebuffer](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZFramebuffer](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,27 +73,27 @@ type IVZFramebuffer interface {
 
 // Init initializes the instance.
 func (v VZFramebuffer) Init() VZFramebuffer {
-	rv := objc.Send[VZFramebuffer](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZFramebuffer](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZFramebuffer) Autorelease() VZFramebuffer {
-	rv := objc.Send[VZFramebuffer](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZFramebuffer](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZFramebuffer creates a new VZFramebuffer instance.
 func NewVZFramebuffer() VZFramebuffer {
 	class := getVZFramebufferClass()
-	rv := objc.Send[VZFramebuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZFramebuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlock(handler VoidHandler, block VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:imageConversionBlock:"), _block0, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:imageConversionBlock:"), _block0, _block1)
 }
 
 // TakeScreenshotWithCompletionHandlerImageConversionBlock is an exported wrapper for the private method _takeScreenshotWithCompletionHandlerImageConversionBlock.

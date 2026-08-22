@@ -41,7 +41,7 @@ func (mc MKDIDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MKDIDeviceClass) Alloc() MKDIDevice {
-	rv := objc.Send[MKDIDevice](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MKDIDevice](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,30 +90,33 @@ type IMKDIDevice interface {
 
 // Init initializes the instance.
 func (m MKDIDevice) Init() MKDIDevice {
-	rv := objc.Send[MKDIDevice](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MKDIDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MKDIDevice) Autorelease() MKDIDevice {
-	rv := objc.Send[MKDIDevice](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MKDIDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMKDIDevice creates a new MKDIDevice instance.
 func NewMKDIDevice() MKDIDevice {
 	class := getMKDIDeviceClass()
-	rv := objc.Send[MKDIDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MKDIDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMKDIDeviceWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IObject, blocks uint64, size int) (MKDIDevice, error) {
 	var errorPtr objc.ID
 	instance := getMKDIDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBSDName:numBlocks:blockSize:error:"), bSDName, blocks, size, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBSDName:numBlocks:blockSize:error:"), bSDName, blocks, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MKDIDevice{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MKDIDevice{}, objc.ErrInitFailed
 	}
 	return MKDIDeviceFromID(rv), nil
 }
@@ -169,10 +172,10 @@ func (m MKDIDevice) InitWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IO
 }
 
 func (m MKDIDevice) BlockSize() int {
-	rv := objc.Send[int](m.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (m MKDIDevice) MediaRef() MKMediaRef {
-	rv := objc.Send[MKMediaRef](m.ID, objc.Sel("mediaRef"))
+	rv := objc.SendIfResponds[MKMediaRef](m.ID, objc.Sel("mediaRef"))
 	return MKMediaRef(rv)
 }

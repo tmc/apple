@@ -37,7 +37,7 @@ func (ec EspressoPassRemoveReshapeAroundRank3InnerProductClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRemoveReshapeAroundRank3InnerProductClass) Alloc() EspressoPassRemoveReshapeAroundRank3InnerProduct {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRemoveReshapeAroundRank3InnerProduct interface {
 
 // Init initializes the instance.
 func (e EspressoPassRemoveReshapeAroundRank3InnerProduct) Init() EspressoPassRemoveReshapeAroundRank3InnerProduct {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRemoveReshapeAroundRank3InnerProduct) Autorelease() EspressoPassRemoveReshapeAroundRank3InnerProduct {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRemoveReshapeAroundRank3InnerProduct creates a new EspressoPassRemoveReshapeAroundRank3InnerProduct instance.
 func NewEspressoPassRemoveReshapeAroundRank3InnerProduct() EspressoPassRemoveReshapeAroundRank3InnerProduct {
 	class := getEspressoPassRemoveReshapeAroundRank3InnerProductClass()
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

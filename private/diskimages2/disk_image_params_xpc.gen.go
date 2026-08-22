@@ -41,7 +41,7 @@ func (dc DiskImageParamsXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsXPCClass) Alloc() DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -156,51 +156,51 @@ type IDiskImageParamsXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsXPC) Init() DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsXPC) Autorelease() DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsXPC creates a new DiskImageParamsXPC instance.
 func NewDiskImageParamsXPC() DiskImageParamsXPC {
 	class := getDiskImageParamsXPCClass()
-	rv := objc.Send[DiskImageParamsXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsXPC {
 	instance := getDiskImageParamsXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsXPCFromID(rv)
 }
 
 func NewDiskImageParamsXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsXPC {
 	instance := getDiskImageParamsXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsXPCFromID(rv)
 }
 
 func NewDiskImageParamsXPCWithCoder(coder objectivec.IObject) DiskImageParamsXPC {
 	instance := getDiskImageParamsXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsXPCFromID(rv)
 }
 
 func (d DiskImageParamsXPC) AllowOnDiskCacheWithSinkDiskImage(image unsafe.Pointer) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("allowOnDiskCacheWithSinkDiskImage:"), image)
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("allowOnDiskCacheWithSinkDiskImage:"), image)
 	return rv
 }
 func (d DiskImageParamsXPC) CreateShadowDiskImageWithBackendNumBlocksSinkDiskImageCache_onlyStack_size(backend unsafe.Pointer, blocks uint64, image unsafe.Pointer, cache_only bool, stack_size uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("createShadowDiskImageWithBackend:numBlocks:sinkDiskImage:cache_only:stack_size:"), backend, blocks, image, cache_only, stack_size)
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("createShadowDiskImageWithBackend:numBlocks:sinkDiskImage:cache_only:stack_size:"), backend, blocks, image, cache_only, stack_size)
 	return rv
 }
 func (d DiskImageParamsXPC) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DiskImageParamsXPC) LockBackendsWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -242,7 +242,7 @@ func (d DiskImageParamsXPC) LockWritableBackendsWithError() (bool, error) {
 
 }
 func (d DiskImageParamsXPC) MountedOnAPFS() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("mountedOnAPFS"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("mountedOnAPFS"))
 	return rv
 }
 func (d DiskImageParamsXPC) SetBlockSizeError(size uint64) (bool, error) {
@@ -259,19 +259,19 @@ func (d DiskImageParamsXPC) SetBlockSizeError(size uint64) (bool, error) {
 
 }
 func (d DiskImageParamsXPC) SetSizeWithDiskImageNewSize(image unsafe.Pointer, size uint64) int {
-	rv := objc.Send[int](d.ID, objc.Sel("setSizeWithDiskImage:newSize:"), image, size)
+	rv := objc.SendIfResponds[int](d.ID, objc.Sel("setSizeWithDiskImage:newSize:"), image, size)
 	return rv
 }
 func (d DiskImageParamsXPC) InitWithBackendXPC(xpc objectivec.IObject) DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](d.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[DiskImageParamsXPC](d.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return rv
 }
 func (d DiskImageParamsXPC) InitWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](d.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[DiskImageParamsXPC](d.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return rv
 }
 func (d DiskImageParamsXPC) InitWithCoder(coder foundation.INSCoder) DiskImageParamsXPC {
-	rv := objc.Send[DiskImageParamsXPC](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DiskImageParamsXPC](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -342,7 +342,7 @@ func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) NewWithUnlockedBackendXP
 
 }
 func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DiskImageParamsXPCClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DiskImageParamsXPCClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) ValidateSupportedFormatWithBackendXPCError(xpc objectivec.IObject) (bool, error) {
@@ -360,60 +360,60 @@ func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) ValidateSupportedFormatW
 }
 
 func (d DiskImageParamsXPC) BackendXPC() IBackendXPC {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("backendXPC"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("backendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
 func (d DiskImageParamsXPC) SetBackendXPC(value IBackendXPC) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBackendXPC:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBackendXPC:"), value)
 }
 func (d DiskImageParamsXPC) BlockSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (d DiskImageParamsXPC) SetBlockSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
 func (d DiskImageParamsXPC) CacheBackendXPC() IBackendXPC {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("cacheBackendXPC"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cacheBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
 func (d DiskImageParamsXPC) SetCacheBackendXPC(value IBackendXPC) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCacheBackendXPC:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheBackendXPC:"), value)
 }
 func (d DiskImageParamsXPC) CacheURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("cacheURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cacheURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DiskImageParamsXPC) SetCacheURL(value foundation.NSURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCacheURL:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheURL:"), value)
 }
 func (d DiskImageParamsXPC) InstanceID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("instanceID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DiskImageParamsXPC) SetInstanceID(value foundation.NSUUID) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInstanceID:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInstanceID:"), value)
 }
 func (d DiskImageParamsXPC) IsSparseFormat() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isSparseFormat"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isSparseFormat"))
 	return rv
 }
 func (d DiskImageParamsXPC) IsWritableFormat() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isWritableFormat"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isWritableFormat"))
 	return rv
 }
 func (d DiskImageParamsXPC) LockableResources() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("lockableResources"))
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("lockableResources"))
 	return rv
 }
 func (d DiskImageParamsXPC) NumBlocks() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("numBlocks"))
 	return rv
 }
 func (d DiskImageParamsXPC) ShadowChain() IDIShadowChain {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowChain"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowChain"))
 	return DIShadowChainFromID(objc.ID(rv))
 }
 func (d DiskImageParamsXPC) SetShadowChain(value IDIShadowChain) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShadowChain:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShadowChain:"), value)
 }

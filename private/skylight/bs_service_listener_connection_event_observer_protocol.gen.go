@@ -10,6 +10,9 @@ import (
 // BSServiceListenerConnectionEventObserver protocol.
 type BSServiceListenerConnectionEventObserver interface {
 	objectivec.IObject
+
+	// ConnectionRevokedWithEvent protocol.
+	ConnectionRevokedWithEvent(connection objectivec.IObject, event objectivec.IObject)
 }
 
 // BSServiceListenerConnectionEventObserverObject wraps an existing Objective-C object that conforms to the BSServiceListenerConnectionEventObserver protocol.
@@ -30,5 +33,5 @@ func BSServiceListenerConnectionEventObserverObjectFromID(id objc.ID) BSServiceL
 }
 
 func (o BSServiceListenerConnectionEventObserverObject) ConnectionRevokedWithEvent(connection objectivec.IObject, event objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
 }

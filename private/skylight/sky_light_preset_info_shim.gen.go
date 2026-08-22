@@ -38,7 +38,7 @@ func (sc SkyLightPresetInfoShimClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPresetInfoShimClass) Alloc() SkyLightPresetInfoShim {
-	rv := objc.Send[SkyLightPresetInfoShim](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPresetInfoShim](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPresetInfoShimFromID(id objc.ID) SkyLightPresetInfoShim {
 	return SkyLightPresetInfoShim{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPresetInfoShim struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPresetInfoShim embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPresetInfoShim implements ISkyLightPresetInfoShim.
+var _ ISkyLightPresetInfoShim = SkyLightPresetInfoShim{}
 
 // An interface definition for the [SkyLightPresetInfoShim] class.
 type ISkyLightPresetInfoShim interface {
@@ -61,19 +61,19 @@ type ISkyLightPresetInfoShim interface {
 
 // Init initializes the instance.
 func (s SkyLightPresetInfoShim) Init() SkyLightPresetInfoShim {
-	rv := objc.Send[SkyLightPresetInfoShim](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPresetInfoShim](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPresetInfoShim) Autorelease() SkyLightPresetInfoShim {
-	rv := objc.Send[SkyLightPresetInfoShim](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPresetInfoShim](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPresetInfoShim creates a new SkyLightPresetInfoShim instance.
 func NewSkyLightPresetInfoShim() SkyLightPresetInfoShim {
 	class := getSkyLightPresetInfoShimClass()
-	rv := objc.Send[SkyLightPresetInfoShim](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPresetInfoShim](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLAppleTextClassifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleTextClassifierClass) Alloc() MLAppleTextClassifier {
-	rv := objc.Send[MLAppleTextClassifier](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleTextClassifier](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,30 +81,33 @@ type IMLAppleTextClassifier interface {
 
 // Init initializes the instance.
 func (m MLAppleTextClassifier) Init() MLAppleTextClassifier {
-	rv := objc.Send[MLAppleTextClassifier](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleTextClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleTextClassifier) Autorelease() MLAppleTextClassifier {
-	rv := objc.Send[MLAppleTextClassifier](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleTextClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleTextClassifier creates a new MLAppleTextClassifier instance.
 func NewMLAppleTextClassifier() MLAppleTextClassifier {
 	class := getMLAppleTextClassifierClass()
-	rv := objc.Send[MLAppleTextClassifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleTextClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleTextClassifierDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifier{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleTextClassifier{}, objc.ErrInitFailed
 	}
 	return MLAppleTextClassifierFromID(rv), nil
 }
@@ -112,45 +115,51 @@ func NewAppleTextClassifierDescriptionOnlyWithSpecificationConfigurationError(sp
 func NewAppleTextClassifierInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifier{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleTextClassifier{}, objc.ErrInitFailed
 	}
 	return MLAppleTextClassifierFromID(rv), nil
 }
 
 func NewAppleTextClassifierWithConfiguration(configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleTextClassifierFromID(rv)
 }
 
 func NewAppleTextClassifierWithDescription(description objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleTextClassifierFromID(rv)
 }
 
 func NewAppleTextClassifierWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleTextClassifierFromID(rv)
 }
 
 func NewAppleTextClassifierWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleTextClassifierFromID(rv)
 }
 
 func NewAppleTextClassifierWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifier{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleTextClassifier{}, objc.ErrInitFailed
 	}
 	return MLAppleTextClassifierFromID(rv), nil
 }
@@ -201,6 +210,6 @@ func (_MLAppleTextClassifierClass MLAppleTextClassifierClass) SaveAppleTextClass
 }
 
 func (m MLAppleTextClassifier) Parameters() IMLAppleTextClassifierParameters {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleTextClassifierParametersFromID(objc.ID(rv))
 }

@@ -39,7 +39,7 @@ func (ac AVAudioRecorderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
-	rv := objc.Send[AVAudioRecorder](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioRecorder](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,59 +103,59 @@ type IAVAudioRecorder interface {
 
 // Init initializes the instance.
 func (a AVAudioRecorder) Init() AVAudioRecorder {
-	rv := objc.Send[AVAudioRecorder](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioRecorder](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioRecorder) Autorelease() AVAudioRecorder {
-	rv := objc.Send[AVAudioRecorder](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioRecorder](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioRecorder creates a new AVAudioRecorder instance.
 func NewAVAudioRecorder() AVAudioRecorder {
 	class := getAVAudioRecorderClass()
-	rv := objc.Send[AVAudioRecorder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioRecorder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioRecorder) BaseInit() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("baseInit"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("baseInit"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioRecorder) FinishedRecording(recording objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("finishedRecording:"), recording)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("finishedRecording:"), recording)
 }
 func (a AVAudioRecorder) InstantaneousMetering() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("instantaneousMetering"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("instantaneousMetering"))
 	return rv
 }
 func (a AVAudioRecorder) PrivCommonCleanup() {
-	objc.Send[objc.ID](a.ID, objc.Sel("privCommonCleanup"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privCommonCleanup"))
 }
 func (a AVAudioRecorder) PrivRemoveSessionPropertyListeners() {
-	objc.Send[objc.ID](a.ID, objc.Sel("privRemoveSessionPropertyListeners"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privRemoveSessionPropertyListeners"))
 }
 func (a AVAudioRecorder) PrivSetDelegate(delegate objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("privSetDelegate:"), delegate)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privSetDelegate:"), delegate)
 }
 func (a AVAudioRecorder) SetInstantaneousMetering(metering bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setInstantaneousMetering:"), metering)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setInstantaneousMetering:"), metering)
 }
 
 func (a AVAudioRecorder) MeteringEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
 }
 func (a AVAudioRecorder) SetMeteringEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
 func (a AVAudioRecorder) Recording() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("recording"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("recording"))
 	return rv
 }
 func (a AVAudioRecorder) Url() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

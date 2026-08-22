@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +42,7 @@ func (sc SLSSpaceWindowManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSpaceWindowManagerClass) Alloc() SLSSpaceWindowManager {
-	rv := objc.Send[SLSSpaceWindowManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSpaceWindowManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -189,7 +188,7 @@ type ISLSSpaceWindowManager interface {
 	ConnectionID() uint32
 	SetConnectionID(value uint32)
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DisplayCurrentSpaces() foundation.INSDictionary
 	SetDisplayCurrentSpaces(value foundation.INSDictionary)
 	DisplaySpaceList() foundation.INSDictionary
@@ -215,31 +214,31 @@ type ISLSSpaceWindowManager interface {
 
 // Init initializes the instance.
 func (s SLSSpaceWindowManager) Init() SLSSpaceWindowManager {
-	rv := objc.Send[SLSSpaceWindowManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSpaceWindowManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSpaceWindowManager) Autorelease() SLSSpaceWindowManager {
-	rv := objc.Send[SLSSpaceWindowManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSpaceWindowManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSpaceWindowManager creates a new SLSSpaceWindowManager instance.
 func NewSLSSpaceWindowManager() SLSSpaceWindowManager {
 	class := getSLSSpaceWindowManagerClass()
-	rv := objc.Send[SLSSpaceWindowManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSpaceWindowManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSpaceWindowManagerWithConnectionIDDelegateCapabilities(id uint32, delegate objectivec.IObject, capabilities uint64) SLSSpaceWindowManager {
 	instance := getSLSSpaceWindowManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
 	return SLSSpaceWindowManagerFromID(rv)
 }
 
 func (s SLSSpaceWindowManager) _beginBatch() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_beginBatch"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_beginBatch"))
 }
 
 // BeginBatch is an exported wrapper for the private method _beginBatch.
@@ -257,7 +256,7 @@ func (s SLSSpaceWindowManager) CanBeginBatch() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_beginBatch"))
 }
 func (s SLSSpaceWindowManager) _checkDisplayState(state objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_checkDisplayState:"), state)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_checkDisplayState:"), state)
 }
 
 // CheckDisplayState is an exported wrapper for the private method _checkDisplayState.
@@ -275,7 +274,7 @@ func (s SLSSpaceWindowManager) CanCheckDisplayState() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_checkDisplayState:"))
 }
 func (s SLSSpaceWindowManager) _checkSpaceMovedToDisplayDisplayUUID(display objectivec.IObject, uuid objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"), display, uuid)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"), display, uuid)
 }
 
 // CheckSpaceMovedToDisplayDisplayUUID is an exported wrapper for the private method _checkSpaceMovedToDisplayDisplayUUID.
@@ -293,7 +292,7 @@ func (s SLSSpaceWindowManager) CanCheckSpaceMovedToDisplayDisplayUUID() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"))
 }
 func (s SLSSpaceWindowManager) _endBatch() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_endBatch"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_endBatch"))
 }
 
 // EndBatch is an exported wrapper for the private method _endBatch.
@@ -311,7 +310,7 @@ func (s SLSSpaceWindowManager) CanEndBatch() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_endBatch"))
 }
 func (s SLSSpaceWindowManager) _fullRebuildSpaceChange(change uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_fullRebuildSpaceChange:"), change)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_fullRebuildSpaceChange:"), change)
 }
 
 // FullRebuildSpaceChange is an exported wrapper for the private method _fullRebuildSpaceChange.
@@ -329,7 +328,7 @@ func (s SLSSpaceWindowManager) CanFullRebuildSpaceChange() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpaceChange:"))
 }
 func (s SLSSpaceWindowManager) _fullRebuildSpacesChanged() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_fullRebuildSpacesChanged"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_fullRebuildSpacesChanged"))
 }
 
 // FullRebuildSpacesChanged is an exported wrapper for the private method _fullRebuildSpacesChanged.
@@ -347,7 +346,7 @@ func (s SLSSpaceWindowManager) CanFullRebuildSpacesChanged() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpacesChanged"))
 }
 func (s SLSSpaceWindowManager) _getDisplayUUIDForSpace(space uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_getDisplayUUIDForSpace:"), space)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_getDisplayUUIDForSpace:"), space)
 	return objectivec.Object{ID: rv}
 }
 
@@ -366,7 +365,7 @@ func (s SLSSpaceWindowManager) CanGetDisplayUUIDForSpace() bool {
 }
 func (s SLSSpaceWindowManager) _performBatchingCallouts(callouts VoidHandler) {
 	_block0, _ := NewVoidBlock(callouts)
-	objc.Send[objc.ID](s.ID, objc.Sel("_performBatchingCallouts:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_performBatchingCallouts:"), _block0)
 }
 
 // PerformBatchingCallouts is an exported wrapper for the private method _performBatchingCallouts.
@@ -384,7 +383,7 @@ func (s SLSSpaceWindowManager) CanPerformBatchingCallouts() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_performBatchingCallouts:"))
 }
 func (s SLSSpaceWindowManager) _postActiveDisplayChange() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_postActiveDisplayChange"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_postActiveDisplayChange"))
 }
 
 // PostActiveDisplayChange is an exported wrapper for the private method _postActiveDisplayChange.
@@ -402,7 +401,7 @@ func (s SLSSpaceWindowManager) CanPostActiveDisplayChange() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_postActiveDisplayChange"))
 }
 func (s SLSSpaceWindowManager) _removeSpace(space uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_removeSpace:"), space)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_removeSpace:"), space)
 }
 
 // RemoveSpace is an exported wrapper for the private method _removeSpace.
@@ -420,7 +419,7 @@ func (s SLSSpaceWindowManager) CanRemoveSpace() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_removeSpace:"))
 }
 func (s SLSSpaceWindowManager) _spaceAddWindow(_space uint64, window uint32) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_space:addWindow:"), _space, window)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_space:addWindow:"), _space, window)
 }
 
 // SpaceAddWindow is an exported wrapper for the private method _spaceAddWindow.
@@ -438,7 +437,7 @@ func (s SLSSpaceWindowManager) CanSpaceAddWindow() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_space:addWindow:"))
 }
 func (s SLSSpaceWindowManager) _spaceRemoveWindow(_space uint64, window uint32) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_space:removeWindow:"), _space, window)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_space:removeWindow:"), _space, window)
 }
 
 // SpaceRemoveWindow is an exported wrapper for the private method _spaceRemoveWindow.
@@ -456,7 +455,7 @@ func (s SLSSpaceWindowManager) CanSpaceRemoveWindow() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_space:removeWindow:"))
 }
 func (s SLSSpaceWindowManager) _spaceChangedDisplay(display uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_spaceChangedDisplay:"), display)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_spaceChangedDisplay:"), display)
 }
 
 // SpaceChangedDisplay is an exported wrapper for the private method _spaceChangedDisplay.
@@ -474,7 +473,7 @@ func (s SLSSpaceWindowManager) CanSpaceChangedDisplay() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceChangedDisplay:"))
 }
 func (s SLSSpaceWindowManager) _spaceWithIDCreateIfNeeded(id uint64, needed bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_spaceWithID:createIfNeeded:"), id, needed)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_spaceWithID:createIfNeeded:"), id, needed)
 	return objectivec.Object{ID: rv}
 }
 
@@ -492,7 +491,7 @@ func (s SLSSpaceWindowManager) CanSpaceWithIDCreateIfNeeded() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceWithID:createIfNeeded:"))
 }
 func (s SLSSpaceWindowManager) _updateSpaceWithData(data unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateSpaceWithData:"), data)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateSpaceWithData:"), data)
 }
 
 // UpdateSpaceWithData is an exported wrapper for the private method _updateSpaceWithData.
@@ -510,115 +509,115 @@ func (s SLSSpaceWindowManager) CanUpdateSpaceWithData() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:"))
 }
 func (s SLSSpaceWindowManager) Activate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("activate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("activate"))
 }
 func (s SLSSpaceWindowManager) AddWindowsToSpacesRemovingFromTransaction(windows objectivec.IObject, spaces objectivec.IObject, from uint32, transaction SLSTransactionRef) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addWindows:toSpaces:removingFrom:transaction:"), windows, spaces, from, transaction)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addWindows:toSpaces:removingFrom:transaction:"), windows, spaces, from, transaction)
 }
 func (s SLSSpaceWindowManager) BatchedDelegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("batchedDelegate"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("batchedDelegate"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSpaceWindowManager) Invalidate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidate"))
 }
 func (s SLSSpaceWindowManager) IsWindowPresentOnUnmanagedSpaces(spaces uint32) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isWindowPresentOnUnmanagedSpaces:"), spaces)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isWindowPresentOnUnmanagedSpaces:"), spaces)
 	return rv
 }
 func (s SLSSpaceWindowManager) MoveDraggedWindowToPointMouseLocationTimestampTransaction(window uint32, point corefoundation.CGPoint, location corefoundation.CGPoint, timestamp uint64, transaction SLSTransactionRef) {
-	objc.Send[objc.ID](s.ID, objc.Sel("moveDraggedWindow:toPoint:mouseLocation:timestamp:transaction:"), window, point, location, timestamp, transaction)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("moveDraggedWindow:toPoint:mouseLocation:timestamp:transaction:"), window, point, location, timestamp, transaction)
 }
 func (s SLSSpaceWindowManager) RebuildMenuBarOnSpaceFrontConnectionTransaction(space uint64, connection uint32, transaction SLSTransactionRef) {
-	objc.Send[objc.ID](s.ID, objc.Sel("rebuildMenuBarOnSpace:frontConnection:transaction:"), space, connection, transaction)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("rebuildMenuBarOnSpace:frontConnection:transaction:"), space, connection, transaction)
 }
 func (s SLSSpaceWindowManager) RequestSpaceSwitchForWindowTransaction(window uint32, transaction SLSTransactionRef) {
-	objc.Send[objc.ID](s.ID, objc.Sel("requestSpaceSwitchForWindow:transaction:"), window, transaction)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("requestSpaceSwitchForWindow:transaction:"), window, transaction)
 }
 func (s SLSSpaceWindowManager) SetGlobalWindowVisibilityListTransaction(list objectivec.IObject, transaction SLSTransactionRef) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setGlobalWindowVisibilityList:transaction:"), list, transaction)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setGlobalWindowVisibilityList:transaction:"), list, transaction)
 }
 func (s SLSSpaceWindowManager) SpaceWithID(id uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaceWithID:"), id)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaceWithID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSpaceWindowManager) Synchronize() {
-	objc.Send[objc.ID](s.ID, objc.Sel("synchronize"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("synchronize"))
 }
 func (s SLSSpaceWindowManager) InitWithConnectionIDDelegateCapabilities(id uint32, delegate objectivec.IObject, capabilities uint64) SLSSpaceWindowManager {
-	rv := objc.Send[SLSSpaceWindowManager](s.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
+	rv := objc.SendIfResponds[SLSSpaceWindowManager](s.ID, objc.Sel("initWithConnectionID:delegate:capabilities:"), id, delegate, capabilities)
 	return rv
 }
 
 func (s SLSSpaceWindowManager) BeganBatch() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("beganBatch"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("beganBatch"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetBeganBatch(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBeganBatch:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setBeganBatch:"), value)
 }
 func (s SLSSpaceWindowManager) Capabilities() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("capabilities"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("capabilities"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetCapabilities(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCapabilities:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCapabilities:"), value)
 }
 func (s SLSSpaceWindowManager) ConnectionID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("connectionID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("connectionID"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetConnectionID(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConnectionID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setConnectionID:"), value)
 }
 func (s SLSSpaceWindowManager) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLSSpaceWindowManager) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
+func (s SLSSpaceWindowManager) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLSSpaceWindowManager) DisplayCurrentSpaces() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayCurrentSpaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayCurrentSpaces"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLSSpaceWindowManager) SetDisplayCurrentSpaces(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplayCurrentSpaces:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayCurrentSpaces:"), value)
 }
 func (s SLSSpaceWindowManager) DisplaySpaceList() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displaySpaceList"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displaySpaceList"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLSSpaceWindowManager) SetDisplaySpaceList(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplaySpaceList:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplaySpaceList:"), value)
 }
 func (s SLSSpaceWindowManager) DisplaysHaveSeparateSpaces() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("displaysHaveSeparateSpaces"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("displaysHaveSeparateSpaces"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetDisplaysHaveSeparateSpaces(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplaysHaveSeparateSpaces:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplaysHaveSeparateSpaces:"), value)
 }
 func (s SLSSpaceWindowManager) NestedCalloutCount() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("nestedCalloutCount"))
+	rv := objc.SendIfResponds[int64](s.ID, objc.Sel("nestedCalloutCount"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetNestedCalloutCount(value int64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setNestedCalloutCount:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setNestedCalloutCount:"), value)
 }
 func (s SLSSpaceWindowManager) Spaces() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLSSpaceWindowManager) SetSpaces(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSpaces:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSpaces:"), value)
 }
 func (s SLSSpaceWindowManager) Valid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("valid"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("valid"))
 	return rv
 }
 func (s SLSSpaceWindowManager) SetValid(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setValid:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setValid:"), value)
 }
 
 // _performBatchingCalloutsSync is a synchronous wrapper around [SLSSpaceWindowManager._performBatchingCallouts].

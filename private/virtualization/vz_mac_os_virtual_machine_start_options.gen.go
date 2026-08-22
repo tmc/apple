@@ -37,7 +37,7 @@ func (vc VZMacOSVirtualMachineStartOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSVirtualMachineStartOptionsClass) Alloc() VZMacOSVirtualMachineStartOptions {
-	rv := objc.Send[VZMacOSVirtualMachineStartOptions](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSVirtualMachineStartOptions](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,25 +95,25 @@ type IVZMacOSVirtualMachineStartOptions interface {
 
 // Init initializes the instance.
 func (v VZMacOSVirtualMachineStartOptions) Init() VZMacOSVirtualMachineStartOptions {
-	rv := objc.Send[VZMacOSVirtualMachineStartOptions](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSVirtualMachineStartOptions](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSVirtualMachineStartOptions) Autorelease() VZMacOSVirtualMachineStartOptions {
-	rv := objc.Send[VZMacOSVirtualMachineStartOptions](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSVirtualMachineStartOptions](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSVirtualMachineStartOptions creates a new VZMacOSVirtualMachineStartOptions instance.
 func NewVZMacOSVirtualMachineStartOptions() VZMacOSVirtualMachineStartOptions {
 	class := getVZMacOSVirtualMachineStartOptionsClass()
-	rv := objc.Send[VZMacOSVirtualMachineStartOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSVirtualMachineStartOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacOSVirtualMachineStartOptions) _setForceDFU(dfu bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setForceDFU:"), dfu)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setForceDFU:"), dfu)
 }
 
 // SetForceDFU is an exported wrapper for the private method _setForceDFU.
@@ -131,7 +131,7 @@ func (v VZMacOSVirtualMachineStartOptions) CanSetForceDFU() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setForceDFU:"))
 }
 func (v VZMacOSVirtualMachineStartOptions) _setStopInIBootStage1(stage1 bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setStopInIBootStage1:"), stage1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setStopInIBootStage1:"), stage1)
 }
 
 // SetStopInIBootStage1 is an exported wrapper for the private method _setStopInIBootStage1.
@@ -149,7 +149,7 @@ func (v VZMacOSVirtualMachineStartOptions) CanSetStopInIBootStage1() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setStopInIBootStage1:"))
 }
 func (v VZMacOSVirtualMachineStartOptions) _setStopInIBootStage2(stage2 bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setStopInIBootStage2:"), stage2)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setStopInIBootStage2:"), stage2)
 }
 
 // SetStopInIBootStage2 is an exported wrapper for the private method _setStopInIBootStage2.
@@ -168,7 +168,7 @@ func (v VZMacOSVirtualMachineStartOptions) CanSetStopInIBootStage2() bool {
 }
 
 func (v VZMacOSVirtualMachineStartOptions) _forceDFU() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_forceDFU"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_forceDFU"))
 	return rv
 }
 
@@ -185,10 +185,10 @@ func (v VZMacOSVirtualMachineStartOptions) ForceDFU() (bool, error) {
 	return v._forceDFU(), nil
 }
 func (v VZMacOSVirtualMachineStartOptions) Set_forceDFU(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_forceDFU:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_forceDFU:"), value)
 }
 func (v VZMacOSVirtualMachineStartOptions) _stopInIBootStage1() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_stopInIBootStage1"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_stopInIBootStage1"))
 	return rv
 }
 
@@ -205,10 +205,10 @@ func (v VZMacOSVirtualMachineStartOptions) StopInIBootStage1() (bool, error) {
 	return v._stopInIBootStage1(), nil
 }
 func (v VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage1(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_stopInIBootStage1:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_stopInIBootStage1:"), value)
 }
 func (v VZMacOSVirtualMachineStartOptions) _stopInIBootStage2() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_stopInIBootStage2"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_stopInIBootStage2"))
 	return rv
 }
 
@@ -225,5 +225,5 @@ func (v VZMacOSVirtualMachineStartOptions) StopInIBootStage2() (bool, error) {
 	return v._stopInIBootStage2(), nil
 }
 func (v VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage2(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_stopInIBootStage2:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_stopInIBootStage2:"), value)
 }

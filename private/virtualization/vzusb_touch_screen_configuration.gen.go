@@ -37,7 +37,7 @@ func (vc VZUSBTouchScreenConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBTouchScreenConfigurationClass) Alloc() VZUSBTouchScreenConfiguration {
-	rv := objc.Send[VZUSBTouchScreenConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBTouchScreenConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZUSBTouchScreenConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBTouchScreenConfiguration) Init() VZUSBTouchScreenConfiguration {
-	rv := objc.Send[VZUSBTouchScreenConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBTouchScreenConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBTouchScreenConfiguration) Autorelease() VZUSBTouchScreenConfiguration {
-	rv := objc.Send[VZUSBTouchScreenConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBTouchScreenConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBTouchScreenConfiguration creates a new VZUSBTouchScreenConfiguration instance.
 func NewVZUSBTouchScreenConfiguration() VZUSBTouchScreenConfiguration {
 	class := getVZUSBTouchScreenConfigurationClass()
-	rv := objc.Send[VZUSBTouchScreenConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBTouchScreenConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

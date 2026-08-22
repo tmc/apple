@@ -38,7 +38,7 @@ func (vc VZObserverProxyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZObserverProxyClass) Alloc() VZObserverProxy {
-	rv := objc.Send[VZObserverProxy](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZObserverProxy](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZObserverProxy interface {
 
 // Init initializes the instance.
 func (v VZObserverProxy) Init() VZObserverProxy {
-	rv := objc.Send[VZObserverProxy](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZObserverProxy](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZObserverProxy) Autorelease() VZObserverProxy {
-	rv := objc.Send[VZObserverProxy](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZObserverProxy](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZObserverProxy creates a new VZObserverProxy instance.
 func NewVZObserverProxy() VZObserverProxy {
 	class := getVZObserverProxyClass()
-	rv := objc.Send[VZObserverProxy](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZObserverProxy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

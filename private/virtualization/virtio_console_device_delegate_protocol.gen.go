@@ -10,6 +10,12 @@ import (
 // VZVirtioConsoleDeviceDelegate protocol.
 type VZVirtioConsoleDeviceDelegate interface {
 	objectivec.IObject
+
+	// ConsoleDeviceDidClosePort protocol.
+	ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject)
+
+	// ConsoleDeviceDidOpenPort protocol.
+	ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject)
 }
 
 // VZVirtioConsoleDeviceDelegateObject wraps an existing Objective-C object that conforms to the VZVirtioConsoleDeviceDelegate protocol.
@@ -30,8 +36,8 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 }
 
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
 }
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
 }

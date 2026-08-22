@@ -37,7 +37,7 @@ func (ec EspressoPassFuseAddAndReluClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseAddAndReluClass) Alloc() EspressoPassFuseAddAndRelu {
-	rv := objc.Send[EspressoPassFuseAddAndRelu](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseAddAndRelu](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseAddAndRelu interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseAddAndRelu) Init() EspressoPassFuseAddAndRelu {
-	rv := objc.Send[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseAddAndRelu) Autorelease() EspressoPassFuseAddAndRelu {
-	rv := objc.Send[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseAddAndRelu creates a new EspressoPassFuseAddAndRelu instance.
 func NewEspressoPassFuseAddAndRelu() EspressoPassFuseAddAndRelu {
 	class := getEspressoPassFuseAddAndReluClass()
-	rv := objc.Send[EspressoPassFuseAddAndRelu](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseAddAndRelu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (dc DIIOMediaClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIIOMediaClass) Alloc() DIIOMedia {
-	rv := objc.Send[DIIOMedia](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIIOMedia](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,76 +80,85 @@ type IDIIOMedia interface {
 
 // Init initializes the instance.
 func (d DIIOMedia) Init() DIIOMedia {
-	rv := objc.Send[DIIOMedia](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIIOMedia](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIIOMedia) Autorelease() DIIOMedia {
-	rv := objc.Send[DIIOMedia](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIIOMedia](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIIOMedia creates a new DIIOMedia instance.
 func NewDIIOMedia() DIIOMedia {
 	class := getDIIOMediaClass()
-	rv := objc.Send[DIIOMedia](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIIOMedia](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIIOMediaWithClassNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOMedia{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOMedia{}, objc.ErrInitFailed
 	}
 	return DIIOMediaFromID(rv), nil
 }
 
 func NewDIIOMediaWithDIIOObject(dIIOObject objectivec.IObject) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return DIIOMediaFromID(rv)
 }
 
 func NewDIIOMediaWithDevNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevName:error:"), name, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevName:error:"), name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOMedia{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOMedia{}, objc.ErrInitFailed
 	}
 	return DIIOMediaFromID(rv), nil
 }
 
 func NewDIIOMediaWithIOObject(iOObject uint32) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return DIIOMediaFromID(rv)
 }
 
 func NewDIIOMediaWithIOObjectRetain(iOObject uint32, retain bool) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return DIIOMediaFromID(rv)
 }
 
 func NewDIIOMediaWithIteratorNext(next objectivec.IObject) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
 	return DIIOMediaFromID(rv)
 }
 
 func NewDIIOMediaWithRegistryEntryIDError(id uint64) (DIIOMedia, error) {
 	var errorPtr objc.ID
 	instance := getDIIOMediaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOMedia{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOMedia{}, objc.ErrInitFailed
 	}
 	return DIIOMediaFromID(rv), nil
 }
@@ -176,6 +185,6 @@ func (d DIIOMedia) InitWithDevNameError(name objectivec.IObject) (DIIOMedia, err
 }
 
 func (d DIIOMedia) BSDName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("BSDName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("BSDName"))
 	return foundation.NSStringFromID(rv).String()
 }

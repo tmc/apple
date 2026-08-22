@@ -40,7 +40,7 @@ func (cc CPXHIDEventDeferringResolutionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXHIDEventDeferringResolutionClass) Alloc() CPXHIDEventDeferringResolution {
-	rv := objc.Send[CPXHIDEventDeferringResolution](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,10 +92,10 @@ type ICPXHIDEventDeferringResolution interface {
 	ConnectionID() uint32
 	Environment() unsafe.Pointer
 	Pid() int
-	ProcessRecord() unsafe.Pointer
+	ProcessRecord() *CPSProcessRec
 	Token() unsafe.Pointer
-	InitWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution
-	InitWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution
+	InitWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution
+	InitWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -104,77 +104,77 @@ type ICPXHIDEventDeferringResolution interface {
 
 // Init initializes the instance.
 func (c CPXHIDEventDeferringResolution) Init() CPXHIDEventDeferringResolution {
-	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXHIDEventDeferringResolution) Autorelease() CPXHIDEventDeferringResolution {
-	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXHIDEventDeferringResolution creates a new CPXHIDEventDeferringResolution instance.
 func NewCPXHIDEventDeferringResolution() CPXHIDEventDeferringResolution {
 	class := getCPXHIDEventDeferringResolutionClass()
-	rv := objc.Send[CPXHIDEventDeferringResolution](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewCPXHIDEventDeferringResolutionWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
+func NewCPXHIDEventDeferringResolutionWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcess:"), unsafe.Pointer(process))
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-func NewCPXHIDEventDeferringResolutionWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
+func NewCPXHIDEventDeferringResolutionWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
 	instance := getCPXHIDEventDeferringResolutionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcess:connectionID:"), unsafe.Pointer(process), id)
 	return CPXHIDEventDeferringResolutionFromID(rv)
 }
 
-func (c CPXHIDEventDeferringResolution) InitWithProcess(process CPSProcessRec) CPXHIDEventDeferringResolution {
-	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:"), process)
+func (c CPXHIDEventDeferringResolution) InitWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution {
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:"), unsafe.Pointer(process))
 	return rv
 }
-func (c CPXHIDEventDeferringResolution) InitWithProcessConnectionID(process CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
-	rv := objc.Send[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:connectionID:"), process, id)
+func (c CPXHIDEventDeferringResolution) InitWithProcessConnectionID(process *CPSProcessRec, id uint32) CPXHIDEventDeferringResolution {
+	rv := objc.SendIfResponds[CPXHIDEventDeferringResolution](c.ID, objc.Sel("initWithProcess:connectionID:"), unsafe.Pointer(process), id)
 	return rv
 }
 
 func (c CPXHIDEventDeferringResolution) ConnectionID() uint32 {
-	rv := objc.Send[uint32](c.ID, objc.Sel("connectionID"))
+	rv := objc.SendIfResponds[uint32](c.ID, objc.Sel("connectionID"))
 	return rv
 }
 func (c CPXHIDEventDeferringResolution) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXHIDEventDeferringResolution) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXHIDEventDeferringResolution) Environment() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("environment"))
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("environment"))
 	return rv
 }
 func (c CPXHIDEventDeferringResolution) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXHIDEventDeferringResolution) Pid() int {
-	rv := objc.Send[int](c.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("pid"))
 	return rv
 }
-func (c CPXHIDEventDeferringResolution) ProcessRecord() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRecord"))
-	return rv
+func (c CPXHIDEventDeferringResolution) ProcessRecord() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processRecord"))
+	return (*CPSProcessRec)(rv)
 }
 func (c CPXHIDEventDeferringResolution) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (c CPXHIDEventDeferringResolution) Token() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("token"))
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("token"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (tc TextToSpeechVoiceDatabaseXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoiceDatabaseXPCClass) Alloc() TextToSpeechVoiceDatabaseXPC {
-	rv := objc.Send[TextToSpeechVoiceDatabaseXPC](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceDatabaseXPC](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechVoiceDatabaseXPCFromID(id objc.ID) TextToSpeechVoiceDatabaseXPC
 	return TextToSpeechVoiceDatabaseXPC{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechVoiceDatabaseXPC struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechVoiceDatabaseXPC embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechVoiceDatabaseXPC implements ITextToSpeechVoiceDatabaseXPC.
+var _ ITextToSpeechVoiceDatabaseXPC = TextToSpeechVoiceDatabaseXPC{}
 
 // An interface definition for the [TextToSpeechVoiceDatabaseXPC] class.
 type ITextToSpeechVoiceDatabaseXPC interface {
@@ -61,19 +61,19 @@ type ITextToSpeechVoiceDatabaseXPC interface {
 
 // Init initializes the instance.
 func (t TextToSpeechVoiceDatabaseXPC) Init() TextToSpeechVoiceDatabaseXPC {
-	rv := objc.Send[TextToSpeechVoiceDatabaseXPC](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceDatabaseXPC](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechVoiceDatabaseXPC) Autorelease() TextToSpeechVoiceDatabaseXPC {
-	rv := objc.Send[TextToSpeechVoiceDatabaseXPC](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceDatabaseXPC](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechVoiceDatabaseXPC creates a new TextToSpeechVoiceDatabaseXPC instance.
 func NewTextToSpeechVoiceDatabaseXPC() TextToSpeechVoiceDatabaseXPC {
 	class := getTextToSpeechVoiceDatabaseXPCClass()
-	rv := objc.Send[TextToSpeechVoiceDatabaseXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceDatabaseXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

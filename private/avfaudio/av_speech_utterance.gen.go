@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/texttospeech"
 )
 
 // The class instance for the [AVSpeechUtterance] class.
@@ -40,7 +41,7 @@ func (ac AVSpeechUtteranceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpeechUtteranceClass) Alloc() AVSpeechUtterance {
-	rv := objc.Send[AVSpeechUtterance](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVSpeechUtterance](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,8 +104,8 @@ type IAVSpeechUtterance interface {
 
 	// Topic: Methods
 
-	Action() objectivec.IObject
-	SetAction(value objectivec.IObject)
+	Action() texttospeech.TTSSpeechAction
+	SetAction(value texttospeech.TTSSpeechAction)
 	AudioBufferCallback()
 	MarkerCallback()
 	PrefersAssistiveTechnologyExceptions() objectivec.IObject
@@ -125,94 +126,100 @@ type IAVSpeechUtterance interface {
 
 // Init initializes the instance.
 func (a AVSpeechUtterance) Init() AVSpeechUtterance {
-	rv := objc.Send[AVSpeechUtterance](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVSpeechUtterance](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVSpeechUtterance) Autorelease() AVSpeechUtterance {
-	rv := objc.Send[AVSpeechUtterance](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVSpeechUtterance](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVSpeechUtterance creates a new AVSpeechUtterance instance.
 func NewAVSpeechUtterance() AVSpeechUtterance {
 	class := getAVSpeechUtteranceClass()
-	rv := objc.Send[AVSpeechUtterance](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVSpeechUtterance](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVSpeechUtterance) AudioBufferCallback() {
-	objc.Send[objc.ID](a.ID, objc.Sel("audioBufferCallback"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("audioBufferCallback"))
 }
 func (a AVSpeechUtterance) MarkerCallback() {
-	objc.Send[objc.ID](a.ID, objc.Sel("markerCallback"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("markerCallback"))
 }
 func (a AVSpeechUtterance) PrefersAssistiveTechnologyExceptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("prefersAssistiveTechnologyExceptions"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("prefersAssistiveTechnologyExceptions"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechUtterance) ProcessEmoticons() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("processEmoticons"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("processEmoticons"))
 	return rv
 }
+
+var _avspeechutterance_setaudiobuffercallback_p0_key byte
+
 func (a AVSpeechUtterance) SetAudioBufferCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](a.ID, objc.Sel("setAudioBufferCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAudioBufferCallback:"), _block0)
 }
+
+var _avspeechutterance_setmarkercallback_p0_key byte
+
 func (a AVSpeechUtterance) SetMarkerCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](a.ID, objc.Sel("setMarkerCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setMarkerCallback:"), _block0)
 }
 func (a AVSpeechUtterance) SetPrefersAssistiveTechnologyExceptions(exceptions objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setPrefersAssistiveTechnologyExceptions:"), exceptions)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPrefersAssistiveTechnologyExceptions:"), exceptions)
 }
 func (a AVSpeechUtterance) SetProcessEmoticons(emoticons bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setProcessEmoticons:"), emoticons)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setProcessEmoticons:"), emoticons)
 }
 func (a AVSpeechUtterance) SetSsmlRepresentation(representation objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSsmlRepresentation:"), representation)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSsmlRepresentation:"), representation)
 }
 func (a AVSpeechUtterance) SetVoiceSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setVoiceSelection:"), selection)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setVoiceSelection:"), selection)
 }
 func (a AVSpeechUtterance) SsmlRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechUtterance) VoiceSelection() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("voiceSelection"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("voiceSelection"))
 	return objectivec.Object{ID: rv}
 }
 
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) TransformUtteranceBasedOnSSMLIfDetected(detected objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("transformUtteranceBasedOnSSMLIfDetected:"), detected)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("transformUtteranceBasedOnSSMLIfDetected:"), detected)
 }
 
-func (a AVSpeechUtterance) Action() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("action"))
-	return objectivec.Object{ID: rv}
+func (a AVSpeechUtterance) Action() texttospeech.TTSSpeechAction {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("action"))
+	return texttospeech.TTSSpeechActionFromID(objc.ID(rv))
 }
-func (a AVSpeechUtterance) SetAction(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAction:"), value)
+func (a AVSpeechUtterance) SetAction(value texttospeech.TTSSpeechAction) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAction:"), value)
 }
 func (a AVSpeechUtterance) AttributedSpeechString() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedSpeechString"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("attributedSpeechString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
 func (a AVSpeechUtterance) SetAttributedSpeechString(value foundation.NSAttributedString) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAttributedSpeechString:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAttributedSpeechString:"), value)
 }
 func (a AVSpeechUtterance) SpeechString() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechString"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechUtterance) SetSpeechString(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSpeechString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSpeechString:"), objc.String(value))
 }
 
 // SetAudioBufferCallbackSync is a synchronous wrapper around [AVSpeechUtterance.SetAudioBufferCallback].

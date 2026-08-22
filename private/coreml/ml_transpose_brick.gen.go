@@ -39,7 +39,7 @@ func (mc MLTransposeBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTransposeBrickClass) Alloc() MLTransposeBrick {
-	rv := objc.Send[MLTransposeBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTransposeBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,78 +109,78 @@ type IMLTransposeBrick interface {
 
 // Init initializes the instance.
 func (m MLTransposeBrick) Init() MLTransposeBrick {
-	rv := objc.Send[MLTransposeBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTransposeBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTransposeBrick) Autorelease() MLTransposeBrick {
-	rv := objc.Send[MLTransposeBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTransposeBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTransposeBrick creates a new MLTransposeBrick instance.
 func NewMLTransposeBrick() MLTransposeBrick {
 	class := getMLTransposeBrickClass()
-	rv := objc.Send[MLTransposeBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTransposeBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTransposeBrickWithParameters(parameters objectivec.IObject) MLTransposeBrick {
 	instance := getMLTransposeBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLTransposeBrickFromID(rv)
 }
 
 func (m MLTransposeBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLTransposeBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLTransposeBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLTransposeBrick) InitWithParameters(parameters objectivec.IObject) MLTransposeBrick {
-	rv := objc.Send[MLTransposeBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLTransposeBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLTransposeBrick) Axes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("axes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTransposeBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTransposeBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTransposeBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLTransposeBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTransposeBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTransposeBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTransposeBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTransposeBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

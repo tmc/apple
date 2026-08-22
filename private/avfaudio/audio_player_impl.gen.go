@@ -38,7 +38,7 @@ func (ac AudioPlayerImplClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AudioPlayerImplClass) Alloc() AudioPlayerImpl {
-	rv := objc.Send[AudioPlayerImpl](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AudioPlayerImpl](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IAudioPlayerImpl interface {
 
 // Init initializes the instance.
 func (a AudioPlayerImpl) Init() AudioPlayerImpl {
-	rv := objc.Send[AudioPlayerImpl](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AudioPlayerImpl](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AudioPlayerImpl) Autorelease() AudioPlayerImpl {
-	rv := objc.Send[AudioPlayerImpl](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AudioPlayerImpl](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAudioPlayerImpl creates a new AudioPlayerImpl instance.
 func NewAudioPlayerImpl() AudioPlayerImpl {
 	class := getAudioPlayerImplClass()
-	rv := objc.Send[AudioPlayerImpl](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AudioPlayerImpl](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

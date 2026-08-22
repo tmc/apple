@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (ec EspressoDataFrameAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameAttachmentClass) Alloc() EspressoDataFrameAttachment {
-	rv := objc.Send[EspressoDataFrameAttachment](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrameAttachment](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,71 +97,71 @@ type IEspressoDataFrameAttachment interface {
 	Offset() uint64
 	SetOffset(value uint64)
 	RawPointer() unsafe.Pointer
-	SetRawPointer(value kernel.Pointer)
+	SetRawPointer(value unsafe.Pointer)
 	Size() uint64
 	SetSize(value uint64)
 }
 
 // Init initializes the instance.
 func (e EspressoDataFrameAttachment) Init() EspressoDataFrameAttachment {
-	rv := objc.Send[EspressoDataFrameAttachment](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrameAttachment](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrameAttachment) Autorelease() EspressoDataFrameAttachment {
-	rv := objc.Send[EspressoDataFrameAttachment](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrameAttachment](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrameAttachment creates a new EspressoDataFrameAttachment instance.
 func NewEspressoDataFrameAttachment() EspressoDataFrameAttachment {
 	class := getEspressoDataFrameAttachmentClass()
-	rv := objc.Send[EspressoDataFrameAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrameAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoDataFrameAttachment) LoadFromDictFrameStorage(dict objectivec.IObject, storage objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("loadFromDict:frameStorage:"), dict, storage)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("loadFromDict:frameStorage:"), dict, storage)
 }
 
 func (_EspressoDataFrameAttachmentClass EspressoDataFrameAttachmentClass) FromDictFrameStorage(dict objectivec.IObject, storage objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_EspressoDataFrameAttachmentClass.class), objc.Sel("fromDict:frameStorage:"), dict, storage)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_EspressoDataFrameAttachmentClass.class), objc.Sel("fromDict:frameStorage:"), dict, storage)
 	return objectivec.Object{ID: rv}
 }
 
 func (e EspressoDataFrameAttachment) Disabled() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("disabled"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("disabled"))
 	return rv
 }
 func (e EspressoDataFrameAttachment) SetDisabled(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDisabled:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDisabled:"), value)
 }
 func (e EspressoDataFrameAttachment) FilePath() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("filePath"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("filePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoDataFrameAttachment) SetFilePath(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setFilePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setFilePath:"), objc.String(value))
 }
 func (e EspressoDataFrameAttachment) Offset() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("offset"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("offset"))
 	return rv
 }
 func (e EspressoDataFrameAttachment) SetOffset(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOffset:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOffset:"), value)
 }
 func (e EspressoDataFrameAttachment) RawPointer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
 	return rv
 }
-func (e EspressoDataFrameAttachment) SetRawPointer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
+func (e EspressoDataFrameAttachment) SetRawPointer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }
 func (e EspressoDataFrameAttachment) Size() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("size"))
 	return rv
 }
 func (e EspressoDataFrameAttachment) SetSize(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setSize:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSize:"), value)
 }

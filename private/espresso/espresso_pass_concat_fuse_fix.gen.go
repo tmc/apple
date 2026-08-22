@@ -37,7 +37,7 @@ func (ec EspressoPassConcatFuseFixClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassConcatFuseFixClass) Alloc() EspressoPassConcatFuseFix {
-	rv := objc.Send[EspressoPassConcatFuseFix](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassConcatFuseFix](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassConcatFuseFix interface {
 
 // Init initializes the instance.
 func (e EspressoPassConcatFuseFix) Init() EspressoPassConcatFuseFix {
-	rv := objc.Send[EspressoPassConcatFuseFix](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassConcatFuseFix](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassConcatFuseFix) Autorelease() EspressoPassConcatFuseFix {
-	rv := objc.Send[EspressoPassConcatFuseFix](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassConcatFuseFix](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassConcatFuseFix creates a new EspressoPassConcatFuseFix instance.
 func NewEspressoPassConcatFuseFix() EspressoPassConcatFuseFix {
 	class := getEspressoPassConcatFuseFixClass()
-	rv := objc.Send[EspressoPassConcatFuseFix](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassConcatFuseFix](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

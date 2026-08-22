@@ -38,7 +38,7 @@ func (ac AVSpeechSynthesisMarkerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpeechSynthesisMarkerClass) Alloc() AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisMarker](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IAVSpeechSynthesisMarker interface {
 
 // Init initializes the instance.
 func (a AVSpeechSynthesisMarker) Init() AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisMarker](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVSpeechSynthesisMarker) Autorelease() AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisMarker](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVSpeechSynthesisMarker creates a new AVSpeechSynthesisMarker instance.
 func NewAVSpeechSynthesisMarker() AVSpeechSynthesisMarker {
 	class := getAVSpeechSynthesisMarkerClass()
-	rv := objc.Send[AVSpeechSynthesisMarker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisMarker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_AVSpeechSynthesisMarkerClass AVSpeechSynthesisMarkerClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisMarkerClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechSynthesisMarkerClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

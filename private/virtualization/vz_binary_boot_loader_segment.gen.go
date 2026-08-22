@@ -39,7 +39,7 @@ func (vc VZBinaryBootLoaderSegmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBinaryBootLoaderSegmentClass) Alloc() VZBinaryBootLoaderSegment {
-	rv := objc.Send[VZBinaryBootLoaderSegment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBinaryBootLoaderSegment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IVZBinaryBootLoaderSegment interface {
 
 // Init initializes the instance.
 func (v VZBinaryBootLoaderSegment) Init() VZBinaryBootLoaderSegment {
-	rv := objc.Send[VZBinaryBootLoaderSegment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBinaryBootLoaderSegment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBinaryBootLoaderSegment) Autorelease() VZBinaryBootLoaderSegment {
-	rv := objc.Send[VZBinaryBootLoaderSegment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBinaryBootLoaderSegment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBinaryBootLoaderSegment creates a new VZBinaryBootLoaderSegment instance.
 func NewVZBinaryBootLoaderSegment() VZBinaryBootLoaderSegment {
 	class := getVZBinaryBootLoaderSegmentClass()
-	rv := objc.Send[VZBinaryBootLoaderSegment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBinaryBootLoaderSegment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZBinaryBootLoaderSegmentWithBinaryURLLoadAddress(url foundation.NSURL, address uint64) VZBinaryBootLoaderSegment {
 	instance := getVZBinaryBootLoaderSegmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBinaryURL:loadAddress:"), url, address)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBinaryURL:loadAddress:"), url, address)
 	return VZBinaryBootLoaderSegmentFromID(rv)
 }
 
 func (v VZBinaryBootLoaderSegment) InitWithBinaryURLLoadAddress(url foundation.NSURL, address uint64) VZBinaryBootLoaderSegment {
-	rv := objc.Send[VZBinaryBootLoaderSegment](v.ID, objc.Sel("initWithBinaryURL:loadAddress:"), url, address)
+	rv := objc.SendIfResponds[VZBinaryBootLoaderSegment](v.ID, objc.Sel("initWithBinaryURL:loadAddress:"), url, address)
 	return rv
 }
 
 func (v VZBinaryBootLoaderSegment) BinaryURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("binaryURL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("binaryURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZBinaryBootLoaderSegment) LoadAddress() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("loadAddress"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("loadAddress"))
 	return rv
 }

@@ -10,6 +10,12 @@ import (
 // MLProgramInternal protocol.
 type MLProgramInternal interface {
 	objectivec.IObject
+
+	// EvaluateFunctionArgumentsError protocol.
+	EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error)
+
+	// NewContextAndReturnError protocol.
+	NewContextAndReturnError() (objectivec.IObject, error)
 }
 
 // MLProgramInternalObject wraps an existing Objective-C object that conforms to the MLProgramInternal protocol.

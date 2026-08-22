@@ -37,7 +37,7 @@ func (vc VZMacSyntheticBatterySourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacSyntheticBatterySourceClass) Alloc() VZMacSyntheticBatterySource {
-	rv := objc.Send[VZMacSyntheticBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacSyntheticBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,34 +80,34 @@ type IVZMacSyntheticBatterySource interface {
 
 // Init initializes the instance.
 func (v VZMacSyntheticBatterySource) Init() VZMacSyntheticBatterySource {
-	rv := objc.Send[VZMacSyntheticBatterySource](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacSyntheticBatterySource](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacSyntheticBatterySource) Autorelease() VZMacSyntheticBatterySource {
-	rv := objc.Send[VZMacSyntheticBatterySource](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacSyntheticBatterySource](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacSyntheticBatterySource creates a new VZMacSyntheticBatterySource instance.
 func NewVZMacSyntheticBatterySource() VZMacSyntheticBatterySource {
 	class := getVZMacSyntheticBatterySourceClass()
-	rv := objc.Send[VZMacSyntheticBatterySource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacSyntheticBatterySource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacSyntheticBatterySource) Charge() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("charge"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("charge"))
 	return rv
 }
 func (v VZMacSyntheticBatterySource) SetCharge(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCharge:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCharge:"), value)
 }
 func (v VZMacSyntheticBatterySource) Connectivity() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("connectivity"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("connectivity"))
 	return rv
 }
 func (v VZMacSyntheticBatterySource) SetConnectivity(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setConnectivity:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setConnectivity:"), value)
 }

@@ -41,7 +41,7 @@ func (dc DIAttachedDeviceInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIAttachedDeviceInfoClass) Alloc() DIAttachedDeviceInfo {
-	rv := objc.Send[DIAttachedDeviceInfo](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIAttachedDeviceInfo](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -126,30 +126,33 @@ type IDIAttachedDeviceInfo interface {
 
 // Init initializes the instance.
 func (d DIAttachedDeviceInfo) Init() DIAttachedDeviceInfo {
-	rv := objc.Send[DIAttachedDeviceInfo](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIAttachedDeviceInfo](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIAttachedDeviceInfo) Autorelease() DIAttachedDeviceInfo {
-	rv := objc.Send[DIAttachedDeviceInfo](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIAttachedDeviceInfo](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIAttachedDeviceInfo creates a new DIAttachedDeviceInfo instance.
 func NewDIAttachedDeviceInfo() DIAttachedDeviceInfo {
 	class := getDIAttachedDeviceInfoClass()
-	rv := objc.Send[DIAttachedDeviceInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIAttachedDeviceInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIAttachedDeviceInfoWithBSDNameError(bSDName objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
 	instance := getDIAttachedDeviceInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBSDName:error:"), bSDName, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBSDName:error:"), bSDName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIAttachedDeviceInfo{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIAttachedDeviceInfo{}, objc.ErrInitFailed
 	}
 	return DIAttachedDeviceInfoFromID(rv), nil
 }
@@ -157,16 +160,19 @@ func NewDIAttachedDeviceInfoWithBSDNameError(bSDName objectivec.IObject) (DIAtta
 func NewDIAttachedDeviceInfoWithDeviceError(device objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
 	instance := getDIAttachedDeviceInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:error:"), device, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:error:"), device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIAttachedDeviceInfo{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIAttachedDeviceInfo{}, objc.ErrInitFailed
 	}
 	return DIAttachedDeviceInfoFromID(rv), nil
 }
 
 func (d DIAttachedDeviceInfo) CopyEntitiesList() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyEntitiesList"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("copyEntitiesList"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIAttachedDeviceInfo) FillDI1InfoWithDeviceError(device objectivec.IObject) (bool, error) {
@@ -209,7 +215,7 @@ func (d DIAttachedDeviceInfo) SetDI2PIDWithDeviceError(device objectivec.IObject
 
 }
 func (d DIAttachedDeviceInfo) ToDictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDictionary"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("toDictionary"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIAttachedDeviceInfo) InitWithBSDNameError(bSDName objectivec.IObject) (DIAttachedDeviceInfo, error) {
@@ -244,7 +250,7 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) DI1URLWithDataError(
 
 }
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) CopyAllMountPoints() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("copyAllMountPoints"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("copyAllMountPoints"))
 	return objectivec.Object{ID: rv}
 }
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDI1DevicesArrayWithError() (objectivec.IObject, error) {
@@ -278,50 +284,50 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDevicesArrayWithE
 
 }
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewEntityDictWithIOMediaMountPoints(iOMedia objectivec.IObject, points objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("newEntityDictWithIOMedia:mountPoints:"), iOMedia, points)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("newEntityDictWithIOMedia:mountPoints:"), iOMedia, points)
 	return objectivec.Object{ID: rv}
 }
 
 func (d DIAttachedDeviceInfo) BSDName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("BSDName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("BSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIAttachedDeviceInfo) BlockSize() foundation.NSNumber {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("blockSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) CacheURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("cacheURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cacheURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) FrameworkNum() int64 {
-	rv := objc.Send[int64](d.ID, objc.Sel("frameworkNum"))
+	rv := objc.SendIfResponds[int64](d.ID, objc.Sel("frameworkNum"))
 	return rv
 }
 func (d DIAttachedDeviceInfo) ImageURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("imageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) InstanceId() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("instanceId"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceId"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIAttachedDeviceInfo) IoMedia() IDIIOMedia {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMedia"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("ioMedia"))
 	return DIIOMediaFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) SetIoMedia(value IDIIOMedia) {
-	objc.Send[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
 }
 func (d DIAttachedDeviceInfo) MediaSize() foundation.NSNumber {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mediaSize"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mediaSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) Pid() foundation.NSNumber {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pid"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (d DIAttachedDeviceInfo) ShadowURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

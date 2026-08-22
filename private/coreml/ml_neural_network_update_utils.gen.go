@@ -41,7 +41,7 @@ func (mc MLNeuralNetworkUpdateUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkUpdateUtilsClass) Alloc() MLNeuralNetworkUpdateUtils {
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkUpdateUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,29 +64,29 @@ type IMLNeuralNetworkUpdateUtils interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkUpdateUtils) Init() MLNeuralNetworkUpdateUtils {
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkUpdateUtils) Autorelease() MLNeuralNetworkUpdateUtils {
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkUpdateUtils creates a new MLNeuralNetworkUpdateUtils instance.
 func NewMLNeuralNetworkUpdateUtils() MLNeuralNetworkUpdateUtils {
 	class := getMLNeuralNetworkUpdateUtilsClass()
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkUpdateUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) CreateClassLabelToIndexMapWith(with objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("createClassLabelToIndexMapWith:"), with)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("createClassLabelToIndexMapWith:"), with)
 	return objectivec.Object{ID: rv}
 }
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadParameterDescriptionsAndContainerFromUpdateParametersModelDescription(parameters unsafe.Pointer, description objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:"), parameters, description)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:"), parameters, description)
 	return objectivec.Object{ID: rv}
 }
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadUpdateParametersFromCompiledArchiveError(parameters unsafe.Pointer, archive unsafe.Pointer) (bool, error) {

@@ -38,7 +38,7 @@ func (ac ANEDataReporterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDataReporterClass) Alloc() ANEDataReporter {
-	rv := objc.Send[ANEDataReporter](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEDataReporter](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,40 +61,40 @@ type IANEDataReporter interface {
 
 // Init initializes the instance.
 func (a ANEDataReporter) Init() ANEDataReporter {
-	rv := objc.Send[ANEDataReporter](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEDataReporter](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEDataReporter) Autorelease() ANEDataReporter {
-	rv := objc.Send[ANEDataReporter](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEDataReporter](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEDataReporter creates a new ANEDataReporter instance.
 func NewANEDataReporter() ANEDataReporter {
 	class := getANEDataReporterClass()
-	rv := objc.Send[ANEDataReporter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEDataReporter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEDataReporterClass ANEDataReporterClass) AddValueForScalarKey(value int64, key objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("addValue:forScalarKey:"), value, key)
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("addValue:forScalarKey:"), value, key)
 }
 func (_ANEDataReporterClass ANEDataReporterClass) AnalyticsKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("analyticsKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("analyticsKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEDataReporterClass ANEDataReporterClass) ReportClientModelName(client objectivec.IObject, name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportClient:modelName:"), client, name)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportClient:modelName:"), client, name)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEDataReporterClass ANEDataReporterClass) ReportErrorMsgStatus(msg uint32, status uint32) {
-	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportErrorMsg:status:"), msg, status)
-}
-func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportErrorMsg:status:"), msg, status)
 }
 func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToCoreAnalyticsPayload(analytics objectivec.IObject, payload objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToCoreAnalytics:payload:"), analytics, payload)
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToCoreAnalytics:payload:"), analytics, payload)
+}
+func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
 }

@@ -10,6 +10,9 @@ import (
 // GTMioShaderExecutionHistoryDelegate protocol.
 type GTMioShaderExecutionHistoryDelegate interface {
 	objectivec.IObject
+
+	// UniqueIdentifierForFileDebugFunctionNameLineColumn protocol.
+	UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64
 }
 
 // GTMioShaderExecutionHistoryDelegateObject wraps an existing Objective-C object that conforms to the GTMioShaderExecutionHistoryDelegate protocol.
@@ -30,6 +33,6 @@ func GTMioShaderExecutionHistoryDelegateObjectFromID(id objc.ID) GTMioShaderExec
 }
 
 func (o GTMioShaderExecutionHistoryDelegateObject) UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("uniqueIdentifierForFile:debugFunctionName:line:column:"), file, name, line, column)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("uniqueIdentifierForFile:debugFunctionName:line:column:"), file, name, line, column)
 	return rv
 }

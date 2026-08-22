@@ -39,7 +39,7 @@ func (mc MLComputePlanDeviceUsageSupportStatePatternClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanDeviceUsageSupportStatePatternClass) Alloc() MLComputePlanDeviceUsageSupportStatePattern {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStatePattern](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,48 +82,48 @@ type IMLComputePlanDeviceUsageSupportStatePattern interface {
 
 // Init initializes the instance.
 func (m MLComputePlanDeviceUsageSupportStatePattern) Init() MLComputePlanDeviceUsageSupportStatePattern {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlanDeviceUsageSupportStatePattern) Autorelease() MLComputePlanDeviceUsageSupportStatePattern {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlanDeviceUsageSupportStatePattern creates a new MLComputePlanDeviceUsageSupportStatePattern instance.
 func NewMLComputePlanDeviceUsageSupportStatePattern() MLComputePlanDeviceUsageSupportStatePattern {
 	class := getMLComputePlanDeviceUsageSupportStatePatternClass()
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStatePattern](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputePlanDeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
 	instance := getMLComputePlanDeviceUsageSupportStatePatternClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
 	return MLComputePlanDeviceUsageSupportStatePatternFromID(rv)
 }
 
 func (m MLComputePlanDeviceUsageSupportStatePattern) IsMatchForValidationMessage(message objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isMatchForValidationMessage:"), message)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isMatchForValidationMessage:"), message)
 	return rv
 }
 func (m MLComputePlanDeviceUsageSupportStatePattern) InitWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStatePattern](m.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
 	return rv
 }
 
 func (_MLComputePlanDeviceUsageSupportStatePatternClass MLComputePlanDeviceUsageSupportStatePatternClass) DeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStatePatternClass.class), objc.Sel("deviceUsageSupportStatePatternWithPattern:supportState:"), pattern, state)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStatePatternClass.class), objc.Sel("deviceUsageSupportStatePatternWithPattern:supportState:"), pattern, state)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLComputePlanDeviceUsageSupportStatePattern) Regex() foundation.NSRegularExpression {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("regex"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("regex"))
 	return foundation.NSRegularExpressionFromID(objc.ID(rv))
 }
 func (m MLComputePlanDeviceUsageSupportStatePattern) SupportState() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("supportState"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("supportState"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSpeechEventObjcClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSpeechEventObjcClass) Alloc() TextToSpeechTTSSpeechEventObjc {
-	rv := objc.Send[TextToSpeechTTSSpeechEventObjc](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechEventObjc](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,28 +61,28 @@ type ITextToSpeechTTSSpeechEventObjc interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSpeechEventObjc) Init() TextToSpeechTTSSpeechEventObjc {
-	rv := objc.Send[TextToSpeechTTSSpeechEventObjc](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechEventObjc](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSpeechEventObjc) Autorelease() TextToSpeechTTSSpeechEventObjc {
-	rv := objc.Send[TextToSpeechTTSSpeechEventObjc](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechEventObjc](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSpeechEventObjc creates a new TextToSpeechTTSSpeechEventObjc instance.
 func NewTextToSpeechTTSSpeechEventObjc() TextToSpeechTTSSpeechEventObjc {
 	class := getTextToSpeechTTSSpeechEventObjcClass()
-	rv := objc.Send[TextToSpeechTTSSpeechEventObjc](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechEventObjc](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithOtherRewriteFromTo(rewrite objectivec.IObject, from objectivec.IObject, to objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithOtherRewrite:from:to:"), rewrite, from, to)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithOtherRewrite:from:to:"), rewrite, from, to)
 	return objectivec.Object{ID: rv}
 }
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithStart(start objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithStart:"), start)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithStart:"), start)
 	return objectivec.Object{ID: rv}
 }

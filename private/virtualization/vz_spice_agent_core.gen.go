@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
@@ -40,7 +41,7 @@ func (vc VZSpiceAgentCoreClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSpiceAgentCoreClass) Alloc() VZSpiceAgentCore {
-	rv := objc.Send[VZSpiceAgentCore](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSpiceAgentCore](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,7 +99,7 @@ type IVZSpiceAgentCore interface {
 	Pause()
 	Resume()
 	Stop()
-	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore
+	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -107,69 +108,69 @@ type IVZSpiceAgentCore interface {
 
 // Init initializes the instance.
 func (v VZSpiceAgentCore) Init() VZSpiceAgentCore {
-	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSpiceAgentCore](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSpiceAgentCore) Autorelease() VZSpiceAgentCore {
-	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSpiceAgentCore](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSpiceAgentCore creates a new VZSpiceAgentCore instance.
 func NewVZSpiceAgentCore() VZSpiceAgentCore {
 	class := getVZSpiceAgentCoreClass()
-	rv := objc.Send[VZSpiceAgentCore](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSpiceAgentCore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
+func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore {
 	instance := getVZSpiceAgentCoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, unsafe.Pointer(input), unsafe.Pointer(output))
 	return VZSpiceAgentCoreFromID(rv)
 }
 
 func (v VZSpiceAgentCore) DidClosePort() {
-	objc.Send[objc.ID](v.ID, objc.Sel("didClosePort"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("didClosePort"))
 }
 func (v VZSpiceAgentCore) DidOpenPort() {
-	objc.Send[objc.ID](v.ID, objc.Sel("didOpenPort"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("didOpenPort"))
 }
 func (v VZSpiceAgentCore) IsValid() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isValid"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isValid"))
 	return rv
 }
 func (v VZSpiceAgentCore) PasteboardItemProvideDataForType(pasteboard objectivec.IObject, item objectivec.IObject, type_ objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
 }
 func (v VZSpiceAgentCore) Pause() {
-	objc.Send[objc.ID](v.ID, objc.Sel("pause"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("pause"))
 }
 func (v VZSpiceAgentCore) Resume() {
-	objc.Send[objc.ID](v.ID, objc.Sel("resume"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("resume"))
 }
 func (v VZSpiceAgentCore) Stop() {
-	objc.Send[objc.ID](v.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("stop"))
 }
-func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
-	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, input, output)
+func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue dispatch.Queue, capabilities objectivec.IObject, input *FileDescriptor, output *FileDescriptor) VZSpiceAgentCore {
+	rv := objc.SendIfResponds[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, uintptr(queue.Handle()), capabilities, unsafe.Pointer(input), unsafe.Pointer(output))
 	return rv
 }
 
 func (v VZSpiceAgentCore) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSpiceAgentCore) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSpiceAgentCore) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZSpiceAgentCore) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

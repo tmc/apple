@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (cc CPXKeyboardEventDestinationGeneratorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyboardEventDestinationGeneratorClass) Alloc() CPXKeyboardEventDestinationGenerator {
-	rv := objc.Send[CPXKeyboardEventDestinationGenerator](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyboardEventDestinationGenerator](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -69,40 +70,40 @@ type ICPXKeyboardEventDestinationGenerator interface {
 
 	// Topic: Methods
 
-	DestinationForEventContextTargetExtras(event SLSEventRecord, target CPSProcessRec, extras []objectivec.IObject) objectivec.IObject
+	DestinationForEventContextTargetExtras(event *SLSEventRecord, target *CPSProcessRec, extras []objectivec.IObject) objectivec.IObject
 	InitWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator
 }
 
 // Init initializes the instance.
 func (c CPXKeyboardEventDestinationGenerator) Init() CPXKeyboardEventDestinationGenerator {
-	rv := objc.Send[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyboardEventDestinationGenerator) Autorelease() CPXKeyboardEventDestinationGenerator {
-	rv := objc.Send[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyboardEventDestinationGenerator creates a new CPXKeyboardEventDestinationGenerator instance.
 func NewCPXKeyboardEventDestinationGenerator() CPXKeyboardEventDestinationGenerator {
 	class := getCPXKeyboardEventDestinationGeneratorClass()
-	rv := objc.Send[CPXKeyboardEventDestinationGenerator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyboardEventDestinationGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXKeyboardEventDestinationGeneratorWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator {
 	instance := getCPXKeyboardEventDestinationGeneratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
 	return CPXKeyboardEventDestinationGeneratorFromID(rv)
 }
 
-func (c CPXKeyboardEventDestinationGenerator) DestinationForEventContextTargetExtras(event SLSEventRecord, target CPSProcessRec, extras []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:contextTarget:extras:"), event, target, objectivec.IObjectSliceToNSArray(extras))
+func (c CPXKeyboardEventDestinationGenerator) DestinationForEventContextTargetExtras(event *SLSEventRecord, target *CPSProcessRec, extras []objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("destinationForEvent:contextTarget:extras:"), unsafe.Pointer(event), unsafe.Pointer(target), objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
 func (c CPXKeyboardEventDestinationGenerator) InitWithDeliveryManagerFocusManagerSequenceTracker(manager objectivec.IObject, manager2 objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventDestinationGenerator {
-	rv := objc.Send[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
+	rv := objc.SendIfResponds[CPXKeyboardEventDestinationGenerator](c.ID, objc.Sel("initWithDeliveryManager:focusManager:sequenceTracker:"), manager, manager2, tracker)
 	return rv
 }

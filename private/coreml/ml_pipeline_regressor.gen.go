@@ -40,7 +40,7 @@ func (mc MLPipelineRegressorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPipelineRegressorClass) Alloc() MLPipelineRegressor {
-	rv := objc.Send[MLPipelineRegressor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPipelineRegressor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,8 +62,8 @@ func MLPipelineRegressorFromID(id objc.ID) MLPipelineRegressor {
 	return MLPipelineRegressor{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLPipelineRegressor struct embeds objectivec.Object (parent type unavailable) but
-// IMLPipelineRegressor embeds the parent interface; skip compile-time assertion.
+// Ensure MLPipelineRegressor implements IMLPipelineRegressor.
+var _ IMLPipelineRegressor = MLPipelineRegressor{}
 
 // An interface definition for the [MLPipelineRegressor] class.
 //
@@ -77,7 +77,7 @@ func MLPipelineRegressorFromID(id objc.ID) MLPipelineRegressor {
 //   - [IMLPipelineRegressor.SignpostID]
 //   - [IMLPipelineRegressor.InitWithEngineDescriptionConfigurationError]
 type IMLPipelineRegressor interface {
-	IMLRegressor
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -92,36 +92,39 @@ type IMLPipelineRegressor interface {
 
 // Init initializes the instance.
 func (m MLPipelineRegressor) Init() MLPipelineRegressor {
-	rv := objc.Send[MLPipelineRegressor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPipelineRegressor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPipelineRegressor) Autorelease() MLPipelineRegressor {
-	rv := objc.Send[MLPipelineRegressor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPipelineRegressor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPipelineRegressor creates a new MLPipelineRegressor instance.
 func NewMLPipelineRegressor() MLPipelineRegressor {
 	class := getMLPipelineRegressorClass()
-	rv := objc.Send[MLPipelineRegressor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPipelineRegressor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPipelineRegressorWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
 	var errorPtr objc.ID
 	instance := getMLPipelineRegressorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLPipelineRegressor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLPipelineRegressor{}, objc.ErrInitFailed
 	}
 	return MLPipelineRegressorFromID(rv), nil
 }
 
 func (m MLPipelineRegressor) ExecutionSchedule() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -135,7 +138,7 @@ func (m MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, opt
 
 }
 func (m MLPipelineRegressor) SignpostID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
 func (m MLPipelineRegressor) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
@@ -150,13 +153,13 @@ func (m MLPipelineRegressor) InitWithEngineDescriptionConfigurationError(engine 
 }
 
 func (m MLPipelineRegressor) Engine() MLPipeline {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("engine"))
 	return MLPipelineObjectFromID(rv)
 }
 func (m MLPipelineRegressor) SetEngine(value MLPipeline) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 func (m MLPipelineRegressor) Pipeline() MLPipeline {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pipeline"))
 	return MLPipelineObjectFromID(rv)
 }

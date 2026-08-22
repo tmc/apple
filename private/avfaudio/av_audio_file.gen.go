@@ -40,7 +40,7 @@ func (ac AVAudioFileClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioFileClass) Alloc() AVAudioFile {
-	rv := objc.Send[AVAudioFile](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioFile](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,30 +83,33 @@ type IAVAudioFile interface {
 
 // Init initializes the instance.
 func (a AVAudioFile) Init() AVAudioFile {
-	rv := objc.Send[AVAudioFile](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioFile](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioFile) Autorelease() AVAudioFile {
-	rv := objc.Send[AVAudioFile](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioFile](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioFile creates a new AVAudioFile instance.
 func NewAVAudioFile() AVAudioFile {
 	class := getAVAudioFileClass()
-	rv := objc.Send[AVAudioFile](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioFile](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:commonFormat:interleaved:error:"), file, format, interleaved, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:commonFormat:interleaved:error:"), file, format, interleaved, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
 	}
 	return AVAudioFileFromID(rv), nil
 }
@@ -114,10 +117,13 @@ func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file Opa
 func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:error:"), file, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:error:"), file, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
 	}
 	return AVAudioFileFromID(rv), nil
 }
@@ -125,10 +131,13 @@ func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AV
 func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initSecondaryReader:format:error:"), reader, format, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSecondaryReader:format:error:"), reader, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
 	}
 	return AVAudioFileFromID(rv), nil
 }
@@ -165,6 +174,6 @@ func (a AVAudioFile) InitSecondaryReaderFormatError(reader objectivec.IObject, f
 }
 
 func (a AVAudioFile) Url() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/skylight"
 )
 
 // MPSCNNConvolutionDataSource protocol.
@@ -17,11 +16,20 @@ type MPSCNNConvolutionDataSource interface {
 	// BiasTerms protocol.
 	BiasTerms() unsafe.Pointer
 
+	// CopyWithZoneDevice protocol.
+	CopyWithZoneDevice(zone unsafe.Pointer, device objectivec.IObject) objectivec.IObject
+
 	// DataType protocol.
 	DataType() uint32
 
+	// Descriptor protocol.
+	Descriptor() objectivec.IObject
+
 	// KernelWeightsDataType protocol.
 	KernelWeightsDataType() uint32
+
+	// Label protocol.
+	Label() objectivec.IObject
 
 	// Load protocol.
 	Load() bool
@@ -33,7 +41,13 @@ type MPSCNNConvolutionDataSource interface {
 	Purge()
 
 	// RangesForUInt8Kernel protocol.
-	RangesForUInt8Kernel() []objectivec.IObject
+	RangesForUInt8Kernel() unsafe.Pointer
+
+	// UpdateWithCommandBufferGradientStateSourceState protocol.
+	UpdateWithCommandBufferGradientStateSourceState(buffer objectivec.IObject, state objectivec.IObject, state2 objectivec.IObject) objectivec.IObject
+
+	// UpdateWithGradientStateSourceState protocol.
+	UpdateWithGradientStateSourceState(state objectivec.IObject, state2 objectivec.IObject) bool
 
 	// Weights protocol.
 	Weights() unsafe.Pointer
@@ -63,63 +77,61 @@ func MPSCNNConvolutionDataSourceObjectFromID(id objc.ID) MPSCNNConvolutionDataSo
 }
 
 func (o MPSCNNConvolutionDataSourceObject) BiasTerms() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("biasTerms"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("biasTerms"))
 	return rv
 }
-func (o MPSCNNConvolutionDataSourceObject) CopyWithZoneDevice(zone skylight.NSZoneRef, device objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("copyWithZone:device:"), zone, device)
+func (o MPSCNNConvolutionDataSourceObject) CopyWithZoneDevice(zone unsafe.Pointer, device objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("copyWithZone:device:"), zone, device)
 	return objectivec.Object{ID: rv}
 }
 func (o MPSCNNConvolutionDataSourceObject) DataType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("dataType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("dataType"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) Descriptor() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("descriptor"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("descriptor"))
 	return objectivec.Object{ID: rv}
 }
 func (o MPSCNNConvolutionDataSourceObject) KernelWeightsDataType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("kernelWeightsDataType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("kernelWeightsDataType"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) Label() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("label"))
 	return objectivec.Object{ID: rv}
 }
 func (o MPSCNNConvolutionDataSourceObject) Load() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("load"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("load"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) LookupTableForUInt8Kernel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("lookupTableForUInt8Kernel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("lookupTableForUInt8Kernel"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) Purge() {
-	objc.Send[struct{}](o.ID, objc.Sel("purge"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("purge"))
 }
-func (o MPSCNNConvolutionDataSourceObject) RangesForUInt8Kernel() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("rangesForUInt8Kernel"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
+func (o MPSCNNConvolutionDataSourceObject) RangesForUInt8Kernel() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("rangesForUInt8Kernel"))
+	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) UpdateWithCommandBufferGradientStateSourceState(buffer objectivec.IObject, state objectivec.IObject, state2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("updateWithCommandBuffer:gradientState:sourceState:"), buffer, state, state2)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("updateWithCommandBuffer:gradientState:sourceState:"), buffer, state, state2)
 	return objectivec.Object{ID: rv}
 }
 func (o MPSCNNConvolutionDataSourceObject) UpdateWithGradientStateSourceState(state objectivec.IObject, state2 objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("updateWithGradientState:sourceState:"), state, state2)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("updateWithGradientState:sourceState:"), state, state2)
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) Weights() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("weights"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("weights"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) WeightsLayout() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("weightsLayout"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("weightsLayout"))
 	return rv
 }
 func (o MPSCNNConvolutionDataSourceObject) WeightsQuantizationType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("weightsQuantizationType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("weightsQuantizationType"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (dc DIDiskArbEmulationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIDiskArbEmulationClass) Alloc() DIDiskArbEmulation {
-	rv := objc.Send[DIDiskArbEmulation](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIDiskArbEmulation](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,30 +62,33 @@ type IDIDiskArbEmulation interface {
 
 // Init initializes the instance.
 func (d DIDiskArbEmulation) Init() DIDiskArbEmulation {
-	rv := objc.Send[DIDiskArbEmulation](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIDiskArbEmulation](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIDiskArbEmulation) Autorelease() DIDiskArbEmulation {
-	rv := objc.Send[DIDiskArbEmulation](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIDiskArbEmulation](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIDiskArbEmulation creates a new DIDiskArbEmulation instance.
 func NewDIDiskArbEmulation() DIDiskArbEmulation {
 	class := getDIDiskArbEmulationClass()
-	rv := objc.Send[DIDiskArbEmulation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIDiskArbEmulation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIDiskArbEmulationWithError() (DIDiskArbEmulation, error) {
 	var errorPtr objc.ID
 	instance := getDIDiskArbEmulationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIDiskArbEmulation{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIDiskArbEmulation{}, objc.ErrInitFailed
 	}
 	return DIDiskArbEmulationFromID(rv), nil
 }

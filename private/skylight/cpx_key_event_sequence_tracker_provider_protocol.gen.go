@@ -50,26 +50,26 @@ func CPXKeyEventSequenceTrackerProviderObjectFromID(id objc.ID) CPXKeyEventSeque
 }
 
 func (o CPXKeyEventSequenceTrackerProviderObject) CurrentRegionID() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("currentRegionID"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("currentRegionID"))
 	return rv
 }
 func (o CPXKeyEventSequenceTrackerProviderObject) EventLimit() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("eventLimit"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("eventLimit"))
 	return rv
 }
 func (o CPXKeyEventSequenceTrackerProviderObject) MainDisplayHeight() uint16 {
-	rv := objc.Send[uint16](o.ID, objc.Sel("mainDisplayHeight"))
+	rv := objc.SendIfResponds[uint16](o.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
 func (o CPXKeyEventSequenceTrackerProviderObject) StructuralRegionForID(id uint64) WSStructuralRegionRef {
-	rv := objc.Send[WSStructuralRegionRef](o.ID, objc.Sel("structuralRegionForID:"), id)
+	rv := objc.SendIfResponds[WSStructuralRegionRef](o.ID, objc.Sel("structuralRegionForID:"), id)
 	return rv
 }
 func (o CPXKeyEventSequenceTrackerProviderObject) WindowByID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("windowByID:"), id)
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("windowByID:"), id)
 	return rv
 }
 func (o CPXKeyEventSequenceTrackerProviderObject) WindowHeightForWindow(window unsafe.Pointer) uint16 {
-	rv := objc.Send[uint16](o.ID, objc.Sel("windowHeightForWindow:"), window)
+	rv := objc.SendIfResponds[uint16](o.ID, objc.Sel("windowHeightForWindow:"), window)
 	return rv
 }

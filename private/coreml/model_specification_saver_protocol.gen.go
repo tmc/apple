@@ -35,6 +35,6 @@ func MLModelSpecificationSaverObjectFromID(id objc.ID) MLModelSpecificationSaver
 }
 
 func (o MLModelSpecificationSaverObject) SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
 	return rv
 }

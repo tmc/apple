@@ -40,7 +40,7 @@ func (ac ANEDaemonConnectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDaemonConnectionClass) Alloc() ANEDaemonConnection {
-	rv := objc.Send[ANEDaemonConnection](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEDaemonConnection](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -119,100 +119,100 @@ type IANEDaemonConnection interface {
 
 // Init initializes the instance.
 func (a ANEDaemonConnection) Init() ANEDaemonConnection {
-	rv := objc.Send[ANEDaemonConnection](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEDaemonConnection](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEDaemonConnection) Autorelease() ANEDaemonConnection {
-	rv := objc.Send[ANEDaemonConnection](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEDaemonConnection](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEDaemonConnection creates a new ANEDaemonConnection instance.
 func NewANEDaemonConnection() ANEDaemonConnection {
 	class := getANEDaemonConnectionClass()
-	rv := objc.Send[ANEDaemonConnection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEDaemonConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEDaemonConnectionWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection {
 	instance := getANEDaemonConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
 	return ANEDaemonConnectionFromID(rv)
 }
 
 func (a ANEDaemonConnection) BeginRealTimeTaskWithReply(reply VoidHandler) {
 	_block0, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("beginRealTimeTaskWithReply:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("beginRealTimeTaskWithReply:"), _block0)
 }
 func (a ANEDaemonConnection) CompileModelSandboxExtensionOptionsQosWithReply(model objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
 	_block4, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("compileModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compileModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
 }
 func (a ANEDaemonConnection) CompiledModelExistsForWithReply(for_ objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsFor:withReply:"), for_, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compiledModelExistsFor:withReply:"), for_, _block1)
 }
 func (a ANEDaemonConnection) CompiledModelExistsMatchingHashWithReply(hash objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsMatchingHash:withReply:"), hash, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compiledModelExistsMatchingHash:withReply:"), hash, _block1)
 }
 func (a ANEDaemonConnection) EchoWithReply(echo objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("echo:withReply:"), echo, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("echo:withReply:"), echo, _block1)
 }
 func (a ANEDaemonConnection) EndRealTimeTaskWithReply(reply VoidHandler) {
 	_block0, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("endRealTimeTaskWithReply:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("endRealTimeTaskWithReply:"), _block0)
 }
 func (a ANEDaemonConnection) LoadModelSandboxExtensionOptionsQosWithReply(model objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
 	_block4, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("loadModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("loadModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
 }
 func (a ANEDaemonConnection) LoadModelNewInstanceOptionsModelInstParamsQosWithReply(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32, reply VoidHandler) {
 	_block4, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("loadModelNewInstance:options:modelInstParams:qos:withReply:"), instance, options, params, qos, _block4)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("loadModelNewInstance:options:modelInstParams:qos:withReply:"), instance, options, params, qos, _block4)
 }
 func (a ANEDaemonConnection) PrepareChainingWithModelOptionsChainingReqQosWithReply(model objectivec.IObject, options objectivec.IObject, req objectivec.IObject, qos uint32, reply VoidHandler) {
 	_block4, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("prepareChainingWithModel:options:chainingReq:qos:withReply:"), model, options, req, qos, _block4)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("prepareChainingWithModel:options:chainingReq:qos:withReply:"), model, options, req, qos, _block4)
 }
 func (a ANEDaemonConnection) PurgeCompiledModelWithReply(model objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel:withReply:"), model, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModel:withReply:"), model, _block1)
 }
 func (a ANEDaemonConnection) PurgeCompiledModelMatchingHashWithReply(hash objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:withReply:"), hash, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:withReply:"), hash, _block1)
 }
 func (a ANEDaemonConnection) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
 }
 func (a ANEDaemonConnection) UnloadModelOptionsQosWithReply(model objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
 	_block3, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](a.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, _block3)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, _block3)
 }
 func (a ANEDaemonConnection) InitWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection {
-	rv := objc.Send[ANEDaemonConnection](a.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
+	rv := objc.SendIfResponds[ANEDaemonConnection](a.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
 	return rv
 }
 
 func (_ANEDaemonConnectionClass ANEDaemonConnectionClass) DaemonConnectionRestricted() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDaemonConnectionClass.class), objc.Sel("daemonConnectionRestricted"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDaemonConnectionClass.class), objc.Sel("daemonConnectionRestricted"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEDaemonConnectionClass ANEDaemonConnectionClass) UserDaemonConnection() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDaemonConnectionClass.class), objc.Sel("userDaemonConnection"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDaemonConnectionClass.class), objc.Sel("userDaemonConnection"))
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEDaemonConnection) DaemonConnection() foundation.NSXPCConnection {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("daemonConnection"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("daemonConnection"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
 func (a ANEDaemonConnection) Restricted() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("restricted"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("restricted"))
 	return rv
 }
 

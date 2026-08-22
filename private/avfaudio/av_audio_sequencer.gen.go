@@ -39,7 +39,7 @@ func (ac AVAudioSequencerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioSequencerClass) Alloc() AVAudioSequencer {
-	rv := objc.Send[AVAudioSequencer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioSequencer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,62 +100,62 @@ type IAVAudioSequencer interface {
 
 // Init initializes the instance.
 func (a AVAudioSequencer) Init() AVAudioSequencer {
-	rv := objc.Send[AVAudioSequencer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioSequencer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioSequencer) Autorelease() AVAudioSequencer {
-	rv := objc.Send[AVAudioSequencer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioSequencer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioSequencer creates a new AVAudioSequencer instance.
 func NewAVAudioSequencer() AVAudioSequencer {
 	class := getAVAudioSequencerClass()
-	rv := objc.Send[AVAudioSequencer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioSequencer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioSequencerWithImpl(impl unsafe.Pointer) AVAudioSequencer {
 	instance := getAVAudioSequencerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSequencerFromID(rv)
 }
 
 func (a AVAudioSequencer) CleanTracks() {
-	objc.Send[objc.ID](a.ID, objc.Sel("cleanTracks"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("cleanTracks"))
 }
 func (a AVAudioSequencer) GetTempoTrack() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("getTempoTrack"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("getTempoTrack"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioSequencer) NumberOfTracks() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("numberOfTracks"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("numberOfTracks"))
 	return rv
 }
 func (a AVAudioSequencer) SetTempoTrack(track objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setTempoTrack:"), track)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setTempoTrack:"), track)
 }
 func (a AVAudioSequencer) SetTrackArray(array objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setTrackArray:"), array)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setTrackArray:"), array)
 }
 func (a AVAudioSequencer) SetupTrackArray() {
-	objc.Send[objc.ID](a.ID, objc.Sel("setupTrackArray"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setupTrackArray"))
 }
 func (a AVAudioSequencer) SetupTracks() {
-	objc.Send[objc.ID](a.ID, objc.Sel("setupTracks"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setupTracks"))
 }
 func (a AVAudioSequencer) TrackArray() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("trackArray"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("trackArray"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioSequencer) InitWithImpl(impl unsafe.Pointer) AVAudioSequencer {
-	rv := objc.Send[AVAudioSequencer](a.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[AVAudioSequencer](a.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }
 
 func (a AVAudioSequencer) Playing() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("playing"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (vc VZSEPStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSEPStorageClass) Alloc() VZSEPStorage {
-	rv := objc.Send[VZSEPStorage](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSEPStorage](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,37 +80,40 @@ type IVZSEPStorage interface {
 
 // Init initializes the instance.
 func (v VZSEPStorage) Init() VZSEPStorage {
-	rv := objc.Send[VZSEPStorage](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSEPStorage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSEPStorage) Autorelease() VZSEPStorage {
-	rv := objc.Send[VZSEPStorage](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSEPStorage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSEPStorage creates a new VZSEPStorage instance.
 func NewVZSEPStorage() VZSEPStorage {
 	class := getVZSEPStorageClass()
-	rv := objc.Send[VZSEPStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSEPStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZSEPStorageCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error) {
 	var errorPtr objc.ID
 	instance := getVZSEPStorageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZSEPStorage{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZSEPStorage{}, objc.ErrInitFailed
 	}
 	return VZSEPStorageFromID(rv), nil
 }
 
 func NewVZSEPStorageWithURL(url foundation.NSURL) VZSEPStorage {
 	instance := getVZSEPStorageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return VZSEPStorageFromID(rv)
 }
 
@@ -125,11 +128,11 @@ func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.NSURL) (VZSEP
 
 }
 func (v VZSEPStorage) InitWithURL(url foundation.NSURL) VZSEPStorage {
-	rv := objc.Send[VZSEPStorage](v.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[VZSEPStorage](v.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
 func (v VZSEPStorage) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

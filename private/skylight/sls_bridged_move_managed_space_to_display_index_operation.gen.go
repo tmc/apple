@@ -39,7 +39,7 @@ func (sc SLSBridgedMoveManagedSpaceToDisplayIndexOperationClass) Class() objc.Cl
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedMoveManagedSpaceToDisplayIndexOperationClass) Alloc() SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
-	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedMoveManagedSpaceToDisplayIndexOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) Init() SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
-	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) Autorelease() SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
-	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedMoveManagedSpaceToDisplayIndexOperation creates a new SLSBridgedMoveManagedSpaceToDisplayIndexOperation instance.
 func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperation() SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	class := getSLSBridgedMoveManagedSpaceToDisplayIndexOperationClass()
-	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperationWithCoder(coder objectivec.IObject) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	instance := getSLSBridgedMoveManagedSpaceToDisplayIndexOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedMoveManagedSpaceToDisplayIndexOperationFromID(rv)
 }
 
 func NewSLSBridgedMoveManagedSpaceToDisplayIndexOperationWithSpaceIDDisplayIdentifierIndex(id uint64, identifier objectivec.IObject, index uint32) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
 	instance := getSLSBridgedMoveManagedSpaceToDisplayIndexOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
 	return SLSBridgedMoveManagedSpaceToDisplayIndexOperationFromID(rv)
 }
 
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) InitWithSpaceIDDisplayIdentifierIndex(id uint64, identifier objectivec.IObject, index uint32) SLSBridgedMoveManagedSpaceToDisplayIndexOperation {
-	rv := objc.Send[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
+	rv := objc.SendIfResponds[SLSBridgedMoveManagedSpaceToDisplayIndexOperation](s.ID, objc.Sel("initWithSpaceID:displayIdentifier:index:"), id, identifier, index)
 	return rv
 }
 
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) DisplayIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) Index() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("index"))
 	return rv
 }
 func (s SLSBridgedMoveManagedSpaceToDisplayIndexOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

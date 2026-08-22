@@ -39,7 +39,7 @@ func (ac AVVCDuckFadeDurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCDuckFadeDurationClass) Alloc() AVVCDuckFadeDuration {
-	rv := objc.Send[AVVCDuckFadeDuration](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCDuckFadeDuration](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,45 +85,45 @@ type IAVVCDuckFadeDuration interface {
 
 // Init initializes the instance.
 func (a AVVCDuckFadeDuration) Init() AVVCDuckFadeDuration {
-	rv := objc.Send[AVVCDuckFadeDuration](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCDuckFadeDuration](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCDuckFadeDuration) Autorelease() AVVCDuckFadeDuration {
-	rv := objc.Send[AVVCDuckFadeDuration](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCDuckFadeDuration](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCDuckFadeDuration creates a new AVVCDuckFadeDuration instance.
 func NewAVVCDuckFadeDuration() AVVCDuckFadeDuration {
 	class := getAVVCDuckFadeDurationClass()
-	rv := objc.Send[AVVCDuckFadeDuration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCDuckFadeDuration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCDuckFadeDurationWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
 	instance := getAVVCDuckFadeDurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
 	return AVVCDuckFadeDurationFromID(rv)
 }
 
 func (a AVVCDuckFadeDuration) InitWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
-	rv := objc.Send[AVVCDuckFadeDuration](a.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
+	rv := objc.SendIfResponds[AVVCDuckFadeDuration](a.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
 	return rv
 }
 
 func (a AVVCDuckFadeDuration) FadeIn() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fadeIn"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fadeIn"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckFadeDuration) SetFadeIn(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFadeIn:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setFadeIn:"), value)
 }
 func (a AVVCDuckFadeDuration) FadeOut() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fadeOut"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fadeOut"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckFadeDuration) SetFadeOut(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFadeOut:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setFadeOut:"), value)
 }

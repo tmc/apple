@@ -40,7 +40,7 @@ func (nc NWPathClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NWPathClass) Alloc() NWPath {
-	rv := objc.Send[NWPath](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NWPath](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -359,139 +359,139 @@ type INWPath interface {
 
 // Init initializes the instance.
 func (n NWPath) Init() NWPath {
-	rv := objc.Send[NWPath](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NWPath](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NWPath) Autorelease() NWPath {
-	rv := objc.Send[NWPath](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NWPath](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNWPath creates a new NWPath instance.
 func NewNWPath() NWPath {
 	class := getNWPathClass()
-	rv := objc.Send[NWPath](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NWPath](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNWPathWithPath(path objectivec.IObject) NWPath {
 	instance := getNWPathClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:"), path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPath:"), path)
 	return NWPathFromID(rv)
 }
 
 func (n NWPath) CopyDNSSearchDomains(domains bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDNSSearchDomains:"), domains)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyDNSSearchDomains:"), domains)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) CopyDNSServerEndpoints(endpoints bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDNSServerEndpoints:"), endpoints)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyDNSServerEndpoints:"), endpoints)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) CopyDNSServersStrings(strings objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDNSServersStrings:"), strings)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyDNSServersStrings:"), strings)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) CopyDataFromNetworkAgentWithDomainType(domain objectivec.IObject, type_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDataFromNetworkAgentWithDomain:type:"), domain, type_)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyDataFromNetworkAgentWithDomain:type:"), domain, type_)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) CopyFlowDivertToken() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyFlowDivertToken"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyFlowDivertToken"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) CreateProtocolBufferObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) DelegateInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("delegateInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("delegateInterface"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) GenericNetworkAgentsWithDomainType(domain objectivec.IObject, type_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("genericNetworkAgentsWithDomain:type:"), domain, type_)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("genericNetworkAgentsWithDomain:type:"), domain, type_)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) HasUnsatisfiedFallbackAgent() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasUnsatisfiedFallbackAgent"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasUnsatisfiedFallbackAgent"))
 	return rv
 }
 func (n NWPath) InactiveNetworkAgentUUIDsOnlyVoluntary(voluntary bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("inactiveNetworkAgentUUIDsOnlyVoluntary:"), voluntary)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("inactiveNetworkAgentUUIDsOnlyVoluntary:"), voluntary)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) IsConstrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isConstrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isConstrained"))
 	return rv
 }
 func (n NWPath) IsDirect() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isDirect"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isDirect"))
 	return rv
 }
 func (n NWPath) IsEligibleForCrazyIvan46() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isEligibleForCrazyIvan46"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isEligibleForCrazyIvan46"))
 	return rv
 }
 func (n NWPath) IsEqualToPath(path objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isEqualToPath:"), path)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isEqualToPath:"), path)
 	return rv
 }
 func (n NWPath) IsExpensive() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isExpensive"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isExpensive"))
 	return rv
 }
 func (n NWPath) IsFiltered() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isFiltered"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isFiltered"))
 	return rv
 }
 func (n NWPath) IsFlowDivert() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isFlowDivert"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isFlowDivert"))
 	return rv
 }
 func (n NWPath) IsLinkQualityAbort() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isLinkQualityAbort"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isLinkQualityAbort"))
 	return rv
 }
 func (n NWPath) IsListener() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isListener"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isListener"))
 	return rv
 }
 func (n NWPath) IsListenerInterfaceSpecific() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isListenerInterfaceSpecific"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isListenerInterfaceSpecific"))
 	return rv
 }
 func (n NWPath) IsLocal() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isLocal"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isLocal"))
 	return rv
 }
 func (n NWPath) IsPerAppVPN() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isPerAppVPN"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isPerAppVPN"))
 	return rv
 }
 func (n NWPath) IsRoaming() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isRoaming"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isRoaming"))
 	return rv
 }
 func (n NWPath) IsUltraConstrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isUltraConstrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isUltraConstrained"))
 	return rv
 }
 func (n NWPath) IsViable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isViable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isViable"))
 	return rv
 }
 func (n NWPath) NetworkAgentsOfType(type_ objectivec.Class) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("networkAgentsOfType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("networkAgentsOfType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (n NWPath) ShouldProbeConnectivity() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("shouldProbeConnectivity"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("shouldProbeConnectivity"))
 	return rv
 }
 func (n NWPath) UnsatisfiedVoluntaryAgentMatchesAddressTriggerImmediately(address objectivec.IObject) (bool, bool) {
@@ -500,292 +500,292 @@ func (n NWPath) UnsatisfiedVoluntaryAgentMatchesAddressTriggerImmediately(addres
 	return immediately, rv
 }
 func (n NWPath) UsesCompanion() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usesCompanion"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("usesCompanion"))
 	return rv
 }
 func (n NWPath) UsesInterfaceType(type_ int64) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usesInterfaceType:"), type_)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("usesInterfaceType:"), type_)
 	return rv
 }
 func (n NWPath) UsesNetworkAgent(agent objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usesNetworkAgent:"), agent)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("usesNetworkAgent:"), agent)
 	return rv
 }
 func (n NWPath) UsesNetworkAgentType(type_ objectivec.Class) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usesNetworkAgentType:"), type_)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("usesNetworkAgentType:"), type_)
 	return rv
 }
 func (n NWPath) InitWithPath(path objectivec.IObject) NWPath {
-	rv := objc.Send[NWPath](n.ID, objc.Sel("initWithPath:"), path)
+	rv := objc.SendIfResponds[NWPath](n.ID, objc.Sel("initWithPath:"), path)
 	return rv
 }
 
 func (_NWPathClass NWPathClass) AllClientIDs() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("allClientIDs"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("allClientIDs"))
 	return objectivec.Object{ID: rv}
 }
 func (_NWPathClass NWPathClass) CreateStringFromStatus(status int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("createStringFromStatus:"), status)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("createStringFromStatus:"), status)
 	return objectivec.Object{ID: rv}
 }
 func (_NWPathClass NWPathClass) PathForClientID(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathForClientID:"), id)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathForClientID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (_NWPathClass NWPathClass) PathForClientIDParametersTLVPathResultTLV(id objectivec.IObject, tlv objectivec.IObject, tlv2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathForClientID:parametersTLV:pathResultTLV:"), id, tlv, tlv2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathForClientID:parametersTLV:pathResultTLV:"), id, tlv, tlv2)
 	return objectivec.Object{ID: rv}
 }
 func (_NWPathClass NWPathClass) PathWithProtocolBufferData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathWithProtocolBufferData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWPathClass.class), objc.Sel("pathWithProtocolBufferData:"), data)
 	return objectivec.Object{ID: rv}
 }
 
 func (n NWPath) AdvertiseDescriptor() INWAdvertiseDescriptor {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("advertiseDescriptor"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("advertiseDescriptor"))
 	return NWAdvertiseDescriptorFromID(objc.ID(rv))
 }
 func (n NWPath) BrowseDescriptor() INWBrowseDescriptor {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("browseDescriptor"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("browseDescriptor"))
 	return NWBrowseDescriptorFromID(objc.ID(rv))
 }
 func (n NWPath) CPath() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("cPath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("cPath"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWPath) ClientID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("clientID"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("clientID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (n NWPath) ConnectedInterface() INWInterface {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("connectedInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("connectedInterface"))
 	return NWInterfaceFromID(objc.ID(rv))
 }
 func (n NWPath) Constrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("constrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("constrained"))
 	return rv
 }
 func (n NWPath) DerivedParameters() INWParameters {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("derivedParameters"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("derivedParameters"))
 	return NWParametersFromID(objc.ID(rv))
 }
 func (n NWPath) Direct() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("direct"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("direct"))
 	return rv
 }
 func (n NWPath) DnsSearchDomains() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("dnsSearchDomains"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("dnsSearchDomains"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) DnsServers() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("dnsServers"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("dnsServers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) DnsServersAsStrings() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("dnsServersAsStrings"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("dnsServersAsStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) DnsServiceID() int {
-	rv := objc.Send[int](n.ID, objc.Sel("dnsServiceID"))
+	rv := objc.SendIfResponds[int](n.ID, objc.Sel("dnsServiceID"))
 	return rv
 }
 func (n NWPath) EffectiveLocalEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("effectiveLocalEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("effectiveLocalEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWPath) EffectiveRemoteEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("effectiveRemoteEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("effectiveRemoteEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWPath) EligibleForCrazyIvan46() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("eligibleForCrazyIvan46"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("eligibleForCrazyIvan46"))
 	return rv
 }
 func (n NWPath) Endpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("endpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("endpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWPath) Expensive() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("expensive"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("expensive"))
 	return rv
 }
 func (n NWPath) FallbackEligible() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("fallbackEligible"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("fallbackEligible"))
 	return rv
 }
 func (n NWPath) FallbackInterface() INWInterface {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("fallbackInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("fallbackInterface"))
 	return NWInterfaceFromID(objc.ID(rv))
 }
 func (n NWPath) FallbackInterfaceIndex() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("fallbackInterfaceIndex"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("fallbackInterfaceIndex"))
 	return rv
 }
 func (n NWPath) FallbackIsPreferred() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("fallbackIsPreferred"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("fallbackIsPreferred"))
 	return rv
 }
 func (n NWPath) FallbackIsWeak() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("fallbackIsWeak"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("fallbackIsWeak"))
 	return rv
 }
 func (n NWPath) FilterControlUnit() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("filterControlUnit"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("filterControlUnit"))
 	return rv
 }
 func (n NWPath) Filtered() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("filtered"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("filtered"))
 	return rv
 }
 func (n NWPath) FlowDivert() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("flowDivert"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("flowDivert"))
 	return rv
 }
 func (n NWPath) FlowDivertAggregateUnit() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("flowDivertAggregateUnit"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("flowDivertAggregateUnit"))
 	return rv
 }
 func (n NWPath) FlowDivertControlUnit() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("flowDivertControlUnit"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("flowDivertControlUnit"))
 	return rv
 }
 func (n NWPath) Flows() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("flows"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("flows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) Gateways() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("gateways"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("gateways"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) GroupMembers() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("groupMembers"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("groupMembers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) HasAdvertiseDescriptor() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasAdvertiseDescriptor"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasAdvertiseDescriptor"))
 	return rv
 }
 func (n NWPath) HasApplicationLevelFirewall() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasApplicationLevelFirewall"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasApplicationLevelFirewall"))
 	return rv
 }
 func (n NWPath) HasBrowseDescriptor() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasBrowseDescriptor"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasBrowseDescriptor"))
 	return rv
 }
 func (n NWPath) HasCustomPFRules() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasCustomPFRules"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasCustomPFRules"))
 	return rv
 }
 func (n NWPath) HasKernelExtensionFilter() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasKernelExtensionFilter"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasKernelExtensionFilter"))
 	return rv
 }
 func (n NWPath) HasParentalControls() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasParentalControls"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasParentalControls"))
 	return rv
 }
 func (n NWPath) HasProxySettings() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasProxySettings"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasProxySettings"))
 	return rv
 }
 func (n NWPath) Interface() INWInterface {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("interface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("interface"))
 	return NWInterfaceFromID(objc.ID(rv))
 }
 func (n NWPath) InternalPath() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalPath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalPath"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWPath) Listener() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("listener"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("listener"))
 	return rv
 }
 func (n NWPath) Local() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("local"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("local"))
 	return rv
 }
 func (n NWPath) MaximumDatagramSize() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("maximumDatagramSize"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("maximumDatagramSize"))
 	return rv
 }
 func (n NWPath) Mtu() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("mtu"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("mtu"))
 	return rv
 }
 func (n NWPath) OverrideDNSSearchDomains() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("overrideDNSSearchDomains"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("overrideDNSSearchDomains"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) OverrideDNSServers() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("overrideDNSServers"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("overrideDNSServers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) OverrideDNSServersAsStrings() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("overrideDNSServersAsStrings"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("overrideDNSServersAsStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) Parameters() INWParameters {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("parameters"))
 	return NWParametersFromID(objc.ID(rv))
 }
 func (n NWPath) PerAppVPN() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("perAppVPN"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("perAppVPN"))
 	return rv
 }
 func (n NWPath) PolicyID() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("policyID"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("policyID"))
 	return rv
 }
 func (n NWPath) PrivateDescription() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("privateDescription"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("privateDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWPath) ProxySettings() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("proxySettings"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("proxySettings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (n NWPath) Reason() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("reason"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("reason"))
 	return rv
 }
 func (n NWPath) ReasonDescription() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("reasonDescription"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("reasonDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWPath) Roaming() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("roaming"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("roaming"))
 	return rv
 }
 func (n NWPath) ScopedInterface() INWInterface {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("scopedInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("scopedInterface"))
 	return NWInterfaceFromID(objc.ID(rv))
 }
 func (n NWPath) SecondsSinceInterfaceChange() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("secondsSinceInterfaceChange"))
+	rv := objc.SendIfResponds[uint64](n.ID, objc.Sel("secondsSinceInterfaceChange"))
 	return rv
 }
 func (n NWPath) Status() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("status"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("status"))
 	return rv
 }
 func (n NWPath) StatusAsString() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("statusAsString"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("statusAsString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWPath) SupportsDNS() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("supportsDNS"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("supportsDNS"))
 	return rv
 }
 func (n NWPath) SupportsIPv4() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("supportsIPv4"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("supportsIPv4"))
 	return rv
 }
 func (n NWPath) SupportsIPv6() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("supportsIPv6"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("supportsIPv6"))
 	return rv
 }
 func (n NWPath) Viable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("viable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("viable"))
 	return rv
 }

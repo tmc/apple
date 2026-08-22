@@ -37,7 +37,7 @@ func (vc VZHostOnlyNetworkDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHostOnlyNetworkDeviceAttachmentClass) Alloc() VZHostOnlyNetworkDeviceAttachment {
-	rv := objc.Send[VZHostOnlyNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZHostOnlyNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZHostOnlyNetworkDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZHostOnlyNetworkDeviceAttachment) Init() VZHostOnlyNetworkDeviceAttachment {
-	rv := objc.Send[VZHostOnlyNetworkDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZHostOnlyNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZHostOnlyNetworkDeviceAttachment) Autorelease() VZHostOnlyNetworkDeviceAttachment {
-	rv := objc.Send[VZHostOnlyNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZHostOnlyNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZHostOnlyNetworkDeviceAttachment creates a new VZHostOnlyNetworkDeviceAttachment instance.
 func NewVZHostOnlyNetworkDeviceAttachment() VZHostOnlyNetworkDeviceAttachment {
 	class := getVZHostOnlyNetworkDeviceAttachmentClass()
-	rv := objc.Send[VZHostOnlyNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZHostOnlyNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

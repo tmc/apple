@@ -37,7 +37,7 @@ func (vc VZMacGraphicsDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacGraphicsDeviceConfigurationClass) Alloc() VZMacGraphicsDeviceConfiguration {
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -113,25 +113,25 @@ type IVZMacGraphicsDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacGraphicsDeviceConfiguration) Init() VZMacGraphicsDeviceConfiguration {
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacGraphicsDeviceConfiguration) Autorelease() VZMacGraphicsDeviceConfiguration {
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacGraphicsDeviceConfiguration creates a new VZMacGraphicsDeviceConfiguration instance.
 func NewVZMacGraphicsDeviceConfiguration() VZMacGraphicsDeviceConfiguration {
 	class := getVZMacGraphicsDeviceConfigurationClass()
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacGraphicsDeviceConfiguration) _setDeviceFeatureLevel(level int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDeviceFeatureLevel:"), level)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDeviceFeatureLevel:"), level)
 }
 
 // SetDeviceFeatureLevel is an exported wrapper for the private method _setDeviceFeatureLevel.
@@ -149,7 +149,7 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetDeviceFeatureLevel() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDeviceFeatureLevel:"))
 }
 func (v VZMacGraphicsDeviceConfiguration) _setDisplayPortCount(count uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDisplayPortCount:"), count)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDisplayPortCount:"), count)
 }
 
 // SetDisplayPortCount is an exported wrapper for the private method _setDisplayPortCount.
@@ -167,7 +167,7 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetDisplayPortCount() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayPortCount:"))
 }
 func (v VZMacGraphicsDeviceConfiguration) _setEnableProcessIsolation(isolation bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setEnableProcessIsolation:"), isolation)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setEnableProcessIsolation:"), isolation)
 }
 
 // SetEnableProcessIsolation is an exported wrapper for the private method _setEnableProcessIsolation.
@@ -185,7 +185,7 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetEnableProcessIsolation() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setEnableProcessIsolation:"))
 }
 func (v VZMacGraphicsDeviceConfiguration) _setImplicitlyAddsVideoToolboxDevice(device bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"), device)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"), device)
 }
 
 // SetImplicitlyAddsVideoToolboxDevice is an exported wrapper for the private method _setImplicitlyAddsVideoToolboxDevice.
@@ -203,7 +203,7 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetImplicitlyAddsVideoToolboxDevice
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"))
 }
 func (v VZMacGraphicsDeviceConfiguration) _setPrefersLowPower(power bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPrefersLowPower:"), power)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPrefersLowPower:"), power)
 }
 
 // SetPrefersLowPower is an exported wrapper for the private method _setPrefersLowPower.
@@ -222,7 +222,7 @@ func (v VZMacGraphicsDeviceConfiguration) CanSetPrefersLowPower() bool {
 }
 
 func (_VZMacGraphicsDeviceConfigurationClass VZMacGraphicsDeviceConfigurationClass) _maximumAllowedDisplayCount() uint64 {
-	rv := objc.Send[uint64](objc.ID(_VZMacGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
+	rv := objc.SendIfResponds[uint64](objc.ID(_VZMacGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
 	return rv
 }
 
@@ -241,7 +241,7 @@ func (_VZMacGraphicsDeviceConfigurationClass VZMacGraphicsDeviceConfigurationCla
 }
 
 func (v VZMacGraphicsDeviceConfiguration) _deviceFeatureLevel() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
 }
 
@@ -258,10 +258,10 @@ func (v VZMacGraphicsDeviceConfiguration) DeviceFeatureLevel() (int64, error) {
 	return v._deviceFeatureLevel(), nil
 }
 func (v VZMacGraphicsDeviceConfiguration) Set_deviceFeatureLevel(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_deviceFeatureLevel:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_deviceFeatureLevel:"), value)
 }
 func (v VZMacGraphicsDeviceConfiguration) _displayPortCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("_displayPortCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("_displayPortCount"))
 	return rv
 }
 
@@ -278,10 +278,10 @@ func (v VZMacGraphicsDeviceConfiguration) DisplayPortCount() (uint64, error) {
 	return v._displayPortCount(), nil
 }
 func (v VZMacGraphicsDeviceConfiguration) Set_displayPortCount(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_displayPortCount:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_displayPortCount:"), value)
 }
 func (v VZMacGraphicsDeviceConfiguration) _enableProcessIsolation() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_enableProcessIsolation"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_enableProcessIsolation"))
 	return rv
 }
 
@@ -298,10 +298,10 @@ func (v VZMacGraphicsDeviceConfiguration) EnableProcessIsolation() (bool, error)
 	return v._enableProcessIsolation(), nil
 }
 func (v VZMacGraphicsDeviceConfiguration) Set_enableProcessIsolation(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_enableProcessIsolation:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_enableProcessIsolation:"), value)
 }
 func (v VZMacGraphicsDeviceConfiguration) _implicitlyAddsVideoToolboxDevice() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
 	return rv
 }
 
@@ -318,10 +318,10 @@ func (v VZMacGraphicsDeviceConfiguration) ImplicitlyAddsVideoToolboxDevice() (bo
 	return v._implicitlyAddsVideoToolboxDevice(), nil
 }
 func (v VZMacGraphicsDeviceConfiguration) Set_implicitlyAddsVideoToolboxDevice(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_implicitlyAddsVideoToolboxDevice:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_implicitlyAddsVideoToolboxDevice:"), value)
 }
 func (v VZMacGraphicsDeviceConfiguration) _prefersLowPower() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv
 }
 
@@ -338,5 +338,5 @@ func (v VZMacGraphicsDeviceConfiguration) PrefersLowPower() (bool, error) {
 	return v._prefersLowPower(), nil
 }
 func (v VZMacGraphicsDeviceConfiguration) Set_prefersLowPower(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_prefersLowPower:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_prefersLowPower:"), value)
 }

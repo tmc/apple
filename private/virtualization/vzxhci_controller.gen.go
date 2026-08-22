@@ -39,7 +39,7 @@ func (vc VZXHCIControllerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZXHCIControllerClass) Alloc() VZXHCIController {
-	rv := objc.Send[VZXHCIController](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZXHCIController](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,30 +76,30 @@ type IVZXHCIController interface {
 
 // Init initializes the instance.
 func (v VZXHCIController) Init() VZXHCIController {
-	rv := objc.Send[VZXHCIController](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZXHCIController](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZXHCIController) Autorelease() VZXHCIController {
-	rv := objc.Send[VZXHCIController](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZXHCIController](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZXHCIController creates a new VZXHCIController instance.
 func NewVZXHCIController() VZXHCIController {
 	class := getVZXHCIControllerClass()
-	rv := objc.Send[VZXHCIController](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZXHCIController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZXHCIController) AttachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
 func (v VZXHCIController) DetachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
 
 // AttachDevice is a synchronous wrapper around [VZXHCIController.AttachDeviceCompletionHandler].

@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (sc SLSSkyLightKeyEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSkyLightKeyEventAuthenticationMessageClass) Alloc() SLSSkyLightKeyEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightKeyEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSkyLightKeyEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,52 +76,52 @@ type ISLSSkyLightKeyEventAuthenticationMessage interface {
 
 // Init initializes the instance.
 func (s SLSSkyLightKeyEventAuthenticationMessage) Init() SLSSkyLightKeyEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightKeyEventAuthenticationMessage](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSkyLightKeyEventAuthenticationMessage](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSkyLightKeyEventAuthenticationMessage) Autorelease() SLSSkyLightKeyEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightKeyEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSkyLightKeyEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSkyLightKeyEventAuthenticationMessage creates a new SLSSkyLightKeyEventAuthenticationMessage instance.
 func NewSLSSkyLightKeyEventAuthenticationMessage() SLSSkyLightKeyEventAuthenticationMessage {
 	class := getSLSSkyLightKeyEventAuthenticationMessageClass()
-	rv := objc.Send[SLSSkyLightKeyEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSkyLightKeyEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSkyLightKeyEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
 func NewSLSSkyLightKeyEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightKeyEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightKeyEventAuthenticationMessage {
+func NewSLSSkyLightKeyEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightKeyEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightKeyEventAuthenticationMessage {
+func NewSLSSkyLightKeyEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightKeyEventAuthenticationMessage {
 	instance := getSLSSkyLightKeyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return SLSSkyLightKeyEventAuthenticationMessageFromID(rv)
 }
 
 func (s SLSSkyLightKeyEventAuthenticationMessage) CharCode() uint16 {
-	rv := objc.Send[uint16](s.ID, objc.Sel("charCode"))
+	rv := objc.SendIfResponds[uint16](s.ID, objc.Sel("charCode"))
 	return rv
 }
 func (s SLSSkyLightKeyEventAuthenticationMessage) Repeat() int16 {
-	rv := objc.Send[int16](s.ID, objc.Sel("repeat"))
+	rv := objc.SendIfResponds[int16](s.ID, objc.Sel("repeat"))
 	return rv
 }

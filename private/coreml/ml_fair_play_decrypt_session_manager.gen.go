@@ -41,7 +41,7 @@ func (mc MLFairPlayDecryptSessionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFairPlayDecryptSessionManagerClass) Alloc() MLFairPlayDecryptSessionManager {
-	rv := objc.Send[MLFairPlayDecryptSessionManager](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFairPlayDecryptSessionManager](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,20 +90,20 @@ type IMLFairPlayDecryptSessionManager interface {
 
 // Init initializes the instance.
 func (m MLFairPlayDecryptSessionManager) Init() MLFairPlayDecryptSessionManager {
-	rv := objc.Send[MLFairPlayDecryptSessionManager](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFairPlayDecryptSessionManager](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFairPlayDecryptSessionManager) Autorelease() MLFairPlayDecryptSessionManager {
-	rv := objc.Send[MLFairPlayDecryptSessionManager](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFairPlayDecryptSessionManager](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFairPlayDecryptSessionManager creates a new MLFairPlayDecryptSessionManager instance.
 func NewMLFairPlayDecryptSessionManager() MLFairPlayDecryptSessionManager {
 	class := getMLFairPlayDecryptSessionManagerClass()
-	rv := objc.Send[MLFairPlayDecryptSessionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFairPlayDecryptSessionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -121,7 +121,7 @@ func (m MLFairPlayDecryptSessionManager) StartDecryptionOfModelAtPathUsingKeyBlo
 
 }
 func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPath(path objectivec.IObject) int {
-	rv := objc.Send[int](m.ID, objc.Sel("stopDecryptionOfModelAtPath:"), path)
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("stopDecryptionOfModelAtPath:"), path)
 	return rv
 }
 func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPathError(path objectivec.IObject) (bool, error) {
@@ -139,14 +139,14 @@ func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPathError(path o
 }
 
 func (m MLFairPlayDecryptSessionManager) ModelPathToSessionID() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelPathToSessionID"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelPathToSessionID"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFairPlayDecryptSessionManager) SessionContext() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("sessionContext"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("sessionContext"))
 	return rv
 }
 func (m MLFairPlayDecryptSessionManager) SyncQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("syncQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("syncQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

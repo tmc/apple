@@ -40,7 +40,7 @@ func (ac AVVCRecordDeviceInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCRecordDeviceInfoClass) Alloc() AVVCRecordDeviceInfo {
-	rv := objc.Send[AVVCRecordDeviceInfo](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCRecordDeviceInfo](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,63 +98,63 @@ type IAVVCRecordDeviceInfo interface {
 
 // Init initializes the instance.
 func (a AVVCRecordDeviceInfo) Init() AVVCRecordDeviceInfo {
-	rv := objc.Send[AVVCRecordDeviceInfo](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCRecordDeviceInfo](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCRecordDeviceInfo) Autorelease() AVVCRecordDeviceInfo {
-	rv := objc.Send[AVVCRecordDeviceInfo](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCRecordDeviceInfo](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCRecordDeviceInfo creates a new AVVCRecordDeviceInfo instance.
 func NewAVVCRecordDeviceInfo() AVVCRecordDeviceInfo {
 	class := getAVVCRecordDeviceInfoClass()
-	rv := objc.Send[AVVCRecordDeviceInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCRecordDeviceInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCRecordDeviceInfoWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
 	instance := getAVVCRecordDeviceInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRecordingEngine:"), engine)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRecordingEngine:"), engine)
 	return AVVCRecordDeviceInfoFromID(rv)
 }
 
 func (a AVVCRecordDeviceInfo) InitWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
-	rv := objc.Send[AVVCRecordDeviceInfo](a.ID, objc.Sel("initWithRecordingEngine:"), engine)
+	rv := objc.SendIfResponds[AVVCRecordDeviceInfo](a.ID, objc.Sel("initWithRecordingEngine:"), engine)
 	return rv
 }
 
 func (a AVVCRecordDeviceInfo) HalDeviceUID() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("halDeviceUID"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("halDeviceUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVVCRecordDeviceInfo) IsRemoteDevice() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isRemoteDevice"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isRemoteDevice"))
 	return rv
 }
 func (a AVVCRecordDeviceInfo) IsUpsamplingSourceAudio() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isUpsamplingSourceAudio"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isUpsamplingSourceAudio"))
 	return rv
 }
 func (a AVVCRecordDeviceInfo) RecordRoute() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordRoute"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("recordRoute"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVVCRecordDeviceInfo) RemoteDeviceCategory() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("remoteDeviceCategory"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("remoteDeviceCategory"))
 	return rv
 }
 func (a AVVCRecordDeviceInfo) RemoteDeviceUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteDeviceUID"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("remoteDeviceUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (a AVVCRecordDeviceInfo) RemoteDeviceUIDString() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteDeviceUIDString"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("remoteDeviceUIDString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVVCRecordDeviceInfo) RemoteProductIdentifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteProductIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("remoteProductIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }

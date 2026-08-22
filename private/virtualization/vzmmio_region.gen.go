@@ -39,7 +39,7 @@ func (vc VZMMIORegionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMMIORegionClass) Alloc() VZMMIORegion {
-	rv := objc.Send[VZMMIORegion](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMMIORegion](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,69 +97,69 @@ type IVZMMIORegion interface {
 
 // Init initializes the instance.
 func (v VZMMIORegion) Init() VZMMIORegion {
-	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMMIORegion](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMMIORegion) Autorelease() VZMMIORegion {
-	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMMIORegion](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMMIORegion creates a new VZMMIORegion instance.
 func NewVZMMIORegion() VZMMIORegion {
 	class := getVZMMIORegionClass()
-	rv := objc.Send[VZMMIORegion](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMMIORegion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMMIORegionWithBaseAddressLength(address uint64, length uint64) VZMMIORegion {
 	instance := getVZMMIORegionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseAddress:length:"), address, length)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseAddress:length:"), address, length)
 	return VZMMIORegionFromID(rv)
 }
 
 func NewVZMMIORegionWithBaseAddressLengthWriteSynchronously(address uint64, length uint64, synchronously bool) VZMMIORegion {
 	instance := getVZMMIORegionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseAddress:length:writeSynchronously:"), address, length, synchronously)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseAddress:length:writeSynchronously:"), address, length, synchronously)
 	return VZMMIORegionFromID(rv)
 }
 
 func (v VZMMIORegion) InitWithBaseAddressLength(address uint64, length uint64) VZMMIORegion {
-	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:"), address, length)
+	rv := objc.SendIfResponds[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:"), address, length)
 	return rv
 }
 func (v VZMMIORegion) InitWithBaseAddressLengthWriteSynchronously(address uint64, length uint64, synchronously bool) VZMMIORegion {
-	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:writeSynchronously:"), address, length, synchronously)
+	rv := objc.SendIfResponds[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:writeSynchronously:"), address, length, synchronously)
 	return rv
 }
 
 func (v VZMMIORegion) BaseAddress() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("baseAddress"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("baseAddress"))
 	return rv
 }
 func (v VZMMIORegion) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMMIORegion) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMMIORegion) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZMMIORegion) Length() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("length"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("length"))
 	return rv
 }
 func (v VZMMIORegion) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZMMIORegion) WriteSynchronously() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("writeSynchronously"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("writeSynchronously"))
 	return rv
 }

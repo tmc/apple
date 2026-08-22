@@ -41,7 +41,7 @@ func (dc DiskImageCreatorFromDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageCreatorFromDeviceClass) Alloc() DiskImageCreatorFromDevice {
-	rv := objc.Send[DiskImageCreatorFromDevice](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromDevice](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,30 +78,33 @@ type IDiskImageCreatorFromDevice interface {
 
 // Init initializes the instance.
 func (d DiskImageCreatorFromDevice) Init() DiskImageCreatorFromDevice {
-	rv := objc.Send[DiskImageCreatorFromDevice](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromDevice](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageCreatorFromDevice) Autorelease() DiskImageCreatorFromDevice {
-	rv := objc.Send[DiskImageCreatorFromDevice](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromDevice](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageCreatorFromDevice creates a new DiskImageCreatorFromDevice instance.
 func NewDiskImageCreatorFromDevice() DiskImageCreatorFromDevice {
 	class := getDiskImageCreatorFromDeviceClass()
-	rv := objc.Send[DiskImageCreatorFromDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageCreatorFromDeviceWithURLDefaultFormatError(url foundation.NSURL, format int64) (DiskImageCreatorFromDevice, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageCreatorFromDevice{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageCreatorFromDevice{}, objc.ErrInitFailed
 	}
 	return DiskImageCreatorFromDeviceFromID(rv), nil
 }
@@ -109,10 +112,13 @@ func NewDiskImageCreatorFromDeviceWithURLDefaultFormatError(url foundation.NSURL
 func NewDiskImageCreatorFromDeviceWithURLError(url foundation.NSURL) (DiskImageCreatorFromDevice, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageCreatorFromDevice{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageCreatorFromDevice{}, objc.ErrInitFailed
 	}
 	return DiskImageCreatorFromDeviceFromID(rv), nil
 }

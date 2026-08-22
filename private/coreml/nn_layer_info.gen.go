@@ -39,7 +39,7 @@ func (nc NNLayerInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NNLayerInfoClass) Alloc() NNLayerInfo {
-	rv := objc.Send[NNLayerInfo](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NNLayerInfo](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,43 +82,43 @@ type INNLayerInfo interface {
 
 // Init initializes the instance.
 func (n NNLayerInfo) Init() NNLayerInfo {
-	rv := objc.Send[NNLayerInfo](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NNLayerInfo](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NNLayerInfo) Autorelease() NNLayerInfo {
-	rv := objc.Send[NNLayerInfo](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NNLayerInfo](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNNLayerInfo creates a new NNLayerInfo instance.
 func NewNNLayerInfo() NNLayerInfo {
 	class := getNNLayerInfoClass()
-	rv := objc.Send[NNLayerInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NNLayerInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNNLayerInfoWithTypeConcatenatedInputNamesBidirectional(type_ objectivec.IObject, names objectivec.IObject, bidirectional bool) NNLayerInfo {
 	instance := getNNLayerInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
 	return NNLayerInfoFromID(rv)
 }
 
 func (n NNLayerInfo) InitWithTypeConcatenatedInputNamesBidirectional(type_ objectivec.IObject, names objectivec.IObject, bidirectional bool) NNLayerInfo {
-	rv := objc.Send[NNLayerInfo](n.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
+	rv := objc.SendIfResponds[NNLayerInfo](n.ID, objc.Sel("initWithType:concatenatedInputNames:bidirectional:"), type_, names, bidirectional)
 	return rv
 }
 
 func (n NNLayerInfo) Bidirectional() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("bidirectional"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("bidirectional"))
 	return rv
 }
 func (n NNLayerInfo) ConcatenatedInputNames() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("concatenatedInputNames"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("concatenatedInputNames"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NNLayerInfo) Type() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }

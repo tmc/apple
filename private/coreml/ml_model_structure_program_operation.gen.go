@@ -40,7 +40,7 @@ func (mc MLModelStructureProgramOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramOperationClass) Alloc() MLModelStructureProgramOperation {
-	rv := objc.Send[MLModelStructureProgramOperation](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,53 +86,53 @@ type IMLModelStructureProgramOperation interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgramOperation) Init() MLModelStructureProgramOperation {
-	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgramOperation) Autorelease() MLModelStructureProgramOperation {
-	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgramOperation creates a new MLModelStructureProgramOperation instance.
 func NewMLModelStructureProgramOperation() MLModelStructureProgramOperation {
 	class := getMLModelStructureProgramOperationClass()
-	rv := objc.Send[MLModelStructureProgramOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramOperationWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
 	return MLModelStructureProgramOperationFromID(rv)
 }
 
 func NewModelStructureProgramOperationWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
 	return MLModelStructureProgramOperationFromID(rv)
 }
 
 func (m MLModelStructureProgramOperation) InitWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
-	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
 	return rv
 }
 func (m MLModelStructureProgramOperation) InitWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
-	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
+	rv := objc.SendIfResponds[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
 	return rv
 }
 
 func (m MLModelStructureProgramOperation) MilId() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milId"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milId"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLModelStructureProgramOperation) MilTextLocation() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milTextLocation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milTextLocation"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelStructureProgramOperation) Path() IMLModelStructurePath {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("path"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("path"))
 	return MLModelStructurePathFromID(objc.ID(rv))
 }

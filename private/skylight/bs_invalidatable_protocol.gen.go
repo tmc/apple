@@ -33,5 +33,5 @@ func BSInvalidatableObjectFromID(id objc.ID) BSInvalidatableObject {
 }
 
 func (o BSInvalidatableObject) Invalidate() {
-	objc.Send[struct{}](o.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("invalidate"))
 }

@@ -38,7 +38,7 @@ func (mc MLModelStructureProgramFunctionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramFunctionClass) Alloc() MLModelStructureProgramFunction {
-	rv := objc.Send[MLModelStructureProgramFunction](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgramFunction](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IMLModelStructureProgramFunction interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgramFunction) Init() MLModelStructureProgramFunction {
-	rv := objc.Send[MLModelStructureProgramFunction](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgramFunction](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgramFunction) Autorelease() MLModelStructureProgramFunction {
-	rv := objc.Send[MLModelStructureProgramFunction](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgramFunction](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgramFunction creates a new MLModelStructureProgramFunction instance.
 func NewMLModelStructureProgramFunction() MLModelStructureProgramFunction {
 	class := getMLModelStructureProgramFunctionClass()
-	rv := objc.Send[MLModelStructureProgramFunction](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgramFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramFunctionWithInputsBlock(inputs objectivec.IObject, block objectivec.IObject) MLModelStructureProgramFunction {
 	instance := getMLModelStructureProgramFunctionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputs:block:"), inputs, block)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputs:block:"), inputs, block)
 	return MLModelStructureProgramFunctionFromID(rv)
 }
 
 func (m MLModelStructureProgramFunction) InitWithInputsBlock(inputs objectivec.IObject, block objectivec.IObject) MLModelStructureProgramFunction {
-	rv := objc.Send[MLModelStructureProgramFunction](m.ID, objc.Sel("initWithInputs:block:"), inputs, block)
+	rv := objc.SendIfResponds[MLModelStructureProgramFunction](m.ID, objc.Sel("initWithInputs:block:"), inputs, block)
 	return rv
 }

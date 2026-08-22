@@ -42,7 +42,7 @@ func (vc VZVirtualMachineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
-	rv := objc.Send[VZVirtualMachine](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachine](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -55,6 +55,7 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine.Set_crashContextMessage]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
+//   - [VZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
 //   - [VZVirtualMachine._createViewEndpointWithOptions]
 //   - [VZVirtualMachine._currentConfiguration]
 //   - [VZVirtualMachine._debugStub]
@@ -116,6 +117,7 @@ var _ IVZVirtualMachine = VZVirtualMachine{}
 //   - [IVZVirtualMachine.Set_crashContextMessage]
 //   - [IVZVirtualMachine._createCoreWithCompletionHandler]
 //   - [IVZVirtualMachine._createCoresWithCompletionHandler]
+//   - [IVZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
 //   - [IVZVirtualMachine._createViewEndpointWithOptions]
 //   - [IVZVirtualMachine._currentConfiguration]
 //   - [IVZVirtualMachine._debugStub]
@@ -166,6 +168,7 @@ type IVZVirtualMachine interface {
 	Set_crashContextMessage(value string)
 	_createCoreWithCompletionHandler(handler ErrorHandler)
 	_createCoresWithCompletionHandler(handler ErrorHandler)
+	_createSharedMemoryCoresWithOptionsCompletionHandler(options unsafe.Pointer, handler ErrorHandler)
 	_createViewEndpointWithOptions(options uint64) objectivec.IObject
 	_currentConfiguration() IVZVirtualMachineConfiguration
 	_debugStub() IVZDebugStub
@@ -208,26 +211,26 @@ type IVZVirtualMachine interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachine) Init() VZVirtualMachine {
-	rv := objc.Send[VZVirtualMachine](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachine](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachine) Autorelease() VZVirtualMachine {
-	rv := objc.Send[VZVirtualMachine](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachine](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachine creates a new VZVirtualMachine instance.
 func NewVZVirtualMachine() VZVirtualMachine {
 	class := getVZVirtualMachineClass()
-	rv := objc.Send[VZVirtualMachine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtualMachine) _createCoreWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_createCoreWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createCoreWithCompletionHandler:"), _block0)
 }
 
 // CreateCoreWithCompletionHandler is an exported wrapper for the private method _createCoreWithCompletionHandler.
@@ -246,7 +249,7 @@ func (v VZVirtualMachine) CanCreateCoreWithCompletionHandler() bool {
 }
 func (v VZVirtualMachine) _createCoresWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_createCoresWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createCoresWithCompletionHandler:"), _block0)
 }
 
 // CreateCoresWithCompletionHandler is an exported wrapper for the private method _createCoresWithCompletionHandler.
@@ -263,8 +266,27 @@ func (v VZVirtualMachine) CreateCoresWithCompletionHandler(handler ErrorHandler)
 func (v VZVirtualMachine) CanCreateCoresWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_createCoresWithCompletionHandler:"))
 }
+func (v VZVirtualMachine) _createSharedMemoryCoresWithOptionsCompletionHandler(options unsafe.Pointer, handler ErrorHandler) {
+	_block1, _ := NewErrorBlock(handler)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createSharedMemoryCoresWithOptions:completionHandler:"), options, _block1)
+}
+
+// CreateSharedMemoryCoresWithOptionsCompletionHandler is an exported wrapper for the private method _createSharedMemoryCoresWithOptionsCompletionHandler.
+func (v VZVirtualMachine) CreateSharedMemoryCoresWithOptionsCompletionHandler(options unsafe.Pointer, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_createSharedMemoryCoresWithOptions:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createSharedMemoryCoresWithOptions:completionHandler:"}
+		return err
+	}
+	v._createSharedMemoryCoresWithOptionsCompletionHandler(options, handler)
+	return nil
+}
+
+// CanCreateSharedMemoryCoresWithOptionsCompletionHandler reports whether the receiver responds to the private selector _createSharedMemoryCoresWithOptions:completionHandler:.
+func (v VZVirtualMachine) CanCreateSharedMemoryCoresWithOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_createSharedMemoryCoresWithOptions:completionHandler:"))
+}
 func (v VZVirtualMachine) _createViewEndpointWithOptions(options uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_createViewEndpointWithOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createViewEndpointWithOptions:"), options)
 	return objectivec.Object{ID: rv}
 }
 
@@ -283,7 +305,7 @@ func (v VZVirtualMachine) CanCreateViewEndpointWithOptions() bool {
 }
 func (v VZVirtualMachine) _enterRestrictedModeWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"), _block0)
 }
 
 // EnterRestrictedModeWithCompletionHandler is an exported wrapper for the private method _enterRestrictedModeWithCompletionHandler.
@@ -302,7 +324,7 @@ func (v VZVirtualMachine) CanEnterRestrictedModeWithCompletionHandler() bool {
 }
 func (v VZVirtualMachine) _getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"), _block0)
 }
 
 // GetUSBControllerLocationIDWithCompletionHandler is an exported wrapper for the private method _getUSBControllerLocationIDWithCompletionHandler.
@@ -320,7 +342,7 @@ func (v VZVirtualMachine) CanGetUSBControllerLocationIDWithCompletionHandler() b
 	return objc.RespondsToSelector(v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"))
 }
 func (v VZVirtualMachine) _overrideConnectionForTesting(testing objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_overrideConnectionForTesting:"), testing)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_overrideConnectionForTesting:"), testing)
 }
 
 // OverrideConnectionForTesting is an exported wrapper for the private method _overrideConnectionForTesting.
@@ -338,7 +360,7 @@ func (v VZVirtualMachine) CanOverrideConnectionForTesting() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_overrideConnectionForTesting:"))
 }
 func (v VZVirtualMachine) _processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
 }
 
 // ProcessHIDReportsForDeviceDeviceType is an exported wrapper for the private method _processHIDReportsForDeviceDeviceType.
@@ -357,7 +379,7 @@ func (v VZVirtualMachine) CanProcessHIDReportsForDeviceDeviceType() bool {
 }
 func (v VZVirtualMachine) _resetWithTypeCompletionHandler(type_ int64, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_resetWithType:completionHandler:"), type_, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_resetWithType:completionHandler:"), type_, _block1)
 }
 
 // ResetWithTypeCompletionHandler is an exported wrapper for the private method _resetWithTypeCompletionHandler.
@@ -376,7 +398,7 @@ func (v VZVirtualMachine) CanResetWithTypeCompletionHandler() bool {
 }
 func (v VZVirtualMachine) _saveMachineStateToURLOptionsCompletionHandler(url foundation.NSURL, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:"), url, options, _block2)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:"), url, options, _block2)
 }
 
 // SaveMachineStateToURLOptionsCompletionHandler is an exported wrapper for the private method _saveMachineStateToURLOptionsCompletionHandler.
@@ -394,7 +416,7 @@ func (v VZVirtualMachine) CanSaveMachineStateToURLOptionsCompletionHandler() boo
 	return objc.RespondsToSelector(v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:"))
 }
 func (v VZVirtualMachine) _setCrashContextMessage(message objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setCrashContextMessage:"), message)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setCrashContextMessage:"), message)
 }
 
 // SetCrashContextMessage is an exported wrapper for the private method _setCrashContextMessage.
@@ -412,7 +434,7 @@ func (v VZVirtualMachine) CanSetCrashContextMessage() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setCrashContextMessage:"))
 }
 func (v VZVirtualMachine) _setName(name objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setName:"), name)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setName:"), name)
 }
 
 // SetName is an exported wrapper for the private method _setName.
@@ -430,7 +452,7 @@ func (v VZVirtualMachine) CanSetName() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setName:"))
 }
 func (v VZVirtualMachine) _shouldSendHIDReports() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_shouldSendHIDReports"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_shouldSendHIDReports"))
 	return rv
 }
 
@@ -475,41 +497,41 @@ func (v VZVirtualMachine) CanValidateRestrictedModeSupportWithError() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_validateRestrictedModeSupportWithError:"))
 }
 func (v VZVirtualMachine) SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
 }
 func (v VZVirtualMachine) SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
 }
 func (v VZVirtualMachine) SendMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendMouseEventsPointingDeviceIndex(events VZOpaqueMouseEvents, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events.UnsafePointer(), index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events.UnsafePointer(), index)
 }
 func (v VZVirtualMachine) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendPointerNSEventPointingDeviceIndex(nSEvent objectivec.IObject, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
 }
 func (v VZVirtualMachine) SendQuickLookEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendRotationEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendScrollWheelEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
 }
 func (v VZVirtualMachine) SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
 
 func (v VZVirtualMachine) _audioDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_audioDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_audioDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -526,7 +548,7 @@ func (v VZVirtualMachine) AudioDevices() (foundation.INSArray, error) {
 	return v._audioDevices(), nil
 }
 func (v VZVirtualMachine) _canCreateCore() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_canCreateCore"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_canCreateCore"))
 	return rv
 }
 
@@ -543,7 +565,7 @@ func (v VZVirtualMachine) CanCreateCore() (bool, error) {
 	return v._canCreateCore(), nil
 }
 func (v VZVirtualMachine) _coprocessors() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_coprocessors"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_coprocessors"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -560,7 +582,7 @@ func (v VZVirtualMachine) Coprocessors() (foundation.INSArray, error) {
 	return v._coprocessors(), nil
 }
 func (v VZVirtualMachine) _crashContextMessage() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_crashContextMessage"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_crashContextMessage"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -577,10 +599,10 @@ func (v VZVirtualMachine) CrashContextMessage() (string, error) {
 	return v._crashContextMessage(), nil
 }
 func (v VZVirtualMachine) Set_crashContextMessage(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_crashContextMessage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_crashContextMessage:"), objc.String(value))
 }
 func (v VZVirtualMachine) _currentConfiguration() IVZVirtualMachineConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_currentConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_currentConfiguration"))
 	return VZVirtualMachineConfigurationFromID(objc.ID(rv))
 }
 
@@ -597,7 +619,7 @@ func (v VZVirtualMachine) CurrentConfiguration() (IVZVirtualMachineConfiguration
 	return v._currentConfiguration(), nil
 }
 func (v VZVirtualMachine) _debugStub() IVZDebugStub {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_debugStub"))
 	return VZDebugStubFromID(objc.ID(rv))
 }
 
@@ -614,7 +636,7 @@ func (v VZVirtualMachine) DebugStub() (IVZDebugStub, error) {
 	return v._debugStub(), nil
 }
 func (v VZVirtualMachine) _hidDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_hidDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -631,7 +653,7 @@ func (v VZVirtualMachine) HidDevices() (foundation.INSArray, error) {
 	return v._hidDevices(), nil
 }
 func (v VZVirtualMachine) _hidEventMonitor() IVZHIDEventMonitor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
 	return VZHIDEventMonitorFromID(objc.ID(rv))
 }
 
@@ -648,7 +670,7 @@ func (v VZVirtualMachine) HidEventMonitor() (IVZHIDEventMonitor, error) {
 	return v._hidEventMonitor(), nil
 }
 func (v VZVirtualMachine) _keyboards() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_keyboards"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_keyboards"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -665,7 +687,7 @@ func (v VZVirtualMachine) Keyboards() (foundation.INSArray, error) {
 	return v._keyboards(), nil
 }
 func (v VZVirtualMachine) _multiTouchDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -682,7 +704,7 @@ func (v VZVirtualMachine) MultiTouchDevices() (foundation.INSArray, error) {
 	return v._multiTouchDevices(), nil
 }
 func (v VZVirtualMachine) _name() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_name"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -699,10 +721,10 @@ func (v VZVirtualMachine) Name() (string, error) {
 	return v._name(), nil
 }
 func (v VZVirtualMachine) Set_name(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_name:"), objc.String(value))
 }
 func (v VZVirtualMachine) _pointingDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pointingDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_pointingDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -719,7 +741,7 @@ func (v VZVirtualMachine) PointingDevices() (foundation.INSArray, error) {
 	return v._pointingDevices(), nil
 }
 func (v VZVirtualMachine) _powerSourceDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -736,7 +758,7 @@ func (v VZVirtualMachine) PowerSourceDevices() (foundation.INSArray, error) {
 	return v._powerSourceDevices(), nil
 }
 func (v VZVirtualMachine) _serialPorts() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_serialPorts"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_serialPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -753,7 +775,7 @@ func (v VZVirtualMachine) SerialPorts() (foundation.INSArray, error) {
 	return v._serialPorts(), nil
 }
 func (v VZVirtualMachine) _serviceProcessIdentifier() int {
-	rv := objc.Send[int](v.ID, objc.Sel("_serviceProcessIdentifier"))
+	rv := objc.SendIfResponds[int](v.ID, objc.Sel("_serviceProcessIdentifier"))
 	return rv
 }
 
@@ -770,7 +792,7 @@ func (v VZVirtualMachine) ServiceProcessIdentifier() (int, error) {
 	return v._serviceProcessIdentifier(), nil
 }
 func (v VZVirtualMachine) _stateDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_stateDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_stateDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -787,7 +809,7 @@ func (v VZVirtualMachine) StateDescription() (string, error) {
 	return v._stateDescription(), nil
 }
 func (v VZVirtualMachine) _storageDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_storageDevices"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_storageDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -804,11 +826,11 @@ func (v VZVirtualMachine) StorageDevices() (foundation.INSArray, error) {
 	return v._storageDevices(), nil
 }
 func (v VZVirtualMachine) State() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("state"))
 	return rv
 }
 func (v VZVirtualMachine) SetState(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setState:"), value)
 }
 
 // _createCore is a synchronous wrapper around [VZVirtualMachine._createCoreWithCompletionHandler].
@@ -831,6 +853,21 @@ func (v VZVirtualMachine) _createCore(ctx context.Context) error {
 func (v VZVirtualMachine) _createCores(ctx context.Context) error {
 	done := make(chan error, 1)
 	v._createCoresWithCompletionHandler(func(err error) {
+		done <- err
+	})
+	select {
+	case err := <-done:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// _createSharedMemoryCoresWithOptions is a synchronous wrapper around [VZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (v VZVirtualMachine) _createSharedMemoryCoresWithOptions(ctx context.Context, options unsafe.Pointer) error {
+	done := make(chan error, 1)
+	v._createSharedMemoryCoresWithOptionsCompletionHandler(options, func(err error) {
 		done <- err
 	})
 	select {

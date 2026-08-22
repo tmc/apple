@@ -41,7 +41,7 @@ func (dc DIUserDataParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIUserDataParamsClass) Alloc() DIUserDataParams {
-	rv := objc.Send[DIUserDataParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIUserDataParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,36 +84,39 @@ type IDIUserDataParams interface {
 
 // Init initializes the instance.
 func (d DIUserDataParams) Init() DIUserDataParams {
-	rv := objc.Send[DIUserDataParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIUserDataParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIUserDataParams) Autorelease() DIUserDataParams {
-	rv := objc.Send[DIUserDataParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIUserDataParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIUserDataParams creates a new DIUserDataParams instance.
 func NewDIUserDataParams() DIUserDataParams {
 	class := getDIUserDataParamsClass()
-	rv := objc.Send[DIUserDataParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIUserDataParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIUserDataParamsWithCoder(coder objectivec.IObject) DIUserDataParams {
 	instance := getDIUserDataParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIUserDataParamsFromID(rv)
 }
 
 func NewDIUserDataParamsWithURLError(url foundation.NSURL) (DIUserDataParams, error) {
 	var errorPtr objc.ID
 	instance := getDIUserDataParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIUserDataParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIUserDataParams{}, objc.ErrInitFailed
 	}
 	return DIUserDataParamsFromID(rv), nil
 }
@@ -146,9 +149,9 @@ func (d DIUserDataParams) RetrieveWithError() (bool, error) {
 }
 
 func (d DIUserDataParams) UserDict() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("userDict"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("userDict"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DIUserDataParams) SetUserDict(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setUserDict:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setUserDict:"), value)
 }

@@ -5,7 +5,9 @@ package texttospeech
 import (
 	"context"
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
@@ -42,7 +44,7 @@ func (tc TTSWrappedAudioQueueClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSWrappedAudioQueueClass) Alloc() TTSWrappedAudioQueue {
-	rv := objc.Send[TTSWrappedAudioQueue](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueue](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -204,9 +206,9 @@ type ITTSWrappedAudioQueue interface {
 	AudioQueueActive() bool
 	AudioQueueFlags() uint32
 	SetAudioQueueFlags(value uint32)
-	BufferCallback(callback AudioQueueBuffer)
-	CachedAudioConverter() avfaudio.AVAudioConverter
-	SetCachedAudioConverter(value avfaudio.AVAudioConverter)
+	BufferCallback(callback audiotoolbox.AudioQueueBuffer)
+	CachedAudioConverter() unsafe.Pointer
+	SetCachedAudioConverter(value unsafe.Pointer)
 	CallbackQueue() objectivec.Object
 	SetCallbackQueue(value objectivec.Object)
 	ConvertBufferIfNecessary(necessary objectivec.IObject) objectivec.IObject
@@ -247,25 +249,25 @@ type ITTSWrappedAudioQueue interface {
 
 // Init initializes the instance.
 func (t TTSWrappedAudioQueue) Init() TTSWrappedAudioQueue {
-	rv := objc.Send[TTSWrappedAudioQueue](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueue](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSWrappedAudioQueue) Autorelease() TTSWrappedAudioQueue {
-	rv := objc.Send[TTSWrappedAudioQueue](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueue](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSWrappedAudioQueue creates a new TTSWrappedAudioQueue instance.
 func NewTTSWrappedAudioQueue() TTSWrappedAudioQueue {
 	class := getTTSWrappedAudioQueueClass()
-	rv := objc.Send[TTSWrappedAudioQueue](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSWrappedAudioQueue) _attemptQueueStart() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_attemptQueueStart"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("_attemptQueueStart"))
 	return rv
 }
 
@@ -283,7 +285,7 @@ func (t TTSWrappedAudioQueue) CanAttemptQueueStart() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_attemptQueueStart"))
 }
 func (t TTSWrappedAudioQueue) _buildAudioQueue() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_buildAudioQueue"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_buildAudioQueue"))
 }
 
 // BuildAudioQueue is an exported wrapper for the private method _buildAudioQueue.
@@ -301,7 +303,7 @@ func (t TTSWrappedAudioQueue) CanBuildAudioQueue() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_buildAudioQueue"))
 }
 func (t TTSWrappedAudioQueue) _configureEffects() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_configureEffects"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_configureEffects"))
 }
 
 // ConfigureEffects is an exported wrapper for the private method _configureEffects.
@@ -319,7 +321,7 @@ func (t TTSWrappedAudioQueue) CanConfigureEffects() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_configureEffects"))
 }
 func (t TTSWrappedAudioQueue) _initializeDSPGraphAU() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_initializeDSPGraphAU"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_initializeDSPGraphAU"))
 }
 
 // InitializeDSPGraphAU is an exported wrapper for the private method _initializeDSPGraphAU.
@@ -337,7 +339,7 @@ func (t TTSWrappedAudioQueue) CanInitializeDSPGraphAU() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_initializeDSPGraphAU"))
 }
 func (t TTSWrappedAudioQueue) _minimumBufferByteSize() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("_minimumBufferByteSize"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("_minimumBufferByteSize"))
 	return rv
 }
 
@@ -355,7 +357,7 @@ func (t TTSWrappedAudioQueue) CanMinimumBufferByteSize() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_minimumBufferByteSize"))
 }
 func (t TTSWrappedAudioQueue) _rebuildAudioQueue() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_rebuildAudioQueue"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_rebuildAudioQueue"))
 }
 
 // RebuildAudioQueue is an exported wrapper for the private method _rebuildAudioQueue.
@@ -373,7 +375,7 @@ func (t TTSWrappedAudioQueue) CanRebuildAudioQueue() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_rebuildAudioQueue"))
 }
 func (t TTSWrappedAudioQueue) _reconfigureQueueFormatForMultiChannelOutputIfNecessary() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary"))
 }
 
 // ReconfigureQueueFormatForMultiChannelOutputIfNecessary is an exported wrapper for the private method _reconfigureQueueFormatForMultiChannelOutputIfNecessary.
@@ -391,7 +393,7 @@ func (t TTSWrappedAudioQueue) CanReconfigureQueueFormatForMultiChannelOutputIfNe
 	return objc.RespondsToSelector(t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary"))
 }
 func (t TTSWrappedAudioQueue) _startQueueWithRetry() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_startQueueWithRetry"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("_startQueueWithRetry"))
 	return rv
 }
 
@@ -409,7 +411,7 @@ func (t TTSWrappedAudioQueue) CanStartQueueWithRetry() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_startQueueWithRetry"))
 }
 func (t TTSWrappedAudioQueue) _syncGraphParameters() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_syncGraphParameters"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_syncGraphParameters"))
 }
 
 // SyncGraphParameters is an exported wrapper for the private method _syncGraphParameters.
@@ -427,7 +429,7 @@ func (t TTSWrappedAudioQueue) CanSyncGraphParameters() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphParameters"))
 }
 func (t TTSWrappedAudioQueue) _syncGraphProperties() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_syncGraphProperties"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_syncGraphProperties"))
 }
 
 // SyncGraphProperties is an exported wrapper for the private method _syncGraphProperties.
@@ -445,7 +447,7 @@ func (t TTSWrappedAudioQueue) CanSyncGraphProperties() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphProperties"))
 }
 func (t TTSWrappedAudioQueue) _tearDownAudioQueue() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_tearDownAudioQueue"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_tearDownAudioQueue"))
 }
 
 // TearDownAudioQueue is an exported wrapper for the private method _tearDownAudioQueue.
@@ -463,7 +465,7 @@ func (t TTSWrappedAudioQueue) CanTearDownAudioQueue() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_tearDownAudioQueue"))
 }
 func (t TTSWrappedAudioQueue) _tearDownDSPGraphAU() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_tearDownDSPGraphAU"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_tearDownDSPGraphAU"))
 }
 
 // TearDownDSPGraphAU is an exported wrapper for the private method _tearDownDSPGraphAU.
@@ -480,169 +482,169 @@ func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() error {
 func (t TTSWrappedAudioQueue) CanTearDownDSPGraphAU() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_tearDownDSPGraphAU"))
 }
-func (t TTSWrappedAudioQueue) BufferCallback(callback AudioQueueBuffer) {
-	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
+func (t TTSWrappedAudioQueue) BufferCallback(callback audiotoolbox.AudioQueueBuffer) {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
 func (t TTSWrappedAudioQueue) ConvertBufferIfNecessary(necessary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("convertBufferIfNecessary:"), necessary)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("convertBufferIfNecessary:"), necessary)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSWrappedAudioQueue) HandleMediaServicesReset() {
-	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesReset"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleMediaServicesReset"))
 }
 func (t TTSWrappedAudioQueue) IsRunning() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isRunning"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isRunning"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) Pause() {
-	objc.Send[objc.ID](t.ID, objc.Sel("pause"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("pause"))
 }
 func (t TTSWrappedAudioQueue) Play() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("play"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("play"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) PlayBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("playBuffer:completionHandler:"), buffer, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("playBuffer:completionHandler:"), buffer, _block1)
 }
 func (t TTSWrappedAudioQueue) QueueStreamDescription() coreaudiotypes.AudioStreamBasicDescription {
-	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](t.ID, objc.Sel("queueStreamDescription"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioStreamBasicDescription](t.ID, objc.Sel("queueStreamDescription"))
 	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
 func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:"), buffer, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:"), buffer, _block1)
 }
 func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler ErrorHandler, buffer2 bool) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:lastBuffer:"), buffer, _block1, buffer2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:lastBuffer:"), buffer, _block1, buffer2)
 }
 func (t TTSWrappedAudioQueue) Stop() {
-	objc.Send[objc.ID](t.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stop"))
 }
 
 func (t TTSWrappedAudioQueue) AqRef() OpaqueAudioQueueRef {
-	rv := objc.Send[OpaqueAudioQueueRef](t.ID, objc.Sel("aqRef"))
+	rv := objc.SendIfResponds[OpaqueAudioQueueRef](t.ID, objc.Sel("aqRef"))
 	return OpaqueAudioQueueRef(rv)
 }
 func (t TTSWrappedAudioQueue) SetAqRef(value OpaqueAudioQueueRef) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAqRef:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAqRef:"), value)
 }
 func (t TTSWrappedAudioQueue) AudioDevice() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioDevice"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioDevice"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetAudioDevice(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
 }
 func (t TTSWrappedAudioQueue) AudioQueueActive() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("audioQueueActive"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("audioQueueActive"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) AudioQueueFlags() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetAudioQueueFlags(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
-func (t TTSWrappedAudioQueue) CachedAudioConverter() avfaudio.AVAudioConverter {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("cachedAudioConverter"))
-	return avfaudio.AVAudioConverterFromID(objc.ID(rv))
+func (t TTSWrappedAudioQueue) CachedAudioConverter() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("cachedAudioConverter"))
+	return rv
 }
-func (t TTSWrappedAudioQueue) SetCachedAudioConverter(value avfaudio.AVAudioConverter) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCachedAudioConverter:"), value)
+func (t TTSWrappedAudioQueue) SetCachedAudioConverter(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCachedAudioConverter:"), value)
 }
 func (t TTSWrappedAudioQueue) CallbackQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("callbackQueue"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("callbackQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetCallbackQueue(value objectivec.Object) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCallbackQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCallbackQueue:"), value)
 }
 func (t TTSWrappedAudioQueue) CurrentSilenceBufferCount() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("currentSilenceBufferCount"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("currentSilenceBufferCount"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetCurrentSilenceBufferCount(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCurrentSilenceBufferCount:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCurrentSilenceBufferCount:"), value)
 }
 func (t TTSWrappedAudioQueue) DspGraph() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("dspGraph"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("dspGraph"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSWrappedAudioQueue) SetDspGraph(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setDspGraph:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setDspGraph:"), objc.String(value))
 }
 func (t TTSWrappedAudioQueue) GraphParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("graphParameters"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("graphParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetGraphParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGraphParameters:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGraphParameters:"), value)
 }
 func (t TTSWrappedAudioQueue) GraphProperties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("graphProperties"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("graphProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetGraphProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGraphProperties:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGraphProperties:"), value)
 }
 func (t TTSWrappedAudioQueue) InflightBuffers() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("inflightBuffers"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("inflightBuffers"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetInflightBuffers(value foundation.INSOrderedSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setInflightBuffers:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setInflightBuffers:"), value)
 }
 func (t TTSWrappedAudioQueue) NeedsParameterSync() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("needsParameterSync"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("needsParameterSync"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetNeedsParameterSync(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setNeedsParameterSync:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setNeedsParameterSync:"), value)
 }
 func (t TTSWrappedAudioQueue) NeedsPropertySync() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("needsPropertySync"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("needsPropertySync"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetNeedsPropertySync(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setNeedsPropertySync:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setNeedsPropertySync:"), value)
 }
 func (t TTSWrappedAudioQueue) OutputFormat() ITTSAudioFormat {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputFormat"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("outputFormat"))
 	return TTSAudioFormatFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetOutputFormat(value ITTSAudioFormat) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOutputFormat:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOutputFormat:"), value)
 }
 func (t TTSWrappedAudioQueue) ProcNodeRef() OpaqueATAudioProcessingNodeRef {
-	rv := objc.Send[OpaqueATAudioProcessingNodeRef](t.ID, objc.Sel("procNodeRef"))
+	rv := objc.SendIfResponds[OpaqueATAudioProcessingNodeRef](t.ID, objc.Sel("procNodeRef"))
 	return OpaqueATAudioProcessingNodeRef(rv)
 }
 func (t TTSWrappedAudioQueue) SetProcNodeRef(value OpaqueATAudioProcessingNodeRef) {
-	objc.Send[struct{}](t.ID, objc.Sel("setProcNodeRef:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setProcNodeRef:"), value)
 }
 func (t TTSWrappedAudioQueue) QueueFormat() avfaudio.AVAudioFormat {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("queueFormat"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("queueFormat"))
 	return avfaudio.AVAudioFormatFromID(objc.ID(rv))
 }
 func (t TTSWrappedAudioQueue) SetQueueFormat(value avfaudio.AVAudioFormat) {
-	objc.Send[struct{}](t.ID, objc.Sel("setQueueFormat:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setQueueFormat:"), value)
 }
 func (t TTSWrappedAudioQueue) ShouldRebuildAudioQueue() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldRebuildAudioQueue"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldRebuildAudioQueue"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetShouldRebuildAudioQueue(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldRebuildAudioQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldRebuildAudioQueue:"), value)
 }
 func (t TTSWrappedAudioQueue) State() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("state"))
 	return rv
 }
 func (t TTSWrappedAudioQueue) SetState(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setState:"), value)
 }
 
 // PlayBuffer is a synchronous wrapper around [TTSWrappedAudioQueue.PlayBufferCompletionHandler].

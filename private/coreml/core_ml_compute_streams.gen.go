@@ -38,7 +38,7 @@ func (cc CoreMLComputeStreamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLComputeStreamsClass) Alloc() CoreMLComputeStreams {
-	rv := objc.Send[CoreMLComputeStreams](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLComputeStreams](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLComputeStreamsFromID(id objc.ID) CoreMLComputeStreams {
 	return CoreMLComputeStreams{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLComputeStreams struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLComputeStreams embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLComputeStreams implements ICoreMLComputeStreams.
+var _ ICoreMLComputeStreams = CoreMLComputeStreams{}
 
 // An interface definition for the [CoreMLComputeStreams] class.
 type ICoreMLComputeStreams interface {
@@ -61,19 +61,19 @@ type ICoreMLComputeStreams interface {
 
 // Init initializes the instance.
 func (c CoreMLComputeStreams) Init() CoreMLComputeStreams {
-	rv := objc.Send[CoreMLComputeStreams](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLComputeStreams](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLComputeStreams) Autorelease() CoreMLComputeStreams {
-	rv := objc.Send[CoreMLComputeStreams](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLComputeStreams](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLComputeStreams creates a new CoreMLComputeStreams instance.
 func NewCoreMLComputeStreams() CoreMLComputeStreams {
 	class := getCoreMLComputeStreamsClass()
-	rv := objc.Send[CoreMLComputeStreams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLComputeStreams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -40,14 +40,14 @@ func (vc VZNetworkDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
-	rv := objc.Send[VZNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
-//   - [VZNetworkDeviceAttachment._init]
 //   - [VZNetworkDeviceAttachment._attachment]
+//   - [VZNetworkDeviceAttachment._init]
 //   - [VZNetworkDeviceAttachment.DebugDescription]
 //   - [VZNetworkDeviceAttachment.Description]
 //   - [VZNetworkDeviceAttachment.Hash]
@@ -68,8 +68,8 @@ var _ IVZNetworkDeviceAttachment = VZNetworkDeviceAttachment{}
 //
 // # Methods
 //
-//   - [IVZNetworkDeviceAttachment._init]
 //   - [IVZNetworkDeviceAttachment._attachment]
+//   - [IVZNetworkDeviceAttachment._init]
 //   - [IVZNetworkDeviceAttachment.DebugDescription]
 //   - [IVZNetworkDeviceAttachment.Description]
 //   - [IVZNetworkDeviceAttachment.Hash]
@@ -79,8 +79,8 @@ type IVZNetworkDeviceAttachment interface {
 
 	// Topic: Methods
 
-	_init() objectivec.IObject
 	_attachment() unsafe.Pointer
+	_init() objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -89,30 +89,30 @@ type IVZNetworkDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZNetworkDeviceAttachment) Init() VZNetworkDeviceAttachment {
-	rv := objc.Send[VZNetworkDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZNetworkDeviceAttachment) Autorelease() VZNetworkDeviceAttachment {
-	rv := objc.Send[VZNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZNetworkDeviceAttachment creates a new VZNetworkDeviceAttachment instance.
 func NewVZNetworkDeviceAttachment() VZNetworkDeviceAttachment {
 	class := getVZNetworkDeviceAttachmentClass()
-	rv := objc.Send[VZNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZNetworkDeviceAttachment) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZNetworkDeviceAttachment) _attachment() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZNetworkDeviceAttachment) Attachment() (unsafe.Pointer, error) {
 	return v._attachment(), nil
 }
 func (v VZNetworkDeviceAttachment) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZNetworkDeviceAttachment) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZNetworkDeviceAttachment) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZNetworkDeviceAttachment) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -39,7 +39,7 @@ func (vc VZSpiceAgentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSpiceAgentClass) Alloc() VZSpiceAgent {
-	rv := objc.Send[VZSpiceAgent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSpiceAgent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,43 +88,43 @@ type IVZSpiceAgent interface {
 
 // Init initializes the instance.
 func (v VZSpiceAgent) Init() VZSpiceAgent {
-	rv := objc.Send[VZSpiceAgent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSpiceAgent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSpiceAgent) Autorelease() VZSpiceAgent {
-	rv := objc.Send[VZSpiceAgent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSpiceAgent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSpiceAgent creates a new VZSpiceAgent instance.
 func NewVZSpiceAgent() VZSpiceAgent {
 	class := getVZSpiceAgentClass()
-	rv := objc.Send[VZSpiceAgent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSpiceAgent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSpiceAgent) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
 }
 func (v VZSpiceAgent) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
 }
 
 func (v VZSpiceAgent) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSpiceAgent) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSpiceAgent) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZSpiceAgent) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -40,7 +40,7 @@ func (mc MLFeatureProviderConformerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureProviderConformerClass) Alloc() MLFeatureProviderConformer {
-	rv := objc.Send[MLFeatureProviderConformer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureProviderConformer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,26 +98,26 @@ type IMLFeatureProviderConformer interface {
 
 // Init initializes the instance.
 func (m MLFeatureProviderConformer) Init() MLFeatureProviderConformer {
-	rv := objc.Send[MLFeatureProviderConformer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureProviderConformer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureProviderConformer) Autorelease() MLFeatureProviderConformer {
-	rv := objc.Send[MLFeatureProviderConformer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureProviderConformer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureProviderConformer creates a new MLFeatureProviderConformer instance.
 func NewMLFeatureProviderConformer() MLFeatureProviderConformer {
 	class := getMLFeatureProviderConformerClass()
-	rv := objc.Send[MLFeatureProviderConformer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureProviderConformer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFeatureProviderConformerWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
 	instance := getMLFeatureProviderConformerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
 	return MLFeatureProviderConformerFromID(rv)
 }
 
@@ -146,7 +146,7 @@ func (m MLFeatureProviderConformer) CanFabricateFeatureForDescriptionError() boo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_fabricateFeatureForDescription:error:"))
 }
 func (m MLFeatureProviderConformer) _sequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:"), named)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:"), named)
 	return rv
 }
 
@@ -174,27 +174,27 @@ func (m MLFeatureProviderConformer) ConformFeaturesError(features objectivec.IOb
 
 }
 func (m MLFeatureProviderConformer) InitWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
-	rv := objc.Send[MLFeatureProviderConformer](m.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
+	rv := objc.SendIfResponds[MLFeatureProviderConformer](m.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
 	return rv
 }
 
 func (m MLFeatureProviderConformer) DefaultValues() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defaultValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFeatureProviderConformer) FeatureDescriptions() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureDescriptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureDescriptions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFeatureProviderConformer) OptionalInputTypes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFeatureProviderConformer) PassthroughStateFeatures() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("passthroughStateFeatures"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("passthroughStateFeatures"))
 	return rv
 }
 func (m MLFeatureProviderConformer) UsingRank5Mapping() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usingRank5Mapping"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usingRank5Mapping"))
 	return rv
 }

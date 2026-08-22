@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSStringTaggerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSStringTaggerClass) Alloc() TextToSpeechTTSStringTagger {
-	rv := objc.Send[TextToSpeechTTSStringTagger](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSStringTagger](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSStringTaggerFromID(id objc.ID) TextToSpeechTTSStringTagger {
 	return TextToSpeechTTSStringTagger{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSStringTagger struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSStringTagger embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSStringTagger implements ITextToSpeechTTSStringTagger.
+var _ ITextToSpeechTTSStringTagger = TextToSpeechTTSStringTagger{}
 
 // An interface definition for the [TextToSpeechTTSStringTagger] class.
 type ITextToSpeechTTSStringTagger interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSStringTagger interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSStringTagger) Init() TextToSpeechTTSStringTagger {
-	rv := objc.Send[TextToSpeechTTSStringTagger](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSStringTagger](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSStringTagger) Autorelease() TextToSpeechTTSStringTagger {
-	rv := objc.Send[TextToSpeechTTSStringTagger](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSStringTagger](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSStringTagger creates a new TextToSpeechTTSStringTagger instance.
 func NewTextToSpeechTTSStringTagger() TextToSpeechTTSStringTagger {
 	class := getTextToSpeechTTSStringTaggerClass()
-	rv := objc.Send[TextToSpeechTTSStringTagger](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSStringTagger](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

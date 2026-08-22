@@ -40,7 +40,7 @@ func (mc MLTreeEnsembleRegressorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTreeEnsembleRegressorClass) Alloc() MLTreeEnsembleRegressor {
-	rv := objc.Send[MLTreeEnsembleRegressor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTreeEnsembleRegressor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,8 +64,8 @@ func MLTreeEnsembleRegressorFromID(id objc.ID) MLTreeEnsembleRegressor {
 	return MLTreeEnsembleRegressor{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLTreeEnsembleRegressor struct embeds objectivec.Object (parent type unavailable) but
-// IMLTreeEnsembleRegressor embeds the parent interface; skip compile-time assertion.
+// Ensure MLTreeEnsembleRegressor implements IMLTreeEnsembleRegressor.
+var _ IMLTreeEnsembleRegressor = MLTreeEnsembleRegressor{}
 
 // An interface definition for the [MLTreeEnsembleRegressor] class.
 //
@@ -81,7 +81,7 @@ func MLTreeEnsembleRegressorFromID(id objc.ID) MLTreeEnsembleRegressor {
 //   - [IMLTreeEnsembleRegressor.Hash]
 //   - [IMLTreeEnsembleRegressor.Superclass]
 type IMLTreeEnsembleRegressor interface {
-	IMLRegressor
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -98,25 +98,25 @@ type IMLTreeEnsembleRegressor interface {
 
 // Init initializes the instance.
 func (m MLTreeEnsembleRegressor) Init() MLTreeEnsembleRegressor {
-	rv := objc.Send[MLTreeEnsembleRegressor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTreeEnsembleRegressor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTreeEnsembleRegressor) Autorelease() MLTreeEnsembleRegressor {
-	rv := objc.Send[MLTreeEnsembleRegressor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTreeEnsembleRegressor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTreeEnsembleRegressor creates a new MLTreeEnsembleRegressor instance.
 func NewMLTreeEnsembleRegressor() MLTreeEnsembleRegressor {
 	class := getMLTreeEnsembleRegressorClass()
-	rv := objc.Send[MLTreeEnsembleRegressor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTreeEnsembleRegressor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLTreeEnsembleRegressor) ModelData() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("modelData"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
 func (m MLTreeEnsembleRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -130,7 +130,7 @@ func (m MLTreeEnsembleRegressor) RegressOptionsError(regress objectivec.IObject,
 
 }
 func (m MLTreeEnsembleRegressor) ScalarRegress(regress []float64) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("scalarRegress:"), regress)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("scalarRegress:"), regress)
 	return rv
 }
 func (m MLTreeEnsembleRegressor) ScalarRegressError(regress objectivec.IObject) (float64, error) {
@@ -144,7 +144,7 @@ func (m MLTreeEnsembleRegressor) ScalarRegressError(regress objectivec.IObject) 
 
 }
 func (m MLTreeEnsembleRegressor) VectorRegressDest(regress []float64, dest []float64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("vectorRegress:dest:"), regress, dest)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("vectorRegress:dest:"), regress, dest)
 }
 
 func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
@@ -199,18 +199,18 @@ func (_MLTreeEnsembleRegressorClass MLTreeEnsembleRegressorClass) LoadModelFromS
 }
 
 func (m MLTreeEnsembleRegressor) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleRegressor) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleRegressor) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLTreeEnsembleRegressor) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (sc SLSEventAuthenticationMessageEventTypeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSEventAuthenticationMessageEventTypeClass) Alloc() SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,84 +92,84 @@ type ISLSEventAuthenticationMessageEventType interface {
 	HidType() uint32
 	IsCGType() bool
 	InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageEventType
-	InitWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType
+	InitWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType
 	InitWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType
 }
 
 // Init initializes the instance.
 func (s SLSEventAuthenticationMessageEventType) Init() SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSEventAuthenticationMessageEventType) Autorelease() SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSEventAuthenticationMessageEventType creates a new SLSEventAuthenticationMessageEventType instance.
 func NewSLSEventAuthenticationMessageEventType() SLSEventAuthenticationMessageEventType {
 	class := getSLSEventAuthenticationMessageEventTypeClass()
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSEventAuthenticationMessageEventTypeWithCoder(coder objectivec.IObject) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
-func NewSLSEventAuthenticationMessageEventTypeWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
+func NewSLSEventAuthenticationMessageEventTypeWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:"), record)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:"), unsafe.Pointer(record))
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
 func NewSLSEventAuthenticationMessageEventTypeWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType {
 	instance := getSLSEventAuthenticationMessageEventTypeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
 	return SLSEventAuthenticationMessageEventTypeFromID(rv)
 }
 
 func (s SLSEventAuthenticationMessageEventType) AddToSigningContext(context objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
 }
 func (s SLSEventAuthenticationMessageEventType) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSEventAuthenticationMessageEventType) InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (s SLSEventAuthenticationMessageEventType) InitWithEventRecord(record SLSEventRecord) SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithEventRecord:"), record)
+func (s SLSEventAuthenticationMessageEventType) InitWithEventRecord(record *SLSEventRecord) SLSEventAuthenticationMessageEventType {
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithEventRecord:"), unsafe.Pointer(record))
 	return rv
 }
 func (s SLSEventAuthenticationMessageEventType) InitWithHIDTypeCgTypeCgSubType(hIDType uint32, type_ uint32, type_2 uint64) SLSEventAuthenticationMessageEventType {
-	rv := objc.Send[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageEventType](s.ID, objc.Sel("initWithHIDType:cgType:cgSubType:"), hIDType, type_, type_2)
 	return rv
 }
 
 func (_SLSEventAuthenticationMessageEventTypeClass SLSEventAuthenticationMessageEventTypeClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSEventAuthenticationMessageEventTypeClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSEventAuthenticationMessageEventTypeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (s SLSEventAuthenticationMessageEventType) CgSubType() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("cgSubType"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("cgSubType"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageEventType) CgType() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("cgType"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("cgType"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageEventType) HidType() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("hidType"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("hidType"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageEventType) IsCGType() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isCGType"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isCGType"))
 	return rv
 }

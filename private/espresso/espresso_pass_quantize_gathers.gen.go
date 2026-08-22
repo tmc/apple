@@ -37,7 +37,7 @@ func (ec EspressoPassQuantizeGathersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassQuantizeGathersClass) Alloc() EspressoPassQuantizeGathers {
-	rv := objc.Send[EspressoPassQuantizeGathers](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassQuantizeGathers](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassQuantizeGathers interface {
 
 // Init initializes the instance.
 func (e EspressoPassQuantizeGathers) Init() EspressoPassQuantizeGathers {
-	rv := objc.Send[EspressoPassQuantizeGathers](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassQuantizeGathers](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassQuantizeGathers) Autorelease() EspressoPassQuantizeGathers {
-	rv := objc.Send[EspressoPassQuantizeGathers](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassQuantizeGathers](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassQuantizeGathers creates a new EspressoPassQuantizeGathers instance.
 func NewEspressoPassQuantizeGathers() EspressoPassQuantizeGathers {
 	class := getEspressoPassQuantizeGathersClass()
-	rv := objc.Send[EspressoPassQuantizeGathers](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassQuantizeGathers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

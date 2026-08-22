@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (sc SLSSkyLightGestureEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSkyLightGestureEventAuthenticationMessageClass) Alloc() SLSSkyLightGestureEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightGestureEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSkyLightGestureEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,52 +76,52 @@ type ISLSSkyLightGestureEventAuthenticationMessage interface {
 
 // Init initializes the instance.
 func (s SLSSkyLightGestureEventAuthenticationMessage) Init() SLSSkyLightGestureEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightGestureEventAuthenticationMessage](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSkyLightGestureEventAuthenticationMessage](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSkyLightGestureEventAuthenticationMessage) Autorelease() SLSSkyLightGestureEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightGestureEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSkyLightGestureEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSkyLightGestureEventAuthenticationMessage creates a new SLSSkyLightGestureEventAuthenticationMessage instance.
 func NewSLSSkyLightGestureEventAuthenticationMessage() SLSSkyLightGestureEventAuthenticationMessage {
 	class := getSLSSkyLightGestureEventAuthenticationMessageClass()
-	rv := objc.Send[SLSSkyLightGestureEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSkyLightGestureEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSkyLightGestureEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
 func NewSLSSkyLightGestureEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
 func (s SLSSkyLightGestureEventAuthenticationMessage) GestureHidType() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("gestureHidType"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("gestureHidType"))
 	return rv
 }
 func (s SLSSkyLightGestureEventAuthenticationMessage) GesturePhase() byte {
-	rv := objc.Send[byte](s.ID, objc.Sel("gesturePhase"))
+	rv := objc.SendIfResponds[byte](s.ID, objc.Sel("gesturePhase"))
 	return rv
 }

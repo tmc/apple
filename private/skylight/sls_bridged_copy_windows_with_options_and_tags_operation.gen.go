@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -40,7 +39,7 @@ func (sc SLSBridgedCopyWindowsWithOptionsAndTagsOperationClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyWindowsWithOptionsAndTagsOperationClass) Alloc() SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
-	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,70 +80,70 @@ type ISLSBridgedCopyWindowsWithOptionsAndTagsOperation interface {
 
 	// Topic: Methods
 
-	GetClearedTags(tags unsafe.Pointer)
-	GetSetTags(tags unsafe.Pointer)
+	GetClearedTags(tags [2]uint32)
+	GetSetTags(tags [2]uint32)
 	MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject
 	Options() uint32
 	Owner() uint32
 	Spaces() foundation.INSArray
-	InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation
+	InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags [2]uint32, tags2 [2]uint32) SLSBridgedCopyWindowsWithOptionsAndTagsOperation
 }
 
 // Init initializes the instance.
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Init() SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
-	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Autorelease() SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
-	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyWindowsWithOptionsAndTagsOperation creates a new SLSBridgedCopyWindowsWithOptionsAndTagsOperation instance.
 func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperation() SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	class := getSLSBridgedCopyWindowsWithOptionsAndTagsOperationClass()
-	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	instance := getSLSBridgedCopyWindowsWithOptionsAndTagsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyWindowsWithOptionsAndTagsOperationFromID(rv)
 }
 
-func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
+func NewSLSBridgedCopyWindowsWithOptionsAndTagsOperationWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags [2]uint32, tags2 [2]uint32) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
 	instance := getSLSBridgedCopyWindowsWithOptionsAndTagsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
 	return SLSBridgedCopyWindowsWithOptionsAndTagsOperationFromID(rv)
 }
 
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetClearedTags(tags unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("getClearedTags:"), tags)
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetClearedTags(tags [2]uint32) {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("getClearedTags:"), tags)
 }
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetSetTags(tags unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("getSetTags:"), tags)
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) GetSetTags(tags [2]uint32) {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("getSetTags:"), tags)
 }
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags unsafe.Pointer, tags2 unsafe.Pointer) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
-	rv := objc.Send[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
+func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) InitWithOwnerSpacesOptionsSetTagsClearedTags(owner uint32, spaces objectivec.IObject, options uint32, tags [2]uint32, tags2 [2]uint32) SLSBridgedCopyWindowsWithOptionsAndTagsOperation {
+	rv := objc.SendIfResponds[SLSBridgedCopyWindowsWithOptionsAndTagsOperation](s.ID, objc.Sel("initWithOwner:spaces:options:setTags:clearedTags:"), owner, spaces, options, tags, tags2)
 	return rv
 }
 
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Options() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Owner() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("owner"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("owner"))
 	return rv
 }
 func (s SLSBridgedCopyWindowsWithOptionsAndTagsOperation) Spaces() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

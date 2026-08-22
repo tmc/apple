@@ -39,7 +39,7 @@ func (vc VZCustomVirtioDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomVirtioDeviceConfigurationClass) Alloc() VZCustomVirtioDeviceConfiguration {
-	rv := objc.Send[VZCustomVirtioDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -166,25 +166,25 @@ type IVZCustomVirtioDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZCustomVirtioDeviceConfiguration) Init() VZCustomVirtioDeviceConfiguration {
-	rv := objc.Send[VZCustomVirtioDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomVirtioDeviceConfiguration) Autorelease() VZCustomVirtioDeviceConfiguration {
-	rv := objc.Send[VZCustomVirtioDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomVirtioDeviceConfiguration creates a new VZCustomVirtioDeviceConfiguration instance.
 func NewVZCustomVirtioDeviceConfiguration() VZCustomVirtioDeviceConfiguration {
 	class := getVZCustomVirtioDeviceConfigurationClass()
-	rv := objc.Send[VZCustomVirtioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomVirtioDeviceConfiguration) _PCIDeviceID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("_PCIDeviceID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("_PCIDeviceID"))
 	return rv
 }
 
@@ -202,7 +202,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanPCIDeviceID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIDeviceID"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("_PCISubsystemID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("_PCISubsystemID"))
 	return rv
 }
 
@@ -220,7 +220,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemID"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemVendorID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("_PCISubsystemVendorID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("_PCISubsystemVendorID"))
 	return rv
 }
 
@@ -238,7 +238,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemVendorID"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _PCIVendorID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("_PCIVendorID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("_PCIVendorID"))
 	return rv
 }
 
@@ -256,7 +256,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanPCIVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIVendorID"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPCIDeviceID(id uint16) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPCIDeviceID:"), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPCIDeviceID:"), id)
 }
 
 // SetPCIDeviceID is an exported wrapper for the private method _setPCIDeviceID.
@@ -274,7 +274,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPCIDeviceID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIDeviceID:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemID(id uint16) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPCISubsystemID:"), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPCISubsystemID:"), id)
 }
 
 // SetPCISubsystemID is an exported wrapper for the private method _setPCISubsystemID.
@@ -292,7 +292,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemID:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemVendorID(id uint16) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPCISubsystemVendorID:"), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPCISubsystemVendorID:"), id)
 }
 
 // SetPCISubsystemVendorID is an exported wrapper for the private method _setPCISubsystemVendorID.
@@ -310,7 +310,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemVendorID:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPCIVendorID(id uint16) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPCIVendorID:"), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPCIVendorID:"), id)
 }
 
 // SetPCIVendorID is an exported wrapper for the private method _setPCIVendorID.
@@ -328,7 +328,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPCIVendorID() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIVendorID:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPluginName(name objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPluginName:"), name)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPluginName:"), name)
 }
 
 // SetPluginName is an exported wrapper for the private method _setPluginName.
@@ -346,7 +346,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPluginName() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginName:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setPluginPersonality(personality objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPluginPersonality:"), personality)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPluginPersonality:"), personality)
 }
 
 // SetPluginPersonality is an exported wrapper for the private method _setPluginPersonality.
@@ -364,7 +364,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPluginPersonality() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginPersonality:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _setSupportsSaveRestore(restore bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setSupportsSaveRestore:"), restore)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSupportsSaveRestore:"), restore)
 }
 
 // SetSupportsSaveRestore is an exported wrapper for the private method _setSupportsSaveRestore.
@@ -382,7 +382,7 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetSupportsSaveRestore() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:"))
 }
 func (v VZCustomVirtioDeviceConfiguration) _supportsSaveRestore() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_supportsSaveRestore"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_supportsSaveRestore"))
 	return rv
 }
 
@@ -400,36 +400,36 @@ func (v VZCustomVirtioDeviceConfiguration) CanSupportsSaveRestore() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore"))
 }
 func (v VZCustomVirtioDeviceConfiguration) MandatoryFeaturesAtIndex(index uint64) uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("mandatoryFeaturesAtIndex:"), index)
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("mandatoryFeaturesAtIndex:"), index)
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) OptionalFeaturesAtIndex(index uint64) uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("optionalFeaturesAtIndex:"), index)
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("optionalFeaturesAtIndex:"), index)
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) SetMandatoryFeaturesAtIndex(features uint32, index uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setMandatoryFeatures:atIndex:"), features, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setMandatoryFeatures:atIndex:"), features, index)
 }
 func (v VZCustomVirtioDeviceConfiguration) SetOptionalFeaturesAtIndex(features uint32, index uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setOptionalFeatures:atIndex:"), features, index)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setOptionalFeatures:atIndex:"), features, index)
 }
 
 func (v VZCustomVirtioDeviceConfiguration) PCIClassID() byte {
-	rv := objc.Send[byte](v.ID, objc.Sel("PCIClassID"))
+	rv := objc.SendIfResponds[byte](v.ID, objc.Sel("PCIClassID"))
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) SetPCIClassID(value byte) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPCIClassID:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setPCIClassID:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) PCISubclassID() byte {
-	rv := objc.Send[byte](v.ID, objc.Sel("PCISubclassID"))
+	rv := objc.SendIfResponds[byte](v.ID, objc.Sel("PCISubclassID"))
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) SetPCISubclassID(value byte) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPCISubclassID:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setPCISubclassID:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) _pluginName() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginName"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -446,10 +446,10 @@ func (v VZCustomVirtioDeviceConfiguration) PluginName() (string, error) {
 	return v._pluginName(), nil
 }
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginName(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_pluginName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_pluginName:"), objc.String(value))
 }
 func (v VZCustomVirtioDeviceConfiguration) _pluginPersonality() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginPersonality"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -466,33 +466,33 @@ func (v VZCustomVirtioDeviceConfiguration) PluginPersonality() (string, error) {
 	return v._pluginPersonality(), nil
 }
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginPersonality(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_pluginPersonality:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_pluginPersonality:"), objc.String(value))
 }
 func (v VZCustomVirtioDeviceConfiguration) DeviceID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("deviceID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("deviceID"))
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) SetDeviceID(value uint16) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDeviceID:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDeviceID:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceSpecificConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("deviceSpecificConfiguration"))
 	return VZVirtioDeviceSpecificConfigurationFromID(objc.ID(rv))
 }
 func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) Provider() IVZCustomVirtioDeviceProvider {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("provider"))
 	return VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
 }
 func (v VZCustomVirtioDeviceConfiguration) SetProvider(value IVZCustomVirtioDeviceProvider) {
-	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) VirtioQueueCount() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("virtioQueueCount"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("virtioQueueCount"))
 	return rv
 }
 func (v VZCustomVirtioDeviceConfiguration) SetVirtioQueueCount(value uint16) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVirtioQueueCount:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setVirtioQueueCount:"), value)
 }

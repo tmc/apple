@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSettingsClass) Alloc() TextToSpeechTTSSettings {
-	rv := objc.Send[TextToSpeechTTSSettings](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSettings](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSSettingsFromID(id objc.ID) TextToSpeechTTSSettings {
 	return TextToSpeechTTSSettings{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSSettings struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSSettings embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSSettings implements ITextToSpeechTTSSettings.
+var _ ITextToSpeechTTSSettings = TextToSpeechTTSSettings{}
 
 // An interface definition for the [TextToSpeechTTSSettings] class.
 type ITextToSpeechTTSSettings interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSSettings interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSettings) Init() TextToSpeechTTSSettings {
-	rv := objc.Send[TextToSpeechTTSSettings](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSettings](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSettings) Autorelease() TextToSpeechTTSSettings {
-	rv := objc.Send[TextToSpeechTTSSettings](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSettings](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSettings creates a new TextToSpeechTTSSettings instance.
 func NewTextToSpeechTTSSettings() TextToSpeechTTSSettings {
 	class := getTextToSpeechTTSSettingsClass()
-	rv := objc.Send[TextToSpeechTTSSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

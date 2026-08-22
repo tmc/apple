@@ -38,7 +38,7 @@ func (vc VZUSBKeyboardClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBKeyboardClass) Alloc() VZUSBKeyboard {
-	rv := objc.Send[VZUSBKeyboard](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBKeyboard](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,36 +72,36 @@ type IVZUSBKeyboard interface {
 
 // Init initializes the instance.
 func (v VZUSBKeyboard) Init() VZUSBKeyboard {
-	rv := objc.Send[VZUSBKeyboard](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBKeyboard](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBKeyboard) Autorelease() VZUSBKeyboard {
-	rv := objc.Send[VZUSBKeyboard](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBKeyboard](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBKeyboard creates a new VZUSBKeyboard instance.
 func NewVZUSBKeyboard() VZUSBKeyboard {
 	class := getVZUSBKeyboardClass()
-	rv := objc.Send[VZUSBKeyboard](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBKeyboard](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZUSBKeyboardWithConfiguration(configuration objectivec.IObject) VZUSBKeyboard {
 	instance := getVZUSBKeyboardClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return VZUSBKeyboardFromID(rv)
 }
 
 func NewVZUSBKeyboardWithTypeVirtualMachineDeviceIdentifier(type_ int64, machine objectivec.IObject, identifier uint32) VZUSBKeyboard {
 	instance := getVZUSBKeyboardClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:deviceIdentifier:"), type_, machine, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:deviceIdentifier:"), type_, machine, identifier)
 	return VZUSBKeyboardFromID(rv)
 }
 
 func (v VZUSBKeyboard) InitWithConfiguration(configuration objectivec.IObject) VZUSBKeyboard {
-	rv := objc.Send[VZUSBKeyboard](v.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[VZUSBKeyboard](v.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return rv
 }

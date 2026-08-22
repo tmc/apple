@@ -41,7 +41,7 @@ func (mc MLPipelineLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPipelineLoaderClass) Alloc() MLPipelineLoader {
-	rv := objc.Send[MLPipelineLoader](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPipelineLoader](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,20 +84,20 @@ type IMLPipelineLoader interface {
 
 // Init initializes the instance.
 func (m MLPipelineLoader) Init() MLPipelineLoader {
-	rv := objc.Send[MLPipelineLoader](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPipelineLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPipelineLoader) Autorelease() MLPipelineLoader {
-	rv := objc.Send[MLPipelineLoader](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPipelineLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPipelineLoader creates a new MLPipelineLoader instance.
 func NewMLPipelineLoader() MLPipelineLoader {
 	class := getMLPipelineLoaderClass()
-	rv := objc.Send[MLPipelineLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPipelineLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -136,18 +136,18 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelFromCompiledArchive
 }
 
 func (m MLPipelineLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPipelineLoader) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPipelineLoader) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLPipelineLoader) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

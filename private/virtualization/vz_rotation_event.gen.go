@@ -38,7 +38,7 @@ func (vc VZRotationEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZRotationEventClass) Alloc() VZRotationEvent {
-	rv := objc.Send[VZRotationEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZRotationEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,49 +81,49 @@ type IVZRotationEvent interface {
 
 // Init initializes the instance.
 func (v VZRotationEvent) Init() VZRotationEvent {
-	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZRotationEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZRotationEvent) Autorelease() VZRotationEvent {
-	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZRotationEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZRotationEvent creates a new VZRotationEvent instance.
 func NewVZRotationEvent() VZRotationEvent {
 	class := getVZRotationEventClass()
-	rv := objc.Send[VZRotationEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZRotationEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZRotationEventWithEvent(event objectivec.IObject) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZRotationEventFromID(rv)
 }
 
 func NewVZRotationEventWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
 	return VZRotationEventFromID(rv)
 }
 
 func (v VZRotationEvent) InitWithEvent(event objectivec.IObject) VZRotationEvent {
-	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[VZRotationEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
 func (v VZRotationEvent) InitWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
-	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
+	rv := objc.SendIfResponds[VZRotationEvent](v.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
 	return rv
 }
 
 func (v VZRotationEvent) Phase() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("phase"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("phase"))
 	return rv
 }
 func (v VZRotationEvent) Rotation() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("rotation"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("rotation"))
 	return rv
 }

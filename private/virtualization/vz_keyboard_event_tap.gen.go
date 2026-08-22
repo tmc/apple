@@ -38,7 +38,7 @@ func (vc VZKeyboardEventTapClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZKeyboardEventTapClass) Alloc() VZKeyboardEventTap {
-	rv := objc.Send[VZKeyboardEventTap](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZKeyboardEventTap](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZKeyboardEventTap interface {
 
 // Init initializes the instance.
 func (v VZKeyboardEventTap) Init() VZKeyboardEventTap {
-	rv := objc.Send[VZKeyboardEventTap](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZKeyboardEventTap](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZKeyboardEventTap) Autorelease() VZKeyboardEventTap {
-	rv := objc.Send[VZKeyboardEventTap](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZKeyboardEventTap](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZKeyboardEventTap creates a new VZKeyboardEventTap instance.
 func NewVZKeyboardEventTap() VZKeyboardEventTap {
 	class := getVZKeyboardEventTapClass()
-	rv := objc.Send[VZKeyboardEventTap](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZKeyboardEventTap](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

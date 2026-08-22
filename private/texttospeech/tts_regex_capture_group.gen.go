@@ -39,7 +39,7 @@ func (tc TTSRegexCaptureGroupClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexCaptureGroupClass) Alloc() TTSRegexCaptureGroup {
-	rv := objc.Send[TTSRegexCaptureGroup](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRegexCaptureGroup](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,27 +76,27 @@ type ITTSRegexCaptureGroup interface {
 
 // Init initializes the instance.
 func (t TTSRegexCaptureGroup) Init() TTSRegexCaptureGroup {
-	rv := objc.Send[TTSRegexCaptureGroup](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRegexCaptureGroup](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRegexCaptureGroup) Autorelease() TTSRegexCaptureGroup {
-	rv := objc.Send[TTSRegexCaptureGroup](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRegexCaptureGroup](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRegexCaptureGroup creates a new TTSRegexCaptureGroup instance.
 func NewTTSRegexCaptureGroup() TTSRegexCaptureGroup {
 	class := getTTSRegexCaptureGroupClass()
-	rv := objc.Send[TTSRegexCaptureGroup](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRegexCaptureGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSRegexCaptureGroup) Utf8Range() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
 	return foundation.NSRange(rv)
 }
 func (t TTSRegexCaptureGroup) SetUtf8Range(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
 }

@@ -40,7 +40,7 @@ func (dc DIIOIteratorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIIOIteratorClass) Alloc() DIIOIterator {
-	rv := objc.Send[DIIOIterator](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIIOIterator](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,88 +83,94 @@ type IDIIOIterator interface {
 
 // Init initializes the instance.
 func (d DIIOIterator) Init() DIIOIterator {
-	rv := objc.Send[DIIOIterator](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIIOIterator](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIIOIterator) Autorelease() DIIOIterator {
-	rv := objc.Send[DIIOIterator](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIIOIterator](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIIOIterator creates a new DIIOIterator instance.
 func NewDIIOIterator() DIIOIterator {
 	class := getDIIOIteratorClass()
-	rv := objc.Send[DIIOIterator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIIOIterator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIIOIteratorWithClassNameError(name objectivec.IObject) (DIIOIterator, error) {
 	var errorPtr objc.ID
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOIterator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOIterator{}, objc.ErrInitFailed
 	}
 	return DIIOIteratorFromID(rv), nil
 }
 
 func NewDIIOIteratorWithDIIOObject(dIIOObject objectivec.IObject) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return DIIOIteratorFromID(rv)
 }
 
 func NewDIIOIteratorWithIOIteratorRetain(iOIterator uint32, retain bool) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOIterator:retain:"), iOIterator, retain)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOIterator:retain:"), iOIterator, retain)
 	return DIIOIteratorFromID(rv)
 }
 
 func NewDIIOIteratorWithIOObject(iOObject uint32) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return DIIOIteratorFromID(rv)
 }
 
 func NewDIIOIteratorWithIOObjectRetain(iOObject uint32, retain bool) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return DIIOIteratorFromID(rv)
 }
 
 func NewDIIOIteratorWithIteratorNext(next objectivec.IObject) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
 	return DIIOIteratorFromID(rv)
 }
 
 func NewDIIOIteratorWithRegistryEntryIDError(id uint64) (DIIOIterator, error) {
 	var errorPtr objc.ID
 	instance := getDIIOIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOIterator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOIterator{}, objc.ErrInitFailed
 	}
 	return DIIOIteratorFromID(rv), nil
 }
 
 func (d DIIOIterator) CopyNextObject() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("copyNextObject"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("copyNextObject"))
 	return rv
 }
 func (d DIIOIterator) InitWithIOIteratorRetain(iOIterator uint32, retain bool) DIIOIterator {
-	rv := objc.Send[DIIOIterator](d.ID, objc.Sel("initWithIOIterator:retain:"), iOIterator, retain)
+	rv := objc.SendIfResponds[DIIOIterator](d.ID, objc.Sel("initWithIOIterator:retain:"), iOIterator, retain)
 	return rv
 }
 
 func (d DIIOIterator) StartedOver() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("startedOver"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("startedOver"))
 	return rv
 }
 func (d DIIOIterator) SetStartedOver(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setStartedOver:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setStartedOver:"), value)
 }

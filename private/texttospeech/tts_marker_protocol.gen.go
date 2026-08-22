@@ -11,6 +11,9 @@ import (
 type TTSMarker interface {
 	objectivec.IObject
 
+	// AvMark protocol.
+	AvMark() objectivec.IObject
+
 	// ByteOffset protocol.
 	ByteOffset() int64
 
@@ -39,17 +42,17 @@ func TTSMarkerObjectFromID(id objc.ID) TTSMarkerObject {
 }
 
 func (o TTSMarkerObject) AvMark() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("avMark"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("avMark"))
 	return objectivec.Object{ID: rv}
 }
 func (o TTSMarkerObject) ByteOffset() int64 {
-	rv := objc.Send[int64](o.ID, objc.Sel("byteOffset"))
+	rv := objc.SendIfResponds[int64](o.ID, objc.Sel("byteOffset"))
 	return rv
 }
 func (o TTSMarkerObject) MarkType() int64 {
-	rv := objc.Send[int64](o.ID, objc.Sel("markType"))
+	rv := objc.SendIfResponds[int64](o.ID, objc.Sel("markType"))
 	return rv
 }
 func (o TTSMarkerObject) SetByteOffset(offset int64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setByteOffset:"), offset)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setByteOffset:"), offset)
 }

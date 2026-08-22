@@ -40,7 +40,7 @@ func (tc TTSAudioFormatClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioFormatClass) Alloc() TTSAudioFormat {
-	rv := objc.Send[TTSAudioFormat](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAudioFormat](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,67 +98,67 @@ type ITTSAudioFormat interface {
 
 // Init initializes the instance.
 func (t TTSAudioFormat) Init() TTSAudioFormat {
-	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAudioFormat](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAudioFormat) Autorelease() TTSAudioFormat {
-	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAudioFormat](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAudioFormat creates a new TTSAudioFormat instance.
 func NewTTSAudioFormat() TTSAudioFormat {
 	class := getTTSAudioFormatClass()
-	rv := objc.Send[TTSAudioFormat](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAudioFormat](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSAudioFormatWithStreamDescription(description coreaudiotypes.AudioStreamBasicDescription) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), description)
 	return TTSAudioFormatFromID(rv)
 }
 
 func NewTTSAudioFormatWithStreamDescriptionChannelLayoutTag(description coreaudiotypes.AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
 	return TTSAudioFormatFromID(rv)
 }
 
 func (t TTSAudioFormat) InitWithStreamDescription(description coreaudiotypes.AudioStreamBasicDescription) TTSAudioFormat {
-	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:"), description)
+	rv := objc.SendIfResponds[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:"), description)
 	return rv
 }
 func (t TTSAudioFormat) InitWithStreamDescriptionChannelLayoutTag(description coreaudiotypes.AudioStreamBasicDescription, tag uint32) TTSAudioFormat {
-	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
+	rv := objc.SendIfResponds[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
 	return rv
 }
 
 func (t TTSAudioFormat) AvFormat() avfaudio.AVAudioFormat {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("avFormat"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("avFormat"))
 	return avfaudio.AVAudioFormatFromID(objc.ID(rv))
 }
 func (t TTSAudioFormat) ChannelCount() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("channelCount"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("channelCount"))
 	return rv
 }
 func (t TTSAudioFormat) ChannelLayoutTag() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("channelLayoutTag"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("channelLayoutTag"))
 	return rv
 }
 func (t TTSAudioFormat) SetChannelLayoutTag(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannelLayoutTag:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannelLayoutTag:"), value)
 }
 func (t TTSAudioFormat) SampleRate() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("sampleRate"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("sampleRate"))
 	return rv
 }
 func (t TTSAudioFormat) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
-	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](t.ID, objc.Sel("streamDescription"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioStreamBasicDescription](t.ID, objc.Sel("streamDescription"))
 	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
 func (t TTSAudioFormat) SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription) {
-	objc.Send[struct{}](t.ID, objc.Sel("setStreamDescription:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setStreamDescription:"), value)
 }

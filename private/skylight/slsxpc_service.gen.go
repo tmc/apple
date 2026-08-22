@@ -40,7 +40,7 @@ func (sc SLSXPCServiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSXPCServiceClass) Alloc() SLSXPCService {
-	rv := objc.Send[SLSXPCService](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSXPCService](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -185,172 +185,184 @@ type ISLSXPCService interface {
 
 // Init initializes the instance.
 func (s SLSXPCService) Init() SLSXPCService {
-	rv := objc.Send[SLSXPCService](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSXPCService](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSXPCService) Autorelease() SLSXPCService {
-	rv := objc.Send[SLSXPCService](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSXPCService](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSXPCService creates a new SLSXPCService instance.
 func NewSLSXPCService() SLSXPCService {
 	class := getSLSXPCServiceClass()
-	rv := objc.Send[SLSXPCService](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSXPCService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSXPCService) CfStringToCStringPtr(ptr objectivec.IObject) string {
-	rv := objc.Send[*byte](s.ID, objc.Sel("cfStringToCStringPtr:"), ptr)
+	rv := objc.SendIfResponds[*byte](s.ID, objc.Sel("cfStringToCStringPtr:"), ptr)
 	return objc.GoString(rv)
 }
 func (s SLSXPCService) CreateCancellableMachRecvSourceWithQueueErrorCancelAction(queue objectivec.IObject, error_ []objectivec.IObject, action VoidHandler) objectivec.IObject {
 	_block2, _ := NewVoidBlock(action)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:error:cancelAction:"), queue, error_, _block2)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:error:cancelAction:"), queue, error_, _block2)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler(queue objectivec.IObject, handler VoidHandler, handler2 VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
 	_block2, _ := NewVoidBlock(handler2)
-	objc.Send[objc.ID](s.ID, objc.Sel("createNoSenderRecvPairWithQueue:errorHandler:eventHandler:"), queue, _block1, _block2)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createNoSenderRecvPairWithQueue:errorHandler:eventHandler:"), queue, _block1, _block2)
 }
 func (s SLSXPCService) CreateXPCDictionary(xPCDictionary uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCDictionary:"), xPCDictionary)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCDictionary:"), xPCDictionary)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) GetConnectionQueue() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("getConnectionQueue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("getConnectionQueue"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) HandleXPCEvent(xPCEvent objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("handleXPCEvent:"), xPCEvent)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("handleXPCEvent:"), xPCEvent)
 }
 func (s SLSXPCService) MakeNSErrorForCGError(cGError int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeNSErrorForCGError:"), cGError)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeNSErrorForCGError:"), cGError)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) MakeNSErrorForCocoaError(error_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeNSErrorForCocoaError:"), error_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeNSErrorForCocoaError:"), error_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) MakeNSErrorForMachError(error_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeNSErrorForMachError:"), error_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeNSErrorForMachError:"), error_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) MakeNSErrorForOSStatus(oSStatus int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeNSErrorForOSStatus:"), oSStatus)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeNSErrorForOSStatus:"), oSStatus)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) MakeNSErrorForPOSIXError(pOSIXError int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeNSErrorForPOSIXError:"), pOSIXError)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeNSErrorForPOSIXError:"), pOSIXError)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSXPCService) ReinitConnection() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("reinitConnection"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("reinitConnection"))
 	return rv
 }
 func (s SLSXPCService) SendNSError(nSError objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("sendNSError:"), nSError)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sendNSError:"), nSError)
 }
 func (s SLSXPCService) SendXPCConnectionClosed() int {
-	rv := objc.Send[int](s.ID, objc.Sel("sendXPCConnectionClosed"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendXPCConnectionClosed"))
 	return rv
 }
 func (s SLSXPCService) SendXPCDictionary(xPCDictionary objectivec.IObject) int {
-	rv := objc.Send[int](s.ID, objc.Sel("sendXPCDictionary:"), xPCDictionary)
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendXPCDictionary:"), xPCDictionary)
 	return rv
 }
 func (s SLSXPCService) SendXPCDictionarySync(sync objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sendXPCDictionarySync:"), sync)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sendXPCDictionarySync:"), sync)
 	return objectivec.Object{ID: rv}
 }
+
+var _slsxpcservice_setclienterrorblock_p0_key byte
+
 func (s SLSXPCService) SetClientErrorBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setClientErrorBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setClientErrorBlock:"), _block0)
 }
+
+var _slsxpcservice_setclientnotificationblock_p0_key byte
+
 func (s SLSXPCService) SetClientNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setClientNotificationBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setClientNotificationBlock:"), _block0)
 }
+
+var _slsxpcservice_seterrorblock_p0_key byte
+
 func (s SLSXPCService) SetErrorBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setErrorBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setErrorBlock:"), _block0)
 }
+
+var _slsxpcservice_setnotificationblock_p0_key byte
+
 func (s SLSXPCService) SetNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setNotificationBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setNotificationBlock:"), _block0)
 }
 func (s SLSXPCService) InitConnectionWithNameNotificationQueueWithAutoreconnectErrorHandlerNotificationBlock(name objectivec.IObject, queue objectivec.IObject, autoreconnect bool, handler VoidHandler, block VoidHandler) SLSXPCService {
 	_block3, _ := NewVoidBlock(handler)
 	_block4, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSXPCService](s.ID, objc.Sel("initConnectionWithName:notificationQueue:withAutoreconnect:errorHandler:notificationBlock:"), name, queue, autoreconnect, _block3, _block4)
+	rv := objc.SendIfResponds[SLSXPCService](s.ID, objc.Sel("initConnectionWithName:notificationQueue:withAutoreconnect:errorHandler:notificationBlock:"), name, queue, autoreconnect, _block3, _block4)
 	return rv
 }
 func (s SLSXPCService) InitWithConnectionErrorHandlerNotificationBlock(connection objectivec.IObject, handler VoidHandler, block VoidHandler) SLSXPCService {
 	_block1, _ := NewVoidBlock(handler)
 	_block2, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSXPCService](s.ID, objc.Sel("initWithConnection:errorHandler:notificationBlock:"), connection, _block1, _block2)
+	rv := objc.SendIfResponds[SLSXPCService](s.ID, objc.Sel("initWithConnection:errorHandler:notificationBlock:"), connection, _block1, _block2)
 	return rv
 }
 
 func (s SLSXPCService) Autoreconnect() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("autoreconnect"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("autoreconnect"))
 	return rv
 }
 func (s SLSXPCService) SetAutoreconnect(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAutoreconnect:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAutoreconnect:"), value)
 }
 func (s SLSXPCService) Connected() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("connected"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("connected"))
 	return rv
 }
 func (s SLSXPCService) SetConnected(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConnected:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setConnected:"), value)
 }
 func (s SLSXPCService) Connection() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLSXPCService) SetConnection(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConnection:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setConnection:"), value)
 }
 func (s SLSXPCService) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSXPCService) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSXPCService) Enabled() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("enabled"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("enabled"))
 	return rv
 }
 func (s SLSXPCService) SetEnabled(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEnabled:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEnabled:"), value)
 }
 func (s SLSXPCService) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSXPCService) NotifyQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("notifyQueue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("notifyQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLSXPCService) SetNotifyQueue(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setNotifyQueue:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setNotifyQueue:"), value)
 }
 func (s SLSXPCService) SetTarget() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("setTarget"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("setTarget"))
 	return rv
 }
 func (s SLSXPCService) SetSetTarget(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSetTarget:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSetTarget:"), value)
 }
 func (s SLSXPCService) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 

@@ -41,7 +41,7 @@ func (mc MLModelIOUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelIOUtilsClass) Alloc() MLModelIOUtils {
-	rv := objc.Send[MLModelIOUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelIOUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,29 +64,29 @@ type IMLModelIOUtils interface {
 
 // Init initializes the instance.
 func (m MLModelIOUtils) Init() MLModelIOUtils {
-	rv := objc.Send[MLModelIOUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelIOUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelIOUtils) Autorelease() MLModelIOUtils {
-	rv := objc.Send[MLModelIOUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelIOUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelIOUtils creates a new MLModelIOUtils instance.
 func NewMLModelIOUtils() MLModelIOUtils {
 	class := getMLModelIOUtilsClass()
-	rv := objc.Send[MLModelIOUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelIOUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DefaultFunctionNameFromDescriptionSpecification(specification unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("defaultFunctionNameFromDescriptionSpecification:"), specification)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("defaultFunctionNameFromDescriptionSpecification:"), specification)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DescriptionFromProto(proto unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("descriptionFromProto:"), proto)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("descriptionFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeInterfaceFormatArchiveError(format unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
@@ -123,15 +123,15 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeVersionInfoFromArchiv
 
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) FeatureDescriptionsFromProto(proto unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("featureDescriptionsFromProto:"), proto)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("featureDescriptionsFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) FunctionDescriptionsFromDescriptionSpecification(specification unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("functionDescriptionsFromDescriptionSpecification:"), specification)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("functionDescriptionsFromDescriptionSpecification:"), specification)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) InputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("inputDescriptionFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("inputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) LoadFromModelSpecificationInArchiveWithClassVersionInfoConfigurationError(archive unsafe.Pointer, class objectivec.Class, info objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -145,47 +145,47 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) LoadFromModelSpecificationInArch
 
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedFeatureNamesFromInterfaceForInput(interface_ unsafe.Pointer, input bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedFeatureNamesFromInterface:forInput:"), interface_, input)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedFeatureNamesFromInterface:forInput:"), interface_, input)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedInputFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedInputFeatureNamesFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedInputFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedNamesFromProto(proto unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedNamesFromProto:"), proto)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedNamesFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedOutputFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedOutputFeatureNamesFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedOutputFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedStateFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedStateFeatureNamesFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedStateFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OutputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("outputDescriptionFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("outputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForArrayFeatureTypeDataTypeConstraintClassDefaultOptionalValue(type_ unsafe.Pointer, type_2 int64, class objectivec.Class, value objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForArrayFeatureType:dataType:constraintClass:defaultOptionalValue:"), type_, type_2, class, value)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForArrayFeatureType:dataType:constraintClass:defaultOptionalValue:"), type_, type_2, class, value)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForFeatureDescription(description unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForFeatureDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForFeatureDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForImageFeatureDescription(description unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForImageFeatureDescriptionElement(element unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescriptionElement:"), element)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescriptionElement:"), element)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) RangeFromAllowedSizeRangeProtoMessage(message unsafe.Pointer) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("rangeFromAllowedSizeRangeProtoMessage:"), message)
+	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("rangeFromAllowedSizeRangeProtoMessage:"), message)
 	return foundation.NSRange(rv)
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeInterfaceFormatArchiveError(format unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
@@ -248,11 +248,11 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SpecificationURLFromModelAtURLEr
 
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) StateDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("stateDescriptionFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("stateDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) TrainingInputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("trainingInputDescriptionFromInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("trainingInputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) VersionForSerializedSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {

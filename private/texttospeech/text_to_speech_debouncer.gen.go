@@ -38,7 +38,7 @@ func (tc TextToSpeechDebouncerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechDebouncerClass) Alloc() TextToSpeechDebouncer {
-	rv := objc.Send[TextToSpeechDebouncer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechDebouncer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechDebouncerFromID(id objc.ID) TextToSpeechDebouncer {
 	return TextToSpeechDebouncer{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechDebouncer struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechDebouncer embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechDebouncer implements ITextToSpeechDebouncer.
+var _ ITextToSpeechDebouncer = TextToSpeechDebouncer{}
 
 // An interface definition for the [TextToSpeechDebouncer] class.
 type ITextToSpeechDebouncer interface {
@@ -61,19 +61,19 @@ type ITextToSpeechDebouncer interface {
 
 // Init initializes the instance.
 func (t TextToSpeechDebouncer) Init() TextToSpeechDebouncer {
-	rv := objc.Send[TextToSpeechDebouncer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechDebouncer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechDebouncer) Autorelease() TextToSpeechDebouncer {
-	rv := objc.Send[TextToSpeechDebouncer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechDebouncer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechDebouncer creates a new TextToSpeechDebouncer instance.
 func NewTextToSpeechDebouncer() TextToSpeechDebouncer {
 	class := getTextToSpeechDebouncerClass()
-	rv := objc.Send[TextToSpeechDebouncer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechDebouncer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

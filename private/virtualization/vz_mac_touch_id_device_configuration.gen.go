@@ -37,7 +37,7 @@ func (vc VZMacTouchIDDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacTouchIDDeviceConfigurationClass) Alloc() VZMacTouchIDDeviceConfiguration {
-	rv := objc.Send[VZMacTouchIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacTouchIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZMacTouchIDDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacTouchIDDeviceConfiguration) Init() VZMacTouchIDDeviceConfiguration {
-	rv := objc.Send[VZMacTouchIDDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacTouchIDDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacTouchIDDeviceConfiguration) Autorelease() VZMacTouchIDDeviceConfiguration {
-	rv := objc.Send[VZMacTouchIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacTouchIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacTouchIDDeviceConfiguration creates a new VZMacTouchIDDeviceConfiguration instance.
 func NewVZMacTouchIDDeviceConfiguration() VZMacTouchIDDeviceConfiguration {
 	class := getVZMacTouchIDDeviceConfigurationClass()
-	rv := objc.Send[VZMacTouchIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacTouchIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLNeuralNetworksCompileTimeParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworksCompileTimeParamsClass) Alloc() MLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -123,37 +123,37 @@ type IMLNeuralNetworksCompileTimeParams interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworksCompileTimeParams) Init() MLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworksCompileTimeParams) Autorelease() MLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworksCompileTimeParams creates a new MLNeuralNetworksCompileTimeParams instance.
 func NewMLNeuralNetworksCompileTimeParams() MLNeuralNetworksCompileTimeParams {
 	class := getMLNeuralNetworksCompileTimeParamsClass()
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworksCompileTimeParamsWithCoder(coder objectivec.IObject) MLNeuralNetworksCompileTimeParams {
 	instance := getMLNeuralNetworksCompileTimeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNeuralNetworksCompileTimeParamsFromID(rv)
 }
 
 func NewNeuralNetworksCompileTimeParamsWithLossTypeOptimizerTypeOptimizerParametersLossParametersTrainableLayerNamesUpdateParameters(type_ int64, type_2 int64, parameters objectivec.IObject, parameters2 objectivec.IObject, names objectivec.IObject, parameters3 objectivec.IObject) MLNeuralNetworksCompileTimeParams {
 	instance := getMLNeuralNetworksCompileTimeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLossType:optimizerType:optimizerParameters:lossParameters:trainableLayerNames:updateParameters:"), type_, type_2, parameters, parameters2, names, parameters3)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLossType:optimizerType:optimizerParameters:lossParameters:trainableLayerNames:updateParameters:"), type_, type_2, parameters, parameters2, names, parameters3)
 	return MLNeuralNetworksCompileTimeParamsFromID(rv)
 }
 
 func (m MLNeuralNetworksCompileTimeParams) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLNeuralNetworksCompileTimeParams) UnarchiveUpdatableParamsAtURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -179,58 +179,58 @@ func (m MLNeuralNetworksCompileTimeParams) WriteUpdatableParamsToURLError(url fo
 
 }
 func (m MLNeuralNetworksCompileTimeParams) InitWithCoder(coder foundation.INSCoder) MLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (m MLNeuralNetworksCompileTimeParams) InitWithLossTypeOptimizerTypeOptimizerParametersLossParametersTrainableLayerNamesUpdateParameters(type_ int64, type_2 int64, parameters objectivec.IObject, parameters2 objectivec.IObject, names objectivec.IObject, parameters3 objectivec.IObject) MLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("initWithLossType:optimizerType:optimizerParameters:lossParameters:trainableLayerNames:updateParameters:"), type_, type_2, parameters, parameters2, names, parameters3)
+	rv := objc.SendIfResponds[MLNeuralNetworksCompileTimeParams](m.ID, objc.Sel("initWithLossType:optimizerType:optimizerParameters:lossParameters:trainableLayerNames:updateParameters:"), type_, type_2, parameters, parameters2, names, parameters3)
 	return rv
 }
 
 func (_MLNeuralNetworksCompileTimeParamsClass MLNeuralNetworksCompileTimeParamsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLNeuralNetworksCompileTimeParamsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLNeuralNetworksCompileTimeParamsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLNeuralNetworksCompileTimeParams) LossParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lossParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworksCompileTimeParams) SetLossParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLossParameters:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLossParameters:"), value)
 }
 func (m MLNeuralNetworksCompileTimeParams) LossType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("lossType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("lossType"))
 	return rv
 }
 func (m MLNeuralNetworksCompileTimeParams) SetLossType(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLossType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLossType:"), value)
 }
 func (m MLNeuralNetworksCompileTimeParams) OptimizerParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optimizerParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optimizerParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworksCompileTimeParams) SetOptimizerParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOptimizerParameters:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOptimizerParameters:"), value)
 }
 func (m MLNeuralNetworksCompileTimeParams) OptimizerType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("optimizerType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("optimizerType"))
 	return rv
 }
 func (m MLNeuralNetworksCompileTimeParams) SetOptimizerType(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOptimizerType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOptimizerType:"), value)
 }
 func (m MLNeuralNetworksCompileTimeParams) TrainableLayerNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainableLayerNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("trainableLayerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworksCompileTimeParams) SetTrainableLayerNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrainableLayerNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTrainableLayerNames:"), value)
 }
 func (m MLNeuralNetworksCompileTimeParams) UpdateParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworksCompileTimeParams) SetUpdateParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUpdateParameters:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUpdateParameters:"), value)
 }

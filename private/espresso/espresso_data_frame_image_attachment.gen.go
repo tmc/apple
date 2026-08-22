@@ -4,10 +4,10 @@ package espresso
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [EspressoDataFrameImageAttachment] class.
@@ -39,7 +39,7 @@ func (ec EspressoDataFrameImageAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameImageAttachmentClass) Alloc() EspressoDataFrameImageAttachment {
-	rv := objc.Send[EspressoDataFrameImageAttachment](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrameImageAttachment](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,44 +72,44 @@ type IEspressoDataFrameImageAttachment interface {
 
 	// Topic: Methods
 
-	CopyAsImageGrayscaleOrBGRA() unsafe.Pointer
+	CopyAsImageGrayscaleOrBGRA() appleneuralengine.VImageBuffer
 	NChannels() int
 	SetNChannels(value int)
 }
 
 // Init initializes the instance.
 func (e EspressoDataFrameImageAttachment) Init() EspressoDataFrameImageAttachment {
-	rv := objc.Send[EspressoDataFrameImageAttachment](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrameImageAttachment](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrameImageAttachment) Autorelease() EspressoDataFrameImageAttachment {
-	rv := objc.Send[EspressoDataFrameImageAttachment](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrameImageAttachment](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrameImageAttachment creates a new EspressoDataFrameImageAttachment instance.
 func NewEspressoDataFrameImageAttachment() EspressoDataFrameImageAttachment {
 	class := getEspressoDataFrameImageAttachmentClass()
-	rv := objc.Send[EspressoDataFrameImageAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrameImageAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (e EspressoDataFrameImageAttachment) CopyAsImageGrayscaleOrBGRA() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("copyAsImageGrayscaleOrBGRA"))
-	return rv
+func (e EspressoDataFrameImageAttachment) CopyAsImageGrayscaleOrBGRA() appleneuralengine.VImageBuffer {
+	rv := objc.SendIfResponds[appleneuralengine.VImageBuffer](e.ID, objc.Sel("copyAsImageGrayscaleOrBGRA"))
+	return appleneuralengine.VImageBuffer(rv)
 }
 
-func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentClass) CreateCVPixelBufferFromvImageWithPixelFormat(image unsafe.Pointer, format uint32) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_EspressoDataFrameImageAttachmentClass.class), objc.Sel("createCVPixelBufferFromvImage:withPixelFormat:"), image, format)
+func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentClass) CreateCVPixelBufferFromvImageWithPixelFormat(image appleneuralengine.VImageBuffer, format uint32) corevideo.CVImageBufferRef {
+	rv := objc.SendIfResponds[corevideo.CVImageBufferRef](objc.ID(_EspressoDataFrameImageAttachmentClass.class), objc.Sel("createCVPixelBufferFromvImage:withPixelFormat:"), image, format)
 	return corevideo.CVImageBufferRef(rv)
 }
 
 func (e EspressoDataFrameImageAttachment) NChannels() int {
-	rv := objc.Send[int](e.ID, objc.Sel("nChannels"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("nChannels"))
 	return rv
 }
 func (e EspressoDataFrameImageAttachment) SetNChannels(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNChannels:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNChannels:"), value)
 }

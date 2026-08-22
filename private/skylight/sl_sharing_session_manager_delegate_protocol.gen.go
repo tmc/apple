@@ -10,6 +10,21 @@ import (
 // SLSharingSessionManagerDelegate protocol.
 type SLSharingSessionManagerDelegate interface {
 	objectivec.IObject
+
+	// SharingSessionManagerPickerCanceledForSession protocol.
+	SharingSessionManagerPickerCanceledForSession(manager objectivec.IObject, session objectivec.IObject)
+
+	// SharingSessionManagerSessionDidBegin protocol.
+	SharingSessionManagerSessionDidBegin(manager objectivec.IObject, begin objectivec.IObject)
+
+	// SharingSessionManagerSessionDidChangeContent protocol.
+	SharingSessionManagerSessionDidChangeContent(manager objectivec.IObject, content objectivec.IObject)
+
+	// SharingSessionManagerSessionDidChangeMetaData protocol.
+	SharingSessionManagerSessionDidChangeMetaData(manager objectivec.IObject, data objectivec.IObject)
+
+	// SharingSessionManagerSessionDidEnd protocol.
+	SharingSessionManagerSessionDidEnd(manager objectivec.IObject, end objectivec.IObject)
 }
 
 // SLSharingSessionManagerDelegateObject wraps an existing Objective-C object that conforms to the SLSharingSessionManagerDelegate protocol.
@@ -30,17 +45,17 @@ func SLSharingSessionManagerDelegateObjectFromID(id objc.ID) SLSharingSessionMan
 }
 
 func (o SLSharingSessionManagerDelegateObject) SharingSessionManagerPickerCanceledForSession(manager objectivec.IObject, session objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("sharingSessionManager:pickerCanceledForSession:"), manager, session)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sharingSessionManager:pickerCanceledForSession:"), manager, session)
 }
 func (o SLSharingSessionManagerDelegateObject) SharingSessionManagerSessionDidBegin(manager objectivec.IObject, begin objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidBegin:"), manager, begin)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidBegin:"), manager, begin)
 }
 func (o SLSharingSessionManagerDelegateObject) SharingSessionManagerSessionDidChangeContent(manager objectivec.IObject, content objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidChangeContent:"), manager, content)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidChangeContent:"), manager, content)
 }
 func (o SLSharingSessionManagerDelegateObject) SharingSessionManagerSessionDidChangeMetaData(manager objectivec.IObject, data objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidChangeMetaData:"), manager, data)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidChangeMetaData:"), manager, data)
 }
 func (o SLSharingSessionManagerDelegateObject) SharingSessionManagerSessionDidEnd(manager objectivec.IObject, end objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidEnd:"), manager, end)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sharingSessionManager:sessionDidEnd:"), manager, end)
 }

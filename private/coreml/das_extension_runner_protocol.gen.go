@@ -11,6 +11,9 @@ import (
 type DASExtensionRunner interface {
 	objectivec.IObject
 
+	// PrepareForActivity protocol.
+	PrepareForActivity(activity objectivec.IObject) bool
+
 	// Start protocol.
 	Start() byte
 
@@ -36,13 +39,13 @@ func DASExtensionRunnerObjectFromID(id objc.ID) DASExtensionRunnerObject {
 }
 
 func (o DASExtensionRunnerObject) PrepareForActivity(activity objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("prepareForActivity:"), activity)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("prepareForActivity:"), activity)
 	return rv
 }
 func (o DASExtensionRunnerObject) Start() byte {
-	rv := objc.Send[byte](o.ID, objc.Sel("start"))
+	rv := objc.SendIfResponds[byte](o.ID, objc.Sel("start"))
 	return rv
 }
 func (o DASExtensionRunnerObject) Stop() {
-	objc.Send[struct{}](o.ID, objc.Sel("stop"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("stop"))
 }

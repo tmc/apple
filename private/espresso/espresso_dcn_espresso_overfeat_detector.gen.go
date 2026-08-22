@@ -40,7 +40,7 @@ func (ec EspressoDCNEspressoOverfeatDetectorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDCNEspressoOverfeatDetectorClass) Alloc() EspressoDCNEspressoOverfeatDetector {
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -48,7 +48,6 @@ func (ec EspressoDCNEspressoOverfeatDetectorClass) Alloc() EspressoDCNEspressoOv
 //
 //   - [EspressoDCNEspressoOverfeatDetector.CommonInit]
 //   - [EspressoDCNEspressoOverfeatDetector.CompareObjectWithObjectError]
-//   - [EspressoDCNEspressoOverfeatDetector.ComputeBBoxUsingProbBoxAndScalefactorPadXPadY]
 //   - [EspressoDCNEspressoOverfeatDetector.ConfidenceThreshold]
 //   - [EspressoDCNEspressoOverfeatDetector.SetConfidenceThreshold]
 //   - [EspressoDCNEspressoOverfeatDetector.Enet]
@@ -79,7 +78,6 @@ var _ IEspressoDCNEspressoOverfeatDetector = EspressoDCNEspressoOverfeatDetector
 //
 //   - [IEspressoDCNEspressoOverfeatDetector.CommonInit]
 //   - [IEspressoDCNEspressoOverfeatDetector.CompareObjectWithObjectError]
-//   - [IEspressoDCNEspressoOverfeatDetector.ComputeBBoxUsingProbBoxAndScalefactorPadXPadY]
 //   - [IEspressoDCNEspressoOverfeatDetector.ConfidenceThreshold]
 //   - [IEspressoDCNEspressoOverfeatDetector.SetConfidenceThreshold]
 //   - [IEspressoDCNEspressoOverfeatDetector.Enet]
@@ -99,7 +97,6 @@ type IEspressoDCNEspressoOverfeatDetector interface {
 
 	CommonInit()
 	CompareObjectWithObjectError(object objectivec.IObject, object2 objectivec.IObject) (float64, error)
-	ComputeBBoxUsingProbBoxAndScalefactorPadXPadY(prob unsafe.Pointer, box unsafe.Pointer, scalefactor float32, x float32, y float32)
 	ConfidenceThreshold() float64
 	SetConfidenceThreshold(value float64)
 	Enet() IEspressoFDOverfeatNetwork
@@ -116,37 +113,37 @@ type IEspressoDCNEspressoOverfeatDetector interface {
 
 // Init initializes the instance.
 func (e EspressoDCNEspressoOverfeatDetector) Init() EspressoDCNEspressoOverfeatDetector {
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDCNEspressoOverfeatDetector) Autorelease() EspressoDCNEspressoOverfeatDetector {
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDCNEspressoOverfeatDetector creates a new EspressoDCNEspressoOverfeatDetector instance.
 func NewEspressoDCNEspressoOverfeatDetector() EspressoDCNEspressoOverfeatDetector {
 	class := getEspressoDCNEspressoOverfeatDetectorClass()
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoDCNEspressoOverfeatDetectorWithNetwork(network objectivec.IObject) EspressoDCNEspressoOverfeatDetector {
 	instance := getEspressoDCNEspressoOverfeatDetectorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return EspressoDCNEspressoOverfeatDetectorFromID(rv)
 }
 
 func NewEspressoDCNEspressoOverfeatDetectorWithOptions(options objectivec.IObject) EspressoDCNEspressoOverfeatDetector {
 	instance := getEspressoDCNEspressoOverfeatDetectorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return EspressoDCNEspressoOverfeatDetectorFromID(rv)
 }
 
 func (e EspressoDCNEspressoOverfeatDetector) CommonInit() {
-	objc.Send[objc.ID](e.ID, objc.Sel("commonInit"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("commonInit"))
 }
 func (e EspressoDCNEspressoOverfeatDetector) CompareObjectWithObjectError(object objectivec.IObject, object2 objectivec.IObject) (float64, error) {
 	var errorPtr objc.ID
@@ -158,50 +155,47 @@ func (e EspressoDCNEspressoOverfeatDetector) CompareObjectWithObjectError(object
 	return rv, nil
 
 }
-func (e EspressoDCNEspressoOverfeatDetector) ComputeBBoxUsingProbBoxAndScalefactorPadXPadY(prob unsafe.Pointer, box unsafe.Pointer, scalefactor float32, x float32, y float32) {
-	objc.Send[objc.ID](e.ID, objc.Sel("computeBBoxUsingProb:box:andScalefactor:padX:padY:"), prob, box, scalefactor, x, y)
-}
 func (e EspressoDCNEspressoOverfeatDetector) FillFaceList() {
-	objc.Send[objc.ID](e.ID, objc.Sel("fillFaceList"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("fillFaceList"))
 }
 func (e EspressoDCNEspressoOverfeatDetector) GetDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getDescription"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getDescription"))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDCNEspressoOverfeatDetector) GetFacesFromNetworkResultOriginalWidthOriginalHeight(width float32, height float32) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getFacesFromNetworkResultOriginalWidth:originalHeight:"), width, height)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getFacesFromNetworkResultOriginalWidth:originalHeight:"), width, height)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDCNEspressoOverfeatDetector) MergeFaceList() {
-	objc.Send[objc.ID](e.ID, objc.Sel("mergeFaceList"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("mergeFaceList"))
 }
 func (e EspressoDCNEspressoOverfeatDetector) InitWithNetwork(network objectivec.IObject) EspressoDCNEspressoOverfeatDetector {
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
 }
 func (e EspressoDCNEspressoOverfeatDetector) InitWithOptions(options objectivec.IObject) EspressoDCNEspressoOverfeatDetector {
-	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
 func (e EspressoDCNEspressoOverfeatDetector) ConfidenceThreshold() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("confidenceThreshold"))
+	rv := objc.SendIfResponds[float64](e.ID, objc.Sel("confidenceThreshold"))
 	return rv
 }
 func (e EspressoDCNEspressoOverfeatDetector) SetConfidenceThreshold(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setConfidenceThreshold:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setConfidenceThreshold:"), value)
 }
 func (e EspressoDCNEspressoOverfeatDetector) Enet() IEspressoFDOverfeatNetwork {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("enet"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("enet"))
 	return EspressoFDOverfeatNetworkFromID(objc.ID(rv))
 }
 func (e EspressoDCNEspressoOverfeatDetector) SetEnet(value IEspressoFDOverfeatNetwork) {
-	objc.Send[struct{}](e.ID, objc.Sel("setEnet:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setEnet:"), value)
 }
 func (e EspressoDCNEspressoOverfeatDetector) MinBoundingBoxThreshold() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("minBoundingBoxThreshold"))
+	rv := objc.SendIfResponds[float64](e.ID, objc.Sel("minBoundingBoxThreshold"))
 	return rv
 }
 func (e EspressoDCNEspressoOverfeatDetector) SetMinBoundingBoxThreshold(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setMinBoundingBoxThreshold:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMinBoundingBoxThreshold:"), value)
 }

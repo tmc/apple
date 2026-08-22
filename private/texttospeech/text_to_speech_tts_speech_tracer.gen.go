@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSpeechTracerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSpeechTracerClass) Alloc() TextToSpeechTTSSpeechTracer {
-	rv := objc.Send[TextToSpeechTTSSpeechTracer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechTracer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,27 +75,27 @@ type ITextToSpeechTTSSpeechTracer interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSpeechTracer) Init() TextToSpeechTTSSpeechTracer {
-	rv := objc.Send[TextToSpeechTTSSpeechTracer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechTracer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSpeechTracer) Autorelease() TextToSpeechTTSSpeechTracer {
-	rv := objc.Send[TextToSpeechTTSSpeechTracer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechTracer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSpeechTracer creates a new TextToSpeechTTSSpeechTracer instance.
 func NewTextToSpeechTTSSpeechTracer() TextToSpeechTTSSpeechTracer {
 	class := getTextToSpeechTTSSpeechTracerClass()
-	rv := objc.Send[TextToSpeechTTSSpeechTracer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechTracer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechTTSSpeechTracer) EmitWithEventForIdentifier(event objectivec.IObject, identifier objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("emitWithEvent:forIdentifier:"), event, identifier)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("emitWithEvent:forIdentifier:"), event, identifier)
 }
 func (t TextToSpeechTTSSpeechTracer) MakeSpeechJobIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("makeSpeechJobIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("makeSpeechJobIdentifier"))
 	return objectivec.Object{ID: rv}
 }

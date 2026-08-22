@@ -39,7 +39,7 @@ func (vc VZIOHIDEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZIOHIDEventClass) Alloc() VZIOHIDEvent {
-	rv := objc.Send[VZIOHIDEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZIOHIDEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IVZIOHIDEvent interface {
 
 // Init initializes the instance.
 func (v VZIOHIDEvent) Init() VZIOHIDEvent {
-	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZIOHIDEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZIOHIDEvent) Autorelease() VZIOHIDEvent {
-	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZIOHIDEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZIOHIDEvent creates a new VZIOHIDEvent instance.
 func NewVZIOHIDEvent() VZIOHIDEvent {
 	class := getVZIOHIDEventClass()
-	rv := objc.Send[VZIOHIDEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZIOHIDEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
 	instance := getVZIOHIDEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return VZIOHIDEventFromID(rv)
 }
 
 func (v VZIOHIDEvent) InitWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
-	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
+	rv := objc.SendIfResponds[VZIOHIDEvent](v.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return rv
 }
 
 func (v VZIOHIDEvent) Event() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("event"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("event"))
 	return rv
 }

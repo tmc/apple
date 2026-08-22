@@ -40,7 +40,7 @@ func (mc MLWrappedModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLWrappedModelClass) Alloc() MLWrappedModel {
-	rv := objc.Send[MLWrappedModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLWrappedModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -104,30 +104,33 @@ type IMLWrappedModel interface {
 
 // Init initializes the instance.
 func (m MLWrappedModel) Init() MLWrappedModel {
-	rv := objc.Send[MLWrappedModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLWrappedModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLWrappedModel) Autorelease() MLWrappedModel {
-	rv := objc.Send[MLWrappedModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLWrappedModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLWrappedModel creates a new MLWrappedModel instance.
 func NewMLWrappedModel() MLWrappedModel {
 	class := getMLWrappedModelClass()
-	rv := objc.Send[MLWrappedModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLWrappedModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLWrappedModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLWrappedModel{}, objc.ErrInitFailed
 	}
 	return MLWrappedModelFromID(rv), nil
 }
@@ -135,46 +138,49 @@ func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specifica
 func NewWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLWrappedModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLWrappedModel{}, objc.ErrInitFailed
 	}
 	return MLWrappedModelFromID(rv), nil
 }
 
 func NewWrappedModelWithConfiguration(configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLWrappedModelFromID(rv)
 }
 
 func NewWrappedModelWithDescription(description objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLWrappedModelFromID(rv)
 }
 
 func NewWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLWrappedModelFromID(rv)
 }
 
 func NewWrappedModelWithInnerModel(model objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInnerModel:"), model)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInnerModel:"), model)
 	return MLWrappedModelFromID(rv)
 }
 
 func NewWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLWrappedModelFromID(rv)
 }
 
 func (m MLWrappedModel) ClearInnerModelWithReason(reason objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("clearInnerModelWithReason:"), reason)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("clearInnerModelWithReason:"), reason)
 }
 func (m MLWrappedModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -227,21 +233,21 @@ func (m MLWrappedModel) PredictionsFromBatchOptionsError(batch objectivec.IObjec
 
 }
 func (m MLWrappedModel) InitWithInnerModel(model objectivec.IObject) MLWrappedModel {
-	rv := objc.Send[MLWrappedModel](m.ID, objc.Sel("initWithInnerModel:"), model)
+	rv := objc.SendIfResponds[MLWrappedModel](m.ID, objc.Sel("initWithInnerModel:"), model)
 	return rv
 }
 
 func (m MLWrappedModel) InnerModel() IMLModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("innerModel"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("innerModel"))
 	return MLModelFromID(objc.ID(rv))
 }
 func (m MLWrappedModel) SetInnerModel(value IMLModel) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInnerModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInnerModel:"), value)
 }
 func (m MLWrappedModel) Reason() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("reason"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reason"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLWrappedModel) SetReason(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setReason:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setReason:"), objc.String(value))
 }

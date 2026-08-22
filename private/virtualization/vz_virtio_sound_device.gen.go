@@ -37,7 +37,7 @@ func (vc VZVirtioSoundDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSoundDeviceClass) Alloc() VZVirtioSoundDevice {
-	rv := objc.Send[VZVirtioSoundDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioSoundDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioSoundDevice interface {
 
 // Init initializes the instance.
 func (v VZVirtioSoundDevice) Init() VZVirtioSoundDevice {
-	rv := objc.Send[VZVirtioSoundDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioSoundDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioSoundDevice) Autorelease() VZVirtioSoundDevice {
-	rv := objc.Send[VZVirtioSoundDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioSoundDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioSoundDevice creates a new VZVirtioSoundDevice instance.
 func NewVZVirtioSoundDevice() VZVirtioSoundDevice {
 	class := getVZVirtioSoundDeviceClass()
-	rv := objc.Send[VZVirtioSoundDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioSoundDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

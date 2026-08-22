@@ -38,7 +38,7 @@ func (mc MLLogClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLogClass) Alloc() MLLog {
-	rv := objc.Send[MLLog](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLog](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,40 +61,40 @@ type IMLLog interface {
 
 // Init initializes the instance.
 func (m MLLog) Init() MLLog {
-	rv := objc.Send[MLLog](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLog](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLog) Autorelease() MLLog {
-	rv := objc.Send[MLLog](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLog](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLog creates a new MLLog instance.
 func NewMLLog() MLLog {
 	class := getMLLogClass()
-	rv := objc.Send[MLLog](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLog](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLLogClass MLLogClass) ClientFramework() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("clientFramework"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("clientFramework"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLLogClass MLLogClass) Common() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("common"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("common"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLLogClass MLLogClass) Daemon() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("daemon"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("daemon"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLLogClass MLLogClass) ServerFramework() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("serverFramework"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("serverFramework"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLLogClass MLLogClass) Tool() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("tool"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("tool"))
 	return objectivec.Object{ID: rv}
 }

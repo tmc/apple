@@ -5,8 +5,8 @@ package texttospeech
 import (
 	"context"
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -41,7 +41,7 @@ func (tc TTSWrappedAudioQueueBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSWrappedAudioQueueBufferClass) Alloc() TTSWrappedAudioQueueBuffer {
-	rv := objc.Send[TTSWrappedAudioQueueBuffer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueueBuffer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,8 +80,8 @@ type ITTSWrappedAudioQueueBuffer interface {
 
 	// Topic: Methods
 
-	AqBuffer() unsafe.Pointer
-	SetAqBuffer(value *AudioQueueBuffer)
+	AqBuffer() audiotoolbox.AudioQueueBuffer
+	SetAqBuffer(value audiotoolbox.AudioQueueBuffer)
 	ByteSize() uint64
 	QueuedTimeStamp() coreaudiotypes.AudioTimeStamp
 	SetQueuedTimeStamp(value coreaudiotypes.AudioTimeStamp)
@@ -90,45 +90,45 @@ type ITTSWrappedAudioQueueBuffer interface {
 
 // Init initializes the instance.
 func (t TTSWrappedAudioQueueBuffer) Init() TTSWrappedAudioQueueBuffer {
-	rv := objc.Send[TTSWrappedAudioQueueBuffer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueueBuffer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSWrappedAudioQueueBuffer) Autorelease() TTSWrappedAudioQueueBuffer {
-	rv := objc.Send[TTSWrappedAudioQueueBuffer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueueBuffer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSWrappedAudioQueueBuffer creates a new TTSWrappedAudioQueueBuffer instance.
 func NewTTSWrappedAudioQueueBuffer() TTSWrappedAudioQueueBuffer {
 	class := getTTSWrappedAudioQueueBufferClass()
-	rv := objc.Send[TTSWrappedAudioQueueBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSWrappedAudioQueueBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("setCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 
-func (t TTSWrappedAudioQueueBuffer) AqBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("aqBuffer"))
-	return rv
+func (t TTSWrappedAudioQueueBuffer) AqBuffer() audiotoolbox.AudioQueueBuffer {
+	rv := objc.SendIfResponds[audiotoolbox.AudioQueueBuffer](t.ID, objc.Sel("aqBuffer"))
+	return audiotoolbox.AudioQueueBuffer(rv)
 }
-func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value *AudioQueueBuffer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
+func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value audiotoolbox.AudioQueueBuffer) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
 }
 func (t TTSWrappedAudioQueueBuffer) ByteSize() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("byteSize"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("byteSize"))
 	return rv
 }
 func (t TTSWrappedAudioQueueBuffer) QueuedTimeStamp() coreaudiotypes.AudioTimeStamp {
-	rv := objc.Send[coreaudiotypes.AudioTimeStamp](t.ID, objc.Sel("queuedTimeStamp"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioTimeStamp](t.ID, objc.Sel("queuedTimeStamp"))
 	return coreaudiotypes.AudioTimeStamp(rv)
 }
 func (t TTSWrappedAudioQueueBuffer) SetQueuedTimeStamp(value coreaudiotypes.AudioTimeStamp) {
-	objc.Send[struct{}](t.ID, objc.Sel("setQueuedTimeStamp:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setQueuedTimeStamp:"), value)
 }
 
 // Set is a synchronous wrapper around [TTSWrappedAudioQueueBuffer.SetCompletionHandler].

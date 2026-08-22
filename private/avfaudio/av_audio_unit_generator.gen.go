@@ -40,7 +40,7 @@ func (ac AVAudioUnitGeneratorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitGeneratorClass) Alloc() AVAudioUnitGenerator {
-	rv := objc.Send[AVAudioUnitGenerator](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitGenerator](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,42 +83,42 @@ type IAVAudioUnitGenerator interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitGenerator) Init() AVAudioUnitGenerator {
-	rv := objc.Send[AVAudioUnitGenerator](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitGenerator](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitGenerator) Autorelease() AVAudioUnitGenerator {
-	rv := objc.Send[AVAudioUnitGenerator](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitGenerator](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitGenerator creates a new AVAudioUnitGenerator instance.
 func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 	class := getAVAudioUnitGeneratorClass()
-	rv := objc.Send[AVAudioUnitGenerator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioUnitGeneratorWithImpl(impl unsafe.Pointer) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitGeneratorFromID(rv)
 }
 
 func (a AVAudioUnitGenerator) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioUnitGenerator) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioUnitGenerator) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioUnitGenerator) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

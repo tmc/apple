@@ -39,7 +39,7 @@ func (sc SLSAsynchronousBridgedWindowManagementOperationClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSAsynchronousBridgedWindowManagementOperationClass) Alloc() SLSAsynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSAsynchronousBridgedWindowManagementOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSAsynchronousBridgedWindowManagementOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,48 +85,48 @@ type ISLSAsynchronousBridgedWindowManagementOperation interface {
 
 // Init initializes the instance.
 func (s SLSAsynchronousBridgedWindowManagementOperation) Init() SLSAsynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSAsynchronousBridgedWindowManagementOperation) Autorelease() SLSAsynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSAsynchronousBridgedWindowManagementOperation creates a new SLSAsynchronousBridgedWindowManagementOperation instance.
 func NewSLSAsynchronousBridgedWindowManagementOperation() SLSAsynchronousBridgedWindowManagementOperation {
 	class := getSLSAsynchronousBridgedWindowManagementOperationClass()
-	rv := objc.Send[SLSAsynchronousBridgedWindowManagementOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSAsynchronousBridgedWindowManagementOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSAsynchronousBridgedWindowManagementOperationWithCoder(coder objectivec.IObject) SLSAsynchronousBridgedWindowManagementOperation {
 	instance := getSLSAsynchronousBridgedWindowManagementOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSAsynchronousBridgedWindowManagementOperationFromID(rv)
 }
 
 func (s SLSAsynchronousBridgedWindowManagementOperation) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSAsynchronousBridgedWindowManagementOperation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSAsynchronousBridgedWindowManagementOperation) InvokeFallback() {
-	objc.Send[objc.ID](s.ID, objc.Sel("invokeFallback"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invokeFallback"))
 }
 func (s SLSAsynchronousBridgedWindowManagementOperation) PerformWithWMBridgeDelegate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("performWithWMBridgeDelegate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("performWithWMBridgeDelegate"))
 }
 func (s SLSAsynchronousBridgedWindowManagementOperation) InitWithCoder(coder foundation.INSCoder) SLSAsynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSAsynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_SLSAsynchronousBridgedWindowManagementOperationClass SLSAsynchronousBridgedWindowManagementOperationClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSAsynchronousBridgedWindowManagementOperationClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSAsynchronousBridgedWindowManagementOperationClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

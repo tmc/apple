@@ -38,7 +38,7 @@ func (sc SkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorClass) Class() obj
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorClass) Alloc() SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorFromID(id objc.ID) Sky
 	return SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator implements ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator.
+var _ ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator = SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator{}
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator] class.
 type ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator interface {
@@ -61,19 +61,19 @@ type ISkyLightPKGSystemStatusIndicatorsDisplayItemGenerator interface {
 
 // Init initializes the instance.
 func (s SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator) Init() SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator) Autorelease() SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPKGSystemStatusIndicatorsDisplayItemGenerator creates a new SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator instance.
 func NewSkyLightPKGSystemStatusIndicatorsDisplayItemGenerator() SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator {
 	class := getSkyLightPKGSystemStatusIndicatorsDisplayItemGeneratorClass()
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsDisplayItemGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

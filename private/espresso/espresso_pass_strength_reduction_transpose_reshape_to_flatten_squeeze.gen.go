@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionTransposeReshapeToFlattenSqueezeClass) Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionTransposeReshapeToFlattenSqueezeClass) Alloc() EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze {
-	rv := objc.Send[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze) Init() EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze {
-	rv := objc.Send[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze) Autorelease() EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze {
-	rv := objc.Send[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze creates a new EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze instance.
 func NewEspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze() EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze {
 	class := getEspressoPassStrengthReductionTransposeReshapeToFlattenSqueezeClass()
-	rv := objc.Send[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionTransposeReshapeToFlattenSqueeze](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

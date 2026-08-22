@@ -40,7 +40,7 @@ func (mc MLAppleImageFeatureExtractorScenePrintParametersClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleImageFeatureExtractorScenePrintParametersClass) Alloc() MLAppleImageFeatureExtractorScenePrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorScenePrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IMLAppleImageFeatureExtractorScenePrintParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleImageFeatureExtractorScenePrintParameters) Init() MLAppleImageFeatureExtractorScenePrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleImageFeatureExtractorScenePrintParameters) Autorelease() MLAppleImageFeatureExtractorScenePrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleImageFeatureExtractorScenePrintParameters creates a new MLAppleImageFeatureExtractorScenePrintParameters instance.
 func NewMLAppleImageFeatureExtractorScenePrintParameters() MLAppleImageFeatureExtractorScenePrintParameters {
 	class := getMLAppleImageFeatureExtractorScenePrintParametersClass()
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorScenePrintParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleImageFeatureExtractorScenePrintParametersScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorScenePrintParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractorScenePrintParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleImageFeatureExtractorScenePrintParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleImageFeatureExtractorScenePrintParametersFromID(rv), nil
 }
@@ -120,10 +123,10 @@ func (m MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParamete
 }
 
 func (m MLAppleImageFeatureExtractorScenePrintParameters) RequestClassName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("requestClassName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("requestClassName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleImageFeatureExtractorScenePrintParameters) ScenePrintVersion() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("scenePrintVersion"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("scenePrintVersion"))
 	return rv
 }

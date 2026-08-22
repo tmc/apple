@@ -39,7 +39,7 @@ func (tc TTSMatchedRuleReplacementClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSMatchedRuleReplacementClass) Alloc() TTSMatchedRuleReplacement {
-	rv := objc.Send[TTSMatchedRuleReplacement](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSMatchedRuleReplacement](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,41 +88,41 @@ type ITTSMatchedRuleReplacement interface {
 
 // Init initializes the instance.
 func (t TTSMatchedRuleReplacement) Init() TTSMatchedRuleReplacement {
-	rv := objc.Send[TTSMatchedRuleReplacement](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSMatchedRuleReplacement](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSMatchedRuleReplacement) Autorelease() TTSMatchedRuleReplacement {
-	rv := objc.Send[TTSMatchedRuleReplacement](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSMatchedRuleReplacement](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSMatchedRuleReplacement creates a new TTSMatchedRuleReplacement instance.
 func NewTTSMatchedRuleReplacement() TTSMatchedRuleReplacement {
 	class := getTTSMatchedRuleReplacementClass()
-	rv := objc.Send[TTSMatchedRuleReplacement](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSMatchedRuleReplacement](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSMatchedRuleReplacement) Match() ITTSRegexMatch {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("match"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("match"))
 	return TTSRegexMatchFromID(objc.ID(rv))
 }
 func (t TTSMatchedRuleReplacement) SetMatch(value ITTSRegexMatch) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMatch:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setMatch:"), value)
 }
 func (t TTSMatchedRuleReplacement) Replacement() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSMatchedRuleReplacement) SetReplacement(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
 func (t TTSMatchedRuleReplacement) RuleReplacement() ITTSRuleReplacement {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacement"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ruleReplacement"))
 	return TTSRuleReplacementFromID(objc.ID(rv))
 }
 func (t TTSMatchedRuleReplacement) SetRuleReplacement(value ITTSRuleReplacement) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRuleReplacement:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRuleReplacement:"), value)
 }

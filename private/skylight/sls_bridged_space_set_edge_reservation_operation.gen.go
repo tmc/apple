@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceSetEdgeReservationOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceSetEdgeReservationOperationClass) Alloc() SLSBridgedSpaceSetEdgeReservationOperation {
-	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetEdgeReservationOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,61 +90,61 @@ type ISLSBridgedSpaceSetEdgeReservationOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Init() SLSBridgedSpaceSetEdgeReservationOperation {
-	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Autorelease() SLSBridgedSpaceSetEdgeReservationOperation {
-	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceSetEdgeReservationOperation creates a new SLSBridgedSpaceSetEdgeReservationOperation instance.
 func NewSLSBridgedSpaceSetEdgeReservationOperation() SLSBridgedSpaceSetEdgeReservationOperation {
 	class := getSLSBridgedSpaceSetEdgeReservationOperationClass()
-	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetEdgeReservationOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceSetEdgeReservationOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetEdgeReservationOperation {
 	instance := getSLSBridgedSpaceSetEdgeReservationOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetEdgeReservationOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceSetEdgeReservationOperationWithSpaceIDEdgeMaskLeftRightTopBottom(id uint64, mask uint64, left float64, right float64, top float64, bottom float64) SLSBridgedSpaceSetEdgeReservationOperation {
 	instance := getSLSBridgedSpaceSetEdgeReservationOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
 	return SLSBridgedSpaceSetEdgeReservationOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceSetEdgeReservationOperation) InitWithSpaceIDEdgeMaskLeftRightTopBottom(id uint64, mask uint64, left float64, right float64, top float64, bottom float64) SLSBridgedSpaceSetEdgeReservationOperation {
-	rv := objc.Send[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetEdgeReservationOperation](s.ID, objc.Sel("initWithSpaceID:edgeMask:left:right:top:bottom:"), id, mask, left, right, top, bottom)
 	return rv
 }
 
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Bottom() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("bottom"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("bottom"))
 	return rv
 }
 func (s SLSBridgedSpaceSetEdgeReservationOperation) EdgeMask() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("edgeMask"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("edgeMask"))
 	return rv
 }
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Left() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("left"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("left"))
 	return rv
 }
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Right() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("right"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("right"))
 	return rv
 }
 func (s SLSBridgedSpaceSetEdgeReservationOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceSetEdgeReservationOperation) Top() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("top"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("top"))
 	return rv
 }

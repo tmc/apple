@@ -40,7 +40,7 @@ func (sc SLSDisplayWallGroupClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSDisplayWallGroupClass) Alloc() SLSDisplayWallGroup {
-	rv := objc.Send[SLSDisplayWallGroup](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSDisplayWallGroup](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,39 +80,39 @@ type ISLSDisplayWallGroup interface {
 
 // Init initializes the instance.
 func (s SLSDisplayWallGroup) Init() SLSDisplayWallGroup {
-	rv := objc.Send[SLSDisplayWallGroup](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSDisplayWallGroup](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSDisplayWallGroup) Autorelease() SLSDisplayWallGroup {
-	rv := objc.Send[SLSDisplayWallGroup](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSDisplayWallGroup](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSDisplayWallGroup creates a new SLSDisplayWallGroup instance.
 func NewSLSDisplayWallGroup() SLSDisplayWallGroup {
 	class := getSLSDisplayWallGroupClass()
-	rv := objc.Send[SLSDisplayWallGroup](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSDisplayWallGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSDisplayWallGroupWithCGDisplayWallGroup(group unsafe.Pointer) SLSDisplayWallGroup {
 	instance := getSLSDisplayWallGroupClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
 	return SLSDisplayWallGroupFromID(rv)
 }
 
 func (s SLSDisplayWallGroup) InitWithCGDisplayWallGroup(group unsafe.Pointer) SLSDisplayWallGroup {
-	rv := objc.Send[SLSDisplayWallGroup](s.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
+	rv := objc.SendIfResponds[SLSDisplayWallGroup](s.ID, objc.Sel("initWithCGDisplayWallGroup:"), group)
 	return rv
 }
 
 func (s SLSDisplayWallGroup) DisplayIDs() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIDs"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIDs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSDisplayWallGroup) GroupID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("groupID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

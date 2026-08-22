@@ -10,7 +10,7 @@ import (
 
 func TestSetCompletionHandlerRetainedNilRequest(t *testing.T) {
 	var req ANERequest
-	b := req.SetCompletionHandlerRetained(func(bool, error) {})
+	b := req.SetCompletionHandlerRetained(func(bool) {})
 	if b != nil {
 		t.Fatalf("SetCompletionHandlerRetained() on nil request = %v, want nil", b)
 	}

@@ -40,7 +40,7 @@ func (mc MLE5ProgramLibraryE5BundleImplClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ProgramLibraryE5BundleImplClass) Alloc() MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryE5BundleImpl](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,26 +89,26 @@ type IMLE5ProgramLibraryE5BundleImpl interface {
 
 // Init initializes the instance.
 func (m MLE5ProgramLibraryE5BundleImpl) Init() MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ProgramLibraryE5BundleImpl) Autorelease() MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ProgramLibraryE5BundleImpl creates a new MLE5ProgramLibraryE5BundleImpl instance.
 func NewMLE5ProgramLibraryE5BundleImpl() MLE5ProgramLibraryE5BundleImpl {
 	class := getMLE5ProgramLibraryE5BundleImplClass()
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryE5BundleImpl](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5ProgramLibraryE5BundleImplWithE5BundleAtURLConfiguration(url foundation.NSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
 	instance := getMLE5ProgramLibraryE5BundleImplClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
 	return MLE5ProgramLibraryE5BundleImplFromID(rv)
 }
 
@@ -123,23 +123,23 @@ func (m MLE5ProgramLibraryE5BundleImpl) CreateProgramLibraryHandleWithRespeciali
 
 }
 func (m MLE5ProgramLibraryE5BundleImpl) InitWithE5BundleAtURLConfiguration(url foundation.NSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
+	rv := objc.SendIfResponds[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
 	return rv
 }
 
 func (m MLE5ProgramLibraryE5BundleImpl) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibraryE5BundleImpl) E5BundleURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5BundleURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5BundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibraryE5BundleImpl) ModelDisplayName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ProgramLibraryE5BundleImpl) SerializedMILText() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }

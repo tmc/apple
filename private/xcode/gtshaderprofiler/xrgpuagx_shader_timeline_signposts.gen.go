@@ -41,7 +41,7 @@ func (xc XRGPUAGXShaderTimelineSignpostsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (xc XRGPUAGXShaderTimelineSignpostsClass) Alloc() XRGPUAGXShaderTimelineSignposts {
-	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](objc.ID(xc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[XRGPUAGXShaderTimelineSignposts](objc.ID(xc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,31 +99,31 @@ type IXRGPUAGXShaderTimelineSignposts interface {
 
 // Init initializes the instance.
 func (x XRGPUAGXShaderTimelineSignposts) Init() XRGPUAGXShaderTimelineSignposts {
-	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (x XRGPUAGXShaderTimelineSignposts) Autorelease() XRGPUAGXShaderTimelineSignposts {
-	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewXRGPUAGXShaderTimelineSignposts creates a new XRGPUAGXShaderTimelineSignposts instance.
 func NewXRGPUAGXShaderTimelineSignposts() XRGPUAGXShaderTimelineSignposts {
 	class := getXRGPUAGXShaderTimelineSignpostsClass()
-	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[XRGPUAGXShaderTimelineSignposts](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewXRGPUAGXShaderTimelineSignpostsWithCoder(coder objectivec.IObject) XRGPUAGXShaderTimelineSignposts {
 	instance := getXRGPUAGXShaderTimelineSignpostsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return XRGPUAGXShaderTimelineSignpostsFromID(rv)
 }
 
 func (x XRGPUAGXShaderTimelineSignposts) _setupExtractor() {
-	objc.Send[objc.ID](x.ID, objc.Sel("_setupExtractor"))
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("_setupExtractor"))
 }
 
 // SetupExtractor is an exported wrapper for the private method _setupExtractor.
@@ -141,32 +141,32 @@ func (x XRGPUAGXShaderTimelineSignposts) CanSetupExtractor() bool {
 	return objc.RespondsToSelector(x.ID, objc.Sel("_setupExtractor"))
 }
 func (x XRGPUAGXShaderTimelineSignposts) Encode() objectivec.IObject {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("encode"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("encode"))
 	return objectivec.Object{ID: rv}
 }
 func (x XRGPUAGXShaderTimelineSignposts) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (x XRGPUAGXShaderTimelineSignposts) EnumerateKickIds(ids VoidHandler) {
 	_block0, _ := NewVoidBlock(ids)
-	objc.Send[objc.ID](x.ID, objc.Sel("enumerateKickIds:"), _block0)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("enumerateKickIds:"), _block0)
 }
 func (x XRGPUAGXShaderTimelineSignposts) GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count *uint64) {
-	objc.Send[objc.ID](x.ID, objc.Sel("getShaders:count:"), objc.CArray(shaders), count)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("getShaders:count:"), objc.CArray(shaders), unsafe.Pointer(count))
 }
 func (x XRGPUAGXShaderTimelineSignposts) Load(load objectivec.IObject) bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("load:"), load)
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("load:"), load)
 	return rv
 }
 func (x XRGPUAGXShaderTimelineSignposts) Start() bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("start"))
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("start"))
 	return rv
 }
 func (x XRGPUAGXShaderTimelineSignposts) Stop() {
-	objc.Send[objc.ID](x.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("stop"))
 }
 func (x XRGPUAGXShaderTimelineSignposts) InitWithCoder(coder foundation.INSCoder) XRGPUAGXShaderTimelineSignposts {
-	rv := objc.Send[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[XRGPUAGXShaderTimelineSignposts](x.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -191,7 +191,7 @@ func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass
 
 }
 func (_XRGPUAGXShaderTimelineSignpostsClass XRGPUAGXShaderTimelineSignpostsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_XRGPUAGXShaderTimelineSignpostsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_XRGPUAGXShaderTimelineSignpostsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 

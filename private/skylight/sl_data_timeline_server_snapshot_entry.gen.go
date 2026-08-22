@@ -40,7 +40,7 @@ func (sc SLDataTimelineServerSnapshotEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineServerSnapshotEntryClass) Alloc() SLDataTimelineServerSnapshotEntry {
-	rv := objc.Send[SLDataTimelineServerSnapshotEntry](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineServerSnapshotEntry](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,61 +92,61 @@ type ISLDataTimelineServerSnapshotEntry interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineServerSnapshotEntry) Init() SLDataTimelineServerSnapshotEntry {
-	rv := objc.Send[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineServerSnapshotEntry) Autorelease() SLDataTimelineServerSnapshotEntry {
-	rv := objc.Send[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineServerSnapshotEntry creates a new SLDataTimelineServerSnapshotEntry instance.
 func NewSLDataTimelineServerSnapshotEntry() SLDataTimelineServerSnapshotEntry {
 	class := getSLDataTimelineServerSnapshotEntryClass()
-	rv := objc.Send[SLDataTimelineServerSnapshotEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineServerSnapshotEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLDataTimelineServerSnapshotEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineServerSnapshotEntry {
 	instance := getSLDataTimelineServerSnapshotEntryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineServerSnapshotEntryFromID(rv)
 }
 
 func (s SLDataTimelineServerSnapshotEntry) CreateXPCObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLDataTimelineServerSnapshotEntry) SessionsApplyBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("sessionsApplyBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sessionsApplyBlock:"), _block0)
 }
 func (s SLDataTimelineServerSnapshotEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineServerSnapshotEntry {
-	rv := objc.Send[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[SLDataTimelineServerSnapshotEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
 func (_SLDataTimelineServerSnapshotEntryClass SLDataTimelineServerSnapshotEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineServerSnapshotEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLDataTimelineServerSnapshotEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLDataTimelineServerSnapshotEntry) Index() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("index"))
 	return rv
 }
 func (s SLDataTimelineServerSnapshotEntry) Sessions() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sessions"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sessions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLDataTimelineServerSnapshotEntry) SessionsArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sessionsArray"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sessionsArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLDataTimelineServerSnapshotEntry) Timestamp() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("timestamp"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("timestamp"))
 	return rv
 }
 

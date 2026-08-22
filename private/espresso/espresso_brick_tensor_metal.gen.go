@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -39,7 +38,7 @@ func (ec EspressoBrickTensorMetalClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoBrickTensorMetalClass) Alloc() EspressoBrickTensorMetal {
-	rv := objc.Send[EspressoBrickTensorMetal](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoBrickTensorMetal](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,32 +70,32 @@ type IEspressoBrickTensorMetal interface {
 	// Topic: Methods
 
 	Texture() unsafe.Pointer
-	SetTexture(value kernel.Pointer)
+	SetTexture(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
 func (e EspressoBrickTensorMetal) Init() EspressoBrickTensorMetal {
-	rv := objc.Send[EspressoBrickTensorMetal](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoBrickTensorMetal](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoBrickTensorMetal) Autorelease() EspressoBrickTensorMetal {
-	rv := objc.Send[EspressoBrickTensorMetal](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoBrickTensorMetal](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoBrickTensorMetal creates a new EspressoBrickTensorMetal instance.
 func NewEspressoBrickTensorMetal() EspressoBrickTensorMetal {
 	class := getEspressoBrickTensorMetalClass()
-	rv := objc.Send[EspressoBrickTensorMetal](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoBrickTensorMetal](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("texture"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("texture"))
 	return rv
 }
-func (e EspressoBrickTensorMetal) SetTexture(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
+func (e EspressoBrickTensorMetal) SetTexture(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }

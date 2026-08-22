@@ -10,6 +10,12 @@ import (
 // _VZUSBDeviceConfigurationInternal protocol.
 type VZUSBDeviceConfigurationInternal interface {
 	objectivec.IObject
+
+	// IsDuplicateConfiguration protocol.
+	IsDuplicateConfiguration(configuration objectivec.IObject) bool
+
+	// MakeUSBDeviceWithVirtualMachine protocol.
+	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
 }
 
 // VZUSBDeviceConfigurationInternalObject wraps an existing Objective-C object that conforms to the VZUSBDeviceConfigurationInternal protocol.
@@ -30,10 +36,10 @@ func VZUSBDeviceConfigurationInternalObjectFromID(id objc.ID) VZUSBDeviceConfigu
 }
 
 func (o VZUSBDeviceConfigurationInternalObject) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
 func (o VZUSBDeviceConfigurationInternalObject) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }

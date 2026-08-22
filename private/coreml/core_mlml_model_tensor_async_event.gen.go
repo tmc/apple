@@ -38,7 +38,7 @@ func (cc CoreMLMLModelTensorAsyncEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMLModelTensorAsyncEventClass) Alloc() CoreMLMLModelTensorAsyncEvent {
-	rv := objc.Send[CoreMLMLModelTensorAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMLModelTensorAsyncEventFromID(id objc.ID) CoreMLMLModelTensorAsyncEve
 	return CoreMLMLModelTensorAsyncEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMLModelTensorAsyncEvent struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMLModelTensorAsyncEvent embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMLModelTensorAsyncEvent implements ICoreMLMLModelTensorAsyncEvent.
+var _ ICoreMLMLModelTensorAsyncEvent = CoreMLMLModelTensorAsyncEvent{}
 
 // An interface definition for the [CoreMLMLModelTensorAsyncEvent] class.
 type ICoreMLMLModelTensorAsyncEvent interface {
@@ -61,19 +61,19 @@ type ICoreMLMLModelTensorAsyncEvent interface {
 
 // Init initializes the instance.
 func (c CoreMLMLModelTensorAsyncEvent) Init() CoreMLMLModelTensorAsyncEvent {
-	rv := objc.Send[CoreMLMLModelTensorAsyncEvent](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorAsyncEvent](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMLModelTensorAsyncEvent) Autorelease() CoreMLMLModelTensorAsyncEvent {
-	rv := objc.Send[CoreMLMLModelTensorAsyncEvent](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorAsyncEvent](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMLModelTensorAsyncEvent creates a new CoreMLMLModelTensorAsyncEvent instance.
 func NewCoreMLMLModelTensorAsyncEvent() CoreMLMLModelTensorAsyncEvent {
 	class := getCoreMLMLModelTensorAsyncEventClass()
-	rv := objc.Send[CoreMLMLModelTensorAsyncEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorAsyncEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

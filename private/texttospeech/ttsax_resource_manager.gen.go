@@ -40,7 +40,7 @@ func (tc TTSAXResourceManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAXResourceManagerClass) Alloc() TTSAXResourceManager {
-	rv := objc.Send[TTSAXResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAXResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -134,26 +134,26 @@ type ITTSAXResourceManager interface {
 
 // Init initializes the instance.
 func (t TTSAXResourceManager) Init() TTSAXResourceManager {
-	rv := objc.Send[TTSAXResourceManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAXResourceManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAXResourceManager) Autorelease() TTSAXResourceManager {
-	rv := objc.Send[TTSAXResourceManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAXResourceManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAXResourceManager creates a new TTSAXResourceManager instance.
 func NewTTSAXResourceManager() TTSAXResourceManager {
 	class := getTTSAXResourceManagerClass()
-	rv := objc.Send[TTSAXResourceManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAXResourceManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSAXResourceManager) _performBlockOnObservers(observers VoidHandler) {
 	_block0, _ := NewVoidBlock(observers)
-	objc.Send[objc.ID](t.ID, objc.Sel("_performBlockOnObservers:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_performBlockOnObservers:"), _block0)
 }
 
 // PerformBlockOnObservers is an exported wrapper for the private method _performBlockOnObservers.
@@ -171,7 +171,7 @@ func (t TTSAXResourceManager) CanPerformBlockOnObservers() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_performBlockOnObservers:"))
 }
 func (t TTSAXResourceManager) _resourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_resourceWithVoiceId:assetId:"), id, id2)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_resourceWithVoiceId:assetId:"), id, id2)
 	return objectivec.Object{ID: rv}
 }
 
@@ -189,7 +189,7 @@ func (t TTSAXResourceManager) CanResourceWithVoiceIdAssetId() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:"))
 }
 func (t TTSAXResourceManager) _resourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"), type_, type_2, code)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"), type_, type_2, code)
 	return objectivec.Object{ID: rv}
 }
 
@@ -207,63 +207,63 @@ func (t TTSAXResourceManager) CanResourcesWithTypeSubTypeLanguageCode() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"))
 }
 func (t TTSAXResourceManager) AddObserver(observer objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("addObserver:"), observer)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("addObserver:"), observer)
 }
 func (t TTSAXResourceManager) AllLanguagesForVoices(voices bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("allLanguagesForVoices:"), voices)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("allLanguagesForVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) AllVoices(voices bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("allVoices:"), voices)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("allVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) DeleteResourceWithVoiceId(id objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("deleteResourceWithVoiceId:"), id)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("deleteResourceWithVoiceId:"), id)
 }
 func (t TTSAXResourceManager) DownloadResourceWithVoiceId(id objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:"), id)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:"), id)
 }
 func (t TTSAXResourceManager) DownloadResourceWithVoiceIdUserInitiated(id objectivec.IObject, initiated bool) {
-	objc.Send[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:userInitiated:"), id, initiated)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("downloadResourceWithVoiceId:userInitiated:"), id, initiated)
 }
 func (t TTSAXResourceManager) LanguageCodeForResourceNameWithType(name objectivec.IObject, type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languageCodeForResourceName:withType:"), name, type_)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languageCodeForResourceName:withType:"), name, type_)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) RemoveObserver(observer objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("removeObserver:"), observer)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("removeObserver:"), observer)
 }
 func (t TTSAXResourceManager) ResourceWithVoiceId(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceWithVoiceId:"), id)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceWithVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) ResourcesWithLanguageType(language objectivec.IObject, type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguage:type:"), language, type_)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourcesWithLanguage:type:"), language, type_)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) ResourcesWithTypeSubType(type_ uint64, type_2 uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithType:subType:"), type_, type_2)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourcesWithType:subType:"), type_, type_2)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) SpeechVoiceWithVoiceId(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechVoiceWithVoiceId:"), id)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechVoiceWithVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceManager) StopDownloadResourceWithVoiceId(id objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("stopDownloadResourceWithVoiceId:"), id)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stopDownloadResourceWithVoiceId:"), id)
 }
 func (t TTSAXResourceManager) SuperCompactVoiceIdForCompactVoiceId(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("superCompactVoiceIdForCompactVoiceId:"), id)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("superCompactVoiceIdForCompactVoiceId:"), id)
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSAXResourceManagerClass TTSAXResourceManagerClass) SharedInstance() TTSAXResourceManager {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceManagerClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAXResourceManagerClass.class), objc.Sel("sharedInstance"))
 	return TTSAXResourceManagerFromID(rv)
 }
 
 func (t TTSAXResourceManager) _observers() foundation.NSHashTable {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_observers"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_observers"))
 	return foundation.NSHashTableFromID(objc.ID(rv))
 }
 
@@ -280,14 +280,14 @@ func (t TTSAXResourceManager) Observers() (foundation.NSHashTable, error) {
 	return t._observers(), nil
 }
 func (t TTSAXResourceManager) Set_observers(value foundation.NSHashTable) {
-	objc.Send[struct{}](t.ID, objc.Sel("set_observers:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_observers:"), value)
 }
 func (t TTSAXResourceManager) AllAvailableLanguages() foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("allAvailableLanguages"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("allAvailableLanguages"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (t TTSAXResourceManager) SetAllAvailableLanguages(value foundation.INSSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAllAvailableLanguages:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAllAvailableLanguages:"), value)
 }
 
 // _performBlockOnObserversSync is a synchronous wrapper around [TTSAXResourceManager._performBlockOnObservers].

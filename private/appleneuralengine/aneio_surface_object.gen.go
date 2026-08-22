@@ -5,9 +5,8 @@ package appleneuralengine
 import (
 	"sync"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (ac ANEIOSurfaceObjectClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEIOSurfaceObjectClass) Alloc() ANEIOSurfaceObject {
-	rv := objc.Send[ANEIOSurfaceObject](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -49,7 +48,6 @@ func (ac ANEIOSurfaceObjectClass) Alloc() ANEIOSurfaceObject {
 //
 //   - [ANEIOSurfaceObject.EncodeWithCoder]
 //   - [ANEIOSurfaceObject.IoSurface]
-//   - [ANEIOSurfaceObject.MetalBufferWithDeviceMultiBufferFrame]
 //   - [ANEIOSurfaceObject.StartOffset]
 //   - [ANEIOSurfaceObject.InitWithCoder]
 //   - [ANEIOSurfaceObject.InitWithIOSurfaceStartOffsetShouldRetain]
@@ -71,7 +69,6 @@ var _ IANEIOSurfaceObject = ANEIOSurfaceObject{}
 //
 //   - [IANEIOSurfaceObject.EncodeWithCoder]
 //   - [IANEIOSurfaceObject.IoSurface]
-//   - [IANEIOSurfaceObject.MetalBufferWithDeviceMultiBufferFrame]
 //   - [IANEIOSurfaceObject.StartOffset]
 //   - [IANEIOSurfaceObject.InitWithCoder]
 //   - [IANEIOSurfaceObject.InitWithIOSurfaceStartOffsetShouldRetain]
@@ -81,90 +78,85 @@ type IANEIOSurfaceObject interface {
 	// Topic: Methods
 
 	EncodeWithCoder(coder foundation.INSCoder)
-	IoSurface() coregraphics.IOSurfaceRef
-	MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer
+	IoSurface() iosurface.IOSurfaceRef
 	StartOffset() foundation.NSNumber
 	InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceObject
-	InitWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject
+	InitWithIOSurfaceStartOffsetShouldRetain(iOSurface iosurface.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject
 }
 
 // Init initializes the instance.
 func (a ANEIOSurfaceObject) Init() ANEIOSurfaceObject {
-	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEIOSurfaceObject) Autorelease() ANEIOSurfaceObject {
-	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEIOSurfaceObject creates a new ANEIOSurfaceObject instance.
 func NewANEIOSurfaceObject() ANEIOSurfaceObject {
 	class := getANEIOSurfaceObjectClass()
-	rv := objc.Send[ANEIOSurfaceObject](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEIOSurfaceObjectWithCoder(coder objectivec.IObject) ANEIOSurfaceObject {
 	instance := getANEIOSurfaceObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEIOSurfaceObjectFromID(rv)
 }
 
-func NewANEIOSurfaceObjectWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject {
+func NewANEIOSurfaceObjectWithIOSurfaceStartOffsetShouldRetain(iOSurface iosurface.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject {
 	instance := getANEIOSurfaceObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
 	return ANEIOSurfaceObjectFromID(rv)
 }
 
 func (a ANEIOSurfaceObject) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-func (a ANEIOSurfaceObject) MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("metalBufferWithDevice:multiBufferFrame:"), device, frame)
-	return metal.MTLBufferObjectFromID(rv)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEIOSurfaceObject) InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceObject {
-	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (a ANEIOSurfaceObject) InitWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject {
-	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
+func (a ANEIOSurfaceObject) InitWithIOSurfaceStartOffsetShouldRetain(iOSurface iosurface.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject {
+	rv := objc.SendIfResponds[ANEIOSurfaceObject](a.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
 	return rv
 }
 
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeight(width int, pixel_size int, height int) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:"), width, pixel_size, height)
-	return coregraphics.IOSurfaceRef(rv)
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeight(width int, pixel_size int, height int) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:"), width, pixel_size, height)
+	return iosurface.IOSurfaceRef(rv)
 }
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeightBytesPerElement(width int, pixel_size int, height int, element int) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:bytesPerElement:"), width, pixel_size, height, element)
-	return coregraphics.IOSurfaceRef(rv)
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeightBytesPerElement(width int, pixel_size int, height int, element int) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:bytesPerElement:"), width, pixel_size, height, element)
+	return iosurface.IOSurfaceRef(rv)
 }
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurface(iOSurface coregraphics.IOSurfaceRef) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurface:"), iOSurface)
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurface(iOSurface iosurface.IOSurfaceRef) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurface:"), iOSurface)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurfaceStartOffset(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurface:startOffset:"), iOSurface, offset)
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurfaceStartOffset(iOSurface iosurface.IOSurfaceRef, offset objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurface:startOffset:"), iOSurface, offset)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurfaceNoRetainStartOffset(retain coregraphics.IOSurfaceRef, offset objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurfaceNoRetain:startOffset:"), retain, offset)
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) ObjectWithIOSurfaceNoRetainStartOffset(retain iosurface.IOSurfaceRef, offset objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("objectWithIOSurfaceNoRetain:startOffset:"), retain, offset)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
-func (a ANEIOSurfaceObject) IoSurface() coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("ioSurface"))
-	return coregraphics.IOSurfaceRef(rv)
+func (a ANEIOSurfaceObject) IoSurface() iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("ioSurface"))
+	return iosurface.IOSurfaceRef(rv)
 }
 func (a ANEIOSurfaceObject) StartOffset() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("startOffset"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("startOffset"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

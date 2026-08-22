@@ -40,7 +40,7 @@ func (vc VZLinuxRosettaCachingOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions {
-	rv := objc.Send[VZLinuxRosettaCachingOptions](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZLinuxRosettaCachingOptions](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,30 @@ type IVZLinuxRosettaCachingOptions interface {
 
 // Init initializes the instance.
 func (v VZLinuxRosettaCachingOptions) Init() VZLinuxRosettaCachingOptions {
-	rv := objc.Send[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZLinuxRosettaCachingOptions) Autorelease() VZLinuxRosettaCachingOptions {
-	rv := objc.Send[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZLinuxRosettaCachingOptions creates a new VZLinuxRosettaCachingOptions instance.
 func NewVZLinuxRosettaCachingOptions() VZLinuxRosettaCachingOptions {
 	class := getVZLinuxRosettaCachingOptionsClass()
-	rv := objc.Send[VZLinuxRosettaCachingOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZLinuxRosettaCachingOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZLinuxRosettaCachingOptions) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZLinuxRosettaCachingOptions) _options() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_options"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_options"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZLinuxRosettaCachingOptions) Options() (unsafe.Pointer, error) {
 	return v._options(), nil
 }
 func (v VZLinuxRosettaCachingOptions) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZLinuxRosettaCachingOptions) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZLinuxRosettaCachingOptions) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZLinuxRosettaCachingOptions) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

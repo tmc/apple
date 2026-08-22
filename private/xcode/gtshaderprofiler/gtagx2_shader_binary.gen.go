@@ -4,9 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +40,7 @@ func (gc GTAGX2ShaderBinaryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2ShaderBinaryClass) Alloc() GTAGX2ShaderBinary {
-	rv := objc.Send[GTAGX2ShaderBinary](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -150,7 +150,7 @@ type IGTAGX2ShaderBinary interface {
 	AddString(string_ objectivec.IObject) uint64
 	AddrEnd() uint32
 	AddrStart() uint32
-	AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64)
+	AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64)
 	AnalysisResult() IGTShaderProfilerBinaryAnalysisResult
 	SetAnalysisResult(value IGTShaderProfilerBinaryAnalysisResult)
 	BinaryRanges() foundation.INSArray
@@ -188,182 +188,182 @@ type IGTAGX2ShaderBinary interface {
 
 // Init initializes the instance.
 func (g GTAGX2ShaderBinary) Init() GTAGX2ShaderBinary {
-	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2ShaderBinary) Autorelease() GTAGX2ShaderBinary {
-	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2ShaderBinary creates a new GTAGX2ShaderBinary instance.
 func NewGTAGX2ShaderBinary() GTAGX2ShaderBinary {
 	class := getGTAGX2ShaderBinaryClass()
-	rv := objc.Send[GTAGX2ShaderBinary](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2ShaderBinaryWithCoder(coder objectivec.IObject) GTAGX2ShaderBinary {
 	instance := getGTAGX2ShaderBinaryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTAGX2ShaderBinaryFromID(rv)
 }
 
 func NewGTAGX2ShaderBinaryWithKeyTypeTypeNameDylibAnalysisResult(key objectivec.IObject, type_ uint32, name objectivec.IObject, dylib bool, result objectivec.IObject) GTAGX2ShaderBinary {
 	instance := getGTAGX2ShaderBinaryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
 	return GTAGX2ShaderBinaryFromID(rv)
 }
 
 func (g GTAGX2ShaderBinary) AddBinaryRangeColumnAddrStartAddrEndFunctionNameFullPath(range_ int, column int, start uint32, end uint32, name objectivec.IObject, path objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("addBinaryRange:column:addrStart:addrEnd:functionName:fullPath:"), range_, column, start, end, name, path)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addBinaryRange:column:addrStart:addrEnd:functionName:fullPath:"), range_, column, start, end, name, path)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2ShaderBinary) AddCostForAddrCostDrawIdxIsALU(addr uint32, cost float64, idx uint32, alu bool) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addCostForAddr:cost:drawIdx:isALU:"), addr, cost, idx, alu)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addCostForAddr:cost:drawIdx:isALU:"), addr, cost, idx, alu)
 }
 func (g GTAGX2ShaderBinary) AddString(string_ objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
-func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("adjustLatencyForALUBlocks:count:"), objc.CArray(aLUBlocks), count)
+func (g GTAGX2ShaderBinary) AdjustLatencyForALUBlocksCount(aLUBlocks unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("adjustLatencyForALUBlocks:count:"), objc.CArray(aLUBlocks), count)
 }
 func (g GTAGX2ShaderBinary) CostForAddress(address uint32) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("costForAddress:"), address)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("costForAddress:"), address)
 	return rv
 }
 func (g GTAGX2ShaderBinary) CostForDrawAtIndex(index uint32) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("costForDrawAtIndex:"), index)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("costForDrawAtIndex:"), index)
 	return rv
 }
 func (g GTAGX2ShaderBinary) CostPercentageForDrawAtIndex(index uint32) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("costPercentageForDrawAtIndex:"), index)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("costPercentageForDrawAtIndex:"), index)
 	return rv
 }
 func (g GTAGX2ShaderBinary) DiassemblyAtAddress(address uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("diassemblyAtAddress:"), address)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("diassemblyAtAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2ShaderBinary) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTAGX2ShaderBinary) FinalizeLineEntriesAndFixOffsetsAddrMin(offsets uint32, min uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("finalizeLineEntriesAndFixOffsets:addrMin:"), offsets, min)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("finalizeLineEntriesAndFixOffsets:addrMin:"), offsets, min)
 }
 func (g GTAGX2ShaderBinary) StringFromIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringFromIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("stringFromIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2ShaderBinary) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderBinary {
-	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTAGX2ShaderBinary) InitWithKeyTypeTypeNameDylibAnalysisResult(key objectivec.IObject, type_ uint32, name objectivec.IObject, dylib bool, result objectivec.IObject) GTAGX2ShaderBinary {
-	rv := objc.Send[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
+	rv := objc.SendIfResponds[GTAGX2ShaderBinary](g.ID, objc.Sel("initWithKey:type:typeName:dylib:analysisResult:"), key, type_, name, dylib, result)
 	return rv
 }
 
 func (_GTAGX2ShaderBinaryClass GTAGX2ShaderBinaryClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTAGX2ShaderBinaryClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTAGX2ShaderBinaryClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTAGX2ShaderBinary) AddrEnd() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("addrEnd"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("addrEnd"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) AddrStart() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("addrStart"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("addrStart"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) AnalysisResult() IGTShaderProfilerBinaryAnalysisResult {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("analysisResult"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("analysisResult"))
 	return GTShaderProfilerBinaryAnalysisResultFromID(objc.ID(rv))
 }
 func (g GTAGX2ShaderBinary) SetAnalysisResult(value IGTShaderProfilerBinaryAnalysisResult) {
-	objc.Send[struct{}](g.ID, objc.Sel("setAnalysisResult:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setAnalysisResult:"), value)
 }
 func (g GTAGX2ShaderBinary) BinaryRanges() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRanges"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryRanges"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTAGX2ShaderBinary) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinary) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinary) Diassemblies() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("diassemblies"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("diassemblies"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTAGX2ShaderBinary) FullPath() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("fullPath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("fullPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinary) SetFullPath(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setFullPath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setFullPath:"), objc.String(value))
 }
 func (g GTAGX2ShaderBinary) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) IsDylib() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isDylib"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isDylib"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) SetIsDylib(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setIsDylib:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setIsDylib:"), value)
 }
 func (g GTAGX2ShaderBinary) Key() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("key"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinary) SetKey(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setKey:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setKey:"), objc.String(value))
 }
 func (g GTAGX2ShaderBinary) LineMax() int {
-	rv := objc.Send[int](g.ID, objc.Sel("lineMax"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("lineMax"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) SetLineMax(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setLineMax:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setLineMax:"), value)
 }
 func (g GTAGX2ShaderBinary) LineMin() int {
-	rv := objc.Send[int](g.ID, objc.Sel("lineMin"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("lineMin"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) SetLineMin(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setLineMin:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setLineMin:"), value)
 }
 func (g GTAGX2ShaderBinary) NumSamples() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("numSamples"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("numSamples"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTAGX2ShaderBinary) TotalCost() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("totalCost"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("totalCost"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) Type() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("type"))
 	return rv
 }
 func (g GTAGX2ShaderBinary) SetType(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setType:"), value)
 }
 func (g GTAGX2ShaderBinary) TypeName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("typeName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("typeName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinary) SetTypeName(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTypeName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setTypeName:"), objc.String(value))
 }

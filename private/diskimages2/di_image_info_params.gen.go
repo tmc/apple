@@ -41,7 +41,7 @@ func (dc DIImageInfoParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIImageInfoParamsClass) Alloc() DIImageInfoParams {
-	rv := objc.Send[DIImageInfoParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIImageInfoParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,36 +102,39 @@ type IDIImageInfoParams interface {
 
 // Init initializes the instance.
 func (d DIImageInfoParams) Init() DIImageInfoParams {
-	rv := objc.Send[DIImageInfoParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIImageInfoParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIImageInfoParams) Autorelease() DIImageInfoParams {
-	rv := objc.Send[DIImageInfoParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIImageInfoParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIImageInfoParams creates a new DIImageInfoParams instance.
 func NewDIImageInfoParams() DIImageInfoParams {
 	class := getDIImageInfoParamsClass()
-	rv := objc.Send[DIImageInfoParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIImageInfoParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIImageInfoParamsWithCoder(coder objectivec.IObject) DIImageInfoParams {
 	instance := getDIImageInfoParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIImageInfoParamsFromID(rv)
 }
 
 func NewDIImageInfoParamsWithExistingParamsError(params IDIImageInfoParams) (DIImageInfoParams, error) {
 	var errorPtr objc.ID
 	instance := getDIImageInfoParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIImageInfoParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIImageInfoParams{}, objc.ErrInitFailed
 	}
 	return DIImageInfoParamsFromID(rv), nil
 }
@@ -139,10 +142,13 @@ func NewDIImageInfoParamsWithExistingParamsError(params IDIImageInfoParams) (DII
 func NewDIImageInfoParamsWithURLError(url foundation.NSURL) (DIImageInfoParams, error) {
 	var errorPtr objc.ID
 	instance := getDIImageInfoParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIImageInfoParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIImageInfoParams{}, objc.ErrInitFailed
 	}
 	return DIImageInfoParamsFromID(rv), nil
 }
@@ -172,35 +178,35 @@ func (d DIImageInfoParams) InitWithExistingParamsError(params IDIImageInfoParams
 }
 
 func (_DIImageInfoParamsClass DIImageInfoParamsClass) IsDiskImageWithURL(url foundation.NSURL) bool {
-	rv := objc.Send[bool](objc.ID(_DIImageInfoParamsClass.class), objc.Sel("isDiskImageWithURL:"), url)
+	rv := objc.SendIfResponds[bool](objc.ID(_DIImageInfoParamsClass.class), objc.Sel("isDiskImageWithURL:"), url)
 	return rv
 }
 
 func (d DIImageInfoParams) EncryptionInfoOnly() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("encryptionInfoOnly"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("encryptionInfoOnly"))
 	return rv
 }
 func (d DIImageInfoParams) SetEncryptionInfoOnly(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionInfoOnly:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEncryptionInfoOnly:"), value)
 }
 func (d DIImageInfoParams) ExtraInfo() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("extraInfo"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("extraInfo"))
 	return rv
 }
 func (d DIImageInfoParams) SetExtraInfo(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setExtraInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setExtraInfo:"), value)
 }
 func (d DIImageInfoParams) ImageInfo() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageInfo"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("imageInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DIImageInfoParams) SetImageInfo(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setImageInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setImageInfo:"), value)
 }
 func (d DIImageInfoParams) OpenEncryption() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("openEncryption"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("openEncryption"))
 	return rv
 }
 func (d DIImageInfoParams) SetOpenEncryption(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOpenEncryption:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOpenEncryption:"), value)
 }

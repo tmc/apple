@@ -39,7 +39,7 @@ func (sc SLSWindowManagerSpaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSWindowManagerSpaceClass) Alloc() SLSWindowManagerSpace {
-	rv := objc.Send[SLSWindowManagerSpace](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSWindowManagerSpace](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,25 +118,25 @@ type ISLSWindowManagerSpace interface {
 
 // Init initializes the instance.
 func (s SLSWindowManagerSpace) Init() SLSWindowManagerSpace {
-	rv := objc.Send[SLSWindowManagerSpace](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSWindowManagerSpace](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSWindowManagerSpace) Autorelease() SLSWindowManagerSpace {
-	rv := objc.Send[SLSWindowManagerSpace](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSWindowManagerSpace](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSWindowManagerSpace creates a new SLSWindowManagerSpace instance.
 func NewSLSWindowManagerSpace() SLSWindowManagerSpace {
 	class := getSLSWindowManagerSpaceClass()
-	rv := objc.Send[SLSWindowManagerSpace](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSWindowManagerSpace](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSWindowManagerSpace) _effectiveDisplayID() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_effectiveDisplayID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_effectiveDisplayID"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -154,57 +154,57 @@ func (s SLSWindowManagerSpace) CanEffectiveDisplayID() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_effectiveDisplayID"))
 }
 func (s SLSWindowManagerSpace) IsCurrentSpace() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isCurrentSpace"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isCurrentSpace"))
 	return rv
 }
 func (s SLSWindowManagerSpace) IsManagedSpace() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isManagedSpace"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isManagedSpace"))
 	return rv
 }
 
 func (s SLSWindowManagerSpace) CurrentSpace() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("currentSpace"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("currentSpace"))
 	return rv
 }
 func (s SLSWindowManagerSpace) DisplayUUID() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayUUID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayUUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSWindowManagerSpace) SetDisplayUUID(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplayUUID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayUUID:"), objc.String(value))
 }
 func (s SLSWindowManagerSpace) ManagedSpace() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("managedSpace"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("managedSpace"))
 	return rv
 }
 func (s SLSWindowManagerSpace) SetManagedSpace(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setManagedSpace:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setManagedSpace:"), value)
 }
 func (s SLSWindowManagerSpace) Manager() ISLSSpaceWindowManager {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("manager"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("manager"))
 	return SLSSpaceWindowManagerFromID(objc.ID(rv))
 }
 func (s SLSWindowManagerSpace) SetManager(value ISLSSpaceWindowManager) {
-	objc.Send[struct{}](s.ID, objc.Sel("setManager:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setManager:"), value)
 }
 func (s SLSWindowManagerSpace) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSWindowManagerSpace) SetSpaceID(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSpaceID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSpaceID:"), value)
 }
 func (s SLSWindowManagerSpace) Type() int {
-	rv := objc.Send[int](s.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("type"))
 	return rv
 }
 func (s SLSWindowManagerSpace) SetType(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), value)
 }
 func (s SLSWindowManagerSpace) WindowIDs() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windowIDs"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windowIDs"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLSWindowManagerSpace) SetWindowIDs(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setWindowIDs:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setWindowIDs:"), value)
 }

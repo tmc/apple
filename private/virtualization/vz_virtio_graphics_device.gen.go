@@ -37,7 +37,7 @@ func (vc VZVirtioGraphicsDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioGraphicsDeviceClass) Alloc() VZVirtioGraphicsDevice {
-	rv := objc.Send[VZVirtioGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioGraphicsDevice interface {
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsDevice) Init() VZVirtioGraphicsDevice {
-	rv := objc.Send[VZVirtioGraphicsDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioGraphicsDevice) Autorelease() VZVirtioGraphicsDevice {
-	rv := objc.Send[VZVirtioGraphicsDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioGraphicsDevice creates a new VZVirtioGraphicsDevice instance.
 func NewVZVirtioGraphicsDevice() VZVirtioGraphicsDevice {
 	class := getVZVirtioGraphicsDeviceClass()
-	rv := objc.Send[VZVirtioGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

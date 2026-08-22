@@ -42,7 +42,7 @@ func (mc MLImageConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLImageConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,31 +97,31 @@ type IMLImageConstraint interface {
 
 // Init initializes the instance.
 func (m MLImageConstraint) Init() MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLImageConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLImageConstraint) Autorelease() MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLImageConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLImageConstraint creates a new MLImageConstraint instance.
 func NewMLImageConstraint() MLImageConstraint {
 	class := getMLImageConstraintClass()
-	rv := objc.Send[MLImageConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLImageConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewImageConstraintWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
 	instance := getMLImageConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
 	return MLImageConstraintFromID(rv)
 }
 
 func (m MLImageConstraint) _stringForAllowedOSTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_stringForAllowedOSTypes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_stringForAllowedOSTypes"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -165,48 +165,48 @@ func (m MLImageConstraint) IsAllowedValueError(value objectivec.IObject) (bool, 
 
 }
 func (m MLImageConstraint) InitWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
+	rv := objc.SendIfResponds[MLImageConstraint](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
 	return rv
 }
 
 func (_MLImageConstraintClass MLImageConstraintClass) ConstraintWithPixelsWidePixelsHighPixelType(wide int64, high int64, type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("constraintWithPixelsWide:pixelsHigh:pixelType:"), wide, high, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("constraintWithPixelsWide:pixelsHigh:pixelType:"), wide, high, type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLImageConstraintClass MLImageConstraintClass) ConstraintWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("constraintWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("constraintWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
 	return objectivec.Object{ID: rv}
 }
 func (_MLImageConstraintClass MLImageConstraintClass) ImagePixelTypeFromOSType(oSType uint32) uint64 {
-	rv := objc.Send[uint64](objc.ID(_MLImageConstraintClass.class), objc.Sel("imagePixelTypeFromOSType:"), oSType)
+	rv := objc.SendIfResponds[uint64](objc.ID(_MLImageConstraintClass.class), objc.Sel("imagePixelTypeFromOSType:"), oSType)
 	return rv
 }
 func (_MLImageConstraintClass MLImageConstraintClass) StringForImagePixelType(type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("stringForImagePixelType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("stringForImagePixelType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLImageConstraintClass MLImageConstraintClass) StringForPixelFormatType(type_ uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("stringForPixelFormatType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLImageConstraintClass.class), objc.Sel("stringForPixelFormatType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLImageConstraintClass MLImageConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLImageConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLImageConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLImageConstraint) ImageHeight() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("imageHeight"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("imageHeight"))
 	return rv
 }
 func (m MLImageConstraint) ImageWidth() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("imageWidth"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("imageWidth"))
 	return rv
 }
 func (m MLImageConstraint) OsType() uint32 {
-	rv := objc.Send[uint32](m.ID, objc.Sel("osType"))
+	rv := objc.SendIfResponds[uint32](m.ID, objc.Sel("osType"))
 	return rv
 }
 func (m MLImageConstraint) PixelType() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("pixelType"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("pixelType"))
 	return rv
 }

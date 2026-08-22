@@ -7,12 +7,6 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// DictionaryHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [AUMessageChannel.SetCallHostBlock]
-type DictionaryHandler = func(*foundation.INSDictionary)
-
 // ErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -94,6 +88,12 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
+
+// INSDictionaryDictionaryHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [AUMessageChannel.SetCallHostBlock]
+type INSDictionaryDictionaryHandler = func(*foundation.INSDictionary) foundation.INSDictionary
 
 // VoidHandler is the signature for a completion handler block.
 //

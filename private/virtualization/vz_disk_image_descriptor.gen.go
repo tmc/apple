@@ -39,7 +39,7 @@ func (vc VZDiskImageDescriptorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDiskImageDescriptorClass) Alloc() VZDiskImageDescriptor {
-	rv := objc.Send[VZDiskImageDescriptor](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDiskImageDescriptor](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,70 +106,70 @@ type IVZDiskImageDescriptor interface {
 
 // Init initializes the instance.
 func (v VZDiskImageDescriptor) Init() VZDiskImageDescriptor {
-	rv := objc.Send[VZDiskImageDescriptor](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDiskImageDescriptor](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDiskImageDescriptor) Autorelease() VZDiskImageDescriptor {
-	rv := objc.Send[VZDiskImageDescriptor](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDiskImageDescriptor](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDiskImageDescriptor creates a new VZDiskImageDescriptor instance.
 func NewVZDiskImageDescriptor() VZDiskImageDescriptor {
 	class := getVZDiskImageDescriptorClass()
-	rv := objc.Send[VZDiskImageDescriptor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDiskImageDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZDiskImageDescriptorWithURL(url foundation.NSURL) VZDiskImageDescriptor {
 	instance := getVZDiskImageDescriptorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return VZDiskImageDescriptorFromID(rv)
 }
 
 func (v VZDiskImageDescriptor) BackendType() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("backendType"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("backendType"))
 	return rv
 }
 func (v VZDiskImageDescriptor) IsReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isReadOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isReadOnly"))
 	return rv
 }
 func (v VZDiskImageDescriptor) SetBackendType(type_ int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setBackendType:"), type_)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setBackendType:"), type_)
 }
 func (v VZDiskImageDescriptor) InitWithURL(url foundation.NSURL) VZDiskImageDescriptor {
-	rv := objc.Send[VZDiskImageDescriptor](v.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[VZDiskImageDescriptor](v.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
 func (v VZDiskImageDescriptor) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZDiskImageDescriptor) SetURL(value foundation.NSURL) {
-	objc.Send[struct{}](v.ID, objc.Sel("setURL:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setURL:"), value)
 }
 func (v VZDiskImageDescriptor) CachingMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("cachingMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("cachingMode"))
 	return rv
 }
 func (v VZDiskImageDescriptor) SetCachingMode(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCachingMode:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCachingMode:"), value)
 }
 func (v VZDiskImageDescriptor) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }
 func (v VZDiskImageDescriptor) SetReadOnly(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setReadOnly:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setReadOnly:"), value)
 }
 func (v VZDiskImageDescriptor) SynchronizationMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("synchronizationMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("synchronizationMode"))
 	return rv
 }
 func (v VZDiskImageDescriptor) SetSynchronizationMode(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSynchronizationMode:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSynchronizationMode:"), value)
 }

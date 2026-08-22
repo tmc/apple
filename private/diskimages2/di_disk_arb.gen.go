@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/diskarbitration"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -42,7 +41,7 @@ func (dc DIDiskArbClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIDiskArbClass) Alloc() DIDiskArb {
-	rv := objc.Send[DIDiskArb](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIDiskArb](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -123,7 +122,7 @@ type IDIDiskArb interface {
 	InputMountedOnURL() foundation.NSURL
 	SetInputMountedOnURL(value foundation.NSURL)
 	MountWithDeviceNameArgsFilesystemMountURLError(name objectivec.IObject, args objectivec.IObject, filesystem objectivec.IObject, url foundation.NSURL) (bool, error)
-	OnDiskDisappearedWithDisk(disk diskarbitration.DADiskRef)
+	OnDiskDisappearedWithDisk(disk DADiskRef)
 	OperationError() foundation.NSError
 	SetOperationError(value foundation.NSError)
 	ShadowMountedOnURLs() foundation.INSArray
@@ -136,39 +135,42 @@ type IDIDiskArb interface {
 
 // Init initializes the instance.
 func (d DIDiskArb) Init() DIDiskArb {
-	rv := objc.Send[DIDiskArb](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIDiskArb](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIDiskArb) Autorelease() DIDiskArb {
-	rv := objc.Send[DIDiskArb](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIDiskArb](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIDiskArb creates a new DIDiskArb instance.
 func NewDIDiskArb() DIDiskArb {
 	class := getDIDiskArbClass()
-	rv := objc.Send[DIDiskArb](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIDiskArb](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIDiskArbWithError() (DIDiskArb, error) {
 	var errorPtr objc.ID
 	instance := getDIDiskArbClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIDiskArb{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIDiskArb{}, objc.ErrInitFailed
 	}
 	return DIDiskArbFromID(rv), nil
 }
 
 func (d DIDiskArb) AddDisappearedCallbackWithMountPointShadowMountPointsDelegate(point objectivec.IObject, points objectivec.IObject, delegate objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:"), point, points, delegate)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:"), point, points, delegate)
 }
 func (d DIDiskArb) CopyDescriptionWithBSDName(bSDName objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyDescriptionWithBSDName:"), bSDName)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("copyDescriptionWithBSDName:"), bSDName)
 	return objectivec.Object{ID: rv}
 }
 func (d DIDiskArb) EjectWithBSDNameError(bSDName objectivec.IObject) (bool, error) {
@@ -197,11 +199,11 @@ func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objective
 	return rv, nil
 
 }
-func (d DIDiskArb) OnDiskDisappearedWithDisk(disk diskarbitration.DADiskRef) {
-	objc.Send[objc.ID](d.ID, objc.Sel("onDiskDisappearedWithDisk:"), disk)
+func (d DIDiskArb) OnDiskDisappearedWithDisk(disk DADiskRef) {
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("onDiskDisappearedWithDisk:"), disk)
 }
 func (d DIDiskArb) Stop() {
-	objc.Send[objc.ID](d.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("stop"))
 }
 func (d DIDiskArb) UnmountWithMountPointError(point objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -252,44 +254,44 @@ func (_DIDiskArbClass DIDiskArbClass) DiskArbWithError() (objectivec.IObject, er
 }
 
 func (d DIDiskArb) CallbackReached() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("callbackReached"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("callbackReached"))
 	return rv
 }
 func (d DIDiskArb) SetCallbackReached(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCallbackReached:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCallbackReached:"), value)
 }
 func (d DIDiskArb) DaSession() DASessionRef {
-	rv := objc.Send[DASessionRef](d.ID, objc.Sel("daSession"))
+	rv := objc.SendIfResponds[DASessionRef](d.ID, objc.Sel("daSession"))
 	return DASessionRef(rv)
 }
 func (d DIDiskArb) SetDaSession(value DASessionRef) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDaSession:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDaSession:"), value)
 }
 func (d DIDiskArb) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("delegate"))
 	return rv
 }
 func (d DIDiskArb) SetDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDelegate:"), value)
 }
 func (d DIDiskArb) InputMountedOnURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputMountedOnURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("inputMountedOnURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIDiskArb) SetInputMountedOnURL(value foundation.NSURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputMountedOnURL:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputMountedOnURL:"), value)
 }
 func (d DIDiskArb) OperationError() foundation.NSError {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("operationError"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("operationError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (d DIDiskArb) SetOperationError(value foundation.NSError) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOperationError:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOperationError:"), value)
 }
 func (d DIDiskArb) ShadowMountedOnURLs() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowMountedOnURLs"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowMountedOnURLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIDiskArb) SetShadowMountedOnURLs(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShadowMountedOnURLs:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShadowMountedOnURLs:"), value)
 }

@@ -14,8 +14,17 @@ type MLE5IOPort interface {
 	// BoundFeatureDirectly protocol.
 	BoundFeatureDirectly() bool
 
+	// Name protocol.
+	Name() objectivec.IObject
+
+	// PixelBufferPool protocol.
+	PixelBufferPool() objectivec.IObject
+
 	// Reset protocol.
 	Reset()
+
+	// SetPixelBufferPool protocol.
+	SetPixelBufferPool(pool objectivec.IObject)
 }
 
 // MLE5IOPortObject wraps an existing Objective-C object that conforms to the MLE5IOPort protocol.
@@ -36,20 +45,20 @@ func MLE5IOPortObjectFromID(id objc.ID) MLE5IOPortObject {
 }
 
 func (o MLE5IOPortObject) BoundFeatureDirectly() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("boundFeatureDirectly"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("boundFeatureDirectly"))
 	return rv
 }
 func (o MLE5IOPortObject) Name() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLE5IOPortObject) PixelBufferPool() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("pixelBufferPool"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("pixelBufferPool"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLE5IOPortObject) Reset() {
-	objc.Send[struct{}](o.ID, objc.Sel("reset"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("reset"))
 }
 func (o MLE5IOPortObject) SetPixelBufferPool(pool objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setPixelBufferPool:"), pool)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setPixelBufferPool:"), pool)
 }

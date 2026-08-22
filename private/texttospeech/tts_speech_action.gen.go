@@ -42,7 +42,7 @@ func (tc TTSSpeechActionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechActionClass) Alloc() TTSSpeechAction {
-	rv := objc.Send[TTSSpeechAction](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechAction](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -253,25 +253,25 @@ type ITTSSpeechAction interface {
 
 // Init initializes the instance.
 func (t TTSSpeechAction) Init() TTSSpeechAction {
-	rv := objc.Send[TTSSpeechAction](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechAction](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechAction) Autorelease() TTSSpeechAction {
-	rv := objc.Send[TTSSpeechAction](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechAction](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechAction creates a new TTSSpeechAction instance.
 func NewTTSSpeechAction() TTSSpeechAction {
 	class := getTTSSpeechActionClass()
-	rv := objc.Send[TTSSpeechAction](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechAction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSSpeechAction) _detectLanguageFromContent() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_detectLanguageFromContent"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_detectLanguageFromContent"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -289,231 +289,255 @@ func (t TTSSpeechAction) CanDetectLanguageFromContent() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_detectLanguageFromContent"))
 }
 func (t TTSSpeechAction) PreprocessAction() {
-	objc.Send[objc.ID](t.ID, objc.Sel("preprocessAction"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("preprocessAction"))
 }
+
+var _ttsspeechaction_setaudiobuffercallback_p0_key byte
+
 func (t TTSSpeechAction) SetAudioBufferCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setAudioBufferCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setAudioBufferCallback:"), _block0)
 }
+
+var _ttsspeechaction_setcompletioncallback_p0_key byte
+
 func (t TTSSpeechAction) SetCompletionCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setCompletionCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setCompletionCallback:"), _block0)
 }
+
+var _ttsspeechaction_setmarkercallback_p0_key byte
+
 func (t TTSSpeechAction) SetMarkerCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setMarkerCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setMarkerCallback:"), _block0)
 }
+
+var _ttsspeechaction_setonmarkercallback_p0_key byte
+
 func (t TTSSpeechAction) SetOnMarkerCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setOnMarkerCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setOnMarkerCallback:"), _block0)
 }
+
+var _ttsspeechaction_setonpausecallback_p0_key byte
+
 func (t TTSSpeechAction) SetOnPauseCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setOnPauseCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setOnPauseCallback:"), _block0)
 }
+
+var _ttsspeechaction_setonresumecallback_p0_key byte
+
 func (t TTSSpeechAction) SetOnResumeCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setOnResumeCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setOnResumeCallback:"), _block0)
 }
+
+var _ttsspeechaction_setonspeechstartcallback_p0_key byte
+
 func (t TTSSpeechAction) SetOnSpeechStartCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setOnSpeechStartCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setOnSpeechStartCallback:"), _block0)
 }
+
+var _ttsspeechaction_setonwillspeakrangecallback_p0_key byte
+
 func (t TTSSpeechAction) SetOnWillSpeakRangeCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setOnWillSpeakRangeCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setOnWillSpeakRangeCallback:"), _block0)
 }
 
 func (_TTSSpeechActionClass TTSSpeechActionClass) ActionWithAttributedStringShouldQueue(string_ objectivec.IObject, queue bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithAttributedString:shouldQueue:"), string_, queue)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithAttributedString:shouldQueue:"), string_, queue)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechActionClass TTSSpeechActionClass) ActionWithSSMLRepresentationShouldQueue(sSMLRepresentation objectivec.IObject, queue bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithSSMLRepresentation:shouldQueue:"), sSMLRepresentation, queue)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithSSMLRepresentation:shouldQueue:"), sSMLRepresentation, queue)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechActionClass TTSSpeechActionClass) ActionWithStringShouldQueue(string_ objectivec.IObject, queue bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithString:shouldQueue:"), string_, queue)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("actionWithString:shouldQueue:"), string_, queue)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechActionClass TTSSpeechActionClass) Test_setUseMaxSpeechRate(rate bool) {
-	objc.Send[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("test_setUseMaxSpeechRate:"), rate)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechActionClass.class), objc.Sel("test_setUseMaxSpeechRate:"), rate)
 }
 
 func (t TTSSpeechAction) AttributedString() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
 func (t TTSSpeechAction) SetAttributedString(value foundation.NSAttributedString) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
 }
 func (t TTSSpeechAction) CannotInterrupt() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("cannotInterrupt"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("cannotInterrupt"))
 	return rv
 }
 func (t TTSSpeechAction) SetCannotInterrupt(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCannotInterrupt:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCannotInterrupt:"), value)
 }
 func (t TTSSpeechAction) CurrentSSMLSnippetIndex() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("currentSSMLSnippetIndex"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("currentSSMLSnippetIndex"))
 	return rv
 }
 func (t TTSSpeechAction) SetCurrentSSMLSnippetIndex(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCurrentSSMLSnippetIndex:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCurrentSSMLSnippetIndex:"), value)
 }
 func (t TTSSpeechAction) EmojiRangeReplacements() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("emojiRangeReplacements"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("emojiRangeReplacements"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSSpeechAction) SetEmojiRangeReplacements(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEmojiRangeReplacements:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEmojiRangeReplacements:"), value)
 }
 func (t TTSSpeechAction) FinalSpokenString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("finalSpokenString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("finalSpokenString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetFinalSpokenString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFinalSpokenString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFinalSpokenString:"), objc.String(value))
 }
 func (t TTSSpeechAction) IgnoreCustomSubstitutions() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("ignoreCustomSubstitutions"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("ignoreCustomSubstitutions"))
 	return rv
 }
 func (t TTSSpeechAction) SetIgnoreCustomSubstitutions(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIgnoreCustomSubstitutions:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIgnoreCustomSubstitutions:"), value)
 }
 func (t TTSSpeechAction) Language() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("language"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetLanguage(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 func (t TTSSpeechAction) Pitch() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("pitch"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("pitch"))
 	return rv
 }
 func (t TTSSpeechAction) SetPitch(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPitch:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPitch:"), value)
 }
 func (t TTSSpeechAction) ProcessedString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("processedString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("processedString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetProcessedString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setProcessedString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setProcessedString:"), objc.String(value))
 }
 func (t TTSSpeechAction) ShouldDetectLanguage() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldDetectLanguage"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldDetectLanguage"))
 	return rv
 }
 func (t TTSSpeechAction) SetShouldDetectLanguage(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldDetectLanguage:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldDetectLanguage:"), value)
 }
 func (t TTSSpeechAction) ShouldPrecomposeString() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldPrecomposeString"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldPrecomposeString"))
 	return rv
 }
 func (t TTSSpeechAction) SetShouldPrecomposeString(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldPrecomposeString:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldPrecomposeString:"), value)
 }
 func (t TTSSpeechAction) ShouldProcessEmoji() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldProcessEmoji"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldProcessEmoji"))
 	return rv
 }
 func (t TTSSpeechAction) SetShouldProcessEmoji(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldProcessEmoji:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldProcessEmoji:"), value)
 }
 func (t TTSSpeechAction) ShouldProcessEmoticons() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldProcessEmoticons"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldProcessEmoticons"))
 	return rv
 }
 func (t TTSSpeechAction) SetShouldProcessEmoticons(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldProcessEmoticons:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldProcessEmoticons:"), value)
 }
 func (t TTSSpeechAction) ShouldQueue() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldQueue"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldQueue"))
 	return rv
 }
 func (t TTSSpeechAction) SetShouldQueue(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldQueue:"), value)
 }
 func (t TTSSpeechAction) SpeakingRate() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("speakingRate"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("speakingRate"))
 	return rv
 }
 func (t TTSSpeechAction) SetSpeakingRate(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSpeakingRate:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSpeakingRate:"), value)
 }
 func (t TTSSpeechAction) SsmlRepresentation() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssmlRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ssmlRepresentation"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetSsmlRepresentation(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSsmlRepresentation:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSsmlRepresentation:"), objc.String(value))
 }
 func (t TTSSpeechAction) State() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("state"))
 	return rv
 }
 func (t TTSSpeechAction) SetState(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setState:"), value)
 }
 func (t TTSSpeechAction) String() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("string"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setString:"), objc.String(value))
 }
 func (t TTSSpeechAction) SynthesizeSilently() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("synthesizeSilently"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("synthesizeSilently"))
 	return rv
 }
 func (t TTSSpeechAction) SetSynthesizeSilently(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSynthesizeSilently:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSynthesizeSilently:"), value)
 }
 func (t TTSSpeechAction) TaggedSSML() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("taggedSSML"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("taggedSSML"))
 	return rv
 }
 func (t TTSSpeechAction) SetTaggedSSML(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTaggedSSML:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setTaggedSSML:"), value)
 }
 func (t TTSSpeechAction) Utterance() avfaudio.AVSpeechUtterance {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("utterance"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("utterance"))
 	return avfaudio.AVSpeechUtteranceFromID(objc.ID(rv))
 }
 func (t TTSSpeechAction) SetUtterance(value avfaudio.AVSpeechUtterance) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUtterance:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUtterance:"), value)
 }
 func (t TTSSpeechAction) VoiceIdentifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechAction) SetVoiceIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
 }
 func (t TTSSpeechAction) VoiceSelection() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("voiceSelection"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("voiceSelection"))
 	return rv
 }
 func (t TTSSpeechAction) SetVoiceSelection(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceSelection:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceSelection:"), value)
 }
 func (t TTSSpeechAction) Volume() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("volume"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("volume"))
 	return rv
 }
 func (t TTSSpeechAction) SetVolume(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVolume:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVolume:"), value)
 }
 func (t TTSSpeechAction) WordCallbackPostProcessedOffset() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("wordCallbackPostProcessedOffset"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("wordCallbackPostProcessedOffset"))
 	return rv
 }
 func (t TTSSpeechAction) SetWordCallbackPostProcessedOffset(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setWordCallbackPostProcessedOffset:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setWordCallbackPostProcessedOffset:"), value)
 }
 
 // SetAudioBufferCallbackSync is a synchronous wrapper around [TTSSpeechAction.SetAudioBufferCallback].

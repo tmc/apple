@@ -39,7 +39,7 @@ func (tc TextToSpeechCoreSynthesisVoiceShimClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechCoreSynthesisVoiceShimClass) Alloc() TextToSpeechCoreSynthesisVoiceShim {
-	rv := objc.Send[TextToSpeechCoreSynthesisVoiceShim](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesisVoiceShim](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -121,93 +121,93 @@ type ITextToSpeechCoreSynthesisVoiceShim interface {
 
 // Init initializes the instance.
 func (t TextToSpeechCoreSynthesisVoiceShim) Init() TextToSpeechCoreSynthesisVoiceShim {
-	rv := objc.Send[TextToSpeechCoreSynthesisVoiceShim](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesisVoiceShim](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechCoreSynthesisVoiceShim) Autorelease() TextToSpeechCoreSynthesisVoiceShim {
-	rv := objc.Send[TextToSpeechCoreSynthesisVoiceShim](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesisVoiceShim](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechCoreSynthesisVoiceShim creates a new TextToSpeechCoreSynthesisVoiceShim instance.
 func NewTextToSpeechCoreSynthesisVoiceShim() TextToSpeechCoreSynthesisVoiceShim {
 	class := getTextToSpeechCoreSynthesisVoiceShimClass()
-	rv := objc.Send[TextToSpeechCoreSynthesisVoiceShim](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesisVoiceShim](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiri(siri bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:"), siri)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:"), siri)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriCompletionHandler(siri bool, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:completionHandler:"), siri, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:completionHandler:"), siri, _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("publicVoices"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("publicVoices"))
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("publicVoicesWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("publicVoicesWithCompletionHandler:"), _block0)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ReloadPublicResolver() {
-	objc.Send[objc.ID](t.ID, objc.Sel("reloadPublicResolver"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("reloadPublicResolver"))
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalled(installed bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:"), installed)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:"), installed)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:completionHandler:"), installed, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:completionHandler:"), installed, _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCode(code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:"), code)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:completionHandler:"), objc.String(code), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCode(code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:"), code)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:completionHandler:"), objc.String(code), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
 
 func (_TextToSpeechCoreSynthesisVoiceShimClass TextToSpeechCoreSynthesisVoiceShimClass) SetShared(shared objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_TextToSpeechCoreSynthesisVoiceShimClass.class), objc.Sel("setShared:"), shared)
+	objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechCoreSynthesisVoiceShimClass.class), objc.Sel("setShared:"), shared)
 }
 
 // InternalVoiceWithIdentifierSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler].

@@ -38,7 +38,7 @@ func (tc TextToSpeechAXOnDiskVoiceLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAXOnDiskVoiceLoaderClass) Alloc() TextToSpeechAXOnDiskVoiceLoader {
-	rv := objc.Send[TextToSpeechAXOnDiskVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechAXOnDiskVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechAXOnDiskVoiceLoaderFromID(id objc.ID) TextToSpeechAXOnDiskVoice
 	return TextToSpeechAXOnDiskVoiceLoader{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechAXOnDiskVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechAXOnDiskVoiceLoader embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechAXOnDiskVoiceLoader implements ITextToSpeechAXOnDiskVoiceLoader.
+var _ ITextToSpeechAXOnDiskVoiceLoader = TextToSpeechAXOnDiskVoiceLoader{}
 
 // An interface definition for the [TextToSpeechAXOnDiskVoiceLoader] class.
 type ITextToSpeechAXOnDiskVoiceLoader interface {
@@ -61,19 +61,19 @@ type ITextToSpeechAXOnDiskVoiceLoader interface {
 
 // Init initializes the instance.
 func (t TextToSpeechAXOnDiskVoiceLoader) Init() TextToSpeechAXOnDiskVoiceLoader {
-	rv := objc.Send[TextToSpeechAXOnDiskVoiceLoader](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechAXOnDiskVoiceLoader](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechAXOnDiskVoiceLoader) Autorelease() TextToSpeechAXOnDiskVoiceLoader {
-	rv := objc.Send[TextToSpeechAXOnDiskVoiceLoader](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechAXOnDiskVoiceLoader](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechAXOnDiskVoiceLoader creates a new TextToSpeechAXOnDiskVoiceLoader instance.
 func NewTextToSpeechAXOnDiskVoiceLoader() TextToSpeechAXOnDiskVoiceLoader {
 	class := getTextToSpeechAXOnDiskVoiceLoaderClass()
-	rv := objc.Send[TextToSpeechAXOnDiskVoiceLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechAXOnDiskVoiceLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

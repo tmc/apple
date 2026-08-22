@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass) Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass) Alloc() SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
-	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,61 +91,61 @@ type ISLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Init() SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
-	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Autorelease() SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
-	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation creates a new SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation instance.
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation() SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	class := getSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass()
-	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64, port uint32) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
 	instance := getSLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
 	return SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) InitWithDrivingSpaceIDVerticalIndexHorizontalIndexPointOptionsFencePort(id uint64, index uint64, index2 uint64, point corefoundation.CGPoint, options uint64, port uint32) SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation {
-	rv := objc.Send[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
+	rv := objc.SendIfResponds[SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation](s.ID, objc.Sel("initWithDrivingSpaceID:verticalIndex:horizontalIndex:point:options:fencePort:"), id, index, index2, point, options, port)
 	return rv
 }
 
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) DrivingSpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("drivingSpaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("drivingSpaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) FencePort() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("fencePort"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("fencePort"))
 	return rv
 }
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) HorizontalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Options() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) Point() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSBridgedSpaceClientDrivenMoveSpacersToPointFencedOperation) VerticalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv
 }

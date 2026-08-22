@@ -41,7 +41,7 @@ func (dc DIErrorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIErrorClass) Alloc() DIError {
-	rv := objc.Send[DIError](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIError](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,25 +64,25 @@ type IDIError interface {
 
 // Init initializes the instance.
 func (d DIError) Init() DIError {
-	rv := objc.Send[DIError](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIError](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIError) Autorelease() DIError {
-	rv := objc.Send[DIError](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIError](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIError creates a new DIError instance.
 func NewDIError() DIError {
 	class := getDIErrorClass()
-	rv := objc.Send[DIError](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIError](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_DIErrorClass DIErrorClass) CopyDefaultLocalizedStringForDIErrorCode(code int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("copyDefaultLocalizedStringForDIErrorCode:"), code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("copyDefaultLocalizedStringForDIErrorCode:"), code)
 	return objectivec.Object{ID: rv}
 }
 func (_DIErrorClass DIErrorClass) ErrorWithDIExceptionDescriptionPrefixError(dIException unsafe.Pointer, description objectivec.IObject, prefix objectivec.IObject) (objectivec.IObject, error) {
@@ -106,11 +106,11 @@ func (_DIErrorClass DIErrorClass) ErrorWithDomainCodeDescriptionVerboseInfoError
 
 }
 func (_DIErrorClass DIErrorClass) ErrorWithEnumValueVerboseInfo(value int64, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithEnumValue:verboseInfo:"), value, info)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithEnumValue:verboseInfo:"), value, info)
 	return objectivec.Object{ID: rv}
 }
 func (_DIErrorClass DIErrorClass) ErrorWithPOSIXCodeVerboseInfo(pOSIXCode int, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithPOSIXCode:verboseInfo:"), pOSIXCode, info)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithPOSIXCode:verboseInfo:"), pOSIXCode, info)
 	return objectivec.Object{ID: rv}
 }
 func (_DIErrorClass DIErrorClass) FailWithDIExceptionDescriptionError(dIException unsafe.Pointer, description objectivec.IObject) (bool, error) {
@@ -244,7 +244,7 @@ func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeVerboseInfoError(pOSIXCode in
 
 }
 func (_DIErrorClass DIErrorClass) FrameworkBundle() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("frameworkBundle"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("frameworkBundle"))
 	return objectivec.Object{ID: rv}
 }
 func (_DIErrorClass DIErrorClass) MandatoryArgumentFailWithError() (bool, error) {

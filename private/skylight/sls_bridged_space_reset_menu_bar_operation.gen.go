@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceResetMenuBarOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceResetMenuBarOperationClass) Alloc() SLSBridgedSpaceResetMenuBarOperation {
-	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceResetMenuBarOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedSpaceResetMenuBarOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceResetMenuBarOperation) Init() SLSBridgedSpaceResetMenuBarOperation {
-	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceResetMenuBarOperation) Autorelease() SLSBridgedSpaceResetMenuBarOperation {
-	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceResetMenuBarOperation creates a new SLSBridgedSpaceResetMenuBarOperation instance.
 func NewSLSBridgedSpaceResetMenuBarOperation() SLSBridgedSpaceResetMenuBarOperation {
 	class := getSLSBridgedSpaceResetMenuBarOperationClass()
-	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceResetMenuBarOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceResetMenuBarOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceResetMenuBarOperation {
 	instance := getSLSBridgedSpaceResetMenuBarOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceResetMenuBarOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceResetMenuBarOperationWithSpaceID(id uint64) SLSBridgedSpaceResetMenuBarOperation {
 	instance := getSLSBridgedSpaceResetMenuBarOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceResetMenuBarOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceResetMenuBarOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceResetMenuBarOperation {
-	rv := objc.Send[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceResetMenuBarOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceResetMenuBarOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

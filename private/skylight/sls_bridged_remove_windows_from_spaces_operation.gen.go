@@ -39,7 +39,7 @@ func (sc SLSBridgedRemoveWindowsFromSpacesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedRemoveWindowsFromSpacesOperationClass) Alloc() SLSBridgedRemoveWindowsFromSpacesOperation {
-	rv := objc.Send[SLSBridgedRemoveWindowsFromSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedRemoveWindowsFromSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedRemoveWindowsFromSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedRemoveWindowsFromSpacesOperation) Init() SLSBridgedRemoveWindowsFromSpacesOperation {
-	rv := objc.Send[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedRemoveWindowsFromSpacesOperation) Autorelease() SLSBridgedRemoveWindowsFromSpacesOperation {
-	rv := objc.Send[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedRemoveWindowsFromSpacesOperation creates a new SLSBridgedRemoveWindowsFromSpacesOperation instance.
 func NewSLSBridgedRemoveWindowsFromSpacesOperation() SLSBridgedRemoveWindowsFromSpacesOperation {
 	class := getSLSBridgedRemoveWindowsFromSpacesOperationClass()
-	rv := objc.Send[SLSBridgedRemoveWindowsFromSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedRemoveWindowsFromSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedRemoveWindowsFromSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedRemoveWindowsFromSpacesOperation {
 	instance := getSLSBridgedRemoveWindowsFromSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedRemoveWindowsFromSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedRemoveWindowsFromSpacesOperationWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedRemoveWindowsFromSpacesOperation {
 	instance := getSLSBridgedRemoveWindowsFromSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return SLSBridgedRemoveWindowsFromSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedRemoveWindowsFromSpacesOperation) InitWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedRemoveWindowsFromSpacesOperation {
-	rv := objc.Send[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
+	rv := objc.SendIfResponds[SLSBridgedRemoveWindowsFromSpacesOperation](s.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return rv
 }
 
 func (s SLSBridgedRemoveWindowsFromSpacesOperation) Spaces() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSBridgedRemoveWindowsFromSpacesOperation) Windows() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

@@ -38,7 +38,7 @@ func (vc VZSocketDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSocketDeviceClass) Alloc() VZSocketDevice {
-	rv := objc.Send[VZSocketDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSocketDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZSocketDevice interface {
 
 // Init initializes the instance.
 func (v VZSocketDevice) Init() VZSocketDevice {
-	rv := objc.Send[VZSocketDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSocketDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSocketDevice) Autorelease() VZSocketDevice {
-	rv := objc.Send[VZSocketDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSocketDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSocketDevice creates a new VZSocketDevice instance.
 func NewVZSocketDevice() VZSocketDevice {
 	class := getVZSocketDeviceClass()
-	rv := objc.Send[VZSocketDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSocketDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSocketDevice) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

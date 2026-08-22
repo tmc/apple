@@ -10,6 +10,12 @@ import (
 // MLComputeDeviceRegistryProtocol protocol.
 type MLComputeDeviceRegistryProtocol interface {
 	objectivec.IObject
+
+	// RegisteredComputeDevices protocol.
+	RegisteredComputeDevices() objectivec.IObject
+
+	// SharedRegistry protocol.
+	SharedRegistry() objectivec.IObject
 }
 
 // MLComputeDeviceRegistryProtocolObject wraps an existing Objective-C object that conforms to the MLComputeDeviceRegistryProtocol protocol.
@@ -30,10 +36,10 @@ func MLComputeDeviceRegistryProtocolObjectFromID(id objc.ID) MLComputeDeviceRegi
 }
 
 func (o MLComputeDeviceRegistryProtocolObject) RegisteredComputeDevices() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("registeredComputeDevices"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("registeredComputeDevices"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLComputeDeviceRegistryProtocolObject) SharedRegistry() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharedRegistry"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("sharedRegistry"))
 	return objectivec.Object{ID: rv}
 }

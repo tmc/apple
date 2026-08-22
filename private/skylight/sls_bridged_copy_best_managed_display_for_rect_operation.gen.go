@@ -39,7 +39,7 @@ func (sc SLSBridgedCopyBestManagedDisplayForRectOperationClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyBestManagedDisplayForRectOperationClass) Alloc() SLSBridgedCopyBestManagedDisplayForRectOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedCopyBestManagedDisplayForRectOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) Init() SLSBridgedCopyBestManagedDisplayForRectOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) Autorelease() SLSBridgedCopyBestManagedDisplayForRectOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyBestManagedDisplayForRectOperation creates a new SLSBridgedCopyBestManagedDisplayForRectOperation instance.
 func NewSLSBridgedCopyBestManagedDisplayForRectOperation() SLSBridgedCopyBestManagedDisplayForRectOperation {
 	class := getSLSBridgedCopyBestManagedDisplayForRectOperationClass()
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForRectOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyBestManagedDisplayForRectOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyBestManagedDisplayForRectOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyBestManagedDisplayForRectOperationFromID(rv)
 }
 
 func NewSLSBridgedCopyBestManagedDisplayForRectOperationWithRect(rect corefoundation.CGRect) SLSBridgedCopyBestManagedDisplayForRectOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRect:"), rect)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRect:"), rect)
 	return SLSBridgedCopyBestManagedDisplayForRectOperationFromID(rv)
 }
 
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) InitWithRect(rect corefoundation.CGRect) SLSBridgedCopyBestManagedDisplayForRectOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("initWithRect:"), rect)
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForRectOperation](s.ID, objc.Sel("initWithRect:"), rect)
 	return rv
 }
 
 func (s SLSBridgedCopyBestManagedDisplayForRectOperation) Rect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }

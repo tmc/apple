@@ -39,7 +39,7 @@ func (vc VZPCIDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPCIDeviceConfigurationClass) Alloc() VZPCIDeviceConfiguration {
-	rv := objc.Send[VZPCIDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPCIDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,41 +85,41 @@ type IVZPCIDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZPCIDeviceConfiguration) Init() VZPCIDeviceConfiguration {
-	rv := objc.Send[VZPCIDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPCIDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPCIDeviceConfiguration) Autorelease() VZPCIDeviceConfiguration {
-	rv := objc.Send[VZPCIDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPCIDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPCIDeviceConfiguration creates a new VZPCIDeviceConfiguration instance.
 func NewVZPCIDeviceConfiguration() VZPCIDeviceConfiguration {
 	class := getVZPCIDeviceConfigurationClass()
-	rv := objc.Send[VZPCIDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPCIDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZPCIDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZPCIDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPCIDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPCIDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZPCIDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

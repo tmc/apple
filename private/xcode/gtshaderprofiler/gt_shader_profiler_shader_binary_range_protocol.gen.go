@@ -17,8 +17,17 @@ type GTShaderProfilerShaderBinaryRange interface {
 	// AddrStart protocol.
 	AddrStart() uint32
 
+	// Binary protocol.
+	Binary() objectivec.IObject
+
+	// CallStack protocol.
+	CallStack() objectivec.IObject
+
 	// CostForAddress protocol.
 	CostForAddress(address uint32) float64
+
+	// Location protocol.
+	Location() objectivec.IObject
 
 	// NumSamples protocol.
 	NumSamples() uint64
@@ -45,34 +54,34 @@ func GTShaderProfilerShaderBinaryRangeObjectFromID(id objc.ID) GTShaderProfilerS
 }
 
 func (o GTShaderProfilerShaderBinaryRangeObject) AddrEnd() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("addrEnd"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("addrEnd"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) AddrStart() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("addrStart"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("addrStart"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) Binary() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) CallStack() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("callStack"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("callStack"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) CostForAddress(address uint32) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("costForAddress:"), address)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("costForAddress:"), address)
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) Location() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("location"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("location"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) NumSamples() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("numSamples"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("numSamples"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryRangeObject) TotalCost() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("totalCost"))
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("totalCost"))
 	return rv
 }

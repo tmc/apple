@@ -12,6 +12,9 @@ import (
 // MLModelAssetDescriptionLoader protocol.
 type MLModelAssetDescriptionLoader interface {
 	objectivec.IObject
+
+	// LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError protocol.
+	LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLModelAssetDescriptionLoaderObject wraps an existing Objective-C object that conforms to the MLModelAssetDescriptionLoader protocol.

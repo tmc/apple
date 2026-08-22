@@ -37,7 +37,7 @@ func (vc VZMacOSBootLoaderGuestTraceEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSBootLoaderGuestTraceEventClass) Alloc() VZMacOSBootLoaderGuestTraceEvent {
-	rv := objc.Send[VZMacOSBootLoaderGuestTraceEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSBootLoaderGuestTraceEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,36 @@ type IVZMacOSBootLoaderGuestTraceEvent interface {
 
 // Init initializes the instance.
 func (v VZMacOSBootLoaderGuestTraceEvent) Init() VZMacOSBootLoaderGuestTraceEvent {
-	rv := objc.Send[VZMacOSBootLoaderGuestTraceEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSBootLoaderGuestTraceEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSBootLoaderGuestTraceEvent) Autorelease() VZMacOSBootLoaderGuestTraceEvent {
-	rv := objc.Send[VZMacOSBootLoaderGuestTraceEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSBootLoaderGuestTraceEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSBootLoaderGuestTraceEvent creates a new VZMacOSBootLoaderGuestTraceEvent instance.
 func NewVZMacOSBootLoaderGuestTraceEvent() VZMacOSBootLoaderGuestTraceEvent {
 	class := getVZMacOSBootLoaderGuestTraceEventClass()
-	rv := objc.Send[VZMacOSBootLoaderGuestTraceEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSBootLoaderGuestTraceEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacOSBootLoaderGuestTraceEvent) Data0() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("data0"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("data0"))
 	return rv
 }
 func (v VZMacOSBootLoaderGuestTraceEvent) Data1() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("data1"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("data1"))
 	return rv
 }
 func (v VZMacOSBootLoaderGuestTraceEvent) Data2() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("data2"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("data2"))
 	return rv
 }
 func (v VZMacOSBootLoaderGuestTraceEvent) Status() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("status"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("status"))
 	return rv
 }

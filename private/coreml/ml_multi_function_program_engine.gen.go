@@ -41,7 +41,7 @@ func (mc MLMultiFunctionProgramEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiFunctionProgramEngineClass) Alloc() MLMultiFunctionProgramEngine {
-	rv := objc.Send[MLMultiFunctionProgramEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiFunctionProgramEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -117,48 +117,51 @@ type IMLMultiFunctionProgramEngine interface {
 
 // Init initializes the instance.
 func (m MLMultiFunctionProgramEngine) Init() MLMultiFunctionProgramEngine {
-	rv := objc.Send[MLMultiFunctionProgramEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiFunctionProgramEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiFunctionProgramEngine) Autorelease() MLMultiFunctionProgramEngine {
-	rv := objc.Send[MLMultiFunctionProgramEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiFunctionProgramEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiFunctionProgramEngine creates a new MLMultiFunctionProgramEngine instance.
 func NewMLMultiFunctionProgramEngine() MLMultiFunctionProgramEngine {
 	class := getMLMultiFunctionProgramEngineClass()
-	rv := objc.Send[MLMultiFunctionProgramEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiFunctionProgramEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiFunctionProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
 func NewMultiFunctionProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
 func NewMultiFunctionProgramEngineWithProgramContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLMultiFunctionProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLMultiFunctionProgramEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLMultiFunctionProgramEngine{}, objc.ErrInitFailed
 	}
 	return MLMultiFunctionProgramEngineFromID(rv), nil
 }
 
 func (m MLMultiFunctionProgramEngine) ClassLabels() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLMultiFunctionProgramEngine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -202,7 +205,7 @@ func (m MLMultiFunctionProgramEngine) NewContextAndReturnError() (objectivec.IOb
 
 }
 func (m MLMultiFunctionProgramEngine) Program() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("program"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("program"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLMultiFunctionProgramEngine) ProgramEngineForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
@@ -226,10 +229,10 @@ func (m MLMultiFunctionProgramEngine) RegressOptionsError(regress objectivec.IOb
 
 }
 func (m MLMultiFunctionProgramEngine) RemoveEngineForFunctionName(name objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("removeEngineForFunctionName:"), name)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("removeEngineForFunctionName:"), name)
 }
 func (m MLMultiFunctionProgramEngine) UpdateModelFilePath(path objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateModelFilePath:"), path)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateModelFilePath:"), path)
 }
 func (m MLMultiFunctionProgramEngine) VerifyArgumentNamesFunctionNameError(names objectivec.IObject, name objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -267,14 +270,14 @@ func (_MLMultiFunctionProgramEngineClass MLMultiFunctionProgramEngineClass) Load
 }
 
 func (m MLMultiFunctionProgramEngine) Container() IMLMultiFunctionProgramContainer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("container"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("container"))
 	return MLMultiFunctionProgramContainerFromID(objc.ID(rv))
 }
 func (m MLMultiFunctionProgramEngine) ModelFileBasePath() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelFileBasePath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelFileBasePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLMultiFunctionProgramEngine) SerializedMILText() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }

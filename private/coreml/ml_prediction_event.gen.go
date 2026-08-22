@@ -39,7 +39,7 @@ func (mc MLPredictionEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPredictionEventClass) Alloc() MLPredictionEvent {
-	rv := objc.Send[MLPredictionEvent](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPredictionEvent](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,56 +100,56 @@ type IMLPredictionEvent interface {
 
 // Init initializes the instance.
 func (m MLPredictionEvent) Init() MLPredictionEvent {
-	rv := objc.Send[MLPredictionEvent](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPredictionEvent](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPredictionEvent) Autorelease() MLPredictionEvent {
-	rv := objc.Send[MLPredictionEvent](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPredictionEvent](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPredictionEvent creates a new MLPredictionEvent instance.
 func NewMLPredictionEvent() MLPredictionEvent {
 	class := getMLPredictionEventClass()
-	rv := objc.Send[MLPredictionEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPredictionEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLPredictionEvent) LastReportedMetric() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lastReportedMetric"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lastReportedMetric"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLPredictionEvent) MaybeLogPredictionEvent(event uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("maybeLogPredictionEvent:"), event)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("maybeLogPredictionEvent:"), event)
 }
 
 func (m MLPredictionEvent) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPredictionEvent) SetBundleIdentifier(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (m MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLPredictionEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
 }
 func (m MLPredictionEvent) ModelName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPredictionEvent) SetModelName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLPredictionEvent) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLPredictionEvent) SetModelType(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }

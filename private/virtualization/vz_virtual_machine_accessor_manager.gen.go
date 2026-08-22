@@ -38,7 +38,7 @@ func (vc VZVirtualMachineAccessorManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineAccessorManagerClass) Alloc() VZVirtualMachineAccessorManager {
-	rv := objc.Send[VZVirtualMachineAccessorManager](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineAccessorManager](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZVirtualMachineAccessorManager interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineAccessorManager) Init() VZVirtualMachineAccessorManager {
-	rv := objc.Send[VZVirtualMachineAccessorManager](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineAccessorManager](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineAccessorManager) Autorelease() VZVirtualMachineAccessorManager {
-	rv := objc.Send[VZVirtualMachineAccessorManager](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineAccessorManager](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineAccessorManager creates a new VZVirtualMachineAccessorManager instance.
 func NewVZVirtualMachineAccessorManager() VZVirtualMachineAccessorManager {
 	class := getVZVirtualMachineAccessorManagerClass()
-	rv := objc.Send[VZVirtualMachineAccessorManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineAccessorManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

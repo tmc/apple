@@ -39,7 +39,7 @@ func (vc VZUSBPassthroughDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBPassthroughDeviceConfigurationClass) Alloc() VZUSBPassthroughDeviceConfiguration {
-	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,70 +103,70 @@ type IVZUSBPassthroughDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBPassthroughDeviceConfiguration) Init() VZUSBPassthroughDeviceConfiguration {
-	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBPassthroughDeviceConfiguration) Autorelease() VZUSBPassthroughDeviceConfiguration {
-	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBPassthroughDeviceConfiguration creates a new VZUSBPassthroughDeviceConfiguration instance.
 func NewVZUSBPassthroughDeviceConfiguration() VZUSBPassthroughDeviceConfiguration {
 	class := getVZUSBPassthroughDeviceConfigurationClass()
-	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZUSBPassthroughDeviceConfigurationWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration {
 	instance := getVZUSBPassthroughDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return VZUSBPassthroughDeviceConfigurationFromID(rv)
 }
 
 func (v VZUSBPassthroughDeviceConfiguration) Accessory() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("accessory"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("accessory"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZUSBPassthroughDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
 func (v VZUSBPassthroughDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }
 func (v VZUSBPassthroughDeviceConfiguration) InitWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration {
-	rv := objc.Send[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDevice:"), device)
+	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDevice:"), device)
 	return rv
 }
 
 func (v VZUSBPassthroughDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZUSBPassthroughDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZUSBPassthroughDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZUSBPassthroughDeviceConfiguration) Signature() foundation.NSData {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("signature"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("signature"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (v VZUSBPassthroughDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZUSBPassthroughDeviceConfiguration) Uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (v VZUSBPassthroughDeviceConfiguration) SetUuid(value foundation.NSUUID) {
-	objc.Send[struct{}](v.ID, objc.Sel("setUuid:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUuid:"), value)
 }

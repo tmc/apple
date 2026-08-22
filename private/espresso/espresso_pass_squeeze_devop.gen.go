@@ -37,7 +37,7 @@ func (ec EspressoPassSqueezeDevopClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassSqueezeDevopClass) Alloc() EspressoPassSqueezeDevop {
-	rv := objc.Send[EspressoPassSqueezeDevop](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassSqueezeDevop](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassSqueezeDevop interface {
 
 // Init initializes the instance.
 func (e EspressoPassSqueezeDevop) Init() EspressoPassSqueezeDevop {
-	rv := objc.Send[EspressoPassSqueezeDevop](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassSqueezeDevop](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassSqueezeDevop) Autorelease() EspressoPassSqueezeDevop {
-	rv := objc.Send[EspressoPassSqueezeDevop](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassSqueezeDevop](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassSqueezeDevop creates a new EspressoPassSqueezeDevop instance.
 func NewEspressoPassSqueezeDevop() EspressoPassSqueezeDevop {
 	class := getEspressoPassSqueezeDevopClass()
-	rv := objc.Send[EspressoPassSqueezeDevop](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassSqueezeDevop](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

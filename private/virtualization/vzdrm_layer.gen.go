@@ -40,7 +40,7 @@ func (vc VZDRMLayerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDRMLayerClass) Alloc() VZDRMLayer {
-	rv := objc.Send[VZDRMLayer](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDRMLayer](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,48 +80,48 @@ type IVZDRMLayer interface {
 
 // Init initializes the instance.
 func (v VZDRMLayer) Init() VZDRMLayer {
-	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDRMLayer](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDRMLayer) Autorelease() VZDRMLayer {
-	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDRMLayer](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDRMLayer creates a new VZDRMLayer instance.
 func NewVZDRMLayer() VZDRMLayer {
 	class := getVZDRMLayerClass()
-	rv := objc.Send[VZDRMLayer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDRMLayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZDRMLayerForTestingContent(testing objectivec.IObject, content objectivec.IObject) VZDRMLayer {
 	instance := getVZDRMLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForTesting:content:"), testing, content)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForTesting:content:"), testing, content)
 	return VZDRMLayerFromID(rv)
 }
 
 func NewVZDRMLayerWithParentLayer(layer objectivec.IObject) VZDRMLayer {
 	instance := getVZDRMLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParentLayer:"), layer)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParentLayer:"), layer)
 	return VZDRMLayerFromID(rv)
 }
 
 func (v VZDRMLayer) LayerDidResize(resize corefoundation.CGSize) {
-	objc.Send[objc.ID](v.ID, objc.Sel("layerDidResize:"), resize)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("layerDidResize:"), resize)
 }
 func (v VZDRMLayer) InitForTestingContent(testing objectivec.IObject, content objectivec.IObject) VZDRMLayer {
-	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("initForTesting:content:"), testing, content)
+	rv := objc.SendIfResponds[VZDRMLayer](v.ID, objc.Sel("initForTesting:content:"), testing, content)
 	return rv
 }
 func (v VZDRMLayer) InitWithParentLayer(layer objectivec.IObject) VZDRMLayer {
-	rv := objc.Send[VZDRMLayer](v.ID, objc.Sel("initWithParentLayer:"), layer)
+	rv := objc.SendIfResponds[VZDRMLayer](v.ID, objc.Sel("initWithParentLayer:"), layer)
 	return rv
 }
 
 func (_VZDRMLayerClass VZDRMLayerClass) IsSupported() bool {
-	rv := objc.Send[bool](objc.ID(_VZDRMLayerClass.class), objc.Sel("isSupported"))
+	rv := objc.SendIfResponds[bool](objc.ID(_VZDRMLayerClass.class), objc.Sel("isSupported"))
 	return rv
 }

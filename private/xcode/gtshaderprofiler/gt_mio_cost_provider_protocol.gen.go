@@ -17,10 +17,10 @@ type GTMioCostProvider interface {
 	CostCount() uint64
 
 	// CostForScopeScopeIdentifierCost protocol.
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 
 	// Costs protocol.
-	Costs() unsafe.Pointer
+	Costs() *GTMioCostInfo
 
 	// InstructionCountForScopeScopeIdentifierDataMaster protocol.
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
@@ -47,22 +47,22 @@ func GTMioCostProviderObjectFromID(id objc.ID) GTMioCostProviderObject {
 }
 
 func (o GTMioCostProviderObject) CostCount() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("costCount"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("costCount"))
 	return rv
 }
-func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
-func (o GTMioCostProviderObject) Costs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("costs"))
-	return rv
+func (o GTMioCostProviderObject) Costs() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("costs"))
+	return (*GTMioCostInfo)(rv)
 }
 func (o GTMioCostProviderObject) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (o GTMioCostProviderObject) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }

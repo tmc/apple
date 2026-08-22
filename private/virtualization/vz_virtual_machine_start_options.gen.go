@@ -39,7 +39,7 @@ func (vc VZVirtualMachineStartOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineStartOptionsClass) Alloc() VZVirtualMachineStartOptions {
-	rv := objc.Send[VZVirtualMachineStartOptions](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineStartOptions](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,25 +79,25 @@ type IVZVirtualMachineStartOptions interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineStartOptions) Init() VZVirtualMachineStartOptions {
-	rv := objc.Send[VZVirtualMachineStartOptions](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineStartOptions](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineStartOptions) Autorelease() VZVirtualMachineStartOptions {
-	rv := objc.Send[VZVirtualMachineStartOptions](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineStartOptions](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineStartOptions creates a new VZVirtualMachineStartOptions instance.
 func NewVZVirtualMachineStartOptions() VZVirtualMachineStartOptions {
 	class := getVZVirtualMachineStartOptionsClass()
-	rv := objc.Send[VZVirtualMachineStartOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineStartOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtualMachineStartOptions) _setDelegatedExceptionClasses(classes objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegatedExceptionClasses:"), classes)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDelegatedExceptionClasses:"), classes)
 }
 
 // SetDelegatedExceptionClasses is an exported wrapper for the private method _setDelegatedExceptionClasses.
@@ -116,7 +116,7 @@ func (v VZVirtualMachineStartOptions) CanSetDelegatedExceptionClasses() bool {
 }
 
 func (v VZVirtualMachineStartOptions) _delegatedExceptionClasses() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_delegatedExceptionClasses"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_delegatedExceptionClasses"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -133,5 +133,5 @@ func (v VZVirtualMachineStartOptions) DelegatedExceptionClasses() (foundation.IN
 	return v._delegatedExceptionClasses(), nil
 }
 func (v VZVirtualMachineStartOptions) Set_delegatedExceptionClasses(value foundation.INSArray) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_delegatedExceptionClasses:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_delegatedExceptionClasses:"), value)
 }

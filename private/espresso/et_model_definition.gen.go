@@ -40,7 +40,7 @@ func (ec ETModelDefinitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETModelDefinitionClass) Alloc() ETModelDefinition {
-	rv := objc.Send[ETModelDefinition](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETModelDefinition](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -104,30 +104,33 @@ type IETModelDefinition interface {
 
 // Init initializes the instance.
 func (e ETModelDefinition) Init() ETModelDefinition {
-	rv := objc.Send[ETModelDefinition](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETModelDefinition](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETModelDefinition) Autorelease() ETModelDefinition {
-	rv := objc.Send[ETModelDefinition](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETModelDefinition](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETModelDefinition creates a new ETModelDefinition instance.
 func NewETModelDefinition() ETModelDefinition {
 	class := getETModelDefinitionClass()
-	rv := objc.Send[ETModelDefinition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETModelDefinition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETModelDefinitionWithInferenceNetworkPathError(path objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInferenceNetworkPath:error:"), path, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInferenceNetworkPath:error:"), path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETModelDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETModelDefinition{}, objc.ErrInitFailed
 	}
 	return ETModelDefinitionFromID(rv), nil
 }
@@ -135,10 +138,13 @@ func NewETModelDefinitionWithInferenceNetworkPathError(path objectivec.IObject) 
 func NewETModelDefinitionWithInferenceNetworkPathInferenceInputsInferenceOutputsError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInferenceNetworkPath:inferenceInputs:inferenceOutputs:error:"), path, inputs, outputs, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInferenceNetworkPath:inferenceInputs:inferenceOutputs:error:"), path, inputs, outputs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETModelDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETModelDefinition{}, objc.ErrInitFailed
 	}
 	return ETModelDefinitionFromID(rv), nil
 }
@@ -146,10 +152,13 @@ func NewETModelDefinitionWithInferenceNetworkPathInferenceInputsInferenceOutputs
 func NewETModelDefinitionWithTrainingNetworkPathInferenceInputsInferenceOutputsTrainingInputsTrainingOutputsTrainingControlVariableNameWithInitializerError(path objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, inputs2 objectivec.IObject, outputs2 objectivec.IObject, name objectivec.IObject, initializer objectivec.IObject) (ETModelDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETModelDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTrainingNetworkPath:inferenceInputs:inferenceOutputs:trainingInputs:trainingOutputs:trainingControlVariableName:withInitializer:error:"), path, inputs, outputs, inputs2, outputs2, name, initializer, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTrainingNetworkPath:inferenceInputs:inferenceOutputs:trainingInputs:trainingOutputs:trainingControlVariableName:withInitializer:error:"), path, inputs, outputs, inputs2, outputs2, name, initializer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETModelDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETModelDefinition{}, objc.ErrInitFailed
 	}
 	return ETModelDefinitionFromID(rv), nil
 }
@@ -186,34 +195,34 @@ func (e ETModelDefinition) InitWithTrainingNetworkPathInferenceInputsInferenceOu
 }
 
 func (e ETModelDefinition) Initializer() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("initializer"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("initializer"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETModelDefinition) Inputs() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputs"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("inputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) IsTrainingGlobalName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("isTrainingGlobalName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("isTrainingGlobalName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETModelDefinition) LayerNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("layerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) ModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelURL"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) Outputs() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputs"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("outputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) TrainingInputs() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("trainingInputs"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("trainingInputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) TrainingOutputs() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("trainingOutputs"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("trainingOutputs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

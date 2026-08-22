@@ -4,8 +4,8 @@ package texttospeech
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -39,7 +39,7 @@ func (tc TTSAUSSEWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAUSSEWrapperClass) Alloc() TTSAUSSEWrapper {
-	rv := objc.Send[TTSAUSSEWrapper](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAUSSEWrapper](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,8 +76,8 @@ type ITTSAUSSEWrapper interface {
 
 	// Topic: Methods
 
-	AudioUnit() unsafe.Pointer
-	SetAudioUnit(value unsafe.Pointer)
+	AudioUnit() audiotoolbox.AUAudioUnit
+	SetAudioUnit(value audiotoolbox.AUAudioUnit)
 	CancelSpeechRequest()
 	SynthesizeSpeechRequest(request objectivec.IObject)
 	InitWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper
@@ -85,49 +85,49 @@ type ITTSAUSSEWrapper interface {
 
 // Init initializes the instance.
 func (t TTSAUSSEWrapper) Init() TTSAUSSEWrapper {
-	rv := objc.Send[TTSAUSSEWrapper](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAUSSEWrapper](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAUSSEWrapper) Autorelease() TTSAUSSEWrapper {
-	rv := objc.Send[TTSAUSSEWrapper](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAUSSEWrapper](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAUSSEWrapper creates a new TTSAUSSEWrapper instance.
 func NewTTSAUSSEWrapper() TTSAUSSEWrapper {
 	class := getTTSAUSSEWrapperClass()
-	rv := objc.Send[TTSAUSSEWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAUSSEWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSAUSSEWrapperWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper {
 	instance := getTTSAUSSEWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioUnit:"), unit)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAudioUnit:"), unit)
 	return TTSAUSSEWrapperFromID(rv)
 }
 
 func (t TTSAUSSEWrapper) CancelSpeechRequest() {
-	objc.Send[objc.ID](t.ID, objc.Sel("cancelSpeechRequest"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("cancelSpeechRequest"))
 }
 func (t TTSAUSSEWrapper) SynthesizeSpeechRequest(request objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("synthesizeSpeechRequest:"), request)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("synthesizeSpeechRequest:"), request)
 }
 func (t TTSAUSSEWrapper) InitWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper {
-	rv := objc.Send[TTSAUSSEWrapper](t.ID, objc.Sel("initWithAudioUnit:"), unit)
+	rv := objc.SendIfResponds[TTSAUSSEWrapper](t.ID, objc.Sel("initWithAudioUnit:"), unit)
 	return rv
 }
 
 func (_TTSAUSSEWrapperClass TTSAUSSEWrapperClass) MakeAU(au objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAUSSEWrapperClass.class), objc.Sel("makeAU:"), au)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAUSSEWrapperClass.class), objc.Sel("makeAU:"), au)
 	return objectivec.Object{ID: rv}
 }
 
-func (t TTSAUSSEWrapper) AudioUnit() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("audioUnit"))
-	return rv
+func (t TTSAUSSEWrapper) AudioUnit() audiotoolbox.AUAudioUnit {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioUnit"))
+	return audiotoolbox.AUAudioUnitFromID(objc.ID(rv))
 }
-func (t TTSAUSSEWrapper) SetAudioUnit(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioUnit:"), value)
+func (t TTSAUSSEWrapper) SetAudioUnit(value audiotoolbox.AUAudioUnit) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioUnit:"), value)
 }

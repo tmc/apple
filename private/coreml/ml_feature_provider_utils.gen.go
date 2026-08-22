@@ -41,7 +41,7 @@ func (mc MLFeatureProviderUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureProviderUtilsClass) Alloc() MLFeatureProviderUtils {
-	rv := objc.Send[MLFeatureProviderUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureProviderUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLFeatureProviderUtils interface {
 
 // Init initializes the instance.
 func (m MLFeatureProviderUtils) Init() MLFeatureProviderUtils {
-	rv := objc.Send[MLFeatureProviderUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureProviderUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureProviderUtils) Autorelease() MLFeatureProviderUtils {
-	rv := objc.Send[MLFeatureProviderUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureProviderUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureProviderUtils creates a new MLFeatureProviderUtils instance.
 func NewMLFeatureProviderUtils() MLFeatureProviderUtils {
 	class := getMLFeatureProviderUtilsClass()
-	rv := objc.Send[MLFeatureProviderUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureProviderUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -157,19 +157,19 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizedSiz
 	return objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_vectorizedSizeOfFeatureValues:error:"))
 }
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizeAllFeaturesWithDescriptions(descriptions objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeAllFeaturesWithDescriptions:"), descriptions)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeAllFeaturesWithDescriptions:"), descriptions)
 	return rv
 }
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizeFeatureWithDescription(description objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeFeatureWithDescription:"), description)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeFeatureWithDescription:"), description)
 	return rv
 }
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) LazyProviderWithFeaturesProvidedByAddedToFeaturesProvidedBy(by objectivec.IObject, by2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("lazyProviderWithFeaturesProvidedBy:addedToFeaturesProvidedBy:"), by, by2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("lazyProviderWithFeaturesProvidedBy:addedToFeaturesProvidedBy:"), by, by2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) ProviderWithSubsetOfFeaturesNamedProvidedBy(named objectivec.IObject, by objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("providerWithSubsetOfFeaturesNamed:providedBy:"), named, by)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("providerWithSubsetOfFeaturesNamed:providedBy:"), named, by)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeFeaturesProvidedByFeatureNamesError(by objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {

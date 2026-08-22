@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -40,7 +39,7 @@ func (sc SLSCCHmacContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSCCHmacContextClass) Alloc() SLSCCHmacContext {
-	rv := objc.Send[SLSCCHmacContext](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSCCHmacContext](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,46 +75,41 @@ type ISLSCCHmacContext interface {
 	// Topic: Methods
 
 	FinalizedData() foundation.NSData
-	UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64)
+	UpdateSigningContextWithBytesLength(bytes []byte)
 	UpdateSigningContextWithData(data objectivec.IObject)
 	UpdateSigningContextWithObject(object objectivec.IObject)
 }
 
 // Init initializes the instance.
 func (s SLSCCHmacContext) Init() SLSCCHmacContext {
-	rv := objc.Send[SLSCCHmacContext](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSCCHmacContext](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSCCHmacContext) Autorelease() SLSCCHmacContext {
-	rv := objc.Send[SLSCCHmacContext](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSCCHmacContext](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSCCHmacContext creates a new SLSCCHmacContext instance.
 func NewSLSCCHmacContext() SLSCCHmacContext {
 	class := getSLSCCHmacContextClass()
-	rv := objc.Send[SLSCCHmacContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSCCHmacContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes unsafe.Pointer, length uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
+func (s SLSCCHmacContext) UpdateSigningContextWithBytesLength(bytes []byte) {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateSigningContextWithBytes:length:"), objc.BytesPointer(bytes), uint(len(bytes)))
 }
 func (s SLSCCHmacContext) UpdateSigningContextWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithData:"), data)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateSigningContextWithData:"), data)
 }
 func (s SLSCCHmacContext) UpdateSigningContextWithObject(object objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("updateSigningContextWithObject:"), object)
-}
-
-func (_SLSCCHmacContextClass SLSCCHmacContextClass) ContextWithImplementingDigester(digester unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSCCHmacContextClass.class), objc.Sel("contextWithImplementingDigester:"), digester)
-	return objectivec.Object{ID: rv}
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateSigningContextWithObject:"), object)
 }
 
 func (s SLSCCHmacContext) FinalizedData() foundation.NSData {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("finalizedData"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("finalizedData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

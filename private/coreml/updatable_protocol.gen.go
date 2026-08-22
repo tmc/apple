@@ -16,8 +16,20 @@ type MLUpdatable interface {
 	// CancelUpdate protocol.
 	CancelUpdate()
 
+	// LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError protocol.
+	LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error)
+
 	// ResumeUpdate protocol.
 	ResumeUpdate()
+
+	// ResumeUpdateWithParameters protocol.
+	ResumeUpdateWithParameters(parameters objectivec.IObject)
+
+	// SetUpdateProgressHandlersDispatchQueue protocol.
+	SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject)
+
+	// UpdateModelWithData protocol.
+	UpdateModelWithData(data objectivec.IObject)
 }
 
 // MLUpdatableObject wraps an existing Objective-C object that conforms to the MLUpdatable protocol.
@@ -38,7 +50,7 @@ func MLUpdatableObjectFromID(id objc.ID) MLUpdatableObject {
 }
 
 func (o MLUpdatableObject) CancelUpdate() {
-	objc.Send[struct{}](o.ID, objc.Sel("cancelUpdate"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cancelUpdate"))
 }
 func (o MLUpdatableObject) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration)
@@ -48,14 +60,14 @@ func (o MLUpdatableObject) LoadModelFromCompiledArchiveModelVersionInfoCompilerV
 	return objectivec.Object{ID: rv}, nil
 }
 func (o MLUpdatableObject) ResumeUpdate() {
-	objc.Send[struct{}](o.ID, objc.Sel("resumeUpdate"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("resumeUpdate"))
 }
 func (o MLUpdatableObject) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 func (o MLUpdatableObject) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
 func (o MLUpdatableObject) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateModelWithData:"), data)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateModelWithData:"), data)
 }

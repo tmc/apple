@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceGetInterTileSpacingOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceGetInterTileSpacingOperationClass) Alloc() SLSBridgedSpaceGetInterTileSpacingOperation {
-	rv := objc.Send[SLSBridgedSpaceGetInterTileSpacingOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetInterTileSpacingOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceGetInterTileSpacingOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceGetInterTileSpacingOperation) Init() SLSBridgedSpaceGetInterTileSpacingOperation {
-	rv := objc.Send[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceGetInterTileSpacingOperation) Autorelease() SLSBridgedSpaceGetInterTileSpacingOperation {
-	rv := objc.Send[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceGetInterTileSpacingOperation creates a new SLSBridgedSpaceGetInterTileSpacingOperation instance.
 func NewSLSBridgedSpaceGetInterTileSpacingOperation() SLSBridgedSpaceGetInterTileSpacingOperation {
 	class := getSLSBridgedSpaceGetInterTileSpacingOperationClass()
-	rv := objc.Send[SLSBridgedSpaceGetInterTileSpacingOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetInterTileSpacingOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceGetInterTileSpacingOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetInterTileSpacingOperation {
 	instance := getSLSBridgedSpaceGetInterTileSpacingOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetInterTileSpacingOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceGetInterTileSpacingOperationWithSpaceID(id uint64) SLSBridgedSpaceGetInterTileSpacingOperation {
 	instance := getSLSBridgedSpaceGetInterTileSpacingOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetInterTileSpacingOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceGetInterTileSpacingOperation) MakeResultWithSize(size corefoundation.CGSize) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithSize:"), size)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceGetInterTileSpacingOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetInterTileSpacingOperation {
-	rv := objc.Send[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetInterTileSpacingOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceGetInterTileSpacingOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

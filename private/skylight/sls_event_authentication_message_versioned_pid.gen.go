@@ -39,7 +39,7 @@ func (sc SLSEventAuthenticationMessageVersionedPIDClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSEventAuthenticationMessageVersionedPIDClass) Alloc() SLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,64 +91,64 @@ type ISLSEventAuthenticationMessageVersionedPID interface {
 
 // Init initializes the instance.
 func (s SLSEventAuthenticationMessageVersionedPID) Init() SLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSEventAuthenticationMessageVersionedPID) Autorelease() SLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSEventAuthenticationMessageVersionedPID creates a new SLSEventAuthenticationMessageVersionedPID instance.
 func NewSLSEventAuthenticationMessageVersionedPID() SLSEventAuthenticationMessageVersionedPID {
 	class := getSLSEventAuthenticationMessageVersionedPIDClass()
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSEventAuthenticationMessageVersionedPIDWithCoder(coder objectivec.IObject) SLSEventAuthenticationMessageVersionedPID {
 	instance := getSLSEventAuthenticationMessageVersionedPIDClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
 }
 
 func NewSLSEventAuthenticationMessageVersionedPIDWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
 	instance := getSLSEventAuthenticationMessageVersionedPIDClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPID:version:"), pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
 }
 
 func (s SLSEventAuthenticationMessageVersionedPID) AddToSigningContext(context objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
 }
 func (s SLSEventAuthenticationMessageVersionedPID) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSEventAuthenticationMessageVersionedPID) InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s SLSEventAuthenticationMessageVersionedPID) InitWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithPID:version:"), pid, version)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return rv
 }
 
 func (_SLSEventAuthenticationMessageVersionedPIDClass SLSEventAuthenticationMessageVersionedPIDClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSEventAuthenticationMessageVersionedPIDClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSEventAuthenticationMessageVersionedPIDClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (s SLSEventAuthenticationMessageVersionedPID) Pid() int {
-	rv := objc.Send[int](s.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("pid"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageVersionedPID) Token() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("token"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("token"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageVersionedPID) Version() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("version"))
 	return rv
 }

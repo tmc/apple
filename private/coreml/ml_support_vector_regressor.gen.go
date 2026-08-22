@@ -40,7 +40,7 @@ func (mc MLSupportVectorRegressorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSupportVectorRegressorClass) Alloc() MLSupportVectorRegressor {
-	rv := objc.Send[MLSupportVectorRegressor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSupportVectorRegressor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -59,8 +59,8 @@ func MLSupportVectorRegressorFromID(id objc.ID) MLSupportVectorRegressor {
 	return MLSupportVectorRegressor{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLSupportVectorRegressor struct embeds objectivec.Object (parent type unavailable) but
-// IMLSupportVectorRegressor embeds the parent interface; skip compile-time assertion.
+// Ensure MLSupportVectorRegressor implements IMLSupportVectorRegressor.
+var _ IMLSupportVectorRegressor = MLSupportVectorRegressor{}
 
 // An interface definition for the [MLSupportVectorRegressor] class.
 //
@@ -71,7 +71,7 @@ func MLSupportVectorRegressorFromID(id objc.ID) MLSupportVectorRegressor {
 //   - [IMLSupportVectorRegressor.RegressOptionsError]
 //   - [IMLSupportVectorRegressor.InitWithEngineDescriptionConfigurationError]
 type IMLSupportVectorRegressor interface {
-	IMLRegressor
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -83,30 +83,33 @@ type IMLSupportVectorRegressor interface {
 
 // Init initializes the instance.
 func (m MLSupportVectorRegressor) Init() MLSupportVectorRegressor {
-	rv := objc.Send[MLSupportVectorRegressor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSupportVectorRegressor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSupportVectorRegressor) Autorelease() MLSupportVectorRegressor {
-	rv := objc.Send[MLSupportVectorRegressor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSupportVectorRegressor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSupportVectorRegressor creates a new MLSupportVectorRegressor instance.
 func NewMLSupportVectorRegressor() MLSupportVectorRegressor {
 	class := getMLSupportVectorRegressorClass()
-	rv := objc.Send[MLSupportVectorRegressor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSupportVectorRegressor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSupportVectorRegressorWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorRegressor, error) {
 	var errorPtr objc.ID
 	instance := getMLSupportVectorRegressorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSupportVectorRegressor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSupportVectorRegressor{}, objc.ErrInitFailed
 	}
 	return MLSupportVectorRegressorFromID(rv), nil
 }
@@ -133,9 +136,9 @@ func (m MLSupportVectorRegressor) InitWithEngineDescriptionConfigurationError(en
 }
 
 func (m MLSupportVectorRegressor) Engine() IMLSVREngine {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("engine"))
 	return MLSVREngineFromID(objc.ID(rv))
 }
 func (m MLSupportVectorRegressor) SetEngine(value IMLSVREngine) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }

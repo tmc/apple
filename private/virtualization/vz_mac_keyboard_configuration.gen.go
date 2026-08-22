@@ -37,7 +37,7 @@ func (vc VZMacKeyboardConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacKeyboardConfigurationClass) Alloc() VZMacKeyboardConfiguration {
-	rv := objc.Send[VZMacKeyboardConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacKeyboardConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,25 +86,25 @@ type IVZMacKeyboardConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacKeyboardConfiguration) Init() VZMacKeyboardConfiguration {
-	rv := objc.Send[VZMacKeyboardConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacKeyboardConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacKeyboardConfiguration) Autorelease() VZMacKeyboardConfiguration {
-	rv := objc.Send[VZMacKeyboardConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacKeyboardConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacKeyboardConfiguration creates a new VZMacKeyboardConfiguration instance.
 func NewVZMacKeyboardConfiguration() VZMacKeyboardConfiguration {
 	class := getVZMacKeyboardConfigurationClass()
-	rv := objc.Send[VZMacKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacKeyboardConfiguration) _setSoftwareKeyboard(keyboard bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setSoftwareKeyboard:"), keyboard)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSoftwareKeyboard:"), keyboard)
 }
 
 // SetSoftwareKeyboard is an exported wrapper for the private method _setSoftwareKeyboard.
@@ -122,7 +122,7 @@ func (v VZMacKeyboardConfiguration) CanSetSoftwareKeyboard() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSoftwareKeyboard:"))
 }
 func (v VZMacKeyboardConfiguration) _setSupportsGlobeKey(key bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setSupportsGlobeKey:"), key)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSupportsGlobeKey:"), key)
 }
 
 // SetSupportsGlobeKey is an exported wrapper for the private method _setSupportsGlobeKey.
@@ -141,7 +141,7 @@ func (v VZMacKeyboardConfiguration) CanSetSupportsGlobeKey() bool {
 }
 
 func (v VZMacKeyboardConfiguration) _softwareKeyboard() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_softwareKeyboard"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_softwareKeyboard"))
 	return rv
 }
 
@@ -158,10 +158,10 @@ func (v VZMacKeyboardConfiguration) SoftwareKeyboard() (bool, error) {
 	return v._softwareKeyboard(), nil
 }
 func (v VZMacKeyboardConfiguration) Set_softwareKeyboard(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_softwareKeyboard:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_softwareKeyboard:"), value)
 }
 func (v VZMacKeyboardConfiguration) _supportsGlobeKey() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_supportsGlobeKey"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_supportsGlobeKey"))
 	return rv
 }
 
@@ -178,5 +178,5 @@ func (v VZMacKeyboardConfiguration) SupportsGlobeKey() (bool, error) {
 	return v._supportsGlobeKey(), nil
 }
 func (v VZMacKeyboardConfiguration) Set_supportsGlobeKey(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_supportsGlobeKey:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_supportsGlobeKey:"), value)
 }

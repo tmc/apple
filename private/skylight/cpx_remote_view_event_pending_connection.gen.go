@@ -40,7 +40,7 @@ func (cc CPXRemoteViewEventPendingConnectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXRemoteViewEventPendingConnectionClass) Alloc() CPXRemoteViewEventPendingConnection {
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventPendingConnection](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -107,71 +107,71 @@ type ICPXRemoteViewEventPendingConnection interface {
 
 // Init initializes the instance.
 func (c CPXRemoteViewEventPendingConnection) Init() CPXRemoteViewEventPendingConnection {
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXRemoteViewEventPendingConnection) Autorelease() CPXRemoteViewEventPendingConnection {
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXRemoteViewEventPendingConnection creates a new CPXRemoteViewEventPendingConnection instance.
 func NewCPXRemoteViewEventPendingConnection() CPXRemoteViewEventPendingConnection {
 	class := getCPXRemoteViewEventPendingConnectionClass()
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventPendingConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXRemoteViewEventPendingConnectionWithConnectionHandler(connection objectivec.IObject, handler objectivec.IObject) CPXRemoteViewEventPendingConnection {
 	instance := getCPXRemoteViewEventPendingConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
 	return CPXRemoteViewEventPendingConnectionFromID(rv)
 }
 
 func (c CPXRemoteViewEventPendingConnection) AcceptConnection() {
-	objc.Send[objc.ID](c.ID, objc.Sel("acceptConnection"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("acceptConnection"))
 }
 func (c CPXRemoteViewEventPendingConnection) Activate() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("activate"))
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("activate"))
 	return rv
 }
 func (c CPXRemoteViewEventPendingConnection) ConnectionRevokedWithEvent(connection objectivec.IObject, event objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("connection:revokedWithEvent:"), connection, event)
 }
 func (c CPXRemoteViewEventPendingConnection) RejectConnection() {
-	objc.Send[objc.ID](c.ID, objc.Sel("rejectConnection"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("rejectConnection"))
 }
 func (c CPXRemoteViewEventPendingConnection) InitWithConnectionHandler(connection objectivec.IObject, handler objectivec.IObject) CPXRemoteViewEventPendingConnection {
-	rv := objc.Send[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
+	rv := objc.SendIfResponds[CPXRemoteViewEventPendingConnection](c.ID, objc.Sel("initWithConnection:handler:"), connection, handler)
 	return rv
 }
 
 func (c CPXRemoteViewEventPendingConnection) Connection() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("connection"))
 	return rv
 }
 func (c CPXRemoteViewEventPendingConnection) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXRemoteViewEventPendingConnection) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXRemoteViewEventPendingConnection) Handler() ICPXRemoteViewEventServer {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("handler"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("handler"))
 	return CPXRemoteViewEventServerFromID(objc.ID(rv))
 }
 func (c CPXRemoteViewEventPendingConnection) SetHandler(value ICPXRemoteViewEventServer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setHandler:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setHandler:"), value)
 }
 func (c CPXRemoteViewEventPendingConnection) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXRemoteViewEventPendingConnection) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

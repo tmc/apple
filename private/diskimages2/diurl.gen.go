@@ -39,7 +39,7 @@ func (dc DIURLClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIURLClass) Alloc() DIURL {
-	rv := objc.Send[DIURL](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIURL](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,62 +82,62 @@ type IDIURL interface {
 
 // Init initializes the instance.
 func (d DIURL) Init() DIURL {
-	rv := objc.Send[DIURL](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIURL](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIURL) Autorelease() DIURL {
-	rv := objc.Send[DIURL](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIURL](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIURL creates a new DIURL instance.
 func NewDIURL() DIURL {
 	class := getDIURLClass()
-	rv := objc.Send[DIURL](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIURL](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIURLWithCoder(coder objectivec.IObject) DIURL {
 	instance := getDIURLClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIURLFromID(rv)
 }
 
 func NewDIURLWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) DIURL {
 	instance := getDIURLClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:params:"), name, params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:params:"), name, params)
 	return DIURLFromID(rv)
 }
 
 func (d DIURL) InitWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) DIURL {
-	rv := objc.Send[DIURL](d.ID, objc.Sel("initWithPluginName:params:"), name, params)
+	rv := objc.SendIfResponds[DIURL](d.ID, objc.Sel("initWithPluginName:params:"), name, params)
 	return rv
 }
 
 func (_DIURLClass DIURLClass) NewDIURLWithNSURL(nsurl foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithNSURL:"), nsurl)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithNSURL:"), nsurl)
 	return objectivec.Object{ID: rv}
 }
 func (_DIURLClass DIURLClass) NewDIURLWithPluginNameParams(name objectivec.IObject, params objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithPluginName:params:"), name, params)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIURLClass.class), objc.Sel("newDIURLWithPluginName:params:"), name, params)
 	return objectivec.Object{ID: rv}
 }
 func (_DIURLClass DIURLClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIURLClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIURLClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIURL) IsPlugin() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isPlugin"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isPlugin"))
 	return rv
 }
 func (d DIURL) PluginName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("pluginName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIURL) PluginParams() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("pluginParams"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pluginParams"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

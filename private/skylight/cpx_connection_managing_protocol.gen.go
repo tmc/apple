@@ -14,10 +14,10 @@ type CPXConnectionManaging interface {
 	objectivec.IObject
 
 	// ConnectionForID protocol.
-	ConnectionForID(id uint32) unsafe.Pointer
+	ConnectionForID(id uint32) *CGXConnection
 
 	// PidForConnection protocol.
-	PidForConnection(connection CGXConnection) int
+	PidForConnection(connection *CGXConnection) int
 }
 
 // CPXConnectionManagingObject wraps an existing Objective-C object that conforms to the CPXConnectionManaging protocol.
@@ -37,11 +37,11 @@ func CPXConnectionManagingObjectFromID(id objc.ID) CPXConnectionManagingObject {
 	}
 }
 
-func (o CPXConnectionManagingObject) ConnectionForID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("connectionForID:"), id)
-	return rv
+func (o CPXConnectionManagingObject) ConnectionForID(id uint32) *CGXConnection {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("connectionForID:"), id)
+	return (*CGXConnection)(rv)
 }
-func (o CPXConnectionManagingObject) PidForConnection(connection CGXConnection) int {
-	rv := objc.Send[int](o.ID, objc.Sel("pidForConnection:"), connection)
+func (o CPXConnectionManagingObject) PidForConnection(connection *CGXConnection) int {
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("pidForConnection:"), unsafe.Pointer(connection))
 	return rv
 }

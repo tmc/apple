@@ -39,7 +39,7 @@ func (mc MLVersionInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLVersionInfoClass) Alloc() MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLVersionInfo](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,72 +94,72 @@ type IMLVersionInfo interface {
 
 // Init initializes the instance.
 func (m MLVersionInfo) Init() MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLVersionInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLVersionInfo) Autorelease() MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLVersionInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLVersionInfo creates a new MLVersionInfo instance.
 func NewMLVersionInfo() MLVersionInfo {
 	class := getMLVersionInfoClass()
-	rv := objc.Send[MLVersionInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLVersionInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
 	instance := getMLVersionInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return MLVersionInfoFromID(rv)
 }
 
 func (m MLVersionInfo) OlderThan(than objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("olderThan:"), than)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("olderThan:"), than)
 	return rv
 }
 func (m MLVersionInfo) InitWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
+	rv := objc.SendIfResponds[MLVersionInfo](m.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return rv
 }
 
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithMajor:minor:patch:variant:"), major, minor, patch, variant)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return objectivec.Object{ID: rv}
 }
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithStringProgressive(progressive objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithStringProgressive:"), progressive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLVersionInfoClass.class), objc.Sel("versionInfoWithStringProgressive:"), progressive)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLVersionInfo) MajorVersion() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("majorVersion"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("majorVersion"))
 	return rv
 }
 func (m MLVersionInfo) MinorVersion() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("minorVersion"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("minorVersion"))
 	return rv
 }
 func (m MLVersionInfo) PatchVersion() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("patchVersion"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("patchVersion"))
 	return rv
 }
 func (m MLVersionInfo) VariantString() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("variantString"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("variantString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLVersionInfo) VersionNumberString() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionNumberString"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("versionNumberString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLVersionInfo) VersionString() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionString"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()
 }

@@ -38,7 +38,7 @@ func (mc MLParameterUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLParameterUtilsClass) Alloc() MLParameterUtils {
-	rv := objc.Send[MLParameterUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLParameterUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,39 +61,39 @@ type IMLParameterUtils interface {
 
 // Init initializes the instance.
 func (m MLParameterUtils) Init() MLParameterUtils {
-	rv := objc.Send[MLParameterUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLParameterUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLParameterUtils) Autorelease() MLParameterUtils {
-	rv := objc.Send[MLParameterUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLParameterUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLParameterUtils creates a new MLParameterUtils instance.
 func NewMLParameterUtils() MLParameterUtils {
 	class := getMLParameterUtilsClass()
-	rv := objc.Send[MLParameterUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLParameterUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLParameterUtilsClass MLParameterUtilsClass) AppendParameterDescriptionsToModelDescription(descriptions objectivec.IObject, description objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("appendParameterDescriptions:toModelDescription:"), descriptions, description)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("appendParameterDescriptions:toModelDescription:"), descriptions, description)
 }
 func (_MLParameterUtilsClass MLParameterUtilsClass) DeScopeParametersByDeletingPrefixingScope(parameters objectivec.IObject, scope objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("deScopeParameters:byDeletingPrefixingScope:"), parameters, scope)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("deScopeParameters:byDeletingPrefixingScope:"), parameters, scope)
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterUtilsClass MLParameterUtilsClass) NumberForKeyInDictionary(key objectivec.IObject, dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("numberForKey:inDictionary:"), key, dictionary)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("numberForKey:inDictionary:"), key, dictionary)
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterUtilsClass MLParameterUtilsClass) ObjectForKeyClassDictionary(key objectivec.IObject, class objectivec.Class, dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("objectForKey:class:dictionary:"), key, class, dictionary)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("objectForKey:class:dictionary:"), key, class, dictionary)
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterUtilsClass MLParameterUtilsClass) StringForKeyInDictionary(key objectivec.IObject, dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("stringForKey:inDictionary:"), key, dictionary)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterUtilsClass.class), objc.Sel("stringForKey:inDictionary:"), key, dictionary)
 	return objectivec.Object{ID: rv}
 }

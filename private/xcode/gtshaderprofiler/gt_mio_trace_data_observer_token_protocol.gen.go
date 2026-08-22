@@ -33,5 +33,5 @@ func GTMioTraceDataObserverTokenObjectFromID(id objc.ID) GTMioTraceDataObserverT
 }
 
 func (o GTMioTraceDataObserverTokenObject) Cancel() {
-	objc.Send[struct{}](o.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cancel"))
 }

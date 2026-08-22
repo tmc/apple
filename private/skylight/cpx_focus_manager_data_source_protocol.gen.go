@@ -17,13 +17,13 @@ type CPXFocusManagerDataSource interface {
 	AddToPermittedFrontList(list CPSProcessSerNum) int16
 
 	// FrontmostProcess protocol.
-	FrontmostProcess() unsafe.Pointer
+	FrontmostProcess() *CPSProcessRec
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
+	GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
@@ -35,7 +35,7 @@ type CPXFocusManagerDataSource interface {
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
-	SetFrontmostProcess(process CPSProcessRec) int16
+	SetFrontmostProcess(process *CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
 	SetKeyThiefConnectionID(id uint32)
@@ -62,41 +62,41 @@ func CPXFocusManagerDataSourceObjectFromID(id objc.ID) CPXFocusManagerDataSource
 }
 
 func (o CPXFocusManagerDataSourceObject) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) FrontmostProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
+func (o CPXFocusManagerDataSourceObject) FrontmostProcess() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
+	return (*CPSProcessRec)(rv)
+}
+func (o CPXFocusManagerDataSourceObject) GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool {
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), unsafe.Pointer(checkin))
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
-	return rv
-}
-func (o CPXFocusManagerDataSourceObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
+func (o CPXFocusManagerDataSourceObject) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool {
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), unsafe.Pointer(frontmost))
 	return rv
 }
 func (o CPXFocusManagerDataSourceObject) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 func (o CPXFocusManagerDataSourceObject) KeyThiefConnectionID() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
 func (o CPXFocusManagerDataSourceObject) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-func (o CPXFocusManagerDataSourceObject) SetFrontmostProcess(process CPSProcessRec) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
+func (o CPXFocusManagerDataSourceObject) SetFrontmostProcess(process *CPSProcessRec) int16 {
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("setFrontmostProcess:"), unsafe.Pointer(process))
 	return rv
 }
 func (o CPXFocusManagerDataSourceObject) SetKeyThiefConnectionID(id uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("setKeyThiefConnectionID:"), id)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setKeyThiefConnectionID:"), id)
 }
 func (o CPXFocusManagerDataSourceObject) SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int {
-	rv := objc.Send[int](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }

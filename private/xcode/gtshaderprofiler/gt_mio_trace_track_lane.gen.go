@@ -39,7 +39,7 @@ func (gc GTMioTraceTrackLaneClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceTrackLaneClass) Alloc() GTMioTraceTrackLane {
-	rv := objc.Send[GTMioTraceTrackLane](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceTrackLane](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,50 +88,50 @@ type IGTMioTraceTrackLane interface {
 
 // Init initializes the instance.
 func (g GTMioTraceTrackLane) Init() GTMioTraceTrackLane {
-	rv := objc.Send[GTMioTraceTrackLane](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceTrackLane](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceTrackLane) Autorelease() GTMioTraceTrackLane {
-	rv := objc.Send[GTMioTraceTrackLane](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceTrackLane](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceTrackLane creates a new GTMioTraceTrackLane instance.
 func NewGTMioTraceTrackLane() GTMioTraceTrackLane {
 	class := getGTMioTraceTrackLaneClass()
-	rv := objc.Send[GTMioTraceTrackLane](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceTrackLane](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceTrackLaneWithId(id int) GTMioTraceTrackLane {
 	instance := getGTMioTraceTrackLaneClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithId:"), id)
 	return GTMioTraceTrackLaneFromID(rv)
 }
 
 func (g GTMioTraceTrackLane) Add(add uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("add:"), add)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("add:"), add)
 }
 func (g GTMioTraceTrackLane) IsEmpty() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isEmpty"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isEmpty"))
 	return rv
 }
 func (g GTMioTraceTrackLane) InitWithId(id int) GTMioTraceTrackLane {
-	rv := objc.Send[GTMioTraceTrackLane](g.ID, objc.Sel("initWithId:"), id)
+	rv := objc.SendIfResponds[GTMioTraceTrackLane](g.ID, objc.Sel("initWithId:"), id)
 	return rv
 }
 
 func (g GTMioTraceTrackLane) IndexCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("indexCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("indexCount"))
 	return rv
 }
 func (g GTMioTraceTrackLane) Indexes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("indexes"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("indexes"))
 	return rv
 }
 func (g GTMioTraceTrackLane) LaneId() int {
-	rv := objc.Send[int](g.ID, objc.Sel("laneId"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("laneId"))
 	return rv
 }

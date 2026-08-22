@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSQLiteReaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSQLiteReaderClass) Alloc() TextToSpeechTTSSQLiteReader {
-	rv := objc.Send[TextToSpeechTTSSQLiteReader](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSQLiteReader](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSSQLiteReaderFromID(id objc.ID) TextToSpeechTTSSQLiteReader {
 	return TextToSpeechTTSSQLiteReader{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSSQLiteReader struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSSQLiteReader embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSSQLiteReader implements ITextToSpeechTTSSQLiteReader.
+var _ ITextToSpeechTTSSQLiteReader = TextToSpeechTTSSQLiteReader{}
 
 // An interface definition for the [TextToSpeechTTSSQLiteReader] class.
 type ITextToSpeechTTSSQLiteReader interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSSQLiteReader interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSQLiteReader) Init() TextToSpeechTTSSQLiteReader {
-	rv := objc.Send[TextToSpeechTTSSQLiteReader](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSQLiteReader](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSQLiteReader) Autorelease() TextToSpeechTTSSQLiteReader {
-	rv := objc.Send[TextToSpeechTTSSQLiteReader](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSQLiteReader](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSQLiteReader creates a new TextToSpeechTTSSQLiteReader instance.
 func NewTextToSpeechTTSSQLiteReader() TextToSpeechTTSSQLiteReader {
 	class := getTextToSpeechTTSSQLiteReaderClass()
-	rv := objc.Send[TextToSpeechTTSSQLiteReader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSQLiteReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -2,30 +2,20 @@
 
 package diskimages2
 
-type AAS3ContextImplRef uintptr
-
 type AEAAuthDataImplRef uintptr
 
 type AuthorizationOpaqueRefRef uintptr
 
-type BackendRef uintptr
+type DADiskRef = DADisk
 
-type BaseFolderCopierRef uintptr
-
-type DADiskRef uintptr
-
-type DASessionRef uintptr
-
-type DiskImageRef uintptr
+type DASessionRef = DASession
 
 type MKMediaRef uintptr
 
 type DiskimageOpenParamsImplRef uintptr
 
-type HeaderRef uintptr
+type ErrorCategoryRef uintptr
 
-type PassphraseHeaderRef uintptr
+type FormatRef uintptr
 
 type QtnFileRef uintptr
-
-type SharedWeakCountRef uintptr

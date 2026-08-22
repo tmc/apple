@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [ETDataPoint] class.
@@ -40,14 +41,13 @@ func (ec ETDataPointClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataPointClass) Alloc() ETDataPoint {
-	rv := objc.Send[ETDataPoint](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataPoint](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [ETDataPoint.BufferWithKey]
-//   - [ETDataPoint.GetSampleData]
 //   - [ETDataPoint.ImageWithKey]
 //   - [ETDataPoint.IterateBuffersByKey]
 //   - [ETDataPoint.SetDataSizeForKeyFreeWhenDone]
@@ -69,7 +69,6 @@ var _ IETDataPoint = ETDataPoint{}
 // # Methods
 //
 //   - [IETDataPoint.BufferWithKey]
-//   - [IETDataPoint.GetSampleData]
 //   - [IETDataPoint.ImageWithKey]
 //   - [IETDataPoint.IterateBuffersByKey]
 //   - [IETDataPoint.SetDataSizeForKeyFreeWhenDone]
@@ -80,53 +79,48 @@ type IETDataPoint interface {
 	// Topic: Methods
 
 	BufferWithKey(key objectivec.IObject) unsafe.Pointer
-	GetSampleData() unsafe.Pointer
-	ImageWithKey(key objectivec.IObject) unsafe.Pointer
+	ImageWithKey(key objectivec.IObject) appleneuralengine.VImageBuffer
 	IterateBuffersByKey(key VoidHandler)
 	SetDataSizeForKeyFreeWhenDone(data *float32, size uint64, key objectivec.IObject, done bool)
-	SetImageForKey(image unsafe.Pointer, key objectivec.IObject)
+	SetImageForKey(image appleneuralengine.VImageBuffer, key objectivec.IObject)
 }
 
 // Init initializes the instance.
 func (e ETDataPoint) Init() ETDataPoint {
-	rv := objc.Send[ETDataPoint](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataPoint](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataPoint) Autorelease() ETDataPoint {
-	rv := objc.Send[ETDataPoint](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataPoint](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataPoint creates a new ETDataPoint instance.
 func NewETDataPoint() ETDataPoint {
 	class := getETDataPointClass()
-	rv := objc.Send[ETDataPoint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataPoint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ETDataPoint) BufferWithKey(key objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithKey:"), key)
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("bufferWithKey:"), key)
 	return rv
 }
-func (e ETDataPoint) GetSampleData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("getSampleData"))
-	return rv
-}
-func (e ETDataPoint) ImageWithKey(key objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("imageWithKey:"), key)
-	return rv
+func (e ETDataPoint) ImageWithKey(key objectivec.IObject) appleneuralengine.VImageBuffer {
+	rv := objc.SendIfResponds[appleneuralengine.VImageBuffer](e.ID, objc.Sel("imageWithKey:"), key)
+	return appleneuralengine.VImageBuffer(rv)
 }
 func (e ETDataPoint) IterateBuffersByKey(key VoidHandler) {
 	_block0, _ := NewVoidBlock(key)
-	objc.Send[objc.ID](e.ID, objc.Sel("iterateBuffersByKey:"), _block0)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("iterateBuffersByKey:"), _block0)
 }
 func (e ETDataPoint) SetDataSizeForKeyFreeWhenDone(data *float32, size uint64, key objectivec.IObject, done bool) {
-	objc.Send[objc.ID](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), data, size, key, done)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), data, size, key, done)
 }
-func (e ETDataPoint) SetImageForKey(image unsafe.Pointer, key objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("setImage:forKey:"), image, key)
+func (e ETDataPoint) SetImageForKey(image appleneuralengine.VImageBuffer, key objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setImage:forKey:"), image, key)
 }
 
 // IterateBuffersByKeySync is a synchronous wrapper around [ETDataPoint.IterateBuffersByKey].

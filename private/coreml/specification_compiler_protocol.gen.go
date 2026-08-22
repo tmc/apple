@@ -12,6 +12,12 @@ import (
 // MLSpecificationCompiler protocol.
 type MLSpecificationCompiler interface {
 	objectivec.IObject
+
+	// CompileSpecificationToArchiveOptionsError protocol.
+	CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error)
+
+	// CompiledVersionForSpecificationOptionsError protocol.
+	CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLSpecificationCompilerObject wraps an existing Objective-C object that conforms to the MLSpecificationCompiler protocol.

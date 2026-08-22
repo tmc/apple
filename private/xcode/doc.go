@@ -1,4 +1,4 @@
-//go:generate -command applegen-bootstrap applegen bootstrap --module github.com/tmc/apple/private/xcode --force --verbose
+//go:generate -command applegen-bootstrap go run github.com/tmc/appledocs/cmd/applegen bootstrap --module github.com/tmc/apple/private/xcode --force --verbose
 
 //go:generate applegen-bootstrap --private --extra-flags=--framework-path=/Applications/Xcode.app/Contents/PlugIns/GPUDebugger.ideplugin/Contents/Frameworks/GTShaderProfiler.framework GTShaderProfiler
 

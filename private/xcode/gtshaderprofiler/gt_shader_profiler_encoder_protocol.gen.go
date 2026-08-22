@@ -31,6 +31,9 @@ type GTShaderProfilerEncoder interface {
 
 	// StoreTime protocol.
 	StoreTime() uint64
+
+	// TimingInfo protocol.
+	TimingInfo() objectivec.IObject
 }
 
 // GTShaderProfilerEncoderObject wraps an existing Objective-C object that conforms to the GTShaderProfilerEncoder protocol.
@@ -51,34 +54,34 @@ func GTShaderProfilerEncoderObjectFromID(id objc.ID) GTShaderProfilerEncoderObje
 }
 
 func (o GTShaderProfilerEncoderObject) FunctionIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("functionIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("functionIndex"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) GpuCommandStartIndex() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("gpuCommandStartIndex"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("gpuCommandStartIndex"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) Index() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("index"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) LoadTime() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("loadTime"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("loadTime"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) NumGPUCommands() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("numGPUCommands"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("numGPUCommands"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) PointerId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) StoreTime() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("storeTime"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("storeTime"))
 	return rv
 }
 func (o GTShaderProfilerEncoderObject) TimingInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("timingInfo"))
 	return objectivec.Object{ID: rv}
 }

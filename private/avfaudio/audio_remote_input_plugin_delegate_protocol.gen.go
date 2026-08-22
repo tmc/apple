@@ -10,6 +10,12 @@ import (
 // AVAudioRemoteInputPluginDelegate protocol.
 type AVAudioRemoteInputPluginDelegate interface {
 	objectivec.IObject
+
+	// InputPluginDidPublishDevice protocol.
+	InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject)
+
+	// InputPluginDidUnpublishDevice protocol.
+	InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject)
 }
 
 // AVAudioRemoteInputPluginDelegateObject wraps an existing Objective-C object that conforms to the AVAudioRemoteInputPluginDelegate protocol.
@@ -30,8 +36,8 @@ func AVAudioRemoteInputPluginDelegateObjectFromID(id objc.ID) AVAudioRemoteInput
 }
 
 func (o AVAudioRemoteInputPluginDelegateObject) InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
 }
 func (o AVAudioRemoteInputPluginDelegateObject) InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
 }

@@ -42,7 +42,7 @@ func (gc GTShaderProfilerAnalyzerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerAnalyzerClass) Alloc() GTShaderProfilerAnalyzer {
-	rv := objc.Send[GTShaderProfilerAnalyzer](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzer](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,26 +94,26 @@ type IGTShaderProfilerAnalyzer interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerAnalyzer) Init() GTShaderProfilerAnalyzer {
-	rv := objc.Send[GTShaderProfilerAnalyzer](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzer](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerAnalyzer) Autorelease() GTShaderProfilerAnalyzer {
-	rv := objc.Send[GTShaderProfilerAnalyzer](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzer](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerAnalyzer creates a new GTShaderProfilerAnalyzer instance.
 func NewGTShaderProfilerAnalyzer() GTShaderProfilerAnalyzer {
 	class := getGTShaderProfilerAnalyzerClass()
-	rv := objc.Send[GTShaderProfilerAnalyzer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerAnalyzerWithToolchainBinaryGpu(toolchain objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerAnalyzer {
 	instance := getGTShaderProfilerAnalyzerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
 	return GTShaderProfilerAnalyzerFromID(rv)
 }
 
@@ -145,9 +145,8 @@ func (g GTShaderProfilerAnalyzer) CanExecuteTaskArgumentsEnvironmentStandardOutp
 	return objc.RespondsToSelector(g.ID, objc.Sel("_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:"))
 }
 func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) MCAOutput {
-	rv := objc.Send[MCAOutput](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
-	_ = rv
-	return MCAOutput{}
+	rv := objc.SendIfResponds[MCAOutput](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
+	return MCAOutput(rv)
 }
 
 // GenerateMCAOutputSync is an exported wrapper for the private method _generateMCAOutputSync.
@@ -165,23 +164,23 @@ func (g GTShaderProfilerAnalyzer) CanGenerateMCAOutputSync() bool {
 }
 func (g GTShaderProfilerAnalyzer) GenerateFullMCAReport(mCAReport VoidHandler) {
 	_block0, _ := NewVoidBlock(mCAReport)
-	objc.Send[objc.ID](g.ID, objc.Sel("generateFullMCAReport:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateFullMCAReport:"), _block0)
 }
 func (g GTShaderProfilerAnalyzer) GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler) {
 	_block1, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](g.ID, objc.Sel("generateMCAOutput:callback:"), mCAOutput, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateMCAOutput:callback:"), mCAOutput, _block1)
 }
 func (g GTShaderProfilerAnalyzer) GenerateRegisterPressureView(view VoidHandler) {
 	_block0, _ := NewVoidBlock(view)
-	objc.Send[objc.ID](g.ID, objc.Sel("generateRegisterPressureView:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateRegisterPressureView:"), _block0)
 }
 func (g GTShaderProfilerAnalyzer) InitWithToolchainBinaryGpu(toolchain objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerAnalyzer {
-	rv := objc.Send[GTShaderProfilerAnalyzer](g.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzer](g.ID, objc.Sel("initWithToolchain:binary:gpu:"), toolchain, binary, gpu)
 	return rv
 }
 
 func (g GTShaderProfilerAnalyzer) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binary"))
 	return rv
 }
 

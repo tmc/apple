@@ -41,7 +41,7 @@ func (mc MLNearestNeighborsLinearIndexClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNearestNeighborsLinearIndexClass) Alloc() MLNearestNeighborsLinearIndex {
-	rv := objc.Send[MLNearestNeighborsLinearIndex](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNearestNeighborsLinearIndex](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -96,41 +96,41 @@ type IMLNearestNeighborsLinearIndex interface {
 
 // Init initializes the instance.
 func (m MLNearestNeighborsLinearIndex) Init() MLNearestNeighborsLinearIndex {
-	rv := objc.Send[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNearestNeighborsLinearIndex) Autorelease() MLNearestNeighborsLinearIndex {
-	rv := objc.Send[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNearestNeighborsLinearIndex creates a new MLNearestNeighborsLinearIndex instance.
 func NewMLNearestNeighborsLinearIndex() MLNearestNeighborsLinearIndex {
 	class := getMLNearestNeighborsLinearIndexClass()
-	rv := objc.Send[MLNearestNeighborsLinearIndex](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNearestNeighborsLinearIndex](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNearestNeighborsLinearIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNearestNeighborsLinearIndexFromID(rv)
 }
 
 func NewNearestNeighborsLinearIndexWithDatasetNumberOfDimensions(dataset unsafe.Pointer, dimensions uint64) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:"), dataset, dimensions)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:"), dataset, dimensions)
 	return MLNearestNeighborsLinearIndexFromID(rv)
 }
 
 func (m MLNearestNeighborsLinearIndex) DataPointCount() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("dataPointCount"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("dataPointCount"))
 	return rv
 }
 func (m MLNearestNeighborsLinearIndex) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLNearestNeighborsLinearIndex) UpdateWithDataError(data unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -146,26 +146,26 @@ func (m MLNearestNeighborsLinearIndex) UpdateWithDataError(data unsafe.Pointer) 
 
 }
 func (m MLNearestNeighborsLinearIndex) InitWithCoder(coder foundation.INSCoder) MLNearestNeighborsLinearIndex {
-	rv := objc.Send[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLNearestNeighborsLinearIndex](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_MLNearestNeighborsLinearIndexClass MLNearestNeighborsLinearIndexClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLNearestNeighborsLinearIndexClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLNearestNeighborsLinearIndexClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLNearestNeighborsLinearIndex) NumDataPoints() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numDataPoints"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numDataPoints"))
 	return rv
 }
 func (m MLNearestNeighborsLinearIndex) SetNumDataPoints(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumDataPoints:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumDataPoints:"), value)
 }
 func (m MLNearestNeighborsLinearIndex) NumDimensions() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numDimensions"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numDimensions"))
 	return rv
 }
 func (m MLNearestNeighborsLinearIndex) SetNumDimensions(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
 }

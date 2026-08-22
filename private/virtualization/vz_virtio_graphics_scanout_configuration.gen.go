@@ -37,7 +37,7 @@ func (vc VZVirtioGraphicsScanoutConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioGraphicsScanoutConfigurationClass) Alloc() VZVirtioGraphicsScanoutConfiguration {
-	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanoutConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioGraphicsScanoutConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsScanoutConfiguration) Init() VZVirtioGraphicsScanoutConfiguration {
-	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioGraphicsScanoutConfiguration) Autorelease() VZVirtioGraphicsScanoutConfiguration {
-	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioGraphicsScanoutConfiguration creates a new VZVirtioGraphicsScanoutConfiguration instance.
 func NewVZVirtioGraphicsScanoutConfiguration() VZVirtioGraphicsScanoutConfiguration {
 	class := getVZVirtioGraphicsScanoutConfigurationClass()
-	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanoutConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

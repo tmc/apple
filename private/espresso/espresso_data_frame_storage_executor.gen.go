@@ -40,7 +40,7 @@ func (ec EspressoDataFrameStorageExecutorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameStorageExecutorClass) Alloc() EspressoDataFrameStorageExecutor {
-	rv := objc.Send[EspressoDataFrameStorageExecutor](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorageExecutor](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,36 @@ type IEspressoDataFrameStorageExecutor interface {
 
 // Init initializes the instance.
 func (e EspressoDataFrameStorageExecutor) Init() EspressoDataFrameStorageExecutor {
-	rv := objc.Send[EspressoDataFrameStorageExecutor](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorageExecutor](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrameStorageExecutor) Autorelease() EspressoDataFrameStorageExecutor {
-	rv := objc.Send[EspressoDataFrameStorageExecutor](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorageExecutor](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrameStorageExecutor creates a new EspressoDataFrameStorageExecutor instance.
 func NewEspressoDataFrameStorageExecutor() EspressoDataFrameStorageExecutor {
 	class := getEspressoDataFrameStorageExecutorClass()
-	rv := objc.Send[EspressoDataFrameStorageExecutor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorageExecutor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, block VoidHandler, index VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	_block3, _ := NewVoidBlock(index)
-	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer, block VoidHandler, index VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(index)
-	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
 }
 
 // ExecuteDataFrameStorageWithNetworkBlockSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock].

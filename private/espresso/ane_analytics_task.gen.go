@@ -39,7 +39,7 @@ func (ac ANEAnalyticsTaskClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEAnalyticsTaskClass) Alloc() ANEAnalyticsTask {
-	rv := objc.Send[ANEAnalyticsTask](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEAnalyticsTask](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,44 +79,44 @@ type IANEAnalyticsTask interface {
 
 // Init initializes the instance.
 func (a ANEAnalyticsTask) Init() ANEAnalyticsTask {
-	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEAnalyticsTask](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEAnalyticsTask) Autorelease() ANEAnalyticsTask {
-	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEAnalyticsTask](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEAnalyticsTask creates a new ANEAnalyticsTask instance.
 func NewANEAnalyticsTask() ANEAnalyticsTask {
 	class := getANEAnalyticsTaskClass()
-	rv := objc.Send[ANEAnalyticsTask](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEAnalyticsTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEAnalyticsTaskWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
 	instance := getANEAnalyticsTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetrics:"), metrics)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetrics:"), metrics)
 	return ANEAnalyticsTaskFromID(rv)
 }
 
 func (a ANEAnalyticsTask) Serialize() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEAnalyticsTask) InitWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
-	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("initWithMetrics:"), metrics)
+	rv := objc.SendIfResponds[ANEAnalyticsTask](a.ID, objc.Sel("initWithMetrics:"), metrics)
 	return rv
 }
 
 func (_ANEAnalyticsTaskClass ANEAnalyticsTaskClass) ObjectWithMetrics(metrics objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsTaskClass.class), objc.Sel("objectWithMetrics:"), metrics)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEAnalyticsTaskClass.class), objc.Sel("objectWithMetrics:"), metrics)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEAnalyticsTask) Metrics() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("metrics"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

@@ -37,7 +37,7 @@ func (ec EspressoPassTransposeInnerProductWeightsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassTransposeInnerProductWeightsClass) Alloc() EspressoPassTransposeInnerProductWeights {
-	rv := objc.Send[EspressoPassTransposeInnerProductWeights](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassTransposeInnerProductWeights](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassTransposeInnerProductWeights interface {
 
 // Init initializes the instance.
 func (e EspressoPassTransposeInnerProductWeights) Init() EspressoPassTransposeInnerProductWeights {
-	rv := objc.Send[EspressoPassTransposeInnerProductWeights](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassTransposeInnerProductWeights](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassTransposeInnerProductWeights) Autorelease() EspressoPassTransposeInnerProductWeights {
-	rv := objc.Send[EspressoPassTransposeInnerProductWeights](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassTransposeInnerProductWeights](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassTransposeInnerProductWeights creates a new EspressoPassTransposeInnerProductWeights instance.
 func NewEspressoPassTransposeInnerProductWeights() EspressoPassTransposeInnerProductWeights {
 	class := getEspressoPassTransposeInnerProductWeightsClass()
-	rv := objc.Send[EspressoPassTransposeInnerProductWeights](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassTransposeInnerProductWeights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

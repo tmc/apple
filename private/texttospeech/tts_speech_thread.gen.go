@@ -39,7 +39,7 @@ func (tc TTSSpeechThreadClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechThreadClass) Alloc() TTSSpeechThread {
-	rv := objc.Send[TTSSpeechThread](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechThread](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,31 +79,37 @@ type ITTSSpeechThread interface {
 
 // Init initializes the instance.
 func (t TTSSpeechThread) Init() TTSSpeechThread {
-	rv := objc.Send[TTSSpeechThread](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechThread](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechThread) Autorelease() TTSSpeechThread {
-	rv := objc.Send[TTSSpeechThread](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechThread](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechThread creates a new TTSSpeechThread instance.
 func NewTTSSpeechThread() TTSSpeechThread {
 	class := getTTSSpeechThreadClass()
-	rv := objc.Send[TTSSpeechThread](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechThread](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
+func (t TTSSpeechThread) Cancel() {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("cancel"))
+}
+func (t TTSSpeechThread) Main() {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("main"))
+}
 func (t TTSSpeechThread) Stop() {
-	objc.Send[objc.ID](t.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stop"))
 }
 
 func (t TTSSpeechThread) Voucher() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voucher"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voucher"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (t TTSSpeechThread) SetVoucher(value objectivec.Object) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoucher:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoucher:"), value)
 }

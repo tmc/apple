@@ -38,7 +38,7 @@ func (ac ANEStringsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEStringsClass) Alloc() ANEStrings {
-	rv := objc.Send[ANEStrings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEStrings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,368 +61,368 @@ type IANEStrings interface {
 
 // Init initializes the instance.
 func (a ANEStrings) Init() ANEStrings {
-	rv := objc.Send[ANEStrings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEStrings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEStrings) Autorelease() ANEStrings {
-	rv := objc.Send[ANEStrings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEStrings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEStrings creates a new ANEStrings instance.
 func NewANEStrings() ANEStrings {
 	class := getANEStringsClass()
-	rv := objc.Send[ANEStrings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEStrings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEStringsClass ANEStringsClass) AdapterWeightsAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("adapterWeightsAccessEntitlement"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("adapterWeightsAccessEntitlement"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) AdapterWeightsAccessEntitlementBypassBootArg() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("adapterWeightsAccessEntitlementBypassBootArg"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("adapterWeightsAccessEntitlementBypassBootArg"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) AggressivePowerSavingEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("aggressivePowerSavingEntitlement"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("aggressivePowerSavingEntitlement"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) BinExtension() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("binExtension"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("binExtension"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) BuildSpecificModelDataVaultDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("buildSpecificModelDataVaultDirectory"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("buildSpecificModelDataVaultDirectory"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) BuildSpecificUserModelDataVaultDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("buildSpecificUserModelDataVaultDirectory"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("buildSpecificUserModelDataVaultDirectory"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) CloneDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("cloneDirectory"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("cloneDirectory"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) CompilerServiceAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("compilerServiceAccessEntitlement"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("compilerServiceAccessEntitlement"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) CoreAnalyticsANEUsageDefaultReportedClient() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("coreAnalyticsANEUsageDefaultReportedClient"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("coreAnalyticsANEUsageDefaultReportedClient"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) CoreAnalyticsANEUsageKeyGroup() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("coreAnalyticsANEUsageKeyGroup"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("coreAnalyticsANEUsageKeyGroup"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DataVaultStorageClass() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("dataVaultStorageClass"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("dataVaultStorageClass"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultANECIRFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultANECIRFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultANECIRFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultANECIROptionsFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultANECIROptionsFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultANECIROptionsFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultCompilerOptionsFilename() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultCompilerOptionsFilename"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultCompilerOptionsFilename"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultLLIRBundleName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultLLIRBundleName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultLLIRBundleName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultMILFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultMILFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultMILFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultMLIRFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultMLIRFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultMLIRFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) DefaultWeightFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultWeightFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("defaultWeightFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) ErrorDomainCompiler() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainCompiler"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainCompiler"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) ErrorDomainEspresso() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainEspresso"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainEspresso"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) ErrorDomainGeneric() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainGeneric"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainGeneric"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) ErrorDomainVirtIO() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainVirtIO"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("errorDomainVirtIO"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) HwxExtension() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("hwxExtension"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("hwxExtension"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) InMemoryModelCacheName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("inMemoryModelCacheName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("inMemoryModelCacheName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) InternalLibraryPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("internalLibraryPath"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("internalLibraryPath"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) LaunchIOKitEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("launchIOKitEvent"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("launchIOKitEvent"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) LaunchUserIOKitEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("launchUserIOKitEvent"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("launchUserIOKitEvent"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) LlirBundleExtension() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("llirBundleExtension"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("llirBundleExtension"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) MachServiceName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("machServiceName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("machServiceName"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) MachServiceNamePrivate() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("machServiceNamePrivate"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("machServiceNamePrivate"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) MemoryUnwireAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("memoryUnwireAccessEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelAssetsCacheName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelAssetsCacheName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelBinaryName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelBinaryName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelCacheRetainName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelCacheRetainName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelDataVaultDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelDataVaultDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelPurgeInAllPartitionsEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelPurgeInAllPartitionsEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ModelSourceStoreName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelSourceStoreName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) NoSandboxExtension() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("noSandboxExtension"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) PpsCategoryForANE() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("ppsCategoryForANE"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) PpsSubsystemForANE() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("ppsSubsystemForANE"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_applicationDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_applicationDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_catalogDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_catalogDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_defaultSystemPathDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_defaultSystemPathDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_defaultUserPathPrefix() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_defaultUserPathPrefix"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_frameworkDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_frameworkDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_internalDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_internalDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_privateFrameworkDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_privateFrameworkDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_tmpDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_tmpDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Pps_varDir() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_varDir"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) ProcessModelShareAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("processModelShareAccessEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) RestrictedAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("restrictedAccessEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) SecondaryANECompilerServiceAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("secondaryANECompilerServiceAccessEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) StorageMaintainerAccessEntitlement() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("storageMaintainerAccessEntitlement"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) SystemLibraryPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("systemLibraryPath"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) SystemModelsCacheDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("systemModelsCacheDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) TempDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("tempDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_ThreeSixtyModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_ThreeSixtyModelName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectoryWithSuffix(suffix objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectoryWithSuffix:"), suffix)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectoryWithSuffixBuildVersion(suffix objectivec.IObject, version objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectoryWithSuffix:buildVersion:"), suffix, version)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_cloneDirectory(directory objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cloneDirectory:"), directory)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_dataVaultStorageClass() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_dataVaultStorageClass"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_defaultMLIRModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_defaultMLIRModelName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_encryptedModelNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_encryptedModelNames"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_external_modelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_external_modelPath"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_external_precompiledModelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_external_precompiledModelPath"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_inputDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_inputDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_modelDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_modelDirectoryWithDirectory(directory objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelDirectory:"), directory)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_modelNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelNames"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_tempDirectory(directory objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_tempDirectory:"), directory)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectoryWithSuffix(suffix objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectoryWithSuffix:"), suffix)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectoryWithSuffixBuildVersion(suffix objectivec.IObject, version objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectoryWithSuffix:buildVersion:"), suffix, version)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_userCloneDirectory(directory objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCloneDirectory:"), directory)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_userTempDirectory(directory objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userTempDirectory:"), directory)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Testing_zeroModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_zeroModelName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) TrimmedModelPathTrimmedPath(path objectivec.IObject, path2 []objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_ANEStringsClass.class), objc.Sel("trimmedModelPath:trimmedPath:"), path, objectivec.IObjectSliceToNSArray(path2))
-	return rv
-}
-func (_ANEStringsClass ANEStringsClass) UserCloneDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userCloneDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) UserMachServiceName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userMachServiceName"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) UserModelDataVaultDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userModelDataVaultDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) UserTempDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userTempDirectory"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Vm_allowPrecompiledBinaryBootArg() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_allowPrecompiledBinaryBootArg"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Vm_debugDumpBootArg() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_debugDumpBootArg"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Vm_forceValidationOnGuestBootArg() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_forceValidationOnGuestBootArg"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEStringsClass ANEStringsClass) Vm_tmpBaseDirectory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_tmpBaseDirectory"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("memoryUnwireAccessEntitlement"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEStringsClass ANEStringsClass) MlirExtension() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("mlirExtension"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("mlirExtension"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelAssetsCacheName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelAssetsCacheName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelBinaryName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelBinaryName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelCacheRetainName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelCacheRetainName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelDataVaultDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelDataVaultDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelPurgeInAllPartitionsEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelPurgeInAllPartitionsEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelSourceStoreName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelSourceStoreName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) NoSandboxExtension() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("noSandboxExtension"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) PpsCategoryForANE() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("ppsCategoryForANE"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) PpsSubsystemForANE() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("ppsSubsystemForANE"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_applicationDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_applicationDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_catalogDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_catalogDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_defaultSystemPathDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_defaultSystemPathDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_defaultUserPathPrefix() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_defaultUserPathPrefix"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_frameworkDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_frameworkDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_internalDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_internalDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_privateFrameworkDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_privateFrameworkDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_tmpDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_tmpDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Pps_varDir() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("pps_varDir"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ProcessModelShareAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("processModelShareAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) RestrictedAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("restrictedAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) SecondaryANECompilerServiceAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("secondaryANECompilerServiceAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) StorageMaintainerAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("storageMaintainerAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) SystemLibraryPath() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("systemLibraryPath"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) SystemModelsCacheDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("systemModelsCacheDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) TempDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("tempDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_ThreeSixtyModelName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_ThreeSixtyModelName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectoryWithSuffix(suffix objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectoryWithSuffix:"), suffix)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_cacheDirectoryWithSuffixBuildVersion(suffix objectivec.IObject, version objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cacheDirectoryWithSuffix:buildVersion:"), suffix, version)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_cloneDirectory(directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_cloneDirectory:"), directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_dataVaultStorageClass() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_dataVaultStorageClass"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_defaultMLIRModelName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_defaultMLIRModelName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_encryptedModelNames() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_encryptedModelNames"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_external_modelPath() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_external_modelPath"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_external_precompiledModelPath() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_external_precompiledModelPath"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_inputDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_inputDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_modelDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_modelDirectoryWithDirectory(directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelDirectory:"), directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_modelNames() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_modelNames"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_tempDirectory(directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_tempDirectory:"), directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectoryWithSuffix(suffix objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectoryWithSuffix:"), suffix)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_userCacheDirectoryWithSuffixBuildVersion(suffix objectivec.IObject, version objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCacheDirectoryWithSuffix:buildVersion:"), suffix, version)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_userCloneDirectory(directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userCloneDirectory:"), directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_userTempDirectory(directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_userTempDirectory:"), directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Testing_zeroModelName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("testing_zeroModelName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) TrimmedModelPathTrimmedPath(path objectivec.IObject, path2 []objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEStringsClass.class), objc.Sel("trimmedModelPath:trimmedPath:"), path, objectivec.IObjectSliceToNSArray(path2))
+	return rv
+}
+func (_ANEStringsClass ANEStringsClass) UserCloneDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userCloneDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) UserMachServiceName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userMachServiceName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) UserModelDataVaultDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userModelDataVaultDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) UserTempDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("userTempDirectory"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Vm_allowPrecompiledBinaryBootArg() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_allowPrecompiledBinaryBootArg"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Vm_debugDumpBootArg() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_debugDumpBootArg"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Vm_forceValidationOnGuestBootArg() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_forceValidationOnGuestBootArg"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) Vm_tmpBaseDirectory() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_tmpBaseDirectory"))
 	return objectivec.Object{ID: rv}
 }

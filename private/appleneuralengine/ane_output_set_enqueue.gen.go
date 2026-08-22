@@ -38,7 +38,7 @@ func (ac ANEOutputSetEnqueueClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEOutputSetEnqueueClass) Alloc() ANEOutputSetEnqueue {
-	rv := objc.Send[ANEOutputSetEnqueue](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEOutputSetEnqueue](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,56 +87,56 @@ type IANEOutputSetEnqueue interface {
 
 // Init initializes the instance.
 func (a ANEOutputSetEnqueue) Init() ANEOutputSetEnqueue {
-	rv := objc.Send[ANEOutputSetEnqueue](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEOutputSetEnqueue](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEOutputSetEnqueue) Autorelease() ANEOutputSetEnqueue {
-	rv := objc.Send[ANEOutputSetEnqueue](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEOutputSetEnqueue](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEOutputSetEnqueue creates a new ANEOutputSetEnqueue instance.
 func NewANEOutputSetEnqueue() ANEOutputSetEnqueue {
 	class := getANEOutputSetEnqueueClass()
-	rv := objc.Send[ANEOutputSetEnqueue](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEOutputSetEnqueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEOutputSetEnqueueOutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) ANEOutputSetEnqueue {
 	instance := getANEOutputSetEnqueueClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
 	return ANEOutputSetEnqueueFromID(rv)
 }
 
 func (a ANEOutputSetEnqueue) InitOutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) ANEOutputSetEnqueue {
-	rv := objc.Send[ANEOutputSetEnqueue](a.ID, objc.Sel("initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
+	rv := objc.SendIfResponds[ANEOutputSetEnqueue](a.ID, objc.Sel("initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
 	return rv
 }
 
 func (_ANEOutputSetEnqueueClass ANEOutputSetEnqueueClass) OutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEOutputSetEnqueueClass.class), objc.Sel("outputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEOutputSetEnqueueClass.class), objc.Sel("outputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEOutputSetEnqueue) IsOpenLoop() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isOpenLoop"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isOpenLoop"))
 	return rv
 }
 func (a ANEOutputSetEnqueue) ProcedureIndex() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("procedureIndex"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("procedureIndex"))
 	return rv
 }
 func (a ANEOutputSetEnqueue) SetIndex() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("setIndex"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("setIndex"))
 	return rv
 }
 func (a ANEOutputSetEnqueue) SignalNotRequired() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("signalNotRequired"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("signalNotRequired"))
 	return rv
 }
 func (a ANEOutputSetEnqueue) SignalValue() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("signalValue"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("signalValue"))
 	return rv
 }

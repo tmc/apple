@@ -41,7 +41,7 @@ func (dc DIChpassParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIChpassParamsClass) Alloc() DIChpassParams {
-	rv := objc.Send[DIChpassParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIChpassParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,36 +81,39 @@ type IDIChpassParams interface {
 
 // Init initializes the instance.
 func (d DIChpassParams) Init() DIChpassParams {
-	rv := objc.Send[DIChpassParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIChpassParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIChpassParams) Autorelease() DIChpassParams {
-	rv := objc.Send[DIChpassParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIChpassParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIChpassParams creates a new DIChpassParams instance.
 func NewDIChpassParams() DIChpassParams {
 	class := getDIChpassParamsClass()
-	rv := objc.Send[DIChpassParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIChpassParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIChpassParamsWithCoder(coder objectivec.IObject) DIChpassParams {
 	instance := getDIChpassParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIChpassParamsFromID(rv)
 }
 
 func NewDIChpassParamsWithURLError(url foundation.NSURL) (DIChpassParams, error) {
 	var errorPtr objc.ID
 	instance := getDIChpassParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIChpassParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIChpassParams{}, objc.ErrInitFailed
 	}
 	return DIChpassParamsFromID(rv), nil
 }

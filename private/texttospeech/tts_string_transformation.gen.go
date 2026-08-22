@@ -39,7 +39,7 @@ func (tc TTSStringTransformationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSStringTransformationClass) Alloc() TTSStringTransformation {
-	rv := objc.Send[TTSStringTransformation](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSStringTransformation](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,63 +100,63 @@ type ITTSStringTransformation interface {
 
 // Init initializes the instance.
 func (t TTSStringTransformation) Init() TTSStringTransformation {
-	rv := objc.Send[TTSStringTransformation](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSStringTransformation](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSStringTransformation) Autorelease() TTSStringTransformation {
-	rv := objc.Send[TTSStringTransformation](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSStringTransformation](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSStringTransformation creates a new TTSStringTransformation instance.
 func NewTTSStringTransformation() TTSStringTransformation {
 	class := getTTSStringTransformationClass()
-	rv := objc.Send[TTSStringTransformation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSStringTransformation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSStringTransformationWithRangeAndReplacement(range_ foundation.NSRange, replacement objectivec.IObject) TTSStringTransformation {
 	instance := getTTSStringTransformationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
 	return TTSStringTransformationFromID(rv)
 }
 
 func (t TTSStringTransformation) SizeDelta() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("sizeDelta"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("sizeDelta"))
 	return rv
 }
 func (t TTSStringTransformation) InitWithRangeAndReplacement(range_ foundation.NSRange, replacement objectivec.IObject) TTSStringTransformation {
-	rv := objc.Send[TTSStringTransformation](t.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
+	rv := objc.SendIfResponds[TTSStringTransformation](t.ID, objc.Sel("initWithRange:andReplacement:"), range_, replacement)
 	return rv
 }
 
 func (t TTSStringTransformation) FinalRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("finalRange"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("finalRange"))
 	return foundation.NSRange(rv)
 }
 func (t TTSStringTransformation) SetFinalRange(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFinalRange:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFinalRange:"), value)
 }
 func (t TTSStringTransformation) OffsetFromEnd() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("offsetFromEnd"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("offsetFromEnd"))
 	return rv
 }
 func (t TTSStringTransformation) SetOffsetFromEnd(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOffsetFromEnd:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOffsetFromEnd:"), value)
 }
 func (t TTSStringTransformation) Range() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("range"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("range"))
 	return foundation.NSRange(rv)
 }
 func (t TTSStringTransformation) SetRange(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRange:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRange:"), value)
 }
 func (t TTSStringTransformation) Replacement() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSStringTransformation) SetReplacement(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }

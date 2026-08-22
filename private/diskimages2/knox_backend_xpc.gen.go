@@ -40,7 +40,7 @@ func (kc KNOXBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (kc KNOXBackendXPCClass) Alloc() KNOXBackendXPC {
-	rv := objc.Send[KNOXBackendXPC](objc.ID(kc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[KNOXBackendXPC](objc.ID(kc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,48 +83,48 @@ type IKNOXBackendXPC interface {
 
 // Init initializes the instance.
 func (k KNOXBackendXPC) Init() KNOXBackendXPC {
-	rv := objc.Send[KNOXBackendXPC](k.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[KNOXBackendXPC](k.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (k KNOXBackendXPC) Autorelease() KNOXBackendXPC {
-	rv := objc.Send[KNOXBackendXPC](k.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[KNOXBackendXPC](k.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewKNOXBackendXPC creates a new KNOXBackendXPC instance.
 func NewKNOXBackendXPC() KNOXBackendXPC {
 	class := getKNOXBackendXPCClass()
-	rv := objc.Send[KNOXBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[KNOXBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewKNOXBackendXPCWithCoder(coder objectivec.IObject) KNOXBackendXPC {
 	instance := getKNOXBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return KNOXBackendXPCFromID(rv)
 }
 
 func NewKNOXBackendXPCWithURLKey(url foundation.NSURL, key unsafe.Pointer) KNOXBackendXPC {
 	instance := getKNOXBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:key:"), url, key)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:key:"), url, key)
 	return KNOXBackendXPCFromID(rv)
 }
 
 func (k KNOXBackendXPC) InitWithURLKey(url foundation.NSURL, key unsafe.Pointer) KNOXBackendXPC {
-	rv := objc.Send[KNOXBackendXPC](k.ID, objc.Sel("initWithURL:key:"), url, key)
+	rv := objc.SendIfResponds[KNOXBackendXPC](k.ID, objc.Sel("initWithURL:key:"), url, key)
 	return rv
 }
 
 func (k KNOXBackendXPC) URL() IDIURL {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](k.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }
 func (k KNOXBackendXPC) SetURL(value IDIURL) {
-	objc.Send[struct{}](k.ID, objc.Sel("setURL:"), value)
+	objc.SendIfResponds[struct{}](k.ID, objc.Sel("setURL:"), value)
 }
 func (k KNOXBackendXPC) Key() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](k.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[unsafe.Pointer](k.ID, objc.Sel("key"))
 	return rv
 }

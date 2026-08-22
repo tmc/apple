@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (sc SLVirtualDisplayModeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLVirtualDisplayModeClass) Alloc() SLVirtualDisplayMode {
-	rv := objc.Send[SLVirtualDisplayMode](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLVirtualDisplayMode](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,48 +102,51 @@ type ISLVirtualDisplayMode interface {
 	RefreshRate() float32
 	SizeInPixels() unsafe.Pointer
 	SizeInPoints() unsafe.Pointer
-	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error)
+	InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error)
 }
 
 // Init initializes the instance.
 func (s SLVirtualDisplayMode) Init() SLVirtualDisplayMode {
-	rv := objc.Send[SLVirtualDisplayMode](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLVirtualDisplayMode](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLVirtualDisplayMode) Autorelease() SLVirtualDisplayMode {
-	rv := objc.Send[SLVirtualDisplayMode](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLVirtualDisplayMode](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLVirtualDisplayMode creates a new SLVirtualDisplayMode instance.
 func NewSLVirtualDisplayMode() SLVirtualDisplayMode {
 	class := getSLVirtualDisplayModeClass()
-	rv := objc.Send[SLVirtualDisplayMode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLVirtualDisplayMode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
+func NewSLVirtualDisplayModeWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayModeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SLVirtualDisplayMode{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SLVirtualDisplayMode{}, objc.ErrInitFailed
 	}
 	return SLVirtualDisplayModeFromID(rv), nil
 }
 
 func (s SLVirtualDisplayMode) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLVirtualDisplayMode) IsEqualToMode(mode objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToMode:"), mode)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isEqualToMode:"), mode)
 	return rv
 }
-func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels kernel.Pointer, points kernel.Pointer, rate float32) (SLVirtualDisplayMode, error) {
+func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(pixels unsafe.Pointer, points unsafe.Pointer, rate float32) (SLVirtualDisplayMode, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithSizeInPixels:sizeInPoints:refreshRate:error:"), pixels, points, rate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -156,44 +158,44 @@ func (s SLVirtualDisplayMode) InitWithSizeInPixelsSizeInPointsRefreshRateError(p
 }
 
 func (_SLVirtualDisplayModeClass SLVirtualDisplayModeClass) ModeWithBackendMode(mode objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithBackendMode:"), mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithBackendMode:"), mode)
 	return objectivec.Object{ID: rv}
 }
 func (_SLVirtualDisplayModeClass SLVirtualDisplayModeClass) ModeWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayModeClass.class), objc.Sel("modeWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLVirtualDisplayMode) Eotf() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("eotf"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("eotf"))
 	return rv
 }
 func (s SLVirtualDisplayMode) SetEotf(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEotf:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEotf:"), value)
 }
 func (s SLVirtualDisplayMode) Options() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLVirtualDisplayMode) SetOptions(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
 func (s SLVirtualDisplayMode) RefreshDeadline() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("refreshDeadline"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("refreshDeadline"))
 	return rv
 }
 func (s SLVirtualDisplayMode) SetRefreshDeadline(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRefreshDeadline:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setRefreshDeadline:"), value)
 }
 func (s SLVirtualDisplayMode) RefreshRate() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("refreshRate"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("refreshRate"))
 	return rv
 }
 func (s SLVirtualDisplayMode) SizeInPixels() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInPixels"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("sizeInPixels"))
 	return rv
 }
 func (s SLVirtualDisplayMode) SizeInPoints() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInPoints"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("sizeInPoints"))
 	return rv
 }

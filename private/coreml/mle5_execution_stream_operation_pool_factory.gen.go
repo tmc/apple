@@ -38,7 +38,7 @@ func (mc MLE5ExecutionStreamOperationPoolFactoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ExecutionStreamOperationPoolFactoryClass) Alloc() MLE5ExecutionStreamOperationPoolFactory {
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperationPoolFactory](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IMLE5ExecutionStreamOperationPoolFactory interface {
 
 // Init initializes the instance.
 func (m MLE5ExecutionStreamOperationPoolFactory) Init() MLE5ExecutionStreamOperationPoolFactory {
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ExecutionStreamOperationPoolFactory) Autorelease() MLE5ExecutionStreamOperationPoolFactory {
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ExecutionStreamOperationPoolFactory creates a new MLE5ExecutionStreamOperationPoolFactory instance.
 func NewMLE5ExecutionStreamOperationPoolFactory() MLE5ExecutionStreamOperationPoolFactory {
 	class := getMLE5ExecutionStreamOperationPoolFactoryClass()
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperationPoolFactory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLE5ExecutionStreamOperationPoolFactoryClass MLE5ExecutionStreamOperationPoolFactoryClass) CreatePoolFromLibraryFunctionNameModelDescriptionModelConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLE5ExecutionStreamOperationPoolFactoryClass.class), objc.Sel("createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLE5ExecutionStreamOperationPoolFactoryClass.class), objc.Sel("createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return objectivec.Object{ID: rv}
 }

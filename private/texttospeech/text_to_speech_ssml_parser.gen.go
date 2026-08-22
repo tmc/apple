@@ -38,7 +38,7 @@ func (tc TextToSpeechSSMLParserClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSMLParserClass) Alloc() TextToSpeechSSMLParser {
-	rv := objc.Send[TextToSpeechSSMLParser](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLParser](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ITextToSpeechSSMLParser interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSSMLParser) Init() TextToSpeechSSMLParser {
-	rv := objc.Send[TextToSpeechSSMLParser](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLParser](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSSMLParser) Autorelease() TextToSpeechSSMLParser {
-	rv := objc.Send[TextToSpeechSSMLParser](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLParser](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSSMLParser creates a new TextToSpeechSSMLParser instance.
 func NewTextToSpeechSSMLParser() TextToSpeechSSMLParser {
 	class := getTextToSpeechSSMLParserClass()
-	rv := objc.Send[TextToSpeechSSMLParser](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLParser](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (mc MLComputePlanDeviceUsageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanDeviceUsageClass) Alloc() MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsage](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IMLComputePlanDeviceUsage interface {
 
 // Init initializes the instance.
 func (m MLComputePlanDeviceUsage) Init() MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlanDeviceUsage) Autorelease() MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlanDeviceUsage creates a new MLComputePlanDeviceUsage instance.
 func NewMLComputePlanDeviceUsage() MLComputePlanDeviceUsage {
 	class := getMLComputePlanDeviceUsageClass()
-	rv := objc.Send[MLComputePlanDeviceUsage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputePlanDeviceUsageWithSupportedComputeDevicesPreferredComputeDeviceDeviceSupportInfoArray(devices objectivec.IObject, device objectivec.IObject, array objectivec.IObject) MLComputePlanDeviceUsage {
 	instance := getMLComputePlanDeviceUsageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
 	return MLComputePlanDeviceUsageFromID(rv)
 }
 
 func (m MLComputePlanDeviceUsage) SupportInfoForComputeDevice(device objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportInfoForComputeDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("supportInfoForComputeDevice:"), device)
 	return objectivec.Object{ID: rv}
 }
 func (m MLComputePlanDeviceUsage) InitWithSupportedComputeDevicesPreferredComputeDeviceDeviceSupportInfoArray(devices objectivec.IObject, device objectivec.IObject, array objectivec.IObject) MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsage](m.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
 	return rv
 }
 
 func (m MLComputePlanDeviceUsage) DeviceSupportInfoArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("deviceSupportInfoArray"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("deviceSupportInfoArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

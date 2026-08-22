@@ -37,7 +37,7 @@ func (vc VZPvPanicDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPvPanicDeviceConfigurationClass) Alloc() VZPvPanicDeviceConfiguration {
-	rv := objc.Send[VZPvPanicDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPvPanicDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZPvPanicDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZPvPanicDeviceConfiguration) Init() VZPvPanicDeviceConfiguration {
-	rv := objc.Send[VZPvPanicDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPvPanicDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPvPanicDeviceConfiguration) Autorelease() VZPvPanicDeviceConfiguration {
-	rv := objc.Send[VZPvPanicDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPvPanicDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPvPanicDeviceConfiguration creates a new VZPvPanicDeviceConfiguration instance.
 func NewVZPvPanicDeviceConfiguration() VZPvPanicDeviceConfiguration {
 	class := getVZPvPanicDeviceConfigurationClass()
-	rv := objc.Send[VZPvPanicDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPvPanicDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (fc FileLocalXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (fc FileLocalXPCClass) Alloc() FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](objc.ID(fc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[FileLocalXPC](objc.ID(fc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,56 +80,56 @@ type IFileLocalXPC interface {
 
 // Init initializes the instance.
 func (f FileLocalXPC) Init() FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[FileLocalXPC](f.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (f FileLocalXPC) Autorelease() FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[FileLocalXPC](f.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewFileLocalXPC creates a new FileLocalXPC instance.
 func NewFileLocalXPC() FileLocalXPC {
 	class := getFileLocalXPCClass()
-	rv := objc.Send[FileLocalXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[FileLocalXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFileLocalXPCWithBackend(backend unsafe.Pointer) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:"), backend)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackend:"), backend)
 	return FileLocalXPCFromID(rv)
 }
 
 func NewFileLocalXPCWithCoder(coder objectivec.IObject) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return FileLocalXPCFromID(rv)
 }
 
 func NewFileLocalXPCWithFileDescriptorWritableLocked(descriptor int, writable bool, locked bool) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:writable:locked:"), descriptor, writable, locked)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:writable:locked:"), descriptor, writable, locked)
 	return FileLocalXPCFromID(rv)
 }
 
 func NewFileLocalXPCWithURLFileOpenFlags(url foundation.NSURL, flags int) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return FileLocalXPCFromID(rv)
 }
 
 func (f FileLocalXPC) InitWithBackend(backend unsafe.Pointer) FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithBackend:"), backend)
+	rv := objc.SendIfResponds[FileLocalXPC](f.ID, objc.Sel("initWithBackend:"), backend)
 	return rv
 }
 func (f FileLocalXPC) InitWithFileDescriptorWritableLocked(descriptor int, writable bool, locked bool) FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithFileDescriptor:writable:locked:"), descriptor, writable, locked)
+	rv := objc.SendIfResponds[FileLocalXPC](f.ID, objc.Sel("initWithFileDescriptor:writable:locked:"), descriptor, writable, locked)
 	return rv
 }
 func (f FileLocalXPC) InitWithURLFileOpenFlags(url foundation.NSURL, flags int) FileLocalXPC {
-	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
+	rv := objc.SendIfResponds[FileLocalXPC](f.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }

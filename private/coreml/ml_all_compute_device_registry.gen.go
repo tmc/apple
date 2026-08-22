@@ -39,7 +39,7 @@ func (mc MLAllComputeDeviceRegistryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAllComputeDeviceRegistryClass) Alloc() MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAllComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,64 +91,64 @@ type IMLAllComputeDeviceRegistry interface {
 
 // Init initializes the instance.
 func (m MLAllComputeDeviceRegistry) Init() MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAllComputeDeviceRegistry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAllComputeDeviceRegistry) Autorelease() MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAllComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAllComputeDeviceRegistry creates a new MLAllComputeDeviceRegistry instance.
 func NewMLAllComputeDeviceRegistry() MLAllComputeDeviceRegistry {
 	class := getMLAllComputeDeviceRegistryClass()
-	rv := objc.Send[MLAllComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAllComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAllComputeDeviceRegistryWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
 	instance := getMLAllComputeDeviceRegistryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeviceRegistries:"), registries)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeviceRegistries:"), registries)
 	return MLAllComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLAllComputeDeviceRegistry) InitWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("initWithDeviceRegistries:"), registries)
+	rv := objc.SendIfResponds[MLAllComputeDeviceRegistry](m.ID, objc.Sel("initWithDeviceRegistries:"), registries)
 	return rv
 }
 
 func (_MLAllComputeDeviceRegistryClass MLAllComputeDeviceRegistryClass) RegistryWithDeviceRegistries(registries objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLAllComputeDeviceRegistryClass.class), objc.Sel("registryWithDeviceRegistries:"), registries)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLAllComputeDeviceRegistryClass.class), objc.Sel("registryWithDeviceRegistries:"), registries)
 	return objectivec.Object{ID: rv}
 }
 func (_MLAllComputeDeviceRegistryClass MLAllComputeDeviceRegistryClass) SharedRegistry() MLAllComputeDeviceRegistry {
-	rv := objc.Send[objc.ID](objc.ID(_MLAllComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLAllComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
 	return MLAllComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLAllComputeDeviceRegistry) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAllComputeDeviceRegistry) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAllComputeDeviceRegistry) DeviceRegistries() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("deviceRegistries"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("deviceRegistries"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAllComputeDeviceRegistry) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLAllComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAllComputeDeviceRegistry) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

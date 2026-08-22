@@ -41,7 +41,7 @@ func (mc MLGenericPredictionRequestClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGenericPredictionRequestClass) Alloc() MLGenericPredictionRequest {
-	rv := objc.Send[MLGenericPredictionRequest](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGenericPredictionRequest](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -105,71 +105,71 @@ type IMLGenericPredictionRequest interface {
 
 // Init initializes the instance.
 func (m MLGenericPredictionRequest) Init() MLGenericPredictionRequest {
-	rv := objc.Send[MLGenericPredictionRequest](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGenericPredictionRequest](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGenericPredictionRequest) Autorelease() MLGenericPredictionRequest {
-	rv := objc.Send[MLGenericPredictionRequest](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGenericPredictionRequest](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGenericPredictionRequest creates a new MLGenericPredictionRequest instance.
 func NewMLGenericPredictionRequest() MLGenericPredictionRequest {
 	class := getMLGenericPredictionRequestClass()
-	rv := objc.Send[MLGenericPredictionRequest](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGenericPredictionRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGenericPredictionRequestForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
 	instance := getMLGenericPredictionRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
 	return MLGenericPredictionRequestFromID(rv)
 }
 
 func (m MLGenericPredictionRequest) Cancel() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancel"))
 }
 func (m MLGenericPredictionRequest) SubmitWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
 }
 func (m MLGenericPredictionRequest) InitForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
-	rv := objc.Send[MLGenericPredictionRequest](m.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
+	rv := objc.SendIfResponds[MLGenericPredictionRequest](m.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
 	return rv
 }
 
 func (m MLGenericPredictionRequest) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGenericPredictionRequest) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGenericPredictionRequest) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLGenericPredictionRequest) InputFeatures() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("inputFeatures"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("inputFeatures"))
 	return rv
 }
 func (m MLGenericPredictionRequest) IsCancelled() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isCancelled"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isCancelled"))
 	return rv
 }
 func (m MLGenericPredictionRequest) Model() IMLModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
 func (m MLGenericPredictionRequest) PredictionOptions() IMLPredictionOptions {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionOptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predictionOptions"))
 	return MLPredictionOptionsFromID(objc.ID(rv))
 }
 func (m MLGenericPredictionRequest) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 

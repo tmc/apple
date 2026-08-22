@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (sc SLVirtualDisplayConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLVirtualDisplayConfigurationClass) Alloc() SLVirtualDisplayConfiguration {
-	rv := objc.Send[SLVirtualDisplayConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLVirtualDisplayConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,44 +117,47 @@ type ISLVirtualDisplayConfiguration interface {
 	Uti() string
 	SetUti(value string)
 	VendorID() uint64
-	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error)
+	InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error)
 }
 
 // Init initializes the instance.
 func (s SLVirtualDisplayConfiguration) Init() SLVirtualDisplayConfiguration {
-	rv := objc.Send[SLVirtualDisplayConfiguration](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLVirtualDisplayConfiguration](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLVirtualDisplayConfiguration) Autorelease() SLVirtualDisplayConfiguration {
-	rv := objc.Send[SLVirtualDisplayConfiguration](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLVirtualDisplayConfiguration](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLVirtualDisplayConfiguration creates a new SLVirtualDisplayConfiguration instance.
 func NewSLVirtualDisplayConfiguration() SLVirtualDisplayConfiguration {
 	class := getSLVirtualDisplayConfigurationClass()
-	rv := objc.Send[SLVirtualDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLVirtualDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
+func NewSLVirtualDisplayConfigurationWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SLVirtualDisplayConfiguration{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SLVirtualDisplayConfiguration{}, objc.ErrInitFailed
 	}
 	return SLVirtualDisplayConfigurationFromID(rv), nil
 }
 
 func (s SLVirtualDisplayConfiguration) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters kernel.Pointer, pixels kernel.Pointer, chromaticities kernel.Pointer) (SLVirtualDisplayConfiguration, error) {
+func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumberSizeInMillimetersMaximumSizeInPixelsChromaticitiesError(name objectivec.IObject, id uint64, id2 uint64, number uint64, millimeters unsafe.Pointer, pixels unsafe.Pointer, chromaticities unsafe.Pointer) (SLVirtualDisplayConfiguration, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithName:vendorID:productID:serialNumber:sizeInMillimeters:maximumSizeInPixels:chromaticities:error:"), name, id, id2, number, millimeters, pixels, chromaticities, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -167,71 +169,71 @@ func (s SLVirtualDisplayConfiguration) InitWithNameVendorIDProductIDSerialNumber
 }
 
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithBackendOptions(options objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithBackendOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithBackendOptions:"), options)
 	return objectivec.Object{ID: rv}
 }
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
 func (_SLVirtualDisplayConfigurationClass SLVirtualDisplayConfigurationClass) ConfigurationWithDisplayInfo(info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDisplayInfo:"), info)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayConfigurationClass.class), objc.Sel("configurationWithDisplayInfo:"), info)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLVirtualDisplayConfiguration) Chromaticities() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("chromaticities"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("chromaticities"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) MaximumSizeInPixels() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) Name() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLVirtualDisplayConfiguration) Options() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) SetOptions(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
 func (s SLVirtualDisplayConfiguration) ProductID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("productID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("productID"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) SerialNumber() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("serialNumber"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("serialNumber"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) SizeInMillimeters() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("sizeInMillimeters"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("sizeInMillimeters"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) Subtype() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("subtype"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("subtype"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) SetSubtype(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSubtype:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSubtype:"), value)
 }
 func (s SLVirtualDisplayConfiguration) Type() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("type"))
 	return rv
 }
 func (s SLVirtualDisplayConfiguration) SetType(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), value)
 }
 func (s SLVirtualDisplayConfiguration) Uti() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uti"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uti"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLVirtualDisplayConfiguration) SetUti(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setUti:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUti:"), objc.String(value))
 }
 func (s SLVirtualDisplayConfiguration) VendorID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("vendorID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("vendorID"))
 	return rv
 }

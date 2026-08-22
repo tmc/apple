@@ -39,7 +39,7 @@ func (mc MLNetworkPacketClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNetworkPacketClass) Alloc() MLNetworkPacket {
-	rv := objc.Send[MLNetworkPacket](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNetworkPacket](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,61 +106,61 @@ type IMLNetworkPacket interface {
 
 // Init initializes the instance.
 func (m MLNetworkPacket) Init() MLNetworkPacket {
-	rv := objc.Send[MLNetworkPacket](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNetworkPacket](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNetworkPacket) Autorelease() MLNetworkPacket {
-	rv := objc.Send[MLNetworkPacket](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNetworkPacket](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNetworkPacket creates a new MLNetworkPacket instance.
 func NewMLNetworkPacket() MLNetworkPacket {
 	class := getMLNetworkPacketClass()
-	rv := objc.Send[MLNetworkPacket](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNetworkPacket](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLNetworkPacket) CleanupDoubleBuffer() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cleanupDoubleBuffer"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cleanupDoubleBuffer"))
 }
 func (m MLNetworkPacket) Reset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reset"))
 }
 func (m MLNetworkPacket) ResetDoubleBuffer() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resetDoubleBuffer"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetDoubleBuffer"))
 }
 func (m MLNetworkPacket) ResetMetadata() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resetMetadata"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetMetadata"))
 }
 
 func (m MLNetworkPacket) Buffer() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("buffer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("buffer"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (m MLNetworkPacket) SetBuffer(value foundation.NSMutableData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBuffer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBuffer:"), value)
 }
 func (m MLNetworkPacket) Command() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("command"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("command"))
 	return rv
 }
 func (m MLNetworkPacket) SetCommand(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCommand:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCommand:"), value)
 }
 func (m MLNetworkPacket) DoubleBuffer() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("doubleBuffer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("doubleBuffer"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (m MLNetworkPacket) SetDoubleBuffer(value foundation.NSMutableData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDoubleBuffer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDoubleBuffer:"), value)
 }
 func (m MLNetworkPacket) SizeOfPacket() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfPacket"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("sizeOfPacket"))
 	return rv
 }
 func (m MLNetworkPacket) SetSizeOfPacket(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSizeOfPacket:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSizeOfPacket:"), value)
 }

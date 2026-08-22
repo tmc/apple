@@ -37,7 +37,7 @@ func (vc VZUSBScreenCoordinatePointingDeviceConfigurationClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBScreenCoordinatePointingDeviceConfigurationClass) Alloc() VZUSBScreenCoordinatePointingDeviceConfiguration {
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZUSBScreenCoordinatePointingDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBScreenCoordinatePointingDeviceConfiguration) Init() VZUSBScreenCoordinatePointingDeviceConfiguration {
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBScreenCoordinatePointingDeviceConfiguration) Autorelease() VZUSBScreenCoordinatePointingDeviceConfiguration {
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBScreenCoordinatePointingDeviceConfiguration creates a new VZUSBScreenCoordinatePointingDeviceConfiguration instance.
 func NewVZUSBScreenCoordinatePointingDeviceConfiguration() VZUSBScreenCoordinatePointingDeviceConfiguration {
 	class := getVZUSBScreenCoordinatePointingDeviceConfigurationClass()
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

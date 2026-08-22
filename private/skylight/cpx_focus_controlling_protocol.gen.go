@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +20,7 @@ type CPXFocusControlling interface {
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
-	SetFrontmostProcess(process CPSProcessRec) int16
+	SetFrontmostProcess(process *CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
 	SetKeyThiefConnectionID(id uint32)
@@ -45,21 +47,21 @@ func CPXFocusControllingObjectFromID(id objc.ID) CPXFocusControllingObject {
 }
 
 func (o CPXFocusControllingObject) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
 func (o CPXFocusControllingObject) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
-func (o CPXFocusControllingObject) SetFrontmostProcess(process CPSProcessRec) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
+func (o CPXFocusControllingObject) SetFrontmostProcess(process *CPSProcessRec) int16 {
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("setFrontmostProcess:"), unsafe.Pointer(process))
 	return rv
 }
 func (o CPXFocusControllingObject) SetKeyThiefConnectionID(id uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("setKeyThiefConnectionID:"), id)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setKeyThiefConnectionID:"), id)
 }
 func (o CPXFocusControllingObject) SetProcessToBringForwardAtNextCheckinPSN(psn CPSProcessSerNum) int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckinPSN:"), psn)
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckinPSN:"), psn)
 	return rv
 }

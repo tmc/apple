@@ -40,7 +40,7 @@ func (dc DIIOObjectClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIIOObjectClass) Alloc() DIIOObject {
-	rv := objc.Send[DIIOObject](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIIOObject](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,65 +110,71 @@ type IDIIOObject interface {
 
 // Init initializes the instance.
 func (d DIIOObject) Init() DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIIOObject) Autorelease() DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIIOObject creates a new DIIOObject instance.
 func NewDIIOObject() DIIOObject {
 	class := getDIIOObjectClass()
-	rv := objc.Send[DIIOObject](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIIOObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIIOObjectWithClassNameError(name objectivec.IObject) (DIIOObject, error) {
 	var errorPtr objc.ID
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithClassName:error:"), name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOObject{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOObject{}, objc.ErrInitFailed
 	}
 	return DIIOObjectFromID(rv), nil
 }
 
 func NewDIIOObjectWithDIIOObject(dIIOObject objectivec.IObject) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return DIIOObjectFromID(rv)
 }
 
 func NewDIIOObjectWithIOObject(iOObject uint32) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return DIIOObjectFromID(rv)
 }
 
 func NewDIIOObjectWithIOObjectRetain(iOObject uint32, retain bool) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return DIIOObjectFromID(rv)
 }
 
 func NewDIIOObjectWithIteratorNext(next objectivec.IObject) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIteratorNext:"), next)
 	return DIIOObjectFromID(rv)
 }
 
 func NewDIIOObjectWithRegistryEntryIDError(id uint64) (DIIOObject, error) {
 	var errorPtr objc.ID
 	instance := getDIIOObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegistryEntryID:error:"), id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIIOObject{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIIOObject{}, objc.ErrInitFailed
 	}
 	return DIIOObjectFromID(rv), nil
 }
@@ -184,7 +190,7 @@ func (d DIIOObject) CopyParentWithError() (objectivec.IObject, error) {
 
 }
 func (d DIIOObject) CopyPropertyWithClassKey(class objectivec.Class, key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyPropertyWithClass:key:"), class, key)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("copyPropertyWithClass:key:"), class, key)
 	return objectivec.Object{ID: rv}
 }
 func (d DIIOObject) IoObjectWithClassNameIterateParentError(name objectivec.IObject, parent bool) (objectivec.IObject, error) {
@@ -228,19 +234,19 @@ func (d DIIOObject) InitWithClassNameError(name objectivec.IObject) (DIIOObject,
 
 }
 func (d DIIOObject) InitWithDIIOObject(dIIOObject objectivec.IObject) DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return rv
 }
 func (d DIIOObject) InitWithIOObject(iOObject uint32) DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIOObject:"), iOObject)
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return rv
 }
 func (d DIIOObject) InitWithIOObjectRetain(iOObject uint32, retain bool) DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return rv
 }
 func (d DIIOObject) InitWithIteratorNext(next objectivec.IObject) DIIOObject {
-	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIteratorNext:"), next)
+	rv := objc.SendIfResponds[DIIOObject](d.ID, objc.Sel("initWithIteratorNext:"), next)
 	return rv
 }
 func (d DIIOObject) InitWithRegistryEntryIDError(id uint64) (DIIOObject, error) {
@@ -266,10 +272,10 @@ func (_DIIOObjectClass DIIOObjectClass) CopyDiskImagesControllerWithError() (obj
 }
 
 func (d DIIOObject) IoClassName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioClassName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("ioClassName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIIOObject) IoObj() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("ioObj"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("ioObj"))
 	return rv
 }

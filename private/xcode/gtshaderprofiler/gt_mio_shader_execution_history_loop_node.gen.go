@@ -40,7 +40,7 @@ func (gc GTMioShaderExecutionHistoryLoopNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderExecutionHistoryLoopNodeClass) Alloc() GTMioShaderExecutionHistoryLoopNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryLoopNode](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,91 +90,91 @@ type IGTMioShaderExecutionHistoryLoopNode interface {
 	// Topic: Methods
 
 	Binary() IGTMioShaderBinaryData
-	BinaryRange() unsafe.Pointer
+	BinaryRange() *GTMioShaderBinaryDebugBinaryRange
 	CurrentLoopIndex() uint32
 	DebugFilePath() string
 	DebugFunctionName() string
 	InstructionBegin() uint32
 	InstructionEnd() uint32
 	IsLoopRoot() bool
-	Location() unsafe.Pointer
+	Location() *GTMioShaderBinaryDebugLocation
 	LoopCount() uint32
 	InitWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent(begin uint32, end uint32, count uint32, index uint32, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode
 }
 
 // Init initializes the instance.
 func (g GTMioShaderExecutionHistoryLoopNode) Init() GTMioShaderExecutionHistoryLoopNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderExecutionHistoryLoopNode) Autorelease() GTMioShaderExecutionHistoryLoopNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderExecutionHistoryLoopNode creates a new GTMioShaderExecutionHistoryLoopNode instance.
 func NewGTMioShaderExecutionHistoryLoopNode() GTMioShaderExecutionHistoryLoopNode {
 	class := getGTMioShaderExecutionHistoryLoopNodeClass()
-	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryLoopNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderExecutionHistoryLoopNodeWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent(begin uint32, end uint32, count uint32, index uint32, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
 	instance := getGTMioShaderExecutionHistoryLoopNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:"), begin, end, count, index, binary, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:"), begin, end, count, index, binary, parent)
 	return GTMioShaderExecutionHistoryLoopNodeFromID(rv)
 }
 
 func NewGTMioShaderExecutionHistoryLoopNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
 	instance := getGTMioShaderExecutionHistoryLoopNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
 	return GTMioShaderExecutionHistoryLoopNodeFromID(rv)
 }
 
 func (g GTMioShaderExecutionHistoryLoopNode) InitWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent(begin uint32, end uint32, count uint32, index uint32, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:"), begin, end, count, index, binary, parent)
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:"), begin, end, count, index, binary, parent)
 	return rv
 }
 
 func (g GTMioShaderExecutionHistoryLoopNode) Binary() IGTMioShaderBinaryData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binary"))
 	return GTMioShaderBinaryDataFromID(objc.ID(rv))
 }
-func (g GTMioShaderExecutionHistoryLoopNode) BinaryRange() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryRange"))
-	return rv
+func (g GTMioShaderExecutionHistoryLoopNode) BinaryRange() *GTMioShaderBinaryDebugBinaryRange {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binaryRange"))
+	return (*GTMioShaderBinaryDebugBinaryRange)(rv)
 }
 func (g GTMioShaderExecutionHistoryLoopNode) CurrentLoopIndex() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("currentLoopIndex"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("currentLoopIndex"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryLoopNode) DebugFilePath() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFilePath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderExecutionHistoryLoopNode) DebugFunctionName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFunctionName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderExecutionHistoryLoopNode) InstructionBegin() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("instructionBegin"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("instructionBegin"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryLoopNode) InstructionEnd() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("instructionEnd"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("instructionEnd"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryLoopNode) IsLoopRoot() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isLoopRoot"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isLoopRoot"))
 	return rv
 }
-func (g GTMioShaderExecutionHistoryLoopNode) Location() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("location"))
-	return rv
+func (g GTMioShaderExecutionHistoryLoopNode) Location() *GTMioShaderBinaryDebugLocation {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("location"))
+	return (*GTMioShaderBinaryDebugLocation)(rv)
 }
 func (g GTMioShaderExecutionHistoryLoopNode) LoopCount() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("loopCount"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("loopCount"))
 	return rv
 }

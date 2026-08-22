@@ -38,7 +38,7 @@ func (gc GTShaderProfilerRegisterUsageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerRegisterUsageClass) Alloc() GTShaderProfilerRegisterUsage {
-	rv := objc.Send[GTShaderProfilerRegisterUsage](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterUsage](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,42 +81,42 @@ type IGTShaderProfilerRegisterUsage interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerRegisterUsage) Init() GTShaderProfilerRegisterUsage {
-	rv := objc.Send[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerRegisterUsage) Autorelease() GTShaderProfilerRegisterUsage {
-	rv := objc.Send[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerRegisterUsage creates a new GTShaderProfilerRegisterUsage instance.
 func NewGTShaderProfilerRegisterUsage() GTShaderProfilerRegisterUsage {
 	class := getGTShaderProfilerRegisterUsageClass()
-	rv := objc.Send[GTShaderProfilerRegisterUsage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterUsage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerRegisterUsageWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
 	instance := getGTShaderProfilerRegisterUsageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitsetString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBitsetString:"), string_)
 	return GTShaderProfilerRegisterUsageFromID(rv)
 }
 
 func (g GTShaderProfilerRegisterUsage) Combine(combine objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("combine:"), combine)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("combine:"), combine)
 }
 func (g GTShaderProfilerRegisterUsage) Test(test uint64) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("test:"), test)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("test:"), test)
 	return rv
 }
 func (g GTShaderProfilerRegisterUsage) InitWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
-	rv := objc.Send[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("initWithBitsetString:"), string_)
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("initWithBitsetString:"), string_)
 	return rv
 }
 
 func (g GTShaderProfilerRegisterUsage) Size() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("size"))
 	return rv
 }

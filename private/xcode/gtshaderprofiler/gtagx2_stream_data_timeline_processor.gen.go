@@ -39,7 +39,7 @@ func (gc GTAGX2StreamDataTimelineProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2StreamDataTimelineProcessorClass) Alloc() GTAGX2StreamDataTimelineProcessor {
-	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataTimelineProcessor](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,7 +99,7 @@ type IGTAGX2StreamDataTimelineProcessor interface {
 	Process(process objectivec.IObject)
 	ProcessStreamData()
 	ProcessTimelineStreamedResult(result objectivec.IObject) objectivec.IObject
-	SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject)
+	SaveAddressListSizeFilename(list *GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject)
 	SaveAddressMappingsFilename(mappings objectivec.IObject, filename objectivec.IObject)
 	SaveSampleDataFromGPURawCountersSizeFilenameWithTimeStamps(counters *uint64, size uint32, filename objectivec.IObject, stamps *uint64)
 	TimelineInfo() IDYWorkloadGPUTimelineInfo
@@ -109,31 +109,31 @@ type IGTAGX2StreamDataTimelineProcessor interface {
 
 // Init initializes the instance.
 func (g GTAGX2StreamDataTimelineProcessor) Init() GTAGX2StreamDataTimelineProcessor {
-	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2StreamDataTimelineProcessor) Autorelease() GTAGX2StreamDataTimelineProcessor {
-	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2StreamDataTimelineProcessor creates a new GTAGX2StreamDataTimelineProcessor instance.
 func NewGTAGX2StreamDataTimelineProcessor() GTAGX2StreamDataTimelineProcessor {
 	class := getGTAGX2StreamDataTimelineProcessorClass()
-	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataTimelineProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2StreamDataTimelineProcessorWithStreamData(data objectivec.IObject) GTAGX2StreamDataTimelineProcessor {
 	instance := getGTAGX2StreamDataTimelineProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamData:"), data)
 	return GTAGX2StreamDataTimelineProcessorFromID(rv)
 }
 
 func (g GTAGX2StreamDataTimelineProcessor) _addDerivedCounterDataToTimelineInfoForWorkloadInfo(info objectivec.IObject, info2 objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"), info, info2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"), info, info2)
 }
 
 // AddDerivedCounterDataToTimelineInfoForWorkloadInfo is an exported wrapper for the private method _addDerivedCounterDataToTimelineInfoForWorkloadInfo.
@@ -151,7 +151,7 @@ func (g GTAGX2StreamDataTimelineProcessor) CanAddDerivedCounterDataToTimelineInf
 	return objc.RespondsToSelector(g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:"), shaders, info)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:"), shaders, info)
 }
 
 // CalculatePerSampleActiveShadersForWorkloadInfo is an exported wrapper for the private method _calculatePerSampleActiveShadersForWorkloadInfo.
@@ -169,7 +169,7 @@ func (g GTAGX2StreamDataTimelineProcessor) CanCalculatePerSampleActiveShadersFor
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"), shaders, info)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"), shaders, info)
 }
 
 // CalculatePerSampleAggregatedActiveShadersForWorkloadInfo is an exported wrapper for the private method _calculatePerSampleAggregatedActiveShadersForWorkloadInfo.
@@ -187,7 +187,7 @@ func (g GTAGX2StreamDataTimelineProcessor) CanCalculatePerSampleAggregatedActive
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) _updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info objectivec.IObject, ex objectivec.IObject, info2 objectivec.IObject, mapping unsafe.Pointer, buffer uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"), info, ex, info2, mapping, buffer)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"), info, ex, info2, mapping, buffer)
 }
 
 // UpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer is an exported wrapper for the private method _updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer.
@@ -205,33 +205,33 @@ func (g GTAGX2StreamDataTimelineProcessor) CanUpdateShaderTimelineInfoWithShader
 	return objc.RespondsToSelector(g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) Process(process objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("process:"), process)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("process:"), process)
 }
 func (g GTAGX2StreamDataTimelineProcessor) ProcessStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) ProcessTimelineStreamedResult(result objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("processTimelineStreamedResult:"), result)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processTimelineStreamedResult:"), result)
 	return objectivec.Object{ID: rv}
 }
-func (g GTAGX2StreamDataTimelineProcessor) SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("saveAddressList:size:filename:"), list, size, filename)
+func (g GTAGX2StreamDataTimelineProcessor) SaveAddressListSizeFilename(list *GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("saveAddressList:size:filename:"), unsafe.Pointer(list), size, filename)
 }
 func (g GTAGX2StreamDataTimelineProcessor) SaveAddressMappingsFilename(mappings objectivec.IObject, filename objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("saveAddressMappings:filename:"), mappings, filename)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("saveAddressMappings:filename:"), mappings, filename)
 }
 func (g GTAGX2StreamDataTimelineProcessor) SaveSampleDataFromGPURawCountersSizeFilenameWithTimeStamps(counters *uint64, size uint32, filename objectivec.IObject, stamps *uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("saveSampleDataFromGPURawCounters:size:filename:withTimeStamps:"), counters, size, filename, stamps)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("saveSampleDataFromGPURawCounters:size:filename:withTimeStamps:"), unsafe.Pointer(counters), size, filename, unsafe.Pointer(stamps))
 }
 func (g GTAGX2StreamDataTimelineProcessor) WaitUntilFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
 }
 func (g GTAGX2StreamDataTimelineProcessor) InitWithStreamData(data objectivec.IObject) GTAGX2StreamDataTimelineProcessor {
-	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
+	rv := objc.SendIfResponds[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
 	return rv
 }
 
 func (g GTAGX2StreamDataTimelineProcessor) TimelineInfo() IDYWorkloadGPUTimelineInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timelineInfo"))
 	return DYWorkloadGPUTimelineInfoFromID(objc.ID(rv))
 }

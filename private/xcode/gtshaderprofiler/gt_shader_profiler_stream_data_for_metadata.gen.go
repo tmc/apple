@@ -38,7 +38,7 @@ func (gc GTShaderProfilerStreamDataForMetadataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerStreamDataForMetadataClass) Alloc() GTShaderProfilerStreamDataForMetadata {
-	rv := objc.Send[GTShaderProfilerStreamDataForMetadata](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataForMetadata](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,37 +61,37 @@ type IGTShaderProfilerStreamDataForMetadata interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerStreamDataForMetadata) Init() GTShaderProfilerStreamDataForMetadata {
-	rv := objc.Send[GTShaderProfilerStreamDataForMetadata](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataForMetadata](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerStreamDataForMetadata) Autorelease() GTShaderProfilerStreamDataForMetadata {
-	rv := objc.Send[GTShaderProfilerStreamDataForMetadata](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataForMetadata](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerStreamDataForMetadata creates a new GTShaderProfilerStreamDataForMetadata instance.
 func NewGTShaderProfilerStreamDataForMetadata() GTShaderProfilerStreamDataForMetadata {
 	class := getGTShaderProfilerStreamDataForMetadataClass()
-	rv := objc.Send[GTShaderProfilerStreamDataForMetadata](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataForMetadata](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerStreamDataForMetadataWithCoder(coder objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
 func NewGTShaderProfilerStreamDataForMetadataWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
 func NewGTShaderProfilerStreamDataForMetadataWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }

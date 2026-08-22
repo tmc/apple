@@ -38,7 +38,7 @@ func (vc VZConsoleDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZConsoleDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IVZConsoleDevice interface {
 
 // Init initializes the instance.
 func (v VZConsoleDevice) Init() VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZConsoleDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZConsoleDevice) Autorelease() VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZConsoleDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZConsoleDevice creates a new VZConsoleDevice instance.
 func NewVZConsoleDevice() VZConsoleDevice {
 	class := getVZConsoleDeviceClass()
-	rv := objc.Send[VZConsoleDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZConsoleDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
 	instance := getVZConsoleDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return VZConsoleDeviceFromID(rv)
 }
 
 func (v VZConsoleDevice) InitWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
+	rv := objc.SendIfResponds[VZConsoleDevice](v.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return rv
 }

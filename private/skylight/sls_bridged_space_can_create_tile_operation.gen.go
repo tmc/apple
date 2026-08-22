@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceCanCreateTileOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceCanCreateTileOperationClass) Alloc() SLSBridgedSpaceCanCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCanCreateTileOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedSpaceCanCreateTileOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceCanCreateTileOperation) Init() SLSBridgedSpaceCanCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceCanCreateTileOperation) Autorelease() SLSBridgedSpaceCanCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceCanCreateTileOperation creates a new SLSBridgedSpaceCanCreateTileOperation instance.
 func NewSLSBridgedSpaceCanCreateTileOperation() SLSBridgedSpaceCanCreateTileOperation {
 	class := getSLSBridgedSpaceCanCreateTileOperationClass()
-	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCanCreateTileOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceCanCreateTileOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCanCreateTileOperation {
 	instance := getSLSBridgedSpaceCanCreateTileOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCanCreateTileOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceCanCreateTileOperationWithSpaceIDMinSize(id uint64, size corefoundation.CGSize) SLSBridgedSpaceCanCreateTileOperation {
 	instance := getSLSBridgedSpaceCanCreateTileOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
 	return SLSBridgedSpaceCanCreateTileOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceCanCreateTileOperation) MakeResultWithBoolValue(value bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceCanCreateTileOperation) InitWithSpaceIDMinSize(id uint64, size corefoundation.CGSize) SLSBridgedSpaceCanCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
+	rv := objc.SendIfResponds[SLSBridgedSpaceCanCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:minSize:"), id, size)
 	return rv
 }
 
 func (s SLSBridgedSpaceCanCreateTileOperation) MinSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("minSize"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](s.ID, objc.Sel("minSize"))
 	return corefoundation.CGSize(rv)
 }
 func (s SLSBridgedSpaceCanCreateTileOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

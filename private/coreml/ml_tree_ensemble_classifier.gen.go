@@ -41,7 +41,7 @@ func (mc MLTreeEnsembleClassifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTreeEnsembleClassifierClass) Alloc() MLTreeEnsembleClassifier {
-	rv := objc.Send[MLTreeEnsembleClassifier](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTreeEnsembleClassifier](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,8 +65,8 @@ func MLTreeEnsembleClassifierFromID(id objc.ID) MLTreeEnsembleClassifier {
 	return MLTreeEnsembleClassifier{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLTreeEnsembleClassifier struct embeds objectivec.Object (parent type unavailable) but
-// IMLTreeEnsembleClassifier embeds the parent interface; skip compile-time assertion.
+// Ensure MLTreeEnsembleClassifier implements IMLTreeEnsembleClassifier.
+var _ IMLTreeEnsembleClassifier = MLTreeEnsembleClassifier{}
 
 // An interface definition for the [MLTreeEnsembleClassifier] class.
 //
@@ -82,7 +82,7 @@ func MLTreeEnsembleClassifierFromID(id objc.ID) MLTreeEnsembleClassifier {
 //   - [IMLTreeEnsembleClassifier.Hash]
 //   - [IMLTreeEnsembleClassifier.Superclass]
 type IMLTreeEnsembleClassifier interface {
-	IMLClassifier
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -99,20 +99,20 @@ type IMLTreeEnsembleClassifier interface {
 
 // Init initializes the instance.
 func (m MLTreeEnsembleClassifier) Init() MLTreeEnsembleClassifier {
-	rv := objc.Send[MLTreeEnsembleClassifier](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTreeEnsembleClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTreeEnsembleClassifier) Autorelease() MLTreeEnsembleClassifier {
-	rv := objc.Send[MLTreeEnsembleClassifier](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTreeEnsembleClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTreeEnsembleClassifier creates a new MLTreeEnsembleClassifier instance.
 func NewMLTreeEnsembleClassifier() MLTreeEnsembleClassifier {
 	class := getMLTreeEnsembleClassifierClass()
-	rv := objc.Send[MLTreeEnsembleClassifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTreeEnsembleClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -141,7 +141,7 @@ func (m MLTreeEnsembleClassifier) CanBuildClassificationClassesTopkError() bool 
 	return objc.RespondsToSelector(m.ID, objc.Sel("_buildClassificationClasses:topk:error:"))
 }
 func (m MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setSingleArrayLookupField"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_setSingleArrayLookupField"))
 }
 
 // SetSingleArrayLookupField is an exported wrapper for the private method _setSingleArrayLookupField.
@@ -169,7 +169,7 @@ func (m MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObje
 
 }
 func (m MLTreeEnsembleClassifier) ModelData() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("modelData"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
 func (m MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (objectivec.IObject, error) {
@@ -262,18 +262,18 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFro
 }
 
 func (m MLTreeEnsembleClassifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleClassifier) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleClassifier) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLTreeEnsembleClassifier) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

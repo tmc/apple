@@ -39,7 +39,7 @@ func (vc VZMacMachineIdentifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
-	rv := objc.Send[VZMacMachineIdentifier](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacMachineIdentifier](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,25 +91,25 @@ type IVZMacMachineIdentifier interface {
 
 // Init initializes the instance.
 func (v VZMacMachineIdentifier) Init() VZMacMachineIdentifier {
-	rv := objc.Send[VZMacMachineIdentifier](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacMachineIdentifier](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacMachineIdentifier) Autorelease() VZMacMachineIdentifier {
-	rv := objc.Send[VZMacMachineIdentifier](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacMachineIdentifier](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacMachineIdentifier creates a new VZMacMachineIdentifier instance.
 func NewVZMacMachineIdentifier() VZMacMachineIdentifier {
 	class := getVZMacMachineIdentifierClass()
-	rv := objc.Send[VZMacMachineIdentifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacMachineIdentifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineClone() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -127,7 +127,7 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
 }
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"), ecid, number)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"), ecid, number)
 	return objectivec.Object{ID: rv}
 }
 
@@ -145,7 +145,7 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"))
 }
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierForVirtualMachineCloneWithSerialNumber(number objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"), number)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"), number)
 	return objectivec.Object{ID: rv}
 }
 
@@ -163,7 +163,7 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"))
 }
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"), ecid, number)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"), ecid, number)
 	return objectivec.Object{ID: rv}
 }
 
@@ -181,7 +181,7 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"))
 }
 func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifierWithSerialNumber(number objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:"), number)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:"), number)
 	return objectivec.Object{ID: rv}
 }
 
@@ -200,7 +200,7 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 }
 
 func (v VZMacMachineIdentifier) _ECID() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("_ECID"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("_ECID"))
 	return rv
 }
 
@@ -217,7 +217,7 @@ func (v VZMacMachineIdentifier) ECID() (uint64, error) {
 	return v._ECID(), nil
 }
 func (v VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_ECIDChecksDisabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_ECIDChecksDisabled"))
 	return rv
 }
 
@@ -234,7 +234,7 @@ func (v VZMacMachineIdentifier) ECIDChecksDisabled() (bool, error) {
 	return v._ECIDChecksDisabled(), nil
 }
 func (v VZMacMachineIdentifier) _serialNumber() IVZMacSerialNumber {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_serialNumber"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_serialNumber"))
 	return VZMacSerialNumberFromID(objc.ID(rv))
 }
 
@@ -251,18 +251,18 @@ func (v VZMacMachineIdentifier) SerialNumber() (IVZMacSerialNumber, error) {
 	return v._serialNumber(), nil
 }
 func (v VZMacMachineIdentifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMacMachineIdentifier) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMacMachineIdentifier) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZMacMachineIdentifier) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

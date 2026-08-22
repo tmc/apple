@@ -39,7 +39,7 @@ func (ec ETDataSourceBufClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataSourceBufClass) Alloc() ETDataSourceBuf {
-	rv := objc.Send[ETDataSourceBuf](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataSourceBuf](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,35 +82,35 @@ type IETDataSourceBuf interface {
 
 // Init initializes the instance.
 func (e ETDataSourceBuf) Init() ETDataSourceBuf {
-	rv := objc.Send[ETDataSourceBuf](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataSourceBuf](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataSourceBuf) Autorelease() ETDataSourceBuf {
-	rv := objc.Send[ETDataSourceBuf](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataSourceBuf](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataSourceBuf creates a new ETDataSourceBuf instance.
 func NewETDataSourceBuf() ETDataSourceBuf {
 	class := getETDataSourceBufClass()
-	rv := objc.Send[ETDataSourceBuf](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataSourceBuf](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ETDataSourceBuf) DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
 	return rv
 }
 func (e ETDataSourceBuf) DataPointAtIndex(index int) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (e ETDataSourceBuf) NumberOfDataPoints() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETDataSourceBuf) SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int, batches unsafe.Pointer) {
-	objc.Send[objc.ID](e.ID, objc.Sel("setBlobs:numberOfDataPoints:nonBatches:"), blobs, points, batches)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setBlobs:numberOfDataPoints:nonBatches:"), blobs, points, batches)
 }

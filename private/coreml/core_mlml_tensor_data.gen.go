@@ -38,7 +38,7 @@ func (cc CoreMLMLTensorDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMLTensorDataClass) Alloc() CoreMLMLTensorData {
-	rv := objc.Send[CoreMLMLTensorData](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMLTensorData](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMLTensorDataFromID(id objc.ID) CoreMLMLTensorData {
 	return CoreMLMLTensorData{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMLTensorData struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMLTensorData embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMLTensorData implements ICoreMLMLTensorData.
+var _ ICoreMLMLTensorData = CoreMLMLTensorData{}
 
 // An interface definition for the [CoreMLMLTensorData] class.
 type ICoreMLMLTensorData interface {
@@ -61,19 +61,19 @@ type ICoreMLMLTensorData interface {
 
 // Init initializes the instance.
 func (c CoreMLMLTensorData) Init() CoreMLMLTensorData {
-	rv := objc.Send[CoreMLMLTensorData](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMLTensorData](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMLTensorData) Autorelease() CoreMLMLTensorData {
-	rv := objc.Send[CoreMLMLTensorData](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMLTensorData](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMLTensorData creates a new CoreMLMLTensorData instance.
 func NewCoreMLMLTensorData() CoreMLMLTensorData {
 	class := getCoreMLMLTensorDataClass()
-	rv := objc.Send[CoreMLMLTensorData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMLTensorData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

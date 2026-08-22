@@ -38,7 +38,7 @@ func (tc TextToSpeechStringStreamClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechStringStreamClass) Alloc() TextToSpeechStringStream {
-	rv := objc.Send[TextToSpeechStringStream](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechStringStream](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechStringStreamFromID(id objc.ID) TextToSpeechStringStream {
 	return TextToSpeechStringStream{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechStringStream struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechStringStream embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechStringStream implements ITextToSpeechStringStream.
+var _ ITextToSpeechStringStream = TextToSpeechStringStream{}
 
 // An interface definition for the [TextToSpeechStringStream] class.
 type ITextToSpeechStringStream interface {
@@ -61,19 +61,19 @@ type ITextToSpeechStringStream interface {
 
 // Init initializes the instance.
 func (t TextToSpeechStringStream) Init() TextToSpeechStringStream {
-	rv := objc.Send[TextToSpeechStringStream](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechStringStream](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechStringStream) Autorelease() TextToSpeechStringStream {
-	rv := objc.Send[TextToSpeechStringStream](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechStringStream](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechStringStream creates a new TextToSpeechStringStream instance.
 func NewTextToSpeechStringStream() TextToSpeechStringStream {
 	class := getTextToSpeechStringStreamClass()
-	rv := objc.Send[TextToSpeechStringStream](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechStringStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

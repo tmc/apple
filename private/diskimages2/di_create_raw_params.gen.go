@@ -40,7 +40,7 @@ func (dc DICreateRAWParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DICreateRAWParamsClass) Alloc() DICreateRAWParams {
-	rv := objc.Send[DICreateRAWParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DICreateRAWParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,36 +63,39 @@ type IDICreateRAWParams interface {
 
 // Init initializes the instance.
 func (d DICreateRAWParams) Init() DICreateRAWParams {
-	rv := objc.Send[DICreateRAWParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DICreateRAWParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DICreateRAWParams) Autorelease() DICreateRAWParams {
-	rv := objc.Send[DICreateRAWParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DICreateRAWParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDICreateRAWParams creates a new DICreateRAWParams instance.
 func NewDICreateRAWParams() DICreateRAWParams {
 	class := getDICreateRAWParamsClass()
-	rv := objc.Send[DICreateRAWParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DICreateRAWParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDICreateRAWParamsWithCoder(coder objectivec.IObject) DICreateRAWParams {
 	instance := getDICreateRAWParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateRAWParamsFromID(rv)
 }
 
 func NewDICreateRAWParamsWithURLError(url foundation.NSURL) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateRAWParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateRAWParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateRAWParams{}, objc.ErrInitFailed
 	}
 	return DICreateRAWParamsFromID(rv), nil
 }
@@ -100,10 +103,13 @@ func NewDICreateRAWParamsWithURLError(url foundation.NSURL) (DICreateRAWParams, 
 func NewDICreateRAWParamsWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateRAWParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateRAWParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateRAWParams{}, objc.ErrInitFailed
 	}
 	return DICreateRAWParamsFromID(rv), nil
 }

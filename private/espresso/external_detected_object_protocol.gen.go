@@ -49,23 +49,23 @@ func ExternalDetectedObjectObjectFromID(id objc.ID) ExternalDetectedObjectObject
 }
 
 func (o ExternalDetectedObjectObject) Bounds() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("bounds"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](o.ID, objc.Sel("bounds"))
 	return rv
 }
 func (o ExternalDetectedObjectObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 }
 func (o ExternalDetectedObjectObject) ObjectType() int64 {
-	rv := objc.Send[int64](o.ID, objc.Sel("objectType"))
+	rv := objc.SendIfResponds[int64](o.ID, objc.Sel("objectType"))
 	return rv
 }
 func (o ExternalDetectedObjectObject) SetBounds(bounds corefoundation.CGRect) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBounds:"), bounds)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBounds:"), bounds)
 }
 func (o ExternalDetectedObjectObject) SetCenter(center corefoundation.CGPoint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), center)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setCenter:"), center)
 }
 func (o ExternalDetectedObjectObject) SetObjectType(type_ int64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectType:"), type_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setObjectType:"), type_)
 }

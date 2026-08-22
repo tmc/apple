@@ -40,7 +40,7 @@ func (gc GTMioHeatmapBuilderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioHeatmapBuilderClass) Alloc() GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,13 +99,13 @@ type IGTMioHeatmapBuilder interface {
 
 	// Topic: Methods
 
-	BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
-	BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
+	BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
+	BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
 	BuildQuadData()
-	BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject
+	BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject
 	Depth() uint32
 	DrawIndex() uint32
-	EncoderInfo() unsafe.Pointer
+	EncoderInfo() *GTMioEncoderMetadata
 	HeatmapSizeHeightWrap(size uint64, height uint64, wrap bool) corefoundation.CGSize
 	Options() uint64
 	PipelineStateId() uint64
@@ -119,108 +119,108 @@ type IGTMioHeatmapBuilder interface {
 
 // Init initializes the instance.
 func (g GTMioHeatmapBuilder) Init() GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioHeatmapBuilder) Autorelease() GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioHeatmapBuilder creates a new GTMioHeatmapBuilder instance.
 func NewGTMioHeatmapBuilder() GTMioHeatmapBuilder {
 	class := getGTMioHeatmapBuilderClass()
-	rv := objc.Send[GTMioHeatmapBuilder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioHeatmapBuilderWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
 	instance := getGTMioHeatmapBuilderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
 	return GTMioHeatmapBuilderFromID(rv)
 }
 
 func NewGTMioHeatmapBuilderWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioHeatmapBuilder {
 	instance := getGTMioHeatmapBuilderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
 	return GTMioHeatmapBuilderFromID(rv)
 }
 
 func NewGTMioHeatmapBuilderWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
 	instance := getGTMioHeatmapBuilderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
 	return GTMioHeatmapBuilderFromID(rv)
 }
 
 func NewGTMioHeatmapBuilderWithTraceDataInitPCEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, pc uint64, index uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
 	instance := getGTMioHeatmapBuilderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:initPC:encoderFunctionIndex:programType:options:"), data, pc, index, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:initPC:encoderFunctionIndex:programType:options:"), data, pc, index, type_, options)
 	return GTMioHeatmapBuilderFromID(rv)
 }
 
-func (g GTMioHeatmapBuilder) BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildCliqueHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
+func (g GTMioHeatmapBuilder) BuildCliqueHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("buildCliqueHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioHeatmapBuilder) BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
+func (g GTMioHeatmapBuilder) BuildHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("buildHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioHeatmapBuilder) BuildQuadData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("buildQuadData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("buildQuadData"))
 }
-func (g GTMioHeatmapBuilder) BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options uint) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("buildTileHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
+func (g GTMioHeatmapBuilder) BuildTileHeatmapWidthHeightGenerationOptions(heatmap uint64, width uint64, height uint64, options GTMioHeatmapBuilderGenerationOptions) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("buildTileHeatmap:width:height:generationOptions:"), heatmap, width, height, options)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioHeatmapBuilder) HeatmapSizeHeightWrap(size uint64, height uint64, wrap bool) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](g.ID, objc.Sel("heatmapSize:height:wrap:"), size, height, wrap)
+	rv := objc.SendIfResponds[corefoundation.CGSize](g.ID, objc.Sel("heatmapSize:height:wrap:"), size, height, wrap)
 	return corefoundation.CGSize(rv)
 }
 func (g GTMioHeatmapBuilder) InitWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
 	return rv
 }
 func (g GTMioHeatmapBuilder) InitWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
 	return rv
 }
 func (g GTMioHeatmapBuilder) InitWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
 	return rv
 }
 func (g GTMioHeatmapBuilder) InitWithTraceDataInitPCEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, pc uint64, index uint32, type_ uint16, options uint64) GTMioHeatmapBuilder {
-	rv := objc.Send[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:initPC:encoderFunctionIndex:programType:options:"), data, pc, index, type_, options)
+	rv := objc.SendIfResponds[GTMioHeatmapBuilder](g.ID, objc.Sel("initWithTraceData:initPC:encoderFunctionIndex:programType:options:"), data, pc, index, type_, options)
 	return rv
 }
 
 func (g GTMioHeatmapBuilder) Depth() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("depth"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("depth"))
 	return rv
 }
 func (g GTMioHeatmapBuilder) DrawIndex() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("drawIndex"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("drawIndex"))
 	return rv
 }
-func (g GTMioHeatmapBuilder) EncoderInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
-	return rv
+func (g GTMioHeatmapBuilder) EncoderInfo() *GTMioEncoderMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
+	return (*GTMioEncoderMetadata)(rv)
 }
 func (g GTMioHeatmapBuilder) Options() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("options"))
 	return rv
 }
 func (g GTMioHeatmapBuilder) PipelineStateId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pipelineStateId"))
 	return rv
 }
 func (g GTMioHeatmapBuilder) ProgramType() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
 func (g GTMioHeatmapBuilder) QuadData() IGTMioEncoderQuadData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("quadData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("quadData"))
 	return GTMioEncoderQuadDataFromID(objc.ID(rv))
 }

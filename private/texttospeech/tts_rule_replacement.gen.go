@@ -40,7 +40,7 @@ func (tc TTSRuleReplacementClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRuleReplacementClass) Alloc() TTSRuleReplacement {
-	rv := objc.Send[TTSRuleReplacement](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRuleReplacement](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -122,84 +122,84 @@ type ITTSRuleReplacement interface {
 
 // Init initializes the instance.
 func (t TTSRuleReplacement) Init() TTSRuleReplacement {
-	rv := objc.Send[TTSRuleReplacement](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRuleReplacement](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRuleReplacement) Autorelease() TTSRuleReplacement {
-	rv := objc.Send[TTSRuleReplacement](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRuleReplacement](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRuleReplacement creates a new TTSRuleReplacement instance.
 func NewTTSRuleReplacement() TTSRuleReplacement {
 	class := getTTSRuleReplacementClass()
-	rv := objc.Send[TTSRuleReplacement](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRuleReplacement](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSRuleReplacement) EffectiveIndex() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("effectiveIndex"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("effectiveIndex"))
 	return rv
 }
 func (t TTSRuleReplacement) SetPostMatch(match VoidHandler) {
 	_block0, _ := NewVoidBlock(match)
-	objc.Send[objc.ID](t.ID, objc.Sel("setPostMatch:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setPostMatch:"), _block0)
 }
 
 func (t TTSRuleReplacement) Group() ITTSRuleGroup {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("group"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("group"))
 	return TTSRuleGroupFromID(objc.ID(rv))
 }
 func (t TTSRuleReplacement) SetGroup(value ITTSRuleGroup) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGroup:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGroup:"), value)
 }
 func (t TTSRuleReplacement) Identifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSRuleReplacement) Index() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("index"))
 	return rv
 }
 func (t TTSRuleReplacement) SetIndex(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIndex:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIndex:"), value)
 }
 func (t TTSRuleReplacement) IsTerminalRule() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isTerminalRule"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isTerminalRule"))
 	return rv
 }
 func (t TTSRuleReplacement) SetIsTerminalRule(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsTerminalRule:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsTerminalRule:"), value)
 }
 func (t TTSRuleReplacement) OriginalRulesetIndex() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("originalRulesetIndex"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("originalRulesetIndex"))
 	return rv
 }
 func (t TTSRuleReplacement) SetOriginalRulesetIndex(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOriginalRulesetIndex:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOriginalRulesetIndex:"), value)
 }
 func (t TTSRuleReplacement) Regex() ITTSRegex {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("regex"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("regex"))
 	return TTSRegexFromID(objc.ID(rv))
 }
 func (t TTSRuleReplacement) SetRegex(value ITTSRegex) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRegex:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRegex:"), value)
 }
 func (t TTSRuleReplacement) Replacement() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("replacement"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSRuleReplacement) SetReplacement(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
 func (t TTSRuleReplacement) Ruleset() ITTSRuleset {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleset"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ruleset"))
 	return TTSRulesetFromID(objc.ID(rv))
 }
 func (t TTSRuleReplacement) SetRuleset(value ITTSRuleset) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRuleset:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRuleset:"), value)
 }
 
 // SetPostMatchSync is a synchronous wrapper around [TTSRuleReplacement.SetPostMatch].

@@ -39,7 +39,7 @@ func (vc VZMemoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMemoryClass) Alloc() VZMemory {
-	rv := objc.Send[VZMemory](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMemory](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,32 +79,32 @@ type IVZMemory interface {
 
 // Init initializes the instance.
 func (v VZMemory) Init() VZMemory {
-	rv := objc.Send[VZMemory](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMemory](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMemory) Autorelease() VZMemory {
-	rv := objc.Send[VZMemory](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMemory](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMemory creates a new VZMemory instance.
 func NewVZMemory() VZMemory {
 	class := getVZMemoryClass()
-	rv := objc.Send[VZMemory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMemory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMemory) Length() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("length"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("length"))
 	return rv
 }
 func (v VZMemory) MutableBytes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("mutableBytes"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("mutableBytes"))
 	return rv
 }
 func (v VZMemory) PhysicalAddress() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("physicalAddress"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("physicalAddress"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLDelegateUpdatableModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDelegateUpdatableModelClass) Alloc() MLDelegateUpdatableModel {
-	rv := objc.Send[MLDelegateUpdatableModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDelegateUpdatableModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,30 +93,33 @@ type IMLDelegateUpdatableModel interface {
 
 // Init initializes the instance.
 func (m MLDelegateUpdatableModel) Init() MLDelegateUpdatableModel {
-	rv := objc.Send[MLDelegateUpdatableModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDelegateUpdatableModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDelegateUpdatableModel) Autorelease() MLDelegateUpdatableModel {
-	rv := objc.Send[MLDelegateUpdatableModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDelegateUpdatableModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDelegateUpdatableModel creates a new MLDelegateUpdatableModel instance.
 func NewMLDelegateUpdatableModel() MLDelegateUpdatableModel {
 	class := getMLDelegateUpdatableModelClass()
-	rv := objc.Send[MLDelegateUpdatableModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDelegateUpdatableModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateUpdatableModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateUpdatableModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
@@ -124,63 +127,69 @@ func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError
 func NewDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateUpdatableModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateUpdatableModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
 func NewDelegateUpdatableModelWithConfiguration(configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
 func NewDelegateUpdatableModelWithDescription(description objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
 func NewDelegateUpdatableModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
 func NewDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateUpdatableModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateUpdatableModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
 func NewDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
 func (m MLDelegateUpdatableModel) CancelUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 func (m MLDelegateUpdatableModel) ResumeUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 func (m MLDelegateUpdatableModel) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 func (m MLDelegateUpdatableModel) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
 func (m MLDelegateUpdatableModel) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 func (m MLDelegateUpdatableModel) WriteToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -208,6 +217,6 @@ func (_MLDelegateUpdatableModelClass MLDelegateUpdatableModelClass) LoadModelFro
 }
 
 func (m MLDelegateUpdatableModel) UpdatableEngine() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("updatableEngine"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("updatableEngine"))
 	return rv
 }

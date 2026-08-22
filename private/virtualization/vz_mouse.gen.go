@@ -38,7 +38,7 @@ func (vc VZMouseClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMouseClass) Alloc() VZMouse {
-	rv := objc.Send[VZMouse](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMouse](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,29 +72,29 @@ type IVZMouse interface {
 
 // Init initializes the instance.
 func (v VZMouse) Init() VZMouse {
-	rv := objc.Send[VZMouse](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMouse](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMouse) Autorelease() VZMouse {
-	rv := objc.Send[VZMouse](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMouse](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMouse creates a new VZMouse instance.
 func NewVZMouse() VZMouse {
 	class := getVZMouseClass()
-	rv := objc.Send[VZMouse](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMouse](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMouseWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZMouse {
 	instance := getVZMouseClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZMouseFromID(rv)
 }
 
 func (v VZMouse) SendMouseEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMouseEvents:"), events)
 }

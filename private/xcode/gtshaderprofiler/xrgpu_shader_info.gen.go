@@ -39,7 +39,7 @@ func (xc XRGPUShaderInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (xc XRGPUShaderInfoClass) Alloc() XRGPUShaderInfo {
-	rv := objc.Send[XRGPUShaderInfo](objc.ID(xc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[XRGPUShaderInfo](objc.ID(xc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -133,101 +133,101 @@ type IXRGPUShaderInfo interface {
 
 // Init initializes the instance.
 func (x XRGPUShaderInfo) Init() XRGPUShaderInfo {
-	rv := objc.Send[XRGPUShaderInfo](x.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[XRGPUShaderInfo](x.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (x XRGPUShaderInfo) Autorelease() XRGPUShaderInfo {
-	rv := objc.Send[XRGPUShaderInfo](x.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[XRGPUShaderInfo](x.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewXRGPUShaderInfo creates a new XRGPUShaderInfo instance.
 func NewXRGPUShaderInfo() XRGPUShaderInfo {
 	class := getXRGPUShaderInfoClass()
-	rv := objc.Send[XRGPUShaderInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[XRGPUShaderInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewXRGPUShaderInfoWithShaderIdAddressLengthName(id uint32, address uint64, length uint64, name objectivec.IObject) XRGPUShaderInfo {
 	instance := getXRGPUShaderInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShaderId:address:length:name:"), id, address, length, name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShaderId:address:length:name:"), id, address, length, name)
 	return XRGPUShaderInfoFromID(rv)
 }
 
 func (x XRGPUShaderInfo) InitWithShaderIdAddressLengthName(id uint32, address uint64, length uint64, name objectivec.IObject) XRGPUShaderInfo {
-	rv := objc.Send[XRGPUShaderInfo](x.ID, objc.Sel("initWithShaderId:address:length:name:"), id, address, length, name)
+	rv := objc.SendIfResponds[XRGPUShaderInfo](x.ID, objc.Sel("initWithShaderId:address:length:name:"), id, address, length, name)
 	return rv
 }
 
 func (x XRGPUShaderInfo) Address() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("address"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("address"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetAddress(value uint64) {
-	objc.Send[struct{}](x.ID, objc.Sel("setAddress:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setAddress:"), value)
 }
 func (x XRGPUShaderInfo) AvailableTime() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("availableTime"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("availableTime"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetAvailableTime(value uint64) {
-	objc.Send[struct{}](x.ID, objc.Sel("setAvailableTime:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setAvailableTime:"), value)
 }
 func (x XRGPUShaderInfo) Label() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("label"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (x XRGPUShaderInfo) SetLabel(value string) {
-	objc.Send[struct{}](x.ID, objc.Sel("setLabel:"), objc.String(value))
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 func (x XRGPUShaderInfo) Length() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("length"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("length"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetLength(value uint64) {
-	objc.Send[struct{}](x.ID, objc.Sel("setLength:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setLength:"), value)
 }
 func (x XRGPUShaderInfo) Name() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (x XRGPUShaderInfo) SetName(value string) {
-	objc.Send[struct{}](x.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (x XRGPUShaderInfo) Pid() int {
-	rv := objc.Send[int](x.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](x.ID, objc.Sel("pid"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetPid(value int) {
-	objc.Send[struct{}](x.ID, objc.Sel("setPid:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setPid:"), value)
 }
 func (x XRGPUShaderInfo) PipelineLabel() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("pipelineLabel"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("pipelineLabel"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (x XRGPUShaderInfo) SetPipelineLabel(value string) {
-	objc.Send[struct{}](x.ID, objc.Sel("setPipelineLabel:"), objc.String(value))
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setPipelineLabel:"), objc.String(value))
 }
 func (x XRGPUShaderInfo) PipelineStateId() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("pipelineStateId"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("pipelineStateId"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetPipelineStateId(value uint64) {
-	objc.Send[struct{}](x.ID, objc.Sel("setPipelineStateId:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setPipelineStateId:"), value)
 }
 func (x XRGPUShaderInfo) ProgramType() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("programType"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (x XRGPUShaderInfo) SetProgramType(value string) {
-	objc.Send[struct{}](x.ID, objc.Sel("setProgramType:"), objc.String(value))
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setProgramType:"), objc.String(value))
 }
 func (x XRGPUShaderInfo) ShaderId() uint32 {
-	rv := objc.Send[uint32](x.ID, objc.Sel("shaderId"))
+	rv := objc.SendIfResponds[uint32](x.ID, objc.Sel("shaderId"))
 	return rv
 }
 func (x XRGPUShaderInfo) SetShaderId(value uint32) {
-	objc.Send[struct{}](x.ID, objc.Sel("setShaderId:"), value)
+	objc.SendIfResponds[struct{}](x.ID, objc.Sel("setShaderId:"), value)
 }

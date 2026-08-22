@@ -13,6 +13,15 @@ import (
 type EspressoBrick interface {
 	objectivec.IObject
 
+	// ComputeDynamicOutputShape protocol.
+	ComputeDynamicOutputShape(shape objectivec.IObject) objectivec.IObject
+
+	// ComputeOnCPUWithInputTensorsOutputTensors protocol.
+	ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject)
+
+	// EncodeToMetalCommandBufferInputTensorsOutputTensors protocol.
+	EncodeToMetalCommandBufferInputTensorsOutputTensors(buffer objectivec.IObject, tensors objectivec.IObject, tensors2 objectivec.IObject)
+
 	// HasDynamicOutputShape protocol.
 	HasDynamicOutputShape(shape uint64) bool
 
@@ -21,6 +30,9 @@ type EspressoBrick interface {
 
 	// SetMappedWeightsSizeInBytes protocol.
 	SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64)
+
+	// SetupForInputShapesWithParameters protocol.
+	SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject
 }
 
 // EspressoBrickObject wraps an existing Objective-C object that conforms to the EspressoBrick protocol.
@@ -41,27 +53,27 @@ func EspressoBrickObjectFromID(id objc.ID) EspressoBrickObject {
 }
 
 func (o EspressoBrickObject) ComputeDynamicOutputShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeDynamicOutputShape:"), shape)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("computeDynamicOutputShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
 func (o EspressoBrickObject) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (o EspressoBrickObject) EncodeToMetalCommandBufferInputTensorsOutputTensors(buffer objectivec.IObject, tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
 }
 func (o EspressoBrickObject) HasDynamicOutputShape(shape uint64) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("hasDynamicOutputShape:"), shape)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("hasDynamicOutputShape:"), shape)
 	return rv
 }
 func (o EspressoBrickObject) HasGPUSupport() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (o EspressoBrickObject) SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
 }
 func (o EspressoBrickObject) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }

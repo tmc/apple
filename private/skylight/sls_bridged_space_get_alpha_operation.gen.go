@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceGetAlphaOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceGetAlphaOperationClass) Alloc() SLSBridgedSpaceGetAlphaOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAlphaOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedSpaceGetAlphaOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceGetAlphaOperation) Init() SLSBridgedSpaceGetAlphaOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceGetAlphaOperation) Autorelease() SLSBridgedSpaceGetAlphaOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceGetAlphaOperation creates a new SLSBridgedSpaceGetAlphaOperation instance.
 func NewSLSBridgedSpaceGetAlphaOperation() SLSBridgedSpaceGetAlphaOperation {
 	class := getSLSBridgedSpaceGetAlphaOperationClass()
-	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAlphaOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceGetAlphaOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetAlphaOperation {
 	instance := getSLSBridgedSpaceGetAlphaOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetAlphaOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceGetAlphaOperationWithSpaceID(id uint64) SLSBridgedSpaceGetAlphaOperation {
 	instance := getSLSBridgedSpaceGetAlphaOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetAlphaOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceGetAlphaOperation) MakeResultWithFloatValue(value float32) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithFloatValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithFloatValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceGetAlphaOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetAlphaOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAlphaOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceGetAlphaOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

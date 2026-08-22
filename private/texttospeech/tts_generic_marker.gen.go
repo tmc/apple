@@ -40,7 +40,7 @@ func (tc TTSGenericMarkerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSGenericMarkerClass) Alloc() TTSGenericMarker {
-	rv := objc.Send[TTSGenericMarker](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSGenericMarker](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,58 +101,58 @@ type ITTSGenericMarker interface {
 
 // Init initializes the instance.
 func (t TTSGenericMarker) Init() TTSGenericMarker {
-	rv := objc.Send[TTSGenericMarker](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSGenericMarker](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSGenericMarker) Autorelease() TTSGenericMarker {
-	rv := objc.Send[TTSGenericMarker](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSGenericMarker](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSGenericMarker creates a new TTSGenericMarker instance.
 func NewTTSGenericMarker() TTSGenericMarker {
 	class := getTTSGenericMarkerClass()
-	rv := objc.Send[TTSGenericMarker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSGenericMarker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSGenericMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
 func (t TTSGenericMarker) ByteOffset() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
 }
 func (t TTSGenericMarker) SetByteOffset(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
 func (t TTSGenericMarker) DebugDescription() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSGenericMarker) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSGenericMarker) Hash() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
 func (t TTSGenericMarker) MarkType() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
 func (t TTSGenericMarker) Name() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSGenericMarker) SetName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (t TTSGenericMarker) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](t.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

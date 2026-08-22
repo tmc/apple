@@ -39,7 +39,7 @@ func (sc SLSSynchronousBridgedWindowManagementOperationClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSynchronousBridgedWindowManagementOperationClass) Alloc() SLSSynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSynchronousBridgedWindowManagementOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,50 +85,50 @@ type ISLSSynchronousBridgedWindowManagementOperation interface {
 
 // Init initializes the instance.
 func (s SLSSynchronousBridgedWindowManagementOperation) Init() SLSSynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSynchronousBridgedWindowManagementOperation) Autorelease() SLSSynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSynchronousBridgedWindowManagementOperation creates a new SLSSynchronousBridgedWindowManagementOperation instance.
 func NewSLSSynchronousBridgedWindowManagementOperation() SLSSynchronousBridgedWindowManagementOperation {
 	class := getSLSSynchronousBridgedWindowManagementOperationClass()
-	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSynchronousBridgedWindowManagementOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSynchronousBridgedWindowManagementOperationWithCoder(coder objectivec.IObject) SLSSynchronousBridgedWindowManagementOperation {
 	instance := getSLSSynchronousBridgedWindowManagementOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSynchronousBridgedWindowManagementOperationFromID(rv)
 }
 
 func (s SLSSynchronousBridgedWindowManagementOperation) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSynchronousBridgedWindowManagementOperation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSSynchronousBridgedWindowManagementOperation) InvokeFallback() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("invokeFallback"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invokeFallback"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSynchronousBridgedWindowManagementOperation) PerformWithWMBridgeDelegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("performWithWMBridgeDelegate"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("performWithWMBridgeDelegate"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSynchronousBridgedWindowManagementOperation) InitWithCoder(coder foundation.INSCoder) SLSSynchronousBridgedWindowManagementOperation {
-	rv := objc.Send[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSSynchronousBridgedWindowManagementOperation](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_SLSSynchronousBridgedWindowManagementOperationClass SLSSynchronousBridgedWindowManagementOperationClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSSynchronousBridgedWindowManagementOperationClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSSynchronousBridgedWindowManagementOperationClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

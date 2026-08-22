@@ -38,7 +38,7 @@ func (vc VZSpiceAgentCoreSessionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSpiceAgentCoreSessionClass) Alloc() VZSpiceAgentCoreSession {
-	rv := objc.Send[VZSpiceAgentCoreSession](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreSession](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZSpiceAgentCoreSession interface {
 
 // Init initializes the instance.
 func (v VZSpiceAgentCoreSession) Init() VZSpiceAgentCoreSession {
-	rv := objc.Send[VZSpiceAgentCoreSession](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreSession](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSpiceAgentCoreSession) Autorelease() VZSpiceAgentCoreSession {
-	rv := objc.Send[VZSpiceAgentCoreSession](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreSession](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSpiceAgentCoreSession creates a new VZSpiceAgentCoreSession instance.
 func NewVZSpiceAgentCoreSession() VZSpiceAgentCoreSession {
 	class := getVZSpiceAgentCoreSessionClass()
-	rv := objc.Send[VZSpiceAgentCoreSession](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreSession](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

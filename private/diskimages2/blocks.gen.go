@@ -35,6 +35,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 //   - [DIController2ClientDelegate.AttachCompletedWithHandleReply]
 //   - [DIConvertParams.ConvertWithCompletionBlock]
 //   - [DiskImageCreatorFromFolder.CreateImageWithSrcFolderCompletionBlock]
+//   - [DiskImages2.ConvertWithParamsCompletionBlock]
 type VoidHandler = func()
 
 // NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
@@ -44,6 +45,7 @@ type VoidHandler = func()
 //   - [DIController2ClientDelegate.AttachCompletedWithHandleReply]
 //   - [DIConvertParams.ConvertWithCompletionBlock]
 //   - [DiskImageCreatorFromFolder.CreateImageWithSrcFolderCompletionBlock]
+//   - [DiskImages2.ConvertWithParamsCompletionBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}

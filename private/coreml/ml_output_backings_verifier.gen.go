@@ -42,7 +42,7 @@ func (mc MLOutputBackingsVerifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLOutputBackingsVerifierClass) Alloc() MLOutputBackingsVerifier {
-	rv := objc.Send[MLOutputBackingsVerifier](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLOutputBackingsVerifier](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,26 +91,26 @@ type IMLOutputBackingsVerifier interface {
 
 // Init initializes the instance.
 func (m MLOutputBackingsVerifier) Init() MLOutputBackingsVerifier {
-	rv := objc.Send[MLOutputBackingsVerifier](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLOutputBackingsVerifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLOutputBackingsVerifier) Autorelease() MLOutputBackingsVerifier {
-	rv := objc.Send[MLOutputBackingsVerifier](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLOutputBackingsVerifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLOutputBackingsVerifier creates a new MLOutputBackingsVerifier instance.
 func NewMLOutputBackingsVerifier() MLOutputBackingsVerifier {
 	class := getMLOutputBackingsVerifierClass()
-	rv := objc.Send[MLOutputBackingsVerifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLOutputBackingsVerifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewOutputBackingsVerifierWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
 	instance := getMLOutputBackingsVerifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
 	return MLOutputBackingsVerifierFromID(rv)
 }
 
@@ -209,11 +209,11 @@ func (m MLOutputBackingsVerifier) VerifyOutputBackingsPredictionUsesBatchError(b
 
 }
 func (m MLOutputBackingsVerifier) InitWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
-	rv := objc.Send[MLOutputBackingsVerifier](m.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
+	rv := objc.SendIfResponds[MLOutputBackingsVerifier](m.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
 	return rv
 }
 
 func (m MLOutputBackingsVerifier) OutputDescriptions() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputDescriptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputDescriptions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

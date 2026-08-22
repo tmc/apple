@@ -39,7 +39,7 @@ func (cc CPXPSNWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXPSNWrapperClass) Alloc() CPXPSNWrapper {
-	rv := objc.Send[CPXPSNWrapper](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXPSNWrapper](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,40 +85,40 @@ type ICPXPSNWrapper interface {
 
 // Init initializes the instance.
 func (c CPXPSNWrapper) Init() CPXPSNWrapper {
-	rv := objc.Send[CPXPSNWrapper](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXPSNWrapper](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXPSNWrapper) Autorelease() CPXPSNWrapper {
-	rv := objc.Send[CPXPSNWrapper](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXPSNWrapper](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXPSNWrapper creates a new CPXPSNWrapper instance.
 func NewCPXPSNWrapper() CPXPSNWrapper {
 	class := getCPXPSNWrapperClass()
-	rv := objc.Send[CPXPSNWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXPSNWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CPXPSNWrapper) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 
 func (c CPXPSNWrapper) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXPSNWrapper) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXPSNWrapper) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXPSNWrapper) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

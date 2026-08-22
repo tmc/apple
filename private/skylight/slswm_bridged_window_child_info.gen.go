@@ -38,7 +38,7 @@ func (sc SLSWMBridgedWindowChildInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSWMBridgedWindowChildInfoClass) Alloc() SLSWMBridgedWindowChildInfo {
-	rv := objc.Send[SLSWMBridgedWindowChildInfo](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindowChildInfo](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,34 +81,34 @@ type ISLSWMBridgedWindowChildInfo interface {
 
 // Init initializes the instance.
 func (s SLSWMBridgedWindowChildInfo) Init() SLSWMBridgedWindowChildInfo {
-	rv := objc.Send[SLSWMBridgedWindowChildInfo](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindowChildInfo](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSWMBridgedWindowChildInfo) Autorelease() SLSWMBridgedWindowChildInfo {
-	rv := objc.Send[SLSWMBridgedWindowChildInfo](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindowChildInfo](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSWMBridgedWindowChildInfo creates a new SLSWMBridgedWindowChildInfo instance.
 func NewSLSWMBridgedWindowChildInfo() SLSWMBridgedWindowChildInfo {
 	class := getSLSWMBridgedWindowChildInfoClass()
-	rv := objc.Send[SLSWMBridgedWindowChildInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindowChildInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSWMBridgedWindowChildInfo) Op() int {
-	rv := objc.Send[int](s.ID, objc.Sel("op"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("op"))
 	return rv
 }
 func (s SLSWMBridgedWindowChildInfo) SetOp(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setOp:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOp:"), value)
 }
 func (s SLSWMBridgedWindowChildInfo) Window() ISLSWMBridgedWindow {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("window"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("window"))
 	return SLSWMBridgedWindowFromID(objc.ID(rv))
 }
 func (s SLSWMBridgedWindowChildInfo) SetWindow(value ISLSWMBridgedWindow) {
-	objc.Send[struct{}](s.ID, objc.Sel("setWindow:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setWindow:"), value)
 }

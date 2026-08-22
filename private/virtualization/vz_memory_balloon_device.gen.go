@@ -38,7 +38,7 @@ func (vc VZMemoryBalloonDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMemoryBalloonDeviceClass) Alloc() VZMemoryBalloonDevice {
-	rv := objc.Send[VZMemoryBalloonDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMemoryBalloonDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZMemoryBalloonDevice interface {
 
 // Init initializes the instance.
 func (v VZMemoryBalloonDevice) Init() VZMemoryBalloonDevice {
-	rv := objc.Send[VZMemoryBalloonDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMemoryBalloonDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMemoryBalloonDevice) Autorelease() VZMemoryBalloonDevice {
-	rv := objc.Send[VZMemoryBalloonDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMemoryBalloonDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMemoryBalloonDevice creates a new VZMemoryBalloonDevice instance.
 func NewVZMemoryBalloonDevice() VZMemoryBalloonDevice {
 	class := getVZMemoryBalloonDeviceClass()
-	rv := objc.Send[VZMemoryBalloonDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMemoryBalloonDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMemoryBalloonDevice) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

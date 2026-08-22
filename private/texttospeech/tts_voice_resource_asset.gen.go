@@ -39,7 +39,7 @@ func (tc TTSVoiceResourceAssetClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSVoiceResourceAssetClass) Alloc() TTSVoiceResourceAsset {
-	rv := objc.Send[TTSVoiceResourceAsset](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSVoiceResourceAsset](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,78 +109,78 @@ type ITTSVoiceResourceAsset interface {
 
 // Init initializes the instance.
 func (t TTSVoiceResourceAsset) Init() TTSVoiceResourceAsset {
-	rv := objc.Send[TTSVoiceResourceAsset](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSVoiceResourceAsset](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSVoiceResourceAsset) Autorelease() TTSVoiceResourceAsset {
-	rv := objc.Send[TTSVoiceResourceAsset](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSVoiceResourceAsset](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSVoiceResourceAsset creates a new TTSVoiceResourceAsset instance.
 func NewTTSVoiceResourceAsset() TTSVoiceResourceAsset {
 	class := getTTSVoiceResourceAssetClass()
-	rv := objc.Send[TTSVoiceResourceAsset](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSVoiceResourceAsset](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSVoiceResourceAssetWithCoder(coder objectivec.IObject) TTSVoiceResourceAsset {
 	instance := getTTSVoiceResourceAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSVoiceResourceAssetFromID(rv)
 }
 
 func (t TTSVoiceResourceAsset) DefaultFootprintString() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultFootprintString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultFootprintString"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSVoiceResourceAsset) DefaultTypeString() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultTypeString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultTypeString"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSVoiceResourceAsset) DefaultVoice() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoice"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoice"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSVoiceResourceAsset) SyncWithConfigDataVoiceType(data objectivec.IObject, type_ int64) {
-	objc.Send[objc.ID](t.ID, objc.Sel("syncWithConfigData:voiceType:"), data, type_)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigData:voiceType:"), data, type_)
 }
 func (t TTSVoiceResourceAsset) SyncWithConfigFileVoiceType(file objectivec.IObject, type_ int64) {
-	objc.Send[objc.ID](t.ID, objc.Sel("syncWithConfigFile:voiceType:"), file, type_)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigFile:voiceType:"), file, type_)
 }
 
 func (_TTSVoiceResourceAssetClass TTSVoiceResourceAssetClass) LegacyPlatforms() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSVoiceResourceAssetClass.class), objc.Sel("legacyPlatforms"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSVoiceResourceAssetClass.class), objc.Sel("legacyPlatforms"))
 	return objectivec.Object{ID: rv}
 }
 
 func (t TTSVoiceResourceAsset) Languages() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSVoiceResourceAsset) SetLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
 func (t TTSVoiceResourceAsset) ResourceList() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceList"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resourceList"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSVoiceResourceAsset) SetResourceList(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setResourceList:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setResourceList:"), value)
 }
 func (t TTSVoiceResourceAsset) SearchPathURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("searchPathURL"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("searchPathURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (t TTSVoiceResourceAsset) SetSearchPathURL(value foundation.NSURL) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSearchPathURL:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSearchPathURL:"), value)
 }
 func (t TTSVoiceResourceAsset) VoiceConfig() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceConfig"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceConfig"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSVoiceResourceAsset) SetVoiceConfig(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceConfig:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceConfig:"), value)
 }

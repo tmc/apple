@@ -40,7 +40,7 @@ func (vc VZUnixSocketBifrostAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUnixSocketBifrostAttachmentClass) Alloc() VZUnixSocketBifrostAttachment {
-	rv := objc.Send[VZUnixSocketBifrostAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUnixSocketBifrostAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,30 +77,33 @@ type IVZUnixSocketBifrostAttachment interface {
 
 // Init initializes the instance.
 func (v VZUnixSocketBifrostAttachment) Init() VZUnixSocketBifrostAttachment {
-	rv := objc.Send[VZUnixSocketBifrostAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUnixSocketBifrostAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUnixSocketBifrostAttachment) Autorelease() VZUnixSocketBifrostAttachment {
-	rv := objc.Send[VZUnixSocketBifrostAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUnixSocketBifrostAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUnixSocketBifrostAttachment creates a new VZUnixSocketBifrostAttachment instance.
 func NewVZUnixSocketBifrostAttachment() VZUnixSocketBifrostAttachment {
 	class := getVZUnixSocketBifrostAttachmentClass()
-	rv := objc.Send[VZUnixSocketBifrostAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUnixSocketBifrostAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZUnixSocketBifrostAttachmentWithPathError(path objectivec.IObject) (VZUnixSocketBifrostAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZUnixSocketBifrostAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:error:"), path, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPath:error:"), path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZUnixSocketBifrostAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZUnixSocketBifrostAttachment{}, objc.ErrInitFailed
 	}
 	return VZUnixSocketBifrostAttachmentFromID(rv), nil
 }
@@ -117,11 +120,11 @@ func (v VZUnixSocketBifrostAttachment) InitWithPathError(path objectivec.IObject
 }
 
 func (_VZUnixSocketBifrostAttachmentClass VZUnixSocketBifrostAttachmentClass) MaximumPathLength() uint64 {
-	rv := objc.Send[uint64](objc.ID(_VZUnixSocketBifrostAttachmentClass.class), objc.Sel("maximumPathLength"))
+	rv := objc.SendIfResponds[uint64](objc.ID(_VZUnixSocketBifrostAttachmentClass.class), objc.Sel("maximumPathLength"))
 	return rv
 }
 
 func (v VZUnixSocketBifrostAttachment) Path() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("path"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()
 }

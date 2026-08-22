@@ -38,7 +38,7 @@ func (mc MLPipelineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPipelineClass) Alloc() MLPipeline {
-	rv := objc.Send[MLPipeline](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPipeline](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -67,19 +67,19 @@ type IMLPipeline interface {
 
 // Init initializes the instance.
 func (m MLPipeline) Init() MLPipeline {
-	rv := objc.Send[MLPipeline](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPipeline](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPipeline) Autorelease() MLPipeline {
-	rv := objc.Send[MLPipeline](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPipeline](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPipeline creates a new MLPipeline instance.
 func NewMLPipeline() MLPipeline {
 	class := getMLPipelineClass()
-	rv := objc.Send[MLPipeline](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPipeline](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

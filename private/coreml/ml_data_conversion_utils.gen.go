@@ -41,7 +41,7 @@ func (mc MLDataConversionUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDataConversionUtilsClass) Alloc() MLDataConversionUtils {
-	rv := objc.Send[MLDataConversionUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDataConversionUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLDataConversionUtils interface {
 
 // Init initializes the instance.
 func (m MLDataConversionUtils) Init() MLDataConversionUtils {
-	rv := objc.Send[MLDataConversionUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDataConversionUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDataConversionUtils) Autorelease() MLDataConversionUtils {
-	rv := objc.Send[MLDataConversionUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDataConversionUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDataConversionUtils creates a new MLDataConversionUtils instance.
 func NewMLDataConversionUtils() MLDataConversionUtils {
 	class := getMLDataConversionUtilsClass()
-	rv := objc.Send[MLDataConversionUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDataConversionUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -152,7 +152,7 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) MlComputeDataProvi
 
 }
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) MlComputeDataTypeSize(size int64) uint64 {
-	rv := objc.Send[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("mlComputeDataTypeSize:"), size)
+	rv := objc.SendIfResponds[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("mlComputeDataTypeSize:"), size)
 	return rv
 }
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateEspressoShapeAndStridesFromInputShapeNdRepresentationEspressoShapeEspressoStridesError(shape objectivec.IObject, representation bool, shape2 []objectivec.IObject, strides []objectivec.IObject) (bool, error) {
@@ -182,10 +182,10 @@ func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) PopulateShapeAndSt
 
 }
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) SizeFromShape(shape objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("sizeFromShape:"), shape)
+	rv := objc.SendIfResponds[uint64](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("sizeFromShape:"), shape)
 	return rv
 }
 func (_MLDataConversionUtilsClass MLDataConversionUtilsClass) StridesForShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("stridesForShape:"), shape)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLDataConversionUtilsClass.class), objc.Sel("stridesForShape:"), shape)
 	return objectivec.Object{ID: rv}
 }

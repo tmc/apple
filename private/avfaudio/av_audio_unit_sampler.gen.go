@@ -38,7 +38,7 @@ func (ac AVAudioUnitSamplerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitSamplerClass) Alloc() AVAudioUnitSampler {
-	rv := objc.Send[AVAudioUnitSampler](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitSampler](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,33 +75,33 @@ type IAVAudioUnitSampler interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitSampler) Init() AVAudioUnitSampler {
-	rv := objc.Send[AVAudioUnitSampler](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitSampler](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitSampler) Autorelease() AVAudioUnitSampler {
-	rv := objc.Send[AVAudioUnitSampler](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitSampler](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitSampler creates a new AVAudioUnitSampler instance.
 func NewAVAudioUnitSampler() AVAudioUnitSampler {
 	class := getAVAudioUnitSamplerClass()
-	rv := objc.Send[AVAudioUnitSampler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitSampler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioUnitSamplerWithImpl(impl unsafe.Pointer) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSamplerFromID(rv)
 }
 
 func (a AVAudioUnitSampler) MasterGain() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("masterGain"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("masterGain"))
 	return rv
 }
 func (a AVAudioUnitSampler) SetMasterGain(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMasterGain:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMasterGain:"), value)
 }

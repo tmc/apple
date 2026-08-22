@@ -38,7 +38,7 @@ func (sc SLSBridgedCopyManagedDisplaysOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyManagedDisplaysOperationClass) Alloc() SLSBridgedCopyManagedDisplaysOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplaysOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplaysOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type ISLSBridgedCopyManagedDisplaysOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopyManagedDisplaysOperation) Init() SLSBridgedCopyManagedDisplaysOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplaysOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplaysOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyManagedDisplaysOperation) Autorelease() SLSBridgedCopyManagedDisplaysOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplaysOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplaysOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyManagedDisplaysOperation creates a new SLSBridgedCopyManagedDisplaysOperation instance.
 func NewSLSBridgedCopyManagedDisplaysOperation() SLSBridgedCopyManagedDisplaysOperation {
 	class := getSLSBridgedCopyManagedDisplaysOperationClass()
-	rv := objc.Send[SLSBridgedCopyManagedDisplaysOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplaysOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyManagedDisplaysOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyManagedDisplaysOperation {
 	instance := getSLSBridgedCopyManagedDisplaysOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyManagedDisplaysOperationFromID(rv)
 }
 
 func (s SLSBridgedCopyManagedDisplaysOperation) MakeResultWithStrings(strings objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithStrings:"), strings)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithStrings:"), strings)
 	return objectivec.Object{ID: rv}
 }

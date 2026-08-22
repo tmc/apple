@@ -11,6 +11,9 @@ import (
 type MLComputeDataProvider interface {
 	objectivec.IObject
 
+	// BatchAtIndexError protocol.
+	BatchAtIndexError(index uint64) (objectivec.IObject, error)
+
 	// NumberOfBatches protocol.
 	NumberOfBatches() uint64
 
@@ -43,10 +46,10 @@ func (o MLComputeDataProviderObject) BatchAtIndexError(index uint64) (objectivec
 	return objectivec.Object{ID: rv}, nil
 }
 func (o MLComputeDataProviderObject) NumberOfBatches() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("numberOfBatches"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
 func (o MLComputeDataProviderObject) SizeOfBatchAtIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }

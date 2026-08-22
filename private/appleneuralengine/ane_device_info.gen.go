@@ -38,7 +38,7 @@ func (ac ANEDeviceInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDeviceInfoClass) Alloc() ANEDeviceInfo {
-	rv := objc.Send[ANEDeviceInfo](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEDeviceInfo](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,92 +61,92 @@ type IANEDeviceInfo interface {
 
 // Init initializes the instance.
 func (a ANEDeviceInfo) Init() ANEDeviceInfo {
-	rv := objc.Send[ANEDeviceInfo](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEDeviceInfo](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEDeviceInfo) Autorelease() ANEDeviceInfo {
-	rv := objc.Send[ANEDeviceInfo](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEDeviceInfo](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEDeviceInfo creates a new ANEDeviceInfo instance.
 func NewANEDeviceInfo() ANEDeviceInfo {
 	class := getANEDeviceInfoClass()
-	rv := objc.Send[ANEDeviceInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEDeviceInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneArchitectureType() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneArchitectureType"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneArchitectureType"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneBoardType() int64 {
-	rv := objc.Send[int64](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneBoardType"))
+	rv := objc.SendIfResponds[int64](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneBoardType"))
 	return rv
 }
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubType() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubType"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeProductVariant() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeProductVariant"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeVariant() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeVariant"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) BootArgs() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("bootArgs"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) BuildVersion() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("buildVersion"))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) HasANE() bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("hasANE"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBoolBootArgSetTrue(true_ objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBoolBootArgSetTrue:"), true_)
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBootArgPresent(present objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBootArgPresent:"), present)
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsExcessivePowerDrainWhenIdle() bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isExcessivePowerDrainWhenIdle"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsInternalBuild() bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isInternalBuild"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsVirtualMachine() bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isVirtualMachine"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANECores() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANECores"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANEs() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANEs"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) PrecompiledModelChecksDisabled() bool {
-	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("precompiledModelChecksDisabled"))
-	return rv
-}
-func (_ANEDeviceInfoClass ANEDeviceInfoClass) ProductName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("productName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubType"))
 	return objectivec.Object{ID: rv}
 }
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeAndVariant() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeAndVariant"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeAndVariant"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeProductVariant() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeProductVariant"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeVariant() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeVariant"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) BootArgs() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("bootArgs"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) BuildVersion() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("buildVersion"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) HasANE() bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("hasANE"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBoolBootArgSetTrue(true_ objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBoolBootArgSetTrue:"), true_)
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBootArgPresent(present objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBootArgPresent:"), present)
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsExcessivePowerDrainWhenIdle() bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isExcessivePowerDrainWhenIdle"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsInternalBuild() bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isInternalBuild"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsVirtualMachine() bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isVirtualMachine"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANECores() uint32 {
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANECores"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANEs() uint32 {
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANEs"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) PrecompiledModelChecksDisabled() bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("precompiledModelChecksDisabled"))
+	return rv
+}
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) ProductName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("productName"))
 	return objectivec.Object{ID: rv}
 }

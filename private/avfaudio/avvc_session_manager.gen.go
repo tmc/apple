@@ -41,7 +41,7 @@ func (ac AVVCSessionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCSessionManagerClass) Alloc() AVVCSessionManager {
-	rv := objc.Send[AVVCSessionManager](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCSessionManager](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,31 +90,31 @@ type IAVVCSessionManager interface {
 
 // Init initializes the instance.
 func (a AVVCSessionManager) Init() AVVCSessionManager {
-	rv := objc.Send[AVVCSessionManager](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCSessionManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCSessionManager) Autorelease() AVVCSessionManager {
-	rv := objc.Send[AVVCSessionManager](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCSessionManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCSessionManager creates a new AVVCSessionManager instance.
 func NewAVVCSessionManager() AVVCSessionManager {
 	class := getAVVCSessionManagerClass()
-	rv := objc.Send[AVVCSessionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCSessionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCSessionManagerWithSession(session objectivec.IObject) AVVCSessionManager {
 	instance := getAVVCSessionManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return AVVCSessionManagerFromID(rv)
 }
 
 func (a AVVCSessionManager) IsCurrentInputBuiltInMic() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isCurrentInputBuiltInMic"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isCurrentInputBuiltInMic"))
 	return rv
 }
 func (a AVVCSessionManager) SetIsUsingBuiltInMicForRecordingError(recording bool) (bool, error) {
@@ -131,18 +131,18 @@ func (a AVVCSessionManager) SetIsUsingBuiltInMicForRecordingError(recording bool
 
 }
 func (a AVVCSessionManager) SetupOneTimeSessionSettingsForClient(client int64) int {
-	rv := objc.Send[int](a.ID, objc.Sel("setupOneTimeSessionSettingsForClient:"), client)
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("setupOneTimeSessionSettingsForClient:"), client)
 	return rv
 }
 func (a AVVCSessionManager) InitWithSession(session objectivec.IObject) AVVCSessionManager {
-	rv := objc.Send[AVVCSessionManager](a.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[AVVCSessionManager](a.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
 func (a AVVCSessionManager) AudioSession() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioSession"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("audioSession"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCSessionManager) SetAudioSession(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAudioSession:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAudioSession:"), value)
 }

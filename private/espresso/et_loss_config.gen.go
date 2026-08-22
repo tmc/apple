@@ -39,7 +39,7 @@ func (ec ETLossConfigClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETLossConfigClass) Alloc() ETLossConfig {
-	rv := objc.Send[ETLossConfig](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETLossConfig](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,71 +106,71 @@ type IETLossConfig interface {
 
 // Init initializes the instance.
 func (e ETLossConfig) Init() ETLossConfig {
-	rv := objc.Send[ETLossConfig](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETLossConfig](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETLossConfig) Autorelease() ETLossConfig {
-	rv := objc.Send[ETLossConfig](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETLossConfig](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETLossConfig creates a new ETLossConfig instance.
 func NewETLossConfig() ETLossConfig {
 	class := getETLossConfigClass()
-	rv := objc.Send[ETLossConfig](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETLossConfig](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ETLossConfigClass ETLossConfigClass) L2Loss() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("L2Loss"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("L2Loss"))
 	return objectivec.Object{ID: rv}
 }
 func (_ETLossConfigClass ETLossConfigClass) SoftmaxCrossEntropyLoss() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("softmaxCrossEntropyLoss"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETLossConfigClass.class), objc.Sel("softmaxCrossEntropyLoss"))
 	return objectivec.Object{ID: rv}
 }
 
 func (e ETLossConfig) Custom_network_path() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("custom_network_path"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("custom_network_path"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossConfig) SetCustom_network_path(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setCustom_network_path:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setCustom_network_path:"), objc.String(value))
 }
 func (e ETLossConfig) Label_name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("label_name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("label_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossConfig) SetLabel_name(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLabel_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLabel_name:"), objc.String(value))
 }
 func (e ETLossConfig) Label_shape() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("label_shape"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("label_shape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETLossConfig) SetLabel_shape(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLabel_shape:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLabel_shape:"), value)
 }
 func (e ETLossConfig) Loss_name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("loss_name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("loss_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossConfig) SetLoss_name(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLoss_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLoss_name:"), objc.String(value))
 }
 func (e ETLossConfig) Mode() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("mode"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("mode"))
 	return rv
 }
 func (e ETLossConfig) SetMode(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setMode:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMode:"), value)
 }
 func (e ETLossConfig) Output_name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("output_name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("output_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossConfig) SetOutput_name(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutput_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutput_name:"), objc.String(value))
 }

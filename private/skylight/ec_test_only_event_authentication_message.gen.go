@@ -42,7 +42,7 @@ func (ec ECTestOnlyEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ECTestOnlyEventAuthenticationMessageClass) Alloc() ECTestOnlyEventAuthenticationMessage {
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -124,110 +124,110 @@ type IECTestOnlyEventAuthenticationMessage interface {
 
 // Init initializes the instance.
 func (e ECTestOnlyEventAuthenticationMessage) Init() ECTestOnlyEventAuthenticationMessage {
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ECTestOnlyEventAuthenticationMessage) Autorelease() ECTestOnlyEventAuthenticationMessage {
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewECTestOnlyEventAuthenticationMessage creates a new ECTestOnlyEventAuthenticationMessage instance.
 func NewECTestOnlyEventAuthenticationMessage() ECTestOnlyEventAuthenticationMessage {
 	class := getECTestOnlyEventAuthenticationMessageClass()
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewECTestOnlyEventAuthenticationMessageWithCoder(coder objectivec.IObject) ECTestOnlyEventAuthenticationMessage {
 	instance := getECTestOnlyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ECTestOnlyEventAuthenticationMessageFromID(rv)
 }
 
 func NewECTestOnlyEventAuthenticationMessageWithValidity(validity bool) ECTestOnlyEventAuthenticationMessage {
 	instance := getECTestOnlyEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidity:"), validity)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValidity:"), validity)
 	return ECTestOnlyEventAuthenticationMessageFromID(rv)
 }
 
 func (e ECTestOnlyEventAuthenticationMessage) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (e ECTestOnlyEventAuthenticationMessage) MatchesEvent(event coregraphics.CGEvent) bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("matchesEvent:"), event)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("matchesEvent:"), event)
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](e.ID, objc.Sel("validateWithOptions:andResultBlock:"), options, _block1)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("validateWithOptions:andResultBlock:"), options, _block1)
 }
 func (e ECTestOnlyEventAuthenticationMessage) InitWithCoder(coder foundation.INSCoder) ECTestOnlyEventAuthenticationMessage {
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) InitWithValidity(validity bool) ECTestOnlyEventAuthenticationMessage {
-	rv := objc.Send[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithValidity:"), validity)
+	rv := objc.SendIfResponds[ECTestOnlyEventAuthenticationMessage](e.ID, objc.Sel("initWithValidity:"), validity)
 	return rv
 }
 
 func (_ECTestOnlyEventAuthenticationMessageClass ECTestOnlyEventAuthenticationMessageClass) MessageWithValidity(validity bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("messageWithValidity:"), validity)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("messageWithValidity:"), validity)
 	return objectivec.Object{ID: rv}
 }
 func (_ECTestOnlyEventAuthenticationMessageClass ECTestOnlyEventAuthenticationMessageClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ECTestOnlyEventAuthenticationMessageClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (e ECTestOnlyEventAuthenticationMessage) Capabilities() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("capabilities"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("capabilities"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) Context() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("context"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("context"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ECTestOnlyEventAuthenticationMessage) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ECTestOnlyEventAuthenticationMessage) EventType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("eventType"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("eventType"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) OriginIdentifier() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("originIdentifier"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("originIdentifier"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) ProxyTargetProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("proxyTargetProcess"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("proxyTargetProcess"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](e.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (e ECTestOnlyEventAuthenticationMessage) TargetProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("targetProcess"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("targetProcess"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) Timestamp() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("timestamp"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("timestamp"))
 	return rv
 }
 func (e ECTestOnlyEventAuthenticationMessage) Valid() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("valid"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("valid"))
 	return rv
 }
 

@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (cc CPXEventDeferringPolicySanitizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXEventDeferringPolicySanitizerClass) Alloc() CPXEventDeferringPolicySanitizer {
-	rv := objc.Send[CPXEventDeferringPolicySanitizer](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicySanitizer](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,7 +76,7 @@ type ICPXEventDeferringPolicySanitizer interface {
 
 	// Topic: Methods
 
-	_isValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool
+	_isValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool
 	_sanitizeFrontmost(frontmost objectivec.IObject)
 	_sanitizeKeyThief(thief objectivec.IObject)
 	Sanitize(sanitize objectivec.IObject) objectivec.IObject
@@ -84,36 +85,36 @@ type ICPXEventDeferringPolicySanitizer interface {
 
 // Init initializes the instance.
 func (c CPXEventDeferringPolicySanitizer) Init() CPXEventDeferringPolicySanitizer {
-	rv := objc.Send[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXEventDeferringPolicySanitizer) Autorelease() CPXEventDeferringPolicySanitizer {
-	rv := objc.Send[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXEventDeferringPolicySanitizer creates a new CPXEventDeferringPolicySanitizer instance.
 func NewCPXEventDeferringPolicySanitizer() CPXEventDeferringPolicySanitizer {
 	class := getCPXEventDeferringPolicySanitizerClass()
-	rv := objc.Send[CPXEventDeferringPolicySanitizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicySanitizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXEventDeferringPolicySanitizerWithFocusManagerDataSourceProcessManager(source objectivec.IObject, manager objectivec.IObject) CPXEventDeferringPolicySanitizer {
 	instance := getCPXEventDeferringPolicySanitizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
 	return CPXEventDeferringPolicySanitizerFromID(rv)
 }
 
-func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"), process, history, type_)
+func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"), unsafe.Pointer(process), history, type_)
 	return rv
 }
 
 // IsValidProcessAuditHistoryDebugProcessType is an exported wrapper for the private method _isValidProcessAuditHistoryDebugProcessType.
-func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) (bool, error) {
+func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process *CPSProcessRec, history objectivec.IObject, type_ objectivec.IObject) (bool, error) {
 	if !objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_isValidProcess:auditHistory:debugProcessType:"}
 		return false, err
@@ -126,7 +127,7 @@ func (c CPXEventDeferringPolicySanitizer) CanIsValidProcessAuditHistoryDebugProc
 	return objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"))
 }
 func (c CPXEventDeferringPolicySanitizer) _sanitizeFrontmost(frontmost objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_sanitizeFrontmost:"), frontmost)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_sanitizeFrontmost:"), frontmost)
 }
 
 // SanitizeFrontmost is an exported wrapper for the private method _sanitizeFrontmost.
@@ -144,7 +145,7 @@ func (c CPXEventDeferringPolicySanitizer) CanSanitizeFrontmost() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeFrontmost:"))
 }
 func (c CPXEventDeferringPolicySanitizer) _sanitizeKeyThief(thief objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_sanitizeKeyThief:"), thief)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_sanitizeKeyThief:"), thief)
 }
 
 // SanitizeKeyThief is an exported wrapper for the private method _sanitizeKeyThief.
@@ -162,10 +163,10 @@ func (c CPXEventDeferringPolicySanitizer) CanSanitizeKeyThief() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeKeyThief:"))
 }
 func (c CPXEventDeferringPolicySanitizer) Sanitize(sanitize objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("sanitize:"), sanitize)
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("sanitize:"), sanitize)
 	return objectivec.Object{ID: rv}
 }
 func (c CPXEventDeferringPolicySanitizer) InitWithFocusManagerDataSourceProcessManager(source objectivec.IObject, manager objectivec.IObject) CPXEventDeferringPolicySanitizer {
-	rv := objc.Send[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
+	rv := objc.SendIfResponds[CPXEventDeferringPolicySanitizer](c.ID, objc.Sel("initWithFocusManagerDataSource:processManager:"), source, manager)
 	return rv
 }

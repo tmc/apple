@@ -38,7 +38,7 @@ func (vc VZPluginServiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPluginServiceClass) Alloc() VZPluginService {
-	rv := objc.Send[VZPluginService](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPluginService](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IVZPluginService interface {
 
 // Init initializes the instance.
 func (v VZPluginService) Init() VZPluginService {
-	rv := objc.Send[VZPluginService](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPluginService](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPluginService) Autorelease() VZPluginService {
-	rv := objc.Send[VZPluginService](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPluginService](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPluginService creates a new VZPluginService instance.
 func NewVZPluginService() VZPluginService {
 	class := getVZPluginServiceClass()
-	rv := objc.Send[VZPluginService](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPluginService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_VZPluginServiceClass VZPluginServiceClass) XpcMain() int {
-	rv := objc.Send[int](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
+	rv := objc.SendIfResponds[int](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
 	return rv
 }

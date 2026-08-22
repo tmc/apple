@@ -40,7 +40,7 @@ func (mc MLKeyManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLKeyManagerClass) Alloc() MLKeyManager {
-	rv := objc.Send[MLKeyManager](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLKeyManager](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,20 +63,20 @@ type IMLKeyManager interface {
 
 // Init initializes the instance.
 func (m MLKeyManager) Init() MLKeyManager {
-	rv := objc.Send[MLKeyManager](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLKeyManager](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLKeyManager) Autorelease() MLKeyManager {
-	rv := objc.Send[MLKeyManager](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLKeyManager](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLKeyManager creates a new MLKeyManager instance.
 func NewMLKeyManager() MLKeyManager {
 	class := getMLKeyManagerClass()
-	rv := objc.Send[MLKeyManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLKeyManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -111,7 +111,7 @@ func (_MLKeyManagerClass MLKeyManagerClass) ExtractKeyIdentifierFromModelAtURLUs
 
 }
 func (_MLKeyManagerClass MLKeyManagerClass) IsModelEncrypted(encrypted objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLKeyManagerClass.class), objc.Sel("isModelEncrypted:"), encrypted)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLKeyManagerClass.class), objc.Sel("isModelEncrypted:"), encrypted)
 	return rv
 }
 func (_MLKeyManagerClass MLKeyManagerClass) LoadDecryptionKeyForModelAtURLRetUsesCodeSigningIdentityForEncryptionError(url foundation.NSURL, encryption *bool) (objectivec.IObject, error) {
@@ -125,6 +125,6 @@ func (_MLKeyManagerClass MLKeyManagerClass) LoadDecryptionKeyForModelAtURLRetUse
 
 }
 func (_MLKeyManagerClass MLKeyManagerClass) SyncQueue() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLKeyManagerClass.class), objc.Sel("syncQueue"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLKeyManagerClass.class), objc.Sel("syncQueue"))
 	return objectivec.Object{ID: rv}
 }

@@ -38,7 +38,7 @@ func (vc VZGuestTraceEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGuestTraceEventClass) Alloc() VZGuestTraceEvent {
-	rv := objc.Send[VZGuestTraceEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGuestTraceEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZGuestTraceEvent interface {
 
 // Init initializes the instance.
 func (v VZGuestTraceEvent) Init() VZGuestTraceEvent {
-	rv := objc.Send[VZGuestTraceEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGuestTraceEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGuestTraceEvent) Autorelease() VZGuestTraceEvent {
-	rv := objc.Send[VZGuestTraceEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGuestTraceEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGuestTraceEvent creates a new VZGuestTraceEvent instance.
 func NewVZGuestTraceEvent() VZGuestTraceEvent {
 	class := getVZGuestTraceEventClass()
-	rv := objc.Send[VZGuestTraceEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGuestTraceEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGuestTraceEvent) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

@@ -38,7 +38,7 @@ func (ec ETImagePreprocessParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETImagePreprocessParamsClass) Alloc() ETImagePreprocessParams {
-	rv := objc.Send[ETImagePreprocessParams](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETImagePreprocessParams](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -96,63 +96,63 @@ type IETImagePreprocessParams interface {
 
 // Init initializes the instance.
 func (e ETImagePreprocessParams) Init() ETImagePreprocessParams {
-	rv := objc.Send[ETImagePreprocessParams](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETImagePreprocessParams](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETImagePreprocessParams) Autorelease() ETImagePreprocessParams {
-	rv := objc.Send[ETImagePreprocessParams](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETImagePreprocessParams](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETImagePreprocessParams creates a new ETImagePreprocessParams instance.
 func NewETImagePreprocessParams() ETImagePreprocessParams {
 	class := getETImagePreprocessParamsClass()
-	rv := objc.Send[ETImagePreprocessParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETImagePreprocessParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETImagePreprocessParamsWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNetworkWantBGR(height uint64, width uint64, channels uint64, scale float32, r float32, g float32, b float32, bgr bool) ETImagePreprocessParams {
 	instance := getETImagePreprocessParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:"), height, width, channels, scale, r, g, b, bgr)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:"), height, width, channels, scale, r, g, b, bgr)
 	return ETImagePreprocessParamsFromID(rv)
 }
 
 func (e ETImagePreprocessParams) InitWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNetworkWantBGR(height uint64, width uint64, channels uint64, scale float32, r float32, g float32, b float32, bgr bool) ETImagePreprocessParams {
-	rv := objc.Send[ETImagePreprocessParams](e.ID, objc.Sel("initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:"), height, width, channels, scale, r, g, b, bgr)
+	rv := objc.SendIfResponds[ETImagePreprocessParams](e.ID, objc.Sel("initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:"), height, width, channels, scale, r, g, b, bgr)
 	return rv
 }
 
 func (e ETImagePreprocessParams) Bias_b() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("bias_b"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("bias_b"))
 	return rv
 }
 func (e ETImagePreprocessParams) Bias_g() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("bias_g"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("bias_g"))
 	return rv
 }
 func (e ETImagePreprocessParams) Bias_r() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("bias_r"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("bias_r"))
 	return rv
 }
 func (e ETImagePreprocessParams) Channels() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("channels"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("channels"))
 	return rv
 }
 func (e ETImagePreprocessParams) Height() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("height"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("height"))
 	return rv
 }
 func (e ETImagePreprocessParams) Network_wants_bgr() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("network_wants_bgr"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("network_wants_bgr"))
 	return rv
 }
 func (e ETImagePreprocessParams) Scale() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("scale"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("scale"))
 	return rv
 }
 func (e ETImagePreprocessParams) Width() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("width"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("width"))
 	return rv
 }

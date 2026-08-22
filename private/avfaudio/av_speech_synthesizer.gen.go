@@ -39,7 +39,7 @@ func (ac AVSpeechSynthesizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpeechSynthesizerClass) Alloc() AVSpeechSynthesizer {
-	rv := objc.Send[AVSpeechSynthesizer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVSpeechSynthesizer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -169,25 +169,25 @@ type IAVSpeechSynthesizer interface {
 
 // Init initializes the instance.
 func (a AVSpeechSynthesizer) Init() AVSpeechSynthesizer {
-	rv := objc.Send[AVSpeechSynthesizer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVSpeechSynthesizer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVSpeechSynthesizer) Autorelease() AVSpeechSynthesizer {
-	rv := objc.Send[AVSpeechSynthesizer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVSpeechSynthesizer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVSpeechSynthesizer creates a new AVSpeechSynthesizer instance.
 func NewAVSpeechSynthesizer() AVSpeechSynthesizer {
 	class := getAVSpeechSynthesizerClass()
-	rv := objc.Send[AVSpeechSynthesizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVSpeechSynthesizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVSpeechSynthesizer) _applyWebKitBehaviors() {
-	objc.Send[objc.ID](a.ID, objc.Sel("_applyWebKitBehaviors"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_applyWebKitBehaviors"))
 }
 
 // ApplyWebKitBehaviors is an exported wrapper for the private method _applyWebKitBehaviors.
@@ -205,7 +205,7 @@ func (a AVSpeechSynthesizer) CanApplyWebKitBehaviors() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_applyWebKitBehaviors"))
 }
 func (a AVSpeechSynthesizer) _convertBoundary(boundary int64) int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("_convertBoundary:"), boundary)
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("_convertBoundary:"), boundary)
 	return rv
 }
 
@@ -223,7 +223,7 @@ func (a AVSpeechSynthesizer) CanConvertBoundary() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_convertBoundary:"))
 }
 func (a AVSpeechSynthesizer) _enqueueNextJob() {
-	objc.Send[objc.ID](a.ID, objc.Sel("_enqueueNextJob"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_enqueueNextJob"))
 }
 
 // EnqueueNextJob is an exported wrapper for the private method _enqueueNextJob.
@@ -241,7 +241,7 @@ func (a AVSpeechSynthesizer) CanEnqueueNextJob() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_enqueueNextJob"))
 }
 func (a AVSpeechSynthesizer) _handleSpeechDoneSuccessful(done objectivec.IObject, successful bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("_handleSpeechDone:successful:"), done, successful)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_handleSpeechDone:successful:"), done, successful)
 }
 
 // HandleSpeechDoneSuccessful is an exported wrapper for the private method _handleSpeechDoneSuccessful.
@@ -259,7 +259,7 @@ func (a AVSpeechSynthesizer) CanHandleSpeechDoneSuccessful() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_handleSpeechDone:successful:"))
 }
 func (a AVSpeechSynthesizer) _speakUtterance(utterance objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("_speakUtterance:"), utterance)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_speakUtterance:"), utterance)
 }
 
 // SpeakUtterance is an exported wrapper for the private method _speakUtterance.
@@ -277,58 +277,58 @@ func (a AVSpeechSynthesizer) CanSpeakUtterance() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_speakUtterance:"))
 }
 func (a AVSpeechSynthesizer) AudioQueueFlags() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("audioQueueFlags"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
 func (a AVSpeechSynthesizer) CoreSynth() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("coreSynth"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("coreSynth"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesizer) IsInAudioInterruption() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isInAudioInterruption"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isInAudioInterruption"))
 	return rv
 }
 func (a AVSpeechSynthesizer) ProcessSpeechJobFinishedSuccessful(finished objectivec.IObject, successful bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("processSpeechJobFinished:successful:"), finished, successful)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("processSpeechJobFinished:successful:"), finished, successful)
 }
 func (a AVSpeechSynthesizer) SetActiveOptions() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("setActiveOptions"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("setActiveOptions"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SetAudioQueueFlags(flags uint32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setAudioQueueFlags:"), flags)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAudioQueueFlags:"), flags)
 }
 func (a AVSpeechSynthesizer) SetAudioSessionInactiveTimeout(timeout float64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setAudioSessionInactiveTimeout:"), timeout)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAudioSessionInactiveTimeout:"), timeout)
 }
 func (a AVSpeechSynthesizer) SetSetActiveOptions(options uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSetActiveOptions:"), options)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSetActiveOptions:"), options)
 }
 func (a AVSpeechSynthesizer) SetSkipLuthorRules(rules objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSkipLuthorRules:"), rules)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSkipLuthorRules:"), rules)
 }
 func (a AVSpeechSynthesizer) SetSupportsAccurateWordCallbacks(callbacks objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSupportsAccurateWordCallbacks:"), callbacks)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSupportsAccurateWordCallbacks:"), callbacks)
 }
 func (a AVSpeechSynthesizer) SkipLuthorRules() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("skipLuthorRules"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("skipLuthorRules"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesizer) SpeechManager() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechManager"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechManager"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesizer) SpeechQueue() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechQueue"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechQueue"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesizer) SupportsAccurateWordCallbacks() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportsAccurateWordCallbacks"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("supportsAccurateWordCallbacks"))
 	return objectivec.Object{ID: rv}
 }
 
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) _supportsSpeakingWithPersonalVoices() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
 	return rv
 }
 
@@ -346,57 +346,57 @@ func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) CanSupportsSpeakingWit
 	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
 }
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) IsSoftAppUsageProtectionDisabled() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("isSoftAppUsageProtectionDisabled"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("isSoftAppUsageProtectionDisabled"))
 	return rv
 }
 
 func (a AVSpeechSynthesizer) AudioDeviceId() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("audioDeviceId"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("audioDeviceId"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SetAudioDeviceId(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAudioDeviceId:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAudioDeviceId:"), value)
 }
 func (a AVSpeechSynthesizer) DetectSSMLAndModifyUtterances() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("detectSSMLAndModifyUtterances"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("detectSSMLAndModifyUtterances"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SetDetectSSMLAndModifyUtterances(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDetectSSMLAndModifyUtterances:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDetectSSMLAndModifyUtterances:"), value)
 }
 func (a AVSpeechSynthesizer) InflightUtterance() IAVSpeechUtterance {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("inflightUtterance"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inflightUtterance"))
 	return AVSpeechUtteranceFromID(objc.ID(rv))
 }
 func (a AVSpeechSynthesizer) SetInflightUtterance(value IAVSpeechUtterance) {
-	objc.Send[struct{}](a.ID, objc.Sel("setInflightUtterance:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setInflightUtterance:"), value)
 }
 func (a AVSpeechSynthesizer) InitializedWebKitUsage() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("initializedWebKitUsage"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("initializedWebKitUsage"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SetInitializedWebKitUsage(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setInitializedWebKitUsage:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setInitializedWebKitUsage:"), value)
 }
 func (a AVSpeechSynthesizer) IsInternalSynth() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isInternalSynth"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isInternalSynth"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SetIsInternalSynth(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIsInternalSynth:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsInternalSynth:"), value)
 }
 func (a AVSpeechSynthesizer) Paused() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("paused"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("paused"))
 	return rv
 }
 func (a AVSpeechSynthesizer) Speaking() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("speaking"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("speaking"))
 	return rv
 }
 func (a AVSpeechSynthesizer) SpeechSource() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("speechSource"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechSource"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesizer) SetSpeechSource(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSpeechSource:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSpeechSource:"), objc.String(value))
 }

@@ -38,7 +38,7 @@ func (dc DiskImageParamsPluginXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsPluginXPCClass) Alloc() DiskImageParamsPluginXPC {
-	rv := objc.Send[DiskImageParamsPluginXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsPluginXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -66,37 +66,37 @@ type IDiskImageParamsPluginXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsPluginXPC) Init() DiskImageParamsPluginXPC {
-	rv := objc.Send[DiskImageParamsPluginXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsPluginXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsPluginXPC) Autorelease() DiskImageParamsPluginXPC {
-	rv := objc.Send[DiskImageParamsPluginXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsPluginXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsPluginXPC creates a new DiskImageParamsPluginXPC instance.
 func NewDiskImageParamsPluginXPC() DiskImageParamsPluginXPC {
 	class := getDiskImageParamsPluginXPCClass()
-	rv := objc.Send[DiskImageParamsPluginXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsPluginXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsPlugin_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
 func NewDiskImageParamsPlugin_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
 func NewDiskImageParamsPlugin_XPCWithCoder(coder objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsPluginXPCFromID(rv)
 }

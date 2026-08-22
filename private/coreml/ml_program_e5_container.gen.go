@@ -41,7 +41,7 @@ func (mc MLProgramE5ContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramE5ContainerClass) Alloc() MLProgramE5Container {
-	rv := objc.Send[MLProgramE5Container](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramE5Container](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,36 +102,39 @@ type IMLProgramE5Container interface {
 
 // Init initializes the instance.
 func (m MLProgramE5Container) Init() MLProgramE5Container {
-	rv := objc.Send[MLProgramE5Container](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramE5Container](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramE5Container) Autorelease() MLProgramE5Container {
-	rv := objc.Send[MLProgramE5Container](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramE5Container](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramE5Container creates a new MLProgramE5Container instance.
 func NewMLProgramE5Container() MLProgramE5Container {
 	class := getMLProgramE5ContainerClass()
-	rv := objc.Send[MLProgramE5Container](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramE5Container](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramE5ContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:"), archive, info, info2, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:"), archive, info, info2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLProgramE5Container{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLProgramE5Container{}, objc.ErrInitFailed
 	}
 	return MLProgramE5ContainerFromID(rv), nil
 }
 
 func (m MLProgramE5Container) ClassScoreVectorNameOfFunctionNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorNameOfFunctionNamed:"), named)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classScoreVectorNameOfFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objectivec.IObject, error) {
@@ -145,7 +148,7 @@ func (m MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objective
 
 }
 func (m MLProgramE5Container) OptionalInputDefaultValuesForFunctionNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputDefaultValuesForFunctionNamed:"), named)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optionalInputDefaultValuesForFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
@@ -160,7 +163,7 @@ func (m MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVer
 }
 
 func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) _getDefaultFunctionNameModelDescriptionFromModelAssetDescription(name []objectivec.IObject, description []objectivec.IObject, description2 objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLProgramE5ContainerClass.class), objc.Sel("_getDefaultFunctionName:modelDescription:fromModelAssetDescription:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(description), description2)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLProgramE5ContainerClass.class), objc.Sel("_getDefaultFunctionName:modelDescription:fromModelAssetDescription:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(description), description2)
 }
 
 // GetDefaultFunctionNameModelDescriptionFromModelAssetDescription is an exported wrapper for the private method _getDefaultFunctionNameModelDescriptionFromModelAssetDescription.
@@ -192,26 +195,26 @@ func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) DeduceFunctionNameTo
 }
 
 func (m MLProgramE5Container) URLOfMILText() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("URLOfMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("URLOfMILText"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLProgramE5Container) CompilerOutput() IMLCompilerNeuralNetworkOutput {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerOutput"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerOutput"))
 	return MLCompilerNeuralNetworkOutputFromID(objc.ID(rv))
 }
 func (m MLProgramE5Container) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLProgramE5Container) FunctionInfoArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionInfoArray"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionInfoArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLProgramE5Container) ModelAssetDescription() IMLModelAssetDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
 	return MLModelAssetDescriptionFromID(objc.ID(rv))
 }
 func (m MLProgramE5Container) ModelVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }

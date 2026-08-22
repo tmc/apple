@@ -38,7 +38,7 @@ func (ec ETModelDefMLPClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETModelDefMLPClass) Alloc() ETModelDefMLP {
-	rv := objc.Send[ETModelDefMLP](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETModelDefMLP](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,51 +90,51 @@ type IETModelDefMLP interface {
 
 // Init initializes the instance.
 func (e ETModelDefMLP) Init() ETModelDefMLP {
-	rv := objc.Send[ETModelDefMLP](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETModelDefMLP](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETModelDefMLP) Autorelease() ETModelDefMLP {
-	rv := objc.Send[ETModelDefMLP](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETModelDefMLP](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETModelDefMLP creates a new ETModelDefMLP instance.
 func NewETModelDefMLP() ETModelDefMLP {
 	class := getETModelDefMLPClass()
-	rv := objc.Send[ETModelDefMLP](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETModelDefMLP](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETModelDefMLPWithNetwork(network objectivec.IObject) ETModelDefMLP {
 	instance := getETModelDefMLPClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETModelDefMLPFromID(rv)
 }
 
 func (e ETModelDefMLP) BuildNetwork() {
-	objc.Send[objc.ID](e.ID, objc.Sel("buildNetwork"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("buildNetwork"))
 }
 
 func (e ETModelDefMLP) Hidden_size() int {
-	rv := objc.Send[int](e.ID, objc.Sel("hidden_size"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("hidden_size"))
 	return rv
 }
 func (e ETModelDefMLP) SetHidden_size(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setHidden_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHidden_size:"), value)
 }
 func (e ETModelDefMLP) Input_size() int {
-	rv := objc.Send[int](e.ID, objc.Sel("input_size"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("input_size"))
 	return rv
 }
 func (e ETModelDefMLP) SetInput_size(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInput_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInput_size:"), value)
 }
 func (e ETModelDefMLP) Output_size() int {
-	rv := objc.Send[int](e.ID, objc.Sel("output_size"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("output_size"))
 	return rv
 }
 func (e ETModelDefMLP) SetOutput_size(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }

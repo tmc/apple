@@ -39,7 +39,7 @@ func (dc DYTimelineCounterGroupClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DYTimelineCounterGroupClass) Alloc() DYTimelineCounterGroup {
-	rv := objc.Send[DYTimelineCounterGroup](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DYTimelineCounterGroup](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,60 +94,60 @@ type IDYTimelineCounterGroup interface {
 
 // Init initializes the instance.
 func (d DYTimelineCounterGroup) Init() DYTimelineCounterGroup {
-	rv := objc.Send[DYTimelineCounterGroup](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DYTimelineCounterGroup](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DYTimelineCounterGroup) Autorelease() DYTimelineCounterGroup {
-	rv := objc.Send[DYTimelineCounterGroup](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DYTimelineCounterGroup](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDYTimelineCounterGroup creates a new DYTimelineCounterGroup instance.
 func NewDYTimelineCounterGroup() DYTimelineCounterGroup {
 	class := getDYTimelineCounterGroupClass()
-	rv := objc.Send[DYTimelineCounterGroup](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DYTimelineCounterGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDYTimelineCounterGroupWithCoder(coder objectivec.IObject) DYTimelineCounterGroup {
 	instance := getDYTimelineCounterGroupClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYTimelineCounterGroupFromID(rv)
 }
 
 func (d DYTimelineCounterGroup) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DYTimelineCounterGroup) InitWithCoder(coder foundation.INSCoder) DYTimelineCounterGroup {
-	rv := objc.Send[DYTimelineCounterGroup](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DYTimelineCounterGroup](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DYTimelineCounterGroupClass DYTimelineCounterGroupClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DYTimelineCounterGroupClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DYTimelineCounterGroupClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DYTimelineCounterGroup) CounterNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("counterNames"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("counterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYTimelineCounterGroup) SetCounterNames(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCounterNames:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCounterNames:"), value)
 }
 func (d DYTimelineCounterGroup) Counters() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("counters"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYTimelineCounterGroup) SetCounters(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCounters:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCounters:"), value)
 }
 func (d DYTimelineCounterGroup) Timestamps() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("timestamps"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("timestamps"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYTimelineCounterGroup) SetTimestamps(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
 }

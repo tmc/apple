@@ -39,7 +39,7 @@ func (vc VZCustomVirtioDeviceDelegateProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomVirtioDeviceDelegateProviderClass) Alloc() VZCustomVirtioDeviceDelegateProvider {
-	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceDelegateProvider](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IVZCustomVirtioDeviceDelegateProvider interface {
 
 // Init initializes the instance.
 func (v VZCustomVirtioDeviceDelegateProvider) Init() VZCustomVirtioDeviceDelegateProvider {
-	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomVirtioDeviceDelegateProvider) Autorelease() VZCustomVirtioDeviceDelegateProvider {
-	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomVirtioDeviceDelegateProvider creates a new VZCustomVirtioDeviceDelegateProvider instance.
 func NewVZCustomVirtioDeviceDelegateProvider() VZCustomVirtioDeviceDelegateProvider {
 	class := getVZCustomVirtioDeviceDelegateProviderClass()
-	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceDelegateProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZCustomVirtioDeviceDelegateProviderWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomVirtioDeviceDelegateProvider {
 	instance := getVZCustomVirtioDeviceDelegateProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return VZCustomVirtioDeviceDelegateProviderFromID(rv)
 }
 
 func (v VZCustomVirtioDeviceDelegateProvider) InitWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomVirtioDeviceDelegateProvider {
-	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return rv
 }
 
 func (v VZCustomVirtioDeviceDelegateProvider) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZCustomVirtioDeviceDelegateProvider) DeviceQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

@@ -39,7 +39,7 @@ func (mc MLProgramEvaluationResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramEvaluationResultClass) Alloc() MLProgramEvaluationResult {
-	rv := objc.Send[MLProgramEvaluationResult](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramEvaluationResult](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,34 +82,34 @@ type IMLProgramEvaluationResult interface {
 
 // Init initializes the instance.
 func (m MLProgramEvaluationResult) Init() MLProgramEvaluationResult {
-	rv := objc.Send[MLProgramEvaluationResult](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramEvaluationResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramEvaluationResult) Autorelease() MLProgramEvaluationResult {
-	rv := objc.Send[MLProgramEvaluationResult](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramEvaluationResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramEvaluationResult creates a new MLProgramEvaluationResult instance.
 func NewMLProgramEvaluationResult() MLProgramEvaluationResult {
 	class := getMLProgramEvaluationResultClass()
-	rv := objc.Send[MLProgramEvaluationResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramEvaluationResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLProgramEvaluationResult) EvaluationMetrics() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("evaluationMetrics"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("evaluationMetrics"))
 	return rv
 }
 func (m MLProgramEvaluationResult) SetEvaluationMetrics(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEvaluationMetrics:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEvaluationMetrics:"), value)
 }
 func (m MLProgramEvaluationResult) Loss() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("loss"))
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("loss"))
 	return rv
 }
 func (m MLProgramEvaluationResult) SetLoss(value float64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLoss:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLoss:"), value)
 }

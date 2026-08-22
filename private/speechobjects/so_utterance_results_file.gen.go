@@ -40,7 +40,7 @@ func (sc SOUtteranceResultsFileClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOUtteranceResultsFileClass) Alloc() SOUtteranceResultsFile {
-	rv := objc.Send[SOUtteranceResultsFile](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOUtteranceResultsFile](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -155,31 +155,31 @@ type ISOUtteranceResultsFile interface {
 
 // Init initializes the instance.
 func (s SOUtteranceResultsFile) Init() SOUtteranceResultsFile {
-	rv := objc.Send[SOUtteranceResultsFile](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOUtteranceResultsFile](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOUtteranceResultsFile) Autorelease() SOUtteranceResultsFile {
-	rv := objc.Send[SOUtteranceResultsFile](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOUtteranceResultsFile](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOUtteranceResultsFile creates a new SOUtteranceResultsFile instance.
 func NewSOUtteranceResultsFile() SOUtteranceResultsFile {
 	class := getSOUtteranceResultsFileClass()
-	rv := objc.Send[SOUtteranceResultsFile](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOUtteranceResultsFile](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOUtteranceResultsFileWithContentsOfFile(file objectivec.IObject) SOUtteranceResultsFile {
 	instance := getSOUtteranceResultsFileClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), file)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), file)
 	return SOUtteranceResultsFileFromID(rv)
 }
 
 func (s SOUtteranceResultsFile) _dictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_dictionary"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_dictionary"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -197,100 +197,100 @@ func (s SOUtteranceResultsFile) CanDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
 func (s SOUtteranceResultsFile) AppendUtteranceResult(result objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("appendUtteranceResult:"), result)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("appendUtteranceResult:"), result)
 }
 func (s SOUtteranceResultsFile) ExportAudioDataToFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("exportAudioDataToFile:"), file)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("exportAudioDataToFile:"), file)
 	return rv
 }
 func (s SOUtteranceResultsFile) ExportRXGrammarToFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("exportRXGrammarToFile:"), file)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("exportRXGrammarToFile:"), file)
 	return rv
 }
 func (s SOUtteranceResultsFile) ImportAudioDataFromFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("importAudioDataFromFile:"), file)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("importAudioDataFromFile:"), file)
 	return rv
 }
 func (s SOUtteranceResultsFile) ImportRXGrammarFromFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("importRXGrammarFromFile:"), file)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("importRXGrammarFromFile:"), file)
 	return rv
 }
 func (s SOUtteranceResultsFile) WriteToFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("writeToFile:"), file)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("writeToFile:"), file)
 	return rv
 }
 func (s SOUtteranceResultsFile) InitWithContentsOfFile(file objectivec.IObject) SOUtteranceResultsFile {
-	rv := objc.Send[SOUtteranceResultsFile](s.ID, objc.Sel("initWithContentsOfFile:"), file)
+	rv := objc.SendIfResponds[SOUtteranceResultsFile](s.ID, objc.Sel("initWithContentsOfFile:"), file)
 	return rv
 }
 
 func (s SOUtteranceResultsFile) AudioFileData() foundation.NSData {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioFileData"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("audioFileData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (s SOUtteranceResultsFile) SetAudioFileData(value foundation.NSData) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAudioFileData:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAudioFileData:"), value)
 }
 func (s SOUtteranceResultsFile) CreationDate() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("creationDate"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("creationDate"))
 	return rv
 }
 func (s SOUtteranceResultsFile) SetCreationDate(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
 }
 func (s SOUtteranceResultsFile) CreatorArguments() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("creatorArguments"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("creatorArguments"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResultsFile) SetCreatorArguments(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCreatorArguments:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCreatorArguments:"), objc.String(value))
 }
 func (s SOUtteranceResultsFile) CreatorName() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("creatorName"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("creatorName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResultsFile) SetCreatorName(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCreatorName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCreatorName:"), objc.String(value))
 }
 func (s SOUtteranceResultsFile) FirstUtteranceStartTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("firstUtteranceStartTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("firstUtteranceStartTime"))
 	return rv
 }
 func (s SOUtteranceResultsFile) SetFirstUtteranceStartTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFirstUtteranceStartTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFirstUtteranceStartTime:"), value)
 }
 func (s SOUtteranceResultsFile) LocaleIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResultsFile) SetLocaleIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
 }
 func (s SOUtteranceResultsFile) RecognizerType() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("recognizerType"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("recognizerType"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResultsFile) SetRecognizerType(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRecognizerType:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setRecognizerType:"), objc.String(value))
 }
 func (s SOUtteranceResultsFile) RxGrammar() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("rxGrammar"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("rxGrammar"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResultsFile) SetRxGrammar(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRxGrammar:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setRxGrammar:"), objc.String(value))
 }
 func (s SOUtteranceResultsFile) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
-	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](s.ID, objc.Sel("streamDescription"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioStreamBasicDescription](s.ID, objc.Sel("streamDescription"))
 	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
 func (s SOUtteranceResultsFile) SetStreamDescription(value coreaudiotypes.AudioStreamBasicDescription) {
-	objc.Send[struct{}](s.ID, objc.Sel("setStreamDescription:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setStreamDescription:"), value)
 }
 func (s SOUtteranceResultsFile) UtteranceResults() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("utteranceResults"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("utteranceResults"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SOUtteranceResultsFile) SetUtteranceResults(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setUtteranceResults:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUtteranceResults:"), value)
 }

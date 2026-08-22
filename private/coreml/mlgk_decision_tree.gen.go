@@ -39,7 +39,7 @@ func (mc MLGKDecisionTreeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGKDecisionTreeClass) Alloc() MLGKDecisionTree {
-	rv := objc.Send[MLGKDecisionTree](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGKDecisionTree](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,29 +97,29 @@ type IMLGKDecisionTree interface {
 
 // Init initializes the instance.
 func (m MLGKDecisionTree) Init() MLGKDecisionTree {
-	rv := objc.Send[MLGKDecisionTree](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGKDecisionTree](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGKDecisionTree) Autorelease() MLGKDecisionTree {
-	rv := objc.Send[MLGKDecisionTree](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGKDecisionTree](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGKDecisionTree creates a new MLGKDecisionTree instance.
 func NewMLGKDecisionTree() MLGKDecisionTree {
 	class := getMLGKDecisionTreeClass()
-	rv := objc.Send[MLGKDecisionTree](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGKDecisionTree](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLGKDecisionTree) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_initWithFlattenedTree:"), tree)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_initWithFlattenedTree:"), tree)
 	return objectivec.Object{ID: rv}
 }
 
@@ -137,7 +137,7 @@ func (m MLGKDecisionTree) CanInitWithFlattenedTree() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_initWithFlattenedTree:"))
 }
 func (m MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
 }
 
 // LoadModelAssetWithModelAtPathWithError is an exported wrapper for the private method _loadModelAssetWithModelAtPathWithError.
@@ -155,7 +155,7 @@ func (m MLGKDecisionTree) CanLoadModelAssetWithModelAtPathWithError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"))
 }
 func (m MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
 	return objectivec.Object{ID: rv}
 }
 
@@ -173,7 +173,7 @@ func (m MLGKDecisionTree) CanMakeInferenceFromAnswersWithError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"))
 }
 func (m MLGKDecisionTree) _saveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
 	return rv
 }
 
@@ -192,7 +192,7 @@ func (m MLGKDecisionTree) CanSaveModelAssetWithModelToPathWithError() bool {
 }
 
 func (m MLGKDecisionTree) _attributes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_attributes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_attributes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -209,10 +209,10 @@ func (m MLGKDecisionTree) Attributes() (foundation.INSArray, error) {
 	return m._attributes(), nil
 }
 func (m MLGKDecisionTree) Set_attributes(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_attributes:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("set_attributes:"), value)
 }
 func (m MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_objectStore"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_objectStore"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
 
@@ -229,5 +229,5 @@ func (m MLGKDecisionTree) ObjectStore() (foundation.INSOrderedSet, error) {
 	return m._objectStore(), nil
 }
 func (m MLGKDecisionTree) Set_objectStore(value foundation.INSOrderedSet) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_objectStore:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("set_objectStore:"), value)
 }

@@ -10,6 +10,9 @@ import (
 // MLFeatureValueConstraint protocol.
 type MLFeatureValueConstraint interface {
 	objectivec.IObject
+
+	// IsAllowedValueError protocol.
+	IsAllowedValueError(value objectivec.IObject) (bool, error)
 }
 
 // MLFeatureValueConstraintObject wraps an existing Objective-C object that conforms to the MLFeatureValueConstraint protocol.

@@ -40,7 +40,7 @@ func (cc CustomizeVoicesWindowControllerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CustomizeVoicesWindowControllerClass) Alloc() CustomizeVoicesWindowController {
-	rv := objc.Send[CustomizeVoicesWindowController](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CustomizeVoicesWindowController](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -167,25 +167,25 @@ type ICustomizeVoicesWindowController interface {
 
 // Init initializes the instance.
 func (c CustomizeVoicesWindowController) Init() CustomizeVoicesWindowController {
-	rv := objc.Send[CustomizeVoicesWindowController](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CustomizeVoicesWindowController](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CustomizeVoicesWindowController) Autorelease() CustomizeVoicesWindowController {
-	rv := objc.Send[CustomizeVoicesWindowController](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CustomizeVoicesWindowController](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCustomizeVoicesWindowController creates a new CustomizeVoicesWindowController instance.
 func NewCustomizeVoicesWindowController() CustomizeVoicesWindowController {
 	class := getCustomizeVoicesWindowControllerClass()
-	rv := objc.Send[CustomizeVoicesWindowController](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CustomizeVoicesWindowController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CustomizeVoicesWindowController) _anyVoicePlaying() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("_anyVoicePlaying"))
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("_anyVoicePlaying"))
 	return rv
 }
 
@@ -203,7 +203,7 @@ func (c CustomizeVoicesWindowController) CanAnyVoicePlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_anyVoicePlaying"))
 }
 func (c CustomizeVoicesWindowController) _delayedPopUpUpdate() {
-	objc.Send[objc.ID](c.ID, objc.Sel("_delayedPopUpUpdate"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_delayedPopUpUpdate"))
 }
 
 // DelayedPopUpUpdate is an exported wrapper for the private method _delayedPopUpUpdate.
@@ -221,7 +221,7 @@ func (c CustomizeVoicesWindowController) CanDelayedPopUpUpdate() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_delayedPopUpUpdate"))
 }
 func (c CustomizeVoicesWindowController) _isSampleAvailableForVoiceObject(object objectivec.IObject) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"), object)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"), object)
 	return rv
 }
 
@@ -239,7 +239,7 @@ func (c CustomizeVoicesWindowController) CanIsSampleAvailableForVoiceObject() bo
 	return objc.RespondsToSelector(c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"))
 }
 func (c CustomizeVoicesWindowController) _propagateCheckboxSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
 }
 
 // PropagateCheckboxSelection is an exported wrapper for the private method _propagateCheckboxSelection.
@@ -257,7 +257,7 @@ func (c CustomizeVoicesWindowController) CanPropagateCheckboxSelection() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateCheckboxSelection:"))
 }
 func (c CustomizeVoicesWindowController) _propagateDownloadCheckboxSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"), selection)
 }
 
 // PropagateDownloadCheckboxSelection is an exported wrapper for the private method _propagateDownloadCheckboxSelection.
@@ -275,7 +275,7 @@ func (c CustomizeVoicesWindowController) CanPropagateDownloadCheckboxSelection()
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"))
 }
 func (c CustomizeVoicesWindowController) _propagateDownloadVariantSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
 }
 
 // PropagateDownloadVariantSelection is an exported wrapper for the private method _propagateDownloadVariantSelection.
@@ -293,7 +293,7 @@ func (c CustomizeVoicesWindowController) CanPropagateDownloadVariantSelection() 
 	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadVariantSelection:"))
 }
 func (c CustomizeVoicesWindowController) _rebuildVoiceList() {
-	objc.Send[objc.ID](c.ID, objc.Sel("_rebuildVoiceList"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_rebuildVoiceList"))
 }
 
 // RebuildVoiceList is an exported wrapper for the private method _rebuildVoiceList.
@@ -311,7 +311,7 @@ func (c CustomizeVoicesWindowController) CanRebuildVoiceList() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_rebuildVoiceList"))
 }
 func (c CustomizeVoicesWindowController) _setRowDownloadCheckboxVoiceObjectIsSelected(checkbox objectivec.IObject, object objectivec.IObject, selected bool) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"), checkbox, object, selected)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"), checkbox, object, selected)
 }
 
 // SetRowDownloadCheckboxVoiceObjectIsSelected is an exported wrapper for the private method _setRowDownloadCheckboxVoiceObjectIsSelected.
@@ -329,7 +329,7 @@ func (c CustomizeVoicesWindowController) CanSetRowDownloadCheckboxVoiceObjectIsS
 	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"))
 }
 func (c CustomizeVoicesWindowController) _setRowStatusFieldViewVoiceObjectIsSelected(view objectivec.IObject, object objectivec.IObject, selected bool) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"), view, object, selected)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"), view, object, selected)
 }
 
 // SetRowStatusFieldViewVoiceObjectIsSelected is an exported wrapper for the private method _setRowStatusFieldViewVoiceObjectIsSelected.
@@ -347,7 +347,7 @@ func (c CustomizeVoicesWindowController) CanSetRowStatusFieldViewVoiceObjectIsSe
 	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"))
 }
 func (c CustomizeVoicesWindowController) _shouldAllowRemovalOfVoiceObject(object objectivec.IObject) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"), object)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"), object)
 	return rv
 }
 
@@ -365,7 +365,7 @@ func (c CustomizeVoicesWindowController) CanShouldAllowRemovalOfVoiceObject() bo
 	return objc.RespondsToSelector(c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"))
 }
 func (c CustomizeVoicesWindowController) _showPlayStopButtonAsPlaying(playing bool) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"), playing)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"), playing)
 }
 
 // ShowPlayStopButtonAsPlaying is an exported wrapper for the private method _showPlayStopButtonAsPlaying.
@@ -383,7 +383,7 @@ func (c CustomizeVoicesWindowController) CanShowPlayStopButtonAsPlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"))
 }
 func (c CustomizeVoicesWindowController) _stopAndResetAllVoicePlaying() {
-	objc.Send[objc.ID](c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
 }
 
 // StopAndResetAllVoicePlaying is an exported wrapper for the private method _stopAndResetAllVoicePlaying.
@@ -401,7 +401,7 @@ func (c CustomizeVoicesWindowController) CanStopAndResetAllVoicePlaying() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
 }
 func (c CustomizeVoicesWindowController) _updateButtonStates() {
-	objc.Send[objc.ID](c.ID, objc.Sel("_updateButtonStates"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_updateButtonStates"))
 }
 
 // UpdateButtonStates is an exported wrapper for the private method _updateButtonStates.
@@ -419,7 +419,7 @@ func (c CustomizeVoicesWindowController) CanUpdateButtonStates() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateButtonStates"))
 }
 func (c CustomizeVoicesWindowController) _updateDisplayedVoicesUsingFilterString(string_ objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"), string_)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"), string_)
 }
 
 // UpdateDisplayedVoicesUsingFilterString is an exported wrapper for the private method _updateDisplayedVoicesUsingFilterString.
@@ -437,7 +437,7 @@ func (c CustomizeVoicesWindowController) CanUpdateDisplayedVoicesUsingFilterStri
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"))
 }
 func (c CustomizeVoicesWindowController) _updateRowDownloadStatus() {
-	objc.Send[objc.ID](c.ID, objc.Sel("_updateRowDownloadStatus"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 
 // UpdateRowDownloadStatus is an exported wrapper for the private method _updateRowDownloadStatus.
@@ -455,7 +455,7 @@ func (c CustomizeVoicesWindowController) CanUpdateRowDownloadStatus() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 func (c CustomizeVoicesWindowController) _voiceObjectForCurrentlySelectedRow() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -473,59 +473,59 @@ func (c CustomizeVoicesWindowController) CanVoiceObjectForCurrentlySelectedRow()
 	return objc.RespondsToSelector(c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
 }
 func (c CustomizeVoicesWindowController) AcceptVoiceSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("acceptVoiceSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("acceptVoiceSelection:"), selection)
 }
 func (c CustomizeVoicesWindowController) CancelVoiceSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("cancelVoiceSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("cancelVoiceSelection:"), selection)
 }
 func (c CustomizeVoicesWindowController) NumberOfRowsInTableView(view objectivec.IObject) int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("numberOfRowsInTableView:"), view)
+	rv := objc.SendIfResponds[int64](c.ID, objc.Sel("numberOfRowsInTableView:"), view)
 	return rv
 }
 func (c CustomizeVoicesWindowController) SearchFieldChanged(changed objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("searchFieldChanged:"), changed)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("searchFieldChanged:"), changed)
 }
 func (c CustomizeVoicesWindowController) ShowSheetForWindowShowIndividualVoiceQualitiesVoiceIdentifiersNotToBeRemoved(window objectivec.IObject, qualities bool, removed objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("showSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:"), window, qualities, removed)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("showSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:"), window, qualities, removed)
 }
 func (c CustomizeVoicesWindowController) SoundDidFinishPlaying(sound objectivec.IObject, playing bool) {
-	objc.Send[objc.ID](c.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
 }
 func (c CustomizeVoicesWindowController) SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool) {
-	objc.Send[objc.ID](c.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
 }
 func (c CustomizeVoicesWindowController) StartStopPlayingSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("startStopPlayingSelection:"), selection)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("startStopPlayingSelection:"), selection)
 }
 func (c CustomizeVoicesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("tableView:isGroupRow:"), view, row)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("tableView:isGroupRow:"), view, row)
 	return rv
 }
 func (c CustomizeVoicesWindowController) TableViewShouldSelectRow(view objectivec.IObject, row int64) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
 	return rv
 }
 func (c CustomizeVoicesWindowController) TableViewViewForTableColumnRow(view objectivec.IObject, column objectivec.IObject, row int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
 	return objectivec.Object{ID: rv}
 }
 func (c CustomizeVoicesWindowController) TableViewSelectionDidChange(change objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("tableViewSelectionDidChange:"), change)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("tableViewSelectionDidChange:"), change)
 }
 
 func (c CustomizeVoicesWindowController) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CustomizeVoicesWindowController) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CustomizeVoicesWindowController) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CustomizeVoicesWindowController) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

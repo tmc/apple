@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceGetTransformOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceGetTransformOperationClass) Alloc() SLSBridgedSpaceGetTransformOperation {
-	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetTransformOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceGetTransformOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceGetTransformOperation) Init() SLSBridgedSpaceGetTransformOperation {
-	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceGetTransformOperation) Autorelease() SLSBridgedSpaceGetTransformOperation {
-	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceGetTransformOperation creates a new SLSBridgedSpaceGetTransformOperation instance.
 func NewSLSBridgedSpaceGetTransformOperation() SLSBridgedSpaceGetTransformOperation {
 	class := getSLSBridgedSpaceGetTransformOperationClass()
-	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetTransformOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceGetTransformOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetTransformOperation {
 	instance := getSLSBridgedSpaceGetTransformOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetTransformOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceGetTransformOperationWithSpaceID(id uint64) SLSBridgedSpaceGetTransformOperation {
 	instance := getSLSBridgedSpaceGetTransformOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetTransformOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceGetTransformOperation) MakeResultWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithAffineTransform:options:"), transform, options)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithAffineTransform:options:"), transform, options)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceGetTransformOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetTransformOperation {
-	rv := objc.Send[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetTransformOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceGetTransformOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

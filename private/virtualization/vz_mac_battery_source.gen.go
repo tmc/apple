@@ -40,7 +40,7 @@ func (vc VZMacBatterySourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacBatterySourceClass) Alloc() VZMacBatterySource {
-	rv := objc.Send[VZMacBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,36 +95,36 @@ type IVZMacBatterySource interface {
 
 // Init initializes the instance.
 func (v VZMacBatterySource) Init() VZMacBatterySource {
-	rv := objc.Send[VZMacBatterySource](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacBatterySource](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacBatterySource) Autorelease() VZMacBatterySource {
-	rv := objc.Send[VZMacBatterySource](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacBatterySource](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacBatterySource creates a new VZMacBatterySource instance.
 func NewVZMacBatterySource() VZMacBatterySource {
 	class := getVZMacBatterySourceClass()
-	rv := objc.Send[VZMacBatterySource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacBatterySource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacBatterySource) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZMacBatterySource) RegisterObserver(observer objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("registerObserver:"), observer)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("registerObserver:"), observer)
 }
 func (v VZMacBatterySource) UnregisterObserver(observer objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("unregisterObserver:"), observer)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("unregisterObserver:"), observer)
 }
 
 func (v VZMacBatterySource) _source() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_source"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_source"))
 	return rv
 }
 
@@ -141,18 +141,18 @@ func (v VZMacBatterySource) Source() (unsafe.Pointer, error) {
 	return v._source(), nil
 }
 func (v VZMacBatterySource) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMacBatterySource) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMacBatterySource) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZMacBatterySource) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

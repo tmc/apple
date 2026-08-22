@@ -38,7 +38,7 @@ func (vc VZVirtioQueueClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioQueueClass) Alloc() VZVirtioQueue {
-	rv := objc.Send[VZVirtioQueue](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioQueue](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,29 +75,29 @@ type IVZVirtioQueue interface {
 
 // Init initializes the instance.
 func (v VZVirtioQueue) Init() VZVirtioQueue {
-	rv := objc.Send[VZVirtioQueue](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioQueue](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioQueue) Autorelease() VZVirtioQueue {
-	rv := objc.Send[VZVirtioQueue](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioQueue](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioQueue creates a new VZVirtioQueue instance.
 func NewVZVirtioQueue() VZVirtioQueue {
 	class := getVZVirtioQueueClass()
-	rv := objc.Send[VZVirtioQueue](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioQueue) NextElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextElement"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("nextElement"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZVirtioQueue) QueueIndex() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("queueIndex"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("queueIndex"))
 	return rv
 }

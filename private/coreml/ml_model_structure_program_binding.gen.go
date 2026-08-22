@@ -38,7 +38,7 @@ func (mc MLModelStructureProgramBindingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramBindingClass) Alloc() MLModelStructureProgramBinding {
-	rv := objc.Send[MLModelStructureProgramBinding](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,40 +75,40 @@ type IMLModelStructureProgramBinding interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgramBinding) Init() MLModelStructureProgramBinding {
-	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgramBinding) Autorelease() MLModelStructureProgramBinding {
-	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgramBinding creates a new MLModelStructureProgramBinding instance.
 func NewMLModelStructureProgramBinding() MLModelStructureProgramBinding {
 	class := getMLModelStructureProgramBindingClass()
-	rv := objc.Send[MLModelStructureProgramBinding](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramBindingWithName(name objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
 	return MLModelStructureProgramBindingFromID(rv)
 }
 
 func NewModelStructureProgramBindingWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:"), value)
 	return MLModelStructureProgramBindingFromID(rv)
 }
 
 func (m MLModelStructureProgramBinding) InitWithName(name objectivec.IObject) MLModelStructureProgramBinding {
-	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithName:"), name)
 	return rv
 }
 func (m MLModelStructureProgramBinding) InitWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
-	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithValue:"), value)
+	rv := objc.SendIfResponds[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithValue:"), value)
 	return rv
 }

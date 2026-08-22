@@ -38,7 +38,7 @@ func (rc ReadSynchronizerBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (rc ReadSynchronizerBackendXPCClass) Alloc() ReadSynchronizerBackendXPC {
-	rv := objc.Send[ReadSynchronizerBackendXPC](objc.ID(rc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ReadSynchronizerBackendXPC](objc.ID(rc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type IReadSynchronizerBackendXPC interface {
 
 // Init initializes the instance.
 func (r ReadSynchronizerBackendXPC) Init() ReadSynchronizerBackendXPC {
-	rv := objc.Send[ReadSynchronizerBackendXPC](r.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ReadSynchronizerBackendXPC](r.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (r ReadSynchronizerBackendXPC) Autorelease() ReadSynchronizerBackendXPC {
-	rv := objc.Send[ReadSynchronizerBackendXPC](r.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ReadSynchronizerBackendXPC](r.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewReadSynchronizerBackendXPC creates a new ReadSynchronizerBackendXPC instance.
 func NewReadSynchronizerBackendXPC() ReadSynchronizerBackendXPC {
 	class := getReadSynchronizerBackendXPCClass()
-	rv := objc.Send[ReadSynchronizerBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ReadSynchronizerBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewReadSynchronizerBackendXPCWithBackend(backend objectivec.IObject) ReadSynchronizerBackendXPC {
 	instance := getReadSynchronizerBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:"), backend)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackend:"), backend)
 	return ReadSynchronizerBackendXPCFromID(rv)
 }
 
 func NewReadSynchronizerBackendXPCWithCoder(coder objectivec.IObject) ReadSynchronizerBackendXPC {
 	instance := getReadSynchronizerBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ReadSynchronizerBackendXPCFromID(rv)
 }
 
 func (r ReadSynchronizerBackendXPC) InitWithBackend(backend objectivec.IObject) ReadSynchronizerBackendXPC {
-	rv := objc.Send[ReadSynchronizerBackendXPC](r.ID, objc.Sel("initWithBackend:"), backend)
+	rv := objc.SendIfResponds[ReadSynchronizerBackendXPC](r.ID, objc.Sel("initWithBackend:"), backend)
 	return rv
 }
 
 func (r ReadSynchronizerBackendXPC) BaseBackendXPC() IBackendXPC {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("baseBackendXPC"))
+	rv := objc.SendIfResponds[objc.ID](r.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }

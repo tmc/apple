@@ -41,7 +41,7 @@ func (dc DiskImageGraphNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageGraphNodeClass) Alloc() DiskImageGraphNode {
-	rv := objc.Send[DiskImageGraphNode](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageGraphNode](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -156,42 +156,45 @@ type IDiskImageGraphNode interface {
 
 // Init initializes the instance.
 func (d DiskImageGraphNode) Init() DiskImageGraphNode {
-	rv := objc.Send[DiskImageGraphNode](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageGraphNode](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageGraphNode) Autorelease() DiskImageGraphNode {
-	rv := objc.Send[DiskImageGraphNode](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageGraphNode](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageGraphNode creates a new DiskImageGraphNode instance.
 func NewDiskImageGraphNode() DiskImageGraphNode {
 	class := getDiskImageGraphNodeClass()
-	rv := objc.Send[DiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (DiskImageGraphNode, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraphNode{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraphNode{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphNodeFromID(rv), nil
 }
 
 func NewDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) DiskImageGraphNode {
 	instance := getDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return DiskImageGraphNodeFromID(rv)
 }
 
 func (d DiskImageGraphNode) AddDecendantsToArray(array objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("addDecendantsToArray:"), array)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("addDecendantsToArray:"), array)
 }
 func (d DiskImageGraphNode) ChildrenInfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -204,15 +207,15 @@ func (d DiskImageGraphNode) ChildrenInfoWithExtraError(extra bool) (objectivec.I
 
 }
 func (d DiskImageGraphNode) DeleteImage() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("deleteImage"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("deleteImage"))
 	return rv
 }
 func (d DiskImageGraphNode) GetChildren() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("getChildren"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("getChildren"))
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraphNode) GetDescendants() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("getDescendants"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("getDescendants"))
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraphNode) InfoWithExtraError(extra bool) (objectivec.IObject, error) {
@@ -236,11 +239,11 @@ func (d DiskImageGraphNode) RecursiveInfoWithExtraError(extra bool) (objectivec.
 
 }
 func (d DiskImageGraphNode) ToDIShadowNode() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDIShadowNode"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("toDIShadowNode"))
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraphNode) ToDictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDictionary"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("toDictionary"))
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraphNode) ValidateAppendedImageWithInfoError(info objectivec.IObject) (bool, error) {
@@ -267,7 +270,7 @@ func (d DiskImageGraphNode) InitWithDictionaryWorkDirError(dictionary objectivec
 
 }
 func (d DiskImageGraphNode) InitWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) DiskImageGraphNode {
-	rv := objc.Send[DiskImageGraphNode](d.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[DiskImageGraphNode](d.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return rv
 }
 
@@ -296,60 +299,60 @@ func (_DiskImageGraphNodeClass DiskImageGraphNodeClass) ValidateWithDictionaryEr
 }
 
 func (d DiskImageGraphNode) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) UUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("UUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("UUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) SetUUID(value foundation.NSUUID) {
-	objc.Send[struct{}](d.ID, objc.Sel("setUUID:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setUUID:"), value)
 }
 func (d DiskImageGraphNode) Children() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("children"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("children"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) IsCache() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isCache"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isCache"))
 	return rv
 }
 func (d DiskImageGraphNode) Metadata() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("metadata"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) SetMetadata(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setMetadata:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setMetadata:"), value)
 }
 func (d DiskImageGraphNode) MutableChildren() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mutableChildren"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mutableChildren"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) SetMutableChildren(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setMutableChildren:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setMutableChildren:"), value)
 }
 func (d DiskImageGraphNode) Parent() IDiskImageGraphNode {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("parent"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("parent"))
 	return DiskImageGraphNodeFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) SetParent(value IDiskImageGraphNode) {
-	objc.Send[struct{}](d.ID, objc.Sel("setParent:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setParent:"), value)
 }
 func (d DiskImageGraphNode) ParentUUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("parentUUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("parentUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) PstackDict() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("pstackDict"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pstackDict"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DiskImageGraphNode) SetPstackDict(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPstackDict:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPstackDict:"), value)
 }
 func (d DiskImageGraphNode) Tag() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("tag"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("tag"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DiskImageGraphNode) SetTag(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTag:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setTag:"), objc.String(value))
 }

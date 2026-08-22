@@ -38,7 +38,7 @@ func (tc TextToSpeechSSELoaderManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSELoaderManagerClass) Alloc() TextToSpeechSSELoaderManager {
-	rv := objc.Send[TextToSpeechSSELoaderManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSSELoaderManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechSSELoaderManagerFromID(id objc.ID) TextToSpeechSSELoaderManager
 	return TextToSpeechSSELoaderManager{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechSSELoaderManager struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechSSELoaderManager embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechSSELoaderManager implements ITextToSpeechSSELoaderManager.
+var _ ITextToSpeechSSELoaderManager = TextToSpeechSSELoaderManager{}
 
 // An interface definition for the [TextToSpeechSSELoaderManager] class.
 type ITextToSpeechSSELoaderManager interface {
@@ -61,19 +61,19 @@ type ITextToSpeechSSELoaderManager interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSSELoaderManager) Init() TextToSpeechSSELoaderManager {
-	rv := objc.Send[TextToSpeechSSELoaderManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSSELoaderManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSSELoaderManager) Autorelease() TextToSpeechSSELoaderManager {
-	rv := objc.Send[TextToSpeechSSELoaderManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSSELoaderManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSSELoaderManager creates a new TextToSpeechSSELoaderManager instance.
 func NewTextToSpeechSSELoaderManager() TextToSpeechSSELoaderManager {
 	class := getTextToSpeechSSELoaderManagerClass()
-	rv := objc.Send[TextToSpeechSSELoaderManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSSELoaderManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

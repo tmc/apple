@@ -10,6 +10,9 @@ import (
 // SLXPCExportable protocol.
 type SLXPCExportable interface {
 	objectivec.IObject
+
+	// CreateXPCObject protocol.
+	CreateXPCObject() objectivec.IObject
 }
 
 // SLXPCExportableObject wraps an existing Objective-C object that conforms to the SLXPCExportable protocol.
@@ -30,6 +33,6 @@ func SLXPCExportableObjectFromID(id objc.ID) SLXPCExportableObject {
 }
 
 func (o SLXPCExportableObject) CreateXPCObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("createXPCObject"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }

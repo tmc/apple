@@ -39,7 +39,7 @@ func (sc SOUtteranceResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOUtteranceResultClass) Alloc() SOUtteranceResult {
-	rv := objc.Send[SOUtteranceResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOUtteranceResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -136,31 +136,31 @@ type ISOUtteranceResult interface {
 
 // Init initializes the instance.
 func (s SOUtteranceResult) Init() SOUtteranceResult {
-	rv := objc.Send[SOUtteranceResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOUtteranceResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOUtteranceResult) Autorelease() SOUtteranceResult {
-	rv := objc.Send[SOUtteranceResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOUtteranceResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOUtteranceResult creates a new SOUtteranceResult instance.
 func NewSOUtteranceResult() SOUtteranceResult {
 	class := getSOUtteranceResultClass()
-	rv := objc.Send[SOUtteranceResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOUtteranceResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOUtteranceResultWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier(type_ objectivec.IObject, time float64, time2 float64, text objectivec.IObject, variants objectivec.IObject, identifier objectivec.IObject) SOUtteranceResult {
 	instance := getSOUtteranceResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
 	return SOUtteranceResultFromID(rv)
 }
 
 func (s SOUtteranceResult) _dictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_dictionary"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_dictionary"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -178,7 +178,7 @@ func (s SOUtteranceResult) CanDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
 func (s SOUtteranceResult) _initWithDictionary(dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithDictionary:"), dictionary)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_initWithDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
 
@@ -196,7 +196,7 @@ func (s SOUtteranceResult) CanInitWithDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithDictionary:"))
 }
 func (s SOUtteranceResult) _normalizeTimesAgainstTimeInterval(interval float64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"), interval)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"), interval)
 }
 
 // NormalizeTimesAgainstTimeInterval is an exported wrapper for the private method _normalizeTimesAgainstTimeInterval.
@@ -214,70 +214,70 @@ func (s SOUtteranceResult) CanNormalizeTimesAgainstTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"))
 }
 func (s SOUtteranceResult) InitWithTypeStartTimeEndTimeTextTextVariantsCommandIdentifier(type_ objectivec.IObject, time float64, time2 float64, text objectivec.IObject, variants objectivec.IObject, identifier objectivec.IObject) SOUtteranceResult {
-	rv := objc.Send[SOUtteranceResult](s.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
+	rv := objc.SendIfResponds[SOUtteranceResult](s.ID, objc.Sel("initWithType:startTime:endTime:text:textVariants:commandIdentifier:"), type_, time, time2, text, variants, identifier)
 	return rv
 }
 
 func (s SOUtteranceResult) AudioFilePath() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioFilePath"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("audioFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResult) SetAudioFilePath(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAudioFilePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAudioFilePath:"), objc.String(value))
 }
 func (s SOUtteranceResult) CommandIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("commandIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResult) SetCommandIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCommandIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCommandIdentifier:"), objc.String(value))
 }
 func (s SOUtteranceResult) CreationDate() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("creationDate"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("creationDate"))
 	return rv
 }
 func (s SOUtteranceResult) SetCreationDate(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setCreationDate:"), value)
 }
 func (s SOUtteranceResult) EndTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("endTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("endTime"))
 	return rv
 }
 func (s SOUtteranceResult) SetEndTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEndTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEndTime:"), value)
 }
 func (s SOUtteranceResult) PrependedSilenceDuration() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("prependedSilenceDuration"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("prependedSilenceDuration"))
 	return rv
 }
 func (s SOUtteranceResult) SetPrependedSilenceDuration(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPrependedSilenceDuration:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setPrependedSilenceDuration:"), value)
 }
 func (s SOUtteranceResult) StartTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("startTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("startTime"))
 	return rv
 }
 func (s SOUtteranceResult) SetStartTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setStartTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setStartTime:"), value)
 }
 func (s SOUtteranceResult) Text() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("text"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResult) SetText(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setText:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setText:"), objc.String(value))
 }
 func (s SOUtteranceResult) TextVariants() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("textVariants"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("textVariants"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SOUtteranceResult) SetTextVariants(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setTextVariants:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTextVariants:"), value)
 }
 func (s SOUtteranceResult) Type() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOUtteranceResult) SetType(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setType:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), objc.String(value))
 }

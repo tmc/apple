@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationPropertyListDictionaryResultClass) C
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationPropertyListDictionaryResultClass) Alloc() SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWindowManagementOperationPropertyListDictionaryResult interface 
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) Init() SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) Autorelease() SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationPropertyListDictionaryResult creates a new SLSBridgedWindowManagementOperationPropertyListDictionaryResult instance.
 func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResult() SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	class := getSLSBridgedWindowManagementOperationPropertyListDictionaryResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListDictionaryResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationPropertyListDictionaryResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationPropertyListDictionaryResultWithPropertyListDictionary(dictionary objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListDictionaryResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
 	return SLSBridgedWindowManagementOperationPropertyListDictionaryResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) InitWithPropertyListDictionary(dictionary objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListDictionaryResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListDictionaryResult](s.ID, objc.Sel("initWithPropertyListDictionary:"), dictionary)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationPropertyListDictionaryResult) PropertyListDictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("propertyListDictionary"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("propertyListDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

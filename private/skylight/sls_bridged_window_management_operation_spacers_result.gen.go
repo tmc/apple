@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationSpacersResultClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationSpacersResultClass) Alloc() SLSBridgedWindowManagementOperationSpacersResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacersResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacersResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedWindowManagementOperationSpacersResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationSpacersResult) Init() SLSBridgedWindowManagementOperationSpacersResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationSpacersResult) Autorelease() SLSBridgedWindowManagementOperationSpacersResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationSpacersResult creates a new SLSBridgedWindowManagementOperationSpacersResult instance.
 func NewSLSBridgedWindowManagementOperationSpacersResult() SLSBridgedWindowManagementOperationSpacersResult {
 	class := getSLSBridgedWindowManagementOperationSpacersResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacersResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacersResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationSpacersResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpacersResult {
 	instance := getSLSBridgedWindowManagementOperationSpacersResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpacersResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationSpacersResultWithVerticalIndexHorizontalIndexRect(index uint64, index2 uint64, rect corefoundation.CGRect) SLSBridgedWindowManagementOperationSpacersResult {
 	instance := getSLSBridgedWindowManagementOperationSpacersResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:rect:"), index, index2, rect)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:rect:"), index, index2, rect)
 	return SLSBridgedWindowManagementOperationSpacersResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationSpacersResult) InitWithVerticalIndexHorizontalIndexRect(index uint64, index2 uint64, rect corefoundation.CGRect) SLSBridgedWindowManagementOperationSpacersResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:rect:"), index, index2, rect)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacersResult](s.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:rect:"), index, index2, rect)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationSpacersResult) HorizontalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
 func (s SLSBridgedWindowManagementOperationSpacersResult) Rect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }
 func (s SLSBridgedWindowManagementOperationSpacersResult) VerticalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (mc MLComputePlanDeviceUsageSupportStateMatcherClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanDeviceUsageSupportStateMatcherClass) Alloc() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStateMatcher](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,34 +76,34 @@ type IMLComputePlanDeviceUsageSupportStateMatcher interface {
 
 // Init initializes the instance.
 func (m MLComputePlanDeviceUsageSupportStateMatcher) Init() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlanDeviceUsageSupportStateMatcher) Autorelease() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlanDeviceUsageSupportStateMatcher creates a new MLComputePlanDeviceUsageSupportStateMatcher instance.
 func NewMLComputePlanDeviceUsageSupportStateMatcher() MLComputePlanDeviceUsageSupportStateMatcher {
 	class := getMLComputePlanDeviceUsageSupportStateMatcherClass()
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportStateMatcher](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLComputePlanDeviceUsageSupportStateMatcher) MatchingSupportStateForValidationMessage(message objectivec.IObject) int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
 	return rv
 }
 
 func (_MLComputePlanDeviceUsageSupportStateMatcherClass MLComputePlanDeviceUsageSupportStateMatcherClass) SharedInstance() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStateMatcherClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLComputePlanDeviceUsageSupportStateMatcherClass.class), objc.Sel("sharedInstance"))
 	return MLComputePlanDeviceUsageSupportStateMatcherFromID(rv)
 }
 
 func (m MLComputePlanDeviceUsageSupportStateMatcher) SupportStatePatterns() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportStatePatterns"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("supportStatePatterns"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

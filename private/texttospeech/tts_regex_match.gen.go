@@ -39,7 +39,7 @@ func (tc TTSRegexMatchClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexMatchClass) Alloc() TTSRegexMatch {
-	rv := objc.Send[TTSRegexMatch](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRegexMatch](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,34 +82,34 @@ type ITTSRegexMatch interface {
 
 // Init initializes the instance.
 func (t TTSRegexMatch) Init() TTSRegexMatch {
-	rv := objc.Send[TTSRegexMatch](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRegexMatch](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRegexMatch) Autorelease() TTSRegexMatch {
-	rv := objc.Send[TTSRegexMatch](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRegexMatch](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRegexMatch creates a new TTSRegexMatch instance.
 func NewTTSRegexMatch() TTSRegexMatch {
 	class := getTTSRegexMatchClass()
-	rv := objc.Send[TTSRegexMatch](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRegexMatch](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSRegexMatch) CaptureGroups() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("captureGroups"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("captureGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSRegexMatch) SetCaptureGroups(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCaptureGroups:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCaptureGroups:"), value)
 }
 func (t TTSRegexMatch) Utf8Range() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
 	return foundation.NSRange(rv)
 }
 func (t TTSRegexMatch) SetUtf8Range(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
 }

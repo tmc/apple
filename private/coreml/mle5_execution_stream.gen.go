@@ -42,7 +42,7 @@ func (mc MLE5ExecutionStreamClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ExecutionStreamClass) Alloc() MLE5ExecutionStream {
-	rv := objc.Send[MLE5ExecutionStream](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ExecutionStream](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -151,20 +151,20 @@ type IMLE5ExecutionStream interface {
 
 // Init initializes the instance.
 func (m MLE5ExecutionStream) Init() MLE5ExecutionStream {
-	rv := objc.Send[MLE5ExecutionStream](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ExecutionStream](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ExecutionStream) Autorelease() MLE5ExecutionStream {
-	rv := objc.Send[MLE5ExecutionStream](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ExecutionStream](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ExecutionStream creates a new MLE5ExecutionStream instance.
 func NewMLE5ExecutionStream() MLE5ExecutionStream {
 	class := getMLE5ExecutionStreamClass()
-	rv := objc.Send[MLE5ExecutionStream](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ExecutionStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -223,7 +223,7 @@ func (m MLE5ExecutionStream) CanPrepareForInputFeaturesOptionsError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_prepareForInputFeatures:options:error:"))
 }
 func (m MLE5ExecutionStream) _reset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_reset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_reset"))
 }
 
 // Reset is an exported wrapper for the private method _reset.
@@ -241,7 +241,7 @@ func (m MLE5ExecutionStream) CanReset() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reset"))
 }
 func (m MLE5ExecutionStream) _reusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForInputFeatures:options:"), features, options)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_reusableForInputFeatures:options:"), features, options)
 	return rv
 }
 
@@ -259,7 +259,7 @@ func (m MLE5ExecutionStream) CanReusableForInputFeaturesOptions() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForInputFeatures:options:"))
 }
 func (m MLE5ExecutionStream) _setANEExecutionPriorityWithOptions(options objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"), options)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"), options)
 }
 
 // SetANEExecutionPriorityWithOptions is an exported wrapper for the private method _setANEExecutionPriorityWithOptions.
@@ -277,7 +277,7 @@ func (m MLE5ExecutionStream) CanSetANEExecutionPriorityWithOptions() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"))
 }
 func (m MLE5ExecutionStream) CancelPendingReset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancelPendingReset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancelPendingReset"))
 }
 func (m MLE5ExecutionStream) ExecuteForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -306,14 +306,14 @@ func (m MLE5ExecutionStream) PrepareAsyncSubmissionForInputFeaturesOptionsError(
 
 }
 func (m MLE5ExecutionStream) ResetAfterLingering(lingering float64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resetAfterLingering:"), lingering)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetAfterLingering:"), lingering)
 }
 func (m MLE5ExecutionStream) ReusableForAsyncSubmissionForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("reusableForAsyncSubmissionForInputFeatures:options:"), features, options)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("reusableForAsyncSubmissionForInputFeatures:options:"), features, options)
 	return rv
 }
 func (m MLE5ExecutionStream) ReusableForSyncPredictionForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("reusableForSyncPredictionForInputFeatures:options:"), features, options)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("reusableForSyncPredictionForInputFeatures:options:"), features, options)
 	return rv
 }
 func (m MLE5ExecutionStream) SerializeInferenceFrameDataForOptionsError(options objectivec.IObject) (bool, error) {
@@ -344,50 +344,50 @@ func (m MLE5ExecutionStream) SetupOperationForInputFeaturesOperationPoolError(fe
 }
 func (m MLE5ExecutionStream) SubmitWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
 }
 
 func (m MLE5ExecutionStream) OperationPool() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
 	return rv
 }
 func (m MLE5ExecutionStream) SetOperationPool(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOperationPool:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOperationPool:"), value)
 }
 func (m MLE5ExecutionStream) Operations() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("operations"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("operations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStream) SetOperations(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOperations:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOperations:"), value)
 }
 func (m MLE5ExecutionStream) ResetQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resetQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStream) ResetTimer() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resetTimer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetTimer"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStream) SetResetTimer(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setResetTimer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setResetTimer:"), value)
 }
 func (m MLE5ExecutionStream) State() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("state"))
 	return rv
 }
 func (m MLE5ExecutionStream) SetState(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setState:"), value)
 }
 func (m MLE5ExecutionStream) StreamHandle() E5rtExecutionStreamRef {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("streamHandle"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("streamHandle"))
 	return E5rtExecutionStreamRef(rv)
 }
 func (m MLE5ExecutionStream) SetStreamHandle(value E5rtExecutionStreamRef) {
-	objc.Send[struct{}](m.ID, objc.Sel("setStreamHandle:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setStreamHandle:"), value)
 }
 func (m MLE5ExecutionStream) StreamId() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("streamId"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("streamId"))
 	return rv
 }
 

@@ -39,7 +39,7 @@ func (vc VZScreenCoordinatePointerEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZScreenCoordinatePointerEventClass) Alloc() VZScreenCoordinatePointerEvent {
-	rv := objc.Send[VZScreenCoordinatePointerEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type IVZScreenCoordinatePointerEvent interface {
 
 // Init initializes the instance.
 func (v VZScreenCoordinatePointerEvent) Init() VZScreenCoordinatePointerEvent {
-	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZScreenCoordinatePointerEvent) Autorelease() VZScreenCoordinatePointerEvent {
-	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZScreenCoordinatePointerEvent creates a new VZScreenCoordinatePointerEvent instance.
 func NewVZScreenCoordinatePointerEvent() VZScreenCoordinatePointerEvent {
 	class := getVZScreenCoordinatePointerEventClass()
-	rv := objc.Send[VZScreenCoordinatePointerEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZScreenCoordinatePointerEventWithEventView(event objectivec.IObject, view objectivec.IObject) VZScreenCoordinatePointerEvent {
 	instance := getVZScreenCoordinatePointerEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:view:"), event, view)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return VZScreenCoordinatePointerEventFromID(rv)
 }
 
 func NewVZScreenCoordinatePointerEventWithLocationPressedButtons(location corefoundation.CGPoint, buttons int64) VZScreenCoordinatePointerEvent {
 	instance := getVZScreenCoordinatePointerEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
 	return VZScreenCoordinatePointerEventFromID(rv)
 }
 
 func (v VZScreenCoordinatePointerEvent) InitWithEventView(event objectivec.IObject, view objectivec.IObject) VZScreenCoordinatePointerEvent {
-	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return rv
 }
 func (v VZScreenCoordinatePointerEvent) InitWithLocationPressedButtons(location corefoundation.CGPoint, buttons int64) VZScreenCoordinatePointerEvent {
-	rv := objc.Send[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
+	rv := objc.SendIfResponds[VZScreenCoordinatePointerEvent](v.ID, objc.Sel("initWithLocation:pressedButtons:"), location, buttons)
 	return rv
 }
 
 func (v VZScreenCoordinatePointerEvent) Location() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("location"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](v.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
 func (v VZScreenCoordinatePointerEvent) PressedButtons() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("pressedButtons"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("pressedButtons"))
 	return rv
 }

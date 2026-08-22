@@ -38,7 +38,7 @@ func (tc TextToSpeechSiriVoiceLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSiriVoiceLoaderClass) Alloc() TextToSpeechSiriVoiceLoader {
-	rv := objc.Send[TextToSpeechSiriVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSiriVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechSiriVoiceLoaderFromID(id objc.ID) TextToSpeechSiriVoiceLoader {
 	return TextToSpeechSiriVoiceLoader{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechSiriVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechSiriVoiceLoader embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechSiriVoiceLoader implements ITextToSpeechSiriVoiceLoader.
+var _ ITextToSpeechSiriVoiceLoader = TextToSpeechSiriVoiceLoader{}
 
 // An interface definition for the [TextToSpeechSiriVoiceLoader] class.
 type ITextToSpeechSiriVoiceLoader interface {
@@ -61,19 +61,19 @@ type ITextToSpeechSiriVoiceLoader interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSiriVoiceLoader) Init() TextToSpeechSiriVoiceLoader {
-	rv := objc.Send[TextToSpeechSiriVoiceLoader](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSiriVoiceLoader](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSiriVoiceLoader) Autorelease() TextToSpeechSiriVoiceLoader {
-	rv := objc.Send[TextToSpeechSiriVoiceLoader](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSiriVoiceLoader](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSiriVoiceLoader creates a new TextToSpeechSiriVoiceLoader instance.
 func NewTextToSpeechSiriVoiceLoader() TextToSpeechSiriVoiceLoader {
 	class := getTextToSpeechSiriVoiceLoaderClass()
-	rv := objc.Send[TextToSpeechSiriVoiceLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSiriVoiceLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

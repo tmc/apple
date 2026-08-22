@@ -33,6 +33,6 @@ func ECSLMouseEventAuthenticationMessageObjectFromID(id objc.ID) ECSLMouseEventA
 }
 
 func (o ECSLMouseEventAuthenticationMessageObject) ButtonNumber() int8 {
-	rv := objc.Send[int8](o.ID, objc.Sel("buttonNumber"))
+	rv := objc.SendIfResponds[int8](o.ID, objc.Sel("buttonNumber"))
 	return rv
 }

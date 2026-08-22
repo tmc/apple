@@ -14,19 +14,22 @@ type CPXFocusManaging interface {
 	objectivec.IObject
 
 	// CleanupForProcessDeath protocol.
-	CleanupForProcessDeath(death CPSProcessRec)
+	CleanupForProcessDeath(death *CPSProcessRec)
+
+	// FocusController protocol.
+	FocusController() objectivec.IObject
 
 	// FrontVisibleProcess protocol.
-	FrontVisibleProcess() unsafe.Pointer
+	FrontVisibleProcess() *CPSProcessRec
 
 	// FrontmostProcess protocol.
-	FrontmostProcess() unsafe.Pointer
+	FrontmostProcess() *CPSProcessRec
 
 	// GetProcessToBringForwardAtNextCheckin protocol.
-	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
+	GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
-	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
 	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
@@ -36,6 +39,9 @@ type CPXFocusManaging interface {
 
 	// ReleaseAllKeyThiefInstancesNotPermittedFrontmost protocol.
 	ReleaseAllKeyThiefInstancesNotPermittedFrontmost()
+
+	// SuppressDeferringPolicyUpdatesForReason protocol.
+	SuppressDeferringPolicyUpdatesForReason(reason objectivec.IObject) objectivec.IObject
 }
 
 // CPXFocusManagingObject wraps an existing Objective-C object that conforms to the CPXFocusManaging protocol.
@@ -55,41 +61,41 @@ func CPXFocusManagingObjectFromID(id objc.ID) CPXFocusManagingObject {
 	}
 }
 
-func (o CPXFocusManagingObject) CleanupForProcessDeath(death CPSProcessRec) {
-	objc.Send[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), death)
+func (o CPXFocusManagingObject) CleanupForProcessDeath(death *CPSProcessRec) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), unsafe.Pointer(death))
 }
 func (o CPXFocusManagingObject) FocusController() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("focusController"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("focusController"))
 	return objectivec.Object{ID: rv}
 }
-func (o CPXFocusManagingObject) FrontVisibleProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontVisibleProcess"))
+func (o CPXFocusManagingObject) FrontVisibleProcess() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("frontVisibleProcess"))
+	return (*CPSProcessRec)(rv)
+}
+func (o CPXFocusManagingObject) FrontmostProcess() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
+	return (*CPSProcessRec)(rv)
+}
+func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin *CPSProcessSerNum) bool {
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), unsafe.Pointer(checkin))
 	return rv
 }
-func (o CPXFocusManagingObject) FrontmostProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("frontmostProcess"))
-	return rv
-}
-func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
-	return rv
-}
-func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
+func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRec) bool {
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), unsafe.Pointer(frontmost))
 	return rv
 }
 func (o CPXFocusManagingObject) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 func (o CPXFocusManagingObject) KeyThiefConnectionID() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
 func (o CPXFocusManagingObject) ReleaseAllKeyThiefInstancesNotPermittedFrontmost() {
-	objc.Send[struct{}](o.ID, objc.Sel("releaseAllKeyThiefInstancesNotPermittedFrontmost"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("releaseAllKeyThiefInstancesNotPermittedFrontmost"))
 }
 func (o CPXFocusManagingObject) SuppressDeferringPolicyUpdatesForReason(reason objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("suppressDeferringPolicyUpdatesForReason:"), reason)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("suppressDeferringPolicyUpdatesForReason:"), reason)
 	return objectivec.Object{ID: rv}
 }

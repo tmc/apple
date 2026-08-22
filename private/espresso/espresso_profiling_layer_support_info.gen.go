@@ -39,7 +39,7 @@ func (ec EspressoProfilingLayerSupportInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingLayerSupportInfoClass) Alloc() EspressoProfilingLayerSupportInfo {
-	rv := objc.Send[EspressoProfilingLayerSupportInfo](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerSupportInfo](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -112,69 +112,69 @@ type IEspressoProfilingLayerSupportInfo interface {
 
 // Init initializes the instance.
 func (e EspressoProfilingLayerSupportInfo) Init() EspressoProfilingLayerSupportInfo {
-	rv := objc.Send[EspressoProfilingLayerSupportInfo](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerSupportInfo](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoProfilingLayerSupportInfo) Autorelease() EspressoProfilingLayerSupportInfo {
-	rv := objc.Send[EspressoProfilingLayerSupportInfo](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerSupportInfo](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoProfilingLayerSupportInfo creates a new EspressoProfilingLayerSupportInfo instance.
 func NewEspressoProfilingLayerSupportInfo() EspressoProfilingLayerSupportInfo {
 	class := getEspressoProfilingLayerSupportInfoClass()
-	rv := objc.Send[EspressoProfilingLayerSupportInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerSupportInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoProfilingLayerSupportInfo) Error_private() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("error_private"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("error_private"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoProfilingLayerSupportInfo) SetError_private(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setError_private:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setError_private:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Error_public() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("error_public"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("error_public"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoProfilingLayerSupportInfo) SetError_public(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setError_public:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setError_public:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Exists() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("exists"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("exists"))
 	return rv
 }
 func (e EspressoProfilingLayerSupportInfo) SetExists(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setExists:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setExists:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Has_perf_warning() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("has_perf_warning"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("has_perf_warning"))
 	return rv
 }
 func (e EspressoProfilingLayerSupportInfo) SetHas_perf_warning(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setHas_perf_warning:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHas_perf_warning:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Internal_layer() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("internal_layer"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("internal_layer"))
 	return rv
 }
 func (e EspressoProfilingLayerSupportInfo) SetInternal_layer(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInternal_layer:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInternal_layer:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Supported() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("supported"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("supported"))
 	return rv
 }
 func (e EspressoProfilingLayerSupportInfo) SetSupported(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setSupported:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSupported:"), value)
 }
 func (e EspressoProfilingLayerSupportInfo) Type() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoProfilingLayerSupportInfo) SetType(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setType:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setType:"), objc.String(value))
 }

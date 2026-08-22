@@ -40,7 +40,7 @@ func (nc NativeDiskImageGraphNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NativeDiskImageGraphNodeClass) Alloc() NativeDiskImageGraphNode {
-	rv := objc.Send[NativeDiskImageGraphNode](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NativeDiskImageGraphNode](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,52 +77,55 @@ type INativeDiskImageGraphNode interface {
 
 // Init initializes the instance.
 func (n NativeDiskImageGraphNode) Init() NativeDiskImageGraphNode {
-	rv := objc.Send[NativeDiskImageGraphNode](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NativeDiskImageGraphNode](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NativeDiskImageGraphNode) Autorelease() NativeDiskImageGraphNode {
-	rv := objc.Send[NativeDiskImageGraphNode](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NativeDiskImageGraphNode](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNativeDiskImageGraphNode creates a new NativeDiskImageGraphNode instance.
 func NewNativeDiskImageGraphNode() NativeDiskImageGraphNode {
 	class := getNativeDiskImageGraphNodeClass()
-	rv := objc.Send[NativeDiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NativeDiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNativeDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (NativeDiskImageGraphNode, error) {
 	var errorPtr objc.ID
 	instance := getNativeDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NativeDiskImageGraphNode{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NativeDiskImageGraphNode{}, objc.ErrInitFailed
 	}
 	return NativeDiskImageGraphNodeFromID(rv), nil
 }
 
 func NewNativeDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
 	instance := getNativeDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return NativeDiskImageGraphNodeFromID(rv)
 }
 
 func NewNativeDiskImageGraphNodeWithURLTagUUIDParentNodeMetadataIsCache(url foundation.NSURL, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
 	instance := getNativeDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:tag:UUID:parentNode:metadata:isCache:"), url, tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:tag:UUID:parentNode:metadata:isCache:"), url, tag, uid, node, metadata, cache)
 	return NativeDiskImageGraphNodeFromID(rv)
 }
 
 func (n NativeDiskImageGraphNode) InitWithURLTagUUIDParentNodeMetadataIsCache(url foundation.NSURL, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
-	rv := objc.Send[NativeDiskImageGraphNode](n.ID, objc.Sel("initWithURL:tag:UUID:parentNode:metadata:isCache:"), url, tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[NativeDiskImageGraphNode](n.ID, objc.Sel("initWithURL:tag:UUID:parentNode:metadata:isCache:"), url, tag, uid, node, metadata, cache)
 	return rv
 }
 
 func (n NativeDiskImageGraphNode) FilePath() foundation.NSURL {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("filePath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("filePath"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

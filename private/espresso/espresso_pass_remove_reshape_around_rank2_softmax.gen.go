@@ -37,7 +37,7 @@ func (ec EspressoPassRemoveReshapeAroundRank2SoftmaxClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRemoveReshapeAroundRank2SoftmaxClass) Alloc() EspressoPassRemoveReshapeAroundRank2Softmax {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRemoveReshapeAroundRank2Softmax interface {
 
 // Init initializes the instance.
 func (e EspressoPassRemoveReshapeAroundRank2Softmax) Init() EspressoPassRemoveReshapeAroundRank2Softmax {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRemoveReshapeAroundRank2Softmax) Autorelease() EspressoPassRemoveReshapeAroundRank2Softmax {
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRemoveReshapeAroundRank2Softmax creates a new EspressoPassRemoveReshapeAroundRank2Softmax instance.
 func NewEspressoPassRemoveReshapeAroundRank2Softmax() EspressoPassRemoveReshapeAroundRank2Softmax {
 	class := getEspressoPassRemoveReshapeAroundRank2SoftmaxClass()
-	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

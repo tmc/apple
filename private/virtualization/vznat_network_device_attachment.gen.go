@@ -37,7 +37,7 @@ func (vc VZNATNetworkDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNATNetworkDeviceAttachmentClass) Alloc() VZNATNetworkDeviceAttachment {
-	rv := objc.Send[VZNATNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZNATNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,25 +77,25 @@ type IVZNATNetworkDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZNATNetworkDeviceAttachment) Init() VZNATNetworkDeviceAttachment {
-	rv := objc.Send[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZNATNetworkDeviceAttachment) Autorelease() VZNATNetworkDeviceAttachment {
-	rv := objc.Send[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZNATNetworkDeviceAttachment creates a new VZNATNetworkDeviceAttachment instance.
 func NewVZNATNetworkDeviceAttachment() VZNATNetworkDeviceAttachment {
 	class := getVZNATNetworkDeviceAttachmentClass()
-	rv := objc.Send[VZNATNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZNATNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZNATNetworkDeviceAttachment) _setInterfaceIsolationEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setInterfaceIsolationEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setInterfaceIsolationEnabled:"), enabled)
 }
 
 // SetInterfaceIsolationEnabled is an exported wrapper for the private method _setInterfaceIsolationEnabled.
@@ -114,7 +114,7 @@ func (v VZNATNetworkDeviceAttachment) CanSetInterfaceIsolationEnabled() bool {
 }
 
 func (v VZNATNetworkDeviceAttachment) _interfaceIsolationEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_interfaceIsolationEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_interfaceIsolationEnabled"))
 	return rv
 }
 
@@ -131,5 +131,5 @@ func (v VZNATNetworkDeviceAttachment) InterfaceIsolationEnabled() (bool, error) 
 	return v._interfaceIsolationEnabled(), nil
 }
 func (v VZNATNetworkDeviceAttachment) Set_interfaceIsolationEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_interfaceIsolationEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_interfaceIsolationEnabled:"), value)
 }

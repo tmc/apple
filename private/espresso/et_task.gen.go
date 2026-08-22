@@ -42,7 +42,7 @@ func (ec ETTaskClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETTaskClass) Alloc() ETTask {
-	rv := objc.Send[ETTask](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETTask](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,7 +62,6 @@ func (ec ETTaskClass) Alloc() ETTask {
 //   - [ETTask.MoveToGPUError]
 //   - [ETTask.Optimizer]
 //   - [ETTask.SetOptimizer]
-//   - [ETTask.ReinitializeVariables]
 //   - [ETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
 //   - [ETTask.RunInferenceOutputNamesBatchCallback]
 //   - [ETTask.SaveNetwork]
@@ -101,7 +100,6 @@ var _ IETTask = ETTask{}
 //   - [IETTask.MoveToGPUError]
 //   - [IETTask.Optimizer]
 //   - [IETTask.SetOptimizer]
-//   - [IETTask.ReinitializeVariables]
 //   - [IETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
 //   - [IETTask.RunInferenceOutputNamesBatchCallback]
 //   - [IETTask.SaveNetwork]
@@ -129,7 +127,6 @@ type IETTask interface {
 	MoveToGPUError(gpu int) (bool, error)
 	Optimizer() IETOptimizerDef
 	SetOptimizer(value IETOptimizerDef)
-	ReinitializeVariables() unsafe.Pointer
 	RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool
 	RunInferenceOutputNamesBatchCallback(inference objectivec.IObject, names objectivec.IObject, callback VoidHandler) bool
 	SaveNetwork(network objectivec.IObject)
@@ -142,69 +139,69 @@ type IETTask interface {
 
 // Init initializes the instance.
 func (e ETTask) Init() ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETTask) Autorelease() ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETTask creates a new ETTask instance.
 func NewETTask() ETTask {
 	class := getETTaskClass()
-	rv := objc.Send[ETTask](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETTaskWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
 	return ETTaskFromID(rv)
 }
 
 func NewETTaskWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTask {
 	instance := getETTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
 	return ETTaskFromID(rv)
 }
 
 func NewETTaskWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
 	return ETTaskFromID(rv)
 }
 
 func NewETTaskWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTask {
 	instance := getETTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
 	return ETTaskFromID(rv)
 }
 
 func (e ETTask) Evaluate(evaluate objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("evaluate:"), evaluate)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("evaluate:"), evaluate)
 	return objectivec.Object{ID: rv}
 }
 func (e ETTask) FitNumberOfBatchesOutputNamesBatchCallback(fit objectivec.IObject, batches uint32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
-	rv := objc.Send[bool](e.ID, objc.Sel("fit:numberOfBatches:outputNames:batchCallback:"), fit, batches, names, _block3)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("fit:numberOfBatches:outputNames:batchCallback:"), fit, batches, names, _block3)
 	return rv
 }
 func (e ETTask) FitNumberOfBatchesWithProgress(fit objectivec.IObject, batches uint32, progress VoidHandler) float32 {
 	_block2, _ := NewVoidBlock(progress)
-	rv := objc.Send[float32](e.ID, objc.Sel("fit:numberOfBatches:withProgress:"), fit, batches, _block2)
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("fit:numberOfBatches:withProgress:"), fit, batches, _block2)
 	return rv
 }
 func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
-	rv := objc.Send[bool](e.ID, objc.Sel("fit:numberOfEpochs:outputNames:batchCallback:"), fit, epochs, names, _block3)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("fit:numberOfEpochs:outputNames:batchCallback:"), fit, epochs, names, _block3)
 	return rv
 }
 func (e ETTask) FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int, progress VoidHandler) float32 {
 	_block2, _ := NewVoidBlock(progress)
-	rv := objc.Send[float32](e.ID, objc.Sel("fit:numberOfEpochs:withProgress:"), fit, epochs, _block2)
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("fit:numberOfEpochs:withProgress:"), fit, epochs, _block2)
 	return rv
 }
 func (e ETTask) MoveToGPUError(gpu int) (bool, error) {
@@ -220,70 +217,66 @@ func (e ETTask) MoveToGPUError(gpu int) (bool, error) {
 	return rv, nil
 
 }
-func (e ETTask) ReinitializeVariables() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("reinitializeVariables"))
-	return rv
-}
 func (e ETTask) RunBatchesNumberOfBatchesOutputNamesBatchCallback(batches objectivec.IObject, batches2 uint32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
-	rv := objc.Send[bool](e.ID, objc.Sel("runBatches:numberOfBatches:outputNames:batchCallback:"), batches, batches2, names, _block3)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("runBatches:numberOfBatches:outputNames:batchCallback:"), batches, batches2, names, _block3)
 	return rv
 }
 func (e ETTask) RunInferenceOutputNamesBatchCallback(inference objectivec.IObject, names objectivec.IObject, callback VoidHandler) bool {
 	_block2, _ := NewVoidBlock(callback)
-	rv := objc.Send[bool](e.ID, objc.Sel("runInference:outputNames:batchCallback:"), inference, names, _block2)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("runInference:outputNames:batchCallback:"), inference, names, _block2)
 	return rv
 }
 func (e ETTask) SaveNetwork(network objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("saveNetwork:"), network)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("saveNetwork:"), network)
 }
 func (e ETTask) SaveNetworkRevertToInferenceMode(network objectivec.IObject, mode bool) {
-	objc.Send[objc.ID](e.ID, objc.Sel("saveNetwork:revertToInferenceMode:"), network, mode)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("saveNetwork:revertToInferenceMode:"), network, mode)
 }
 func (e ETTask) InitWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
 	return rv
 }
 func (e ETTask) InitWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
 	return rv
 }
 func (e ETTask) InitWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
 	return rv
 }
 func (e ETTask) InitWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTask {
-	rv := objc.Send[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
+	rv := objc.SendIfResponds[ETTask](e.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
 	return rv
 }
 
 func (e ETTask) DumpData() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("dumpData"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("dumpData"))
 	return rv
 }
 func (e ETTask) SetDumpData(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDumpData:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDumpData:"), value)
 }
 func (e ETTask) Extractor() IETImageDescriptorExtractor {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("extractor"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("extractor"))
 	return ETImageDescriptorExtractorFromID(objc.ID(rv))
 }
 func (e ETTask) SetExtractor(value IETImageDescriptorExtractor) {
-	objc.Send[struct{}](e.ID, objc.Sel("setExtractor:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setExtractor:"), value)
 }
 func (e ETTask) Model() IETModelDef {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("model"))
 	return ETModelDefFromID(objc.ID(rv))
 }
 func (e ETTask) SetModel(value IETModelDef) {
-	objc.Send[struct{}](e.ID, objc.Sel("setModel:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setModel:"), value)
 }
 func (e ETTask) Optimizer() IETOptimizerDef {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizer"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("optimizer"))
 	return ETOptimizerDefFromID(objc.ID(rv))
 }
 func (e ETTask) SetOptimizer(value IETOptimizerDef) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOptimizer:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOptimizer:"), value)
 }
 
 // FitNumberOfBatchesOutputNamesBatchCallbackSync is a synchronous wrapper around [ETTask.FitNumberOfBatchesOutputNamesBatchCallback].

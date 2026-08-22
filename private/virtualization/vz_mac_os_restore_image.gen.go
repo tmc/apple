@@ -40,7 +40,7 @@ func (vc VZMacOSRestoreImageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
-	rv := objc.Send[VZMacOSRestoreImage](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSRestoreImage](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,26 +77,26 @@ type IVZMacOSRestoreImage interface {
 
 // Init initializes the instance.
 func (v VZMacOSRestoreImage) Init() VZMacOSRestoreImage {
-	rv := objc.Send[VZMacOSRestoreImage](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSRestoreImage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSRestoreImage) Autorelease() VZMacOSRestoreImage {
-	rv := objc.Send[VZMacOSRestoreImage](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSRestoreImage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSRestoreImage creates a new VZMacOSRestoreImage instance.
 func NewVZMacOSRestoreImage() VZMacOSRestoreImage {
 	class := getVZMacOSRestoreImageClass()
-	rv := objc.Send[VZMacOSRestoreImage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSRestoreImage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchAvailableImagesWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"), _block0)
 }
 
 // FetchAvailableImagesWithCompletionHandler is an exported wrapper for the private method _fetchAvailableImagesWithCompletionHandler.
@@ -115,7 +115,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchAvailableImage
 }
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"), options, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"), options, _block1)
 }
 
 // FetchLatestSupportedWithOptionsCompletionHandler is an exported wrapper for the private method _fetchLatestSupportedWithOptionsCompletionHandler.
@@ -134,7 +134,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchLatestSupporte
 }
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"), options, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"), options, _block1)
 }
 
 // LoadCatalogWithOptionsCompletionHandler is an exported wrapper for the private method _loadCatalogWithOptionsCompletionHandler.
@@ -153,7 +153,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadCatalogWithOpti
 }
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadFileURLDeviceClassParserCompletionHandler(url foundation.NSURL, parser objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"), url, parser, _block2)
+	objc.SendIfResponds[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"), url, parser, _block2)
 }
 
 // LoadFileURLDeviceClassParserCompletionHandler is an exported wrapper for the private method _loadFileURLDeviceClassParserCompletionHandler.
@@ -172,7 +172,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadFileURLDeviceCl
 }
 
 func (v VZMacOSRestoreImage) _configurations() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configurations"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
@@ -189,7 +189,7 @@ func (v VZMacOSRestoreImage) Configurations() (foundation.INSArray, error) {
 	return v._configurations(), nil
 }
 func (v VZMacOSRestoreImage) Supported() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("supported"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("supported"))
 	return rv
 }
 

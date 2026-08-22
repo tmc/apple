@@ -38,7 +38,7 @@ func (rc RamXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (rc RamXPCClass) Alloc() RamXPC {
-	rv := objc.Send[RamXPC](objc.ID(rc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[RamXPC](objc.ID(rc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,39 +75,39 @@ type IRamXPC interface {
 
 // Init initializes the instance.
 func (r RamXPC) Init() RamXPC {
-	rv := objc.Send[RamXPC](r.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[RamXPC](r.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (r RamXPC) Autorelease() RamXPC {
-	rv := objc.Send[RamXPC](r.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[RamXPC](r.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewRamXPC creates a new RamXPC instance.
 func NewRamXPC() RamXPC {
 	class := getRamXPCClass()
-	rv := objc.Send[RamXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[RamXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewRamXPCWithCoder(coder objectivec.IObject) RamXPC {
 	instance := getRamXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return RamXPCFromID(rv)
 }
 
 func NewRamXPCWithSize(size uint64) RamXPC {
 	instance := getRamXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
 	return RamXPCFromID(rv)
 }
 
 func (r RamXPC) CreateRamBackend() {
-	objc.Send[objc.ID](r.ID, objc.Sel("createRamBackend"))
+	objc.SendIfResponds[objc.ID](r.ID, objc.Sel("createRamBackend"))
 }
 func (r RamXPC) InitWithSize(size uint64) RamXPC {
-	rv := objc.Send[RamXPC](r.ID, objc.Sel("initWithSize:"), size)
+	rv := objc.SendIfResponds[RamXPC](r.ID, objc.Sel("initWithSize:"), size)
 	return rv
 }

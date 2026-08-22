@@ -41,7 +41,7 @@ func (mc MLPredictionOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPredictionOptionsClass) Alloc() MLPredictionOptions {
-	rv := objc.Send[MLPredictionOptions](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPredictionOptions](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -177,37 +177,37 @@ type IMLPredictionOptions interface {
 
 // Init initializes the instance.
 func (m MLPredictionOptions) Init() MLPredictionOptions {
-	rv := objc.Send[MLPredictionOptions](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPredictionOptions](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPredictionOptions) Autorelease() MLPredictionOptions {
-	rv := objc.Send[MLPredictionOptions](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPredictionOptions](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPredictionOptions creates a new MLPredictionOptions instance.
 func NewMLPredictionOptions() MLPredictionOptions {
 	class := getMLPredictionOptionsClass()
-	rv := objc.Send[MLPredictionOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPredictionOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPredictionOptionsWithCoder(coder objectivec.IObject) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLPredictionOptionsFromID(rv)
 }
 
 func NewPredictionOptionsWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return MLPredictionOptionsFromID(rv)
 }
 
 func (m MLPredictionOptions) _validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations objectivec.IObject, names objectivec.IObject, bindings []objectivec.IObject, bindings2 []objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"), expectations, names, objectivec.IObjectSliceToNSArray(bindings), objectivec.IObjectSliceToNSArray(bindings2))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"), expectations, names, objectivec.IObjectSliceToNSArray(bindings), objectivec.IObjectSliceToNSArray(bindings2))
 	return rv
 }
 
@@ -225,7 +225,7 @@ func (m MLPredictionOptions) CanValidateDirectBindingExpectationsDirectlyBoundFe
 	return objc.RespondsToSelector(m.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"))
 }
 func (m MLPredictionOptions) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLPredictionOptions) ValidateExpectationsWithDirectlyBoundInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -241,126 +241,126 @@ func (m MLPredictionOptions) ValidateExpectationsWithDirectlyBoundInputsOutputsE
 
 }
 func (m MLPredictionOptions) InitWithCoder(coder foundation.INSCoder) MLPredictionOptions {
-	rv := objc.Send[MLPredictionOptions](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLPredictionOptions](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (m MLPredictionOptions) InitWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
-	rv := objc.Send[MLPredictionOptions](m.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
+	rv := objc.SendIfResponds[MLPredictionOptions](m.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return rv
 }
 
 func (_MLPredictionOptionsClass MLPredictionOptionsClass) DefaultOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("defaultOptions"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("defaultOptions"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLPredictionOptionsClass MLPredictionOptionsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLPredictionOptions) AneExecutionPriority() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("aneExecutionPriority"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("aneExecutionPriority"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPredictionOptions) SetAneExecutionPriority(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAneExecutionPriority:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAneExecutionPriority:"), objc.String(value))
 }
 func (m MLPredictionOptions) AneQoS() uint32 {
-	rv := objc.Send[uint32](m.ID, objc.Sel("aneQoS"))
+	rv := objc.SendIfResponds[uint32](m.ID, objc.Sel("aneQoS"))
 	return rv
 }
 func (m MLPredictionOptions) SetAneQoS(value uint32) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAneQoS:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAneQoS:"), value)
 }
 func (m MLPredictionOptions) AutomaticOutputBackingMode() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("automaticOutputBackingMode"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("automaticOutputBackingMode"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetAutomaticOutputBackingMode(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAutomaticOutputBackingMode:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAutomaticOutputBackingMode:"), value)
 }
 func (m MLPredictionOptions) ClassifyTopK() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("classifyTopK"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("classifyTopK"))
 	return rv
 }
 func (m MLPredictionOptions) SetClassifyTopK(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassifyTopK:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassifyTopK:"), value)
 }
 func (m MLPredictionOptions) CompletionSyncPoint() IMLPredictionSyncPoint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("completionSyncPoint"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("completionSyncPoint"))
 	return MLPredictionSyncPointFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetCompletionSyncPoint(value IMLPredictionSyncPoint) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompletionSyncPoint:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompletionSyncPoint:"), value)
 }
 func (m MLPredictionOptions) E5rtStreamReuseExpectation() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5rtStreamReuseExpectation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5rtStreamReuseExpectation"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPredictionOptions) SetE5rtStreamReuseExpectation(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setE5rtStreamReuseExpectation:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setE5rtStreamReuseExpectation:"), objc.String(value))
 }
 func (m MLPredictionOptions) EnablePixelBufferDirectBinding() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("enablePixelBufferDirectBinding"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("enablePixelBufferDirectBinding"))
 	return rv
 }
 func (m MLPredictionOptions) SetEnablePixelBufferDirectBinding(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEnablePixelBufferDirectBinding:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEnablePixelBufferDirectBinding:"), value)
 }
 func (m MLPredictionOptions) HasDirectBindingExpectations() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasDirectBindingExpectations"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasDirectBindingExpectations"))
 	return rv
 }
 func (m MLPredictionOptions) InferenceFrameDataSerialization() IMLInferenceFrameDataSerialization {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inferenceFrameDataSerialization"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inferenceFrameDataSerialization"))
 	return MLInferenceFrameDataSerializationFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetInferenceFrameDataSerialization(value IMLInferenceFrameDataSerialization) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInferenceFrameDataSerialization:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInferenceFrameDataSerialization:"), value)
 }
 func (m MLPredictionOptions) InputDirectBindingExpectations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDirectBindingExpectations"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputDirectBindingExpectations"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetInputDirectBindingExpectations(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputDirectBindingExpectations:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputDirectBindingExpectations:"), value)
 }
 func (m MLPredictionOptions) MaxComputationBatchSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("maxComputationBatchSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("maxComputationBatchSize"))
 	return rv
 }
 func (m MLPredictionOptions) SetMaxComputationBatchSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMaxComputationBatchSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMaxComputationBatchSize:"), value)
 }
 func (m MLPredictionOptions) OutputDirectBindingExpectations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputDirectBindingExpectations"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputDirectBindingExpectations"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetOutputDirectBindingExpectations(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputDirectBindingExpectations:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputDirectBindingExpectations:"), value)
 }
 func (m MLPredictionOptions) ParentSignpostID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("parentSignpostID"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("parentSignpostID"))
 	return rv
 }
 func (m MLPredictionOptions) SetParentSignpostID(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setParentSignpostID:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setParentSignpostID:"), value)
 }
 func (m MLPredictionOptions) PredictionUsesCPU() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("predictionUsesCPU"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("predictionUsesCPU"))
 	return rv
 }
 func (m MLPredictionOptions) UsesCPUOnly() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usesCPUOnly"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usesCPUOnly"))
 	return rv
 }
 func (m MLPredictionOptions) SetUsesCPUOnly(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUsesCPUOnly:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUsesCPUOnly:"), value)
 }
 func (m MLPredictionOptions) WaitSyncPoints() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("waitSyncPoints"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("waitSyncPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLPredictionOptions) SetWaitSyncPoints(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWaitSyncPoints:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWaitSyncPoints:"), value)
 }

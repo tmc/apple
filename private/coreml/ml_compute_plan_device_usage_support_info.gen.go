@@ -39,7 +39,7 @@ func (mc MLComputePlanDeviceUsageSupportInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanDeviceUsageSupportInfoClass) Alloc() MLComputePlanDeviceUsageSupportInfo {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportInfo](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IMLComputePlanDeviceUsageSupportInfo interface {
 
 // Init initializes the instance.
 func (m MLComputePlanDeviceUsageSupportInfo) Init() MLComputePlanDeviceUsageSupportInfo {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlanDeviceUsageSupportInfo) Autorelease() MLComputePlanDeviceUsageSupportInfo {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlanDeviceUsageSupportInfo creates a new MLComputePlanDeviceUsageSupportInfo instance.
 func NewMLComputePlanDeviceUsageSupportInfo() MLComputePlanDeviceUsageSupportInfo {
 	class := getMLComputePlanDeviceUsageSupportInfoClass()
-	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputePlanDeviceUsageSupportInfoWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
 	instance := getMLComputePlanDeviceUsageSupportInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
 	return MLComputePlanDeviceUsageSupportInfoFromID(rv)
 }
 
 func (m MLComputePlanDeviceUsageSupportInfo) InitWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
+	rv := objc.SendIfResponds[MLComputePlanDeviceUsageSupportInfo](m.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
 	return rv
 }
 
 func (m MLComputePlanDeviceUsageSupportInfo) ComputeDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("computeDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("computeDevice"))
 	return rv
 }
 func (m MLComputePlanDeviceUsageSupportInfo) State() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("state"))
 	return rv
 }

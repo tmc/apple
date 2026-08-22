@@ -41,7 +41,7 @@ func (mc MLTreeEnsembleXGBoostUpdateEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTreeEnsembleXGBoostUpdateEngineClass) Alloc() MLTreeEnsembleXGBoostUpdateEngine {
-	rv := objc.Send[MLTreeEnsembleXGBoostUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -201,30 +201,33 @@ type IMLTreeEnsembleXGBoostUpdateEngine interface {
 
 // Init initializes the instance.
 func (m MLTreeEnsembleXGBoostUpdateEngine) Init() MLTreeEnsembleXGBoostUpdateEngine {
-	rv := objc.Send[MLTreeEnsembleXGBoostUpdateEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostUpdateEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTreeEnsembleXGBoostUpdateEngine) Autorelease() MLTreeEnsembleXGBoostUpdateEngine {
-	rv := objc.Send[MLTreeEnsembleXGBoostUpdateEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostUpdateEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTreeEnsembleXGBoostUpdateEngine creates a new MLTreeEnsembleXGBoostUpdateEngine instance.
 func NewMLTreeEnsembleXGBoostUpdateEngine() MLTreeEnsembleXGBoostUpdateEngine {
 	class := getMLTreeEnsembleXGBoostUpdateEngineClass()
-	rv := objc.Send[MLTreeEnsembleXGBoostUpdateEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostUpdateEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:configuration:error:"), archive, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:configuration:error:"), archive, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLTreeEnsembleXGBoostUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLTreeEnsembleXGBoostUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLTreeEnsembleXGBoostUpdateEngineFromID(rv), nil
 }
@@ -232,16 +235,19 @@ func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(arc
 func NewTreeEnsembleXGBoostUpdateEngineWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLTreeEnsembleXGBoostUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLTreeEnsembleXGBoostUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLTreeEnsembleXGBoostUpdateEngineFromID(rv), nil
 }
 
 func (m MLTreeEnsembleXGBoostUpdateEngine) CancelUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) LoadParameterDescriptionsAndContainerFromConfigurationModelDescriptionError(configuration objectivec.IObject, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -254,7 +260,7 @@ func (m MLTreeEnsembleXGBoostUpdateEngine) LoadParameterDescriptionsAndContainer
 
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameterValueForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
@@ -268,10 +274,10 @@ func (m MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKeyError(key objecti
 
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ResumeUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetBoosterParametersError(parameters unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -287,13 +293,13 @@ func (m MLTreeEnsembleXGBoostUpdateEngine) SetBoosterParametersError(parameters 
 
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) UpdateParameters() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateParameters"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) WriteToURLError(url foundation.NSURL) (bool, error) {
@@ -332,116 +338,116 @@ func (_MLTreeEnsembleXGBoostUpdateEngineClass MLTreeEnsembleXGBoostUpdateEngineC
 }
 
 func (m MLTreeEnsembleXGBoostUpdateEngine) CachedModel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("cachedModel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("cachedModel"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetCachedModel(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCachedModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCachedModel:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ClassesByInt() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("classesByInt"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("classesByInt"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetClassesByInt(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassesByInt:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassesByInt:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ClassesByString() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("classesByString"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("classesByString"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetClassesByString(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassesByString:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassesByString:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ContinueWithUpdate() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("continueWithUpdate"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("continueWithUpdate"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetContinueWithUpdate(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) MmappedModel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("mmappedModel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("mmappedModel"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetMmappedModel(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMmappedModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMmappedModel:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) NumDimensions() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numDimensions"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numDimensions"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetNumDimensions(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ParameterContainer() IMLParameterContainer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Personalization() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("personalization"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("personalization"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetPersonalization(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPersonalization:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPersonalization:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) PredictionTypeForKTrace() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) RecordsPredictionEvent() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SignpostID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (m MLTreeEnsembleXGBoostUpdateEngine) SupportsConcurrentSubmissions() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }

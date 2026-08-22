@@ -38,7 +38,7 @@ func (mc MLLoggingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLoggingClass) Alloc() MLLogging {
-	rv := objc.Send[MLLogging](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLogging](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IMLLogging interface {
 
 // Init initializes the instance.
 func (m MLLogging) Init() MLLogging {
-	rv := objc.Send[MLLogging](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLogging](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLogging) Autorelease() MLLogging {
-	rv := objc.Send[MLLogging](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLogging](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLogging creates a new MLLogging instance.
 func NewMLLogging() MLLogging {
 	class := getMLLoggingClass()
-	rv := objc.Send[MLLogging](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLogging](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLLoggingClass MLLoggingClass) CoreChannel() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLoggingClass.class), objc.Sel("coreChannel"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLoggingClass.class), objc.Sel("coreChannel"))
 	return objectivec.Object{ID: rv}
 }

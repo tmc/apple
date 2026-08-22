@@ -39,7 +39,7 @@ func (mc MLMultiplyBroadcastableBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiplyBroadcastableBrickClass) Alloc() MLMultiplyBroadcastableBrick {
-	rv := objc.Send[MLMultiplyBroadcastableBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiplyBroadcastableBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,78 +109,78 @@ type IMLMultiplyBroadcastableBrick interface {
 
 // Init initializes the instance.
 func (m MLMultiplyBroadcastableBrick) Init() MLMultiplyBroadcastableBrick {
-	rv := objc.Send[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiplyBroadcastableBrick) Autorelease() MLMultiplyBroadcastableBrick {
-	rv := objc.Send[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiplyBroadcastableBrick creates a new MLMultiplyBroadcastableBrick instance.
 func NewMLMultiplyBroadcastableBrick() MLMultiplyBroadcastableBrick {
 	class := getMLMultiplyBroadcastableBrickClass()
-	rv := objc.Send[MLMultiplyBroadcastableBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiplyBroadcastableBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiplyBroadcastableBrickWithParameters(parameters objectivec.IObject) MLMultiplyBroadcastableBrick {
 	instance := getMLMultiplyBroadcastableBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLMultiplyBroadcastableBrickFromID(rv)
 }
 
 func (m MLMultiplyBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLMultiplyBroadcastableBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLMultiplyBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLMultiplyBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLMultiplyBroadcastableBrick {
-	rv := objc.Send[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLMultiplyBroadcastableBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLMultiplyBroadcastableBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLMultiplyBroadcastableBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLMultiplyBroadcastableBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLMultiplyBroadcastableBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLMultiplyBroadcastableBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLMultiplyBroadcastableBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLMultiplyBroadcastableBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLMultiplyBroadcastableBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 func (m MLMultiplyBroadcastableBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

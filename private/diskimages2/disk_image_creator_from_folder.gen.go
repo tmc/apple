@@ -42,7 +42,7 @@ func (dc DiskImageCreatorFromFolderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageCreatorFromFolderClass) Alloc() DiskImageCreatorFromFolder {
-	rv := objc.Send[DiskImageCreatorFromFolder](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromFolder](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,30 +94,33 @@ type IDiskImageCreatorFromFolder interface {
 
 // Init initializes the instance.
 func (d DiskImageCreatorFromFolder) Init() DiskImageCreatorFromFolder {
-	rv := objc.Send[DiskImageCreatorFromFolder](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromFolder](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageCreatorFromFolder) Autorelease() DiskImageCreatorFromFolder {
-	rv := objc.Send[DiskImageCreatorFromFolder](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromFolder](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageCreatorFromFolder creates a new DiskImageCreatorFromFolder instance.
 func NewDiskImageCreatorFromFolder() DiskImageCreatorFromFolder {
 	class := getDiskImageCreatorFromFolderClass()
-	rv := objc.Send[DiskImageCreatorFromFolder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageCreatorFromFolder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageCreatorFromFolderWithURLDefaultFormatError(url foundation.NSURL, format int64) (DiskImageCreatorFromFolder, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromFolderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageCreatorFromFolder{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageCreatorFromFolder{}, objc.ErrInitFailed
 	}
 	return DiskImageCreatorFromFolderFromID(rv), nil
 }
@@ -125,10 +128,13 @@ func NewDiskImageCreatorFromFolderWithURLDefaultFormatError(url foundation.NSURL
 func NewDiskImageCreatorFromFolderWithURLError(url foundation.NSURL) (DiskImageCreatorFromFolder, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageCreatorFromFolderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageCreatorFromFolder{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageCreatorFromFolder{}, objc.ErrInitFailed
 	}
 	return DiskImageCreatorFromFolderFromID(rv), nil
 }
@@ -148,7 +154,7 @@ func (d DiskImageCreatorFromFolder) CompactAndEjectWithCreateParamsError(params 
 }
 func (d DiskImageCreatorFromFolder) CreateImageWithSrcFolderCompletionBlock(folder objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("createImageWithSrcFolder:completionBlock:"), folder, _block1)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createImageWithSrcFolder:completionBlock:"), folder, _block1)
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageCreatorFromFolder) CreateImageWithSrcFolderProgressCreateParamsConvertParamsError(folder objectivec.IObject, progress objectivec.IObject, params objectivec.IObject, params2 []objectivec.IObject) (bool, error) {
@@ -178,7 +184,7 @@ func (d DiskImageCreatorFromFolder) ResizeDataPartitionWithError() (bool, error)
 
 }
 func (d DiskImageCreatorFromFolder) UpdateNumBlocksWithFolderSizeNumFiles(size uint64, files uint64) {
-	objc.Send[objc.ID](d.ID, objc.Sel("updateNumBlocksWithFolderSize:numFiles:"), size, files)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("updateNumBlocksWithFolderSize:numFiles:"), size, files)
 }
 func (d DiskImageCreatorFromFolder) UpdatePartitionMapWithError() (bool, error) {
 	var errorPtr objc.ID

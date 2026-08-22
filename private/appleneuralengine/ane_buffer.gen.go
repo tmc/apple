@@ -39,7 +39,7 @@ func (ac ANEBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEBufferClass) Alloc() ANEBuffer {
-	rv := objc.Send[ANEBuffer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEBuffer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,65 +88,65 @@ type IANEBuffer interface {
 
 // Init initializes the instance.
 func (a ANEBuffer) Init() ANEBuffer {
-	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEBuffer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEBuffer) Autorelease() ANEBuffer {
-	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEBuffer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEBuffer creates a new ANEBuffer instance.
 func NewANEBuffer() ANEBuffer {
 	class := getANEBufferClass()
-	rv := objc.Send[ANEBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEBufferWithCoder(coder objectivec.IObject) ANEBuffer {
 	instance := getANEBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEBufferFromID(rv)
 }
 
 func NewANEBufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer {
 	instance := getANEBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return ANEBufferFromID(rv)
 }
 
 func (a ANEBuffer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEBuffer) InitWithCoder(coder foundation.INSCoder) ANEBuffer {
-	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEBuffer](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANEBuffer) InitWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer {
-	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
+	rv := objc.SendIfResponds[ANEBuffer](a.ID, objc.Sel("initWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return rv
 }
 
 func (_ANEBufferClass ANEBufferClass) BufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEBufferClass.class), objc.Sel("bufferWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEBufferClass.class), objc.Sel("bufferWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEBufferClass ANEBufferClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEBufferClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEBufferClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a ANEBuffer) IoSurfaceObject() IANEIOSurfaceObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("ioSurfaceObject"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("ioSurfaceObject"))
 	return ANEIOSurfaceObjectFromID(objc.ID(rv))
 }
 func (a ANEBuffer) Source() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("source"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("source"))
 	return rv
 }
 func (a ANEBuffer) SymbolIndex() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("symbolIndex"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("symbolIndex"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

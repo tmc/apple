@@ -10,6 +10,12 @@ import (
 // _VZMacBatterySourceObserver protocol.
 type VZMacBatterySourceObserver interface {
 	objectivec.IObject
+
+	// BatterySourceDidUpdateCharge protocol.
+	BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64)
+
+	// BatterySourceDidUpdateConnectivity protocol.
+	BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64)
 }
 
 // VZMacBatterySourceObserverObject wraps an existing Objective-C object that conforms to the VZMacBatterySourceObserver protocol.
@@ -30,8 +36,8 @@ func VZMacBatterySourceObserverObjectFromID(id objc.ID) VZMacBatterySourceObserv
 }
 
 func (o VZMacBatterySourceObserverObject) BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64) {
-	objc.Send[struct{}](o.ID, objc.Sel("batterySource:didUpdateCharge:"), source, charge)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("batterySource:didUpdateCharge:"), source, charge)
 }
 func (o VZMacBatterySourceObserverObject) BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64) {
-	objc.Send[struct{}](o.ID, objc.Sel("batterySource:didUpdateConnectivity:"), source, connectivity)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("batterySource:didUpdateConnectivity:"), source, connectivity)
 }

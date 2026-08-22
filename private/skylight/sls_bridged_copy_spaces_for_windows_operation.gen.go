@@ -39,7 +39,7 @@ func (sc SLSBridgedCopySpacesForWindowsOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopySpacesForWindowsOperationClass) Alloc() SLSBridgedCopySpacesForWindowsOperation {
-	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopySpacesForWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedCopySpacesForWindowsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopySpacesForWindowsOperation) Init() SLSBridgedCopySpacesForWindowsOperation {
-	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopySpacesForWindowsOperation) Autorelease() SLSBridgedCopySpacesForWindowsOperation {
-	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopySpacesForWindowsOperation creates a new SLSBridgedCopySpacesForWindowsOperation instance.
 func NewSLSBridgedCopySpacesForWindowsOperation() SLSBridgedCopySpacesForWindowsOperation {
 	class := getSLSBridgedCopySpacesForWindowsOperationClass()
-	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopySpacesForWindowsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopySpacesForWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
 	instance := getSLSBridgedCopySpacesForWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopySpacesForWindowsOperationFromID(rv)
 }
 
 func NewSLSBridgedCopySpacesForWindowsOperationWithOptionsWindows(options uint32, windows objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
 	instance := getSLSBridgedCopySpacesForWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:windows:"), options, windows)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptions:windows:"), options, windows)
 	return SLSBridgedCopySpacesForWindowsOperationFromID(rv)
 }
 
 func (s SLSBridgedCopySpacesForWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedCopySpacesForWindowsOperation) InitWithOptionsWindows(options uint32, windows objectivec.IObject) SLSBridgedCopySpacesForWindowsOperation {
-	rv := objc.Send[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("initWithOptions:windows:"), options, windows)
+	rv := objc.SendIfResponds[SLSBridgedCopySpacesForWindowsOperation](s.ID, objc.Sel("initWithOptions:windows:"), options, windows)
 	return rv
 }
 
 func (s SLSBridgedCopySpacesForWindowsOperation) Options() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLSBridgedCopySpacesForWindowsOperation) Windows() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

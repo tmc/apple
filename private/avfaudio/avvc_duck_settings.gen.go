@@ -38,7 +38,7 @@ func (ac AVVCDuckSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCDuckSettingsClass) Alloc() AVVCDuckSettings {
-	rv := objc.Send[AVVCDuckSettings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCDuckSettings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,41 +87,41 @@ type IAVVCDuckSettings interface {
 
 // Init initializes the instance.
 func (a AVVCDuckSettings) Init() AVVCDuckSettings {
-	rv := objc.Send[AVVCDuckSettings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCDuckSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCDuckSettings) Autorelease() AVVCDuckSettings {
-	rv := objc.Send[AVVCDuckSettings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCDuckSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCDuckSettings creates a new AVVCDuckSettings instance.
 func NewAVVCDuckSettings() AVVCDuckSettings {
 	class := getAVVCDuckSettingsClass()
-	rv := objc.Send[AVVCDuckSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCDuckSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVCDuckSettings) DuckLevel() IAVVCDuckLevel {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckLevel"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckLevel"))
 	return AVVCDuckLevelFromID(objc.ID(rv))
 }
 func (a AVVCDuckSettings) SetDuckLevel(value IAVVCDuckLevel) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDuckLevel:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckLevel:"), value)
 }
 func (a AVVCDuckSettings) DuckOverride() IAVVCDuckOverride {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckOverride"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckOverride"))
 	return AVVCDuckOverrideFromID(objc.ID(rv))
 }
 func (a AVVCDuckSettings) SetDuckOverride(value IAVVCDuckOverride) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDuckOverride:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckOverride:"), value)
 }
 func (a AVVCDuckSettings) FadeDuration() IAVVCDuckFadeDuration {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fadeDuration"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fadeDuration"))
 	return AVVCDuckFadeDurationFromID(objc.ID(rv))
 }
 func (a AVVCDuckSettings) SetFadeDuration(value IAVVCDuckFadeDuration) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFadeDuration:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setFadeDuration:"), value)
 }

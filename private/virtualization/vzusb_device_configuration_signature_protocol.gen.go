@@ -10,6 +10,9 @@ import (
 // _VZUSBDeviceConfigurationSignature protocol.
 type VZUSBDeviceConfigurationSignature interface {
 	objectivec.IObject
+
+	// Signature protocol.
+	Signature() objectivec.IObject
 }
 
 // VZUSBDeviceConfigurationSignatureObject wraps an existing Objective-C object that conforms to the VZUSBDeviceConfigurationSignature protocol.
@@ -30,6 +33,6 @@ func VZUSBDeviceConfigurationSignatureObjectFromID(id objc.ID) VZUSBDeviceConfig
 }
 
 func (o VZUSBDeviceConfigurationSignatureObject) Signature() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("signature"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}
 }

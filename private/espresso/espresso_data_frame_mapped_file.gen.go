@@ -39,7 +39,7 @@ func (ec EspressoDataFrameMappedFileClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameMappedFileClass) Alloc() EspressoDataFrameMappedFile {
-	rv := objc.Send[EspressoDataFrameMappedFile](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrameMappedFile](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,45 +85,45 @@ type IEspressoDataFrameMappedFile interface {
 
 // Init initializes the instance.
 func (e EspressoDataFrameMappedFile) Init() EspressoDataFrameMappedFile {
-	rv := objc.Send[EspressoDataFrameMappedFile](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrameMappedFile](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrameMappedFile) Autorelease() EspressoDataFrameMappedFile {
-	rv := objc.Send[EspressoDataFrameMappedFile](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrameMappedFile](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrameMappedFile creates a new EspressoDataFrameMappedFile instance.
 func NewEspressoDataFrameMappedFile() EspressoDataFrameMappedFile {
 	class := getEspressoDataFrameMappedFileClass()
-	rv := objc.Send[EspressoDataFrameMappedFile](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrameMappedFile](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoDataFrameMappedFileWithPath(path objectivec.IObject) EspressoDataFrameMappedFile {
 	instance := getEspressoDataFrameMappedFileClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:"), path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPath:"), path)
 	return EspressoDataFrameMappedFileFromID(rv)
 }
 
 func (e EspressoDataFrameMappedFile) InitWithPath(path objectivec.IObject) EspressoDataFrameMappedFile {
-	rv := objc.Send[EspressoDataFrameMappedFile](e.ID, objc.Sel("initWithPath:"), path)
+	rv := objc.SendIfResponds[EspressoDataFrameMappedFile](e.ID, objc.Sel("initWithPath:"), path)
 	return rv
 }
 
 func (e EspressoDataFrameMappedFile) BasePtr() string {
-	rv := objc.Send[*byte](e.ID, objc.Sel("basePtr"))
+	rv := objc.SendIfResponds[*byte](e.ID, objc.Sel("basePtr"))
 	return objc.GoString(rv)
 }
 func (e EspressoDataFrameMappedFile) SetBasePtr(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBasePtr:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBasePtr:"), objc.String(value))
 }
 func (e EspressoDataFrameMappedFile) Path() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("path"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoDataFrameMappedFile) SetPath(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setPath:"), objc.String(value))
 }

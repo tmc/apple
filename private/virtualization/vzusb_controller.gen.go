@@ -39,7 +39,7 @@ func (vc VZUSBControllerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBControllerClass) Alloc() VZUSBController {
-	rv := objc.Send[VZUSBController](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBController](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,25 +85,25 @@ type IVZUSBController interface {
 
 // Init initializes the instance.
 func (v VZUSBController) Init() VZUSBController {
-	rv := objc.Send[VZUSBController](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBController](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBController) Autorelease() VZUSBController {
-	rv := objc.Send[VZUSBController](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBController](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBController creates a new VZUSBController instance.
 func NewVZUSBController() VZUSBController {
 	class := getVZUSBControllerClass()
-	rv := objc.Send[VZUSBController](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZUSBController) _capturePassthroughDevicesWithCompletionHandler(handler unsafe.Pointer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"), handler)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"), handler)
 }
 
 // CapturePassthroughDevicesWithCompletionHandler is an exported wrapper for the private method _capturePassthroughDevicesWithCompletionHandler.
@@ -121,7 +121,7 @@ func (v VZUSBController) CanCapturePassthroughDevicesWithCompletionHandler() boo
 	return objc.RespondsToSelector(v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"))
 }
 func (v VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
 	return objectivec.Object{ID: rv}
 }
 
@@ -139,7 +139,7 @@ func (v VZUSBController) CanInitWithVirtualMachineUsbControllerIndexUsbDevices()
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"))
 }
 func (v VZUSBController) _releasePassthroughDevices() {
-	objc.Send[objc.ID](v.ID, objc.Sel("_releasePassthroughDevices"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_releasePassthroughDevices"))
 }
 
 // ReleasePassthroughDevices is an exported wrapper for the private method _releasePassthroughDevices.
@@ -158,9 +158,9 @@ func (v VZUSBController) CanReleasePassthroughDevices() bool {
 }
 
 func (v VZUSBController) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZUSBController) SetDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }

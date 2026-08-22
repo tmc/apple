@@ -37,7 +37,7 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZNetworkBlockDeviceStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,25 +71,25 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZNetworkBlockDeviceStorageDeviceAttachment) Init() VZNetworkBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZNetworkBlockDeviceStorageDeviceAttachment) Autorelease() VZNetworkBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZNetworkBlockDeviceStorageDeviceAttachment creates a new VZNetworkBlockDeviceStorageDeviceAttachment instance.
 func NewVZNetworkBlockDeviceStorageDeviceAttachment() VZNetworkBlockDeviceStorageDeviceAttachment {
 	class := getVZNetworkBlockDeviceStorageDeviceAttachmentClass()
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZNetworkBlockDeviceStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultReadOnly() bool {
-	rv := objc.Send[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
+	rv := objc.SendIfResponds[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
 	return rv
 }
 
@@ -107,7 +107,7 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
 }
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultSynchronizationMode() int64 {
-	rv := objc.Send[int64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
+	rv := objc.SendIfResponds[int64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
 	return rv
 }
 
@@ -125,7 +125,7 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
 }
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) _defaultTimeout() float64 {
-	rv := objc.Send[float64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout"))
+	rv := objc.SendIfResponds[float64](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout"))
 	return rv
 }
 
@@ -144,6 +144,6 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 }
 
 func (v VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("forcedReadOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("forcedReadOnly"))
 	return rv
 }

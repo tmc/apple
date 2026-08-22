@@ -40,14 +40,14 @@ func (vc VZAudioOutputStreamSinkClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
-	rv := objc.Send[VZAudioOutputStreamSink](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZAudioOutputStreamSink](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
-//   - [VZAudioOutputStreamSink._init]
 //   - [VZAudioOutputStreamSink._attachment]
+//   - [VZAudioOutputStreamSink._init]
 //   - [VZAudioOutputStreamSink.DebugDescription]
 //   - [VZAudioOutputStreamSink.Description]
 //   - [VZAudioOutputStreamSink.Hash]
@@ -68,8 +68,8 @@ var _ IVZAudioOutputStreamSink = VZAudioOutputStreamSink{}
 //
 // # Methods
 //
-//   - [IVZAudioOutputStreamSink._init]
 //   - [IVZAudioOutputStreamSink._attachment]
+//   - [IVZAudioOutputStreamSink._init]
 //   - [IVZAudioOutputStreamSink.DebugDescription]
 //   - [IVZAudioOutputStreamSink.Description]
 //   - [IVZAudioOutputStreamSink.Hash]
@@ -79,8 +79,8 @@ type IVZAudioOutputStreamSink interface {
 
 	// Topic: Methods
 
-	_init() objectivec.IObject
 	_attachment() unsafe.Pointer
+	_init() objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -89,30 +89,30 @@ type IVZAudioOutputStreamSink interface {
 
 // Init initializes the instance.
 func (v VZAudioOutputStreamSink) Init() VZAudioOutputStreamSink {
-	rv := objc.Send[VZAudioOutputStreamSink](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZAudioOutputStreamSink](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZAudioOutputStreamSink) Autorelease() VZAudioOutputStreamSink {
-	rv := objc.Send[VZAudioOutputStreamSink](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZAudioOutputStreamSink](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZAudioOutputStreamSink creates a new VZAudioOutputStreamSink instance.
 func NewVZAudioOutputStreamSink() VZAudioOutputStreamSink {
 	class := getVZAudioOutputStreamSinkClass()
-	rv := objc.Send[VZAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZAudioOutputStreamSink) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZAudioOutputStreamSink) _attachment() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZAudioOutputStreamSink) Attachment() (unsafe.Pointer, error) {
 	return v._attachment(), nil
 }
 func (v VZAudioOutputStreamSink) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAudioOutputStreamSink) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAudioOutputStreamSink) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZAudioOutputStreamSink) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

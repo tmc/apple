@@ -38,7 +38,7 @@ func (ec ECTestOnlyVersionedPIDClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ECTestOnlyVersionedPIDClass) Alloc() ECTestOnlyVersionedPID {
-	rv := objc.Send[ECTestOnlyVersionedPID](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ECTestOnlyVersionedPID](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,28 +75,28 @@ type IECTestOnlyVersionedPID interface {
 
 // Init initializes the instance.
 func (e ECTestOnlyVersionedPID) Init() ECTestOnlyVersionedPID {
-	rv := objc.Send[ECTestOnlyVersionedPID](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ECTestOnlyVersionedPID](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ECTestOnlyVersionedPID) Autorelease() ECTestOnlyVersionedPID {
-	rv := objc.Send[ECTestOnlyVersionedPID](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ECTestOnlyVersionedPID](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewECTestOnlyVersionedPID creates a new ECTestOnlyVersionedPID instance.
 func NewECTestOnlyVersionedPID() ECTestOnlyVersionedPID {
 	class := getECTestOnlyVersionedPIDClass()
-	rv := objc.Send[ECTestOnlyVersionedPID](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ECTestOnlyVersionedPID](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ECTestOnlyVersionedPID) Pid() int {
-	rv := objc.Send[int](e.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("pid"))
 	return rv
 }
 func (e ECTestOnlyVersionedPID) Version() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("version"))
 	return rv
 }

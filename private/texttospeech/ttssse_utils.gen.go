@@ -38,7 +38,7 @@ func (tc TTSSSEUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSSEUtilsClass) Alloc() TTSSSEUtils {
-	rv := objc.Send[TTSSSEUtils](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSSEUtils](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,36 +61,36 @@ type ITTSSSEUtils interface {
 
 // Init initializes the instance.
 func (t TTSSSEUtils) Init() TTSSSEUtils {
-	rv := objc.Send[TTSSSEUtils](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSSEUtils](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSSEUtils) Autorelease() TTSSSEUtils {
-	rv := objc.Send[TTSSSEUtils](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSSEUtils](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSSEUtils creates a new TTSSSEUtils instance.
 func NewTTSSSEUtils() TTSSSEUtils {
 	class := getTTSSSEUtilsClass()
-	rv := objc.Send[TTSSSEUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSSEUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) CombinedProsodyMarkupForStringRatePitchVolume(string_ objectivec.IObject, rate objectivec.IObject, pitch objectivec.IObject, volume objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("combinedProsodyMarkupForString:rate:pitch:volume:"), string_, rate, pitch, volume)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("combinedProsodyMarkupForString:rate:pitch:volume:"), string_, rate, pitch, volume)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) EnclosedStringWithPhonemesOriginalString(phonemes objectivec.IObject, string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("enclosedStringWithPhonemes:originalString:"), phonemes, string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("enclosedStringWithPhonemes:originalString:"), phonemes, string_)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) GenericMarkerMarkupWithName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("genericMarkerMarkupWithName:"), name)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("genericMarkerMarkupWithName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) SpeechMarkupStringForTypeString(type_ int64, string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("speechMarkupStringForType:string:"), type_, string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("speechMarkupStringForType:string:"), type_, string_)
 	return objectivec.Object{ID: rv}
 }

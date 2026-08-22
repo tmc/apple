@@ -41,7 +41,7 @@ func (dc DIDataPartitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIDataPartitionClass) Alloc() DIDataPartition {
-	rv := objc.Send[DIDataPartition](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIDataPartition](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -129,20 +129,20 @@ type IDIDataPartition interface {
 
 // Init initializes the instance.
 func (d DIDataPartition) Init() DIDataPartition {
-	rv := objc.Send[DIDataPartition](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIDataPartition](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIDataPartition) Autorelease() DIDataPartition {
-	rv := objc.Send[DIDataPartition](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIDataPartition](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIDataPartition creates a new DIDataPartition instance.
 func NewDIDataPartition() DIDataPartition {
 	class := getDIDataPartitionClass()
-	rv := objc.Send[DIDataPartition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIDataPartition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -186,7 +186,7 @@ func (d DIDataPartition) FormatWithVolumeNameError(name objectivec.IObject) (boo
 
 }
 func (d DIDataPartition) GetFileSystemMinimalBlocks(blocks []objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("getFileSystemMinimalBlocks:"), objectivec.IObjectSliceToNSArray(blocks))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("getFileSystemMinimalBlocks:"), objectivec.IObjectSliceToNSArray(blocks))
 	return rv
 }
 func (d DIDataPartition) NewMountVolumeWithDiskArbError(arb objectivec.IObject) (objectivec.IObject, error) {
@@ -248,45 +248,45 @@ func (_DIDataPartitionClass DIDataPartitionClass) NewMountURLWithError() (object
 }
 
 func (d DIDataPartition) GPTTypeID() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("GPTTypeID"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("GPTTypeID"))
 	return rv
 }
 func (d DIDataPartition) BlockSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (d DIDataPartition) SetBlockSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
 func (d DIDataPartition) IoMedia() IDIIOMedia {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMedia"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("ioMedia"))
 	return DIIOMediaFromID(objc.ID(rv))
 }
 func (d DIDataPartition) SetIoMedia(value IDIIOMedia) {
-	objc.Send[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
 }
 func (d DIDataPartition) IoMediaUUID() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMediaUUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("ioMediaUUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIDataPartition) SetIoMediaUUID(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setIoMediaUUID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setIoMediaUUID:"), objc.String(value))
 }
 func (d DIDataPartition) MediaContentUUID() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mediaContentUUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mediaContentUUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIDataPartition) NumBlocks() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("numBlocks"))
 	return rv
 }
 func (d DIDataPartition) SetNumBlocks(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }
 func (d DIDataPartition) VolumeBSDName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("volumeBSDName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("volumeBSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIDataPartition) SetVolumeBSDName(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setVolumeBSDName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setVolumeBSDName:"), objc.String(value))
 }

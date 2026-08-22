@@ -38,7 +38,7 @@ func (ac AVVCStartRecordSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCStartRecordSettingsClass) Alloc() AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCStartRecordSettings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -114,80 +114,80 @@ type IAVVCStartRecordSettings interface {
 
 // Init initializes the instance.
 func (a AVVCStartRecordSettings) Init() AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCStartRecordSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCStartRecordSettings) Autorelease() AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCStartRecordSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCStartRecordSettings creates a new AVVCStartRecordSettings instance.
 func NewAVVCStartRecordSettings() AVVCStartRecordSettings {
 	class := getAVVCStartRecordSettingsClass()
-	rv := objc.Send[AVVCStartRecordSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCStartRecordSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCStartRecordSettingsWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
 	instance := getAVVCStartRecordSettingsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return AVVCStartRecordSettingsFromID(rv)
 }
 
 func (a AVVCStartRecordSettings) InitWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
+	rv := objc.SendIfResponds[AVVCStartRecordSettings](a.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return rv
 }
 
 func (a AVVCStartRecordSettings) SkipAlert() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("skipAlert"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("skipAlert"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetSkipAlert(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSkipAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSkipAlert:"), value)
 }
 func (a AVVCStartRecordSettings) StartAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("startAlert"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStartAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
 func (a AVVCStartRecordSettings) StartAnchorPoint() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("startAnchorPoint"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("startAnchorPoint"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStartAnchorPoint(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStartAnchorPoint:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStartAnchorPoint:"), value)
 }
 func (a AVVCStartRecordSettings) StartHostTime() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("startHostTime"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("startHostTime"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStartHostTime(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStartHostTime:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStartHostTime:"), value)
 }
 func (a AVVCStartRecordSettings) StopAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStopAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
 func (a AVVCStartRecordSettings) StopOnErrorAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStopOnErrorAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
 func (a AVVCStartRecordSettings) StreamID() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("streamID"))
 	return rv
 }
 func (a AVVCStartRecordSettings) SetStreamID(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStreamID:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStreamID:"), value)
 }

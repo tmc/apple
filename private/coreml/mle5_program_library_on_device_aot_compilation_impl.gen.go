@@ -41,7 +41,7 @@ func (mc MLE5ProgramLibraryOnDeviceAOTCompilationImplClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ProgramLibraryOnDeviceAOTCompilationImplClass) Alloc() MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,26 +99,26 @@ type IMLE5ProgramLibraryOnDeviceAOTCompilationImpl interface {
 
 // Init initializes the instance.
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Init() MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Autorelease() MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ProgramLibraryOnDeviceAOTCompilationImpl creates a new MLE5ProgramLibraryOnDeviceAOTCompilationImpl instance.
 func NewMLE5ProgramLibraryOnDeviceAOTCompilationImpl() MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	class := getMLE5ProgramLibraryOnDeviceAOTCompilationImplClass()
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfiguration(url foundation.NSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	instance := getMLE5ProgramLibraryOnDeviceAOTCompilationImplClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
 }
 
@@ -132,39 +132,45 @@ func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) CreateProgramLibraryHandle
 	return E5rtProgramLibraryRef(rv), nil
 
 }
+
+var _mle5programlibraryondeviceaotcompilationimpl_initwithirprogram_container_configuration_deallocator_p3_key byte
+
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithIRProgramContainerConfigurationDeallocator(iRProgram unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject, deallocator VoidHandler) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	_block3, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithIRProgram:container:configuration:deallocator:"), iRProgram, container, configuration, _block3)
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithIRProgram:container:configuration:deallocator:"), iRProgram, container, configuration, _block3)
 	return rv
 }
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLContainerConfiguration(url foundation.NSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
 	return rv
 }
+
+var _mle5programlibraryondeviceaotcompilationimpl_initwithmiltextaturl_irprogram_deallocator_container_configuration_p2_key byte
+
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLIrProgramDeallocatorContainerConfiguration(url foundation.NSURL, program unsafe.Pointer, deallocator VoidHandler, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	_block2, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithMILTextAtURL:irProgram:deallocator:container:configuration:"), url, program, _block2, container, configuration)
+	rv := objc.SendIfResponds[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](m.ID, objc.Sel("initWithMILTextAtURL:irProgram:deallocator:container:configuration:"), url, program, _block2, container, configuration)
 	return rv
 }
 
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Container() IMLProgramE5Container {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("container"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("container"))
 	return MLProgramE5ContainerFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) ModelDisplayName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) SerializedMILText() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ProgramLibraryOnDeviceAOTCompilationImpl) SetSerializedMILText(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSerializedMILText:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSerializedMILText:"), objc.String(value))
 }
 
 // InitWithIRProgramContainerConfigurationDeallocatorSync is a synchronous wrapper around [MLE5ProgramLibraryOnDeviceAOTCompilationImpl.InitWithIRProgramContainerConfigurationDeallocator].

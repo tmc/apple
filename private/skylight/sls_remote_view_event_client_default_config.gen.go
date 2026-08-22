@@ -39,7 +39,7 @@ func (sc SLSRemoteViewEventClientDefaultConfigClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSRemoteViewEventClientDefaultConfigClass) Alloc() SLSRemoteViewEventClientDefaultConfig {
-	rv := objc.Send[SLSRemoteViewEventClientDefaultConfig](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSRemoteViewEventClientDefaultConfig](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,45 +88,45 @@ type ISLSRemoteViewEventClientDefaultConfig interface {
 
 // Init initializes the instance.
 func (s SLSRemoteViewEventClientDefaultConfig) Init() SLSRemoteViewEventClientDefaultConfig {
-	rv := objc.Send[SLSRemoteViewEventClientDefaultConfig](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSRemoteViewEventClientDefaultConfig](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSRemoteViewEventClientDefaultConfig) Autorelease() SLSRemoteViewEventClientDefaultConfig {
-	rv := objc.Send[SLSRemoteViewEventClientDefaultConfig](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSRemoteViewEventClientDefaultConfig](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSRemoteViewEventClientDefaultConfig creates a new SLSRemoteViewEventClientDefaultConfig instance.
 func NewSLSRemoteViewEventClientDefaultConfig() SLSRemoteViewEventClientDefaultConfig {
 	class := getSLSRemoteViewEventClientDefaultConfigClass()
-	rv := objc.Send[SLSRemoteViewEventClientDefaultConfig](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSRemoteViewEventClientDefaultConfig](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSRemoteViewEventClientDefaultConfig) Connection() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSRemoteViewEventClientDefaultConfig) ServiceInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("serviceInterface"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("serviceInterface"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSRemoteViewEventClientDefaultConfig) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSRemoteViewEventClientDefaultConfig) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSRemoteViewEventClientDefaultConfig) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSRemoteViewEventClientDefaultConfig) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

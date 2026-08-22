@@ -38,7 +38,7 @@ func (sc SwiftNativeNSObjectClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SwiftNativeNSObjectClass) Alloc() SwiftNativeNSObject {
-	rv := objc.Send[SwiftNativeNSObject](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SwiftNativeNSObject](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,19 +64,19 @@ type ISwiftNativeNSObject interface {
 
 // Init initializes the instance.
 func (s SwiftNativeNSObject) Init() SwiftNativeNSObject {
-	rv := objc.Send[SwiftNativeNSObject](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SwiftNativeNSObject](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SwiftNativeNSObject) Autorelease() SwiftNativeNSObject {
-	rv := objc.Send[SwiftNativeNSObject](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SwiftNativeNSObject](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSwiftNativeNSObject creates a new SwiftNativeNSObject instance.
 func NewSwiftNativeNSObject() SwiftNativeNSObject {
 	class := getSwiftNativeNSObjectClass()
-	rv := objc.Send[SwiftNativeNSObject](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SwiftNativeNSObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

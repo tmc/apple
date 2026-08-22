@@ -13,6 +13,18 @@ import (
 type VZFramebufferObserver interface {
 	objectivec.IObject
 
+	// FramebufferDidUpdateCursor protocol.
+	FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor unsafe.Pointer)
+
+	// FramebufferDidUpdateFrame protocol.
+	FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame unsafe.Pointer)
+
+	// FramebufferDidUpdateGraphicsOrientation protocol.
+	FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64)
+
+	// FramebufferDidUpdateColorSpace protocol.
+	FramebufferDidUpdateColorSpace(space objectivec.IObject)
+
 	// GetDisplayProtectionOptions protocol.
 	GetDisplayProtectionOptions() unsafe.Pointer
 }
@@ -35,18 +47,18 @@ func VZFramebufferObserverObjectFromID(id objc.ID) VZFramebufferObserverObject {
 }
 
 func (o VZFramebufferObserverObject) FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateCursor:"), framebuffer, cursor)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("framebuffer:didUpdateCursor:"), framebuffer, cursor)
 }
 func (o VZFramebufferObserverObject) FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateFrame:"), framebuffer, frame)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("framebuffer:didUpdateFrame:"), framebuffer, frame)
 }
 func (o VZFramebufferObserverObject) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
-	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
 func (o VZFramebufferObserverObject) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
 }
 func (o VZFramebufferObserverObject) GetDisplayProtectionOptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("getDisplayProtectionOptions"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("getDisplayProtectionOptions"))
 	return rv
 }

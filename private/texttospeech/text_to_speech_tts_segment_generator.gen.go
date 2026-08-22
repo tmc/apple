@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSegmentGeneratorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSegmentGeneratorClass) Alloc() TextToSpeechTTSSegmentGenerator {
-	rv := objc.Send[TextToSpeechTTSSegmentGenerator](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSegmentGenerator](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSSegmentGeneratorFromID(id objc.ID) TextToSpeechTTSSegmentGen
 	return TextToSpeechTTSSegmentGenerator{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSSegmentGenerator struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSSegmentGenerator embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSSegmentGenerator implements ITextToSpeechTTSSegmentGenerator.
+var _ ITextToSpeechTTSSegmentGenerator = TextToSpeechTTSSegmentGenerator{}
 
 // An interface definition for the [TextToSpeechTTSSegmentGenerator] class.
 type ITextToSpeechTTSSegmentGenerator interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSSegmentGenerator interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSegmentGenerator) Init() TextToSpeechTTSSegmentGenerator {
-	rv := objc.Send[TextToSpeechTTSSegmentGenerator](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSegmentGenerator](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSegmentGenerator) Autorelease() TextToSpeechTTSSegmentGenerator {
-	rv := objc.Send[TextToSpeechTTSSegmentGenerator](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSegmentGenerator](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSegmentGenerator creates a new TextToSpeechTTSSegmentGenerator instance.
 func NewTextToSpeechTTSSegmentGenerator() TextToSpeechTTSSegmentGenerator {
 	class := getTextToSpeechTTSSegmentGeneratorClass()
-	rv := objc.Send[TextToSpeechTTSSegmentGenerator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSegmentGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLFeatureDescriptionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
-	rv := objc.Send[MLFeatureDescription](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureDescription](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -105,35 +105,35 @@ type IMLFeatureDescription interface {
 
 // Init initializes the instance.
 func (m MLFeatureDescription) Init() MLFeatureDescription {
-	rv := objc.Send[MLFeatureDescription](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureDescription](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureDescription) Autorelease() MLFeatureDescription {
-	rv := objc.Send[MLFeatureDescription](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureDescription](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureDescription creates a new MLFeatureDescription instance.
 func NewMLFeatureDescription() MLFeatureDescription {
 	class := getMLFeatureDescriptionClass()
-	rv := objc.Send[MLFeatureDescription](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureDescription](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFeatureDescriptionWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
 	instance := getMLFeatureDescriptionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
 	return MLFeatureDescriptionFromID(rv)
 }
 
 func (m MLFeatureDescription) AllowsValuesWithDescription(description objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowsValuesWithDescription:"), description)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowsValuesWithDescription:"), description)
 	return rv
 }
 func (m MLFeatureDescription) DebugQuickLookObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureDescription) IsAllowedValueError(value objectivec.IObject) (bool, error) {
@@ -150,43 +150,43 @@ func (m MLFeatureDescription) IsAllowedValueError(value objectivec.IObject) (boo
 
 }
 func (m MLFeatureDescription) InitWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
-	rv := objc.Send[MLFeatureDescription](m.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
+	rv := objc.SendIfResponds[MLFeatureDescription](m.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
 	return rv
 }
 
 func (_MLFeatureDescriptionClass MLFeatureDescriptionClass) FeatureDescriptionWithNameTypeOptionalConstraints(name objectivec.IObject, type_ int64, optional bool, constraints objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("featureDescriptionWithName:type:optional:constraints:"), name, type_, optional, constraints)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("featureDescriptionWithName:type:optional:constraints:"), name, type_, optional, constraints)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureDescriptionClass MLFeatureDescriptionClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLFeatureDescription) DictionaryConstraintCached() IMLDictionaryConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryConstraintCached"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryConstraintCached"))
 	return MLDictionaryConstraintFromID(objc.ID(rv))
 }
 func (m MLFeatureDescription) ImageConstraintCached() IMLImageConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageConstraintCached"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imageConstraintCached"))
 	return MLImageConstraintFromID(objc.ID(rv))
 }
 func (m MLFeatureDescription) MultiArrayConstraintCached() IMLMultiArrayConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArrayConstraintCached"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("multiArrayConstraintCached"))
 	return MLMultiArrayConstraintFromID(objc.ID(rv))
 }
 func (m MLFeatureDescription) Optional() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("optional"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("optional"))
 	return rv
 }
 func (m MLFeatureDescription) SequenceConstraintCached() IMLSequenceConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("sequenceConstraintCached"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("sequenceConstraintCached"))
 	return MLSequenceConstraintFromID(objc.ID(rv))
 }
 func (m MLFeatureDescription) ValueConstraints() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("valueConstraints"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("valueConstraints"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFeatureDescription) SetValueConstraints(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setValueConstraints:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setValueConstraints:"), value)
 }

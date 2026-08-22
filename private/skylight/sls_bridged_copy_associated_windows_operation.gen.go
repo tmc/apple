@@ -38,7 +38,7 @@ func (sc SLSBridgedCopyAssociatedWindowsOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyAssociatedWindowsOperationClass) Alloc() SLSBridgedCopyAssociatedWindowsOperation {
-	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyAssociatedWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedCopyAssociatedWindowsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopyAssociatedWindowsOperation) Init() SLSBridgedCopyAssociatedWindowsOperation {
-	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyAssociatedWindowsOperation) Autorelease() SLSBridgedCopyAssociatedWindowsOperation {
-	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyAssociatedWindowsOperation creates a new SLSBridgedCopyAssociatedWindowsOperation instance.
 func NewSLSBridgedCopyAssociatedWindowsOperation() SLSBridgedCopyAssociatedWindowsOperation {
 	class := getSLSBridgedCopyAssociatedWindowsOperationClass()
-	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyAssociatedWindowsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyAssociatedWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyAssociatedWindowsOperation {
 	instance := getSLSBridgedCopyAssociatedWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyAssociatedWindowsOperationFromID(rv)
 }
 
 func NewSLSBridgedCopyAssociatedWindowsOperationWithWindowID(id uint32) SLSBridgedCopyAssociatedWindowsOperation {
 	instance := getSLSBridgedCopyAssociatedWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSBridgedCopyAssociatedWindowsOperationFromID(rv)
 }
 
 func (s SLSBridgedCopyAssociatedWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedCopyAssociatedWindowsOperation) InitWithWindowID(id uint32) SLSBridgedCopyAssociatedWindowsOperation {
-	rv := objc.Send[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("initWithWindowID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedCopyAssociatedWindowsOperation](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
 func (s SLSBridgedCopyAssociatedWindowsOperation) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }

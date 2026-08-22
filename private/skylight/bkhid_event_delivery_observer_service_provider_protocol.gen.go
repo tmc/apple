@@ -10,6 +10,9 @@ import (
 // BKHIDEventDeliveryObserverServiceProvider protocol.
 type BKHIDEventDeliveryObserverServiceProvider interface {
 	objectivec.IObject
+
+	// DeliveryObserverServiceForAuditToken protocol.
+	DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject
 }
 
 // BKHIDEventDeliveryObserverServiceProviderObject wraps an existing Objective-C object that conforms to the BKHIDEventDeliveryObserverServiceProvider protocol.
@@ -30,6 +33,6 @@ func BKHIDEventDeliveryObserverServiceProviderObjectFromID(id objc.ID) BKHIDEven
 }
 
 func (o BKHIDEventDeliveryObserverServiceProviderObject) DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }

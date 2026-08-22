@@ -10,6 +10,9 @@ import (
 // SLSDisplayControlServiceProtocol protocol.
 type SLSDisplayControlServiceProtocol interface {
 	objectivec.IObject
+
+	// Service protocol.
+	Service() objectivec.IObject
 }
 
 // SLSDisplayControlServiceProtocolObject wraps an existing Objective-C object that conforms to the SLSDisplayControlServiceProtocol protocol.
@@ -30,6 +33,6 @@ func SLSDisplayControlServiceProtocolObjectFromID(id objc.ID) SLSDisplayControlS
 }
 
 func (o SLSDisplayControlServiceProtocolObject) Service() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("service"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("service"))
 	return objectivec.Object{ID: rv}
 }

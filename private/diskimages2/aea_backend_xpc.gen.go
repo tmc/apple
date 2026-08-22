@@ -39,7 +39,7 @@ func (ac AEABackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AEABackendXPCClass) Alloc() AEABackendXPC {
-	rv := objc.Send[AEABackendXPC](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AEABackendXPC](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type IAEABackendXPC interface {
 
 // Init initializes the instance.
 func (a AEABackendXPC) Init() AEABackendXPC {
-	rv := objc.Send[AEABackendXPC](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AEABackendXPC](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AEABackendXPC) Autorelease() AEABackendXPC {
-	rv := objc.Send[AEABackendXPC](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AEABackendXPC](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAEABackendXPC creates a new AEABackendXPC instance.
 func NewAEABackendXPC() AEABackendXPC {
 	class := getAEABackendXPCClass()
-	rv := objc.Send[AEABackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AEABackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAEABackendXPCWithBackendKey(backend objectivec.IObject, key unsafe.Pointer) AEABackendXPC {
 	instance := getAEABackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:key:"), backend, key)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackend:key:"), backend, key)
 	return AEABackendXPCFromID(rv)
 }
 
 func NewAEABackendXPCWithCoder(coder objectivec.IObject) AEABackendXPC {
 	instance := getAEABackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return AEABackendXPCFromID(rv)
 }
 
 func (a AEABackendXPC) InitWithBackendKey(backend objectivec.IObject, key unsafe.Pointer) AEABackendXPC {
-	rv := objc.Send[AEABackendXPC](a.ID, objc.Sel("initWithBackend:key:"), backend, key)
+	rv := objc.SendIfResponds[AEABackendXPC](a.ID, objc.Sel("initWithBackend:key:"), backend, key)
 	return rv
 }
 
 func (a AEABackendXPC) BaseBackendXPC() IBackendXPC {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("baseBackendXPC"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
 func (a AEABackendXPC) Key() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("key"))
 	return rv
 }

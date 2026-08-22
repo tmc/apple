@@ -41,7 +41,7 @@ func (mc MLGLMClassificationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGLMClassificationClass) Alloc() MLGLMClassification {
-	rv := objc.Send[MLGLMClassification](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGLMClassification](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,8 +65,8 @@ func MLGLMClassificationFromID(id objc.ID) MLGLMClassification {
 	return MLGLMClassification{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLGLMClassification struct embeds objectivec.Object (parent type unavailable) but
-// IMLGLMClassification embeds the parent interface; skip compile-time assertion.
+// Ensure MLGLMClassification implements IMLGLMClassification.
+var _ IMLGLMClassification = MLGLMClassification{}
 
 // An interface definition for the [MLGLMClassification] class.
 //
@@ -82,7 +82,7 @@ func MLGLMClassificationFromID(id objc.ID) MLGLMClassification {
 //   - [IMLGLMClassification.Hash]
 //   - [IMLGLMClassification.Superclass]
 type IMLGLMClassification interface {
-	IMLClassifier
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -99,30 +99,33 @@ type IMLGLMClassification interface {
 
 // Init initializes the instance.
 func (m MLGLMClassification) Init() MLGLMClassification {
-	rv := objc.Send[MLGLMClassification](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGLMClassification](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGLMClassification) Autorelease() MLGLMClassification {
-	rv := objc.Send[MLGLMClassification](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGLMClassification](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGLMClassification creates a new MLGLMClassification instance.
 func NewMLGLMClassification() MLGLMClassification {
 	class := getMLGLMClassificationClass()
-	rv := objc.Send[MLGLMClassification](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGLMClassification](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGLMClassificationWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMClassification, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMClassificationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMClassification{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLGLMClassification{}, objc.ErrInitFailed
 	}
 	return MLGLMClassificationFromID(rv), nil
 }
@@ -193,18 +196,18 @@ func (_MLGLMClassificationClass MLGLMClassificationClass) LoadModelFromSpecifica
 }
 
 func (m MLGLMClassification) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGLMClassification) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGLMClassification) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLGLMClassification) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

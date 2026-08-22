@@ -15,6 +15,9 @@ var _ = fmt.Sprintf
 type VZPluginConnectionDelegate interface {
 	objectivec.IObject
 
+	// HandleConnectionError protocol.
+	HandleConnectionError(error_ objectivec.IObject)
+
 	// InvalidateConnection protocol.
 	InvalidateConnection()
 }
@@ -37,10 +40,10 @@ func VZPluginConnectionDelegateObjectFromID(id objc.ID) VZPluginConnectionDelega
 }
 
 func (o VZPluginConnectionDelegateObject) HandleConnectionError(error_ objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("handleConnectionError:"), error_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("handleConnectionError:"), error_)
 }
 func (o VZPluginConnectionDelegateObject) InvalidateConnection() {
-	objc.Send[struct{}](o.ID, objc.Sel("invalidateConnection"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("invalidateConnection"))
 }
 
 // VZPluginConnectionDelegateConfig holds optional typed callbacks for [_VZPluginConnectionDelegate] methods.
@@ -72,7 +75,19 @@ func NewVZPluginConnectionDelegate(config VZPluginConnectionDelegateConfig) VZPl
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("invalidateConnection"),
 			Fn: func(self objc.ID, _cmd objc.SEL) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("_VZPluginConnectionDelegate", "invalidateConnection")
+					}
+				}()
 				fn()
+				_delegateDone = true
 			},
 		})
 	}

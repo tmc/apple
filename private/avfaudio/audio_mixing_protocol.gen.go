@@ -11,6 +11,9 @@ import (
 type AVAudioMixing interface {
 	objectivec.IObject
 
+	// DestinationForMixerBus protocol.
+	DestinationForMixerBus(mixer objectivec.IObject, bus uint64) objectivec.IObject
+
 	// SetVolume protocol.
 	SetVolume(volume float32)
 
@@ -36,13 +39,13 @@ func AVAudioMixingObjectFromID(id objc.ID) AVAudioMixingObject {
 }
 
 func (o AVAudioMixingObject) DestinationForMixerBus(mixer objectivec.IObject, bus uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
 	return objectivec.Object{ID: rv}
 }
 func (o AVAudioMixingObject) SetVolume(volume float32) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVolume:"), volume)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setVolume:"), volume)
 }
 func (o AVAudioMixingObject) Volume() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("volume"))
+	rv := objc.SendIfResponds[float32](o.ID, objc.Sel("volume"))
 	return rv
 }

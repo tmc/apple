@@ -41,7 +41,7 @@ func (mc MLE5InputPortBinderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5InputPortBinderClass) Alloc() MLE5InputPortBinder {
-	rv := objc.Send[MLE5InputPortBinder](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5InputPortBinder](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -126,31 +126,31 @@ type IMLE5InputPortBinder interface {
 
 // Init initializes the instance.
 func (m MLE5InputPortBinder) Init() MLE5InputPortBinder {
-	rv := objc.Send[MLE5InputPortBinder](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5InputPortBinder](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5InputPortBinder) Autorelease() MLE5InputPortBinder {
-	rv := objc.Send[MLE5InputPortBinder](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5InputPortBinder](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5InputPortBinder creates a new MLE5InputPortBinder instance.
 func NewMLE5InputPortBinder() MLE5InputPortBinder {
 	class := getMLE5InputPortBinderClass()
-	rv := objc.Send[MLE5InputPortBinder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5InputPortBinder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5InputPortBinderWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5InputPortBinder {
 	instance := getMLE5InputPortBinderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return MLE5InputPortBinderFromID(rv)
 }
 
 func (m MLE5InputPortBinder) _reusableForFeatureValueDirectMode(value objectivec.IObject, mode byte) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForFeatureValue:directMode:"), value, mode)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_reusableForFeatureValue:directMode:"), value, mode)
 	return rv
 }
 
@@ -194,7 +194,7 @@ func (m MLE5InputPortBinder) CopyFeatureValueError(value objectivec.IObject) (bo
 
 }
 func (m MLE5InputPortBinder) Reset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reset"))
 }
 func (m MLE5InputPortBinder) ReusableForFeatureValueWillBindDirectly(value objectivec.IObject) (bool, bool) {
 	var directly bool
@@ -202,52 +202,52 @@ func (m MLE5InputPortBinder) ReusableForFeatureValueWillBindDirectly(value objec
 	return directly, rv
 }
 func (m MLE5InputPortBinder) InitWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5InputPortBinder {
-	rv := objc.Send[MLE5InputPortBinder](m.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
+	rv := objc.SendIfResponds[MLE5InputPortBinder](m.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return rv
 }
 
 func (m MLE5InputPortBinder) BindingMode() byte {
-	rv := objc.Send[byte](m.ID, objc.Sel("bindingMode"))
+	rv := objc.SendIfResponds[byte](m.ID, objc.Sel("bindingMode"))
 	return rv
 }
 func (m MLE5InputPortBinder) SetBindingMode(value byte) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBindingMode:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBindingMode:"), value)
 }
 func (m MLE5InputPortBinder) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5InputPortBinder) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5InputPortBinder) DirectlyBoundFeatureValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("directlyBoundFeatureValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("directlyBoundFeatureValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
 func (m MLE5InputPortBinder) SetDirectlyBoundFeatureValue(value IMLFeatureValue) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDirectlyBoundFeatureValue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDirectlyBoundFeatureValue:"), value)
 }
 func (m MLE5InputPortBinder) FeatureDescription() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureDescription"))
 	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
 func (m MLE5InputPortBinder) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLE5InputPortBinder) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 func (m MLE5InputPortBinder) SetPixelBufferPool(value IMLPixelBufferPool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
 }
 func (m MLE5InputPortBinder) PortHandle() E5rtIOPortRef {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("portHandle"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("portHandle"))
 	return E5rtIOPortRef(rv)
 }
 func (m MLE5InputPortBinder) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

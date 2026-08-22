@@ -41,7 +41,7 @@ func (vc VZVirtualMachineViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
-	rv := objc.Send[VZVirtualMachineView](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineView](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -129,31 +129,31 @@ type IVZVirtualMachineView interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineView) Init() VZVirtualMachineView {
-	rv := objc.Send[VZVirtualMachineView](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineView](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineView) Autorelease() VZVirtualMachineView {
-	rv := objc.Send[VZVirtualMachineView](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineView](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineView creates a new VZVirtualMachineView instance.
 func NewVZVirtualMachineView() VZVirtualMachineView {
 	class := getVZVirtualMachineViewClass()
-	rv := objc.Send[VZVirtualMachineView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVirtualMachineViewWithCoder(coder objectivec.IObject) VZVirtualMachineView {
 	instance := getVZVirtualMachineViewClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VZVirtualMachineViewFromID(rv)
 }
 
 func (v VZVirtualMachineView) _grabMouseInput() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_grabMouseInput"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_grabMouseInput"))
 	return rv
 }
 
@@ -171,7 +171,7 @@ func (v VZVirtualMachineView) CanGrabMouseInput() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_grabMouseInput"))
 }
 func (v VZVirtualMachineView) _releaseMouseInput() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_releaseMouseInput"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_releaseMouseInput"))
 	return rv
 }
 
@@ -189,7 +189,7 @@ func (v VZVirtualMachineView) CanReleaseMouseInput() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseMouseInput"))
 }
 func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
 }
 
 // SetDelegate is an exported wrapper for the private method _setDelegate.
@@ -207,7 +207,7 @@ func (v VZVirtualMachineView) CanSetDelegate() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:"))
 }
 func (v VZVirtualMachineView) _setGraphicsDisplay(display objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDisplay:"), display)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setGraphicsDisplay:"), display)
 }
 
 // SetGraphicsDisplay is an exported wrapper for the private method _setGraphicsDisplay.
@@ -225,7 +225,7 @@ func (v VZVirtualMachineView) CanSetGraphicsDisplay() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDisplay:"))
 }
 func (v VZVirtualMachineView) _setScaleMode(mode int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setScaleMode:"), mode)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setScaleMode:"), mode)
 }
 
 // SetScaleMode is an exported wrapper for the private method _setScaleMode.
@@ -243,22 +243,22 @@ func (v VZVirtualMachineView) CanSetScaleMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setScaleMode:"))
 }
 func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
 func (v VZVirtualMachineView) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
 }
 
 func (v VZVirtualMachineView) _canGrabMouseInput() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_canGrabMouseInput"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_canGrabMouseInput"))
 	return rv
 }
 func (v VZVirtualMachineView) _canReleaseMouseInput() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_canReleaseMouseInput"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_canReleaseMouseInput"))
 	return rv
 }
 func (v VZVirtualMachineView) _delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_delegate"))
 	return rv
 }
 
@@ -275,10 +275,10 @@ func (v VZVirtualMachineView) Delegate() (unsafe.Pointer, error) {
 	return v._delegate(), nil
 }
 func (v VZVirtualMachineView) Set_delegate(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_delegate:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_delegate:"), value)
 }
 func (v VZVirtualMachineView) _graphicsDisplay() IVZGraphicsDisplay {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDisplay"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_graphicsDisplay"))
 	return VZGraphicsDisplayFromID(objc.ID(rv))
 }
 
@@ -295,10 +295,10 @@ func (v VZVirtualMachineView) GraphicsDisplay() (IVZGraphicsDisplay, error) {
 	return v._graphicsDisplay(), nil
 }
 func (v VZVirtualMachineView) Set_graphicsDisplay(value IVZGraphicsDisplay) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_graphicsDisplay:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_graphicsDisplay:"), value)
 }
 func (v VZVirtualMachineView) _scaleMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_scaleMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_scaleMode"))
 	return rv
 }
 
@@ -315,21 +315,21 @@ func (v VZVirtualMachineView) ScaleMode() (int64, error) {
 	return v._scaleMode(), nil
 }
 func (v VZVirtualMachineView) Set_scaleMode(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)
 }
 func (v VZVirtualMachineView) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZVirtualMachineView) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZVirtualMachineView) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZVirtualMachineView) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

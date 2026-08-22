@@ -41,7 +41,7 @@ func (dc DIStackParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIStackParamsClass) Alloc() DIStackParams {
-	rv := objc.Send[DIStackParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIStackParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,36 +78,39 @@ type IDIStackParams interface {
 
 // Init initializes the instance.
 func (d DIStackParams) Init() DIStackParams {
-	rv := objc.Send[DIStackParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIStackParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIStackParams) Autorelease() DIStackParams {
-	rv := objc.Send[DIStackParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIStackParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIStackParams creates a new DIStackParams instance.
 func NewDIStackParams() DIStackParams {
 	class := getDIStackParamsClass()
-	rv := objc.Send[DIStackParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIStackParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIStackParamsWithCoder(coder objectivec.IObject) DIStackParams {
 	instance := getDIStackParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStackParamsFromID(rv)
 }
 
 func NewDIStackParamsWithURLError(url foundation.NSURL) (DIStackParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStackParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIStackParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIStackParams{}, objc.ErrInitFailed
 	}
 	return DIStackParamsFromID(rv), nil
 }

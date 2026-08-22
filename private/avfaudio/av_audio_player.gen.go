@@ -39,7 +39,7 @@ func (ac AVAudioPlayerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
-	rv := objc.Send[AVAudioPlayer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioPlayer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -115,80 +115,80 @@ type IAVAudioPlayer interface {
 
 // Init initializes the instance.
 func (a AVAudioPlayer) Init() AVAudioPlayer {
-	rv := objc.Send[AVAudioPlayer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioPlayer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioPlayer) Autorelease() AVAudioPlayer {
-	rv := objc.Send[AVAudioPlayer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioPlayer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioPlayer creates a new AVAudioPlayer instance.
 func NewAVAudioPlayer() AVAudioPlayer {
 	class := getAVAudioPlayerClass()
-	rv := objc.Send[AVAudioPlayer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioPlayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioPlayerBase() AVAudioPlayer {
 	instance := getAVAudioPlayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initBase"))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initBase"))
 	return AVAudioPlayerFromID(rv)
 }
 
 func (a AVAudioPlayer) STSLabel() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("STSLabel"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("STSLabel"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioPlayer) DecodeError(error_ objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("decodeError:"), error_)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("decodeError:"), error_)
 }
 func (a AVAudioPlayer) FinishedPlaying(playing objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("finishedPlaying:"), playing)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("finishedPlaying:"), playing)
 }
 func (a AVAudioPlayer) Impl() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("impl"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("impl"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioPlayer) MixToUplink() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("mixToUplink"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("mixToUplink"))
 	return rv
 }
 func (a AVAudioPlayer) PrivRemoveSessionListener() {
-	objc.Send[objc.ID](a.ID, objc.Sel("privRemoveSessionListener"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privRemoveSessionListener"))
 }
 func (a AVAudioPlayer) SetMixToUplink(uplink bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setMixToUplink:"), uplink)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setMixToUplink:"), uplink)
 }
 func (a AVAudioPlayer) SetSTSLabel(sTSLabel objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSTSLabel:"), sTSLabel)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSTSLabel:"), sTSLabel)
 }
 func (a AVAudioPlayer) SetUseInjectionDevice(device bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setUseInjectionDevice:"), device)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setUseInjectionDevice:"), device)
 }
 func (a AVAudioPlayer) UseInjectionDevice() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("useInjectionDevice"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("useInjectionDevice"))
 	return rv
 }
 func (a AVAudioPlayer) InitBase() AVAudioPlayer {
-	rv := objc.Send[AVAudioPlayer](a.ID, objc.Sel("initBase"))
+	rv := objc.SendIfResponds[AVAudioPlayer](a.ID, objc.Sel("initBase"))
 	return rv
 }
 
 func (a AVAudioPlayer) MeteringEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
 }
 func (a AVAudioPlayer) SetMeteringEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
 func (a AVAudioPlayer) Playing() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("playing"))
 	return rv
 }
 func (a AVAudioPlayer) Url() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -40,7 +40,7 @@ func (mc MLSequenceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSequenceClass) Alloc() MLSequence {
-	rv := objc.Send[MLSequence](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSequence](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,36 @@ type IMLSequence interface {
 
 // Init initializes the instance.
 func (m MLSequence) Init() MLSequence {
-	rv := objc.Send[MLSequence](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSequence](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSequence) Autorelease() MLSequence {
-	rv := objc.Send[MLSequence](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSequence](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSequence creates a new MLSequence instance.
 func NewMLSequence() MLSequence {
 	class := getMLSequenceClass()
-	rv := objc.Send[MLSequence](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSequence](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSequenceWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
 	instance := getMLSequenceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:type:"), array, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return MLSequenceFromID(rv)
 }
 
 func (m MLSequence) InitWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
-	rv := objc.Send[MLSequence](m.ID, objc.Sel("initWithArray:type:"), array, type_)
+	rv := objc.SendIfResponds[MLSequence](m.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return rv
 }
 
 func (_MLSequenceClass MLSequenceClass) EmptySequenceWithType(type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("emptySequenceWithType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("emptySequenceWithType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLSequenceClass MLSequenceClass) SequenceFromArrayError(array objectivec.IObject) (objectivec.IObject, error) {
@@ -123,23 +123,23 @@ func (_MLSequenceClass MLSequenceClass) SequenceFromArrayError(array objectivec.
 
 }
 func (_MLSequenceClass MLSequenceClass) SequenceWithInt64Array(int64Array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithInt64Array:"), int64Array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithInt64Array:"), int64Array)
 	return objectivec.Object{ID: rv}
 }
 func (_MLSequenceClass MLSequenceClass) SequenceWithStringArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithStringArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSequenceClass.class), objc.Sel("sequenceWithStringArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (_MLSequenceClass MLSequenceClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLSequenceClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLSequenceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLSequence) FeatureValues() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSequence) Values() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("values"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("values"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

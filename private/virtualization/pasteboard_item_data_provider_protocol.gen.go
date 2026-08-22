@@ -10,6 +10,12 @@ import (
 // NSPasteboardItemDataProvider protocol.
 type NSPasteboardItemDataProvider interface {
 	objectivec.IObject
+
+	// PasteboardItemProvideDataForType protocol.
+	PasteboardItemProvideDataForType(pasteboard objectivec.IObject, item objectivec.IObject, type_ objectivec.IObject)
+
+	// PasteboardFinishedWithDataProvider protocol.
+	PasteboardFinishedWithDataProvider(provider objectivec.IObject)
 }
 
 // NSPasteboardItemDataProviderObject wraps an existing Objective-C object that conforms to the NSPasteboardItemDataProvider protocol.
@@ -30,8 +36,8 @@ func NSPasteboardItemDataProviderObjectFromID(id objc.ID) NSPasteboardItemDataPr
 }
 
 func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pasteboard objectivec.IObject, item objectivec.IObject, type_ objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, type_)
 }
 func (o NSPasteboardItemDataProviderObject) PasteboardFinishedWithDataProvider(provider objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("pasteboardFinishedWithDataProvider:"), provider)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("pasteboardFinishedWithDataProvider:"), provider)
 }

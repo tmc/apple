@@ -37,7 +37,7 @@ func (vc VZVNCNoSecuritySecurityConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVNCNoSecuritySecurityConfigurationClass) Alloc() VZVNCNoSecuritySecurityConfiguration {
-	rv := objc.Send[VZVNCNoSecuritySecurityConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVNCNoSecuritySecurityConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVNCNoSecuritySecurityConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVNCNoSecuritySecurityConfiguration) Init() VZVNCNoSecuritySecurityConfiguration {
-	rv := objc.Send[VZVNCNoSecuritySecurityConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVNCNoSecuritySecurityConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVNCNoSecuritySecurityConfiguration) Autorelease() VZVNCNoSecuritySecurityConfiguration {
-	rv := objc.Send[VZVNCNoSecuritySecurityConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVNCNoSecuritySecurityConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVNCNoSecuritySecurityConfiguration creates a new VZVNCNoSecuritySecurityConfiguration instance.
 func NewVZVNCNoSecuritySecurityConfiguration() VZVNCNoSecuritySecurityConfiguration {
 	class := getVZVNCNoSecuritySecurityConfigurationClass()
-	rv := objc.Send[VZVNCNoSecuritySecurityConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVNCNoSecuritySecurityConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

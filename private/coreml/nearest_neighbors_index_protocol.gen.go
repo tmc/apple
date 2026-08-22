@@ -44,15 +44,15 @@ func MLNearestNeighborsIndexObjectFromID(id objc.ID) MLNearestNeighborsIndexObje
 }
 
 func (o MLNearestNeighborsIndexObject) DataPointCount() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("dataPointCount"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("dataPointCount"))
 	return rv
 }
 func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToIndex(neighbors uint64, index uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
 	return rv
 }
 func (o MLNearestNeighborsIndexObject) FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
 	return rv
 }
 func (o MLNearestNeighborsIndexObject) UpdateWithDataError(data unsafe.Pointer) (bool, error) {

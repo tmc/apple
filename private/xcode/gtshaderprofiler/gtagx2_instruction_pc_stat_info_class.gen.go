@@ -38,7 +38,7 @@ func (gc GTAGX2InstructionPCStatInfoClassClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2InstructionPCStatInfoClassClass) Alloc() GTAGX2InstructionPCStatInfoClass {
-	rv := objc.Send[GTAGX2InstructionPCStatInfoClass](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2InstructionPCStatInfoClass](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,25 +72,24 @@ type IGTAGX2InstructionPCStatInfoClass interface {
 
 // Init initializes the instance.
 func (g GTAGX2InstructionPCStatInfoClass) Init() GTAGX2InstructionPCStatInfoClass {
-	rv := objc.Send[GTAGX2InstructionPCStatInfoClass](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2InstructionPCStatInfoClass](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2InstructionPCStatInfoClass) Autorelease() GTAGX2InstructionPCStatInfoClass {
-	rv := objc.Send[GTAGX2InstructionPCStatInfoClass](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2InstructionPCStatInfoClass](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2InstructionPCStatInfoClass creates a new GTAGX2InstructionPCStatInfoClass instance.
 func NewGTAGX2InstructionPCStatInfoClass() GTAGX2InstructionPCStatInfoClass {
 	class := getGTAGX2InstructionPCStatInfoClassClass()
-	rv := objc.Send[GTAGX2InstructionPCStatInfoClass](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2InstructionPCStatInfoClass](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (g GTAGX2InstructionPCStatInfoClass) InstructionPCStatInfo() InstructionPCStatInfo {
-	rv := objc.Send[InstructionPCStatInfo](g.ID, objc.Sel("instructionPCStatInfo"))
-	_ = rv
-	return InstructionPCStatInfo{}
+	rv := objc.SendIfResponds[InstructionPCStatInfo](g.ID, objc.Sel("instructionPCStatInfo"))
+	return InstructionPCStatInfo(rv)
 }

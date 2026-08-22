@@ -13,6 +13,9 @@ type MLBatchProvider interface {
 
 	// Count protocol.
 	Count() int64
+
+	// FeaturesAtIndex protocol.
+	FeaturesAtIndex(index int64) objectivec.IObject
 }
 
 // MLBatchProviderObject wraps an existing Objective-C object that conforms to the MLBatchProvider protocol.
@@ -33,10 +36,10 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 }
 
 func (o MLBatchProviderObject) Count() int64 {
-	rv := objc.Send[int64](o.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](o.ID, objc.Sel("count"))
 	return rv
 }
 func (o MLBatchProviderObject) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }

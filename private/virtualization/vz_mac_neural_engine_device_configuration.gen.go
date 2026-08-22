@@ -37,7 +37,7 @@ func (vc VZMacNeuralEngineDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacNeuralEngineDeviceConfigurationClass) Alloc() VZMacNeuralEngineDeviceConfiguration {
-	rv := objc.Send[VZMacNeuralEngineDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacNeuralEngineDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,25 +80,25 @@ type IVZMacNeuralEngineDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacNeuralEngineDeviceConfiguration) Init() VZMacNeuralEngineDeviceConfiguration {
-	rv := objc.Send[VZMacNeuralEngineDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacNeuralEngineDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacNeuralEngineDeviceConfiguration) Autorelease() VZMacNeuralEngineDeviceConfiguration {
-	rv := objc.Send[VZMacNeuralEngineDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacNeuralEngineDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacNeuralEngineDeviceConfiguration creates a new VZMacNeuralEngineDeviceConfiguration instance.
 func NewVZMacNeuralEngineDeviceConfiguration() VZMacNeuralEngineDeviceConfiguration {
 	class := getVZMacNeuralEngineDeviceConfigurationClass()
-	rv := objc.Send[VZMacNeuralEngineDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacNeuralEngineDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacNeuralEngineDeviceConfiguration) _isSignatureMismatchAllowed() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isSignatureMismatchAllowed"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isSignatureMismatchAllowed"))
 	return rv
 }
 
@@ -116,7 +116,7 @@ func (v VZMacNeuralEngineDeviceConfiguration) CanIsSignatureMismatchAllowed() bo
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isSignatureMismatchAllowed"))
 }
 func (v VZMacNeuralEngineDeviceConfiguration) _setSignatureMismatchAllowed(allowed bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setSignatureMismatchAllowed:"), allowed)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSignatureMismatchAllowed:"), allowed)
 }
 
 // SetSignatureMismatchAllowed is an exported wrapper for the private method _setSignatureMismatchAllowed.
@@ -135,7 +135,7 @@ func (v VZMacNeuralEngineDeviceConfiguration) CanSetSignatureMismatchAllowed() b
 }
 
 func (v VZMacNeuralEngineDeviceConfiguration) _signatureMismatchAllowed() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_signatureMismatchAllowed"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_signatureMismatchAllowed"))
 	return rv
 }
 
@@ -152,5 +152,5 @@ func (v VZMacNeuralEngineDeviceConfiguration) SignatureMismatchAllowed() (bool, 
 	return v._signatureMismatchAllowed(), nil
 }
 func (v VZMacNeuralEngineDeviceConfiguration) Set_signatureMismatchAllowed(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_signatureMismatchAllowed:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_signatureMismatchAllowed:"), value)
 }

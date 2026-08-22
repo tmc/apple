@@ -41,7 +41,7 @@ func (mc MLPipelineCompilerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPipelineCompilerClass) Alloc() MLPipelineCompiler {
-	rv := objc.Send[MLPipelineCompiler](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPipelineCompiler](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,25 +64,25 @@ type IMLPipelineCompiler interface {
 
 // Init initializes the instance.
 func (m MLPipelineCompiler) Init() MLPipelineCompiler {
-	rv := objc.Send[MLPipelineCompiler](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPipelineCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPipelineCompiler) Autorelease() MLPipelineCompiler {
-	rv := objc.Send[MLPipelineCompiler](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPipelineCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPipelineCompiler creates a new MLPipelineCompiler instance.
 func NewMLPipelineCompiler() MLPipelineCompiler {
 	class := getMLPipelineCompilerClass()
-	rv := objc.Send[MLPipelineCompiler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPipelineCompiler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archiveCustomModelNamesTo(names unsafe.Pointer, to unsafe.Pointer) {
-	objc.Send[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archiveCustomModelNames:to:"), names, to)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archiveCustomModelNames:to:"), names, to)
 }
 
 // ArchiveCustomModelNamesTo is an exported wrapper for the private method _archiveCustomModelNamesTo.
@@ -127,7 +127,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) CanArchivePipelineModelD
 	return objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineModelDetailsFrom:toArchive:error:"))
 }
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineUpdateParameterForModelsToUpdatable(models unsafe.Pointer, to unsafe.Pointer, updatable bool) {
-	objc.Send[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineUpdateParameterForModels:to:updatable:"), models, to, updatable)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineUpdateParameterForModels:to:updatable:"), models, to, updatable)
 }
 
 // ArchivePipelineUpdateParameterForModelsToUpdatable is an exported wrapper for the private method _archivePipelineUpdateParameterForModelsToUpdatable.

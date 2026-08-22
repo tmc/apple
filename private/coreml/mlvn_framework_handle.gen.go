@@ -43,7 +43,7 @@ func (mc MLVNFrameworkHandleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLVNFrameworkHandleClass) Alloc() MLVNFrameworkHandle {
-	rv := objc.Send[MLVNFrameworkHandle](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLVNFrameworkHandle](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -137,20 +137,20 @@ type IMLVNFrameworkHandle interface {
 
 // Init initializes the instance.
 func (m MLVNFrameworkHandle) Init() MLVNFrameworkHandle {
-	rv := objc.Send[MLVNFrameworkHandle](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLVNFrameworkHandle](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLVNFrameworkHandle) Autorelease() MLVNFrameworkHandle {
-	rv := objc.Send[MLVNFrameworkHandle](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLVNFrameworkHandle](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLVNFrameworkHandle creates a new MLVNFrameworkHandle instance.
 func NewMLVNFrameworkHandle() MLVNFrameworkHandle {
 	class := getMLVNFrameworkHandleClass()
-	rv := objc.Send[MLVNFrameworkHandle](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLVNFrameworkHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -185,11 +185,11 @@ func (m MLVNFrameworkHandle) CreatePixelBufferFromVNImageBufferConstraintCropRec
 
 }
 func (m MLVNFrameworkHandle) DetectionPrintShapes(shapes uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintShapes:"), shapes)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintShapes:"), shapes)
 	return objectivec.Object{ID: rv}
 }
 func (m MLVNFrameworkHandle) DetectionPrintSupportedRevisions() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintSupportedRevisions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintSupportedRevisions"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLVNFrameworkHandle) DetectionPrintsFromPixelBuffersVersionAugmentationOptionsUseCPUOnlyError(buffers corevideo.CVImageBufferRef, version uint64, options objectivec.IObject, cPUOnly bool) (objectivec.IObject, error) {
@@ -203,15 +203,15 @@ func (m MLVNFrameworkHandle) DetectionPrintsFromPixelBuffersVersionAugmentationO
 
 }
 func (m MLVNFrameworkHandle) ElementCountForScenePrintRequestRevision(revision uint64) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("elementCountForScenePrintRequestRevision:"), revision)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("elementCountForScenePrintRequestRevision:"), revision)
 	return rv
 }
 func (m MLVNFrameworkHandle) IsValid() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isValid"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isValid"))
 	return rv
 }
 func (m MLVNFrameworkHandle) LengthInBytesForScenePrintRequestRevision(revision uint64) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("lengthInBytesForScenePrintRequestRevision:"), revision)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("lengthInBytesForScenePrintRequestRevision:"), revision)
 	return rv
 }
 func (m MLVNFrameworkHandle) ScenePrintsFromPixelBuffersVersionAugmentationOptionsUseCPUOnlyError(buffers corevideo.CVImageBufferRef, version uint64, options objectivec.IObject, cPUOnly bool) (objectivec.IObject, error) {
@@ -226,63 +226,63 @@ func (m MLVNFrameworkHandle) ScenePrintsFromPixelBuffersVersionAugmentationOptio
 }
 
 func (_MLVNFrameworkHandleClass MLVNFrameworkHandleClass) AddOrientationToOptions(orientation uint32, options objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLVNFrameworkHandleClass.class), objc.Sel("addOrientation:toOptions:"), orientation, options)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLVNFrameworkHandleClass.class), objc.Sel("addOrientation:toOptions:"), orientation, options)
 	return objectivec.Object{ID: rv}
 }
 func (_MLVNFrameworkHandleClass MLVNFrameworkHandleClass) SharedHandle() MLVNFrameworkHandle {
-	rv := objc.Send[objc.ID](objc.ID(_MLVNFrameworkHandleClass.class), objc.Sel("sharedHandle"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLVNFrameworkHandleClass.class), objc.Sel("sharedHandle"))
 	return MLVNFrameworkHandleFromID(rv)
 }
 
 func (m MLVNFrameworkHandle) VNImageBufferClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("VNImageBufferClass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("VNImageBufferClass"))
 	return objectivec.Class(rv)
 }
 func (m MLVNFrameworkHandle) DetectionPrintShapesImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintShapesImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintShapesImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) DetectionPrintSupportedRevisionsImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintSupportedRevisionsImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintSupportedRevisionsImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) DetectionPrintsFromPixelBuffersImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintsFromPixelBuffersImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintsFromPixelBuffersImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) DetectionPrintsFromPixelBuffersUsesCPUOnlyImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("detectionPrintsFromPixelBuffersUsesCPUOnlyImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("detectionPrintsFromPixelBuffersUsesCPUOnlyImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) ScenePrintElementCountImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scenePrintElementCountImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scenePrintElementCountImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) ScenePrintLengthImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scenePrintLengthImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scenePrintLengthImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) ScenePrintsFromPixelBuffersImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scenePrintsFromPixelBuffersImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scenePrintsFromPixelBuffersImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) ScenePrintsFromPixelBuffersUsesCPUOnlyImpl() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scenePrintsFromPixelBuffersUsesCPUOnlyImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scenePrintsFromPixelBuffersUsesCPUOnlyImpl"))
 	_ = rv
 	return nil
 }
 func (m MLVNFrameworkHandle) ValidForObjectprint() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("validForObjectprint"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("validForObjectprint"))
 	return rv
 }
 func (m MLVNFrameworkHandle) ValidForSceneprint() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("validForSceneprint"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("validForSceneprint"))
 	return rv
 }

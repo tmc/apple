@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceGetRectOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceGetRectOperationClass) Alloc() SLSBridgedSpaceGetRectOperation {
-	rv := objc.Send[SLSBridgedSpaceGetRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceGetRectOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceGetRectOperation) Init() SLSBridgedSpaceGetRectOperation {
-	rv := objc.Send[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceGetRectOperation) Autorelease() SLSBridgedSpaceGetRectOperation {
-	rv := objc.Send[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceGetRectOperation creates a new SLSBridgedSpaceGetRectOperation instance.
 func NewSLSBridgedSpaceGetRectOperation() SLSBridgedSpaceGetRectOperation {
 	class := getSLSBridgedSpaceGetRectOperationClass()
-	rv := objc.Send[SLSBridgedSpaceGetRectOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetRectOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceGetRectOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetRectOperation {
 	instance := getSLSBridgedSpaceGetRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetRectOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceGetRectOperationWithSpaceID(id uint64) SLSBridgedSpaceGetRectOperation {
 	instance := getSLSBridgedSpaceGetRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetRectOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceGetRectOperation) MakeResultWithRect(rect corefoundation.CGRect) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithRect:"), rect)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithRect:"), rect)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceGetRectOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetRectOperation {
-	rv := objc.Send[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetRectOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceGetRectOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

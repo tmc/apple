@@ -37,7 +37,7 @@ func (vc VZXPCBifrostAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZXPCBifrostAttachmentClass) Alloc() VZXPCBifrostAttachment {
-	rv := objc.Send[VZXPCBifrostAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZXPCBifrostAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZXPCBifrostAttachment interface {
 
 // Init initializes the instance.
 func (v VZXPCBifrostAttachment) Init() VZXPCBifrostAttachment {
-	rv := objc.Send[VZXPCBifrostAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZXPCBifrostAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZXPCBifrostAttachment) Autorelease() VZXPCBifrostAttachment {
-	rv := objc.Send[VZXPCBifrostAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZXPCBifrostAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZXPCBifrostAttachment creates a new VZXPCBifrostAttachment instance.
 func NewVZXPCBifrostAttachment() VZXPCBifrostAttachment {
 	class := getVZXPCBifrostAttachmentClass()
-	rv := objc.Send[VZXPCBifrostAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZXPCBifrostAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

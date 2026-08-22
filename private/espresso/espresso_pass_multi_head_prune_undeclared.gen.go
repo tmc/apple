@@ -37,7 +37,7 @@ func (ec EspressoPassMultiHeadPruneUndeclaredClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMultiHeadPruneUndeclaredClass) Alloc() EspressoPassMultiHeadPruneUndeclared {
-	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadPruneUndeclared](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMultiHeadPruneUndeclared interface {
 
 // Init initializes the instance.
 func (e EspressoPassMultiHeadPruneUndeclared) Init() EspressoPassMultiHeadPruneUndeclared {
-	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMultiHeadPruneUndeclared) Autorelease() EspressoPassMultiHeadPruneUndeclared {
-	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMultiHeadPruneUndeclared creates a new EspressoPassMultiHeadPruneUndeclared instance.
 func NewEspressoPassMultiHeadPruneUndeclared() EspressoPassMultiHeadPruneUndeclared {
 	class := getEspressoPassMultiHeadPruneUndeclaredClass()
-	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadPruneUndeclared](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

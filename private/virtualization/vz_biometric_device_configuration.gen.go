@@ -39,7 +39,7 @@ func (vc VZBiometricDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBiometricDeviceConfigurationClass) Alloc() VZBiometricDeviceConfiguration {
-	rv := objc.Send[VZBiometricDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBiometricDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,41 +85,41 @@ type IVZBiometricDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZBiometricDeviceConfiguration) Init() VZBiometricDeviceConfiguration {
-	rv := objc.Send[VZBiometricDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBiometricDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBiometricDeviceConfiguration) Autorelease() VZBiometricDeviceConfiguration {
-	rv := objc.Send[VZBiometricDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBiometricDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBiometricDeviceConfiguration creates a new VZBiometricDeviceConfiguration instance.
 func NewVZBiometricDeviceConfiguration() VZBiometricDeviceConfiguration {
 	class := getVZBiometricDeviceConfigurationClass()
-	rv := objc.Send[VZBiometricDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBiometricDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZBiometricDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZBiometricDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZBiometricDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZBiometricDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZBiometricDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

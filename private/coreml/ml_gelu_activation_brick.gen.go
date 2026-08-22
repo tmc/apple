@@ -39,7 +39,7 @@ func (mc MLGeluActivationBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGeluActivationBrickClass) Alloc() MLGeluActivationBrick {
-	rv := objc.Send[MLGeluActivationBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGeluActivationBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,62 +97,62 @@ type IMLGeluActivationBrick interface {
 
 // Init initializes the instance.
 func (m MLGeluActivationBrick) Init() MLGeluActivationBrick {
-	rv := objc.Send[MLGeluActivationBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGeluActivationBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGeluActivationBrick) Autorelease() MLGeluActivationBrick {
-	rv := objc.Send[MLGeluActivationBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGeluActivationBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGeluActivationBrick creates a new MLGeluActivationBrick instance.
 func NewMLGeluActivationBrick() MLGeluActivationBrick {
 	class := getMLGeluActivationBrickClass()
-	rv := objc.Send[MLGeluActivationBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGeluActivationBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGeluActivationBrickWithParameters(parameters objectivec.IObject) MLGeluActivationBrick {
 	instance := getMLGeluActivationBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLGeluActivationBrickFromID(rv)
 }
 
 func (m MLGeluActivationBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLGeluActivationBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLGeluActivationBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLGeluActivationBrick) InitWithParameters(parameters objectivec.IObject) MLGeluActivationBrick {
-	rv := objc.Send[MLGeluActivationBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLGeluActivationBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLGeluActivationBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGeluActivationBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGeluActivationBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLGeluActivationBrick) Size() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("size"))
 	return rv
 }
 func (m MLGeluActivationBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

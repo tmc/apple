@@ -39,7 +39,7 @@ func (ac AVAudioSinkNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioSinkNodeClass) Alloc() AVAudioSinkNode {
-	rv := objc.Send[AVAudioSinkNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioSinkNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,32 +62,32 @@ type IAVAudioSinkNode interface {
 
 // Init initializes the instance.
 func (a AVAudioSinkNode) Init() AVAudioSinkNode {
-	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioSinkNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioSinkNode) Autorelease() AVAudioSinkNode {
-	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioSinkNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioSinkNode creates a new AVAudioSinkNode instance.
 func NewAVAudioSinkNode() AVAudioSinkNode {
 	class := getAVAudioSinkNodeClass()
-	rv := objc.Send[AVAudioSinkNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioSinkNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioSinkNodeWithImpl(impl unsafe.Pointer) AVAudioSinkNode {
 	instance := getAVAudioSinkNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSinkNodeFromID(rv)
 }
 
 func (_AVAudioSinkNodeClass AVAudioSinkNodeClass) PullInputBlockFromReceiverBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromReceiverBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromReceiverBlock:"), _block0)
 }
 
 // PullInputBlockFromReceiverBlockSync is a synchronous wrapper around [AVAudioSinkNode.PullInputBlockFromReceiverBlock].

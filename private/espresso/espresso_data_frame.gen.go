@@ -39,7 +39,7 @@ func (ec EspressoDataFrameClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameClass) Alloc() EspressoDataFrame {
-	rv := objc.Send[EspressoDataFrame](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrame](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,80 +118,80 @@ type IEspressoDataFrame interface {
 
 // Init initializes the instance.
 func (e EspressoDataFrame) Init() EspressoDataFrame {
-	rv := objc.Send[EspressoDataFrame](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrame](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrame) Autorelease() EspressoDataFrame {
-	rv := objc.Send[EspressoDataFrame](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrame](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrame creates a new EspressoDataFrame instance.
 func NewEspressoDataFrame() EspressoDataFrame {
 	class := getEspressoDataFrameClass()
-	rv := objc.Send[EspressoDataFrame](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrame](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoDataFrame) GetFunctionName() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getFunctionName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getFunctionName"))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDataFrame) GetGroundTruthAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getGroundTruthAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getGroundTruthAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDataFrame) GetInputAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getInputAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getInputAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDataFrame) GetOutputAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getOutputAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getOutputAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDataFrame) LoadFromDictFrameStorage(dict objectivec.IObject, storage objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("loadFromDict:frameStorage:"), dict, storage)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("loadFromDict:frameStorage:"), dict, storage)
 }
 
 func (e EspressoDataFrame) Function_name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("function_name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("function_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoDataFrame) SetFunction_name(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setFunction_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setFunction_name:"), objc.String(value))
 }
 func (e EspressoDataFrame) GroundTruthAttachmentNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("groundTruthAttachmentNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("groundTruthAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) GroundTruthAttachments() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("groundTruthAttachments"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("groundTruthAttachments"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) SetGroundTruthAttachments(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setGroundTruthAttachments:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setGroundTruthAttachments:"), value)
 }
 func (e EspressoDataFrame) InputAttachmentNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputAttachmentNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("inputAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) InputAttachments() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputAttachments"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("inputAttachments"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) SetInputAttachments(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInputAttachments:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInputAttachments:"), value)
 }
 func (e EspressoDataFrame) OutputAttachmentNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputAttachmentNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("outputAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) OutputAttachments() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputAttachments"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("outputAttachments"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoDataFrame) SetOutputAttachments(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutputAttachments:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutputAttachments:"), value)
 }

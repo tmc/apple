@@ -40,7 +40,7 @@ func (mc MLLocalOutlierFactorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLocalOutlierFactorClass) Alloc() MLLocalOutlierFactor {
-	rv := objc.Send[MLLocalOutlierFactor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLocalOutlierFactor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,30 +101,33 @@ type IMLLocalOutlierFactor interface {
 
 // Init initializes the instance.
 func (m MLLocalOutlierFactor) Init() MLLocalOutlierFactor {
-	rv := objc.Send[MLLocalOutlierFactor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLocalOutlierFactor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLocalOutlierFactor) Autorelease() MLLocalOutlierFactor {
-	rv := objc.Send[MLLocalOutlierFactor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLocalOutlierFactor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLocalOutlierFactor creates a new MLLocalOutlierFactor instance.
 func NewMLLocalOutlierFactor() MLLocalOutlierFactor {
 	class := getMLLocalOutlierFactorClass()
-	rv := objc.Send[MLLocalOutlierFactor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLocalOutlierFactor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLLocalOutlierFactor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLLocalOutlierFactor{}, objc.ErrInitFailed
 	}
 	return MLLocalOutlierFactorFromID(rv), nil
 }
@@ -132,51 +135,57 @@ func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(spe
 func NewLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLLocalOutlierFactor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLLocalOutlierFactor{}, objc.ErrInitFailed
 	}
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
 func NewLocalOutlierFactorWithConfiguration(configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
 func NewLocalOutlierFactorWithDescription(description objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
 func NewLocalOutlierFactorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
 func NewLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKNearestNeighborsModelAtURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKNearestNeighborsModelAtURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLLocalOutlierFactor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLLocalOutlierFactor{}, objc.ErrInitFailed
 	}
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
 func NewLocalOutlierFactorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
 func (m MLLocalOutlierFactor) ComputeLOFForQueryPoint(point objectivec.IObject) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("computeLOFForQueryPoint:"), point)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("computeLOFForQueryPoint:"), point)
 	return rv
 }
 func (m MLLocalOutlierFactor) InputMultiArrayError(array objectivec.IObject) (objectivec.IObject, error) {
@@ -190,19 +199,19 @@ func (m MLLocalOutlierFactor) InputMultiArrayError(array objectivec.IObject) (ob
 
 }
 func (m MLLocalOutlierFactor) KDistanceToIndex(index uint64) float32 {
-	rv := objc.Send[float32](m.ID, objc.Sel("kDistanceToIndex:"), index)
+	rv := objc.SendIfResponds[float32](m.ID, objc.Sel("kDistanceToIndex:"), index)
 	return rv
 }
 func (m MLLocalOutlierFactor) LocalReachabilityDensityForIndex(index uint64) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("localReachabilityDensityForIndex:"), index)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("localReachabilityDensityForIndex:"), index)
 	return rv
 }
 func (m MLLocalOutlierFactor) LocalReachabilityDensityForQeuryPoint(point unsafe.Pointer) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("localReachabilityDensityForQeuryPoint:"), point)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("localReachabilityDensityForQeuryPoint:"), point)
 	return rv
 }
 func (m MLLocalOutlierFactor) LocalReachabilityDensityOfNeighbors(neighbors unsafe.Pointer) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("localReachabilityDensityOfNeighbors:"), neighbors)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("localReachabilityDensityOfNeighbors:"), neighbors)
 	return rv
 }
 func (m MLLocalOutlierFactor) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
@@ -226,7 +235,7 @@ func (m MLLocalOutlierFactor) PredictionFromFeaturesOptionsError(features object
 
 }
 func (m MLLocalOutlierFactor) UpdateToValidDistance(distance unsafe.Pointer) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateToValidDistance:"), distance)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateToValidDistance:"), distance)
 }
 func (m MLLocalOutlierFactor) InitWithKNearestNeighborsModelAtURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID

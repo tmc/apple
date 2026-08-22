@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSSpeechQueueClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSpeechQueueClass) Alloc() TextToSpeechTTSSpeechQueue {
-	rv := objc.Send[TextToSpeechTTSSpeechQueue](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechQueue](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSSpeechQueueFromID(id objc.ID) TextToSpeechTTSSpeechQueue {
 	return TextToSpeechTTSSpeechQueue{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSSpeechQueue struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSSpeechQueue embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSSpeechQueue implements ITextToSpeechTTSSpeechQueue.
+var _ ITextToSpeechTTSSpeechQueue = TextToSpeechTTSSpeechQueue{}
 
 // An interface definition for the [TextToSpeechTTSSpeechQueue] class.
 type ITextToSpeechTTSSpeechQueue interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSSpeechQueue interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSSpeechQueue) Init() TextToSpeechTTSSpeechQueue {
-	rv := objc.Send[TextToSpeechTTSSpeechQueue](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechQueue](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSSpeechQueue) Autorelease() TextToSpeechTTSSpeechQueue {
-	rv := objc.Send[TextToSpeechTTSSpeechQueue](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechQueue](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSSpeechQueue creates a new TextToSpeechTTSSpeechQueue instance.
 func NewTextToSpeechTTSSpeechQueue() TextToSpeechTTSSpeechQueue {
 	class := getTextToSpeechTTSSpeechQueueClass()
-	rv := objc.Send[TextToSpeechTTSSpeechQueue](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSSpeechQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

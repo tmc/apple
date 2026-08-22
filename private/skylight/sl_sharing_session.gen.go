@@ -40,7 +40,7 @@ func (sc SLSharingSessionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSharingSessionClass) Alloc() SLSharingSession {
-	rv := objc.Send[SLSharingSession](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSharingSession](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -125,105 +125,105 @@ type ISLSharingSession interface {
 
 // Init initializes the instance.
 func (s SLSharingSession) Init() SLSharingSession {
-	rv := objc.Send[SLSharingSession](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSharingSession) Autorelease() SLSharingSession {
-	rv := objc.Send[SLSharingSession](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSharingSession creates a new SLSharingSession instance.
 func NewSLSharingSession() SLSharingSession {
 	class := getSLSharingSessionClass()
-	rv := objc.Send[SLSharingSession](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSharingSession](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSharingSessionFromUUID(uuid objectivec.IObject) SLSharingSession {
 	instance := getSLSharingSessionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromUUID:"), uuid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromUUID:"), uuid)
 	return SLSharingSessionFromID(rv)
 }
 
 func NewSLSharingSessionWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSharingIndicatorNotifications(title objectivec.IObject, indicator bool, notifications bool) SLSharingSession {
 	instance := getSLSharingSessionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
 	return SLSharingSessionFromID(rv)
 }
 
 func NewSLSharingSessionWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int) SLSharingSession {
 	instance := getSLSharingSessionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
 	return SLSharingSessionFromID(rv)
 }
 
 func (s SLSharingSession) Content() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("content"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("content"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSession) GetUUID() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("getUUID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("getUUID"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSession) GetUUIDBytes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("getUUIDBytes"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("getUUIDBytes"))
 	return rv
 }
 func (s SLSharingSession) IsEqualToSharingSession(session objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToSharingSession:"), session)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isEqualToSharingSession:"), session)
 	return rv
 }
 func (s SLSharingSession) SetContent(content objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setContent:"), content)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setContent:"), content)
 }
 func (s SLSharingSession) SetPresentationDisplayPrimaryEnableShowCursor(display objectivec.IObject, primary objectivec.IObject, enable bool, cursor bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setPresentationDisplay:primary:enable:showCursor:"), display, primary, enable, cursor)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setPresentationDisplay:primary:enable:showCursor:"), display, primary, enable, cursor)
 }
 func (s SLSharingSession) ShowPicker() {
-	objc.Send[objc.ID](s.ID, objc.Sel("showPicker"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("showPicker"))
 }
 func (s SLSharingSession) InitFromUUID(uuid objectivec.IObject) SLSharingSession {
-	rv := objc.Send[SLSharingSession](s.ID, objc.Sel("initFromUUID:"), uuid)
+	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("initFromUUID:"), uuid)
 	return rv
 }
 func (s SLSharingSession) InitWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSharingIndicatorNotifications(title objectivec.IObject, indicator bool, notifications bool) SLSharingSession {
-	rv := objc.Send[SLSharingSession](s.ID, objc.Sel("initWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
+	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("initWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
 	return rv
 }
 func (s SLSharingSession) InitWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int) SLSharingSession {
-	rv := objc.Send[SLSharingSession](s.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
+	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
 	return rv
 }
 
 func (s SLSharingSession) LifetimePort() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("lifetimePort"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("lifetimePort"))
 	return rv
 }
 func (s SLSharingSession) SetLifetimePort(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setLifetimePort:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setLifetimePort:"), value)
 }
 func (s SLSharingSession) Title() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("title"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSharingSession) Type() int {
-	rv := objc.Send[int](s.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("type"))
 	return rv
 }
 func (s SLSharingSession) SetType(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), value)
 }
 func (s SLSharingSession) Uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (s SLSharingSession) Uuid_internal() foundation.NSUUID {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uuid_internal"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid_internal"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (s SLSharingSession) SetUuid_internal(value foundation.NSUUID) {
-	objc.Send[struct{}](s.ID, objc.Sel("setUuid_internal:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUuid_internal:"), value)
 }

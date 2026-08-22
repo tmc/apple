@@ -27,6 +27,7 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
+//   - [ANERequest.SetCompletionHandler]
 type BoolHandler = func(bool)
 
 // NewBoolBlock wraps a Go [BoolHandler] as an Objective-C block.
@@ -34,6 +35,7 @@ type BoolHandler = func(bool)
 //
 // Used by:
 //   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
+//   - [ANERequest.SetCompletionHandler]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -41,28 +43,6 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// ErrorHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [ANERequest.SetCompletionHandler]
-type ErrorHandler = func(error)
-
-// NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [ANERequest.SetCompletionHandler]
-func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		handler(foundation.SafeErrorFrom(errID))
-	})
-	objc.SetNSErrorBlockSignature(block)
 	return objc.ID(block), func() { block.Release() }
 }
 

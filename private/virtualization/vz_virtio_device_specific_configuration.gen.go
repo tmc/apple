@@ -39,7 +39,7 @@ func (vc VZVirtioDeviceSpecificConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioDeviceSpecificConfigurationClass) Alloc() VZVirtioDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioDeviceSpecificConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioDeviceSpecificConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,30 +76,30 @@ type IVZVirtioDeviceSpecificConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioDeviceSpecificConfiguration) Init() VZVirtioDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioDeviceSpecificConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioDeviceSpecificConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioDeviceSpecificConfiguration) Autorelease() VZVirtioDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioDeviceSpecificConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioDeviceSpecificConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioDeviceSpecificConfiguration creates a new VZVirtioDeviceSpecificConfiguration instance.
 func NewVZVirtioDeviceSpecificConfiguration() VZVirtioDeviceSpecificConfiguration {
 	class := getVZVirtioDeviceSpecificConfigurationClass()
-	rv := objc.Send[VZVirtioDeviceSpecificConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioDeviceSpecificConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioDeviceSpecificConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZVirtioDeviceSpecificConfiguration) _configuration() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_configuration"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_configuration"))
 	return rv
 }
 

@@ -39,7 +39,7 @@ func (sc SLSessionOwnerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSessionOwnerClass) Alloc() SLSessionOwner {
-	rv := objc.Send[SLSessionOwner](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSessionOwner](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,95 +103,95 @@ type ISLSessionOwner interface {
 
 // Init initializes the instance.
 func (s SLSessionOwner) Init() SLSessionOwner {
-	rv := objc.Send[SLSessionOwner](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSessionOwner](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSessionOwner) Autorelease() SLSessionOwner {
-	rv := objc.Send[SLSessionOwner](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSessionOwner](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSessionOwner creates a new SLSessionOwner instance.
 func NewSLSessionOwner() SLSessionOwner {
 	class := getSLSessionOwnerClass()
-	rv := objc.Send[SLSessionOwner](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSessionOwner](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSessionOwnerWithPortAuditSessionIDCgSessionID(port uint32, id int, id2 uint32) SLSessionOwner {
 	instance := getSLSessionOwnerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:auditSessionID:cgSessionID:"), port, id, id2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPort:auditSessionID:cgSessionID:"), port, id, id2)
 	return SLSessionOwnerFromID(rv)
 }
 
 func NewSLSessionOwnerWithXPCSerialization(xPCSerialization objectivec.IObject) SLSessionOwner {
 	instance := getSLSessionOwnerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCSerialization:"), xPCSerialization)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCSerialization:"), xPCSerialization)
 	return SLSessionOwnerFromID(rv)
 }
 
 func (s SLSessionOwner) CreateXPCSerializationAndInvalidate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCSerializationAndInvalidate"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCSerializationAndInvalidate"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSessionOwner) IsValid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isValid"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isValid"))
 	return rv
 }
 func (s SLSessionOwner) InitWithPortAuditSessionIDCgSessionID(port uint32, id int, id2 uint32) SLSessionOwner {
-	rv := objc.Send[SLSessionOwner](s.ID, objc.Sel("initWithPort:auditSessionID:cgSessionID:"), port, id, id2)
+	rv := objc.SendIfResponds[SLSessionOwner](s.ID, objc.Sel("initWithPort:auditSessionID:cgSessionID:"), port, id, id2)
 	return rv
 }
 func (s SLSessionOwner) InitWithXPCSerialization(xPCSerialization objectivec.IObject) SLSessionOwner {
-	rv := objc.Send[SLSessionOwner](s.ID, objc.Sel("initWithXPCSerialization:"), xPCSerialization)
+	rv := objc.SendIfResponds[SLSessionOwner](s.ID, objc.Sel("initWithXPCSerialization:"), xPCSerialization)
 	return rv
 }
 
 func (_SLSessionOwnerClass SLSessionOwnerClass) SessionOwnerBySettingLoginwindowConnection(connection uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerBySettingLoginwindowConnection:"), connection)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerBySettingLoginwindowConnection:"), connection)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSessionOwnerClass SLSessionOwnerClass) SessionOwnerForNewSessionWithAuditSessionID(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerForNewSessionWithAuditSessionID:"), id)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerForNewSessionWithAuditSessionID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSessionOwnerClass SLSessionOwnerClass) SessionOwnerForNewSessionWithAuditSessionIDLaunchData(id objectivec.IObject, data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerForNewSessionWithAuditSessionID:launchData:"), id, data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerForNewSessionWithAuditSessionID:launchData:"), id, data)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSessionOwnerClass SLSessionOwnerClass) SessionOwnerWithPortAuditSessionIDCgSessionID(port uint32, id int, id2 uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerWithPort:auditSessionID:cgSessionID:"), port, id, id2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerWithPort:auditSessionID:cgSessionID:"), port, id, id2)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSessionOwnerClass SLSessionOwnerClass) SessionOwnerWithXPCSerialization(xPCSerialization objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerWithXPCSerialization:"), xPCSerialization)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSessionOwnerClass.class), objc.Sel("sessionOwnerWithXPCSerialization:"), xPCSerialization)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSessionOwner) AuditSessionID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("auditSessionID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("auditSessionID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLSessionOwner) SetAuditSessionID(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAuditSessionID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAuditSessionID:"), value)
 }
 func (s SLSessionOwner) Port() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("port"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("port"))
 	return rv
 }
 func (s SLSessionOwner) SetPort(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPort:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setPort:"), value)
 }
 func (s SLSessionOwner) SessionID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sessionID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sessionID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLSessionOwner) SetSessionID(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSessionID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSessionID:"), value)
 }
 func (s SLSessionOwner) Valid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("valid"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("valid"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (gc GTMioTraceCliqueInstructionTraceTrackClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceCliqueInstructionTraceTrackClass) Alloc() GTMioTraceCliqueInstructionTraceTrack {
-	rv := objc.Send[GTMioTraceCliqueInstructionTraceTrack](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceCliqueInstructionTraceTrack](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,46 +76,46 @@ type IGTMioTraceCliqueInstructionTraceTrack interface {
 	PostProcess()
 	TakeCliqueTraces(clique uint32, traces unsafe.Pointer)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioUSCInstructionTraceTrackTrace
 }
 
 // Init initializes the instance.
 func (g GTMioTraceCliqueInstructionTraceTrack) Init() GTMioTraceCliqueInstructionTraceTrack {
-	rv := objc.Send[GTMioTraceCliqueInstructionTraceTrack](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceCliqueInstructionTraceTrack](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceCliqueInstructionTraceTrack) Autorelease() GTMioTraceCliqueInstructionTraceTrack {
-	rv := objc.Send[GTMioTraceCliqueInstructionTraceTrack](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceCliqueInstructionTraceTrack](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceCliqueInstructionTraceTrack creates a new GTMioTraceCliqueInstructionTraceTrack instance.
 func NewGTMioTraceCliqueInstructionTraceTrack() GTMioTraceCliqueInstructionTraceTrack {
 	class := getGTMioTraceCliqueInstructionTraceTrackClass()
-	rv := objc.Send[GTMioTraceCliqueInstructionTraceTrack](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceCliqueInstructionTraceTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceCliqueInstructionTraceTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceCliqueInstructionTraceTrack {
 	instance := getGTMioTraceCliqueInstructionTraceTrackClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceCliqueInstructionTraceTrackFromID(rv)
 }
 
 func (g GTMioTraceCliqueInstructionTraceTrack) PostProcess() {
-	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("postProcess"))
 }
 func (g GTMioTraceCliqueInstructionTraceTrack) TakeCliqueTraces(clique uint32, traces unsafe.Pointer) {
-	objc.Send[objc.ID](g.ID, objc.Sel("takeClique:traces:"), clique, traces)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("takeClique:traces:"), clique, traces)
 }
 
 func (g GTMioTraceCliqueInstructionTraceTrack) TraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-func (g GTMioTraceCliqueInstructionTraceTrack) Traces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+func (g GTMioTraceCliqueInstructionTraceTrack) Traces() *GTMioUSCInstructionTraceTrackTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traces"))
+	return (*GTMioUSCInstructionTraceTrackTrace)(rv)
 }

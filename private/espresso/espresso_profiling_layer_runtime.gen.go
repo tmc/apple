@@ -38,7 +38,7 @@ func (ec EspressoProfilingLayerRuntimeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingLayerRuntimeClass) Alloc() EspressoProfilingLayerRuntime {
-	rv := objc.Send[EspressoProfilingLayerRuntime](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerRuntime](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,34 +81,34 @@ type IEspressoProfilingLayerRuntime interface {
 
 // Init initializes the instance.
 func (e EspressoProfilingLayerRuntime) Init() EspressoProfilingLayerRuntime {
-	rv := objc.Send[EspressoProfilingLayerRuntime](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerRuntime](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoProfilingLayerRuntime) Autorelease() EspressoProfilingLayerRuntime {
-	rv := objc.Send[EspressoProfilingLayerRuntime](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerRuntime](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoProfilingLayerRuntime creates a new EspressoProfilingLayerRuntime instance.
 func NewEspressoProfilingLayerRuntime() EspressoProfilingLayerRuntime {
 	class := getEspressoProfilingLayerRuntimeClass()
-	rv := objc.Send[EspressoProfilingLayerRuntime](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerRuntime](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoProfilingLayerRuntime) End_t() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("end_t"))
+	rv := objc.SendIfResponds[float64](e.ID, objc.Sel("end_t"))
 	return rv
 }
 func (e EspressoProfilingLayerRuntime) SetEnd_t(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setEnd_t:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setEnd_t:"), value)
 }
 func (e EspressoProfilingLayerRuntime) Start_t() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("start_t"))
+	rv := objc.SendIfResponds[float64](e.ID, objc.Sel("start_t"))
 	return rv
 }
 func (e EspressoProfilingLayerRuntime) SetStart_t(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setStart_t:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setStart_t:"), value)
 }

@@ -38,7 +38,7 @@ func (gc GTMioTraceAggregatedShaderTrackClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceAggregatedShaderTrackClass) Alloc() GTMioTraceAggregatedShaderTrack {
-	rv := objc.Send[GTMioTraceAggregatedShaderTrack](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedShaderTrack](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,48 +74,48 @@ type IGTMioTraceAggregatedShaderTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take GTMioBinaryTrace)
+	Take(take *GTMioBinaryTrace)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioBinaryTrace
 }
 
 // Init initializes the instance.
 func (g GTMioTraceAggregatedShaderTrack) Init() GTMioTraceAggregatedShaderTrack {
-	rv := objc.Send[GTMioTraceAggregatedShaderTrack](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedShaderTrack](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceAggregatedShaderTrack) Autorelease() GTMioTraceAggregatedShaderTrack {
-	rv := objc.Send[GTMioTraceAggregatedShaderTrack](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedShaderTrack](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceAggregatedShaderTrack creates a new GTMioTraceAggregatedShaderTrack instance.
 func NewGTMioTraceAggregatedShaderTrack() GTMioTraceAggregatedShaderTrack {
 	class := getGTMioTraceAggregatedShaderTrackClass()
-	rv := objc.Send[GTMioTraceAggregatedShaderTrack](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedShaderTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceAggregatedShaderTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceAggregatedShaderTrack {
 	instance := getGTMioTraceAggregatedShaderTrackClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceAggregatedShaderTrackFromID(rv)
 }
 
 func (g GTMioTraceAggregatedShaderTrack) PostProcess() {
-	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-func (g GTMioTraceAggregatedShaderTrack) Take(take GTMioBinaryTrace) {
-	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
+func (g GTMioTraceAggregatedShaderTrack) Take(take *GTMioBinaryTrace) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("take:"), unsafe.Pointer(take))
 }
 
 func (g GTMioTraceAggregatedShaderTrack) TraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-func (g GTMioTraceAggregatedShaderTrack) Traces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+func (g GTMioTraceAggregatedShaderTrack) Traces() *GTMioBinaryTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traces"))
+	return (*GTMioBinaryTrace)(rv)
 }

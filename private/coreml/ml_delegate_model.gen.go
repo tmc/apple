@@ -41,7 +41,7 @@ func (mc MLDelegateModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDelegateModelClass) Alloc() MLDelegateModel {
-	rv := objc.Send[MLDelegateModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDelegateModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -123,30 +123,33 @@ type IMLDelegateModel interface {
 
 // Init initializes the instance.
 func (m MLDelegateModel) Init() MLDelegateModel {
-	rv := objc.Send[MLDelegateModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDelegateModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDelegateModel) Autorelease() MLDelegateModel {
-	rv := objc.Send[MLDelegateModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDelegateModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDelegateModel creates a new MLDelegateModel instance.
 func NewMLDelegateModel() MLDelegateModel {
 	class := getMLDelegateModelClass()
-	rv := objc.Send[MLDelegateModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDelegateModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateModelFromID(rv), nil
 }
@@ -154,51 +157,57 @@ func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specific
 func NewDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateModelFromID(rv), nil
 }
 
 func NewDelegateModelWithConfiguration(configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLDelegateModelFromID(rv)
 }
 
 func NewDelegateModelWithDescription(description objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLDelegateModelFromID(rv)
 }
 
 func NewDelegateModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDelegateModelFromID(rv)
 }
 
 func NewDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDelegateModel{}, objc.ErrInitFailed
 	}
 	return MLDelegateModelFromID(rv), nil
 }
 
 func NewDelegateModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDelegateModelFromID(rv)
 }
 
 func (m MLDelegateModel) _finishPredictionAndDispatchPendingPredictions() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
 
 // FinishPredictionAndDispatchPendingPredictions is an exported wrapper for the private method _finishPredictionAndDispatchPendingPredictions.
@@ -217,7 +226,7 @@ func (m MLDelegateModel) CanFinishPredictionAndDispatchPendingPredictions() bool
 }
 func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
 func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -241,7 +250,7 @@ func (m MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObj
 }
 func (m MLDelegateModel) _schedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"), request, _block1)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"), request, _block1)
 }
 
 // SchedulePredictionRequestCompletionHandler is an exported wrapper for the private method _schedulePredictionRequestCompletionHandler.
@@ -260,10 +269,10 @@ func (m MLDelegateModel) CanSchedulePredictionRequestCompletionHandler() bool {
 }
 func (m MLDelegateModel) _submitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_submitPredictionRequest:completionHandler:"), request, _block1)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_submitPredictionRequest:completionHandler:"), request, _block1)
 }
 func (m MLDelegateModel) _validateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"), named, array)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"), named, array)
 }
 
 // ValidateStateFeatureNamedBackingMultiArray is an exported wrapper for the private method _validateStateFeatureNamedBackingMultiArray.
@@ -292,7 +301,7 @@ func (m MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (obje
 }
 func (m MLDelegateModel) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), features, options, _block2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), features, options, _block2)
 }
 func (m MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -306,7 +315,7 @@ func (m MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.
 }
 func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
 func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -340,15 +349,15 @@ func (m MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDeleg
 }
 
 func (m MLDelegateModel) Engine() int {
-	rv := objc.Send[int](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
 	return rv
 }
 func (m MLDelegateModel) MaxAsyncPredictionsInFlight() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("maxAsyncPredictionsInFlight"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("maxAsyncPredictionsInFlight"))
 	return rv
 }
 func (m MLDelegateModel) PendingPredictionQueue() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pendingPredictionQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pendingPredictionQueue"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 

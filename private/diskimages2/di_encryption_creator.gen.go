@@ -41,7 +41,7 @@ func (dc DIEncryptionCreatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIEncryptionCreatorClass) Alloc() DIEncryptionCreator {
-	rv := objc.Send[DIEncryptionCreator](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIEncryptionCreator](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,32 +90,32 @@ type IDIEncryptionCreator interface {
 
 // Init initializes the instance.
 func (d DIEncryptionCreator) Init() DIEncryptionCreator {
-	rv := objc.Send[DIEncryptionCreator](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIEncryptionCreator](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIEncryptionCreator) Autorelease() DIEncryptionCreator {
-	rv := objc.Send[DIEncryptionCreator](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIEncryptionCreator](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIEncryptionCreator creates a new DIEncryptionCreator instance.
 func NewDIEncryptionCreator() DIEncryptionCreator {
 	class := getDIEncryptionCreatorClass()
-	rv := objc.Send[DIEncryptionCreator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIEncryptionCreator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIEncryptionCreatorWithCoder(coder objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionCreatorFromID(rv)
 }
 
 func NewDIEncryptionCreatorWithParams(params objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionCreatorFromID(rv)
 }
 
@@ -184,9 +184,9 @@ func (_DIEncryptionCreatorClass DIEncryptionCreatorClass) GetPublicKeyWithCertif
 }
 
 func (d DIEncryptionCreator) CreateParams() IDICreateParams {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("createParams"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createParams"))
 	return DICreateParamsFromID(objc.ID(rv))
 }
 func (d DIEncryptionCreator) SetCreateParams(value IDICreateParams) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCreateParams:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCreateParams:"), value)
 }

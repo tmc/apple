@@ -39,7 +39,7 @@ func (vc VZBinaryBootLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBinaryBootLoaderClass) Alloc() VZBinaryBootLoader {
-	rv := objc.Send[VZBinaryBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBinaryBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IVZBinaryBootLoader interface {
 
 // Init initializes the instance.
 func (v VZBinaryBootLoader) Init() VZBinaryBootLoader {
-	rv := objc.Send[VZBinaryBootLoader](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBinaryBootLoader](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBinaryBootLoader) Autorelease() VZBinaryBootLoader {
-	rv := objc.Send[VZBinaryBootLoader](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBinaryBootLoader](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBinaryBootLoader creates a new VZBinaryBootLoader instance.
 func NewVZBinaryBootLoader() VZBinaryBootLoader {
 	class := getVZBinaryBootLoaderClass()
-	rv := objc.Send[VZBinaryBootLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBinaryBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZBinaryBootLoaderWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
 	instance := getVZBinaryBootLoaderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
 	return VZBinaryBootLoaderFromID(rv)
 }
 
 func (v VZBinaryBootLoader) InitWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
-	rv := objc.Send[VZBinaryBootLoader](v.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
+	rv := objc.SendIfResponds[VZBinaryBootLoader](v.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
 	return rv
 }
 
 func (v VZBinaryBootLoader) EntryPointAddress() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("entryPointAddress"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("entryPointAddress"))
 	return rv
 }
 func (v VZBinaryBootLoader) Segments() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("segments"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("segments"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

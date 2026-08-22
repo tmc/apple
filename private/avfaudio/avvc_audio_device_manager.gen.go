@@ -41,7 +41,7 @@ func (ac AVVCAudioDeviceManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCAudioDeviceManagerClass) Alloc() AVVCAudioDeviceManager {
-	rv := objc.Send[AVVCAudioDeviceManager](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCAudioDeviceManager](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,30 +87,33 @@ type IAVVCAudioDeviceManager interface {
 
 // Init initializes the instance.
 func (a AVVCAudioDeviceManager) Init() AVVCAudioDeviceManager {
-	rv := objc.Send[AVVCAudioDeviceManager](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCAudioDeviceManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCAudioDeviceManager) Autorelease() AVVCAudioDeviceManager {
-	rv := objc.Send[AVVCAudioDeviceManager](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCAudioDeviceManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCAudioDeviceManager creates a new AVVCAudioDeviceManager instance.
 func NewAVVCAudioDeviceManager() AVVCAudioDeviceManager {
 	class := getAVVCAudioDeviceManagerClass()
-	rv := objc.Send[AVVCAudioDeviceManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCAudioDeviceManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCAudioDeviceManagerWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
 	instance := getAVVCAudioDeviceManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithActivationContext:withError:"), context, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithActivationContext:withError:"), context, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVVCAudioDeviceManager{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVVCAudioDeviceManager{}, objc.ErrInitFailed
 	}
 	return AVVCAudioDeviceManagerFromID(rv), nil
 }
@@ -118,16 +121,19 @@ func NewVCAudioDeviceManagerWithActivationContextWithError(context objectivec.IO
 func NewVCAudioDeviceManagerWithError() (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
 	instance := getAVVCAudioDeviceManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVVCAudioDeviceManager{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVVCAudioDeviceManager{}, objc.ErrInitFailed
 	}
 	return AVVCAudioDeviceManagerFromID(rv), nil
 }
 
 func (a AVVCAudioDeviceManager) SelectDeviceForActivationMode(mode objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("selectDeviceForActivationMode:"), mode)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("selectDeviceForActivationMode:"), mode)
 }
 func (a AVVCAudioDeviceManager) InitWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
@@ -151,188 +157,185 @@ func (a AVVCAudioDeviceManager) InitWithError() (AVVCAudioDeviceManager, error) 
 }
 
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) BuildAOPAggregateDevice() {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("BuildAOPAggregateDevice"))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("BuildAOPAggregateDevice"))
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) DestroyAOPAggregateDevice() {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("DestroyAOPAggregateDevice"))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("DestroyAOPAggregateDevice"))
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAOPDeviceAggregateID() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceAggregateID"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceAggregateID"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAOPDeviceAggregateUID() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceAggregateUID"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceAggregateUID"))
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAOPDeviceID() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceID"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAOPDeviceID"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAudioDeviceBuiltInMicrophone() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAudioDeviceBuiltInMicrophone"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAudioDeviceBuiltInMicrophone"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAudioDeviceWithWiredHeadset(headset bool) uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAudioDeviceWithWiredHeadset:"), headset)
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetAudioDeviceWithWiredHeadset:"), headset)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetBuiltInAudioSpeakerDevice() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetBuiltInAudioSpeakerDevice"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetBuiltInAudioSpeakerDevice"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDefaultAudioDevice(device bool) uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDefaultAudioDevice:"), device)
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDefaultAudioDevice:"), device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDevicesForActivationModeOutRecordDeviceOutPlaybackDevice(mode int64, device *uint32, device2 *uint32) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDevicesForActivationMode:outRecordDevice:outPlaybackDevice:"), mode, device, device2)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDevicesForActivationMode:outRecordDevice:outPlaybackDevice:"), mode, unsafe.Pointer(device), unsafe.Pointer(device2))
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetHALDeviceForBuiltInDeviceOutHALDeviceIDOutHALDeviceUID(device objectivec.IObject, id *uint32, uid []objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceForBuiltInDevice:outHALDeviceID:outHALDeviceUID:"), device, id, objectivec.IObjectSliceToNSArray(uid))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceForBuiltInDevice:outHALDeviceID:outHALDeviceUID:"), device, unsafe.Pointer(id), objectivec.IObjectSliceToNSArray(uid))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetHALDeviceIdentifiersForDeviceUIDOutHALDeviceUIDOutPluginDeviceUUID(uid objectivec.IObject, uid2 []objectivec.IObject, uuid []objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceIdentifiersForDeviceUID:outHALDeviceUID:outPluginDeviceUUID:"), uid, objectivec.IObjectSliceToNSArray(uid2), objectivec.IObjectSliceToNSArray(uuid))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceIdentifiersForDeviceUID:outHALDeviceUID:outPluginDeviceUUID:"), uid, objectivec.IObjectSliceToNSArray(uid2), objectivec.IObjectSliceToNSArray(uuid))
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetNonAppleBluetoothSpeakerDevice() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetNonAppleBluetoothSpeakerDevice"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetNonAppleBluetoothSpeakerDevice"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetNumberOfInputChannels() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetNumberOfInputChannels"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetNumberOfInputChannels"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetSiriSupportedExternalDevice() uint32 {
-	rv := objc.Send[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetSiriSupportedExternalDevice"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetSiriSupportedExternalDevice"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsAOPDevicePresent() bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsAOPDevicePresent"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsAOPDevicePresent"))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsAppleDisplayDevice(device objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsAppleDisplayDevice:"), device)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsAppleDisplayDevice:"), device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDeviceBuiltIn(in objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceBuiltIn:"), in)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceBuiltIn:"), in)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDeviceRunningSomewhere(somewhere objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceRunningSomewhere:"), somewhere)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceRunningSomewhere:"), somewhere)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDeviceRunningSomewhereElse(else_ objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceRunningSomewhereElse:"), else_)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDeviceRunningSomewhereElse:"), else_)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDoAPSupportedDevice(device objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDoAPSupportedDevice:"), device)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsDoAPSupportedDevice:"), device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsHALDevice(hALDevice objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsHALDevice:"), hALDevice)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsHALDevice:"), hALDevice)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsSiriSupportedAppleDisplay(display objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsSiriSupportedAppleDisplay:"), display)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsSiriSupportedAppleDisplay:"), display)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsSiriSupportedExternalDevice(device objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsSiriSupportedExternalDevice:"), device)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("IsSiriSupportedExternalDevice:"), device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) UpdateAOPDeviceID() {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("UpdateAOPDeviceID"))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("UpdateAOPDeviceID"))
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) AddReporterIDToDevice(id int64, device objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("addReporterID:toDevice:"), id, device)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("addReporterID:toDevice:"), id, device)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) FindHALDeviceUIDFromUUID(uuid objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("findHALDeviceUIDFromUUID:"), uuid)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("findHALDeviceUIDFromUUID:"), uuid)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GainOnDevice(device uint32) float32 {
-	rv := objc.Send[float32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("gainOnDevice:"), device)
+	rv := objc.SendIfResponds[float32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("gainOnDevice:"), device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetAuditTokenFromProcessObjectID(id uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getAuditTokenFromProcessObjectID:"), id)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getAuditTokenFromProcessObjectID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetBundleIDFromProcessObjectID(id uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getBundleIDFromProcessObjectID:"), id)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getBundleIDFromProcessObjectID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDeviceName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getDeviceName:"), name)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getDeviceName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetPIDFromProcessObjectID(id uint32) int {
-	rv := objc.Send[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getPIDFromProcessObjectID:"), id)
+	rv := objc.SendIfResponds[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getPIDFromProcessObjectID:"), id)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetRecordingAuditTokenList() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingAuditTokenList"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingAuditTokenList"))
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetRecordingBundleIDList() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingBundleIDList"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingBundleIDList"))
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetRecordingPIDList() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingPIDList"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getRecordingPIDList"))
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetUUIDFromBTHALDevice(bTHALDevice objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getUUIDFromBTHALDevice:"), bTHALDevice)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getUUIDFromBTHALDevice:"), bTHALDevice)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDeviceAlive(alive uint32) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isDeviceAlive:"), alive)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isDeviceAlive:"), alive)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsDeviceMutedIsInputDevice(muted uint32, device bool) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isDeviceMuted:isInputDevice:"), muted, device)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isDeviceMuted:isInputDevice:"), muted, device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IsProcessDeviceInputRunning(running uint32) bool {
-	rv := objc.Send[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isProcessDeviceInputRunning:"), running)
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("isProcessDeviceInputRunning:"), running)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IterateOverProcessObjectList(list VoidHandler) {
 	_block0, _ := NewVoidBlock(list)
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("iterateOverProcessObjectList:"), _block0)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("iterateOverProcessObjectList:"), _block0)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) RemoveReporterIDFromDevice(id int64, device objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("removeReporterID:fromDevice:"), id, device)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("removeReporterID:fromDevice:"), id, device)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetBufferSizeOnDevice(size int, device objectivec.IObject) int {
-	rv := objc.Send[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setBufferSize:onDevice:"), size, device)
+	rv := objc.SendIfResponds[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setBufferSize:onDevice:"), size, device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetClientDescriptionKindOnDevice(kind uint32, device uint32) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setClientDescriptionKind:onDevice:"), kind, device)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setClientDescriptionKind:onDevice:"), kind, device)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetGainOnDevice(gain float32, device uint32) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setGain:onDevice:"), gain, device)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setGain:onDevice:"), gain, device)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetMuteOnDeviceIsInputDevice(mute bool, device uint32, device2 bool) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setMute:onDevice:isInputDevice:"), mute, device, device2)
-}
-func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetReporterIDsOnDevice(iDs unsafe.Pointer, device objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setReporterIDs:onDevice:"), iDs, device)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setMute:onDevice:isInputDevice:"), mute, device, device2)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SuppressRecordingIndicator(indicator uint32) {
-	objc.Send[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("suppressRecordingIndicator:"), indicator)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("suppressRecordingIndicator:"), indicator)
 }
 
 func (a AVVCAudioDeviceManager) InputDeviceID() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("inputDeviceID"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("inputDeviceID"))
 	return rv
 }
 func (a AVVCAudioDeviceManager) OutputDeviceID() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("outputDeviceID"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("outputDeviceID"))
 	return rv
 }
 

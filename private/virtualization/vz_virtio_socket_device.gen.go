@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (vc VZVirtioSocketDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
-	rv := objc.Send[VZVirtioSocketDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioSocketDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -46,6 +47,7 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 //
 //   - [VZVirtioSocketDevice._configurationOptions]
 //   - [VZVirtioSocketDevice._setDelegate]
+//   - [VZVirtioSocketDevice._virtualMachineClientAuditToken]
 type VZVirtioSocketDevice struct {
 	VZSocketDevice
 }
@@ -64,6 +66,7 @@ var _ IVZVirtioSocketDevice = VZVirtioSocketDevice{}
 //
 //   - [IVZVirtioSocketDevice._configurationOptions]
 //   - [IVZVirtioSocketDevice._setDelegate]
+//   - [IVZVirtioSocketDevice._virtualMachineClientAuditToken]
 type IVZVirtioSocketDevice interface {
 	IVZSocketDevice
 
@@ -71,29 +74,30 @@ type IVZVirtioSocketDevice interface {
 
 	_configurationOptions() objectivec.IObject
 	_setDelegate(delegate objectivec.IObject)
+	_virtualMachineClientAuditToken() unsafe.Pointer
 }
 
 // Init initializes the instance.
 func (v VZVirtioSocketDevice) Init() VZVirtioSocketDevice {
-	rv := objc.Send[VZVirtioSocketDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioSocketDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioSocketDevice) Autorelease() VZVirtioSocketDevice {
-	rv := objc.Send[VZVirtioSocketDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioSocketDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioSocketDevice creates a new VZVirtioSocketDevice instance.
 func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 	class := getVZVirtioSocketDeviceClass()
-	rv := objc.Send[VZVirtioSocketDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioSocketDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioSocketDevice) _configurationOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configurationOptions"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_configurationOptions"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -111,7 +115,7 @@ func (v VZVirtioSocketDevice) CanConfigurationOptions() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_configurationOptions"))
 }
 func (v VZVirtioSocketDevice) _setDelegate(delegate objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
 }
 
 // SetDelegate is an exported wrapper for the private method _setDelegate.
@@ -127,4 +131,22 @@ func (v VZVirtioSocketDevice) SetDelegate(delegate objectivec.IObject) error {
 // CanSetDelegate reports whether the receiver responds to the private selector _setDelegate:.
 func (v VZVirtioSocketDevice) CanSetDelegate() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:"))
+}
+func (v VZVirtioSocketDevice) _virtualMachineClientAuditToken() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_virtualMachineClientAuditToken"))
+	return rv
+}
+
+// VirtualMachineClientAuditToken is an exported wrapper for the private method _virtualMachineClientAuditToken.
+func (v VZVirtioSocketDevice) VirtualMachineClientAuditToken() (unsafe.Pointer, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_virtualMachineClientAuditToken")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_virtualMachineClientAuditToken"}
+		return nil, err
+	}
+	return v._virtualMachineClientAuditToken(), nil
+}
+
+// CanVirtualMachineClientAuditToken reports whether the receiver responds to the private selector _virtualMachineClientAuditToken.
+func (v VZVirtioSocketDevice) CanVirtualMachineClientAuditToken() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_virtualMachineClientAuditToken"))
 }

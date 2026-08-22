@@ -4,9 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +40,7 @@ func (gc GTMutableShaderProfilerStreamDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMutableShaderProfilerStreamDataClass) Alloc() GTMutableShaderProfilerStreamData {
-	rv := objc.Send[GTMutableShaderProfilerStreamData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMutableShaderProfilerStreamData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -113,13 +113,13 @@ type IGTMutableShaderProfilerStreamData interface {
 	AddAPSData(aPSData objectivec.IObject) bool
 	AddAPSTimelineData(data objectivec.IObject) bool
 	AddBatchIdFilteredCounterData(data objectivec.IObject) bool
-	AddCommandBuffersCount(buffers []kernel.Pointer, count uint64)
-	AddEncodersCount(encoders []kernel.Pointer, count uint64)
-	AddGPUCommandsCount(gPUCommands []kernel.Pointer, count uint64)
+	AddCommandBuffersCount(buffers unsafe.Pointer, count uint64)
+	AddEncodersCount(encoders unsafe.Pointer, count uint64)
+	AddGPUCommandsCount(gPUCommands unsafe.Pointer, count uint64)
 	AddGPUTimelineData(data objectivec.IObject) bool
 	AddPipelinePerformanceStatisticsData(data objectivec.IObject)
-	AddPipelineStatesCount(states []kernel.Pointer, count uint64)
-	AddShaderFunctionInfoCount(info []kernel.Pointer, count uint64)
+	AddPipelineStatesCount(states unsafe.Pointer, count uint64)
+	AddShaderFunctionInfoCount(info unsafe.Pointer, count uint64)
 	AddShaderProfilerData(data objectivec.IObject) bool
 	AddString(string_ objectivec.IObject) uint64
 	RemoveAPSCounterData()
@@ -131,43 +131,43 @@ type IGTMutableShaderProfilerStreamData interface {
 
 // Init initializes the instance.
 func (g GTMutableShaderProfilerStreamData) Init() GTMutableShaderProfilerStreamData {
-	rv := objc.Send[GTMutableShaderProfilerStreamData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMutableShaderProfilerStreamData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMutableShaderProfilerStreamData) Autorelease() GTMutableShaderProfilerStreamData {
-	rv := objc.Send[GTMutableShaderProfilerStreamData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMutableShaderProfilerStreamData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMutableShaderProfilerStreamData creates a new GTMutableShaderProfilerStreamData instance.
 func NewGTMutableShaderProfilerStreamData() GTMutableShaderProfilerStreamData {
 	class := getGTMutableShaderProfilerStreamDataClass()
-	rv := objc.Send[GTMutableShaderProfilerStreamData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMutableShaderProfilerStreamData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMutableShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTMutableShaderProfilerStreamDataFromID(rv)
 }
 
 func NewGTMutableShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bool) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return GTMutableShaderProfilerStreamDataFromID(rv)
 }
 
 func NewGTMutableShaderProfilerStreamDataWithPreSiBundle(bundle objectivec.IObject) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return GTMutableShaderProfilerStreamDataFromID(rv)
 }
 
 func (g GTMutableShaderProfilerStreamData) _commonInit() {
-	objc.Send[objc.ID](g.ID, objc.Sel("_commonInit"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_commonInit"))
 }
 
 // CommonInit is an exported wrapper for the private method _commonInit.
@@ -185,7 +185,7 @@ func (g GTMutableShaderProfilerStreamData) CanCommonInit() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_commonInit"))
 }
 func (g GTMutableShaderProfilerStreamData) _copyForAddAPSDataPrefix(aPSData objectivec.IObject, prefix objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_copyForAddAPSData:prefix:"), aPSData, prefix)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_copyForAddAPSData:prefix:"), aPSData, prefix)
 	return objectivec.Object{ID: rv}
 }
 
@@ -203,63 +203,63 @@ func (g GTMutableShaderProfilerStreamData) CanCopyForAddAPSDataPrefix() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_copyForAddAPSData:prefix:"))
 }
 func (g GTMutableShaderProfilerStreamData) AddAPSCounterData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addAPSCounterData:"), data)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addAPSCounterData:"), data)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) AddAPSData(aPSData objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addAPSData:"), aPSData)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addAPSData:"), aPSData)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) AddAPSTimelineData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addAPSTimelineData:"), data)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addAPSTimelineData:"), data)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) AddBatchIdFilteredCounterData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addBatchIdFilteredCounterData:"), data)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addBatchIdFilteredCounterData:"), data)
 	return rv
 }
-func (g GTMutableShaderProfilerStreamData) AddCommandBuffersCount(buffers []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addCommandBuffers:count:"), objc.CArray(buffers), count)
+func (g GTMutableShaderProfilerStreamData) AddCommandBuffersCount(buffers unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addCommandBuffers:count:"), objc.CArray(buffers), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddEncodersCount(encoders []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addEncoders:count:"), objc.CArray(encoders), count)
+func (g GTMutableShaderProfilerStreamData) AddEncodersCount(encoders unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addEncoders:count:"), objc.CArray(encoders), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddGPUCommandsCount(gPUCommands []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addGPUCommands:count:"), objc.CArray(gPUCommands), count)
+func (g GTMutableShaderProfilerStreamData) AddGPUCommandsCount(gPUCommands unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addGPUCommands:count:"), objc.CArray(gPUCommands), count)
 }
 func (g GTMutableShaderProfilerStreamData) AddGPUTimelineData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addGPUTimelineData:"), data)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addGPUTimelineData:"), data)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) AddPipelinePerformanceStatisticsData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addPipelinePerformanceStatisticsData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addPipelinePerformanceStatisticsData:"), data)
 }
-func (g GTMutableShaderProfilerStreamData) AddPipelineStatesCount(states []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addPipelineStates:count:"), objc.CArray(states), count)
+func (g GTMutableShaderProfilerStreamData) AddPipelineStatesCount(states unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addPipelineStates:count:"), objc.CArray(states), count)
 }
-func (g GTMutableShaderProfilerStreamData) AddShaderFunctionInfoCount(info []kernel.Pointer, count uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addShaderFunctionInfo:count:"), objc.CArray(info), count)
+func (g GTMutableShaderProfilerStreamData) AddShaderFunctionInfoCount(info unsafe.Pointer, count uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addShaderFunctionInfo:count:"), objc.CArray(info), count)
 }
 func (g GTMutableShaderProfilerStreamData) AddShaderProfilerData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addShaderProfilerData:"), data)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addShaderProfilerData:"), data)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) AddString(string_ objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
 func (g GTMutableShaderProfilerStreamData) RemoveAPSCounterData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSCounterData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("removeAPSCounterData"))
 }
 func (g GTMutableShaderProfilerStreamData) RemoveAPSData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("removeAPSData"))
 }
 func (g GTMutableShaderProfilerStreamData) RemoveAPSTimelineData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSTimelineData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("removeAPSTimelineData"))
 }
 func (g GTMutableShaderProfilerStreamData) SetDataSourceHasUnusedResourcesCaptureRange(resources bool, range_ foundation.NSRange) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setDataSourceHasUnusedResources:captureRange:"), resources, range_)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setDataSourceHasUnusedResources:captureRange:"), resources, range_)
 }
 func (g GTMutableShaderProfilerStreamData) SetNumBlitCalls(calls uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setNumBlitCalls:"), calls)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setNumBlitCalls:"), calls)
 }

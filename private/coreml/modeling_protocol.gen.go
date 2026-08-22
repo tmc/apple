@@ -11,14 +11,50 @@ import (
 type MLModeling interface {
 	objectivec.IObject
 
+	// Configuration protocol.
+	Configuration() objectivec.IObject
+
 	// EnableInstrumentsTracing protocol.
 	EnableInstrumentsTracing()
+
+	// ExecutionSchedule protocol.
+	ExecutionSchedule() objectivec.IObject
+
+	// Metadata protocol.
+	Metadata() objectivec.IObject
+
+	// ModelDescription protocol.
+	ModelDescription() objectivec.IObject
+
+	// ModelPath protocol.
+	ModelPath() objectivec.IObject
+
+	// NewRequestForModelInputFeaturesOptionsError protocol.
+	NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
+
+	// ParameterValueForKeyError protocol.
+	ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error)
+
+	// PredictionFromFeaturesError protocol.
+	PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error)
+
+	// PredictionFromFeaturesOptionsError protocol.
+	PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 
 	// PredictionTypeForKTrace protocol.
 	PredictionTypeForKTrace() uint64
 
+	// PredictionsFromBatchError protocol.
+	PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error)
+
+	// PredictionsFromBatchOptionsError protocol.
+	PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
+
 	// RecordsPredictionEvent protocol.
 	RecordsPredictionEvent() bool
+
+	// SetModelPathModelName protocol.
+	SetModelPathModelName(path objectivec.IObject, name objectivec.IObject)
 
 	// SignpostID protocol.
 	SignpostID() uint64
@@ -45,26 +81,26 @@ func MLModelingObjectFromID(id objc.ID) MLModelingObject {
 }
 
 func (o MLModelingObject) Configuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("configuration"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelingObject) EnableInstrumentsTracing() {
-	objc.Send[struct{}](o.ID, objc.Sel("enableInstrumentsTracing"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("enableInstrumentsTracing"))
 }
 func (o MLModelingObject) ExecutionSchedule() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("executionSchedule"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelingObject) Metadata() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("metadata"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelingObject) ModelDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelDescription"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelingObject) ModelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelPath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelingObject) NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -96,7 +132,7 @@ func (o MLModelingObject) PredictionFromFeaturesOptionsError(features objectivec
 	return objectivec.Object{ID: rv}, nil
 }
 func (o MLModelingObject) PredictionTypeForKTrace() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("predictionTypeForKTrace"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
 func (o MLModelingObject) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
@@ -114,17 +150,17 @@ func (o MLModelingObject) PredictionsFromBatchOptionsError(batch objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 }
 func (o MLModelingObject) RecordsPredictionEvent() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("recordsPredictionEvent"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
 func (o MLModelingObject) SetModelPathModelName(path objectivec.IObject, name objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setModelPath:modelName:"), path, name)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setModelPath:modelName:"), path, name)
 }
 func (o MLModelingObject) SignpostID() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("signpostID"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("signpostID"))
 	return rv
 }
 func (o MLModelingObject) SupportsConcurrentSubmissions() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsConcurrentSubmissions"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }

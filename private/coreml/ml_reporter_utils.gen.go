@@ -41,7 +41,7 @@ func (mc MLReporterUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLReporterUtilsClass) Alloc() MLReporterUtils {
-	rv := objc.Send[MLReporterUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLReporterUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLReporterUtils interface {
 
 // Init initializes the instance.
 func (m MLReporterUtils) Init() MLReporterUtils {
-	rv := objc.Send[MLReporterUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLReporterUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLReporterUtils) Autorelease() MLReporterUtils {
-	rv := objc.Send[MLReporterUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLReporterUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLReporterUtils creates a new MLReporterUtils instance.
 func NewMLReporterUtils() MLReporterUtils {
 	class := getMLReporterUtilsClass()
-	rv := objc.Send[MLReporterUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLReporterUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

@@ -39,7 +39,7 @@ func (tc TTSSubstitutionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSubstitutionClass) Alloc() TTSSubstitution {
-	rv := objc.Send[TTSSubstitution](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSubstitution](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -154,131 +154,131 @@ type ITTSSubstitution interface {
 
 // Init initializes the instance.
 func (t TTSSubstitution) Init() TTSSubstitution {
-	rv := objc.Send[TTSSubstitution](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSubstitution](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSubstitution) Autorelease() TTSSubstitution {
-	rv := objc.Send[TTSSubstitution](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSubstitution](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSubstitution creates a new TTSSubstitution instance.
 func NewTTSSubstitution() TTSSubstitution {
 	class := getTTSSubstitutionClass()
-	rv := objc.Send[TTSSubstitution](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSubstitution](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSSubstitutionWithCoder(coder objectivec.IObject) TTSSubstitution {
 	instance := getTTSSubstitutionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSSubstitutionFromID(rv)
 }
 
 func (t TTSSubstitution) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (t TTSSubstitution) InitWithCoder(coder foundation.INSCoder) TTSSubstitution {
-	rv := objc.Send[TTSSubstitution](t.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[TTSSubstitution](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_TTSSubstitutionClass TTSSubstitutionClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_TTSSubstitutionClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSSubstitutionClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (t TTSSubstitution) Active() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("active"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("active"))
 	return rv
 }
 func (t TTSSubstitution) SetActive(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setActive:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setActive:"), value)
 }
 func (t TTSSubstitution) AppliesToAllApps() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("appliesToAllApps"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("appliesToAllApps"))
 	return rv
 }
 func (t TTSSubstitution) SetAppliesToAllApps(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAppliesToAllApps:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAppliesToAllApps:"), value)
 }
 func (t TTSSubstitution) BundleIdentifiers() foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifiers"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("bundleIdentifiers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (t TTSSubstitution) SetBundleIdentifiers(value foundation.INSSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifiers:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setBundleIdentifiers:"), value)
 }
 func (t TTSSubstitution) IgnoreCase() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("ignoreCase"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("ignoreCase"))
 	return rv
 }
 func (t TTSSubstitution) SetIgnoreCase(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIgnoreCase:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIgnoreCase:"), value)
 }
 func (t TTSSubstitution) IsReplacementTextAllPunctuation() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isReplacementTextAllPunctuation"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isReplacementTextAllPunctuation"))
 	return rv
 }
 func (t TTSSubstitution) IsReplacementTextSurroundedByPunctuation() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isReplacementTextSurroundedByPunctuation"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isReplacementTextSurroundedByPunctuation"))
 	return rv
 }
 func (t TTSSubstitution) IsUserSubstitution() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isUserSubstitution"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isUserSubstitution"))
 	return rv
 }
 func (t TTSSubstitution) SetIsUserSubstitution(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsUserSubstitution:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsUserSubstitution:"), value)
 }
 func (t TTSSubstitution) Languages() foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languages"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (t TTSSubstitution) SetLanguages(value foundation.INSSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
 func (t TTSSubstitution) OriginalString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("originalString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSubstitution) SetOriginalString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
 }
 func (t TTSSubstitution) Phonemes() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("phonemes"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("phonemes"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSubstitution) SetPhonemes(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPhonemes:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPhonemes:"), objc.String(value))
 }
 func (t TTSSubstitution) ReplacementRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("replacementRange"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("replacementRange"))
 	return foundation.NSRange(rv)
 }
 func (t TTSSubstitution) SetReplacementRange(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setReplacementRange:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacementRange:"), value)
 }
 func (t TTSSubstitution) ReplacementString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacementString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("replacementString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSubstitution) SetReplacementString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setReplacementString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacementString:"), objc.String(value))
 }
 func (t TTSSubstitution) Uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (t TTSSubstitution) SetUuid(value foundation.NSUUID) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUuid:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUuid:"), value)
 }
 func (t TTSSubstitution) VoiceIds() foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIds"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceIds"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (t TTSSubstitution) SetVoiceIds(value foundation.INSSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceIds:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceIds:"), value)
 }

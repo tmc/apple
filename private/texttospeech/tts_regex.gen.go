@@ -40,7 +40,7 @@ func (tc TTSRegexClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexClass) Alloc() TTSRegex {
-	rv := objc.Send[TTSRegex](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRegex](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -107,55 +107,55 @@ type ITTSRegex interface {
 
 // Init initializes the instance.
 func (t TTSRegex) Init() TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRegex) Autorelease() TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRegex creates a new TTSRegex instance.
 func NewTTSRegex() TTSRegex {
 	class := getTTSRegexClass()
-	rv := objc.Send[TTSRegex](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRegex](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSRegexWithCStringPattern(pattern string) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
 	return TTSRegexFromID(rv)
 }
 
 func NewTTSRegexWithCStringPatternOptions(pattern string, options uint64) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
 	return TTSRegexFromID(rv)
 }
 
 func NewTTSRegexWithPattern(pattern objectivec.IObject) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:"), pattern)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPattern:"), pattern)
 	return TTSRegexFromID(rv)
 }
 
 func NewTTSRegexWithPatternOptions(pattern objectivec.IObject, options uint64) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:options:"), pattern, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPattern:options:"), pattern, options)
 	return TTSRegexFromID(rv)
 }
 
 func NewTTSRegexWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 	instance := getTTSRegexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPerlPattern:"), pattern)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPerlPattern:"), pattern)
 	return TTSRegexFromID(rv)
 }
 
 func (t TTSRegex) _matchFromOvectorMatchesStringLength(ovector *uint64, matches int, string_ string, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_matchFromOvector:matches:string:length:"), ovector, matches, unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_matchFromOvector:matches:string:length:"), unsafe.Pointer(ovector), matches, unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 
@@ -174,47 +174,47 @@ func (t TTSRegex) CanMatchFromOvectorMatchesStringLength() bool {
 }
 func (t TTSRegex) EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length, _block2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length, _block2)
 }
 func (t TTSRegex) EnumerateMatchesInCStringRangesUsingBlock(cString string, ranges objectivec.IObject, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:ranges:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), ranges, _block2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:ranges:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), ranges, _block2)
 }
 func (t TTSRegex) EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString string, offset uint64, length uint64, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:startOffset:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), offset, length, _block3)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:startOffset:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), offset, length, _block3)
 }
 func (t TTSRegex) MatchesInCStringLength(cString string, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("matchesInCString:length:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("matchesInCString:length:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSRegex) InitWithCStringPattern(pattern string) TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
 	return rv
 }
 func (t TTSRegex) InitWithCStringPatternOptions(pattern string, options uint64) TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:options:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")), options)
 	return rv
 }
 func (t TTSRegex) InitWithPattern(pattern objectivec.IObject) TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPattern:"), pattern)
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithPattern:"), pattern)
 	return rv
 }
 func (t TTSRegex) InitWithPatternOptions(pattern objectivec.IObject, options uint64) TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPattern:options:"), pattern, options)
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithPattern:options:"), pattern, options)
 	return rv
 }
 func (t TTSRegex) InitWithPerlPattern(pattern objectivec.IObject) TTSRegex {
-	rv := objc.Send[TTSRegex](t.ID, objc.Sel("initWithPerlPattern:"), pattern)
+	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithPerlPattern:"), pattern)
 	return rv
 }
 
 func (t TTSRegex) CompiledPCRERegex() Pcre2RealCode8Ref {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("compiledPCRERegex"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("compiledPCRERegex"))
 	return Pcre2RealCode8Ref(rv)
 }
 func (t TTSRegex) SetCompiledPCRERegex(value Pcre2RealCode8Ref) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCompiledPCRERegex:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCompiledPCRERegex:"), value)
 }
 
 // EnumerateMatchesInCStringLengthUsingBlockSync is a synchronous wrapper around [TTSRegex.EnumerateMatchesInCStringLengthUsingBlock].

@@ -39,7 +39,7 @@ func (cc CPXNotificationCenterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXNotificationCenterClass) Alloc() CPXNotificationCenter {
-	rv := objc.Send[CPXNotificationCenter](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXNotificationCenter](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,41 +74,41 @@ type ICPXNotificationCenter interface {
 
 	NotifyLaunchServicesOfLastestEventTypeFlags(type_ uint32, flags uint32)
 	PostLocalNotificationDataLength(notification uint32, data unsafe.Pointer, length uint64)
-	InitWithSession(session CGXSession) CPXNotificationCenter
+	InitWithSession(session *CGXSession) CPXNotificationCenter
 }
 
 // Init initializes the instance.
 func (c CPXNotificationCenter) Init() CPXNotificationCenter {
-	rv := objc.Send[CPXNotificationCenter](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXNotificationCenter](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXNotificationCenter) Autorelease() CPXNotificationCenter {
-	rv := objc.Send[CPXNotificationCenter](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXNotificationCenter](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXNotificationCenter creates a new CPXNotificationCenter instance.
 func NewCPXNotificationCenter() CPXNotificationCenter {
 	class := getCPXNotificationCenterClass()
-	rv := objc.Send[CPXNotificationCenter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXNotificationCenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewCPXNotificationCenterWithSession(session CGXSession) CPXNotificationCenter {
+func NewCPXNotificationCenterWithSession(session *CGXSession) CPXNotificationCenter {
 	instance := getCPXNotificationCenterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return CPXNotificationCenterFromID(rv)
 }
 
 func (c CPXNotificationCenter) NotifyLaunchServicesOfLastestEventTypeFlags(type_ uint32, flags uint32) {
-	objc.Send[objc.ID](c.ID, objc.Sel("notifyLaunchServicesOfLastestEventType:flags:"), type_, flags)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("notifyLaunchServicesOfLastestEventType:flags:"), type_, flags)
 }
 func (c CPXNotificationCenter) PostLocalNotificationDataLength(notification uint32, data unsafe.Pointer, length uint64) {
-	objc.Send[objc.ID](c.ID, objc.Sel("postLocalNotification:data:length:"), notification, data, length)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("postLocalNotification:data:length:"), notification, data, length)
 }
-func (c CPXNotificationCenter) InitWithSession(session CGXSession) CPXNotificationCenter {
-	rv := objc.Send[CPXNotificationCenter](c.ID, objc.Sel("initWithSession:"), session)
+func (c CPXNotificationCenter) InitWithSession(session *CGXSession) CPXNotificationCenter {
+	rv := objc.SendIfResponds[CPXNotificationCenter](c.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return rv
 }

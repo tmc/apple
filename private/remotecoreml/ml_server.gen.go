@@ -39,7 +39,7 @@ func (mc MLServerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLServerClass) Alloc() MLServer {
-	rv := objc.Send[MLServer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLServer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,89 +118,89 @@ type IMLServer interface {
 
 // Init initializes the instance.
 func (m MLServer) Init() MLServer {
-	rv := objc.Send[MLServer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLServer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLServer) Autorelease() MLServer {
-	rv := objc.Send[MLServer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLServer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLServer creates a new MLServer instance.
 func NewMLServer() MLServer {
 	class := getMLServerClass()
-	rv := objc.Send[MLServer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLServer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLServerWithOptions(options objectivec.IObject) MLServer {
 	instance := getMLServerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return MLServerFromID(rv)
 }
 
 func (m MLServer) DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
 }
 func (m MLServer) SetLoadCommand(command VoidHandler) {
 	_block0, _ := NewVoidBlock(command)
-	objc.Send[objc.ID](m.ID, objc.Sel("setLoadCommand:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setLoadCommand:"), _block0)
 }
 func (m MLServer) SetLoadFunction(function VoidHandler) {
 	_block0, _ := NewVoidBlock(function)
-	objc.Send[objc.ID](m.ID, objc.Sel("setLoadFunction:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setLoadFunction:"), _block0)
 }
 func (m MLServer) SetPredictCommand(command VoidHandler) {
 	_block0, _ := NewVoidBlock(command)
-	objc.Send[objc.ID](m.ID, objc.Sel("setPredictCommand:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setPredictCommand:"), _block0)
 }
 func (m MLServer) SetPredictFunction(function VoidHandler) {
 	_block0, _ := NewVoidBlock(function)
-	objc.Send[objc.ID](m.ID, objc.Sel("setPredictFunction:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setPredictFunction:"), _block0)
 }
 func (m MLServer) SetTextCommand(command VoidHandler) {
 	_block0, _ := NewVoidBlock(command)
-	objc.Send[objc.ID](m.ID, objc.Sel("setTextCommand:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setTextCommand:"), _block0)
 }
 func (m MLServer) SetTextFunction(function VoidHandler) {
 	_block0, _ := NewVoidBlock(function)
-	objc.Send[objc.ID](m.ID, objc.Sel("setTextFunction:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setTextFunction:"), _block0)
 }
 func (m MLServer) SetUnLoadCommand(command VoidHandler) {
 	_block0, _ := NewVoidBlock(command)
-	objc.Send[objc.ID](m.ID, objc.Sel("setUnLoadCommand:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUnLoadCommand:"), _block0)
 }
 func (m MLServer) SetUnLoadFunction(function VoidHandler) {
 	_block0, _ := NewVoidBlock(function)
-	objc.Send[objc.ID](m.ID, objc.Sel("setUnLoadFunction:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUnLoadFunction:"), _block0)
 }
 func (m MLServer) Start() {
-	objc.Send[objc.ID](m.ID, objc.Sel("start"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("start"))
 }
 func (m MLServer) Stop() {
-	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stop"))
 }
 func (m MLServer) InitWithOptions(options objectivec.IObject) MLServer {
-	rv := objc.Send[MLServer](m.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[MLServer](m.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
 func (m MLServer) NwObj() IMLNetworking {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwObj"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nwObj"))
 	return MLNetworkingFromID(objc.ID(rv))
 }
 func (m MLServer) NwOptions() uint {
-	rv := objc.Send[uint](m.ID, objc.Sel("nwOptions"))
+	rv := objc.SendIfResponds[uint](m.ID, objc.Sel("nwOptions"))
 	return rv
 }
 func (m MLServer) Packet() IMLNetworkPacket {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("packet"))
 	return MLNetworkPacketFromID(objc.ID(rv))
 }
 func (m MLServer) Q() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("q"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 

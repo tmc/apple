@@ -39,7 +39,7 @@ func (vc VZUSBMassStorageDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBMassStorageDeviceClass) Alloc() VZUSBMassStorageDevice {
-	rv := objc.Send[VZUSBMassStorageDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,65 +106,65 @@ type IVZUSBMassStorageDevice interface {
 
 // Init initializes the instance.
 func (v VZUSBMassStorageDevice) Init() VZUSBMassStorageDevice {
-	rv := objc.Send[VZUSBMassStorageDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBMassStorageDevice) Autorelease() VZUSBMassStorageDevice {
-	rv := objc.Send[VZUSBMassStorageDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBMassStorageDevice creates a new VZUSBMassStorageDevice instance.
 func NewVZUSBMassStorageDevice() VZUSBMassStorageDevice {
 	class := getVZUSBMassStorageDeviceClass()
-	rv := objc.Send[VZUSBMassStorageDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZUSBMassStorageDevice) Configuration() IVZUSBMassStorageDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("configuration"))
 	return VZUSBMassStorageDeviceConfigurationFromID(objc.ID(rv))
 }
 func (v VZUSBMassStorageDevice) SetConfiguration(value IVZUSBMassStorageDeviceConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
 func (v VZUSBMassStorageDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZUSBMassStorageDevice) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZUSBMassStorageDevice) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZUSBMassStorageDevice) IsPointingDevice() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isPointingDevice"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isPointingDevice"))
 	return rv
 }
 func (v VZUSBMassStorageDevice) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZUSBMassStorageDevice) UsbController() IVZUSBController {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbController"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
 }
 func (v VZUSBMassStorageDevice) SetUsbController(value IVZUSBController) {
-	objc.Send[struct{}](v.ID, objc.Sel("setUsbController:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUsbController:"), value)
 }
 func (v VZUSBMassStorageDevice) UsbMassStorageConfiguration() IVZUSBMassStorageDeviceConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbMassStorageConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("usbMassStorageConfiguration"))
 	return VZUSBMassStorageDeviceConfigurationFromID(objc.ID(rv))
 }
 func (v VZUSBMassStorageDevice) VirtualMachine() IVZVirtualMachine {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("virtualMachine"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("virtualMachine"))
 	return VZVirtualMachineFromID(objc.ID(rv))
 }
 func (v VZUSBMassStorageDevice) SetVirtualMachine(value IVZVirtualMachine) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVirtualMachine:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setVirtualMachine:"), value)
 }

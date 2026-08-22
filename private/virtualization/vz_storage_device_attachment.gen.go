@@ -39,7 +39,7 @@ func (vc VZStorageDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZStorageDeviceAttachmentClass) Alloc() VZStorageDeviceAttachment {
-	rv := objc.Send[VZStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,41 +85,41 @@ type IVZStorageDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZStorageDeviceAttachment) Init() VZStorageDeviceAttachment {
-	rv := objc.Send[VZStorageDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZStorageDeviceAttachment) Autorelease() VZStorageDeviceAttachment {
-	rv := objc.Send[VZStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZStorageDeviceAttachment creates a new VZStorageDeviceAttachment instance.
 func NewVZStorageDeviceAttachment() VZStorageDeviceAttachment {
 	class := getVZStorageDeviceAttachmentClass()
-	rv := objc.Send[VZStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZStorageDeviceAttachment) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZStorageDeviceAttachment) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZStorageDeviceAttachment) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZStorageDeviceAttachment) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZStorageDeviceAttachment) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

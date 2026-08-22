@@ -40,7 +40,7 @@ func (pc PluginBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PluginBackendXPCClass) Alloc() PluginBackendXPC {
-	rv := objc.Send[PluginBackendXPC](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PluginBackendXPC](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,45 +80,45 @@ type IPluginBackendXPC interface {
 
 // Init initializes the instance.
 func (p PluginBackendXPC) Init() PluginBackendXPC {
-	rv := objc.Send[PluginBackendXPC](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PluginBackendXPC](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PluginBackendXPC) Autorelease() PluginBackendXPC {
-	rv := objc.Send[PluginBackendXPC](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PluginBackendXPC](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPluginBackendXPC creates a new PluginBackendXPC instance.
 func NewPluginBackendXPC() PluginBackendXPC {
 	class := getPluginBackendXPCClass()
-	rv := objc.Send[PluginBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PluginBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPluginBackendXPCWithCoder(coder objectivec.IObject) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return PluginBackendXPCFromID(rv)
 }
 
 func NewPluginBackendXPCWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:"), url, mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return PluginBackendXPCFromID(rv)
 }
 
 func (p PluginBackendXPC) PluginHeader() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pluginHeader"))
+	rv := objc.SendIfResponds[unsafe.Pointer](p.ID, objc.Sel("pluginHeader"))
 	return rv
 }
 func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
-	rv := objc.Send[PluginBackendXPC](p.ID, objc.Sel("initWithURL:openMode:"), url, mode)
+	rv := objc.SendIfResponds[PluginBackendXPC](p.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return rv
 }
 
 func (p PluginBackendXPC) URL() IDIURL {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }

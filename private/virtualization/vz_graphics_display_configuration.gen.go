@@ -40,7 +40,7 @@ func (vc VZGraphicsDisplayConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfiguration {
-	rv := objc.Send[VZGraphicsDisplayConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGraphicsDisplayConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,29 +86,29 @@ type IVZGraphicsDisplayConfiguration interface {
 
 // Init initializes the instance.
 func (v VZGraphicsDisplayConfiguration) Init() VZGraphicsDisplayConfiguration {
-	rv := objc.Send[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGraphicsDisplayConfiguration) Autorelease() VZGraphicsDisplayConfiguration {
-	rv := objc.Send[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGraphicsDisplayConfiguration creates a new VZGraphicsDisplayConfiguration instance.
 func NewVZGraphicsDisplayConfiguration() VZGraphicsDisplayConfiguration {
 	class := getVZGraphicsDisplayConfigurationClass()
-	rv := objc.Send[VZGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGraphicsDisplayConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
 	return objectivec.Object{ID: rv}
 }
 
@@ -126,7 +126,7 @@ func (v VZGraphicsDisplayConfiguration) CanInitWithConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:"))
 }
 func (v VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setUUID:"), uuid)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setUUID:"), uuid)
 }
 
 // SetUUID is an exported wrapper for the private method _setUUID.
@@ -145,7 +145,7 @@ func (v VZGraphicsDisplayConfiguration) CanSetUUID() bool {
 }
 
 func (v VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 
@@ -162,5 +162,5 @@ func (v VZGraphicsDisplayConfiguration) Uuid() (foundation.NSUUID, error) {
 	return v._uuid(), nil
 }
 func (v VZGraphicsDisplayConfiguration) Set_uuid(value foundation.NSUUID) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_uuid:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_uuid:"), value)
 }

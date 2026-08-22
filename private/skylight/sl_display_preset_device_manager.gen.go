@@ -39,7 +39,7 @@ func (sc SLDisplayPresetDeviceManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDisplayPresetDeviceManagerClass) Alloc() SLDisplayPresetDeviceManager {
-	rv := objc.Send[SLDisplayPresetDeviceManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDisplayPresetDeviceManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,25 +91,25 @@ type ISLDisplayPresetDeviceManager interface {
 
 // Init initializes the instance.
 func (s SLDisplayPresetDeviceManager) Init() SLDisplayPresetDeviceManager {
-	rv := objc.Send[SLDisplayPresetDeviceManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDisplayPresetDeviceManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDisplayPresetDeviceManager) Autorelease() SLDisplayPresetDeviceManager {
-	rv := objc.Send[SLDisplayPresetDeviceManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDisplayPresetDeviceManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDisplayPresetDeviceManager creates a new SLDisplayPresetDeviceManager instance.
 func NewSLDisplayPresetDeviceManager() SLDisplayPresetDeviceManager {
 	class := getSLDisplayPresetDeviceManagerClass()
-	rv := objc.Send[SLDisplayPresetDeviceManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDisplayPresetDeviceManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLDisplayPresetDeviceManager) _serviceAdded(added uint32) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_serviceAdded:"), added)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_serviceAdded:"), added)
 }
 
 // ServiceAdded is an exported wrapper for the private method _serviceAdded.
@@ -127,7 +127,7 @@ func (s SLDisplayPresetDeviceManager) CanServiceAdded() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceAdded:"))
 }
 func (s SLDisplayPresetDeviceManager) _serviceRemoved(removed uint32) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_serviceRemoved:"), removed)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_serviceRemoved:"), removed)
 }
 
 // ServiceRemoved is an exported wrapper for the private method _serviceRemoved.
@@ -145,33 +145,33 @@ func (s SLDisplayPresetDeviceManager) CanServiceRemoved() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceRemoved:"))
 }
 func (s SLDisplayPresetDeviceManager) CopyDeviceForContainer(container unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyDeviceForContainer:"), container)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyDeviceForContainer:"), container)
 	return objectivec.Object{ID: rv}
 }
 func (s SLDisplayPresetDeviceManager) CopyDevices() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyDevices"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyDevices"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLDisplayPresetDeviceManager) ServiceIsValidFor(for_ unsafe.Pointer) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("serviceIsValidFor:"), for_)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("serviceIsValidFor:"), for_)
 	return rv
 }
 func (s SLDisplayPresetDeviceManager) StartWithBlockOnQueue(block VoidHandler, queue objectivec.IObject) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("startWithBlock:onQueue:"), _block0, queue)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("startWithBlock:onQueue:"), _block0, queue)
 }
 func (s SLDisplayPresetDeviceManager) Stop() {
-	objc.Send[objc.ID](s.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("stop"))
 }
 
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) DebugDeferArrivalSeconds() float32 {
-	rv := objc.Send[float32](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("debugDeferArrivalSeconds"))
+	rv := objc.SendIfResponds[float32](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("debugDeferArrivalSeconds"))
 	return rv
 }
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) Instance() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("instance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("instance"))
 	return objectivec.Object{ID: rv}
 }
 func (_SLDisplayPresetDeviceManagerClass SLDisplayPresetDeviceManagerClass) SetDebugDeferArrivalSeconds(seconds float32) {
-	objc.Send[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("setDebugDeferArrivalSeconds:"), seconds)
+	objc.SendIfResponds[objc.ID](objc.ID(_SLDisplayPresetDeviceManagerClass.class), objc.Sel("setDebugDeferArrivalSeconds:"), seconds)
 }

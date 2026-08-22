@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceSetValuesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceSetValuesOperationClass) Alloc() SLSBridgedSpaceSetValuesOperation {
-	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetValuesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceSetValuesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceSetValuesOperation) Init() SLSBridgedSpaceSetValuesOperation {
-	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceSetValuesOperation) Autorelease() SLSBridgedSpaceSetValuesOperation {
-	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceSetValuesOperation creates a new SLSBridgedSpaceSetValuesOperation instance.
 func NewSLSBridgedSpaceSetValuesOperation() SLSBridgedSpaceSetValuesOperation {
 	class := getSLSBridgedSpaceSetValuesOperationClass()
-	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetValuesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceSetValuesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
 	instance := getSLSBridgedSpaceSetValuesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetValuesOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceSetValuesOperationWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
 	instance := getSLSBridgedSpaceSetValuesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return SLSBridgedSpaceSetValuesOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceSetValuesOperation) InitWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceSetValuesOperation {
-	rv := objc.Send[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetValuesOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return rv
 }
 
 func (s SLSBridgedSpaceSetValuesOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceSetValuesOperation) Values() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("values"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

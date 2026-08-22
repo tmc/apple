@@ -40,7 +40,7 @@ func (sc SOSRSimpleLanguagePopUpButtonClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSRSimpleLanguagePopUpButtonClass) Alloc() SOSRSimpleLanguagePopUpButton {
-	rv := objc.Send[SOSRSimpleLanguagePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSRSimpleLanguagePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,31 +98,31 @@ type ISOSRSimpleLanguagePopUpButton interface {
 
 // Init initializes the instance.
 func (s SOSRSimpleLanguagePopUpButton) Init() SOSRSimpleLanguagePopUpButton {
-	rv := objc.Send[SOSRSimpleLanguagePopUpButton](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSRSimpleLanguagePopUpButton](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSRSimpleLanguagePopUpButton) Autorelease() SOSRSimpleLanguagePopUpButton {
-	rv := objc.Send[SOSRSimpleLanguagePopUpButton](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSRSimpleLanguagePopUpButton](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSRSimpleLanguagePopUpButton creates a new SOSRSimpleLanguagePopUpButton instance.
 func NewSOSRSimpleLanguagePopUpButton() SOSRSimpleLanguagePopUpButton {
 	class := getSOSRSimpleLanguagePopUpButtonClass()
-	rv := objc.Send[SOSRSimpleLanguagePopUpButton](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSRSimpleLanguagePopUpButton](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOSRSimpleLanguagePopUpButtonWithCoder(coder objectivec.IObject) SOSRSimpleLanguagePopUpButton {
 	instance := getSOSRSimpleLanguagePopUpButtonClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SOSRSimpleLanguagePopUpButtonFromID(rv)
 }
 
 func (s SOSRSimpleLanguagePopUpButton) _rowsFromSRLanguageItems(items objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_rowsFromSRLanguageItems:"), items)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_rowsFromSRLanguageItems:"), items)
 	return objectivec.Object{ID: rv}
 }
 
@@ -140,7 +140,7 @@ func (s SOSRSimpleLanguagePopUpButton) CanRowsFromSRLanguageItems() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_rowsFromSRLanguageItems:"))
 }
 func (s SOSRSimpleLanguagePopUpButton) _startDelayedPopUpUpdate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_startDelayedPopUpUpdate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 
 // StartDelayedPopUpUpdate is an exported wrapper for the private method _startDelayedPopUpUpdate.
@@ -158,7 +158,7 @@ func (s SOSRSimpleLanguagePopUpButton) CanStartDelayedPopUpUpdate() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 func (s SOSRSimpleLanguagePopUpButton) _updateSRLanguageMenu() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateSRLanguageMenu"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 
 // UpdateSRLanguageMenu is an exported wrapper for the private method _updateSRLanguageMenu.
@@ -176,24 +176,24 @@ func (s SOSRSimpleLanguagePopUpButton) CanUpdateSRLanguageMenu() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 func (s SOSRSimpleLanguagePopUpButton) BuildPopUpButtonAndSelectLocaleIdentifierSupportedLocaleIdentifiers(identifier objectivec.IObject, identifiers objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("buildPopUpButtonAndSelectLocaleIdentifier:supportedLocaleIdentifiers:"), identifier, identifiers)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("buildPopUpButtonAndSelectLocaleIdentifier:supportedLocaleIdentifiers:"), identifier, identifiers)
 }
 func (s SOSRSimpleLanguagePopUpButton) SelectedLanguageItem() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("selectedLanguageItem"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("selectedLanguageItem"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SOSRSimpleLanguagePopUpButton) PreviouslyChosenLocaleIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("previouslyChosenLocaleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("previouslyChosenLocaleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOSRSimpleLanguagePopUpButton) SetPreviouslyChosenLocaleIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPreviouslyChosenLocaleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setPreviouslyChosenLocaleIdentifier:"), objc.String(value))
 }
 func (s SOSRSimpleLanguagePopUpButton) SupportedLocaleIdentifiers() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedLocaleIdentifiers"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("supportedLocaleIdentifiers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SOSRSimpleLanguagePopUpButton) SetSupportedLocaleIdentifiers(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSupportedLocaleIdentifiers:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSupportedLocaleIdentifiers:"), value)
 }

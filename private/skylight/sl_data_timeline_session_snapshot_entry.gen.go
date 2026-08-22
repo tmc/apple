@@ -40,7 +40,7 @@ func (sc SLDataTimelineSessionSnapshotEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineSessionSnapshotEntryClass) Alloc() SLDataTimelineSessionSnapshotEntry {
-	rv := objc.Send[SLDataTimelineSessionSnapshotEntry](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionSnapshotEntry](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,52 +89,52 @@ type ISLDataTimelineSessionSnapshotEntry interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineSessionSnapshotEntry) Init() SLDataTimelineSessionSnapshotEntry {
-	rv := objc.Send[SLDataTimelineSessionSnapshotEntry](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionSnapshotEntry](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineSessionSnapshotEntry) Autorelease() SLDataTimelineSessionSnapshotEntry {
-	rv := objc.Send[SLDataTimelineSessionSnapshotEntry](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionSnapshotEntry](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineSessionSnapshotEntry creates a new SLDataTimelineSessionSnapshotEntry instance.
 func NewSLDataTimelineSessionSnapshotEntry() SLDataTimelineSessionSnapshotEntry {
 	class := getSLDataTimelineSessionSnapshotEntryClass()
-	rv := objc.Send[SLDataTimelineSessionSnapshotEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionSnapshotEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLDataTimelineSessionSnapshotEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionSnapshotEntry {
 	instance := getSLDataTimelineSessionSnapshotEntryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineSessionSnapshotEntryFromID(rv)
 }
 
 func (s SLDataTimelineSessionSnapshotEntry) ProcessesApplyBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("processesApplyBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("processesApplyBlock:"), _block0)
 }
 
 func (s SLDataTimelineSessionSnapshotEntry) ForegroundAppPID() int {
-	rv := objc.Send[int](s.ID, objc.Sel("foregroundAppPID"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("foregroundAppPID"))
 	return rv
 }
 func (s SLDataTimelineSessionSnapshotEntry) Processes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("processes"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("processes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLDataTimelineSessionSnapshotEntry) ProcessesArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("processesArray"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("processesArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLDataTimelineSessionSnapshotEntry) SessionSnapshotIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("sessionSnapshotIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("sessionSnapshotIndex"))
 	return rv
 }
 func (s SLDataTimelineSessionSnapshotEntry) SessionSnapshotTimestamp() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("sessionSnapshotTimestamp"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("sessionSnapshotTimestamp"))
 	return rv
 }
 

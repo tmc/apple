@@ -38,7 +38,7 @@ func (mc MLComputePlanCostClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanCostClass) Alloc() MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlanCost](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IMLComputePlanCost interface {
 
 // Init initializes the instance.
 func (m MLComputePlanCost) Init() MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlanCost](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlanCost) Autorelease() MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlanCost](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlanCost creates a new MLComputePlanCost instance.
 func NewMLComputePlanCost() MLComputePlanCost {
 	class := getMLComputePlanCostClass()
-	rv := objc.Send[MLComputePlanCost](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlanCost](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 	instance := getMLComputePlanCostClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWeight:"), weight)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWeight:"), weight)
 	return MLComputePlanCostFromID(rv)
 }
 
 func (m MLComputePlanCost) InitWithWeight(weight float64) MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("initWithWeight:"), weight)
+	rv := objc.SendIfResponds[MLComputePlanCost](m.ID, objc.Sel("initWithWeight:"), weight)
 	return rv
 }

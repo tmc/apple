@@ -39,7 +39,7 @@ func (sc SLSSigningKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSigningKeyClass) Alloc() SLSSigningKey {
-	rv := objc.Send[SLSSigningKey](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSigningKey](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,64 +85,64 @@ type ISLSSigningKey interface {
 
 // Init initializes the instance.
 func (s SLSSigningKey) Init() SLSSigningKey {
-	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSigningKey](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSigningKey) Autorelease() SLSSigningKey {
-	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSigningKey](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSigningKey creates a new SLSSigningKey instance.
 func NewSLSSigningKey() SLSSigningKey {
 	class := getSLSSigningKeyClass()
-	rv := objc.Send[SLSSigningKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSigningKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSigningKeyWithCoder(coder objectivec.IObject) SLSSigningKey {
 	instance := getSLSSigningKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSigningKeyFromID(rv)
 }
 
 func NewSLSSigningKeyWithData(data objectivec.IObject) SLSSigningKey {
 	instance := getSLSSigningKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return SLSSigningKeyFromID(rv)
 }
 
 func (s SLSSigningKey) CreateSignatureForMessage(message objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createSignatureForMessage:"), message)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createSignatureForMessage:"), message)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSigningKey) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSSigningKey) SigningContext() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("signingContext"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("signingContext"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSSigningKey) InitWithCoder(coder foundation.INSCoder) SLSSigningKey {
-	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSSigningKey](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s SLSSigningKey) InitWithData(data objectivec.IObject) SLSSigningKey {
-	rv := objc.Send[SLSSigningKey](s.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[SLSSigningKey](s.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
 
 func (_SLSSigningKeyClass SLSSigningKeyClass) Key() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("key"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("key"))
 	return objectivec.Object{ID: rv}
 }
 func (_SLSSigningKeyClass SLSSigningKeyClass) KeyWithData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("keyWithData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSSigningKeyClass.class), objc.Sel("keyWithData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSSigningKeyClass SLSSigningKeyClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSSigningKeyClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSSigningKeyClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

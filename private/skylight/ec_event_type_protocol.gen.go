@@ -42,18 +42,18 @@ func ECEventTypeObjectFromID(id objc.ID) ECEventTypeObject {
 }
 
 func (o ECEventTypeObject) CgSubType() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("cgSubType"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("cgSubType"))
 	return rv
 }
 func (o ECEventTypeObject) CgType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("cgType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("cgType"))
 	return rv
 }
 func (o ECEventTypeObject) HidType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("hidType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("hidType"))
 	return rv
 }
 func (o ECEventTypeObject) IsCGType() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isCGType"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isCGType"))
 	return rv
 }

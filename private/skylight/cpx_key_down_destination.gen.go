@@ -38,7 +38,7 @@ func (cc CPXKeyDownDestinationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyDownDestinationClass) Alloc() CPXKeyDownDestination {
-	rv := objc.Send[CPXKeyDownDestination](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyDownDestination](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ICPXKeyDownDestination interface {
 
 // Init initializes the instance.
 func (c CPXKeyDownDestination) Init() CPXKeyDownDestination {
-	rv := objc.Send[CPXKeyDownDestination](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyDownDestination](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyDownDestination) Autorelease() CPXKeyDownDestination {
-	rv := objc.Send[CPXKeyDownDestination](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyDownDestination](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyDownDestination creates a new CPXKeyDownDestination instance.
 func NewCPXKeyDownDestination() CPXKeyDownDestination {
 	class := getCPXKeyDownDestinationClass()
-	rv := objc.Send[CPXKeyDownDestination](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyDownDestination](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

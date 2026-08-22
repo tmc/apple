@@ -40,7 +40,7 @@ func (mc MLOneHotEncoderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLOneHotEncoderClass) Alloc() MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLOneHotEncoder](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,68 +92,68 @@ type IMLOneHotEncoder interface {
 
 // Init initializes the instance.
 func (m MLOneHotEncoder) Init() MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLOneHotEncoder](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLOneHotEncoder) Autorelease() MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLOneHotEncoder](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLOneHotEncoder creates a new MLOneHotEncoder instance.
 func NewMLOneHotEncoder() MLOneHotEncoder {
 	class := getMLOneHotEncoderClass()
-	rv := objc.Send[MLOneHotEncoder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLOneHotEncoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewOneHotEncoderWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
 	return MLOneHotEncoderFromID(rv)
 }
 
 func NewOneHotEncoderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLOneHotEncoderFromID(rv)
 }
 
 func NewOneHotEncoderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLOneHotEncoderFromID(rv)
 }
 
 func (m MLOneHotEncoder) EncodeFeatureValue(value objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("encodeFeatureValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeFeatureValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (m MLOneHotEncoder) EncodeFeatureValueIntString(string_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("encodeFeatureValueIntString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeFeatureValueIntString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLOneHotEncoder) UnknownDenseVector() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("unknownDenseVector"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("unknownDenseVector"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLOneHotEncoder) InitWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[MLOneHotEncoder](m.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
 	return rv
 }
 
 func (_MLOneHotEncoderClass MLOneHotEncoderClass) FeatureEncoderFromDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, name, sparse, unknown, description, description2, names, names2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, name, sparse, unknown, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLOneHotEncoderClass MLOneHotEncoderClass) FeatureEncoderFromInputDescriptionOrderedInputFeatureNames(from objectivec.IObject, description objectivec.IObject, names objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:inputDescription:orderedInputFeatureNames:"), from, description, names)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:inputDescription:orderedInputFeatureNames:"), from, description, names)
 	return objectivec.Object{ID: rv}
 }
 func (_MLOneHotEncoderClass MLOneHotEncoderClass) FeatureEncoderFromInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, description, description2, names, names2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLOneHotEncoderClass.class), objc.Sel("featureEncoderFrom:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLOneHotEncoderClass MLOneHotEncoderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -168,14 +168,14 @@ func (_MLOneHotEncoderClass MLOneHotEncoderClass) LoadModelFromSpecificationConf
 }
 
 func (m MLOneHotEncoder) FeatureEncoding() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureEncoding"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureEncoding"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
 func (m MLOneHotEncoder) HandleUnknown() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("handleUnknown"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("handleUnknown"))
 	return rv
 }
 func (m MLOneHotEncoder) OuputSparse() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("ouputSparse"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("ouputSparse"))
 	return rv
 }

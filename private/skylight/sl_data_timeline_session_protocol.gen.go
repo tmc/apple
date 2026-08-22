@@ -19,6 +19,9 @@ type SLDataTimelineSession interface {
 
 	// CurrentSnapshotMember protocol.
 	CurrentSnapshotMember() bool
+
+	// ProcessData protocol.
+	ProcessData() objectivec.IObject
 }
 
 // SLDataTimelineSessionObject wraps an existing Objective-C object that conforms to the SLDataTimelineSession protocol.
@@ -39,18 +42,18 @@ func SLDataTimelineSessionObjectFromID(id objc.ID) SLDataTimelineSessionObject {
 }
 
 func (o SLDataTimelineSessionObject) AuditID() int {
-	rv := objc.Send[int](o.ID, objc.Sel("auditID"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("auditID"))
 	return rv
 }
 func (o SLDataTimelineSessionObject) CgID() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("cgID"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("cgID"))
 	return rv
 }
 func (o SLDataTimelineSessionObject) CurrentSnapshotMember() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("currentSnapshotMember"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("currentSnapshotMember"))
 	return rv
 }
 func (o SLDataTimelineSessionObject) ProcessData() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("processData"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("processData"))
 	return objectivec.Object{ID: rv}
 }

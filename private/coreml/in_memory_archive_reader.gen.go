@@ -40,7 +40,7 @@ func (ic InMemoryArchiveReaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ic InMemoryArchiveReaderClass) Alloc() InMemoryArchiveReader {
-	rv := objc.Send[InMemoryArchiveReader](objc.ID(ic.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[InMemoryArchiveReader](objc.ID(ic.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,43 +98,43 @@ type IInMemoryArchiveReader interface {
 
 // Init initializes the instance.
 func (i InMemoryArchiveReader) Init() InMemoryArchiveReader {
-	rv := objc.Send[InMemoryArchiveReader](i.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[InMemoryArchiveReader](i.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (i InMemoryArchiveReader) Autorelease() InMemoryArchiveReader {
-	rv := objc.Send[InMemoryArchiveReader](i.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[InMemoryArchiveReader](i.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewInMemoryArchiveReader creates a new InMemoryArchiveReader instance.
 func NewInMemoryArchiveReader() InMemoryArchiveReader {
 	class := getInMemoryArchiveReaderClass()
-	rv := objc.Send[InMemoryArchiveReader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[InMemoryArchiveReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewInMemoryArchiveReaderWithNetwork(network unsafe.Pointer) InMemoryArchiveReader {
 	instance := getInMemoryArchiveReaderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return InMemoryArchiveReaderFromID(rv)
 }
 
 func (i InMemoryArchiveReader) CopyLayerShapesToContainer(container objectivec.IObject) {
-	objc.Send[objc.ID](i.ID, objc.Sel("copyLayerShapesToContainer:"), container)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("copyLayerShapesToContainer:"), container)
 }
 func (i InMemoryArchiveReader) LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
 	return objectivec.Object{ID: rv}
 }
 func (i InMemoryArchiveReader) TransformParams() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("transformParams"))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("transformParams"))
 	return objectivec.Object{ID: rv}
 }
 
 func (_InMemoryArchiveReaderClass InMemoryArchiveReaderClass) ModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_InMemoryArchiveReaderClass.class), objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_InMemoryArchiveReaderClass.class), objc.Sel("modelName"))
 	return objectivec.Object{ID: rv}
 }
 func (_InMemoryArchiveReaderClass InMemoryArchiveReaderClass) ReaderFromArchiverError(archiver unsafe.Pointer) (objectivec.IObject, error) {
@@ -149,26 +149,26 @@ func (_InMemoryArchiveReaderClass InMemoryArchiveReaderClass) ReaderFromArchiver
 }
 
 func (i InMemoryArchiveReader) DebugDescription() string {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (i InMemoryArchiveReader) Description() string {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (i InMemoryArchiveReader) Hash() uint64 {
-	rv := objc.Send[uint64](i.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("hash"))
 	return rv
 }
 func (i InMemoryArchiveReader) LayerInfos() foundation.INSArray {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("layerInfos"))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("layerInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (i InMemoryArchiveReader) ModelPath() string {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("modelPath"))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("modelPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (i InMemoryArchiveReader) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](i.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](i.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

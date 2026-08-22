@@ -38,7 +38,7 @@ func (mc MLMetricKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMetricKeyClass) Alloc() MLMetricKey {
-	rv := objc.Send[MLMetricKey](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMetricKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,31 +61,31 @@ type IMLMetricKey interface {
 
 // Init initializes the instance.
 func (m MLMetricKey) Init() MLMetricKey {
-	rv := objc.Send[MLMetricKey](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMetricKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMetricKey) Autorelease() MLMetricKey {
-	rv := objc.Send[MLMetricKey](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMetricKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMetricKey creates a new MLMetricKey instance.
 func NewMLMetricKey() MLMetricKey {
 	class := getMLMetricKeyClass()
-	rv := objc.Send[MLMetricKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMetricKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLMetricKeyFromID(rv)
 }
 
 func NewMetricKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLMetricKeyFromID(rv)
 }

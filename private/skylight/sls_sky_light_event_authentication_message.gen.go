@@ -40,7 +40,7 @@ func (sc SLSSkyLightEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSkyLightEventAuthenticationMessageClass) Alloc() SLSSkyLightEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSkyLightEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,88 +91,88 @@ type ISLSSkyLightEventAuthenticationMessage interface {
 	Gesture() unsafe.Pointer
 	Key() unsafe.Pointer
 	Location() corefoundation.CGPoint
-	MatchesEvent(event unsafe.Pointer) bool
+	MatchesEvent(event *CGEvent) bool
 	Mouse() unsafe.Pointer
 	Window() uint32
 }
 
 // Init initializes the instance.
 func (s SLSSkyLightEventAuthenticationMessage) Init() SLSSkyLightEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightEventAuthenticationMessage](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSkyLightEventAuthenticationMessage](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSkyLightEventAuthenticationMessage) Autorelease() SLSSkyLightEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSkyLightEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSkyLightEventAuthenticationMessage creates a new SLSSkyLightEventAuthenticationMessage instance.
 func NewSLSSkyLightEventAuthenticationMessage() SLSSkyLightEventAuthenticationMessage {
 	class := getSLSSkyLightEventAuthenticationMessageClass()
-	rv := objc.Send[SLSSkyLightEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSkyLightEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSkyLightEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
 func NewSLSSkyLightEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
+func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightEventAuthenticationMessage {
+func NewSLSSkyLightEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func (s SLSSkyLightEventAuthenticationMessage) MatchesEvent(event unsafe.Pointer) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("matchesEvent:"), event)
+func (s SLSSkyLightEventAuthenticationMessage) MatchesEvent(event *CGEvent) bool {
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("matchesEvent:"), event)
 	return rv
 }
 
 func (s SLSSkyLightEventAuthenticationMessage) Attributes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("attributes"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("attributes"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Connection() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("connection"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Flags() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("flags"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("flags"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Gesture() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("gesture"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("gesture"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Key() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("key"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Location() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("location"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSSkyLightEventAuthenticationMessage) Mouse() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("mouse"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("mouse"))
 	return rv
 }
 func (s SLSSkyLightEventAuthenticationMessage) Window() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("window"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("window"))
 	return rv
 }

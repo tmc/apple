@@ -37,7 +37,7 @@ func (vc VZMacScalerAcceleratorDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacScalerAcceleratorDeviceConfigurationClass) Alloc() VZMacScalerAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZMacScalerAcceleratorDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacScalerAcceleratorDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZMacScalerAcceleratorDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacScalerAcceleratorDeviceConfiguration) Init() VZMacScalerAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZMacScalerAcceleratorDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacScalerAcceleratorDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacScalerAcceleratorDeviceConfiguration) Autorelease() VZMacScalerAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZMacScalerAcceleratorDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacScalerAcceleratorDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacScalerAcceleratorDeviceConfiguration creates a new VZMacScalerAcceleratorDeviceConfiguration instance.
 func NewVZMacScalerAcceleratorDeviceConfiguration() VZMacScalerAcceleratorDeviceConfiguration {
 	class := getVZMacScalerAcceleratorDeviceConfigurationClass()
-	rv := objc.Send[VZMacScalerAcceleratorDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacScalerAcceleratorDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

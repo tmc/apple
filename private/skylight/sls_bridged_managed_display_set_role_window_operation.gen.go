@@ -39,7 +39,7 @@ func (sc SLSBridgedManagedDisplaySetRoleWindowOperationClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedManagedDisplaySetRoleWindowOperationClass) Alloc() SLSBridgedManagedDisplaySetRoleWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetRoleWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedManagedDisplaySetRoleWindowOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) Init() SLSBridgedManagedDisplaySetRoleWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) Autorelease() SLSBridgedManagedDisplaySetRoleWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedManagedDisplaySetRoleWindowOperation creates a new SLSBridgedManagedDisplaySetRoleWindowOperation instance.
 func NewSLSBridgedManagedDisplaySetRoleWindowOperation() SLSBridgedManagedDisplaySetRoleWindowOperation {
 	class := getSLSBridgedManagedDisplaySetRoleWindowOperationClass()
-	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetRoleWindowOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedManagedDisplaySetRoleWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaySetRoleWindowOperation {
 	instance := getSLSBridgedManagedDisplaySetRoleWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaySetRoleWindowOperationFromID(rv)
 }
 
 func NewSLSBridgedManagedDisplaySetRoleWindowOperationWithDisplayIdentifierRoleWindowID(identifier objectivec.IObject, role uint64, id uint32) SLSBridgedManagedDisplaySetRoleWindowOperation {
 	instance := getSLSBridgedManagedDisplaySetRoleWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
 	return SLSBridgedManagedDisplaySetRoleWindowOperationFromID(rv)
 }
 
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) InitWithDisplayIdentifierRoleWindowID(identifier objectivec.IObject, role uint64, id uint32) SLSBridgedManagedDisplaySetRoleWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetRoleWindowOperation](s.ID, objc.Sel("initWithDisplayIdentifier:role:windowID:"), identifier, role, id)
 	return rv
 }
 
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) DisplayIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) Role() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("role"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("role"))
 	return rv
 }
 func (s SLSBridgedManagedDisplaySetRoleWindowOperation) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }

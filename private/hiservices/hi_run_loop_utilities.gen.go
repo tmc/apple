@@ -39,7 +39,7 @@ func (hc HIRunLoopUtilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (hc HIRunLoopUtilitiesClass) Alloc() HIRunLoopUtilities {
-	rv := objc.Send[HIRunLoopUtilities](objc.ID(hc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[HIRunLoopUtilities](objc.ID(hc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,25 +73,25 @@ type IHIRunLoopUtilities interface {
 
 // Init initializes the instance.
 func (h HIRunLoopUtilities) Init() HIRunLoopUtilities {
-	rv := objc.Send[HIRunLoopUtilities](h.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[HIRunLoopUtilities](h.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (h HIRunLoopUtilities) Autorelease() HIRunLoopUtilities {
-	rv := objc.Send[HIRunLoopUtilities](h.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[HIRunLoopUtilities](h.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewHIRunLoopUtilities creates a new HIRunLoopUtilities instance.
 func NewHIRunLoopUtilities() HIRunLoopUtilities {
 	class := getHIRunLoopUtilitiesClass()
-	rv := objc.Send[HIRunLoopUtilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[HIRunLoopUtilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (h HIRunLoopUtilities) _blockQueueDepth() uint32 {
-	rv := objc.Send[uint32](h.ID, objc.Sel("_blockQueueDepth"))
+	rv := objc.SendIfResponds[uint32](h.ID, objc.Sel("_blockQueueDepth"))
 	return rv
 }
 
@@ -110,7 +110,7 @@ func (h HIRunLoopUtilities) CanBlockQueueDepth() bool {
 }
 
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) _currentRunLoopMode() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -128,11 +128,11 @@ func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CanCurrentRunLoopMode() 
 	return objc.RespondsToSelector(objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
 }
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) AddRunLoopModesForDeferredActions(actions objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("addRunLoopModesForDeferredActions:"), actions)
+	objc.SendIfResponds[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("addRunLoopModesForDeferredActions:"), actions)
 }
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) DeferActions(actions VoidHandler) {
 	_block0, _ := NewVoidBlock(actions)
-	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("deferActions:"), _block0)
+	objc.SendIfResponds[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("deferActions:"), _block0)
 }
 
 // DeferActionsSync is a synchronous wrapper around [HIRunLoopUtilities.DeferActions].

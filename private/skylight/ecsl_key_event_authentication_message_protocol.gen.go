@@ -36,10 +36,10 @@ func ECSLKeyEventAuthenticationMessageObjectFromID(id objc.ID) ECSLKeyEventAuthe
 }
 
 func (o ECSLKeyEventAuthenticationMessageObject) CharCode() uint16 {
-	rv := objc.Send[uint16](o.ID, objc.Sel("charCode"))
+	rv := objc.SendIfResponds[uint16](o.ID, objc.Sel("charCode"))
 	return rv
 }
 func (o ECSLKeyEventAuthenticationMessageObject) Repeat() int16 {
-	rv := objc.Send[int16](o.ID, objc.Sel("repeat"))
+	rv := objc.SendIfResponds[int16](o.ID, objc.Sel("repeat"))
 	return rv
 }

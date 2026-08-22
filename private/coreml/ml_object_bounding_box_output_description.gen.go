@@ -39,7 +39,7 @@ func (mc MLObjectBoundingBoxOutputDescriptionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLObjectBoundingBoxOutputDescriptionClass) Alloc() MLObjectBoundingBoxOutputDescription {
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLObjectBoundingBoxOutputDescription](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,48 +94,48 @@ type IMLObjectBoundingBoxOutputDescription interface {
 
 // Init initializes the instance.
 func (m MLObjectBoundingBoxOutputDescription) Init() MLObjectBoundingBoxOutputDescription {
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLObjectBoundingBoxOutputDescription) Autorelease() MLObjectBoundingBoxOutputDescription {
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLObjectBoundingBoxOutputDescription creates a new MLObjectBoundingBoxOutputDescription instance.
 func NewMLObjectBoundingBoxOutputDescription() MLObjectBoundingBoxOutputDescription {
 	class := getMLObjectBoundingBoxOutputDescriptionClass()
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLObjectBoundingBoxOutputDescription](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLObjectBoundingBoxOutputDescription) ConfidenceFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("confidenceFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("confidenceFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLObjectBoundingBoxOutputDescription) SetConfidenceFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setConfidenceFeatureName:"), objc.String(value))
 }
 func (m MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("coordinatesFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("coordinatesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLObjectBoundingBoxOutputDescription) SetCoordinatesFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
 }
 func (m MLObjectBoundingBoxOutputDescription) Format() int {
-	rv := objc.Send[int](m.ID, objc.Sel("format"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("format"))
 	return rv
 }
 func (m MLObjectBoundingBoxOutputDescription) SetFormat(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFormat:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFormat:"), value)
 }
 func (m MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("labelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLObjectBoundingBoxOutputDescription) SetLabelNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
 }

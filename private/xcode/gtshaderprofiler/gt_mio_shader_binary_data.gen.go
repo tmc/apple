@@ -41,7 +41,7 @@ func (gc GTMioShaderBinaryDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderBinaryDataClass) Alloc() GTMioShaderBinaryData {
-	rv := objc.Send[GTMioShaderBinaryData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderBinaryData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -49,6 +49,7 @@ func (gc GTMioShaderBinaryDataClass) Alloc() GTMioShaderBinaryData {
 //
 //   - [GTMioShaderBinaryData.Address]
 //   - [GTMioShaderBinaryData.AddressForInstructionAtIndex]
+//   - [GTMioShaderBinaryData.AllocatedRegisterCount]
 //   - [GTMioShaderBinaryData.BinaryRangeIndexForInstructionIndex]
 //   - [GTMioShaderBinaryData.CachedISAFileURL]
 //   - [GTMioShaderBinaryData.Cost]
@@ -96,8 +97,8 @@ func (gc GTMioShaderBinaryDataClass) Alloc() GTMioShaderBinaryData {
 //   - [GTMioShaderBinaryData.IsaForInstructionAtIndexCount]
 //   - [GTMioShaderBinaryData.IsaPrefixForInstructionAtIndex]
 //   - [GTMioShaderBinaryData.IsaStrings]
-//   - [GTMioShaderBinaryData.LiveRegisterForInstructionAtIndex]
 //   - [GTMioShaderBinaryData.ProgramType]
+//   - [GTMioShaderBinaryData.RegisterCountForInstructionAtIndexType]
 //   - [GTMioShaderBinaryData.TotalCostForScopeScopeIdentifierDataMaster]
 //   - [GTMioShaderBinaryData.TraceCount]
 //   - [GTMioShaderBinaryData.TraceData]
@@ -131,6 +132,7 @@ var _ IGTMioShaderBinaryData = GTMioShaderBinaryData{}
 //
 //   - [IGTMioShaderBinaryData.Address]
 //   - [IGTMioShaderBinaryData.AddressForInstructionAtIndex]
+//   - [IGTMioShaderBinaryData.AllocatedRegisterCount]
 //   - [IGTMioShaderBinaryData.BinaryRangeIndexForInstructionIndex]
 //   - [IGTMioShaderBinaryData.CachedISAFileURL]
 //   - [IGTMioShaderBinaryData.Cost]
@@ -178,8 +180,8 @@ var _ IGTMioShaderBinaryData = GTMioShaderBinaryData{}
 //   - [IGTMioShaderBinaryData.IsaForInstructionAtIndexCount]
 //   - [IGTMioShaderBinaryData.IsaPrefixForInstructionAtIndex]
 //   - [IGTMioShaderBinaryData.IsaStrings]
-//   - [IGTMioShaderBinaryData.LiveRegisterForInstructionAtIndex]
 //   - [IGTMioShaderBinaryData.ProgramType]
+//   - [IGTMioShaderBinaryData.RegisterCountForInstructionAtIndexType]
 //   - [IGTMioShaderBinaryData.TotalCostForScopeScopeIdentifierDataMaster]
 //   - [IGTMioShaderBinaryData.TraceCount]
 //   - [IGTMioShaderBinaryData.TraceData]
@@ -202,22 +204,23 @@ type IGTMioShaderBinaryData interface {
 
 	Address() uint64
 	AddressForInstructionAtIndex(index uint32) uint64
+	AllocatedRegisterCount() int
 	BinaryRangeIndexForInstructionIndex(index uint32) uint32
 	CachedISAFileURL() foundation.NSURL
-	Cost() unsafe.Pointer
+	Cost() *GTMioCostInfo
 	CostCount() uint64
-	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
-	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
-	Costs() unsafe.Pointer
+	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool
+	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
+	Costs() *GTMioCostInfo
 	DebugBinaryRangeCount() uint64
-	DebugBinaryRanges() unsafe.Pointer
+	DebugBinaryRanges() *GTMioShaderBinaryDebugBinaryRange
 	DebugFilePathForDebugLocationAtIndex(index uint32) objectivec.IObject
 	DebugFunctionNameForDebugLocationAtIndex(index uint32) objectivec.IObject
-	DebugLocationAtIndex(index uint32) unsafe.Pointer
+	DebugLocationAtIndex(index uint32) *GTMioShaderBinaryDebugLocation
 	DebugLocationCount() uint64
-	DebugLocations() unsafe.Pointer
-	DebugRangeForInstructionAtIndex(index uint32) unsafe.Pointer
+	DebugLocations() *GTMioShaderBinaryDebugLocation
+	DebugRangeForInstructionAtIndex(index uint32) *GTMioShaderBinaryDebugBinaryRange
 	DebugStringForStringIndex(index uint32) objectivec.IObject
 	DebugStrings() foundation.INSArray
 	Duration() uint64
@@ -234,28 +237,28 @@ type IGTMioShaderBinaryData interface {
 	FullPathIndexForFilePath(path objectivec.IObject) uint32
 	HasRaytracing() bool
 	Index() uint64
-	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool
-	InstructionCosts() unsafe.Pointer
-	InstructionCostsForDraw(draw uint32) unsafe.Pointer
-	InstructionCostsForEncoder(encoder uint32) unsafe.Pointer
-	InstructionCostsForPipelineState(state uint64) unsafe.Pointer
-	InstructionCostsForScopeScopeIdentifier(scope uint16, identifier uint64) unsafe.Pointer
+	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 *GTMioCostInfo) bool
+	InstructionCosts() *GTMioCostInfo
+	InstructionCostsForDraw(draw uint32) *GTMioCostInfo
+	InstructionCostsForEncoder(encoder uint32) *GTMioCostInfo
+	InstructionCostsForPipelineState(state uint64) *GTMioCostInfo
+	InstructionCostsForScopeScopeIdentifier(scope uint16, identifier uint64) *GTMioCostInfo
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
 	InstructionExecuted() uint64
-	InstructionInfo() unsafe.Pointer
+	InstructionInfo() *GTMioShaderInstructionInfo
 	InstructionInfoCount() uint64
 	Internal() unsafe.Pointer
 	IsaForInstructionAtIndex(index uint32) objectivec.IObject
 	IsaForInstructionAtIndexCount(index uint32, count uint32) objectivec.IObject
 	IsaPrefixForInstructionAtIndex(index uint32) objectivec.IObject
 	IsaStrings() foundation.INSArray
-	LiveRegisterForInstructionAtIndex(index uint32) int
 	ProgramType() uint16
+	RegisterCountForInstructionAtIndexType(index uint32, type_ uint32) int
 	TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64
 	TraceCount() uint64
 	TraceData() unsafe.Pointer
-	Traces() unsafe.Pointer
-	TracesForProgramTypeCount(type_ uint16, count *uint64) unsafe.Pointer
+	Traces() *GTMioBinaryTrace
+	TracesForProgramTypeCount(type_ uint16, count *uint64) *GTMioBinaryTrace
 	UsedInDataMaster(master uint16) bool
 	UsedInDylib() bool
 	UsedInEncoder(encoder uint64) bool
@@ -270,292 +273,296 @@ type IGTMioShaderBinaryData interface {
 
 // Init initializes the instance.
 func (g GTMioShaderBinaryData) Init() GTMioShaderBinaryData {
-	rv := objc.Send[GTMioShaderBinaryData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderBinaryData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderBinaryData) Autorelease() GTMioShaderBinaryData {
-	rv := objc.Send[GTMioShaderBinaryData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderBinaryData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderBinaryData creates a new GTMioShaderBinaryData instance.
 func NewGTMioShaderBinaryData() GTMioShaderBinaryData {
 	class := getGTMioShaderBinaryDataClass()
-	rv := objc.Send[GTMioShaderBinaryData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderBinaryData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderBinaryDataWithBinaryDataParentIndex(data unsafe.Pointer, parent objectivec.IObject, index uint64) GTMioShaderBinaryData {
 	instance := getGTMioShaderBinaryDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
 	return GTMioShaderBinaryDataFromID(rv)
 }
 
 func (g GTMioShaderBinaryData) AddressForInstructionAtIndex(index uint32) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("addressForInstructionAtIndex:"), index)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("addressForInstructionAtIndex:"), index)
+	return rv
+}
+func (g GTMioShaderBinaryData) AllocatedRegisterCount() int {
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("allocatedRegisterCount"))
 	return rv
 }
 func (g GTMioShaderBinaryData) BinaryRangeIndexForInstructionIndex(index uint32) uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("binaryRangeIndexForInstructionIndex:"), index)
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("binaryRangeIndexForInstructionIndex:"), index)
 	return rv
 }
 func (g GTMioShaderBinaryData) CachedISAFileURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("cachedISAFileURL"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cachedISAFileURL"))
 	return foundation.NSURLFromID(rv)
 }
-func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:"), range_, scope, identifier, cost, instructions)
+func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:"), range_, scope, identifier, unsafe.Pointer(cost), unsafe.Pointer(instructions))
 	return rv
 }
-func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions *uint32) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:"), line, index, scope, identifier, cost, instructions)
+func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost *GTMioCostInfo, instructions *uint32) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:"), line, index, scope, identifier, unsafe.Pointer(cost), unsafe.Pointer(instructions))
 	return rv
 }
-func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
 func (g GTMioShaderBinaryData) DebugFilePathForDebugLocationAtIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFilePathForDebugLocationAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFilePathForDebugLocationAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderBinaryData) DebugFunctionNameForDebugLocationAtIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFunctionNameForDebugLocationAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFunctionNameForDebugLocationAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioShaderBinaryData) DebugLocationAtIndex(index uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugLocationAtIndex:"), index)
-	return rv
+func (g GTMioShaderBinaryData) DebugLocationAtIndex(index uint32) *GTMioShaderBinaryDebugLocation {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("debugLocationAtIndex:"), index)
+	return (*GTMioShaderBinaryDebugLocation)(rv)
 }
-func (g GTMioShaderBinaryData) DebugRangeForInstructionAtIndex(index uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugRangeForInstructionAtIndex:"), index)
-	return rv
+func (g GTMioShaderBinaryData) DebugRangeForInstructionAtIndex(index uint32) *GTMioShaderBinaryDebugBinaryRange {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("debugRangeForInstructionAtIndex:"), index)
+	return (*GTMioShaderBinaryDebugBinaryRange)(rv)
 }
 func (g GTMioShaderBinaryData) DebugStringForStringIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugStringForStringIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugStringForStringIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderBinaryData) EnumerateBinaryRangesForFileLineEnumerator(file uint32, line uint32, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForFile:line:enumerator:"), file, line, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForFile:line:enumerator:"), file, line, _block2)
 }
 func (g GTMioShaderBinaryData) EnumerateDrawsWithProgramTypeEnumerator(type_ uint16, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsWithProgramType:enumerator:"), type_, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateDrawsWithProgramType:enumerator:"), type_, _block1)
 }
 func (g GTMioShaderBinaryData) EnumerateEncoderCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEncoderCosts:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateEncoderCosts:"), _block0)
 }
 func (g GTMioShaderBinaryData) EnumerateEntryPoints(points VoidHandler) {
 	_block0, _ := NewVoidBlock(points)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEntryPoints:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateEntryPoints:"), _block0)
 }
 func (g GTMioShaderBinaryData) EnumerateInstructionsForBinaryRangeEnumerator(range_ uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForBinaryRange:enumerator:"), range_, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateInstructionsForBinaryRange:enumerator:"), range_, _block1)
 }
 func (g GTMioShaderBinaryData) EnumerateLinesForFileEnumerator(file uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateLinesForFile:enumerator:"), file, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateLinesForFile:enumerator:"), file, _block1)
 }
 func (g GTMioShaderBinaryData) EnumeratePerDrawCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePerDrawCosts:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumeratePerDrawCosts:"), _block0)
 }
 func (g GTMioShaderBinaryData) EnumeratePipelineStateCosts(costs VoidHandler) {
 	_block0, _ := NewVoidBlock(costs)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStateCosts:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumeratePipelineStateCosts:"), _block0)
 }
 func (g GTMioShaderBinaryData) EnumeratePipelineStatesWithProgramTypeEnumerator(type_ uint16, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStatesWithProgramType:enumerator:"), type_, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumeratePipelineStatesWithProgramType:enumerator:"), type_, _block1)
 }
 func (g GTMioShaderBinaryData) EnumerateTraces(traces VoidHandler) {
 	_block0, _ := NewVoidBlock(traces)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateTraces:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateTraces:"), _block0)
 }
 func (g GTMioShaderBinaryData) FullPathIndexForFilePath(path objectivec.IObject) uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("fullPathIndexForFilePath:"), path)
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("fullPathIndexForFilePath:"), path)
 	return rv
 }
-func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("instructionCost:scope:scopeIdentifier:cost:"), cost, scope, identifier, cost2)
+func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("instructionCost:scope:scopeIdentifier:cost:"), cost, scope, identifier, unsafe.Pointer(cost2))
 	return rv
 }
-func (g GTMioShaderBinaryData) InstructionCostsForDraw(draw uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForDraw:"), draw)
-	return rv
+func (g GTMioShaderBinaryData) InstructionCostsForDraw(draw uint32) *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForDraw:"), draw)
+	return (*GTMioCostInfo)(rv)
 }
-func (g GTMioShaderBinaryData) InstructionCostsForEncoder(encoder uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForEncoder:"), encoder)
-	return rv
+func (g GTMioShaderBinaryData) InstructionCostsForEncoder(encoder uint32) *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForEncoder:"), encoder)
+	return (*GTMioCostInfo)(rv)
 }
-func (g GTMioShaderBinaryData) InstructionCostsForPipelineState(state uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForPipelineState:"), state)
-	return rv
+func (g GTMioShaderBinaryData) InstructionCostsForPipelineState(state uint64) *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForPipelineState:"), state)
+	return (*GTMioCostInfo)(rv)
 }
-func (g GTMioShaderBinaryData) InstructionCostsForScopeScopeIdentifier(scope uint16, identifier uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForScope:scopeIdentifier:"), scope, identifier)
-	return rv
+func (g GTMioShaderBinaryData) InstructionCostsForScopeScopeIdentifier(scope uint16, identifier uint64) *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionCostsForScope:scopeIdentifier:"), scope, identifier)
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioShaderBinaryData) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (g GTMioShaderBinaryData) IsaForInstructionAtIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderBinaryData) IsaForInstructionAtIndexCount(index uint32, count uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:count:"), index, count)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("isaForInstructionAtIndex:count:"), index, count)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderBinaryData) IsaPrefixForInstructionAtIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrefixForInstructionAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("isaPrefixForInstructionAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioShaderBinaryData) LiveRegisterForInstructionAtIndex(index uint32) int {
-	rv := objc.Send[int](g.ID, objc.Sel("liveRegisterForInstructionAtIndex:"), index)
+func (g GTMioShaderBinaryData) RegisterCountForInstructionAtIndexType(index uint32, type_ uint32) int {
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("registerCountForInstructionAtIndex:type:"), index, type_)
 	return rv
 }
 func (g GTMioShaderBinaryData) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
-func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count *uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("tracesForProgramType:count:"), type_, count)
-	return rv
+func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count *uint64) *GTMioBinaryTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("tracesForProgramType:count:"), type_, unsafe.Pointer(count))
+	return (*GTMioBinaryTrace)(rv)
 }
 func (g GTMioShaderBinaryData) UsedInDataMaster(master uint16) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("usedInDataMaster:"), master)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("usedInDataMaster:"), master)
 	return rv
 }
 func (g GTMioShaderBinaryData) UsedInEncoder(encoder uint64) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("usedInEncoder:"), encoder)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("usedInEncoder:"), encoder)
 	return rv
 }
 func (g GTMioShaderBinaryData) UsedInPipelineState(state uint64) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("usedInPipelineState:"), state)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("usedInPipelineState:"), state)
 	return rv
 }
 func (g GTMioShaderBinaryData) UsedInProgramType(type_ uint16) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("usedInProgramType:"), type_)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("usedInProgramType:"), type_)
 	return rv
 }
 func (g GTMioShaderBinaryData) InitWithBinaryDataParentIndex(data unsafe.Pointer, parent objectivec.IObject, index uint64) GTMioShaderBinaryData {
-	rv := objc.Send[GTMioShaderBinaryData](g.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
+	rv := objc.SendIfResponds[GTMioShaderBinaryData](g.ID, objc.Sel("initWithBinaryData:parent:index:"), data, parent, index)
 	return rv
 }
 
 func (g GTMioShaderBinaryData) Address() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("address"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("address"))
 	return rv
 }
-func (g GTMioShaderBinaryData) Cost() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cost"))
-	return rv
+func (g GTMioShaderBinaryData) Cost() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("cost"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioShaderBinaryData) CostCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-func (g GTMioShaderBinaryData) Costs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costs"))
-	return rv
+func (g GTMioShaderBinaryData) Costs() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("costs"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioShaderBinaryData) DebugBinaryRangeCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("debugBinaryRangeCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("debugBinaryRangeCount"))
 	return rv
 }
-func (g GTMioShaderBinaryData) DebugBinaryRanges() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugBinaryRanges"))
-	return rv
+func (g GTMioShaderBinaryData) DebugBinaryRanges() *GTMioShaderBinaryDebugBinaryRange {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("debugBinaryRanges"))
+	return (*GTMioShaderBinaryDebugBinaryRange)(rv)
 }
 func (g GTMioShaderBinaryData) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderBinaryData) DebugLocationCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("debugLocationCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("debugLocationCount"))
 	return rv
 }
-func (g GTMioShaderBinaryData) DebugLocations() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("debugLocations"))
-	return rv
+func (g GTMioShaderBinaryData) DebugLocations() *GTMioShaderBinaryDebugLocation {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("debugLocations"))
+	return (*GTMioShaderBinaryDebugLocation)(rv)
 }
 func (g GTMioShaderBinaryData) DebugStrings() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugStrings"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderBinaryData) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderBinaryData) Duration() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("duration"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("duration"))
 	return rv
 }
 func (g GTMioShaderBinaryData) HasRaytracing() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("hasRaytracing"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("hasRaytracing"))
 	return rv
 }
 func (g GTMioShaderBinaryData) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTMioShaderBinaryData) Index() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("index"))
 	return rv
 }
-func (g GTMioShaderBinaryData) InstructionCosts() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionCosts"))
-	return rv
+func (g GTMioShaderBinaryData) InstructionCosts() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionCosts"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioShaderBinaryData) InstructionExecuted() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionExecuted"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionExecuted"))
 	return rv
 }
-func (g GTMioShaderBinaryData) InstructionInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionInfo"))
-	return rv
+func (g GTMioShaderBinaryData) InstructionInfo() *GTMioShaderInstructionInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionInfo"))
+	return (*GTMioShaderInstructionInfo)(rv)
 }
 func (g GTMioShaderBinaryData) InstructionInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionInfoCount"))
 	return rv
 }
 func (g GTMioShaderBinaryData) Internal() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("internal"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("internal"))
 	return rv
 }
 func (g GTMioShaderBinaryData) IsaStrings() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaStrings"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("isaStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderBinaryData) ProgramType() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
 func (g GTMioShaderBinaryData) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTMioShaderBinaryData) TraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
 func (g GTMioShaderBinaryData) TraceData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traceData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traceData"))
 	return rv
 }
-func (g GTMioShaderBinaryData) Traces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+func (g GTMioShaderBinaryData) Traces() *GTMioBinaryTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traces"))
+	return (*GTMioBinaryTrace)(rv)
 }
 func (g GTMioShaderBinaryData) UsedInDylib() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("usedInDylib"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("usedInDylib"))
 	return rv
 }
 

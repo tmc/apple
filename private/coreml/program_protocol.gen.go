@@ -10,6 +10,9 @@ import (
 // MLProgram protocol.
 type MLProgram interface {
 	objectivec.IObject
+
+	// SerializedMILText protocol.
+	SerializedMILText() objectivec.IObject
 }
 
 // MLProgramObject wraps an existing Objective-C object that conforms to the MLProgram protocol.
@@ -30,6 +33,6 @@ func MLProgramObjectFromID(id objc.ID) MLProgramObject {
 }
 
 func (o MLProgramObject) SerializedMILText() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("serializedMILText"))
 	return objectivec.Object{ID: rv}
 }

@@ -39,7 +39,7 @@ func (sc SOVoiceRowCheckboxButtonClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOVoiceRowCheckboxButtonClass) Alloc() SOVoiceRowCheckboxButton {
-	rv := objc.Send[SOVoiceRowCheckboxButton](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOVoiceRowCheckboxButton](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,27 +76,27 @@ type ISOVoiceRowCheckboxButton interface {
 
 // Init initializes the instance.
 func (s SOVoiceRowCheckboxButton) Init() SOVoiceRowCheckboxButton {
-	rv := objc.Send[SOVoiceRowCheckboxButton](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOVoiceRowCheckboxButton](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOVoiceRowCheckboxButton) Autorelease() SOVoiceRowCheckboxButton {
-	rv := objc.Send[SOVoiceRowCheckboxButton](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOVoiceRowCheckboxButton](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOVoiceRowCheckboxButton creates a new SOVoiceRowCheckboxButton instance.
 func NewSOVoiceRowCheckboxButton() SOVoiceRowCheckboxButton {
 	class := getSOVoiceRowCheckboxButtonClass()
-	rv := objc.Send[SOVoiceRowCheckboxButton](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOVoiceRowCheckboxButton](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOVoiceRowCheckboxButton) VoiceIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("voiceIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("voiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOVoiceRowCheckboxButton) SetVoiceIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
 }

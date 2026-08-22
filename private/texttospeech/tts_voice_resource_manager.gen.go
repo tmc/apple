@@ -39,7 +39,7 @@ func (tc TTSVoiceResourceManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSVoiceResourceManagerClass) Alloc() TTSVoiceResourceManager {
-	rv := objc.Send[TTSVoiceResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSVoiceResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,30 +62,30 @@ type ITTSVoiceResourceManager interface {
 
 // Init initializes the instance.
 func (t TTSVoiceResourceManager) Init() TTSVoiceResourceManager {
-	rv := objc.Send[TTSVoiceResourceManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSVoiceResourceManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSVoiceResourceManager) Autorelease() TTSVoiceResourceManager {
-	rv := objc.Send[TTSVoiceResourceManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSVoiceResourceManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSVoiceResourceManager creates a new TTSVoiceResourceManager instance.
 func NewTTSVoiceResourceManager() TTSVoiceResourceManager {
 	class := getTTSVoiceResourceManagerClass()
-	rv := objc.Send[TTSVoiceResourceManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSVoiceResourceManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EffectiveResourceForLanguageCodeAndVoiceType(code objectivec.IObject, type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("effectiveResourceForLanguageCode:andVoiceType:"), code, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("effectiveResourceForLanguageCode:andVoiceType:"), code, type_)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EnumerateLoadableResourcesInAssetUsingBlock(asset objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("enumerateLoadableResourcesInAsset:usingBlock:"), asset, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("enumerateLoadableResourcesInAsset:usingBlock:"), asset, _block1)
 }
 
 // EnumerateLoadableResourcesInAssetUsingBlockSync is a synchronous wrapper around [TTSVoiceResourceManager.EnumerateLoadableResourcesInAssetUsingBlock].

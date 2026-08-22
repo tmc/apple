@@ -38,7 +38,7 @@ func (cc CoreMLMLComputePlanClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMLComputePlanClass) Alloc() CoreMLMLComputePlan {
-	rv := objc.Send[CoreMLMLComputePlan](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMLComputePlan](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMLComputePlanFromID(id objc.ID) CoreMLMLComputePlan {
 	return CoreMLMLComputePlan{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMLComputePlan struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMLComputePlan embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMLComputePlan implements ICoreMLMLComputePlan.
+var _ ICoreMLMLComputePlan = CoreMLMLComputePlan{}
 
 // An interface definition for the [CoreMLMLComputePlan] class.
 type ICoreMLMLComputePlan interface {
@@ -61,19 +61,19 @@ type ICoreMLMLComputePlan interface {
 
 // Init initializes the instance.
 func (c CoreMLMLComputePlan) Init() CoreMLMLComputePlan {
-	rv := objc.Send[CoreMLMLComputePlan](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMLComputePlan](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMLComputePlan) Autorelease() CoreMLMLComputePlan {
-	rv := objc.Send[CoreMLMLComputePlan](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMLComputePlan](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMLComputePlan creates a new CoreMLMLComputePlan instance.
 func NewCoreMLMLComputePlan() CoreMLMLComputePlan {
 	class := getCoreMLMLComputePlanClass()
-	rv := objc.Send[CoreMLMLComputePlan](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMLComputePlan](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

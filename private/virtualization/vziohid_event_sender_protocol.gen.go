@@ -33,5 +33,5 @@ func VZIOHIDEventSenderObjectFromID(id objc.ID) VZIOHIDEventSenderObject {
 }
 
 func (o VZIOHIDEventSenderObject) SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
 }

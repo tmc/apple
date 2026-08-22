@@ -39,7 +39,7 @@ func (ac AVSpeechSynthesisProviderRequestClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpeechSynthesisProviderRequestClass) Alloc() AVSpeechSynthesisProviderRequest {
-	rv := objc.Send[AVSpeechSynthesisProviderRequest](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderRequest](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,46 +88,46 @@ type IAVSpeechSynthesisProviderRequest interface {
 
 // Init initializes the instance.
 func (a AVSpeechSynthesisProviderRequest) Init() AVSpeechSynthesisProviderRequest {
-	rv := objc.Send[AVSpeechSynthesisProviderRequest](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderRequest](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVSpeechSynthesisProviderRequest) Autorelease() AVSpeechSynthesisProviderRequest {
-	rv := objc.Send[AVSpeechSynthesisProviderRequest](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderRequest](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVSpeechSynthesisProviderRequest creates a new AVSpeechSynthesisProviderRequest instance.
 func NewAVSpeechSynthesisProviderRequest() AVSpeechSynthesisProviderRequest {
 	class := getAVSpeechSynthesisProviderRequestClass()
-	rv := objc.Send[AVSpeechSynthesisProviderRequest](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_AVSpeechSynthesisProviderRequestClass AVSpeechSynthesisProviderRequestClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisProviderRequestClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechSynthesisProviderRequestClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a AVSpeechSynthesisProviderRequest) JobIdentifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("jobIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("jobIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderRequest) SetJobIdentifier(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setJobIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setJobIdentifier:"), objc.String(value))
 }
 func (a AVSpeechSynthesisProviderRequest) SsmlRepresentation() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("ssmlRepresentation"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderRequest) SetSsmlRepresentation(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSsmlRepresentation:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSsmlRepresentation:"), objc.String(value))
 }
 func (a AVSpeechSynthesisProviderRequest) Voice() IAVSpeechSynthesisProviderVoice {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("voice"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("voice"))
 	return AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
 }
 func (a AVSpeechSynthesisProviderRequest) SetVoice(value IAVSpeechSynthesisProviderVoice) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVoice:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setVoice:"), value)
 }

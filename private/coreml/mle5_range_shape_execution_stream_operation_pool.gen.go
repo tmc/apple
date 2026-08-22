@@ -41,7 +41,7 @@ func (mc MLE5RangeShapeExecutionStreamOperationPoolClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5RangeShapeExecutionStreamOperationPoolClass) Alloc() MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5RangeShapeExecutionStreamOperationPool](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -135,26 +135,26 @@ type IMLE5RangeShapeExecutionStreamOperationPool interface {
 
 // Init initializes the instance.
 func (m MLE5RangeShapeExecutionStreamOperationPool) Init() MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5RangeShapeExecutionStreamOperationPool) Autorelease() MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5RangeShapeExecutionStreamOperationPool creates a new MLE5RangeShapeExecutionStreamOperationPool instance.
 func NewMLE5RangeShapeExecutionStreamOperationPool() MLE5RangeShapeExecutionStreamOperationPool {
 	class := getMLE5RangeShapeExecutionStreamOperationPoolClass()
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5RangeShapeExecutionStreamOperationPool](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5RangeShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
 	instance := getMLE5RangeShapeExecutionStreamOperationPoolClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return MLE5RangeShapeExecutionStreamOperationPoolFromID(rv)
 }
 
@@ -183,10 +183,10 @@ func (m MLE5RangeShapeExecutionStreamOperationPool) CanMakeAndPreloadOperationFo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_putBack:"), back)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_putBack:"), back)
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) _takeOutAnyOperation() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_takeOutAnyOperation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_takeOutAnyOperation"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -217,7 +217,7 @@ func (m MLE5RangeShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeEr
 
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -230,63 +230,63 @@ func (m MLE5RangeShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesE
 
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+	rv := objc.SendIfResponds[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return rv
 }
 
 func (m MLE5RangeShapeExecutionStreamOperationPool) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) DefaultShapePool() foundation.INSSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultShapePool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defaultShapePool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) MilDefaultShapeFunctionName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milDefaultShapeFunctionName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milDefaultShapeFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) MilFunctionName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milFunctionName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) ShapeHashToPoolMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeHashToPoolMap"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shapeHashToPoolMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLE5RangeShapeExecutionStreamOperationPool) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

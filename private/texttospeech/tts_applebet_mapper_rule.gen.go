@@ -40,7 +40,7 @@ func (tc TTSApplebetMapperRuleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSApplebetMapperRuleClass) Alloc() TTSApplebetMapperRule {
-	rv := objc.Send[TTSApplebetMapperRule](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSApplebetMapperRule](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,60 +98,60 @@ type ITTSApplebetMapperRule interface {
 
 // Init initializes the instance.
 func (t TTSApplebetMapperRule) Init() TTSApplebetMapperRule {
-	rv := objc.Send[TTSApplebetMapperRule](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSApplebetMapperRule](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSApplebetMapperRule) Autorelease() TTSApplebetMapperRule {
-	rv := objc.Send[TTSApplebetMapperRule](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSApplebetMapperRule](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSApplebetMapperRule creates a new TTSApplebetMapperRule instance.
 func NewTTSApplebetMapperRule() TTSApplebetMapperRule {
 	class := getTTSApplebetMapperRuleClass()
-	rv := objc.Send[TTSApplebetMapperRule](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSApplebetMapperRule](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSApplebetMapperRule) SetMatchRule(rule VoidHandler) {
 	_block0, _ := NewVoidBlock(rule)
-	objc.Send[objc.ID](t.ID, objc.Sel("setMatchRule:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setMatchRule:"), _block0)
 }
 
 func (_TTSApplebetMapperRuleClass TTSApplebetMapperRuleClass) RuleWithHeterogeniousArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSApplebetMapperRuleClass.class), objc.Sel("ruleWithHeterogeniousArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSApplebetMapperRuleClass.class), objc.Sel("ruleWithHeterogeniousArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 
 func (t TTSApplebetMapperRule) Left() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("left"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("left"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperRule) SetLeft(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLeft:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLeft:"), value)
 }
 func (t TTSApplebetMapperRule) Match() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("match"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("match"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperRule) SetMatch(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMatch:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setMatch:"), value)
 }
 func (t TTSApplebetMapperRule) Right() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("right"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("right"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperRule) SetRight(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRight:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRight:"), value)
 }
 func (t TTSApplebetMapperRule) Substitution() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("substitution"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("substitution"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperRule) SetSubstitution(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSubstitution:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSubstitution:"), value)
 }
 
 // SetMatchRuleSync is a synchronous wrapper around [TTSApplebetMapperRule.SetMatchRule].

@@ -39,7 +39,7 @@ func (sc SLSecureCursorAssertionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSecureCursorAssertionClass) Alloc() SLSecureCursorAssertion {
-	rv := objc.Send[SLSecureCursorAssertion](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertion](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,47 +85,47 @@ type ISLSecureCursorAssertion interface {
 
 // Init initializes the instance.
 func (s SLSecureCursorAssertion) Init() SLSecureCursorAssertion {
-	rv := objc.Send[SLSecureCursorAssertion](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertion](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSecureCursorAssertion) Autorelease() SLSecureCursorAssertion {
-	rv := objc.Send[SLSecureCursorAssertion](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertion](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSecureCursorAssertion creates a new SLSecureCursorAssertion instance.
 func NewSLSecureCursorAssertion() SLSecureCursorAssertion {
 	class := getSLSecureCursorAssertionClass()
-	rv := objc.Send[SLSecureCursorAssertion](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSecureCursorAssertion) Invalidate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidate"))
 }
 func (s SLSecureCursorAssertion) IsValid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isValid"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isValid"))
 	return rv
 }
 
 func (_SLSecureCursorAssertionClass SLSecureCursorAssertionClass) Assertion() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("assertion"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("assertion"))
 	return objectivec.Object{ID: rv}
 }
 func (_SLSecureCursorAssertionClass SLSecureCursorAssertionClass) InvalidateAll() {
-	objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("invalidateAll"))
+	objc.SendIfResponds[objc.ID](objc.ID(_SLSecureCursorAssertionClass.class), objc.Sel("invalidateAll"))
 }
 
 func (s SLSecureCursorAssertion) Uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (s SLSecureCursorAssertion) SetUuid(value foundation.NSUUID) {
-	objc.Send[struct{}](s.ID, objc.Sel("setUuid:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUuid:"), value)
 }
 func (s SLSecureCursorAssertion) Valid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("valid"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("valid"))
 	return rv
 }

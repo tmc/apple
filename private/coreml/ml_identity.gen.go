@@ -40,7 +40,7 @@ func (mc MLIdentityClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLIdentityClass) Alloc() MLIdentity {
-	rv := objc.Send[MLIdentity](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLIdentity](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,30 +74,33 @@ type IMLIdentity interface {
 
 // Init initializes the instance.
 func (m MLIdentity) Init() MLIdentity {
-	rv := objc.Send[MLIdentity](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLIdentity](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLIdentity) Autorelease() MLIdentity {
-	rv := objc.Send[MLIdentity](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLIdentity](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLIdentity creates a new MLIdentity instance.
 func NewMLIdentity() MLIdentity {
 	class := getMLIdentityClass()
-	rv := objc.Send[MLIdentity](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLIdentity](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLIdentity{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLIdentity{}, objc.ErrInitFailed
 	}
 	return MLIdentityFromID(rv), nil
 }
@@ -105,35 +108,38 @@ func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification
 func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLIdentity{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLIdentity{}, objc.ErrInitFailed
 	}
 	return MLIdentityFromID(rv), nil
 }
 
 func NewIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLIdentityFromID(rv)
 }
 
 func NewIdentityWithDescription(description objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLIdentityFromID(rv)
 }
 
 func NewIdentityWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLIdentityFromID(rv)
 }
 
 func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLIdentityFromID(rv)
 }
 

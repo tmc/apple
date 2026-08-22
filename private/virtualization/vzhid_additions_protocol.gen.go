@@ -11,6 +11,9 @@ import (
 type VZHIDAdditions interface {
 	objectivec.IObject
 
+	// _hidEventMonitor protocol.
+	_hidEventMonitor() objectivec.IObject
+
 	// _processHIDReportsForDeviceDeviceType protocol.
 	_processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32)
 
@@ -36,13 +39,13 @@ func VZHIDAdditionsObjectFromID(id objc.ID) VZHIDAdditionsObject {
 }
 
 func (o VZHIDAdditionsObject) _hidEventMonitor() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("_hidEventMonitor"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("_hidEventMonitor"))
 	return objectivec.Object{ID: rv}
 }
 func (o VZHIDAdditionsObject) _processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
-	objc.Send[struct{}](o.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
 }
 func (o VZHIDAdditionsObject) _shouldSendHIDReports() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("_shouldSendHIDReports"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("_shouldSendHIDReports"))
 	return rv
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -38,7 +39,7 @@ func (ac AVAudioUnitClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitClass) Alloc() AVAudioUnit {
-	rv := objc.Send[AVAudioUnit](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnit](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,44 +74,44 @@ type IAVAudioUnit interface {
 
 	SetValueForParam(value float32, param uint32) bool
 	ValueForParam(param uint32) float32
-	AUAudioUnit() unsafe.Pointer
+	AUAudioUnit() audiotoolbox.AUAudioUnit
 }
 
 // Init initializes the instance.
 func (a AVAudioUnit) Init() AVAudioUnit {
-	rv := objc.Send[AVAudioUnit](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnit](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnit) Autorelease() AVAudioUnit {
-	rv := objc.Send[AVAudioUnit](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnit](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnit creates a new AVAudioUnit instance.
 func NewAVAudioUnit() AVAudioUnit {
 	class := getAVAudioUnitClass()
-	rv := objc.Send[AVAudioUnit](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnit](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioUnitWithImpl(impl unsafe.Pointer) AVAudioUnit {
 	instance := getAVAudioUnitClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitFromID(rv)
 }
 
 func (a AVAudioUnit) SetValueForParam(value float32, param uint32) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setValue:forParam:"), value, param)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setValue:forParam:"), value, param)
 	return rv
 }
 func (a AVAudioUnit) ValueForParam(param uint32) float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("valueForParam:"), param)
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("valueForParam:"), param)
 	return rv
 }
 
-func (a AVAudioUnit) AUAudioUnit() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("AUAudioUnit"))
-	return rv
+func (a AVAudioUnit) AUAudioUnit() audiotoolbox.AUAudioUnit {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("AUAudioUnit"))
+	return audiotoolbox.AUAudioUnitFromID(objc.ID(rv))
 }

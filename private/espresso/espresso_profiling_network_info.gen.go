@@ -39,7 +39,7 @@ func (ec EspressoProfilingNetworkInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingNetworkInfoClass) Alloc() EspressoProfilingNetworkInfo {
-	rv := objc.Send[EspressoProfilingNetworkInfo](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkInfo](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,48 +94,48 @@ type IEspressoProfilingNetworkInfo interface {
 
 // Init initializes the instance.
 func (e EspressoProfilingNetworkInfo) Init() EspressoProfilingNetworkInfo {
-	rv := objc.Send[EspressoProfilingNetworkInfo](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkInfo](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoProfilingNetworkInfo) Autorelease() EspressoProfilingNetworkInfo {
-	rv := objc.Send[EspressoProfilingNetworkInfo](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkInfo](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoProfilingNetworkInfo creates a new EspressoProfilingNetworkInfo instance.
 func NewEspressoProfilingNetworkInfo() EspressoProfilingNetworkInfo {
 	class := getEspressoProfilingNetworkInfoClass()
-	rv := objc.Send[EspressoProfilingNetworkInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoProfilingNetworkInfo) Ane_compiler_analytics() IEspressoProfilingANEcompilerAnalytics {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("ane_compiler_analytics"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("ane_compiler_analytics"))
 	return EspressoProfilingANEcompilerAnalyticsFromID(objc.ID(rv))
 }
 func (e EspressoProfilingNetworkInfo) SetAne_compiler_analytics(value IEspressoProfilingANEcompilerAnalytics) {
-	objc.Send[struct{}](e.ID, objc.Sel("setAne_compiler_analytics:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setAne_compiler_analytics:"), value)
 }
 func (e EspressoProfilingNetworkInfo) Ane_performance_info() IEspressoProfilingNetworkANEInfo {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("ane_performance_info"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("ane_performance_info"))
 	return EspressoProfilingNetworkANEInfoFromID(objc.ID(rv))
 }
 func (e EspressoProfilingNetworkInfo) SetAne_performance_info(value IEspressoProfilingNetworkANEInfo) {
-	objc.Send[struct{}](e.ID, objc.Sel("setAne_performance_info:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setAne_performance_info:"), value)
 }
 func (e EspressoProfilingNetworkInfo) Layers() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("layers"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("layers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoProfilingNetworkInfo) SetLayers(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLayers:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLayers:"), value)
 }
 func (e EspressoProfilingNetworkInfo) Network_at_path() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("network_at_path"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("network_at_path"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoProfilingNetworkInfo) SetNetwork_at_path(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNetwork_at_path:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNetwork_at_path:"), objc.String(value))
 }

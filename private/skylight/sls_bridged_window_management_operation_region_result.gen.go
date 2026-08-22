@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationRegionResultClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationRegionResultClass) Alloc() SLSBridgedWindowManagementOperationRegionResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRegionResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -69,46 +69,46 @@ type ISLSBridgedWindowManagementOperationRegionResult interface {
 
 	// Topic: Methods
 
-	CopyRegion() uintptr
-	InitWithRegion(region uintptr) SLSBridgedWindowManagementOperationRegionResult
+	CopyRegion() CGSRegionObjectRef
+	InitWithRegion(region CGSRegionObjectRef) SLSBridgedWindowManagementOperationRegionResult
 }
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationRegionResult) Init() SLSBridgedWindowManagementOperationRegionResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationRegionResult) Autorelease() SLSBridgedWindowManagementOperationRegionResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationRegionResult creates a new SLSBridgedWindowManagementOperationRegionResult instance.
 func NewSLSBridgedWindowManagementOperationRegionResult() SLSBridgedWindowManagementOperationRegionResult {
 	class := getSLSBridgedWindowManagementOperationRegionResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRegionResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationRegionResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationRegionResult {
 	instance := getSLSBridgedWindowManagementOperationRegionResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationRegionResultFromID(rv)
 }
 
-func NewSLSBridgedWindowManagementOperationRegionResultWithRegion(region uintptr) SLSBridgedWindowManagementOperationRegionResult {
+func NewSLSBridgedWindowManagementOperationRegionResultWithRegion(region CGSRegionObjectRef) SLSBridgedWindowManagementOperationRegionResult {
 	instance := getSLSBridgedWindowManagementOperationRegionResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegion:"), region)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegion:"), region)
 	return SLSBridgedWindowManagementOperationRegionResultFromID(rv)
 }
 
-func (s SLSBridgedWindowManagementOperationRegionResult) CopyRegion() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("copyRegion"))
-	return rv
+func (s SLSBridgedWindowManagementOperationRegionResult) CopyRegion() CGSRegionObjectRef {
+	rv := objc.SendIfResponds[CGSRegionObjectRef](s.ID, objc.Sel("copyRegion"))
+	return CGSRegionObjectRef(rv)
 }
-func (s SLSBridgedWindowManagementOperationRegionResult) InitWithRegion(region uintptr) SLSBridgedWindowManagementOperationRegionResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("initWithRegion:"), region)
+func (s SLSBridgedWindowManagementOperationRegionResult) InitWithRegion(region CGSRegionObjectRef) SLSBridgedWindowManagementOperationRegionResult {
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRegionResult](s.ID, objc.Sel("initWithRegion:"), region)
 	return rv
 }

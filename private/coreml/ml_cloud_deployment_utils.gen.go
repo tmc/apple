@@ -40,7 +40,7 @@ func (mc MLCloudDeploymentUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCloudDeploymentUtilsClass) Alloc() MLCloudDeploymentUtils {
-	rv := objc.Send[MLCloudDeploymentUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCloudDeploymentUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,20 +63,20 @@ type IMLCloudDeploymentUtils interface {
 
 // Init initializes the instance.
 func (m MLCloudDeploymentUtils) Init() MLCloudDeploymentUtils {
-	rv := objc.Send[MLCloudDeploymentUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCloudDeploymentUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCloudDeploymentUtils) Autorelease() MLCloudDeploymentUtils {
-	rv := objc.Send[MLCloudDeploymentUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCloudDeploymentUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCloudDeploymentUtils creates a new MLCloudDeploymentUtils instance.
 func NewMLCloudDeploymentUtils() MLCloudDeploymentUtils {
 	class := getMLCloudDeploymentUtilsClass()
-	rv := objc.Send[MLCloudDeploymentUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCloudDeploymentUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

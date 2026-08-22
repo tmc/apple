@@ -39,7 +39,7 @@ func (sc SLDataTimelineSessionEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineSessionEntryClass) Alloc() SLDataTimelineSessionEntry {
-	rv := objc.Send[SLDataTimelineSessionEntry](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionEntry](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,56 +88,56 @@ type ISLDataTimelineSessionEntry interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineSessionEntry) Init() SLDataTimelineSessionEntry {
-	rv := objc.Send[SLDataTimelineSessionEntry](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionEntry](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineSessionEntry) Autorelease() SLDataTimelineSessionEntry {
-	rv := objc.Send[SLDataTimelineSessionEntry](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionEntry](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineSessionEntry creates a new SLDataTimelineSessionEntry instance.
 func NewSLDataTimelineSessionEntry() SLDataTimelineSessionEntry {
 	class := getSLDataTimelineSessionEntryClass()
-	rv := objc.Send[SLDataTimelineSessionEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLDataTimelineSessionEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionEntry {
 	instance := getSLDataTimelineSessionEntryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineSessionEntryFromID(rv)
 }
 
 func (s SLDataTimelineSessionEntry) CreateXPCObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLDataTimelineSessionEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionEntry {
-	rv := objc.Send[SLDataTimelineSessionEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[SLDataTimelineSessionEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
 func (_SLDataTimelineSessionEntryClass SLDataTimelineSessionEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineSessionEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLDataTimelineSessionEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLDataTimelineSessionEntry) AuditID() int {
-	rv := objc.Send[int](s.ID, objc.Sel("auditID"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("auditID"))
 	return rv
 }
 func (s SLDataTimelineSessionEntry) CgID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("cgID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("cgID"))
 	return rv
 }
 func (s SLDataTimelineSessionEntry) CurrentSnapshotMember() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("currentSnapshotMember"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("currentSnapshotMember"))
 	return rv
 }
 func (s SLDataTimelineSessionEntry) ProcessData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("processData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("processData"))
 	return rv
 }

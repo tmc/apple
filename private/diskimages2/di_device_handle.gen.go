@@ -41,7 +41,7 @@ func (dc DIDeviceHandleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIDeviceHandleClass) Alloc() DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIDeviceHandle](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -123,38 +123,38 @@ type IDIDeviceHandle interface {
 
 // Init initializes the instance.
 func (d DIDeviceHandle) Init() DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIDeviceHandle](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIDeviceHandle) Autorelease() DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIDeviceHandle](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIDeviceHandle creates a new DIDeviceHandle instance.
 func NewDIDeviceHandle() DIDeviceHandle {
 	class := getDIDeviceHandleClass()
-	rv := objc.Send[DIDeviceHandle](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIDeviceHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIDeviceHandleWithCoder(coder objectivec.IObject) DIDeviceHandle {
 	instance := getDIDeviceHandleClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIDeviceHandleFromID(rv)
 }
 
 func NewDIDeviceHandleWithRegEntryID(regEntryID uint64) DIDeviceHandle {
 	instance := getDIDeviceHandleClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
 	return DIDeviceHandleFromID(rv)
 }
 
 func NewDIDeviceHandleWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle {
 	instance := getDIDeviceHandleClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRegEntryID:xpcEndpoint:"), regEntryID, xpcEndpoint)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRegEntryID:xpcEndpoint:"), regEntryID, xpcEndpoint)
 	return DIDeviceHandleFromID(rv)
 }
 
@@ -211,55 +211,55 @@ func (d DIDeviceHandle) UpdateBSDNameWithBlockDeviceError(blockDevice string) (b
 
 }
 func (d DIDeviceHandle) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIDeviceHandle) InitWithRegEntryID(regEntryID uint64) DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
+	rv := objc.SendIfResponds[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
 	return rv
 }
 func (d DIDeviceHandle) InitWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:xpcEndpoint:"), regEntryID, xpcEndpoint)
+	rv := objc.SendIfResponds[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:xpcEndpoint:"), regEntryID, xpcEndpoint)
 	return rv
 }
 func (d DIDeviceHandle) InitWithCoder(coder foundation.INSCoder) DIDeviceHandle {
-	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIDeviceHandle](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DIDeviceHandleClass DIDeviceHandleClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIDeviceHandleClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIDeviceHandleClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIDeviceHandle) BSDName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("BSDName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("BSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIDeviceHandle) SetBSDName(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBSDName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBSDName:"), objc.String(value))
 }
 func (d DIDeviceHandle) HandleRefCount() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("handleRefCount"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("handleRefCount"))
 	return rv
 }
 func (d DIDeviceHandle) SetHandleRefCount(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
 }
 func (d DIDeviceHandle) RegEntryID() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("regEntryID"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("regEntryID"))
 	return rv
 }
 func (d DIDeviceHandle) XpcEndpoint() foundation.NSXPCListenerEndpoint {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("xpcEndpoint"))
 	return foundation.NSXPCListenerEndpointFromID(objc.ID(rv))
 }
 func (d DIDeviceHandle) SetXpcEndpoint(value foundation.NSXPCListenerEndpoint) {
-	objc.Send[struct{}](d.ID, objc.Sel("setXpcEndpoint:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setXpcEndpoint:"), value)
 }
 func (d DIDeviceHandle) Client2IOhandler() IDIClient2IODaemonXPCHandler {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("client2IOhandler"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("client2IOhandler"))
 	return DIClient2IODaemonXPCHandlerFromID(objc.ID(rv))
 }
 func (d DIDeviceHandle) SetClient2IOhandler(value IDIClient2IODaemonXPCHandler) {
-	objc.Send[struct{}](d.ID, objc.Sel("setClient2IOhandler:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setClient2IOhandler:"), value)
 }

@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSTaskRunnerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSTaskRunnerClass) Alloc() TextToSpeechTTSTaskRunner {
-	rv := objc.Send[TextToSpeechTTSTaskRunner](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSTaskRunner](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSTaskRunnerFromID(id objc.ID) TextToSpeechTTSTaskRunner {
 	return TextToSpeechTTSTaskRunner{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSTaskRunner struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSTaskRunner embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSTaskRunner implements ITextToSpeechTTSTaskRunner.
+var _ ITextToSpeechTTSTaskRunner = TextToSpeechTTSTaskRunner{}
 
 // An interface definition for the [TextToSpeechTTSTaskRunner] class.
 type ITextToSpeechTTSTaskRunner interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSTaskRunner interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSTaskRunner) Init() TextToSpeechTTSTaskRunner {
-	rv := objc.Send[TextToSpeechTTSTaskRunner](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSTaskRunner](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSTaskRunner) Autorelease() TextToSpeechTTSTaskRunner {
-	rv := objc.Send[TextToSpeechTTSTaskRunner](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSTaskRunner](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSTaskRunner creates a new TextToSpeechTTSTaskRunner instance.
 func NewTextToSpeechTTSTaskRunner() TextToSpeechTTSTaskRunner {
 	class := getTextToSpeechTTSTaskRunnerClass()
-	rv := objc.Send[TextToSpeechTTSTaskRunner](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSTaskRunner](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

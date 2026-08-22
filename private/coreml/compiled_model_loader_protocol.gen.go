@@ -10,6 +10,9 @@ import (
 // MLCompiledModelLoader protocol.
 type MLCompiledModelLoader interface {
 	objectivec.IObject
+
+	// LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError protocol.
+	LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLCompiledModelLoaderObject wraps an existing Objective-C object that conforms to the MLCompiledModelLoader protocol.

@@ -39,7 +39,7 @@ func (vc VZStorageDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration {
-	rv := objc.Send[VZStorageDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZStorageDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,25 +91,25 @@ type IVZStorageDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZStorageDeviceConfiguration) Init() VZStorageDeviceConfiguration {
-	rv := objc.Send[VZStorageDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZStorageDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZStorageDeviceConfiguration) Autorelease() VZStorageDeviceConfiguration {
-	rv := objc.Send[VZStorageDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZStorageDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZStorageDeviceConfiguration creates a new VZStorageDeviceConfiguration instance.
 func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 	class := getVZStorageDeviceConfigurationClass()
-	rv := objc.Send[VZStorageDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZStorageDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 
@@ -127,7 +127,7 @@ func (v VZStorageDeviceConfiguration) CanInitWithAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:"))
 }
 func (v VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setAttachment:"), attachment)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setAttachment:"), attachment)
 }
 
 // SetAttachment is an exported wrapper for the private method _setAttachment.
@@ -145,23 +145,23 @@ func (v VZStorageDeviceConfiguration) CanSetAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:"))
 }
 func (v VZStorageDeviceConfiguration) MakeStorageDeviceForVirtualMachineStorageDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZStorageDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZStorageDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZStorageDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZStorageDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

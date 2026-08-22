@@ -41,7 +41,7 @@ func (ac ANESandboxingHelperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANESandboxingHelperClass) Alloc() ANESandboxingHelper {
-	rv := objc.Send[ANESandboxingHelper](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANESandboxingHelper](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IANESandboxingHelper interface {
 
 // Init initializes the instance.
 func (a ANESandboxingHelper) Init() ANESandboxingHelper {
-	rv := objc.Send[ANESandboxingHelper](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANESandboxingHelper](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANESandboxingHelper) Autorelease() ANESandboxingHelper {
-	rv := objc.Send[ANESandboxingHelper](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANESandboxingHelper](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANESandboxingHelper creates a new ANESandboxingHelper instance.
 func NewANESandboxingHelper() ANESandboxingHelper {
 	class := getANESandboxingHelperClass()
-	rv := objc.Send[ANESandboxingHelper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANESandboxingHelper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -135,10 +135,10 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionF
 
 }
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ReleaseSandboxExtensionHandle(extension objectivec.IObject, handle int64) bool {
-	rv := objc.Send[bool](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("releaseSandboxExtension:handle:"), extension, handle)
+	rv := objc.SendIfResponds[bool](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("releaseSandboxExtension:handle:"), extension, handle)
 	return rv
 }
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) SandboxExtensionPathForModelURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("sandboxExtensionPathForModelURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("sandboxExtensionPathForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }

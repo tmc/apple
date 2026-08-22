@@ -38,7 +38,7 @@ func (sc SODownloadDisplayManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SODownloadDisplayManagerClass) Alloc() SODownloadDisplayManager {
-	rv := objc.Send[SODownloadDisplayManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SODownloadDisplayManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,25 +81,25 @@ type ISODownloadDisplayManager interface {
 
 // Init initializes the instance.
 func (s SODownloadDisplayManager) Init() SODownloadDisplayManager {
-	rv := objc.Send[SODownloadDisplayManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SODownloadDisplayManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SODownloadDisplayManager) Autorelease() SODownloadDisplayManager {
-	rv := objc.Send[SODownloadDisplayManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SODownloadDisplayManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSODownloadDisplayManager creates a new SODownloadDisplayManager instance.
 func NewSODownloadDisplayManager() SODownloadDisplayManager {
 	class := getSODownloadDisplayManagerClass()
-	rv := objc.Send[SODownloadDisplayManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SODownloadDisplayManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SODownloadDisplayManager) _appendAveragingTimeInterval(interval float64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_appendAveragingTimeInterval:"), interval)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_appendAveragingTimeInterval:"), interval)
 }
 
 // AppendAveragingTimeInterval is an exported wrapper for the private method _appendAveragingTimeInterval.
@@ -117,7 +117,7 @@ func (s SODownloadDisplayManager) CanAppendAveragingTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_appendAveragingTimeInterval:"))
 }
 func (s SODownloadDisplayManager) _averagedTimeInterval() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("_averagedTimeInterval"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("_averagedTimeInterval"))
 	return rv
 }
 
@@ -135,9 +135,9 @@ func (s SODownloadDisplayManager) CanAveragedTimeInterval() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_averagedTimeInterval"))
 }
 func (s SODownloadDisplayManager) Reset() {
-	objc.Send[objc.ID](s.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("reset"))
 }
 func (s SODownloadDisplayManager) TimeRemainingForActiveInstallationsWithTagPrefix(installations objectivec.IObject, prefix objectivec.IObject) float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("timeRemainingForActiveInstallations:withTagPrefix:"), installations, prefix)
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("timeRemainingForActiveInstallations:withTagPrefix:"), installations, prefix)
 	return rv
 }

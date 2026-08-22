@@ -38,7 +38,7 @@ func (ac AVAudioConnectionPointClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioConnectionPointClass) Alloc() AVAudioConnectionPoint {
-	rv := objc.Send[AVAudioConnectionPoint](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioConnectionPoint](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IAVAudioConnectionPoint interface {
 
 // Init initializes the instance.
 func (a AVAudioConnectionPoint) Init() AVAudioConnectionPoint {
-	rv := objc.Send[AVAudioConnectionPoint](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioConnectionPoint](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioConnectionPoint) Autorelease() AVAudioConnectionPoint {
-	rv := objc.Send[AVAudioConnectionPoint](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioConnectionPoint](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioConnectionPoint creates a new AVAudioConnectionPoint instance.
 func NewAVAudioConnectionPoint() AVAudioConnectionPoint {
 	class := getAVAudioConnectionPointClass()
-	rv := objc.Send[AVAudioConnectionPoint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioConnectionPoint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_AVAudioConnectionPointClass AVAudioConnectionPointClass) ConnectionPointWithNodeBus(node objectivec.IObject, bus uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVAudioConnectionPointClass.class), objc.Sel("connectionPointWithNode:bus:"), node, bus)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVAudioConnectionPointClass.class), objc.Sel("connectionPointWithNode:bus:"), node, bus)
 	return objectivec.Object{ID: rv}
 }

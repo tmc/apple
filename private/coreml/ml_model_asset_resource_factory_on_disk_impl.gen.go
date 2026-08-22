@@ -40,7 +40,7 @@ func (mc MLModelAssetResourceFactoryOnDiskImplClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetResourceFactoryOnDiskImplClass) Alloc() MLModelAssetResourceFactoryOnDiskImpl {
-	rv := objc.Send[MLModelAssetResourceFactoryOnDiskImpl](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactoryOnDiskImpl](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,30 +101,33 @@ type IMLModelAssetResourceFactoryOnDiskImpl interface {
 
 // Init initializes the instance.
 func (m MLModelAssetResourceFactoryOnDiskImpl) Init() MLModelAssetResourceFactoryOnDiskImpl {
-	rv := objc.Send[MLModelAssetResourceFactoryOnDiskImpl](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactoryOnDiskImpl](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelAssetResourceFactoryOnDiskImpl) Autorelease() MLModelAssetResourceFactoryOnDiskImpl {
-	rv := objc.Send[MLModelAssetResourceFactoryOnDiskImpl](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactoryOnDiskImpl](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelAssetResourceFactoryOnDiskImpl creates a new MLModelAssetResourceFactoryOnDiskImpl instance.
 func NewMLModelAssetResourceFactoryOnDiskImpl() MLModelAssetResourceFactoryOnDiskImpl {
 	class := getMLModelAssetResourceFactoryOnDiskImplClass()
-	rv := objc.Send[MLModelAssetResourceFactoryOnDiskImpl](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactoryOnDiskImpl](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelAssetResourceFactoryOnDiskImplWithModelURLError(url foundation.NSURL) (MLModelAssetResourceFactoryOnDiskImpl, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetResourceFactoryOnDiskImplClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModelAssetResourceFactoryOnDiskImpl{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLModelAssetResourceFactoryOnDiskImpl{}, objc.ErrInitFailed
 	}
 	return MLModelAssetResourceFactoryOnDiskImplFromID(rv), nil
 }
@@ -171,26 +174,26 @@ func (m MLModelAssetResourceFactoryOnDiskImpl) InitWithModelURLError(url foundat
 }
 
 func (m MLModelAssetResourceFactoryOnDiskImpl) CompiledModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) ModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

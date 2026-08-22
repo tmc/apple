@@ -37,7 +37,7 @@ func (vc VZVirtioSocketDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceConfiguration {
-	rv := objc.Send[VZVirtioSocketDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioSocketDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioSocketDeviceConfiguration) Init() VZVirtioSocketDeviceConfiguration {
-	rv := objc.Send[VZVirtioSocketDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioSocketDeviceConfiguration) Autorelease() VZVirtioSocketDeviceConfiguration {
-	rv := objc.Send[VZVirtioSocketDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioSocketDeviceConfiguration creates a new VZVirtioSocketDeviceConfiguration instance.
 func NewVZVirtioSocketDeviceConfiguration() VZVirtioSocketDeviceConfiguration {
 	class := getVZVirtioSocketDeviceConfigurationClass()
-	rv := objc.Send[VZVirtioSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

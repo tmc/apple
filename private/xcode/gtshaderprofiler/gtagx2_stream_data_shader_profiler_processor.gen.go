@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +39,7 @@ func (gc GTAGX2StreamDataShaderProfilerProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2StreamDataShaderProfilerProcessorClass) Alloc() GTAGX2StreamDataShaderProfilerProcessor {
-	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataShaderProfilerProcessor](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -133,13 +132,13 @@ type IGTAGX2StreamDataShaderProfilerProcessor interface {
 	_processDerivedEncoderCounterData(data objectivec.IObject)
 	_processFrameTimeData(data objectivec.IObject)
 	_processHarvestedBinaryData(data objectivec.IObject)
-	_saveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string)
+	_saveAddressListSizeFilename(list *GTAGX2ShaderProfilerProgramAddress, size uint32, filename string)
 	AnalyzeBinaryGpuGeneration(binary objectivec.IObject, generation uint32) objectivec.IObject
 	AnalyzeBinaryTypeNameDylibDataGpuGeneration(binary objectivec.IObject, name objectivec.IObject, dylib bool, data objectivec.IObject, generation uint32) objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value kernel.Pointer)
+	SetIsaPrinter(value unsafe.Pointer)
 	Process(process objectivec.IObject)
 	ProcessBatchIDFilteringData()
 	ProcessBatchIDFilteringDataWithData(data objectivec.IObject)
@@ -155,31 +154,31 @@ type IGTAGX2StreamDataShaderProfilerProcessor interface {
 
 // Init initializes the instance.
 func (g GTAGX2StreamDataShaderProfilerProcessor) Init() GTAGX2StreamDataShaderProfilerProcessor {
-	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2StreamDataShaderProfilerProcessor) Autorelease() GTAGX2StreamDataShaderProfilerProcessor {
-	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2StreamDataShaderProfilerProcessor creates a new GTAGX2StreamDataShaderProfilerProcessor instance.
 func NewGTAGX2StreamDataShaderProfilerProcessor() GTAGX2StreamDataShaderProfilerProcessor {
 	class := getGTAGX2StreamDataShaderProfilerProcessorClass()
-	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2StreamDataShaderProfilerProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2StreamDataShaderProfilerProcessorWithStreamData(data objectivec.IObject) GTAGX2StreamDataShaderProfilerProcessor {
 	instance := getGTAGX2StreamDataShaderProfilerProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamData:"), data)
 	return GTAGX2StreamDataShaderProfilerProcessorFromID(rv)
 }
 
 func (g GTAGX2StreamDataShaderProfilerProcessor) _createPerCounterCommandDataWithPerCommandData(data objectivec.IObject, data2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:"), data, data2)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:"), data, data2)
 	return objectivec.Object{ID: rv}
 }
 
@@ -197,7 +196,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanCreatePerCounterCommandDataW
 	return objc.RespondsToSelector(g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _effectiveBatchDrawKickTimes(times objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_effectiveBatchDrawKickTimes:"), times)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_effectiveBatchDrawKickTimes:"), times)
 	return objectivec.Object{ID: rv}
 }
 
@@ -215,7 +214,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanEffectiveBatchDrawKickTimes(
 	return objc.RespondsToSelector(g.ID, objc.Sel("_effectiveBatchDrawKickTimes:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _handleStreamingBatchResult(result objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_handleStreamingBatchResult:"), result)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_handleStreamingBatchResult:"), result)
 }
 
 // HandleStreamingBatchResult is an exported wrapper for the private method _handleStreamingBatchResult.
@@ -233,7 +232,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanHandleStreamingBatchResult()
 	return objc.RespondsToSelector(g.ID, objc.Sel("_handleStreamingBatchResult:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _postProcessData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("_postProcessData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_postProcessData"))
 }
 
 // PostProcessData is an exported wrapper for the private method _postProcessData.
@@ -251,7 +250,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanPostProcessData() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_postProcessData"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:"), data)
 }
 
 // PreProcessStreamingUSCSampleData is an exported wrapper for the private method _preProcessStreamingUSCSampleData.
@@ -269,7 +268,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSample
 	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, data2 objectivec.IObject, data3 objectivec.IObject, index uint32, idx uint32, index2 int) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, data2, data3, index, idx, index2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, data2, data3, index, idx, index2)
 }
 
 // PreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex is an exported wrapper for the private method _preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex.
@@ -287,7 +286,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSample
 	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, mappings objectivec.IObject, data2 objectivec.IObject, index uint32, idx uint32, index2 int) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, mappings, data2, index, idx, index2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, mappings, data2, index, idx, index2)
 }
 
 // PreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex is an exported wrapper for the private method _preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex.
@@ -305,7 +304,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSample
 	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processDerivedEncoderCounterData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_processDerivedEncoderCounterData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_processDerivedEncoderCounterData:"), data)
 }
 
 // ProcessDerivedEncoderCounterData is an exported wrapper for the private method _processDerivedEncoderCounterData.
@@ -323,7 +322,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessDerivedEncoderCounter
 	return objc.RespondsToSelector(g.ID, objc.Sel("_processDerivedEncoderCounterData:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processFrameTimeData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_processFrameTimeData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_processFrameTimeData:"), data)
 }
 
 // ProcessFrameTimeData is an exported wrapper for the private method _processFrameTimeData.
@@ -341,7 +340,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessFrameTimeData() bool 
 	return objc.RespondsToSelector(g.ID, objc.Sel("_processFrameTimeData:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processHarvestedBinaryData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_processHarvestedBinaryData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_processHarvestedBinaryData:"), data)
 }
 
 // ProcessHarvestedBinaryData is an exported wrapper for the private method _processHarvestedBinaryData.
@@ -358,12 +357,12 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessHarvestedBinaryData(data
 func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessHarvestedBinaryData() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_processHarvestedBinaryData:"))
 }
-func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_saveAddressList:size:filename:"), list, size, unsafe.Pointer(unsafe.StringData(filename+"\x00")))
+func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(list *GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_saveAddressList:size:filename:"), unsafe.Pointer(list), size, unsafe.Pointer(unsafe.StringData(filename+"\x00")))
 }
 
 // SaveAddressListSizeFilename is an exported wrapper for the private method _saveAddressListSizeFilename.
-func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) error {
+func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list *GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_saveAddressList:size:filename:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_saveAddressList:size:filename:"}
 		return err
@@ -377,63 +376,63 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanSaveAddressListSizeFilename(
 	return objc.RespondsToSelector(g.ID, objc.Sel("_saveAddressList:size:filename:"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) AnalyzeBinaryGpuGeneration(binary objectivec.IObject, generation uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzeBinary:gpuGeneration:"), binary, generation)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("analyzeBinary:gpuGeneration:"), binary, generation)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) AnalyzeBinaryTypeNameDylibDataGpuGeneration(binary objectivec.IObject, name objectivec.IObject, dylib bool, data objectivec.IObject, generation uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzeBinary:typeName:dylib:data:gpuGeneration:"), binary, name, dylib, data, generation)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("analyzeBinary:typeName:dylib:data:gpuGeneration:"), binary, name, dylib, data, generation)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) Process(process objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("process:"), process)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("process:"), process)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIDFilteringData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIDFilteringDataWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIdData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("processBatchIdData:"), data)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processBatchIdData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessShaderProfilerStreamedResult(result objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamedResult:"), result)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamedResult:"), result)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) SetupForBatchIDFilteringCounters(counters objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
 	return rv
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) WaitUntilBatchIDCounterFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) WaitUntilStreamDataFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilStreamDataFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilStreamDataFinished"))
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) InitWithStreamData(data objectivec.IObject) GTAGX2StreamDataShaderProfilerProcessor {
-	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
+	rv := objc.SendIfResponds[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
 	return rv
 }
 
 func (g GTAGX2StreamDataShaderProfilerProcessor) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTAGX2StreamDataShaderProfilerProcessor) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
+func (g GTAGX2StreamDataShaderProfilerProcessor) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) IsaPrinter() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
 	return rv
 }
-func (g GTAGX2StreamDataShaderProfilerProcessor) SetIsaPrinter(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
+func (g GTAGX2StreamDataShaderProfilerProcessor) SetIsaPrinter(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 func (g GTAGX2StreamDataShaderProfilerProcessor) ShaderProfilerResult() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
 	return rv
 }

@@ -36,10 +36,10 @@ func ECVersionedPIDObjectFromID(id objc.ID) ECVersionedPIDObject {
 }
 
 func (o ECVersionedPIDObject) Pid() int {
-	rv := objc.Send[int](o.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("pid"))
 	return rv
 }
 func (o ECVersionedPIDObject) Version() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("version"))
 	return rv
 }

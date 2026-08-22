@@ -38,7 +38,7 @@ func (cc CoreMLMetalComputeStreamClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMetalComputeStreamClass) Alloc() CoreMLMetalComputeStream {
-	rv := objc.Send[CoreMLMetalComputeStream](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMetalComputeStream](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMetalComputeStreamFromID(id objc.ID) CoreMLMetalComputeStream {
 	return CoreMLMetalComputeStream{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMetalComputeStream struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMetalComputeStream embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMetalComputeStream implements ICoreMLMetalComputeStream.
+var _ ICoreMLMetalComputeStream = CoreMLMetalComputeStream{}
 
 // An interface definition for the [CoreMLMetalComputeStream] class.
 type ICoreMLMetalComputeStream interface {
@@ -61,19 +61,19 @@ type ICoreMLMetalComputeStream interface {
 
 // Init initializes the instance.
 func (c CoreMLMetalComputeStream) Init() CoreMLMetalComputeStream {
-	rv := objc.Send[CoreMLMetalComputeStream](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMetalComputeStream](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMetalComputeStream) Autorelease() CoreMLMetalComputeStream {
-	rv := objc.Send[CoreMLMetalComputeStream](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMetalComputeStream](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMetalComputeStream creates a new CoreMLMetalComputeStream instance.
 func NewCoreMLMetalComputeStream() CoreMLMetalComputeStream {
 	class := getCoreMLMetalComputeStreamClass()
-	rv := objc.Send[CoreMLMetalComputeStream](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMetalComputeStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

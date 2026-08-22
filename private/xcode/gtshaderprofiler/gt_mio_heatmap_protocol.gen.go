@@ -18,13 +18,19 @@ type GTMioHeatmap interface {
 	Depth() uint64
 
 	// EncoderInfo protocol.
-	EncoderInfo() unsafe.Pointer
+	EncoderInfo() *GTMioEncoderMetadata
 
 	// GenerateImage protocol.
 	GenerateImage(image uint64) coregraphics.CGImageRef
 
+	// GenerateTexture protocol.
+	GenerateTexture(texture uint64) objectivec.IObject
+
 	// GenerationOptions protocol.
-	GenerationOptions() unsafe.Pointer
+	GenerationOptions() *GTMioHeatmapBuilderGenerationOptions
+
+	// HeatmapData protocol.
+	HeatmapData() objectivec.IObject
 
 	// HeatmapType protocol.
 	HeatmapType() uint64
@@ -99,98 +105,98 @@ func GTMioHeatmapObjectFromID(id objc.ID) GTMioHeatmapObject {
 }
 
 func (o GTMioHeatmapObject) Depth() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("depth"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("depth"))
 	return rv
 }
-func (o GTMioHeatmapObject) EncoderInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("encoderInfo"))
-	return rv
+func (o GTMioHeatmapObject) EncoderInfo() *GTMioEncoderMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("encoderInfo"))
+	return (*GTMioEncoderMetadata)(rv)
 }
 func (o GTMioHeatmapObject) GenerateImage(image uint64) coregraphics.CGImageRef {
-	rv := objc.Send[coregraphics.CGImageRef](o.ID, objc.Sel("generateImage:"), image)
+	rv := objc.SendIfResponds[coregraphics.CGImageRef](o.ID, objc.Sel("generateImage:"), image)
 	return rv
 }
 func (o GTMioHeatmapObject) GenerateTexture(texture uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("generateTexture:"), texture)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("generateTexture:"), texture)
 	return objectivec.Object{ID: rv}
 }
-func (o GTMioHeatmapObject) GenerationOptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("generationOptions"))
-	return rv
+func (o GTMioHeatmapObject) GenerationOptions() *GTMioHeatmapBuilderGenerationOptions {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("generationOptions"))
+	return (*GTMioHeatmapBuilderGenerationOptions)(rv)
 }
 func (o GTMioHeatmapObject) HeatmapData() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("heatmapData"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("heatmapData"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTMioHeatmapObject) HeatmapType() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("heatmapType"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("heatmapType"))
 	return rv
 }
 func (o GTMioHeatmapObject) Height() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("height"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("height"))
 	return rv
 }
 func (o GTMioHeatmapObject) MaxTimestamp() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("maxTimestamp"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("maxTimestamp"))
 	return rv
 }
 func (o GTMioHeatmapObject) MaxValue() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("maxValue"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("maxValue"))
 	return rv
 }
 func (o GTMioHeatmapObject) MinTimestamp() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("minTimestamp"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("minTimestamp"))
 	return rv
 }
 func (o GTMioHeatmapObject) MinValue() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("minValue"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("minValue"))
 	return rv
 }
 func (o GTMioHeatmapObject) NormalizedValueForPixelXPixelYSlice(x uint64, y uint64, slice uint64) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("normalizedValueForPixelX:pixelY:slice:"), x, y, slice)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("normalizedValueForPixelX:pixelY:slice:"), x, y, slice)
 	return rv
 }
 func (o GTMioHeatmapObject) NormalizedValueForValue(value uint64) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("normalizedValueForValue:"), value)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("normalizedValueForValue:"), value)
 	return rv
 }
 func (o GTMioHeatmapObject) Options() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("options"))
 	return rv
 }
 func (o GTMioHeatmapObject) ProgramType() uint16 {
-	rv := objc.Send[uint16](o.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[uint16](o.ID, objc.Sel("programType"))
 	return rv
 }
 func (o GTMioHeatmapObject) QuadLocationForPixelXPixelYSlice(x uint64, y uint64, slice uint64) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("quadLocationForPixelX:pixelY:slice:"), x, y, slice)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("quadLocationForPixelX:pixelY:slice:"), x, y, slice)
 	return rv
 }
 func (o GTMioHeatmapObject) ThreadPositionForPixelXPixelYSliceXYZ(x uint64, y uint64, slice uint64, x2 *uint32, y2 *uint32, z *uint32) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("threadPositionForPixelX:pixelY:slice:x:y:z:"), x, y, slice, x2, y2, z)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("threadPositionForPixelX:pixelY:slice:x:y:z:"), x, y, slice, unsafe.Pointer(x2), unsafe.Pointer(y2), unsafe.Pointer(z))
 	return rv
 }
 func (o GTMioHeatmapObject) ThreadRangeForPixelXPixelYSliceMinXMaxXMinYMaxYMinZMaxZ(x uint64, y uint64, slice uint64, x2 *uint32, x3 *uint32, y2 *uint32, y3 *uint32, z *uint32, z2 *uint32) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("threadRangeForPixelX:pixelY:slice:minX:maxX:minY:maxY:minZ:maxZ:"), x, y, slice, x2, x3, y2, y3, z, z2)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("threadRangeForPixelX:pixelY:slice:minX:maxX:minY:maxY:minZ:maxZ:"), x, y, slice, unsafe.Pointer(x2), unsafe.Pointer(x3), unsafe.Pointer(y2), unsafe.Pointer(y3), unsafe.Pointer(z), unsafe.Pointer(z2))
 	return rv
 }
 func (o GTMioHeatmapObject) Type() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("type"))
 	return rv
 }
 func (o GTMioHeatmapObject) ValueCount() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("valueCount"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("valueCount"))
 	return rv
 }
 func (o GTMioHeatmapObject) ValueForPixelXPixelYSlice(x uint64, y uint64, slice uint64) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("valueForPixelX:pixelY:slice:"), x, y, slice)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("valueForPixelX:pixelY:slice:"), x, y, slice)
 	return rv
 }
 func (o GTMioHeatmapObject) Values() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("values"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("values"))
 	return rv
 }
 func (o GTMioHeatmapObject) Width() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("width"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("width"))
 	return rv
 }

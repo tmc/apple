@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationSizeResultClass) Class() objc.Class 
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationSizeResultClass) Alloc() SLSBridgedWindowManagementOperationSizeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSizeResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWindowManagementOperationSizeResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationSizeResult) Init() SLSBridgedWindowManagementOperationSizeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationSizeResult) Autorelease() SLSBridgedWindowManagementOperationSizeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationSizeResult creates a new SLSBridgedWindowManagementOperationSizeResult instance.
 func NewSLSBridgedWindowManagementOperationSizeResult() SLSBridgedWindowManagementOperationSizeResult {
 	class := getSLSBridgedWindowManagementOperationSizeResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSizeResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationSizeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSizeResult {
 	instance := getSLSBridgedWindowManagementOperationSizeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSizeResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationSizeResultWithSize(size corefoundation.CGSize) SLSBridgedWindowManagementOperationSizeResult {
 	instance := getSLSBridgedWindowManagementOperationSizeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
 	return SLSBridgedWindowManagementOperationSizeResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationSizeResult) InitWithSize(size corefoundation.CGSize) SLSBridgedWindowManagementOperationSizeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("initWithSize:"), size)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSizeResult](s.ID, objc.Sel("initWithSize:"), size)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationSizeResult) Size() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }

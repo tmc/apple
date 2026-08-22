@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache] class.
+// The class instance for the [SampleStringOverrideCache] class.
 var (
-	_TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass     TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass
-	_TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClassOnce sync.Once
+	_SampleStringOverrideCacheClass     SampleStringOverrideCacheClass
+	_SampleStringOverrideCacheClassOnce sync.Once
 )
 
-func getTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass {
-	_TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClassOnce.Do(func() {
-		_TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass = TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass{class: objc.GetClass("_TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache")}
+func getSampleStringOverrideCacheClass() SampleStringOverrideCacheClass {
+	_SampleStringOverrideCacheClassOnce.Do(func() {
+		_SampleStringOverrideCacheClass = SampleStringOverrideCacheClass{class: objc.GetClass("_TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache")}
 	})
-	return _TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass
+	return _SampleStringOverrideCacheClass
 }
 
-// GetTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass returns the class object for _TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache.
-func GetTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass {
-	return getTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass()
+// GetSampleStringOverrideCacheClass returns the class object for _TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache.
+func GetSampleStringOverrideCacheClass() SampleStringOverrideCacheClass {
+	return getSampleStringOverrideCacheClass()
 }
 
-type TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass struct {
+type SampleStringOverrideCacheClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass) Class() objc.Class {
-	return tc.class
+func (sc SampleStringOverrideCacheClass) Class() objc.Class {
+	return sc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass) Alloc() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
-	rv := objc.Send[TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](objc.ID(tc.class), objc.Sel("alloc"))
+func (sc SampleStringOverrideCacheClass) Alloc() SampleStringOverrideCache {
+	rv := objc.SendIfResponds[SampleStringOverrideCache](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache struct {
+type SampleStringOverrideCache struct {
 	objectivec.Object
 }
 
-// TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheFromID constructs a [TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache] from an objc.ID.
-func TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheFromID(id objc.ID) TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
-	return TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache{objectivec.Object{ID: id}}
+// SampleStringOverrideCacheFromID constructs a [SampleStringOverrideCache] from an objc.ID.
+func SampleStringOverrideCacheFromID(id objc.ID) SampleStringOverrideCache {
+	return SampleStringOverrideCache{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache struct embeds objectivec.Object (parent type unavailable) but
-// ITtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache embeds the parent interface; skip compile-time assertion.
+// Ensure SampleStringOverrideCache implements ISampleStringOverrideCache.
+var _ ISampleStringOverrideCache = SampleStringOverrideCache{}
 
-// An interface definition for the [TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache] class.
-type ITtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache interface {
+// An interface definition for the [SampleStringOverrideCache] class.
+type ISampleStringOverrideCache interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache) Init() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
-	rv := objc.Send[TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](t.ID, objc.Sel("init"))
+func (s SampleStringOverrideCache) Init() SampleStringOverrideCache {
+	rv := objc.SendIfResponds[SampleStringOverrideCache](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache) Autorelease() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
-	rv := objc.Send[TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](t.ID, objc.Sel("autorelease"))
+func (s SampleStringOverrideCache) Autorelease() SampleStringOverrideCache {
+	rv := objc.SendIfResponds[SampleStringOverrideCache](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache creates a new TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache instance.
-func NewTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache() TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
-	class := getTtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass()
-	rv := objc.Send[TtC12TextToSpeechP339D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](objc.ID(class.class), objc.Sel("new"))
+// NewSampleStringOverrideCache creates a new SampleStringOverrideCache instance.
+func NewSampleStringOverrideCache() SampleStringOverrideCache {
+	class := getSampleStringOverrideCacheClass()
+	rv := objc.SendIfResponds[SampleStringOverrideCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

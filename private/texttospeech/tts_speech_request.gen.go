@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +42,7 @@ func (tc TTSSpeechRequestClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechRequestClass) Alloc() TTSSpeechRequest {
-	rv := objc.Send[TTSSpeechRequest](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechRequest](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -189,7 +188,7 @@ type ITTSSpeechRequest interface {
 	Channels() foundation.INSArray
 	SetChannels(value foundation.INSArray)
 	ClientContext() unsafe.Pointer
-	SetClientContext(value kernel.Pointer)
+	SetClientContext(value unsafe.Pointer)
 	DispatchTime() float64
 	SetDispatchTime(value float64)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -236,224 +235,230 @@ type ITTSSpeechRequest interface {
 
 // Init initializes the instance.
 func (t TTSSpeechRequest) Init() TTSSpeechRequest {
-	rv := objc.Send[TTSSpeechRequest](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechRequest](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechRequest) Autorelease() TTSSpeechRequest {
-	rv := objc.Send[TTSSpeechRequest](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechRequest](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechRequest creates a new TTSSpeechRequest instance.
 func NewTTSSpeechRequest() TTSSpeechRequest {
 	class := getTTSSpeechRequestClass()
-	rv := objc.Send[TTSSpeechRequest](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSSpeechRequestWithCoder(coder objectivec.IObject) TTSSpeechRequest {
 	instance := getTTSSpeechRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSSpeechRequestFromID(rv)
 }
 
 func (t TTSSpeechRequest) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
+var _ttsspeechrequest_setaudiobuffercallback_p0_key byte
+
 func (t TTSSpeechRequest) SetAudioBufferCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setAudioBufferCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setAudioBufferCallback:"), _block0)
 }
+
+var _ttsspeechrequest_setlatencycallback_p0_key byte
+
 func (t TTSSpeechRequest) SetLatencyCallback(callback VoidHandler) {
 	_block0, _ := NewVoidBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("setLatencyCallback:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setLatencyCallback:"), _block0)
 }
 func (t TTSSpeechRequest) InitWithCoder(coder foundation.INSCoder) TTSSpeechRequest {
-	rv := objc.Send[TTSSpeechRequest](t.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[TTSSpeechRequest](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_TTSSpeechRequestClass TTSSpeechRequestClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_TTSSpeechRequestClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSSpeechRequestClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (t TTSSpeechRequest) AudioDeviceId() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioDeviceId"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioDeviceId"))
 	return rv
 }
 func (t TTSSpeechRequest) SetAudioDeviceId(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioDeviceId:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioDeviceId:"), value)
 }
 func (t TTSSpeechRequest) AudioQueueFlags() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
 func (t TTSSpeechRequest) SetAudioQueueFlags(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
 func (t TTSSpeechRequest) AudioSessionID() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioSessionID"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioSessionID"))
 	return rv
 }
 func (t TTSSpeechRequest) SetAudioSessionID(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSessionID:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSessionID:"), value)
 }
 func (t TTSSpeechRequest) AudioSessionIDIsValid() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("audioSessionIDIsValid"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("audioSessionIDIsValid"))
 	return rv
 }
 func (t TTSSpeechRequest) SetAudioSessionIDIsValid(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSessionIDIsValid:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSessionIDIsValid:"), value)
 }
 func (t TTSSpeechRequest) Channels() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("channels"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("channels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSSpeechRequest) SetChannels(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannels:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannels:"), value)
 }
 func (t TTSSpeechRequest) ClientContext() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("clientContext"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("clientContext"))
 	return rv
 }
-func (t TTSSpeechRequest) SetClientContext(value kernel.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setClientContext:"), value)
+func (t TTSSpeechRequest) SetClientContext(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setClientContext:"), value)
 }
 func (t TTSSpeechRequest) DispatchTime() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("dispatchTime"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("dispatchTime"))
 	return rv
 }
 func (t TTSSpeechRequest) SetDispatchTime(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setDispatchTime:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setDispatchTime:"), value)
 }
 func (t TTSSpeechRequest) Gender() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("gender"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("gender"))
 	return rv
 }
 func (t TTSSpeechRequest) SetGender(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGender:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGender:"), value)
 }
 func (t TTSSpeechRequest) HandledTime() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("handledTime"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("handledTime"))
 	return rv
 }
 func (t TTSSpeechRequest) SetHandledTime(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setHandledTime:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setHandledTime:"), value)
 }
 func (t TTSSpeechRequest) IgnoreSubstitutions() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("ignoreSubstitutions"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("ignoreSubstitutions"))
 	return rv
 }
 func (t TTSSpeechRequest) SetIgnoreSubstitutions(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIgnoreSubstitutions:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIgnoreSubstitutions:"), value)
 }
 func (t TTSSpeechRequest) JobIdentifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("jobIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("jobIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechRequest) SetJobIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setJobIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setJobIdentifier:"), objc.String(value))
 }
 func (t TTSSpeechRequest) LanguageCode() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languageCode"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languageCode"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechRequest) SetLanguageCode(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguageCode:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguageCode:"), objc.String(value))
 }
 func (t TTSSpeechRequest) Latency() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("latency"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("latency"))
 	return rv
 }
 func (t TTSSpeechRequest) SetLatency(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLatency:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLatency:"), value)
 }
 func (t TTSSpeechRequest) MaintainsInput() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("maintainsInput"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("maintainsInput"))
 	return rv
 }
 func (t TTSSpeechRequest) SetMaintainsInput(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMaintainsInput:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setMaintainsInput:"), value)
 }
 func (t TTSSpeechRequest) Pitch() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("pitch"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("pitch"))
 	return rv
 }
 func (t TTSSpeechRequest) SetPitch(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPitch:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPitch:"), value)
 }
 func (t TTSSpeechRequest) Rate() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("rate"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("rate"))
 	return rv
 }
 func (t TTSSpeechRequest) SetRate(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRate:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRate:"), value)
 }
 func (t TTSSpeechRequest) SentSpeechDone() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("sentSpeechDone"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("sentSpeechDone"))
 	return rv
 }
 func (t TTSSpeechRequest) SetSentSpeechDone(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSentSpeechDone:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSentSpeechDone:"), value)
 }
 func (t TTSSpeechRequest) SpeechStringType() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("speechStringType"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("speechStringType"))
 	return rv
 }
 func (t TTSSpeechRequest) SetSpeechStringType(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSpeechStringType:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSpeechStringType:"), value)
 }
 func (t TTSSpeechRequest) SynthesisProviderVoice() avfaudio.AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("synthesisProviderVoice"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("synthesisProviderVoice"))
 	return avfaudio.AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
 }
 func (t TTSSpeechRequest) SetSynthesisProviderVoice(value avfaudio.AVSpeechSynthesisProviderVoice) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSynthesisProviderVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSynthesisProviderVoice:"), value)
 }
 func (t TTSSpeechRequest) SynthesizeSilently() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("synthesizeSilently"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("synthesizeSilently"))
 	return rv
 }
 func (t TTSSpeechRequest) SetSynthesizeSilently(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSynthesizeSilently:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSynthesizeSilently:"), value)
 }
 func (t TTSSpeechRequest) Text() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("text"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechRequest) SetText(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setText:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setText:"), objc.String(value))
 }
 func (t TTSSpeechRequest) Voice() ITTSSpeechVoice {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voice"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voice"))
 	return TTSSpeechVoiceFromID(objc.ID(rv))
 }
 func (t TTSSpeechRequest) SetVoice(value ITTSSpeechVoice) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoice:"), value)
 }
 func (t TTSSpeechRequest) VoiceSettings() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceSettings"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSSpeechRequest) SetVoiceSettings(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceSettings:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceSettings:"), value)
 }
 func (t TTSSpeechRequest) Volume() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("volume"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("volume"))
 	return rv
 }
 func (t TTSSpeechRequest) SetVolume(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVolume:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVolume:"), value)
 }
 func (t TTSSpeechRequest) Voucher() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voucher"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voucher"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (t TTSSpeechRequest) SetVoucher(value objectivec.Object) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoucher:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoucher:"), value)
 }
 
 // SetAudioBufferCallbackSync is a synchronous wrapper around [TTSSpeechRequest.SetAudioBufferCallback].

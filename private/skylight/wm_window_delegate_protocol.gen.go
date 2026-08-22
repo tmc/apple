@@ -10,6 +10,12 @@ import (
 // WMWindowDelegate protocol.
 type WMWindowDelegate interface {
 	objectivec.IObject
+
+	// WindowDidUpdateWithChangedProperties protocol.
+	WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64)
+
+	// WindowDidUpdateWithChangedServerProperties protocol.
+	WindowDidUpdateWithChangedServerProperties(window objectivec.IObject, properties uint64)
 }
 
 // WMWindowDelegateObject wraps an existing Objective-C object that conforms to the WMWindowDelegate protocol.
@@ -30,8 +36,8 @@ func WMWindowDelegateObjectFromID(id objc.ID) WMWindowDelegateObject {
 }
 
 func (o WMWindowDelegateObject) WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
 }
 func (o WMWindowDelegateObject) WindowDidUpdateWithChangedServerProperties(window objectivec.IObject, properties uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedServerProperties:"), window, properties)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("window:didUpdateWithChangedServerProperties:"), window, properties)
 }

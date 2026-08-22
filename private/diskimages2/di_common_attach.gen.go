@@ -41,7 +41,7 @@ func (dc DICommonAttachClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DICommonAttachClass) Alloc() DICommonAttach {
-	rv := objc.Send[DICommonAttach](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DICommonAttach](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,26 +64,26 @@ type IDICommonAttach interface {
 
 // Init initializes the instance.
 func (d DICommonAttach) Init() DICommonAttach {
-	rv := objc.Send[DICommonAttach](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DICommonAttach](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DICommonAttach) Autorelease() DICommonAttach {
-	rv := objc.Send[DICommonAttach](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DICommonAttach](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDICommonAttach creates a new DICommonAttach instance.
 func NewDICommonAttach() DICommonAttach {
 	class := getDICommonAttachClass()
-	rv := objc.Send[DICommonAttach](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DICommonAttach](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMountBSDNameError(url foundation.NSURL, readOnly bool, autoMount bool, bsdName string) (bool, error) {
+func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMountBSDNameError(url foundation.NSURL, readOnly bool, autoMount bool, bsdName *foundation.NSString) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:readOnly:autoMount:BSDName:error:"), url, readOnly, autoMount, objc.String(bsdName), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:readOnly:autoMount:BSDName:error:"), url, readOnly, autoMount, unsafe.Pointer(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -94,9 +94,9 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMount
 	return rv, nil
 
 }
-func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url foundation.NSURL, bsdName string) (bool, error) {
+func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url foundation.NSURL, bsdName *foundation.NSString) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:BSDName:error:"), url, objc.String(bsdName), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:BSDName:error:"), url, unsafe.Pointer(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -107,9 +107,9 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url 
 	return rv, nil
 
 }
-func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameError(url foundation.NSURL, bsdName string) (bool, error) {
+func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameError(url foundation.NSURL, bsdName *foundation.NSString) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("defaultDiskImageAttach:BSDName:error:"), url, objc.String(bsdName), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("defaultDiskImageAttach:BSDName:error:"), url, unsafe.Pointer(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)

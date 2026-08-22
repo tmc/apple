@@ -10,6 +10,12 @@ import (
 // MLCustomModel protocol.
 type MLCustomModel interface {
 	objectivec.IObject
+
+	// PredictionFromFeaturesOptionsError protocol.
+	PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
+
+	// PredictionsFromBatchOptionsError protocol.
+	PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLCustomModelObject wraps an existing Objective-C object that conforms to the MLCustomModel protocol.

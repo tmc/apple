@@ -37,7 +37,7 @@ func (ec EspressoPassStyleTransferParameterizeTransplantClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStyleTransferParameterizeTransplantClass) Alloc() EspressoPassStyleTransferParameterizeTransplant {
-	rv := objc.Send[EspressoPassStyleTransferParameterizeTransplant](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferParameterizeTransplant](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStyleTransferParameterizeTransplant interface {
 
 // Init initializes the instance.
 func (e EspressoPassStyleTransferParameterizeTransplant) Init() EspressoPassStyleTransferParameterizeTransplant {
-	rv := objc.Send[EspressoPassStyleTransferParameterizeTransplant](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferParameterizeTransplant](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStyleTransferParameterizeTransplant) Autorelease() EspressoPassStyleTransferParameterizeTransplant {
-	rv := objc.Send[EspressoPassStyleTransferParameterizeTransplant](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferParameterizeTransplant](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStyleTransferParameterizeTransplant creates a new EspressoPassStyleTransferParameterizeTransplant instance.
 func NewEspressoPassStyleTransferParameterizeTransplant() EspressoPassStyleTransferParameterizeTransplant {
 	class := getEspressoPassStyleTransferParameterizeTransplantClass()
-	rv := objc.Send[EspressoPassStyleTransferParameterizeTransplant](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferParameterizeTransplant](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

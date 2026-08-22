@@ -11,6 +11,8 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
+	"github.com/tmc/apple/private/espresso"
 )
 
 // The class instance for the [MLNeuralNetworkEngine] class.
@@ -42,7 +44,7 @@ func (mc MLNeuralNetworkEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkEngineClass) Alloc() MLNeuralNetworkEngine {
-	rv := objc.Send[MLNeuralNetworkEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -402,7 +404,7 @@ type IMLNeuralNetworkEngine interface {
 	ConvertPredictionToClassifierResultWithOptionsError(result objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	CopyEbufOfPixelTypeToPixelBufferError(ebuf unsafe.Pointer, type_ uint64, buffer corevideo.CVImageBufferRef) (bool, error)
 	CopyImagePreprocessingParametersToError(to unsafe.Pointer) (bool, error)
-	CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
+	CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing appleneuralengine.Vimage2espressoParam, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
 	CopyPixelBufferByApplyingImagePreprocessingForFeatureNamedToPixelBuffer(named objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
 	CopyPixelBufferFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) corevideo.CVImageBufferRef
 	DefaultOptionalValues() foundation.INSDictionary
@@ -414,8 +416,8 @@ type IMLNeuralNetworkEngine interface {
 	SetEspressoInputShapes(value foundation.INSDictionary)
 	EspressoInputStrides() foundation.INSDictionary
 	SetEspressoInputStrides(value foundation.INSDictionary)
-	EspressoProfileInfo() objectivec.IObject
-	SetEspressoProfileInfo(value objectivec.IObject)
+	EspressoProfileInfo() espresso.EspressoProfilingNetworkInfo
+	SetEspressoProfileInfo(value espresso.EspressoProfilingNetworkInfo)
 	EspressoQueue() objectivec.Object
 	SetEspressoQueue(value objectivec.Object)
 	EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error)
@@ -511,30 +513,33 @@ type IMLNeuralNetworkEngine interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkEngine) Init() MLNeuralNetworkEngine {
-	rv := objc.Send[MLNeuralNetworkEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkEngine) Autorelease() MLNeuralNetworkEngine {
-	rv := objc.Send[MLNeuralNetworkEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkEngine creates a new MLNeuralNetworkEngine instance.
 func NewMLNeuralNetworkEngine() MLNeuralNetworkEngine {
 	class := getMLNeuralNetworkEngineClass()
-	rv := objc.Send[MLNeuralNetworkEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkEngine{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkEngineFromID(rv), nil
 }
@@ -542,23 +547,26 @@ func NewNeuralNetworkEngineWithContainerConfigurationError(container objectivec.
 func NewNeuralNetworkEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkEngine{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkEngineFromID(rv), nil
 }
 
 func NewNeuralNetworkEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
 	instance := getMLNeuralNetworkEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkEngineFromID(rv)
 }
 
 func NewNeuralNetworkEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
 	instance := getMLNeuralNetworkEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkEngineFromID(rv)
 }
 
@@ -617,7 +625,7 @@ func (m MLNeuralNetworkEngine) CanAddNetworkToPlanError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_addNetworkToPlan:error:"))
 }
 func (m MLNeuralNetworkEngine) _deallocContextAndPlan() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_deallocContextAndPlan"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_deallocContextAndPlan"))
 }
 
 // DeallocContextAndPlan is an exported wrapper for the private method _deallocContextAndPlan.
@@ -659,7 +667,7 @@ func (m MLNeuralNetworkEngine) CanEspressoDeviceForConfigurationError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_espressoDeviceForConfiguration:error:"))
 }
 func (m MLNeuralNetworkEngine) _espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"), name, array)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"), name, array)
 	return rv
 }
 
@@ -927,7 +935,7 @@ func (m MLNeuralNetworkEngine) AddClassifierInformationToOutputOptionsError(outp
 
 }
 func (m MLNeuralNetworkEngine) AvailableOutputBlobList() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableOutputBlobList"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("availableOutputBlobList"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkEngine) BindDirectlyInputFeatureNamedPixelBufferCleanUpBlocksBoundDirectlyError(named objectivec.IObject, buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
@@ -1103,22 +1111,20 @@ func (m MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe
 	return rv, nil
 
 }
-
-// preprocessing is a [*appleneuralengine.vimage2espresso_param].
-func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
+func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing appleneuralengine.Vimage2espressoParam, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
+	rv := objc.SendIfResponds[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
 	return corevideo.CVImageBufferRef(rv)
 }
 func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingForFeatureNamedToPixelBuffer(named objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessingForFeatureNamed:toPixelBuffer:"), named, buffer)
+	rv := objc.SendIfResponds[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessingForFeatureNamed:toPixelBuffer:"), named, buffer)
 	return corevideo.CVImageBufferRef(rv)
 }
 func (m MLNeuralNetworkEngine) CopyPixelBufferFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferFromPixelBuffer:usingPixelFormat:"), buffer, format)
+	rv := objc.SendIfResponds[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferFromPixelBuffer:usingPixelFormat:"), buffer, format)
 	return corevideo.CVImageBufferRef(rv)
 }
 func (m MLNeuralNetworkEngine) DumpTestVectorsToPath(path objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dumpTestVectorsToPath:"), path)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dumpTestVectorsToPath:"), path)
 }
 func (m MLNeuralNetworkEngine) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -1194,7 +1200,7 @@ func (m MLNeuralNetworkEngine) ImageFeatureValueFromEbufBackingCVPixelBufferDesc
 
 }
 func (m MLNeuralNetworkEngine) ImageFeatureValueFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageFeatureValueFromPixelBuffer:usingPixelFormat:"), buffer, format)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imageFeatureValueFromPixelBuffer:usingPixelFormat:"), buffer, format)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkEngine) InputBindStateForFeatureValueError(value objectivec.IObject) (int64, error) {
@@ -1231,7 +1237,7 @@ func (m MLNeuralNetworkEngine) MultiArrayFeatureValueFromEbufBackingMultiArrayDe
 
 }
 func (m MLNeuralNetworkEngine) ObtainBuffer() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("obtainBuffer"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("obtainBuffer"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) OpacifyAndPermutePixelBufferBufferContainsBGRAError(buffer corevideo.CVImageBufferRef, bgra bool) (bool, error) {
@@ -1248,19 +1254,19 @@ func (m MLNeuralNetworkEngine) OpacifyAndPermutePixelBufferBufferContainsBGRAErr
 
 }
 func (m MLNeuralNetworkEngine) OutputBackingMultiArrayForFeatureName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputBackingMultiArrayForFeatureName:"), name)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputBackingMultiArrayForFeatureName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkEngine) PixelBufferBackedMultiArrayWithShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferBackedMultiArrayWithShape:"), shape)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pixelBufferBackedMultiArrayWithShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkEngine) PixelBufferFromOutputBackingForFeature(backing objectivec.IObject, feature objectivec.IObject) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("pixelBufferFromOutputBacking:forFeature:"), backing, feature)
+	rv := objc.SendIfResponds[corevideo.CVImageBufferRef](m.ID, objc.Sel("pixelBufferFromOutputBacking:forFeature:"), backing, feature)
 	return corevideo.CVImageBufferRef(rv)
 }
 func (m MLNeuralNetworkEngine) PopulateMultiArrayShapeStridesForEbufFeatureDescriptionNdArrayInterpretation(shape []objectivec.IObject, strides []objectivec.IObject, ebuf unsafe.Pointer, description objectivec.IObject, interpretation bool) {
-	objc.Send[objc.ID](m.ID, objc.Sel("populateMultiArrayShape:strides:forEbuf:featureDescription:ndArrayInterpretation:"), objectivec.IObjectSliceToNSArray(shape), objectivec.IObjectSliceToNSArray(strides), ebuf, description, interpretation)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("populateMultiArrayShape:strides:forEbuf:featureDescription:ndArrayInterpretation:"), objectivec.IObjectSliceToNSArray(shape), objectivec.IObjectSliceToNSArray(strides), ebuf, description, interpretation)
 }
 func (m MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputFeatureNamesError(outputs uint64, backings objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -1273,10 +1279,10 @@ func (m MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputF
 
 }
 func (m MLNeuralNetworkEngine) PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int) {
-	objc.Send[objc.ID](m.ID, objc.Sel("prepareBlobNamed:forNewBlobBackingMode:bindMode:"), named, mode, mode2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("prepareBlobNamed:forNewBlobBackingMode:bindMode:"), named, mode, mode2)
 }
 func (m MLNeuralNetworkEngine) RebuildPlan(plan []objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("rebuildPlan:"), objectivec.IObjectSliceToNSArray(plan))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("rebuildPlan:"), objectivec.IObjectSliceToNSArray(plan))
 	return rv
 }
 func (m MLNeuralNetworkEngine) RebuildPlanError(plan bool) (bool, error) {
@@ -1303,7 +1309,7 @@ func (m MLNeuralNetworkEngine) RegressOptionsError(regress objectivec.IObject, o
 
 }
 func (m MLNeuralNetworkEngine) ReleaseBuffer(buffer uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("releaseBuffer:"), buffer)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("releaseBuffer:"), buffer)
 }
 func (m MLNeuralNetworkEngine) ResetSizesError(sizes objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -1345,11 +1351,11 @@ func (m MLNeuralNetworkEngine) ResetSizesWithEspressoConfigurationsError(configu
 
 }
 func (m MLNeuralNetworkEngine) SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("sequenceConcatConsumesOptionalInputNamed:"), named)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("sequenceConcatConsumesOptionalInputNamed:"), named)
 	return rv
 }
 func (m MLNeuralNetworkEngine) SequenceNamed(named objectivec.IObject) int {
-	rv := objc.Send[int](m.ID, objc.Sel("sequenceNamed:"), named)
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("sequenceNamed:"), named)
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetEspressoBlobShapesWidthsHeightsKsBatchesSequencesRanksError(shapes unsafe.Pointer, widths unsafe.Pointer, heights unsafe.Pointer, ks unsafe.Pointer, batches unsafe.Pointer, sequences unsafe.Pointer, ranks unsafe.Pointer) (bool, error) {
@@ -1376,19 +1382,19 @@ func (m MLNeuralNetworkEngine) SortBatchByShapeWithMapError(shape objectivec.IOb
 
 }
 func (m MLNeuralNetworkEngine) SupportFromEspressoLayerInfo(info objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("supportFromEspressoLayerInfo:"), info)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("supportFromEspressoLayerInfo:"), info)
 	return rv
 }
 func (m MLNeuralNetworkEngine) SupportFromEspressoPlatform(platform int) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("supportFromEspressoPlatform:"), platform)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("supportFromEspressoPlatform:"), platform)
 	return rv
 }
 func (m MLNeuralNetworkEngine) TransferOneComponent16HalfPixelBufferToPixelBufferWithScaleBias(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef, scale float32, bias float32) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("transferOneComponent16HalfPixelBuffer:toPixelBuffer:withScale:bias:"), buffer, buffer2, scale, bias)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("transferOneComponent16HalfPixelBuffer:toPixelBuffer:withScale:bias:"), buffer, buffer2, scale, bias)
 	return rv
 }
 func (m MLNeuralNetworkEngine) TransferPixelBufferToPixelBuffer(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("transferPixelBuffer:toPixelBuffer:"), buffer, buffer2)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("transferPixelBuffer:toPixelBuffer:"), buffer, buffer2)
 	return rv
 }
 func (m MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf unsafe.Pointer) (int, error) {
@@ -1418,7 +1424,7 @@ func (m MLNeuralNetworkEngine) UpdateDynamicOutputBlobIndicatorCacheAndReturnErr
 
 }
 func (m MLNeuralNetworkEngine) UsingEspressoConfigurations() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usingEspressoConfigurations"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usingEspressoConfigurations"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) VerifyInputsError(inputs objectivec.IObject) (objectivec.IObject, error) {
@@ -1453,15 +1459,15 @@ func (m MLNeuralNetworkEngine) InitWithContainerError(container objectivec.IObje
 }
 
 func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) ContainerClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("containerClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("containerClass"))
 	return objectivec.Class(rv)
 }
 func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuEngine() int {
-	rv := objc.Send[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuEngine"))
+	rv := objc.SendIfResponds[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuEngine"))
 	return rv
 }
 func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuPrecision() int {
-	rv := objc.Send[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuPrecision"))
+	rv := objc.SendIfResponds[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuPrecision"))
 	return rv
 }
 func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -1506,260 +1512,260 @@ func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) NeuralNetworkFromC
 }
 
 func (m MLNeuralNetworkEngine) ActiveFunction() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("activeFunction"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("activeFunction"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkEngine) SetActiveFunction(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setActiveFunction:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setActiveFunction:"), objc.String(value))
 }
 func (m MLNeuralNetworkEngine) BufferSemaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("bufferSemaphore"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("bufferSemaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetBufferSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBufferSemaphore:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBufferSemaphore:"), value)
 }
 func (m MLNeuralNetworkEngine) ClassLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetClassLabels(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassLabels:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassLabels:"), value)
 }
 func (m MLNeuralNetworkEngine) ClassScoreVectorName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkEngine) SetClassScoreVectorName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
 }
 func (m MLNeuralNetworkEngine) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) Context() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("context"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("context"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetContext(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContext:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContext:"), value)
 }
 func (m MLNeuralNetworkEngine) DefaultOptionalValues() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultOptionalValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defaultOptionalValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetDefaultOptionalValues(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDefaultOptionalValues:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDefaultOptionalValues:"), value)
 }
 func (m MLNeuralNetworkEngine) Engine() int {
-	rv := objc.Send[int](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetEngine(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 func (m MLNeuralNetworkEngine) EspressoInputShapes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoInputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("espressoInputShapes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetEspressoInputShapes(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEspressoInputShapes:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoInputShapes:"), value)
 }
 func (m MLNeuralNetworkEngine) EspressoInputStrides() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoInputStrides"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("espressoInputStrides"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetEspressoInputStrides(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEspressoInputStrides:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoInputStrides:"), value)
 }
-func (m MLNeuralNetworkEngine) EspressoProfileInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoProfileInfo"))
-	return objectivec.Object{ID: rv}
+func (m MLNeuralNetworkEngine) EspressoProfileInfo() espresso.EspressoProfilingNetworkInfo {
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("espressoProfileInfo"))
+	return espresso.EspressoProfilingNetworkInfoFromID(objc.ID(rv))
 }
-func (m MLNeuralNetworkEngine) SetEspressoProfileInfo(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEspressoProfileInfo:"), value)
+func (m MLNeuralNetworkEngine) SetEspressoProfileInfo(value espresso.EspressoProfilingNetworkInfo) {
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoProfileInfo:"), value)
 }
 func (m MLNeuralNetworkEngine) EspressoQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("espressoQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetEspressoQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEspressoQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoQueue:"), value)
 }
 func (m MLNeuralNetworkEngine) HardwareFallbackDetected() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hardwareFallbackDetected"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hardwareFallbackDetected"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetHardwareFallbackDetected(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHardwareFallbackDetected:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHardwareFallbackDetected:"), value)
 }
 func (m MLNeuralNetworkEngine) HasBidirectionalLayer() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasBidirectionalLayer"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasBidirectionalLayer"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetHasBidirectionalLayer(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasBidirectionalLayer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasBidirectionalLayer:"), value)
 }
 func (m MLNeuralNetworkEngine) HasOptionalInputSequenceConcat() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasOptionalInputSequenceConcat"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasOptionalInputSequenceConcat"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetHasOptionalInputSequenceConcat(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
 }
 func (m MLNeuralNetworkEngine) ImagePreprocessingParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imagePreprocessingParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imagePreprocessingParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetImagePreprocessingParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setImagePreprocessingParameters:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setImagePreprocessingParameters:"), value)
 }
 func (m MLNeuralNetworkEngine) InputBlobNameToLastBackingMode() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputBlobNameToLastBackingMode"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputBlobNameToLastBackingMode"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) InputLayers() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputLayers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputLayers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) IsANEPathForbidden() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isANEPathForbidden"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isANEPathForbidden"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetIsANEPathForbidden(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIsANEPathForbidden:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIsANEPathForbidden:"), value)
 }
 func (m MLNeuralNetworkEngine) IsEspressoBiasPreprocessingShared() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEspressoBiasPreprocessingShared"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEspressoBiasPreprocessingShared"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetIsEspressoBiasPreprocessingShared(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIsEspressoBiasPreprocessingShared:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIsEspressoBiasPreprocessingShared:"), value)
 }
 func (m MLNeuralNetworkEngine) IsGPUPathForbidden() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isGPUPathForbidden"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isGPUPathForbidden"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetIsGPUPathForbidden(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIsGPUPathForbidden:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIsGPUPathForbidden:"), value)
 }
 func (m MLNeuralNetworkEngine) ModelFilePath() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelFilePath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkEngine) SetModelFilePath(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelFilePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelFilePath:"), objc.String(value))
 }
 func (m MLNeuralNetworkEngine) ModelIsEncrypted() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("modelIsEncrypted"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("modelIsEncrypted"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) ModelIsMIL() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("modelIsMIL"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("modelIsMIL"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetModelIsMIL(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelIsMIL:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsMIL:"), value)
 }
 func (m MLNeuralNetworkEngine) ModelVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) NdArrayInterpretation() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("ndArrayInterpretation"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("ndArrayInterpretation"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetNdArrayInterpretation(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNdArrayInterpretation:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNdArrayInterpretation:"), value)
 }
 func (m MLNeuralNetworkEngine) Network() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("network"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("network"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetNetwork(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNetwork:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNetwork:"), value)
 }
 func (m MLNeuralNetworkEngine) NumInputs() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numInputs"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numInputs"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) NumOutputs() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numOutputs"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numOutputs"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) OptionalInputTypes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) OutputBlobNameToLastBackingMode() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputBlobNameToLastBackingMode"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputBlobNameToLastBackingMode"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) OutputLayers() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputLayers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputLayers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) Plan() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("plan"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("plan"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetPlan(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlan:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPlan:"), value)
 }
 func (m MLNeuralNetworkEngine) Precision() int {
-	rv := objc.Send[int](m.ID, objc.Sel("precision"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("precision"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetPrecision(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPrecision:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPrecision:"), value)
 }
 func (m MLNeuralNetworkEngine) PredictionsQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predictionsQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetPredictionsQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPredictionsQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPredictionsQueue:"), value)
 }
 func (m MLNeuralNetworkEngine) Priority() int {
-	rv := objc.Send[int](m.ID, objc.Sel("priority"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("priority"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetPriority(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPriority:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPriority:"), value)
 }
 func (m MLNeuralNetworkEngine) ProbabilityDictionarySharedKeySet() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityDictionarySharedKeySet"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("probabilityDictionarySharedKeySet"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkEngine) SetProbabilityDictionarySharedKeySet(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProbabilityDictionarySharedKeySet:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProbabilityDictionarySharedKeySet:"), value)
 }
 func (m MLNeuralNetworkEngine) Qos() int {
-	rv := objc.Send[int](m.ID, objc.Sel("qos"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("qos"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetQos(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setQos:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setQos:"), value)
 }
 func (m MLNeuralNetworkEngine) SubmitSemaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("submitSemaphore"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("submitSemaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkEngine) SetSubmitSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSubmitSemaphore:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSubmitSemaphore:"), value)
 }
 func (m MLNeuralNetworkEngine) UsingCPU() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usingCPU"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usingCPU"))
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetUsingCPU(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUsingCPU:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUsingCPU:"), value)
 }

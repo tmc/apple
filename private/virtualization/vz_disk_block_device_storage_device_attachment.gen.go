@@ -40,7 +40,7 @@ func (vc VZDiskBlockDeviceStorageDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDiskBlockDeviceStorageDeviceAttachmentClass) Alloc() VZDiskBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDiskBlockDeviceStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,20 +80,20 @@ type IVZDiskBlockDeviceStorageDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZDiskBlockDeviceStorageDeviceAttachment) Init() VZDiskBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDiskBlockDeviceStorageDeviceAttachment) Autorelease() VZDiskBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDiskBlockDeviceStorageDeviceAttachment creates a new VZDiskBlockDeviceStorageDeviceAttachment instance.
 func NewVZDiskBlockDeviceStorageDeviceAttachment() VZDiskBlockDeviceStorageDeviceAttachment {
 	class := getVZDiskBlockDeviceStorageDeviceAttachmentClass()
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDiskBlockDeviceStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -123,7 +123,7 @@ func (v VZDiskBlockDeviceStorageDeviceAttachment) CanInitWithURLReadOnlySynchron
 }
 
 func (v VZDiskBlockDeviceStorageDeviceAttachment) _url() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_url"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_url"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
@@ -140,6 +140,6 @@ func (v VZDiskBlockDeviceStorageDeviceAttachment) Url() (foundation.NSURL, error
 	return v._url(), nil
 }
 func (v VZDiskBlockDeviceStorageDeviceAttachment) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

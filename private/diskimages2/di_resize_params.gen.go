@@ -41,7 +41,7 @@ func (dc DIResizeParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIResizeParamsClass) Alloc() DIResizeParams {
-	rv := objc.Send[DIResizeParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIResizeParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,36 +87,39 @@ type IDIResizeParams interface {
 
 // Init initializes the instance.
 func (d DIResizeParams) Init() DIResizeParams {
-	rv := objc.Send[DIResizeParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIResizeParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIResizeParams) Autorelease() DIResizeParams {
-	rv := objc.Send[DIResizeParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIResizeParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIResizeParams creates a new DIResizeParams instance.
 func NewDIResizeParams() DIResizeParams {
 	class := getDIResizeParamsClass()
-	rv := objc.Send[DIResizeParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIResizeParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIResizeParamsWithCoder(coder objectivec.IObject) DIResizeParams {
 	instance := getDIResizeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIResizeParamsFromID(rv)
 }
 
 func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIResizeParams{}, objc.ErrInitFailed
 	}
 	return DIResizeParamsFromID(rv), nil
 }
@@ -124,10 +127,13 @@ func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size u
 func NewDIResizeParamsWithURLError(url foundation.NSURL) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIResizeParams{}, objc.ErrInitFailed
 	}
 	return DIResizeParamsFromID(rv), nil
 }
@@ -135,10 +141,13 @@ func NewDIResizeParamsWithURLError(url foundation.NSURL) (DIResizeParams, error)
 func NewDIResizeParamsWithURLSizeError(url foundation.NSURL, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIResizeParams{}, objc.ErrInitFailed
 	}
 	return DIResizeParamsFromID(rv), nil
 }
@@ -178,9 +187,9 @@ func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, 
 }
 
 func (d DIResizeParams) Size() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("size"))
 	return rv
 }
 func (d DIResizeParams) SetSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSize:"), value)
 }

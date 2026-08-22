@@ -38,7 +38,7 @@ func (vc VZUSBMassStorageDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBMassStorageDeviceConfigurationClass) Alloc() VZUSBMassStorageDeviceConfiguration {
-	rv := objc.Send[VZUSBMassStorageDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,28 +75,28 @@ type IVZUSBMassStorageDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBMassStorageDeviceConfiguration) Init() VZUSBMassStorageDeviceConfiguration {
-	rv := objc.Send[VZUSBMassStorageDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBMassStorageDeviceConfiguration) Autorelease() VZUSBMassStorageDeviceConfiguration {
-	rv := objc.Send[VZUSBMassStorageDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBMassStorageDeviceConfiguration creates a new VZUSBMassStorageDeviceConfiguration instance.
 func NewVZUSBMassStorageDeviceConfiguration() VZUSBMassStorageDeviceConfiguration {
 	class := getVZUSBMassStorageDeviceConfigurationClass()
-	rv := objc.Send[VZUSBMassStorageDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBMassStorageDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZUSBMassStorageDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
 func (v VZUSBMassStorageDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }

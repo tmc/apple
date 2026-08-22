@@ -41,7 +41,7 @@ func (mc MLE5ExecutionStreamOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ExecutionStreamOperationClass) Alloc() MLE5ExecutionStreamOperation {
-	rv := objc.Send[MLE5ExecutionStreamOperation](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperation](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -252,31 +252,31 @@ type IMLE5ExecutionStreamOperation interface {
 
 // Init initializes the instance.
 func (m MLE5ExecutionStreamOperation) Init() MLE5ExecutionStreamOperation {
-	rv := objc.Send[MLE5ExecutionStreamOperation](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperation](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ExecutionStreamOperation) Autorelease() MLE5ExecutionStreamOperation {
-	rv := objc.Send[MLE5ExecutionStreamOperation](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperation](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ExecutionStreamOperation creates a new MLE5ExecutionStreamOperation instance.
 func NewMLE5ExecutionStreamOperation() MLE5ExecutionStreamOperation {
 	class := getMLE5ExecutionStreamOperationClass()
-	rv := objc.Send[MLE5ExecutionStreamOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5ExecutionStreamOperationWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
 	instance := getMLE5ExecutionStreamOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
 	return MLE5ExecutionStreamOperationFromID(rv)
 }
 
 func (m MLE5ExecutionStreamOperation) _bindCompletionSyncPointDirectlyIfPossible(possible objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"), possible)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"), possible)
 }
 
 // BindCompletionSyncPointDirectlyIfPossible is an exported wrapper for the private method _bindCompletionSyncPointDirectlyIfPossible.
@@ -294,7 +294,7 @@ func (m MLE5ExecutionStreamOperation) CanBindCompletionSyncPointDirectlyIfPossib
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"))
 }
 func (m MLE5ExecutionStreamOperation) _bindEventToWaitForCopyingInputFeaturesAfterSyncPoints(features objectivec.IObject, points objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"), features, points)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"), features, points)
 }
 
 // BindEventToWaitForCopyingInputFeaturesAfterSyncPoints is an exported wrapper for the private method _bindEventToWaitForCopyingInputFeaturesAfterSyncPoints.
@@ -339,7 +339,7 @@ func (m MLE5ExecutionStreamOperation) CanBindInputFeaturesAndWaitEventsOptionsEr
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindInputFeaturesAndWaitEvents:options:error:"))
 }
 func (m MLE5ExecutionStreamOperation) _bindNewCompletionEventsDirectlyWithCompletionSyncPoint(point objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"), point)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"), point)
 }
 
 // BindNewCompletionEventsDirectlyWithCompletionSyncPoint is an exported wrapper for the private method _bindNewCompletionEventsDirectlyWithCompletionSyncPoint.
@@ -357,7 +357,7 @@ func (m MLE5ExecutionStreamOperation) CanBindNewCompletionEventsDirectlyWithComp
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"))
 }
 func (m MLE5ExecutionStreamOperation) _bindNewWaitEventsDirectlyWithWaitSyncPoints(points objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:"), points)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:"), points)
 }
 
 // BindNewWaitEventsDirectlyWithWaitSyncPoints is an exported wrapper for the private method _bindNewWaitEventsDirectlyWithWaitSyncPoints.
@@ -402,7 +402,7 @@ func (m MLE5ExecutionStreamOperation) CanBindOutputPortsWithOptionsError() bool 
 	return objc.RespondsToSelector(m.ID, objc.Sel("_bindOutputPortsWithOptions:error:"))
 }
 func (m MLE5ExecutionStreamOperation) _bindWaitEventsDirectly(directly objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_bindWaitEventsDirectly:"), directly)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_bindWaitEventsDirectly:"), directly)
 }
 
 // BindWaitEventsDirectly is an exported wrapper for the private method _bindWaitEventsDirectly.
@@ -495,7 +495,7 @@ func (m MLE5ExecutionStreamOperation) CanCreateOperationWithRetryCountError() bo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_createOperationWithRetryCount:error:"))
 }
 func (m MLE5ExecutionStreamOperation) _directlyBoundFeatureNamesForPorts(ports objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"), ports)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"), ports)
 	return objectivec.Object{ID: rv}
 }
 
@@ -513,7 +513,7 @@ func (m MLE5ExecutionStreamOperation) CanDirectlyBoundFeatureNamesForPorts() boo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"))
 }
 func (m MLE5ExecutionStreamOperation) _inoutPortNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_inoutPortNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_inoutPortNames"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -531,7 +531,7 @@ func (m MLE5ExecutionStreamOperation) CanInoutPortNames() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_inoutPortNames"))
 }
 func (m MLE5ExecutionStreamOperation) _inputPortNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_inputPortNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_inputPortNames"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -549,7 +549,7 @@ func (m MLE5ExecutionStreamOperation) CanInputPortNames() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_inputPortNames"))
 }
 func (m MLE5ExecutionStreamOperation) _multiArrayFeatureFromStateFeature(feature objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_multiArrayFeatureFromStateFeature:"), feature)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_multiArrayFeatureFromStateFeature:"), feature)
 	return objectivec.Object{ID: rv}
 }
 
@@ -639,7 +639,7 @@ func (m MLE5ExecutionStreamOperation) CanNewArrayOfOutputPortsFeatureDescription
 	return objc.RespondsToSelector(m.ID, objc.Sel("_newArrayOfOutputPorts:featureDescriptionsByName:error:"))
 }
 func (m MLE5ExecutionStreamOperation) _outputPortNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_outputPortNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_outputPortNames"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -684,7 +684,7 @@ func (m MLE5ExecutionStreamOperation) CanPrepareInputPortsForFeaturesError() boo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_prepareInputPortsForFeatures:error:"))
 }
 func (m MLE5ExecutionStreamOperation) _reusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point objectivec.IObject, binding bool) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"), point, binding)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"), point, binding)
 	return rv
 }
 
@@ -702,7 +702,7 @@ func (m MLE5ExecutionStreamOperation) CanReusableForCompletionSyncPointAllOutput
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"))
 }
 func (m MLE5ExecutionStreamOperation) _reusableForWaitSyncPointsAllInputsUseDirectBinding(points objectivec.IObject, binding bool) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"), points, binding)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"), points, binding)
 	return rv
 }
 
@@ -720,7 +720,7 @@ func (m MLE5ExecutionStreamOperation) CanReusableForWaitSyncPointsAllInputsUseDi
 	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"))
 }
 func (m MLE5ExecutionStreamOperation) _updateCompletionEventFutureValuesWithCompletionSyncPoint(point objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"), point)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"), point)
 }
 
 // UpdateCompletionEventFutureValuesWithCompletionSyncPoint is an exported wrapper for the private method _updateCompletionEventFutureValuesWithCompletionSyncPoint.
@@ -738,7 +738,7 @@ func (m MLE5ExecutionStreamOperation) CanUpdateCompletionEventFutureValuesWithCo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"))
 }
 func (m MLE5ExecutionStreamOperation) _updateWaitEventFutureValuesWithWaitSyncPoints(points objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:"), points)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:"), points)
 }
 
 // UpdateWaitEventFutureValuesWithWaitSyncPoints is an exported wrapper for the private method _updateWaitEventFutureValuesWithWaitSyncPoints.
@@ -795,10 +795,10 @@ func (m MLE5ExecutionStreamOperation) PrepareForInputFeaturesOptionsError(featur
 
 }
 func (m MLE5ExecutionStreamOperation) Reset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reset"))
 }
 func (m MLE5ExecutionStreamOperation) ReusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("reusableForInputFeatures:options:"), features, options)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("reusableForInputFeatures:options:"), features, options)
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) SerializeInferenceFrameDataForOptionsError(options objectivec.IObject) (bool, error) {
@@ -815,117 +815,117 @@ func (m MLE5ExecutionStreamOperation) SerializeInferenceFrameDataForOptionsError
 
 }
 func (m MLE5ExecutionStreamOperation) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
-	rv := objc.Send[MLE5ExecutionStreamOperation](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
+	rv := objc.SendIfResponds[MLE5ExecutionStreamOperation](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
 	return rv
 }
 
 func (m MLE5ExecutionStreamOperation) AsyncSubmissionError() foundation.NSError {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("asyncSubmissionError"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("asyncSubmissionError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetAsyncSubmissionError(value foundation.NSError) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAsyncSubmissionError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAsyncSubmissionError:"), value)
 }
 func (m MLE5ExecutionStreamOperation) CompletionSharedEventBoundToESOP() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("completionSharedEventBoundToESOP"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("completionSharedEventBoundToESOP"))
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) SetCompletionSharedEventBoundToESOP(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompletionSharedEventBoundToESOP:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompletionSharedEventBoundToESOP:"), value)
 }
 func (m MLE5ExecutionStreamOperation) DebugLabel() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugLabel"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugLabel"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ExecutionStreamOperation) DirectlyBoundInputFeatureNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("directlyBoundInputFeatureNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("directlyBoundInputFeatureNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) DirectlyBoundOutputFeatureNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("directlyBoundOutputFeatureNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("directlyBoundOutputFeatureNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) FunctionName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ExecutionStreamOperation) InputPorts() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputPorts"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetInputPorts(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputPorts:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputPorts:"), value)
 }
 func (m MLE5ExecutionStreamOperation) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) OperationHandle() E5rtExecutionStreamOperationRef {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("operationHandle"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("operationHandle"))
 	return E5rtExecutionStreamOperationRef(rv)
 }
 func (m MLE5ExecutionStreamOperation) SetOperationHandle(value E5rtExecutionStreamOperationRef) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOperationHandle:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOperationHandle:"), value)
 }
 func (m MLE5ExecutionStreamOperation) OutputFeatures() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("outputFeatures"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("outputFeatures"))
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) OutputPorts() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputPorts"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetOutputPorts(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputPorts:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputPorts:"), value)
 }
 func (m MLE5ExecutionStreamOperation) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetPixelBufferPool(value IMLPixelBufferPool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
 }
 func (m MLE5ExecutionStreamOperation) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) ShapeHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shapeHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ExecutionStreamOperation) SetShapeHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShapeHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setShapeHash:"), objc.String(value))
 }
 func (m MLE5ExecutionStreamOperation) State() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("state"))
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) SetState(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setState:"), value)
 }
 func (m MLE5ExecutionStreamOperation) StatePorts() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("statePorts"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("statePorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetStatePorts(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setStatePorts:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setStatePorts:"), value)
 }
 func (m MLE5ExecutionStreamOperation) WaitEventListener() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("waitEventListener"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("waitEventListener"))
 	return rv
 }
 func (m MLE5ExecutionStreamOperation) WaitSharedEventsBoundToESOP() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("waitSharedEventsBoundToESOP"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("waitSharedEventsBoundToESOP"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ExecutionStreamOperation) SetWaitSharedEventsBoundToESOP(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWaitSharedEventsBoundToESOP:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWaitSharedEventsBoundToESOP:"), value)
 }

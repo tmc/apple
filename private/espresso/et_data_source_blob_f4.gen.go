@@ -38,7 +38,7 @@ func (ec ETDataSourceBlobF4Class) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataSourceBlobF4Class) Alloc() ETDataSourceBlobF4 {
-	rv := objc.Send[ETDataSourceBlobF4](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataSourceBlobF4](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,31 +78,31 @@ type IETDataSourceBlobF4 interface {
 
 // Init initializes the instance.
 func (e ETDataSourceBlobF4) Init() ETDataSourceBlobF4 {
-	rv := objc.Send[ETDataSourceBlobF4](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataSourceBlobF4](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataSourceBlobF4) Autorelease() ETDataSourceBlobF4 {
-	rv := objc.Send[ETDataSourceBlobF4](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataSourceBlobF4](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataSourceBlobF4 creates a new ETDataSourceBlobF4 instance.
 func NewETDataSourceBlobF4() ETDataSourceBlobF4 {
 	class := getETDataSourceBlobF4Class()
-	rv := objc.Send[ETDataSourceBlobF4](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataSourceBlobF4](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ETDataSourceBlobF4) AddBlobForKey(blob objectivec.IObject, key objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("addBlob:forKey:"), blob, key)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("addBlob:forKey:"), blob, key)
 }
 func (e ETDataSourceBlobF4) DataPointAtIndex(index int) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (e ETDataSourceBlobF4) NumberOfDataPoints() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (tc TextToSpeechAXCatalogUpdaterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAXCatalogUpdaterClass) Alloc() TextToSpeechAXCatalogUpdater {
-	rv := objc.Send[TextToSpeechAXCatalogUpdater](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechAXCatalogUpdater](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechAXCatalogUpdaterFromID(id objc.ID) TextToSpeechAXCatalogUpdater
 	return TextToSpeechAXCatalogUpdater{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechAXCatalogUpdater struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechAXCatalogUpdater embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechAXCatalogUpdater implements ITextToSpeechAXCatalogUpdater.
+var _ ITextToSpeechAXCatalogUpdater = TextToSpeechAXCatalogUpdater{}
 
 // An interface definition for the [TextToSpeechAXCatalogUpdater] class.
 type ITextToSpeechAXCatalogUpdater interface {
@@ -61,19 +61,19 @@ type ITextToSpeechAXCatalogUpdater interface {
 
 // Init initializes the instance.
 func (t TextToSpeechAXCatalogUpdater) Init() TextToSpeechAXCatalogUpdater {
-	rv := objc.Send[TextToSpeechAXCatalogUpdater](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechAXCatalogUpdater](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechAXCatalogUpdater) Autorelease() TextToSpeechAXCatalogUpdater {
-	rv := objc.Send[TextToSpeechAXCatalogUpdater](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechAXCatalogUpdater](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechAXCatalogUpdater creates a new TextToSpeechAXCatalogUpdater instance.
 func NewTextToSpeechAXCatalogUpdater() TextToSpeechAXCatalogUpdater {
 	class := getTextToSpeechAXCatalogUpdaterClass()
-	rv := objc.Send[TextToSpeechAXCatalogUpdater](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechAXCatalogUpdater](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

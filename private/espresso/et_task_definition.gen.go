@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,14 +41,13 @@ func (ec ETTaskDefinitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETTaskDefinitionClass) Alloc() ETTaskDefinition {
-	rv := objc.Send[ETTaskDefinition](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETTaskDefinition](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [ETTaskDefinition.CheckShapesWithSampleWithError]
-//   - [ETTaskDefinition.Context_for_runtime_platform]
 //   - [ETTaskDefinition.DataTypeForParameterOfTypeFromLayerNamed]
 //   - [ETTaskDefinition.DoInferenceOnDataError]
 //   - [ETTaskDefinition.DoTrainingOnDataForNumberOfEpochsWithCallbackError]
@@ -60,7 +58,6 @@ func (ec ETTaskDefinitionClass) Alloc() ETTaskDefinition {
 //   - [ETTaskDefinition.SetInferenceGraphNetPtr]
 //   - [ETTaskDefinition.InferenceModel]
 //   - [ETTaskDefinition.SetInferenceModel]
-//   - [ETTaskDefinition.NamesVectorToFoundationArray]
 //   - [ETTaskDefinition.Optimizer]
 //   - [ETTaskDefinition.SetOptimizer]
 //   - [ETTaskDefinition.Platform]
@@ -70,7 +67,6 @@ func (ec ETTaskDefinitionClass) Alloc() ETTaskDefinition {
 //   - [ETTaskDefinition.ReloadOnRuntimePlatform]
 //   - [ETTaskDefinition.SaveNetworkInplaceError]
 //   - [ETTaskDefinition.SaveTrainingNetworkCheckpointError]
-//   - [ETTaskDefinition.SetInferenceNetworkWeightsError]
 //   - [ETTaskDefinition.SetParameterOfTypeForLayerNamedWithValueError]
 //   - [ETTaskDefinition.SetTensorNamedWithValueError]
 //   - [ETTaskDefinition.SetWeightsOfInferenceNetworkLoadedFromAndSaveToError]
@@ -100,7 +96,6 @@ var _ IETTaskDefinition = ETTaskDefinition{}
 // # Methods
 //
 //   - [IETTaskDefinition.CheckShapesWithSampleWithError]
-//   - [IETTaskDefinition.Context_for_runtime_platform]
 //   - [IETTaskDefinition.DataTypeForParameterOfTypeFromLayerNamed]
 //   - [IETTaskDefinition.DoInferenceOnDataError]
 //   - [IETTaskDefinition.DoTrainingOnDataForNumberOfEpochsWithCallbackError]
@@ -111,7 +106,6 @@ var _ IETTaskDefinition = ETTaskDefinition{}
 //   - [IETTaskDefinition.SetInferenceGraphNetPtr]
 //   - [IETTaskDefinition.InferenceModel]
 //   - [IETTaskDefinition.SetInferenceModel]
-//   - [IETTaskDefinition.NamesVectorToFoundationArray]
 //   - [IETTaskDefinition.Optimizer]
 //   - [IETTaskDefinition.SetOptimizer]
 //   - [IETTaskDefinition.Platform]
@@ -121,7 +115,6 @@ var _ IETTaskDefinition = ETTaskDefinition{}
 //   - [IETTaskDefinition.ReloadOnRuntimePlatform]
 //   - [IETTaskDefinition.SaveNetworkInplaceError]
 //   - [IETTaskDefinition.SaveTrainingNetworkCheckpointError]
-//   - [IETTaskDefinition.SetInferenceNetworkWeightsError]
 //   - [IETTaskDefinition.SetParameterOfTypeForLayerNamedWithValueError]
 //   - [IETTaskDefinition.SetTensorNamedWithValueError]
 //   - [IETTaskDefinition.SetWeightsOfInferenceNetworkLoadedFromAndSaveToError]
@@ -139,8 +132,7 @@ type IETTaskDefinition interface {
 
 	// Topic: Methods
 
-	CheckShapesWithSampleWithError(shapes kernel.Pointer, sample kernel.Pointer) error
-	Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) unsafe.Pointer
+	CheckShapesWithSampleWithError(shapes unsafe.Pointer, sample unsafe.Pointer) error
 	DataTypeForParameterOfTypeFromLayerNamed(type_ uint64, named objectivec.IObject) uint64
 	DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error)
 	DoTrainingOnDataForNumberOfEpochsWithCallbackError(data objectivec.IObject, epochs uint64, callback objectivec.IObject) (bool, error)
@@ -148,10 +140,9 @@ type IETTaskDefinition interface {
 	GetTensorNamed(named objectivec.IObject) objectivec.IObject
 	GetTensorNamedDirectBind(named objectivec.IObject, bind bool) objectivec.IObject
 	InferenceGraphNetPtr() unsafe.Pointer
-	SetInferenceGraphNetPtr(value kernel.Pointer)
+	SetInferenceGraphNetPtr(value unsafe.Pointer)
 	InferenceModel() IETModelDefinition
 	SetInferenceModel(value IETModelDefinition)
-	NamesVectorToFoundationArray(array unsafe.Pointer) objectivec.IObject
 	Optimizer() IETOptimizerDefinition
 	SetOptimizer(value IETOptimizerDefinition)
 	Platform() uint64
@@ -161,47 +152,49 @@ type IETTaskDefinition interface {
 	ReloadOnRuntimePlatform(platform []objectivec.IObject)
 	SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error)
 	SaveTrainingNetworkCheckpointError(network objectivec.IObject, checkpoint objectivec.IObject) (bool, error)
-	SetInferenceNetworkWeightsError(weights kernel.Pointer) (bool, error)
 	SetParameterOfTypeForLayerNamedWithValueError(type_ uint64, named objectivec.IObject, value objectivec.IObject) (bool, error)
 	SetTensorNamedWithValueError(named objectivec.IObject, value objectivec.IObject) (bool, error)
 	SetWeightsOfInferenceNetworkLoadedFromAndSaveToError(from objectivec.IObject, to objectivec.IObject) (bool, error)
 	SetupInputOutputShapes(shapes []objectivec.IObject)
-	SetupShapesForBlobsWithError(shapes kernel.Pointer, blobs objectivec.IObject) error
+	SetupShapesForBlobsWithError(shapes unsafe.Pointer, blobs objectivec.IObject) error
 	ShareWeights()
 	TaskState() IETTaskState
 	SetTaskState(value IETTaskState)
 	TrainingGraphNetPtr() unsafe.Pointer
-	SetTrainingGraphNetPtr(value kernel.Pointer)
+	SetTrainingGraphNetPtr(value unsafe.Pointer)
 	InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error)
 	InitWithTrainingModelDefinitionForPlatformError(definition objectivec.IObject, platform uint64) (ETTaskDefinition, error)
 }
 
 // Init initializes the instance.
 func (e ETTaskDefinition) Init() ETTaskDefinition {
-	rv := objc.Send[ETTaskDefinition](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETTaskDefinition](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETTaskDefinition) Autorelease() ETTaskDefinition {
-	rv := objc.Send[ETTaskDefinition](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETTaskDefinition](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETTaskDefinition creates a new ETTaskDefinition instance.
 func NewETTaskDefinition() ETTaskDefinition {
 	class := getETTaskDefinitionClass()
-	rv := objc.Send[ETTaskDefinition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETTaskDefinition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETTaskDefinitionWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETTaskDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDefinition:lossDefinition:variablesDefinition:optimizerDefinition:forPlatform:error:"), definition, definition2, definition3, definition4, platform, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDefinition:lossDefinition:variablesDefinition:optimizerDefinition:forPlatform:error:"), definition, definition2, definition3, definition4, platform, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETTaskDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETTaskDefinition{}, objc.ErrInitFailed
 	}
 	return ETTaskDefinitionFromID(rv), nil
 }
@@ -209,15 +202,18 @@ func NewETTaskDefinitionWithModelDefinitionLossDefinitionVariablesDefinitionOpti
 func NewETTaskDefinitionWithTrainingModelDefinitionForPlatformError(definition objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETTaskDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTrainingModelDefinition:forPlatform:error:"), definition, platform, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTrainingModelDefinition:forPlatform:error:"), definition, platform, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETTaskDefinition{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return ETTaskDefinition{}, objc.ErrInitFailed
+	}
 	return ETTaskDefinitionFromID(rv), nil
 }
 
-func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes kernel.Pointer, sample kernel.Pointer) error {
+func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes unsafe.Pointer, sample unsafe.Pointer) error {
 	var errorPtr objc.ID
 	objc.Send[struct{}](e.ID, objc.Sel("checkShapes:withSample:withError:"), shapes, sample, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -227,12 +223,8 @@ func (e ETTaskDefinition) CheckShapesWithSampleWithError(shapes kernel.Pointer, 
 	return nil
 
 }
-func (e ETTaskDefinition) Context_for_runtime_platform(context_for_runtime_platform []objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("context_for_runtime_platform:"), objectivec.IObjectSliceToNSArray(context_for_runtime_platform))
-	return rv
-}
 func (e ETTaskDefinition) DataTypeForParameterOfTypeFromLayerNamed(type_ uint64, named objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("dataTypeForParameterOfType:fromLayerNamed:"), type_, named)
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("dataTypeForParameterOfType:fromLayerNamed:"), type_, named)
 	return rv
 }
 func (e ETTaskDefinition) DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error) {
@@ -269,15 +261,11 @@ func (e ETTaskDefinition) GetParameterOfTypeForLayerNamedError(type_ uint64, nam
 
 }
 func (e ETTaskDefinition) GetTensorNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getTensorNamed:"), named)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getTensorNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 func (e ETTaskDefinition) GetTensorNamedDirectBind(named objectivec.IObject, bind bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getTensorNamed:directBind:"), named, bind)
-	return objectivec.Object{ID: rv}
-}
-func (e ETTaskDefinition) NamesVectorToFoundationArray(array unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("namesVectorToFoundationArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getTensorNamed:directBind:"), named, bind)
 	return objectivec.Object{ID: rv}
 }
 func (e ETTaskDefinition) PlatformForLayerNamedError(named objectivec.IObject) (uint64, error) {
@@ -304,7 +292,7 @@ func (e ETTaskDefinition) PrivateDoTrainingOnDataForNumberOfEpochsWithCallbackEr
 
 }
 func (e ETTaskDefinition) ReloadOnRuntimePlatform(platform []objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("reloadOnRuntimePlatform:"), objectivec.IObjectSliceToNSArray(platform))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("reloadOnRuntimePlatform:"), objectivec.IObjectSliceToNSArray(platform))
 }
 func (e ETTaskDefinition) SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error) {
 	var errorPtr objc.ID
@@ -328,19 +316,6 @@ func (e ETTaskDefinition) SaveTrainingNetworkCheckpointError(network objectivec.
 	}
 	if !rv {
 		return false, errors.New("saveTrainingNetwork:checkpoint:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (e ETTaskDefinition) SetInferenceNetworkWeightsError(weights kernel.Pointer) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("setInferenceNetworkWeights:error:"), weights, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("setInferenceNetworkWeights:error: returned NO with nil NSError")
 	}
 	return rv, nil
 
@@ -385,9 +360,9 @@ func (e ETTaskDefinition) SetWeightsOfInferenceNetworkLoadedFromAndSaveToError(f
 
 }
 func (e ETTaskDefinition) SetupInputOutputShapes(shapes []objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("setupInputOutputShapes:"), objectivec.IObjectSliceToNSArray(shapes))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setupInputOutputShapes:"), objectivec.IObjectSliceToNSArray(shapes))
 }
-func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes kernel.Pointer, blobs objectivec.IObject) error {
+func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes unsafe.Pointer, blobs objectivec.IObject) error {
 	var errorPtr objc.ID
 	objc.Send[struct{}](e.ID, objc.Sel("setupShapes:forBlobs:withError:"), shapes, blobs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -398,7 +373,7 @@ func (e ETTaskDefinition) SetupShapesForBlobsWithError(shapes kernel.Pointer, bl
 
 }
 func (e ETTaskDefinition) ShareWeights() {
-	objc.Send[objc.ID](e.ID, objc.Sel("shareWeights"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("shareWeights"))
 }
 func (e ETTaskDefinition) InitWithModelDefinitionLossDefinitionVariablesDefinitionOptimizerDefinitionForPlatformError(definition objectivec.IObject, definition2 objectivec.IObject, definition3 objectivec.IObject, definition4 objectivec.IObject, platform uint64) (ETTaskDefinition, error) {
 	var errorPtr objc.ID
@@ -422,44 +397,44 @@ func (e ETTaskDefinition) InitWithTrainingModelDefinitionForPlatformError(defini
 }
 
 func (e ETTaskDefinition) InferenceGraphNetPtr() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("inferenceGraphNetPtr"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("inferenceGraphNetPtr"))
 	return rv
 }
-func (e ETTaskDefinition) SetInferenceGraphNetPtr(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInferenceGraphNetPtr:"), value)
+func (e ETTaskDefinition) SetInferenceGraphNetPtr(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInferenceGraphNetPtr:"), value)
 }
 func (e ETTaskDefinition) InferenceModel() IETModelDefinition {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inferenceModel"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("inferenceModel"))
 	return ETModelDefinitionFromID(objc.ID(rv))
 }
 func (e ETTaskDefinition) SetInferenceModel(value IETModelDefinition) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInferenceModel:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInferenceModel:"), value)
 }
 func (e ETTaskDefinition) Optimizer() IETOptimizerDefinition {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizer"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("optimizer"))
 	return ETOptimizerDefinitionFromID(objc.ID(rv))
 }
 func (e ETTaskDefinition) SetOptimizer(value IETOptimizerDefinition) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOptimizer:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOptimizer:"), value)
 }
 func (e ETTaskDefinition) Platform() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("platform"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("platform"))
 	return rv
 }
 func (e ETTaskDefinition) SetPlatform(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPlatform:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setPlatform:"), value)
 }
 func (e ETTaskDefinition) TaskState() IETTaskState {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("taskState"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("taskState"))
 	return ETTaskStateFromID(objc.ID(rv))
 }
 func (e ETTaskDefinition) SetTaskState(value IETTaskState) {
-	objc.Send[struct{}](e.ID, objc.Sel("setTaskState:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setTaskState:"), value)
 }
 func (e ETTaskDefinition) TrainingGraphNetPtr() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("trainingGraphNetPtr"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("trainingGraphNetPtr"))
 	return rv
 }
-func (e ETTaskDefinition) SetTrainingGraphNetPtr(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setTrainingGraphNetPtr:"), value)
+func (e ETTaskDefinition) SetTrainingGraphNetPtr(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setTrainingGraphNetPtr:"), value)
 }

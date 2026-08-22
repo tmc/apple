@@ -38,7 +38,7 @@ func (ac AVVCConfigureAlertBehaviorSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCConfigureAlertBehaviorSettingsClass) Alloc() AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCConfigureAlertBehaviorSettings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -96,59 +96,59 @@ type IAVVCConfigureAlertBehaviorSettings interface {
 
 // Init initializes the instance.
 func (a AVVCConfigureAlertBehaviorSettings) Init() AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCConfigureAlertBehaviorSettings) Autorelease() AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCConfigureAlertBehaviorSettings creates a new AVVCConfigureAlertBehaviorSettings instance.
 func NewAVVCConfigureAlertBehaviorSettings() AVVCConfigureAlertBehaviorSettings {
 	class := getAVVCConfigureAlertBehaviorSettingsClass()
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCConfigureAlertBehaviorSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCConfigureAlertBehaviorSettingsWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
 	instance := getAVVCConfigureAlertBehaviorSettingsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:"), id)
 	return AVVCConfigureAlertBehaviorSettingsFromID(rv)
 }
 
 func (a AVVCConfigureAlertBehaviorSettings) InitWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("initWithStreamID:"), id)
+	rv := objc.SendIfResponds[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("initWithStreamID:"), id)
 	return rv
 }
 
 func (a AVVCConfigureAlertBehaviorSettings) StartAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("startAlert"))
 	return rv
 }
 func (a AVVCConfigureAlertBehaviorSettings) SetStartAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
 func (a AVVCConfigureAlertBehaviorSettings) StopAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
 }
 func (a AVVCConfigureAlertBehaviorSettings) SetStopAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
 func (a AVVCConfigureAlertBehaviorSettings) StopOnErrorAlert() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
 }
 func (a AVVCConfigureAlertBehaviorSettings) SetStopOnErrorAlert(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
 func (a AVVCConfigureAlertBehaviorSettings) StreamID() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("streamID"))
 	return rv
 }
 func (a AVVCConfigureAlertBehaviorSettings) SetStreamID(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStreamID:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStreamID:"), value)
 }

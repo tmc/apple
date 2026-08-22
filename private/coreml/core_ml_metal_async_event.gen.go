@@ -38,7 +38,7 @@ func (cc CoreMLMetalAsyncEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMetalAsyncEventClass) Alloc() CoreMLMetalAsyncEvent {
-	rv := objc.Send[CoreMLMetalAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMetalAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMetalAsyncEventFromID(id objc.ID) CoreMLMetalAsyncEvent {
 	return CoreMLMetalAsyncEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMetalAsyncEvent struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMetalAsyncEvent embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMetalAsyncEvent implements ICoreMLMetalAsyncEvent.
+var _ ICoreMLMetalAsyncEvent = CoreMLMetalAsyncEvent{}
 
 // An interface definition for the [CoreMLMetalAsyncEvent] class.
 type ICoreMLMetalAsyncEvent interface {
@@ -61,19 +61,19 @@ type ICoreMLMetalAsyncEvent interface {
 
 // Init initializes the instance.
 func (c CoreMLMetalAsyncEvent) Init() CoreMLMetalAsyncEvent {
-	rv := objc.Send[CoreMLMetalAsyncEvent](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMetalAsyncEvent](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMetalAsyncEvent) Autorelease() CoreMLMetalAsyncEvent {
-	rv := objc.Send[CoreMLMetalAsyncEvent](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMetalAsyncEvent](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMetalAsyncEvent creates a new CoreMLMetalAsyncEvent instance.
 func NewCoreMLMetalAsyncEvent() CoreMLMetalAsyncEvent {
 	class := getCoreMLMetalAsyncEventClass()
-	rv := objc.Send[CoreMLMetalAsyncEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMetalAsyncEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

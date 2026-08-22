@@ -10,83 +10,83 @@ import (
 	"github.com/tmc/apple/quartzcore"
 )
 
-// The class instance for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer] class.
+// The class instance for the [IndicatorLayer] class.
 var (
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass     TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClassOnce sync.Once
+	_IndicatorLayerClass     IndicatorLayerClass
+	_IndicatorLayerClassOnce sync.Once
 )
 
-func getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass {
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClassOnce.Do(func() {
-		_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass{class: objc.GetClass("_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer")}
+func getIndicatorLayerClass() IndicatorLayerClass {
+	_IndicatorLayerClassOnce.Do(func() {
+		_IndicatorLayerClass = IndicatorLayerClass{class: objc.GetClass("_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer")}
 	})
-	return _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass
+	return _IndicatorLayerClass
 }
 
-// GetTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass returns the class object for _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer.
-func GetTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass {
-	return getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass()
+// GetIndicatorLayerClass returns the class object for _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer.
+func GetIndicatorLayerClass() IndicatorLayerClass {
+	return getIndicatorLayerClass()
 }
 
-type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass struct {
+type IndicatorLayerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass) Class() objc.Class {
-	return tc.class
+func (ic IndicatorLayerClass) Class() objc.Class {
+	return ic.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass) Alloc() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer](objc.ID(tc.class), objc.Sel("alloc"))
+func (ic IndicatorLayerClass) Alloc() IndicatorLayer {
+	rv := objc.SendIfResponds[IndicatorLayer](objc.ID(ic.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer struct {
+type IndicatorLayer struct {
 	quartzcore.CALayer
 }
 
-// TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID constructs a [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer] from an objc.ID.
-func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID(id objc.ID) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer{CALayer: quartzcore.CALayerFromID(id)}
+// IndicatorLayerFromID constructs a [IndicatorLayer] from an objc.ID.
+func IndicatorLayerFromID(id objc.ID) IndicatorLayer {
+	return IndicatorLayer{CALayer: quartzcore.CALayerFromID(id)}
 }
 
-// Ensure TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer implements ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer.
-var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer{}
+// Ensure IndicatorLayer implements IIndicatorLayer.
+var _ IIndicatorLayer = IndicatorLayer{}
 
-// An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer] class.
-type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer interface {
+// An interface definition for the [IndicatorLayer] class.
+type IIndicatorLayer interface {
 	quartzcore.ICALayer
 }
 
 // Init initializes the instance.
-func (t TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer) Init() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer](t.ID, objc.Sel("init"))
+func (i IndicatorLayer) Init() IndicatorLayer {
+	rv := objc.SendIfResponds[IndicatorLayer](i.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer) Autorelease() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer](t.ID, objc.Sel("autorelease"))
+func (i IndicatorLayer) Autorelease() IndicatorLayer {
+	rv := objc.SendIfResponds[IndicatorLayer](i.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer creates a new TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer instance.
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	class := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass()
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer](objc.ID(class.class), objc.Sel("new"))
+// NewIndicatorLayer creates a new IndicatorLayer instance.
+func NewIndicatorLayer() IndicatorLayer {
+	class := getIndicatorLayerClass()
+	rv := objc.SendIfResponds[IndicatorLayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID(rv)
+func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithCoder(coder objectivec.IObject) IndicatorLayer {
+	instance := getIndicatorLayerClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return IndicatorLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer {
-	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID(rv)
+func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithLayer(layer objectivec.IObject) IndicatorLayer {
+	instance := getIndicatorLayerClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
+	return IndicatorLayerFromID(rv)
 }

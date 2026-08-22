@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXKeyboardEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyboardEventProcessorClass) Alloc() CPXKeyboardEventProcessor {
-	rv := objc.Send[CPXKeyboardEventProcessor](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,9 +84,9 @@ type ICPXKeyboardEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	InitWithDeliveryManagerSpecialKeyEventProcessorProcessManagerDestinationGeneratorNotificationCenterKeyEventTracker(manager objectivec.IObject, processor objectivec.IObject, manager2 objectivec.IObject, generator objectivec.IObject, center objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventProcessor
-	InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor
+	InitWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -94,64 +95,64 @@ type ICPXKeyboardEventProcessor interface {
 
 // Init initializes the instance.
 func (c CPXKeyboardEventProcessor) Init() CPXKeyboardEventProcessor {
-	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyboardEventProcessor) Autorelease() CPXKeyboardEventProcessor {
-	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyboardEventProcessor creates a new CPXKeyboardEventProcessor instance.
 func NewCPXKeyboardEventProcessor() CPXKeyboardEventProcessor {
 	class := getCPXKeyboardEventProcessorClass()
-	rv := objc.Send[CPXKeyboardEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXKeyboardEventProcessorWithDeliveryManagerSpecialKeyEventProcessorProcessManagerDestinationGeneratorNotificationCenterKeyEventTracker(manager objectivec.IObject, processor objectivec.IObject, manager2 objectivec.IObject, generator objectivec.IObject, center objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventProcessor {
 	instance := getCPXKeyboardEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:specialKeyEventProcessor:processManager:destinationGenerator:notificationCenter:keyEventTracker:"), manager, processor, manager2, generator, center, tracker)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:specialKeyEventProcessor:processManager:destinationGenerator:notificationCenter:keyEventTracker:"), manager, processor, manager2, generator, center, tracker)
 	return CPXKeyboardEventProcessorFromID(rv)
 }
 
-func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
+func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
 	instance := getCPXKeyboardEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), unsafe.Pointer(session), processor)
 	return CPXKeyboardEventProcessorFromID(rv)
 }
 
 func (c CPXKeyboardEventProcessor) ClearEventState() {
-	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
+func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+	rv := objc.SendIfResponds[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), unsafe.Pointer(event), unsafe.Pointer(context), dispatcher)
 	return rv
 }
 func (c CPXKeyboardEventProcessor) InitWithDeliveryManagerSpecialKeyEventProcessorProcessManagerDestinationGeneratorNotificationCenterKeyEventTracker(manager objectivec.IObject, processor objectivec.IObject, manager2 objectivec.IObject, generator objectivec.IObject, center objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventProcessor {
-	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithDeliveryManager:specialKeyEventProcessor:processManager:destinationGenerator:notificationCenter:keyEventTracker:"), manager, processor, manager2, generator, center, tracker)
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithDeliveryManager:specialKeyEventProcessor:processManager:destinationGenerator:notificationCenter:keyEventTracker:"), manager, processor, manager2, generator, center, tracker)
 	return rv
 }
-func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
-	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
+func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session *CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), unsafe.Pointer(session), processor)
 	return rv
 }
 
 func (c CPXKeyboardEventProcessor) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyboardEventProcessor) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyboardEventProcessor) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXKeyboardEventProcessor) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

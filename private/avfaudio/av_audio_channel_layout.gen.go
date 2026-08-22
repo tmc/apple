@@ -38,7 +38,7 @@ func (ac AVAudioChannelLayoutClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioChannelLayoutClass) Alloc() AVAudioChannelLayout {
-	rv := objc.Send[AVAudioChannelLayout](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioChannelLayout](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,29 +72,29 @@ type IAVAudioChannelLayout interface {
 
 // Init initializes the instance.
 func (a AVAudioChannelLayout) Init() AVAudioChannelLayout {
-	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioChannelLayout](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioChannelLayout) Autorelease() AVAudioChannelLayout {
-	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioChannelLayout](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioChannelLayout creates a new AVAudioChannelLayout instance.
 func NewAVAudioChannelLayout() AVAudioChannelLayout {
 	class := getAVAudioChannelLayoutClass()
-	rv := objc.Send[AVAudioChannelLayout](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioChannelLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioChannelLayout) LayoutSize() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("layoutSize"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("layoutSize"))
 	return rv
 }
 
 func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

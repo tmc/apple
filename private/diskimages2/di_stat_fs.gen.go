@@ -40,7 +40,7 @@ func (dc DIStatFSClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIStatFSClass) Alloc() DIStatFS {
-	rv := objc.Send[DIStatFS](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIStatFS](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,48 +95,51 @@ type IDIStatFS interface {
 
 // Init initializes the instance.
 func (d DIStatFS) Init() DIStatFS {
-	rv := objc.Send[DIStatFS](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIStatFS](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIStatFS) Autorelease() DIStatFS {
-	rv := objc.Send[DIStatFS](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIStatFS](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIStatFS creates a new DIStatFS instance.
 func NewDIStatFS() DIStatFS {
 	class := getDIStatFSClass()
-	rv := objc.Send[DIStatFS](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIStatFS](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIStatFSWithCoder(coder objectivec.IObject) DIStatFS {
 	instance := getDIStatFSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStatFSFromID(rv)
 }
 
 func NewDIStatFSWithFileDescriptorError(descriptor int) (DIStatFS, error) {
 	var errorPtr objc.ID
 	instance := getDIStatFSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIStatFS{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIStatFS{}, objc.ErrInitFailed
 	}
 	return DIStatFSFromID(rv), nil
 }
 
 func (d DIStatFS) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIStatFS) LogWithHeader(header objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("logWithHeader:"), header)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("logWithHeader:"), header)
 }
 func (d DIStatFS) InitWithCoder(coder foundation.INSCoder) DIStatFS {
-	rv := objc.Send[DIStatFS](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIStatFS](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (d DIStatFS) InitWithFileDescriptorError(descriptor int) (DIStatFS, error) {
@@ -151,23 +154,23 @@ func (d DIStatFS) InitWithFileDescriptorError(descriptor int) (DIStatFS, error) 
 }
 
 func (_DIStatFSClass DIStatFSClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIStatFSClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIStatFSClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIStatFS) BlockSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (d DIStatFS) MountedFrom() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountedFrom"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mountedFrom"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIStatFS) MountedOnURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountedOnURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mountedOnURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIStatFS) SupportsBarrier() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("supportsBarrier"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("supportsBarrier"))
 	return rv
 }

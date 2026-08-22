@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationStringsResultClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationStringsResultClass) Alloc() SLSBridgedWindowManagementOperationStringsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationStringsResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWindowManagementOperationStringsResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationStringsResult) Init() SLSBridgedWindowManagementOperationStringsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationStringsResult) Autorelease() SLSBridgedWindowManagementOperationStringsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationStringsResult creates a new SLSBridgedWindowManagementOperationStringsResult instance.
 func NewSLSBridgedWindowManagementOperationStringsResult() SLSBridgedWindowManagementOperationStringsResult {
 	class := getSLSBridgedWindowManagementOperationStringsResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationStringsResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationStringsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
 	instance := getSLSBridgedWindowManagementOperationStringsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationStringsResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationStringsResultWithStrings(strings objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
 	instance := getSLSBridgedWindowManagementOperationStringsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStrings:"), strings)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStrings:"), strings)
 	return SLSBridgedWindowManagementOperationStringsResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationStringsResult) InitWithStrings(strings objectivec.IObject) SLSBridgedWindowManagementOperationStringsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("initWithStrings:"), strings)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationStringsResult](s.ID, objc.Sel("initWithStrings:"), strings)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationStringsResult) Strings() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("strings"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("strings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

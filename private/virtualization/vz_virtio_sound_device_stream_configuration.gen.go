@@ -40,7 +40,7 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDeviceStreamConfiguration {
-	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioSoundDeviceStreamConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,30 @@ type IVZVirtioSoundDeviceStreamConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioSoundDeviceStreamConfiguration) Init() VZVirtioSoundDeviceStreamConfiguration {
-	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioSoundDeviceStreamConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioSoundDeviceStreamConfiguration) Autorelease() VZVirtioSoundDeviceStreamConfiguration {
-	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioSoundDeviceStreamConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioSoundDeviceStreamConfiguration creates a new VZVirtioSoundDeviceStreamConfiguration instance.
 func NewVZVirtioSoundDeviceStreamConfiguration() VZVirtioSoundDeviceStreamConfiguration {
 	class := getVZVirtioSoundDeviceStreamConfigurationClass()
-	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioSoundDeviceStreamConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioSoundDeviceStreamConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZVirtioSoundDeviceStreamConfiguration) _stream() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_stream"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_stream"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZVirtioSoundDeviceStreamConfiguration) Stream() (unsafe.Pointer, error)
 	return v._stream(), nil
 }
 func (v VZVirtioSoundDeviceStreamConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZVirtioSoundDeviceStreamConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZVirtioSoundDeviceStreamConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZVirtioSoundDeviceStreamConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

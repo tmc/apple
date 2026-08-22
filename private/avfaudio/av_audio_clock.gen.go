@@ -40,7 +40,7 @@ func (ac AVAudioClockClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioClockClass) Alloc() AVAudioClock {
-	rv := objc.Send[AVAudioClock](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioClock](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,47 +86,47 @@ type IAVAudioClock interface {
 
 // Init initializes the instance.
 func (a AVAudioClock) Init() AVAudioClock {
-	rv := objc.Send[AVAudioClock](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioClock](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioClock) Autorelease() AVAudioClock {
-	rv := objc.Send[AVAudioClock](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioClock](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioClock creates a new AVAudioClock instance.
 func NewAVAudioClock() AVAudioClock {
 	class := getAVAudioClockClass()
-	rv := objc.Send[AVAudioClock](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioClock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
 	instance := getAVAudioClockClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNode:"), node)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNode:"), node)
 	return AVAudioClockFromID(rv)
 }
 
 func (a AVAudioClock) AwaitIOCycle(iOCycle *uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), iOCycle)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), unsafe.Pointer(iOCycle))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioClock) CurrentAudioTimeStamp() coreaudiotypes.AudioTimeStamp {
-	rv := objc.Send[coreaudiotypes.AudioTimeStamp](a.ID, objc.Sel("currentAudioTimeStamp"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioTimeStamp](a.ID, objc.Sel("currentAudioTimeStamp"))
 	return coreaudiotypes.AudioTimeStamp(rv)
 }
 func (a AVAudioClock) CurrentIONumberFrames() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("currentIONumberFrames"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("currentIONumberFrames"))
 	return rv
 }
 func (a AVAudioClock) InitWithNode(node unsafe.Pointer) AVAudioClock {
-	rv := objc.Send[AVAudioClock](a.ID, objc.Sel("initWithNode:"), node)
+	rv := objc.SendIfResponds[AVAudioClock](a.ID, objc.Sel("initWithNode:"), node)
 	return rv
 }
 
 func (a AVAudioClock) CurrentTime() IAVAudioTime {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentTime"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("currentTime"))
 	return AVAudioTimeFromID(objc.ID(rv))
 }

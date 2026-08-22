@@ -39,7 +39,7 @@ func (mc MLRegressorResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLRegressorResultClass) Alloc() MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLRegressorResult](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,52 +82,52 @@ type IMLRegressorResult interface {
 
 // Init initializes the instance.
 func (m MLRegressorResult) Init() MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLRegressorResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLRegressorResult) Autorelease() MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLRegressorResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLRegressorResult creates a new MLRegressorResult instance.
 func NewMLRegressorResult() MLRegressorResult {
 	class := getMLRegressorResultClass()
-	rv := objc.Send[MLRegressorResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLRegressorResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewRegressorResultWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
 	instance := getMLRegressorResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
 	return MLRegressorResultFromID(rv)
 }
 
 func (m MLRegressorResult) AsFeatureDictionaryWithPredictedValueDescription(description objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("asFeatureDictionaryWithPredictedValueDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("asFeatureDictionaryWithPredictedValueDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
 func (m MLRegressorResult) InitWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
+	rv := objc.SendIfResponds[MLRegressorResult](m.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
 	return rv
 }
 
 func (_MLRegressorResultClass MLRegressorResultClass) ResultWithValue(value objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLRegressorResultClass.class), objc.Sel("resultWithValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLRegressorResultClass.class), objc.Sel("resultWithValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (_MLRegressorResultClass MLRegressorResultClass) ResultWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLRegressorResultClass.class), objc.Sel("resultWithValue:additionalFeatures:"), value, features)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLRegressorResultClass.class), objc.Sel("resultWithValue:additionalFeatures:"), value, features)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLRegressorResult) AdditionalFeatures() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("additionalFeatures"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("additionalFeatures"))
 	return rv
 }
 func (m MLRegressorResult) PredictedValue() IMLMultiArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predictedValue"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }

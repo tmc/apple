@@ -37,7 +37,7 @@ func (tc TTSSpeechVoiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechVoiceClass) Alloc() TTSSpeechVoice {
-	rv := objc.Send[TTSSpeechVoice](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechVoice](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type ITTSSpeechVoice interface {
 
 // Init initializes the instance.
 func (t TTSSpeechVoice) Init() TTSSpeechVoice {
-	rv := objc.Send[TTSSpeechVoice](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechVoice](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechVoice) Autorelease() TTSSpeechVoice {
-	rv := objc.Send[TTSSpeechVoice](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechVoice](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechVoice creates a new TTSSpeechVoice instance.
 func NewTTSSpeechVoice() TTSSpeechVoice {
 	class := getTTSSpeechVoiceClass()
-	rv := objc.Send[TTSSpeechVoice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

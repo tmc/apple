@@ -39,7 +39,7 @@ func (pc PKGCoreUIWorkClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PKGCoreUIWorkClass) Alloc() PKGCoreUIWork {
-	rv := objc.Send[PKGCoreUIWork](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PKGCoreUIWork](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,30 +76,30 @@ type IPKGCoreUIWork interface {
 
 // Init initializes the instance.
 func (p PKGCoreUIWork) Init() PKGCoreUIWork {
-	rv := objc.Send[PKGCoreUIWork](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PKGCoreUIWork](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PKGCoreUIWork) Autorelease() PKGCoreUIWork {
-	rv := objc.Send[PKGCoreUIWork](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PKGCoreUIWork](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPKGCoreUIWork creates a new PKGCoreUIWork instance.
 func NewPKGCoreUIWork() PKGCoreUIWork {
 	class := getPKGCoreUIWorkClass()
-	rv := objc.Send[PKGCoreUIWork](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PKGCoreUIWork](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (p PKGCoreUIWork) SetMainThreadWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](p.ID, objc.Sel("setMainThreadWork:"), _block0)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("setMainThreadWork:"), _block0)
 }
 func (p PKGCoreUIWork) SetRendererWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](p.ID, objc.Sel("setRendererWork:"), _block0)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("setRendererWork:"), _block0)
 }
 
 // SetMainThreadWorkSync is a synchronous wrapper around [PKGCoreUIWork.SetMainThreadWork].

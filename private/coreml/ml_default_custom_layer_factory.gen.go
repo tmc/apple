@@ -40,7 +40,7 @@ func (mc MLDefaultCustomLayerFactoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDefaultCustomLayerFactoryClass) Alloc() MLDefaultCustomLayerFactory {
-	rv := objc.Send[MLDefaultCustomLayerFactory](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDefaultCustomLayerFactory](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,20 +74,20 @@ type IMLDefaultCustomLayerFactory interface {
 
 // Init initializes the instance.
 func (m MLDefaultCustomLayerFactory) Init() MLDefaultCustomLayerFactory {
-	rv := objc.Send[MLDefaultCustomLayerFactory](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDefaultCustomLayerFactory](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDefaultCustomLayerFactory) Autorelease() MLDefaultCustomLayerFactory {
-	rv := objc.Send[MLDefaultCustomLayerFactory](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDefaultCustomLayerFactory](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDefaultCustomLayerFactory creates a new MLDefaultCustomLayerFactory instance.
 func NewMLDefaultCustomLayerFactory() MLDefaultCustomLayerFactory {
 	class := getMLDefaultCustomLayerFactoryClass()
-	rv := objc.Send[MLDefaultCustomLayerFactory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDefaultCustomLayerFactory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

@@ -41,7 +41,7 @@ func (dc DIHelpersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIHelpersClass) Alloc() DIHelpers {
-	rv := objc.Send[DIHelpers](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIHelpers](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,25 +64,25 @@ type IDIHelpers interface {
 
 // Init initializes the instance.
 func (d DIHelpers) Init() DIHelpers {
-	rv := objc.Send[DIHelpers](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIHelpers](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIHelpers) Autorelease() DIHelpers {
-	rv := objc.Send[DIHelpers](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIHelpers](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIHelpers creates a new DIHelpers instance.
 func NewDIHelpers() DIHelpers {
 	class := getDIHelpersClass()
-	rv := objc.Send[DIHelpers](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIHelpers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_DIHelpersClass DIHelpersClass) CopyDevicePathWithStatfs(statfs *Statfs) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("copyDevicePathWithStatfs:"), statfs)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("copyDevicePathWithStatfs:"), statfs)
 	return objectivec.Object{ID: rv}
 }
 func (_DIHelpersClass DIHelpersClass) ExecuteWithPathArgumentsError(path objectivec.IObject, arguments objectivec.IObject) (bool, error) {
@@ -109,10 +109,10 @@ func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IO
 
 }
 func (_DIHelpersClass DIHelpersClass) NumBlocksWithSizeStrBlockSize(str objectivec.IObject, size uint32) uint64 {
-	rv := objc.Send[uint64](objc.ID(_DIHelpersClass.class), objc.Sel("numBlocksWithSizeStr:blockSize:"), str, size)
+	rv := objc.SendIfResponds[uint64](objc.ID(_DIHelpersClass.class), objc.Sel("numBlocksWithSizeStr:blockSize:"), str, size)
 	return rv
 }
 func (_DIHelpersClass DIHelpersClass) StringWithImageFormat(format int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("stringWithImageFormat:"), format)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("stringWithImageFormat:"), format)
 	return objectivec.Object{ID: rv}
 }

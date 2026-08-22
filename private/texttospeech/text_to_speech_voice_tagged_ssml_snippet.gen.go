@@ -39,7 +39,7 @@ func (tc TextToSpeechVoiceTaggedSSMLSnippetClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoiceTaggedSSMLSnippetClass) Alloc() TextToSpeechVoiceTaggedSSMLSnippet {
-	rv := objc.Send[TextToSpeechVoiceTaggedSSMLSnippet](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceTaggedSSMLSnippet](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,41 +88,41 @@ type ITextToSpeechVoiceTaggedSSMLSnippet interface {
 
 // Init initializes the instance.
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Init() TextToSpeechVoiceTaggedSSMLSnippet {
-	rv := objc.Send[TextToSpeechVoiceTaggedSSMLSnippet](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceTaggedSSMLSnippet](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Autorelease() TextToSpeechVoiceTaggedSSMLSnippet {
-	rv := objc.Send[TextToSpeechVoiceTaggedSSMLSnippet](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceTaggedSSMLSnippet](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechVoiceTaggedSSMLSnippet creates a new TextToSpeechVoiceTaggedSSMLSnippet instance.
 func NewTextToSpeechVoiceTaggedSSMLSnippet() TextToSpeechVoiceTaggedSSMLSnippet {
 	class := getTextToSpeechVoiceTaggedSSMLSnippetClass()
-	rv := objc.Send[TextToSpeechVoiceTaggedSSMLSnippet](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceTaggedSSMLSnippet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Language() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("language"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetLanguage(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Ssml() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssml"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ssml"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetSsml(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSsml:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSsml:"), objc.String(value))
 }
 func (t TextToSpeechVoiceTaggedSSMLSnippet) VoiceName() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceName"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetVoiceName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceName:"), objc.String(value))
 }

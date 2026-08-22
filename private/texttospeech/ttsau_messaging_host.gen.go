@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (tc TTSAUMessagingHostClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAUMessagingHostClass) Alloc() TTSAUMessagingHost {
-	rv := objc.Send[TTSAUMessagingHost](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAUMessagingHost](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,7 +87,7 @@ type ITTSAUMessagingHost interface {
 	AllowedClasses() foundation.INSSet
 	SetAllowedClasses(value foundation.INSSet)
 	Channel() unsafe.Pointer
-	SetChannel(value kernel.Pointer)
+	SetChannel(value unsafe.Pointer)
 	Methods() foundation.INSDictionary
 	SetMethods(value foundation.INSDictionary)
 	InitWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost
@@ -96,31 +95,31 @@ type ITTSAUMessagingHost interface {
 
 // Init initializes the instance.
 func (t TTSAUMessagingHost) Init() TTSAUMessagingHost {
-	rv := objc.Send[TTSAUMessagingHost](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAUMessagingHost](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAUMessagingHost) Autorelease() TTSAUMessagingHost {
-	rv := objc.Send[TTSAUMessagingHost](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAUMessagingHost](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAUMessagingHost creates a new TTSAUMessagingHost instance.
 func NewTTSAUMessagingHost() TTSAUMessagingHost {
 	class := getTTSAUMessagingHostClass()
-	rv := objc.Send[TTSAUMessagingHost](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAUMessagingHost](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSAUMessagingHostWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost {
 	instance := getTTSAUMessagingHostClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageChannel:"), channel)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageChannel:"), channel)
 	return TTSAUMessagingHostFromID(rv)
 }
 
 func (t TTSAUMessagingHost) _loadProtocolMethods() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_loadProtocolMethods"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_loadProtocolMethods"))
 }
 
 // LoadProtocolMethods is an exported wrapper for the private method _loadProtocolMethods.
@@ -138,12 +137,12 @@ func (t TTSAUMessagingHost) CanLoadProtocolMethods() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_loadProtocolMethods"))
 }
 func (t TTSAUMessagingHost) InitWithMessageChannel(channel objectivec.IObject) TTSAUMessagingHost {
-	rv := objc.Send[TTSAUMessagingHost](t.ID, objc.Sel("initWithMessageChannel:"), channel)
+	rv := objc.SendIfResponds[TTSAUMessagingHost](t.ID, objc.Sel("initWithMessageChannel:"), channel)
 	return rv
 }
 
 func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) _validSelectorsForProtocol() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -162,23 +161,23 @@ func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) CanValidSelectorsForProt
 }
 
 func (t TTSAUMessagingHost) AllowedClasses() foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("allowedClasses"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("allowedClasses"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (t TTSAUMessagingHost) SetAllowedClasses(value foundation.INSSet) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAllowedClasses:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAllowedClasses:"), value)
 }
 func (t TTSAUMessagingHost) Channel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("channel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("channel"))
 	return rv
 }
-func (t TTSAUMessagingHost) SetChannel(value kernel.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
+func (t TTSAUMessagingHost) SetChannel(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
 func (t TTSAUMessagingHost) Methods() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("methods"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("methods"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSAUMessagingHost) SetMethods(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMethods:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setMethods:"), value)
 }

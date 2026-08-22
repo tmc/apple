@@ -42,7 +42,7 @@ func (vc VZGraphicsDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
-	rv := objc.Send[VZGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,26 +88,26 @@ type IVZGraphicsDevice interface {
 
 // Init initializes the instance.
 func (v VZGraphicsDevice) Init() VZGraphicsDevice {
-	rv := objc.Send[VZGraphicsDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGraphicsDevice) Autorelease() VZGraphicsDevice {
-	rv := objc.Send[VZGraphicsDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGraphicsDevice creates a new VZGraphicsDevice instance.
 func NewVZGraphicsDevice() VZGraphicsDevice {
 	class := getVZGraphicsDeviceClass()
-	rv := objc.Send[VZGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGraphicsDevice) _attachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_attachDisplay:completionHandler:"), display, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_attachDisplay:completionHandler:"), display, _block1)
 }
 
 // AttachDisplayCompletionHandler is an exported wrapper for the private method _attachDisplayCompletionHandler.
@@ -126,7 +126,7 @@ func (v VZGraphicsDevice) CanAttachDisplayCompletionHandler() bool {
 }
 func (v VZGraphicsDevice) _detachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_detachDisplay:completionHandler:"), display, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_detachDisplay:completionHandler:"), display, _block1)
 }
 
 // DetachDisplayCompletionHandler is an exported wrapper for the private method _detachDisplayCompletionHandler.
@@ -144,7 +144,7 @@ func (v VZGraphicsDevice) CanDetachDisplayCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_detachDisplay:completionHandler:"))
 }
 func (v VZGraphicsDevice) _initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"), machine, index, count, displays)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"), machine, index, count, displays)
 	return objectivec.Object{ID: rv}
 }
 
@@ -190,7 +190,7 @@ func (v VZGraphicsDevice) CanValidateDisplayForHotPlugError() bool {
 }
 
 func (v VZGraphicsDevice) _displayPortCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("_displayPortCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("_displayPortCount"))
 	return rv
 }
 

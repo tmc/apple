@@ -38,7 +38,7 @@ func (sc SLSBridgedGetSpacePermittedResizeDirectionsOperationClass) Class() objc
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedGetSpacePermittedResizeDirectionsOperationClass) Alloc() SLSBridgedGetSpacePermittedResizeDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedGetSpacePermittedResizeDirectionsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,53 +84,53 @@ type ISLSBridgedGetSpacePermittedResizeDirectionsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) Init() SLSBridgedGetSpacePermittedResizeDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) Autorelease() SLSBridgedGetSpacePermittedResizeDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedGetSpacePermittedResizeDirectionsOperation creates a new SLSBridgedGetSpacePermittedResizeDirectionsOperation instance.
 func NewSLSBridgedGetSpacePermittedResizeDirectionsOperation() SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	class := getSLSBridgedGetSpacePermittedResizeDirectionsOperationClass()
-	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedGetSpacePermittedResizeDirectionsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedGetSpacePermittedResizeDirectionsOperationWithCoder(coder objectivec.IObject) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	instance := getSLSBridgedGetSpacePermittedResizeDirectionsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedGetSpacePermittedResizeDirectionsOperationFromID(rv)
 }
 
 func NewSLSBridgedGetSpacePermittedResizeDirectionsOperationWithSpaceIDVerticalIndexHorizontalIndex(id uint64, index uint64, index2 uint64) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
 	instance := getSLSBridgedGetSpacePermittedResizeDirectionsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
 	return SLSBridgedGetSpacePermittedResizeDirectionsOperationFromID(rv)
 }
 
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) MakeResultWithSpaceResizeDirections(directions uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) InitWithSpaceIDVerticalIndexHorizontalIndex(id uint64, index uint64, index2 uint64) SLSBridgedGetSpacePermittedResizeDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
+	rv := objc.SendIfResponds[SLSBridgedGetSpacePermittedResizeDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:verticalIndex:horizontalIndex:"), id, index, index2)
 	return rv
 }
 
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) HorizontalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedGetSpacePermittedResizeDirectionsOperation) VerticalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (sc SOSpeechInstallationManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSpeechInstallationManagerClass) Alloc() SOSpeechInstallationManager {
-	rv := objc.Send[SOSpeechInstallationManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSpeechInstallationManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -212,25 +212,25 @@ type ISOSpeechInstallationManager interface {
 
 // Init initializes the instance.
 func (s SOSpeechInstallationManager) Init() SOSpeechInstallationManager {
-	rv := objc.Send[SOSpeechInstallationManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSpeechInstallationManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSpeechInstallationManager) Autorelease() SOSpeechInstallationManager {
-	rv := objc.Send[SOSpeechInstallationManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSpeechInstallationManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSpeechInstallationManager creates a new SOSpeechInstallationManager instance.
 func NewSOSpeechInstallationManager() SOSpeechInstallationManager {
 	class := getSOSpeechInstallationManagerClass()
-	rv := objc.Send[SOSpeechInstallationManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSpeechInstallationManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOSpeechInstallationManager) _clientHasRightsToCustomVoices() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("_clientHasRightsToCustomVoices"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("_clientHasRightsToCustomVoices"))
 	return rv
 }
 
@@ -248,7 +248,7 @@ func (s SOSpeechInstallationManager) CanClientHasRightsToCustomVoices() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_clientHasRightsToCustomVoices"))
 }
 func (s SOSpeechInstallationManager) _createLocalPort() corefoundation.CFMessagePortRef {
-	rv := objc.Send[corefoundation.CFMessagePortRef](s.ID, objc.Sel("_createLocalPort"))
+	rv := objc.SendIfResponds[corefoundation.CFMessagePortRef](s.ID, objc.Sel("_createLocalPort"))
 	return corefoundation.CFMessagePortRef(rv)
 }
 
@@ -266,7 +266,7 @@ func (s SOSpeechInstallationManager) CanCreateLocalPort() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_createLocalPort"))
 }
 func (s SOSpeechInstallationManager) _createServerPortIfNeeded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("_createServerPortIfNeeded"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("_createServerPortIfNeeded"))
 	return rv
 }
 
@@ -284,7 +284,7 @@ func (s SOSpeechInstallationManager) CanCreateServerPortIfNeeded() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_createServerPortIfNeeded"))
 }
 func (s SOSpeechInstallationManager) _overriddenVoiceIdentifierDictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -302,7 +302,7 @@ func (s SOSpeechInstallationManager) CanOverriddenVoiceIdentifierDictionary() bo
 	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary"))
 }
 func (s SOSpeechInstallationManager) _sendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_sendMessage:withData:withReply:"), message, data, reply)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_sendMessage:withData:withReply:"), message, data, reply)
 	return objectivec.Object{ID: rv}
 }
 
@@ -320,7 +320,7 @@ func (s SOSpeechInstallationManager) CanSendMessageWithDataWithReply() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_sendMessage:withData:withReply:"))
 }
 func (s SOSpeechInstallationManager) _serverIsRunning() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("_serverIsRunning"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("_serverIsRunning"))
 	return rv
 }
 
@@ -338,7 +338,7 @@ func (s SOSpeechInstallationManager) CanServerIsRunning() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_serverIsRunning"))
 }
 func (s SOSpeechInstallationManager) _startDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier objectivec.IObject, aCPower bool, initiator objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:"), identifier, aCPower, initiator)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:"), identifier, aCPower, initiator)
 	return rv
 }
 
@@ -356,7 +356,7 @@ func (s SOSpeechInstallationManager) CanStartDownloadingHighestQualityIfNecessar
 	return objc.RespondsToSelector(s.ID, objc.Sel("_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:"))
 }
 func (s SOSpeechInstallationManager) _voiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject, quality bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:"), identifier, downloading, aCPower, initiator, quality)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:"), identifier, downloading, aCPower, initiator, quality)
 	return objectivec.Object{ID: rv}
 }
 
@@ -374,152 +374,152 @@ func (s SOSpeechInstallationManager) CanVoiceIdentifierForRootVoiceIdentifierSta
 	return objc.RespondsToSelector(s.ID, objc.Sel("_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:"))
 }
 func (s SOSpeechInstallationManager) ActiveInstallations() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("activeInstallations"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("activeInstallations"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) ActiveVoiceInstallations() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("activeVoiceInstallations"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("activeVoiceInstallations"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) AreBackgroundDownloadsAllowed() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("areBackgroundDownloadsAllowed"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("areBackgroundDownloadsAllowed"))
 	return rv
 }
 func (s SOSpeechInstallationManager) BundleForRemovableLanguagePassingBackTagName(language objectivec.IObject, name []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bundleForRemovableLanguage:passingBackTagName:"), language, objectivec.IObjectSliceToNSArray(name))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("bundleForRemovableLanguage:passingBackTagName:"), language, objectivec.IObjectSliceToNSArray(name))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) BundleForRemovableVoicePassingBackTagName(voice objectivec.IObject, name []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bundleForRemovableVoice:passingBackTagName:"), voice, objectivec.IObjectSliceToNSArray(name))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("bundleForRemovableVoice:passingBackTagName:"), voice, objectivec.IObjectSliceToNSArray(name))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) CancelAllInstallations() {
-	objc.Send[objc.ID](s.ID, objc.Sel("cancelAllInstallations"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("cancelAllInstallations"))
 }
 func (s SOSpeechInstallationManager) CancelPurgingByInitiator(initiator objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("cancelPurgingByInitiator:"), initiator)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("cancelPurgingByInitiator:"), initiator)
 }
 func (s SOSpeechInstallationManager) CancelPurgingOfSpeechBundleIdentifiersInitiator(identifiers objectivec.IObject, initiator objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("cancelPurgingOfSpeechBundleIdentifiers:initiator:"), identifiers, initiator)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("cancelPurgingOfSpeechBundleIdentifiers:initiator:"), identifiers, initiator)
 }
 func (s SOSpeechInstallationManager) DoesLanguageDataNeedToBeDownloadedForLocaleIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("doesLanguageDataNeedToBeDownloadedForLocaleIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("doesLanguageDataNeedToBeDownloadedForLocaleIdentifier:"), identifier)
 	return rv
 }
 func (s SOSpeechInstallationManager) DownloadableSRLanguageItems() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadableSRLanguageItems"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadableSRLanguageItems"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) DownloadableSpeechItemUpgradeForExistingSpeechItemFromDownloadableItems(item objectivec.IObject, items objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadableSpeechItemUpgradeForExistingSpeechItem:fromDownloadableItems:"), item, items)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadableSpeechItemUpgradeForExistingSpeechItem:fromDownloadableItems:"), item, items)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) DownloadableVoiceUpgradeForVoiceFromDownloadableVoices(voice objectivec.IObject, voices objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadableVoiceUpgradeForVoice:fromDownloadableVoices:"), voice, voices)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadableVoiceUpgradeForVoice:fromDownloadableVoices:"), voice, voices)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) DownloadableVoiceUpgradeForVoiceIdentifierDesirabilityFromDownloadableVoices(identifier objectivec.IObject, desirability int64, voices objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadableVoiceUpgradeForVoiceIdentifier:desirability:fromDownloadableVoices:"), identifier, desirability, voices)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadableVoiceUpgradeForVoiceIdentifier:desirability:fromDownloadableVoices:"), identifier, desirability, voices)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) DownloadableVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("downloadableVoices"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadableVoices"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) HighestQualityVoiceIdentifierForRootVoiceIdentifierStartDownloading(identifier objectivec.IObject, downloading bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("highestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:"), identifier, downloading)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("highestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:"), identifier, downloading)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) HighestQualityVoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiator(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("highestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:"), identifier, downloading, aCPower, initiator)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("highestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:"), identifier, downloading, aCPower, initiator)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) InstallationLogEntryForTag(tag objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("installationLogEntryForTag:"), tag)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("installationLogEntryForTag:"), tag)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) InstallationLogEntryForTagPreferenceDomain(tag objectivec.IObject, domain objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("installationLogEntryForTag:preferenceDomain:"), tag, domain)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("installationLogEntryForTag:preferenceDomain:"), tag, domain)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) IsAutoDownloadProhibitedForDownloadableVoiceObject(object objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isAutoDownloadProhibitedForDownloadableVoiceObject:"), object)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isAutoDownloadProhibitedForDownloadableVoiceObject:"), object)
 	return rv
 }
 func (s SOSpeechInstallationManager) IsRunningOnACPower() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isRunningOnACPower"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isRunningOnACPower"))
 	return rv
 }
 func (s SOSpeechInstallationManager) LowestQualityVoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiator(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("lowestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:"), identifier, downloading, aCPower, initiator)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("lowestQualityVoiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:"), identifier, downloading, aCPower, initiator)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) MarkDownloadableVoiceObjectWithAutoDownloadProhibitFlag(object objectivec.IObject, flag bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("markDownloadableVoiceObject:withAutoDownloadProhibitFlag:"), object, flag)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("markDownloadableVoiceObject:withAutoDownloadProhibitFlag:"), object, flag)
 }
 func (s SOSpeechInstallationManager) OnDiskVersionForBundlePath(path objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("onDiskVersionForBundlePath:"), path)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("onDiskVersionForBundlePath:"), path)
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) PercentageOfBatteryCharge() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("percentageOfBatteryCharge"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("percentageOfBatteryCharge"))
 	return rv
 }
 func (s SOSpeechInstallationManager) ResetAllVoiceDownloadAttemptsForInitiator(initiator objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("resetAllVoiceDownloadAttemptsForInitiator:"), initiator)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("resetAllVoiceDownloadAttemptsForInitiator:"), initiator)
 }
 func (s SOSpeechInstallationManager) ShowProgressWindow() {
-	objc.Send[objc.ID](s.ID, objc.Sel("showProgressWindow"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("showProgressWindow"))
 }
 func (s SOSpeechInstallationManager) ShowSRLanguagesSelectionSheetForWindowNetworkSupportedLocaleIdentifiersRequiredLocaleIdentifierSupportDownloadsShowOnlyNetworkSupportedItems(window objectivec.IObject, identifiers objectivec.IObject, identifier objectivec.IObject, downloads bool, items bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("showSRLanguagesSelectionSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:"), window, identifiers, identifier, downloads, items)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("showSRLanguagesSelectionSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:"), window, identifiers, identifier, downloads, items)
 }
 func (s SOSpeechInstallationManager) ShowVoiceSelectionSheetForWindowShowIndividualVoiceQualitiesVoiceIdentifiersNotToBeRemoved(window objectivec.IObject, qualities bool, removed objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("showVoiceSelectionSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:"), window, qualities, removed)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("showVoiceSelectionSheetForWindow:showIndividualVoiceQualities:voiceIdentifiersNotToBeRemoved:"), window, qualities, removed)
 }
 func (s SOSpeechInstallationManager) StartInstallingDownloadableSpeechItemsUserInteractionMode(items objectivec.IObject, mode uint32) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("startInstallingDownloadableSpeechItems:userInteractionMode:"), items, mode)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("startInstallingDownloadableSpeechItems:userInteractionMode:"), items, mode)
 	return rv
 }
 func (s SOSpeechInstallationManager) StartInstallingDownloadableSpeechItemsUserInteractionModeInitiator(items objectivec.IObject, mode uint32, initiator objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("startInstallingDownloadableSpeechItems:userInteractionMode:initiator:"), items, mode, initiator)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("startInstallingDownloadableSpeechItems:userInteractionMode:initiator:"), items, mode, initiator)
 	return rv
 }
 func (s SOSpeechInstallationManager) StartInstallingDownloadableVoicesUseRootNamesUserInteractionMode(voices objectivec.IObject, names bool, mode uint32) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("startInstallingDownloadableVoices:useRootNames:userInteractionMode:"), voices, names, mode)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("startInstallingDownloadableVoices:useRootNames:userInteractionMode:"), voices, names, mode)
 	return rv
 }
 func (s SOSpeechInstallationManager) StartInstallingDownloadableVoicesUseRootNamesUserInteractionModeInitiator(voices objectivec.IObject, names bool, mode uint32, initiator objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("startInstallingDownloadableVoices:useRootNames:userInteractionMode:initiator:"), voices, names, mode, initiator)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("startInstallingDownloadableVoices:useRootNames:userInteractionMode:initiator:"), voices, names, mode, initiator)
 	return rv
 }
 func (s SOSpeechInstallationManager) StartRemovingDownloadedSpeechBundleIdentifiersInitiatorImmediately(identifiers objectivec.IObject, initiator objectivec.IObject, immediately bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechBundleIdentifiers:initiator:immediately:"), identifiers, initiator, immediately)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechBundleIdentifiers:initiator:immediately:"), identifiers, initiator, immediately)
 }
 func (s SOSpeechInstallationManager) StartRemovingDownloadedSpeechItems(items objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechItems:"), items)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechItems:"), items)
 }
 func (s SOSpeechInstallationManager) StartRemovingDownloadedSpeechItemsInitiatorImmediately(items objectivec.IObject, initiator objectivec.IObject, immediately bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechItems:initiator:immediately:"), items, initiator, immediately)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("startRemovingDownloadedSpeechItems:initiator:immediately:"), items, initiator, immediately)
 }
 
 func (_SOSpeechInstallationManagerClass SOSpeechInstallationManagerClass) SharedManager() SOSpeechInstallationManager {
-	rv := objc.Send[objc.ID](objc.ID(_SOSpeechInstallationManagerClass.class), objc.Sel("sharedManager"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOSpeechInstallationManagerClass.class), objc.Sel("sharedManager"))
 	return SOSpeechInstallationManagerFromID(rv)
 }
 
 func (s SOSpeechInstallationManager) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("delegate"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOSpeechInstallationManager) SetDelegate(value objectivec.IObject) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SOSpeechInstallationManager) SrLanguagesSelectionWindowController() ISOCustomizeSRLanguagesWindowController {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("srLanguagesSelectionWindowController"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("srLanguagesSelectionWindowController"))
 	return SOCustomizeSRLanguagesWindowControllerFromID(objc.ID(rv))
 }
 func (s SOSpeechInstallationManager) VoiceSelectionWindowController() ICustomizeVoicesWindowController {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("voiceSelectionWindowController"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("voiceSelectionWindowController"))
 	return CustomizeVoicesWindowControllerFromID(objc.ID(rv))
 }

@@ -41,7 +41,7 @@ func (mc MLImageSizeConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
-	rv := objc.Send[MLImageSizeConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLImageSizeConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,37 +87,37 @@ type IMLImageSizeConstraint interface {
 
 // Init initializes the instance.
 func (m MLImageSizeConstraint) Init() MLImageSizeConstraint {
-	rv := objc.Send[MLImageSizeConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLImageSizeConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLImageSizeConstraint) Autorelease() MLImageSizeConstraint {
-	rv := objc.Send[MLImageSizeConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLImageSizeConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLImageSizeConstraint creates a new MLImageSizeConstraint instance.
 func NewMLImageSizeConstraint() MLImageSizeConstraint {
 	class := getMLImageSizeConstraintClass()
-	rv := objc.Send[MLImageSizeConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLImageSizeConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewImageSizeConstraintUnspecified() MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initUnspecified"))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initUnspecified"))
 	return MLImageSizeConstraintFromID(rv)
 }
 
 func NewImageSizeConstraintWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
 	return MLImageSizeConstraintFromID(rv)
 }
 
 func (m MLImageSizeConstraint) AllowedImageSizeClosestToPixelsWidePixelsHighPreferDownScalingPreferInputAspectRatio(wide int64, high int64, scaling bool, ratio bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("allowedImageSizeClosestToPixelsWide:pixelsHigh:preferDownScaling:preferInputAspectRatio:"), wide, high, scaling, ratio)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("allowedImageSizeClosestToPixelsWide:pixelsHigh:preferDownScaling:preferInputAspectRatio:"), wide, high, scaling, ratio)
 	return objectivec.Object{ID: rv}
 }
 func (m MLImageSizeConstraint) IsAllowedImageSizeError(size objectivec.IObject) (bool, error) {
@@ -134,24 +134,24 @@ func (m MLImageSizeConstraint) IsAllowedImageSizeError(size objectivec.IObject) 
 
 }
 func (m MLImageSizeConstraint) InitUnspecified() MLImageSizeConstraint {
-	rv := objc.Send[MLImageSizeConstraint](m.ID, objc.Sel("initUnspecified"))
+	rv := objc.SendIfResponds[MLImageSizeConstraint](m.ID, objc.Sel("initUnspecified"))
 	return rv
 }
 func (m MLImageSizeConstraint) InitWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
-	rv := objc.Send[MLImageSizeConstraint](m.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
+	rv := objc.SendIfResponds[MLImageSizeConstraint](m.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
 	return rv
 }
 
 func (_MLImageSizeConstraintClass MLImageSizeConstraintClass) ClosestImageSizeInArrayToImageSizePreferDownScaling(array objectivec.IObject, size objectivec.IObject, scaling bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("closestImageSizeInArray:toImageSize:preferDownScaling:"), array, size, scaling)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("closestImageSizeInArray:toImageSize:preferDownScaling:"), array, size, scaling)
 	return objectivec.Object{ID: rv}
 }
 func (_MLImageSizeConstraintClass MLImageSizeConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLImageSizeConstraint) ImageSizeSet() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageSizeSet"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imageSizeSet"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }

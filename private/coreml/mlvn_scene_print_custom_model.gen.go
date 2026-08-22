@@ -40,7 +40,7 @@ func (mc MLVNScenePrintCustomModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLVNScenePrintCustomModelClass) Alloc() MLVNScenePrintCustomModel {
-	rv := objc.Send[MLVNScenePrintCustomModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLVNScenePrintCustomModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,36 +89,39 @@ type IMLVNScenePrintCustomModel interface {
 
 // Init initializes the instance.
 func (m MLVNScenePrintCustomModel) Init() MLVNScenePrintCustomModel {
-	rv := objc.Send[MLVNScenePrintCustomModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLVNScenePrintCustomModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLVNScenePrintCustomModel) Autorelease() MLVNScenePrintCustomModel {
-	rv := objc.Send[MLVNScenePrintCustomModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLVNScenePrintCustomModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLVNScenePrintCustomModel creates a new MLVNScenePrintCustomModel instance.
 func NewMLVNScenePrintCustomModel() MLVNScenePrintCustomModel {
 	class := getMLVNScenePrintCustomModelClass()
-	rv := objc.Send[MLVNScenePrintCustomModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLVNScenePrintCustomModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLVNScenePrintCustomModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLVNScenePrintCustomModel, error) {
 	var errorPtr objc.ID
 	instance := getMLVNScenePrintCustomModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLVNScenePrintCustomModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLVNScenePrintCustomModel{}, objc.ErrInitFailed
 	}
 	return MLVNScenePrintCustomModelFromID(rv), nil
 }
 
 func (m MLVNScenePrintCustomModel) FeatureValueFromScenePrintElementSize(print_ objectivec.IObject, size uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
 	return objectivec.Object{ID: rv}
 }
 func (m MLVNScenePrintCustomModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -143,14 +146,14 @@ func (m MLVNScenePrintCustomModel) InitWithModelDescriptionParameterDictionaryEr
 }
 
 func (m MLVNScenePrintCustomModel) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLVNScenePrintCustomModel) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLVNScenePrintCustomModel) ScenePrintRequestRevision() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("scenePrintRequestRevision"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("scenePrintRequestRevision"))
 	return rv
 }

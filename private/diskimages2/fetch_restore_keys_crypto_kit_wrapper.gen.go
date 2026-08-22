@@ -41,7 +41,7 @@ func (fc FetchRestoreKeysCryptoKitWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (fc FetchRestoreKeysCryptoKitWrapperClass) Alloc() FetchRestoreKeysCryptoKitWrapper {
-	rv := objc.Send[FetchRestoreKeysCryptoKitWrapper](objc.ID(fc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[FetchRestoreKeysCryptoKitWrapper](objc.ID(fc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IFetchRestoreKeysCryptoKitWrapper interface {
 
 // Init initializes the instance.
 func (f FetchRestoreKeysCryptoKitWrapper) Init() FetchRestoreKeysCryptoKitWrapper {
-	rv := objc.Send[FetchRestoreKeysCryptoKitWrapper](f.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[FetchRestoreKeysCryptoKitWrapper](f.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (f FetchRestoreKeysCryptoKitWrapper) Autorelease() FetchRestoreKeysCryptoKitWrapper {
-	rv := objc.Send[FetchRestoreKeysCryptoKitWrapper](f.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[FetchRestoreKeysCryptoKitWrapper](f.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewFetchRestoreKeysCryptoKitWrapper creates a new FetchRestoreKeysCryptoKitWrapper instance.
 func NewFetchRestoreKeysCryptoKitWrapper() FetchRestoreKeysCryptoKitWrapper {
 	class := getFetchRestoreKeysCryptoKitWrapperClass()
-	rv := objc.Send[FetchRestoreKeysCryptoKitWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[FetchRestoreKeysCryptoKitWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

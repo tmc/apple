@@ -40,7 +40,7 @@ func (dc DICreateASIFParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DICreateASIFParamsClass) Alloc() DICreateASIFParams {
-	rv := objc.Send[DICreateASIFParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DICreateASIFParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,36 +63,39 @@ type IDICreateASIFParams interface {
 
 // Init initializes the instance.
 func (d DICreateASIFParams) Init() DICreateASIFParams {
-	rv := objc.Send[DICreateASIFParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DICreateASIFParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DICreateASIFParams) Autorelease() DICreateASIFParams {
-	rv := objc.Send[DICreateASIFParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DICreateASIFParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDICreateASIFParams creates a new DICreateASIFParams instance.
 func NewDICreateASIFParams() DICreateASIFParams {
 	class := getDICreateASIFParamsClass()
-	rv := objc.Send[DICreateASIFParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DICreateASIFParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDICreateASIFParamsWithCoder(coder objectivec.IObject) DICreateASIFParams {
 	instance := getDICreateASIFParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateASIFParamsFromID(rv)
 }
 
 func NewDICreateASIFParamsWithURLError(url foundation.NSURL) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateASIFParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateASIFParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateASIFParams{}, objc.ErrInitFailed
 	}
 	return DICreateASIFParamsFromID(rv), nil
 }
@@ -100,10 +103,13 @@ func NewDICreateASIFParamsWithURLError(url foundation.NSURL) (DICreateASIFParams
 func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.NSURL, numBlocks uint64) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateASIFParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, numBlocks, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, numBlocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateASIFParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateASIFParams{}, objc.ErrInitFailed
 	}
 	return DICreateASIFParamsFromID(rv), nil
 }

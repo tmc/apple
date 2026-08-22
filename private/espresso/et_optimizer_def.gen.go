@@ -38,7 +38,7 @@ func (ec ETOptimizerDefClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETOptimizerDefClass) Alloc() ETOptimizerDef {
-	rv := objc.Send[ETOptimizerDef](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETOptimizerDef](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,27 +75,27 @@ type IETOptimizerDef interface {
 
 // Init initializes the instance.
 func (e ETOptimizerDef) Init() ETOptimizerDef {
-	rv := objc.Send[ETOptimizerDef](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETOptimizerDef](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETOptimizerDef) Autorelease() ETOptimizerDef {
-	rv := objc.Send[ETOptimizerDef](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETOptimizerDef](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETOptimizerDef creates a new ETOptimizerDef instance.
 func NewETOptimizerDef() ETOptimizerDef {
 	class := getETOptimizerDefClass()
-	rv := objc.Send[ETOptimizerDef](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETOptimizerDef](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ETOptimizerDef) Batch_size() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("batch_size"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("batch_size"))
 	return rv
 }
 func (e ETOptimizerDef) SetBatch_size(value uint32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBatch_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBatch_size:"), value)
 }

@@ -39,7 +39,7 @@ func (mc MLOptimizationHintsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLOptimizationHintsClass) Alloc() MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLOptimizationHints](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,51 +85,51 @@ type IMLOptimizationHints interface {
 
 // Init initializes the instance.
 func (m MLOptimizationHints) Init() MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLOptimizationHints](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLOptimizationHints) Autorelease() MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLOptimizationHints](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLOptimizationHints creates a new MLOptimizationHints instance.
 func NewMLOptimizationHints() MLOptimizationHints {
 	class := getMLOptimizationHintsClass()
-	rv := objc.Send[MLOptimizationHints](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLOptimizationHints](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints {
 	instance := getMLOptimizationHintsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLOptimizationHintsFromID(rv)
 }
 
 func (m MLOptimizationHints) ReshapeFrequencyToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("reshapeFrequencyToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reshapeFrequencyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLOptimizationHints) SpecializationStrategyToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("specializationStrategyToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("specializationStrategyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLOptimizationHints) InitWithCoder(coder foundation.INSCoder) MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLOptimizationHints](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_MLOptimizationHintsClass MLOptimizationHintsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLOptimizationHintsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLOptimizationHintsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLOptimizationHints) HotHandDuration() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("hotHandDuration"))
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("hotHandDuration"))
 	return rv
 }
 func (m MLOptimizationHints) SetHotHandDuration(value float64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHotHandDuration:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHotHandDuration:"), value)
 }

@@ -37,7 +37,7 @@ func (ec ETOptimizerDefSGDClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETOptimizerDefSGDClass) Alloc() ETOptimizerDefSGD {
-	rv := objc.Send[ETOptimizerDefSGD](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETOptimizerDefSGD](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,48 +92,48 @@ type IETOptimizerDefSGD interface {
 
 // Init initializes the instance.
 func (e ETOptimizerDefSGD) Init() ETOptimizerDefSGD {
-	rv := objc.Send[ETOptimizerDefSGD](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETOptimizerDefSGD](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETOptimizerDefSGD) Autorelease() ETOptimizerDefSGD {
-	rv := objc.Send[ETOptimizerDefSGD](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETOptimizerDefSGD](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETOptimizerDefSGD creates a new ETOptimizerDefSGD instance.
 func NewETOptimizerDefSGD() ETOptimizerDefSGD {
 	class := getETOptimizerDefSGDClass()
-	rv := objc.Send[ETOptimizerDefSGD](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETOptimizerDefSGD](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ETOptimizerDefSGD) Lr() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("lr"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("lr"))
 	return rv
 }
 func (e ETOptimizerDefSGD) SetLr(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLr:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLr:"), value)
 }
 func (e ETOptimizerDefSGD) Lr_decay_epoch() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("lr_decay_epoch"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("lr_decay_epoch"))
 	return rv
 }
 func (e ETOptimizerDefSGD) SetLr_decay_epoch(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLr_decay_epoch:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLr_decay_epoch:"), value)
 }
 func (e ETOptimizerDefSGD) Momentum() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("momentum"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("momentum"))
 	return rv
 }
 func (e ETOptimizerDefSGD) SetMomentum(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setMomentum:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMomentum:"), value)
 }
 func (e ETOptimizerDefSGD) Weight_decay() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("weight_decay"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("weight_decay"))
 	return rv
 }
 func (e ETOptimizerDefSGD) SetWeight_decay(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setWeight_decay:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setWeight_decay:"), value)
 }

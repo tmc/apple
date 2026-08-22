@@ -37,7 +37,7 @@ func (vc VZVirtioConsolePortConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioConsolePortConfigurationClass) Alloc() VZVirtioConsolePortConfiguration {
-	rv := objc.Send[VZVirtioConsolePortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioConsolePortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioConsolePortConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioConsolePortConfiguration) Init() VZVirtioConsolePortConfiguration {
-	rv := objc.Send[VZVirtioConsolePortConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioConsolePortConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioConsolePortConfiguration) Autorelease() VZVirtioConsolePortConfiguration {
-	rv := objc.Send[VZVirtioConsolePortConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioConsolePortConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioConsolePortConfiguration creates a new VZVirtioConsolePortConfiguration instance.
 func NewVZVirtioConsolePortConfiguration() VZVirtioConsolePortConfiguration {
 	class := getVZVirtioConsolePortConfigurationClass()
-	rv := objc.Send[VZVirtioConsolePortConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioConsolePortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

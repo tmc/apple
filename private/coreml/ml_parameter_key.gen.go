@@ -38,7 +38,7 @@ func (mc MLParameterKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLParameterKeyClass) Alloc() MLParameterKey {
-	rv := objc.Send[MLParameterKey](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLParameterKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,60 +61,60 @@ type IMLParameterKey interface {
 
 // Init initializes the instance.
 func (m MLParameterKey) Init() MLParameterKey {
-	rv := objc.Send[MLParameterKey](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLParameterKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLParameterKey) Autorelease() MLParameterKey {
-	rv := objc.Send[MLParameterKey](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLParameterKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLParameterKey creates a new MLParameterKey instance.
 func NewMLParameterKey() MLParameterKey {
 	class := getMLParameterKeyClass()
-	rv := objc.Send[MLParameterKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLParameterKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewParameterKeyWithKeyName(name objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLParameterKeyFromID(rv)
 }
 
 func NewParameterKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLParameterKeyFromID(rv)
 }
 
 func (_MLParameterKeyClass MLParameterKeyClass) MaxDepth() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("maxDepth"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("maxDepth"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) MinChildWeight() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("minChildWeight"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("minChildWeight"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) NumClasses() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numClasses"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numClasses"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) NumTrees() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numTrees"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numTrees"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) Objective() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("objective"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("objective"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) PrecisionRecallCurves() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("precisionRecallCurves"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("precisionRecallCurves"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLParameterKeyClass MLParameterKeyClass) UpdateType() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("updateType"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("updateType"))
 	return objectivec.Object{ID: rv}
 }

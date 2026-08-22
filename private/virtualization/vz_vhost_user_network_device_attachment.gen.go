@@ -40,7 +40,7 @@ func (vc VZVhostUserNetworkDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVhostUserNetworkDeviceAttachmentClass) Alloc() VZVhostUserNetworkDeviceAttachment {
-	rv := objc.Send[VZVhostUserNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVhostUserNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,30 +101,33 @@ type IVZVhostUserNetworkDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZVhostUserNetworkDeviceAttachment) Init() VZVhostUserNetworkDeviceAttachment {
-	rv := objc.Send[VZVhostUserNetworkDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVhostUserNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVhostUserNetworkDeviceAttachment) Autorelease() VZVhostUserNetworkDeviceAttachment {
-	rv := objc.Send[VZVhostUserNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVhostUserNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVhostUserNetworkDeviceAttachment creates a new VZVhostUserNetworkDeviceAttachment instance.
 func NewVZVhostUserNetworkDeviceAttachment() VZVhostUserNetworkDeviceAttachment {
 	class := getVZVhostUserNetworkDeviceAttachmentClass()
-	rv := objc.Send[VZVhostUserNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVhostUserNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceError(interface_ objectivec.IObject) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZVhostUserNetworkDeviceAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterface:error:"), interface_, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterface:error:"), interface_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZVhostUserNetworkDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
@@ -132,10 +135,13 @@ func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceError(interface_ objectiv
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZVhostUserNetworkDeviceAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterface:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterface:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZVhostUserNetworkDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
@@ -143,10 +149,13 @@ func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceMaximumTransmissionUnitHo
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceXpcServiceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, service int64, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZVhostUserNetworkDeviceAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterface:xpcService:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, service, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterface:xpcService:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, service, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZVhostUserNetworkDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
@@ -183,7 +192,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceXpcServiceMaximumTr
 }
 
 func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) _defaultMaximumTransmissionUnit() int64 {
-	rv := objc.Send[int64](objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultMaximumTransmissionUnit"))
+	rv := objc.SendIfResponds[int64](objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultMaximumTransmissionUnit"))
 	return rv
 }
 
@@ -201,7 +210,7 @@ func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmen
 	return objc.RespondsToSelector(objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultMaximumTransmissionUnit"))
 }
 func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) _defaultOffloadMode() int64 {
-	rv := objc.Send[int64](objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultOffloadMode"))
+	rv := objc.SendIfResponds[int64](objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultOffloadMode"))
 	return rv
 }
 
@@ -220,30 +229,30 @@ func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmen
 }
 
 func (v VZVhostUserNetworkDeviceAttachment) GuestChecksumOffload() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("guestChecksumOffload"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("guestChecksumOffload"))
 	return rv
 }
 func (v VZVhostUserNetworkDeviceAttachment) GuestTcpSegmentationOffload() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("guestTcpSegmentationOffload"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("guestTcpSegmentationOffload"))
 	return rv
 }
 func (v VZVhostUserNetworkDeviceAttachment) HostChecksumOffload() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("hostChecksumOffload"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("hostChecksumOffload"))
 	return rv
 }
 func (v VZVhostUserNetworkDeviceAttachment) HostTcpSegmentationOffload() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("hostTcpSegmentationOffload"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("hostTcpSegmentationOffload"))
 	return rv
 }
 func (v VZVhostUserNetworkDeviceAttachment) Interface() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("interface"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("interface"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZVhostUserNetworkDeviceAttachment) MaximumTransmissionUnit() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("maximumTransmissionUnit"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("maximumTransmissionUnit"))
 	return rv
 }
 func (v VZVhostUserNetworkDeviceAttachment) XpcService() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("xpcService"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("xpcService"))
 	return rv
 }

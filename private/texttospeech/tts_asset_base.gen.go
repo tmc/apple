@@ -39,7 +39,7 @@ func (tc TTSAssetBaseClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAssetBaseClass) Alloc() TTSAssetBase {
-	rv := objc.Send[TTSAssetBase](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAssetBase](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,67 +100,67 @@ type ITTSAssetBase interface {
 
 // Init initializes the instance.
 func (t TTSAssetBase) Init() TTSAssetBase {
-	rv := objc.Send[TTSAssetBase](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAssetBase](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAssetBase) Autorelease() TTSAssetBase {
-	rv := objc.Send[TTSAssetBase](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAssetBase](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAssetBase creates a new TTSAssetBase instance.
 func NewTTSAssetBase() TTSAssetBase {
 	class := getTTSAssetBaseClass()
-	rv := objc.Send[TTSAssetBase](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAssetBase](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSAssetBaseWithCoder(coder objectivec.IObject) TTSAssetBase {
 	instance := getTTSAssetBaseClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSAssetBaseFromID(rv)
 }
 
 func (t TTSAssetBase) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (t TTSAssetBase) InitWithCoder(coder foundation.INSCoder) TTSAssetBase {
-	rv := objc.Send[TTSAssetBase](t.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[TTSAssetBase](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_TTSAssetBaseClass TTSAssetBaseClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_TTSAssetBaseClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAssetBaseClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (t TTSAssetBase) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAssetBase) SetBundleIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (t TTSAssetBase) CompatibilityVersion() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("compatibilityVersion"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("compatibilityVersion"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSAssetBase) SetCompatibilityVersion(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCompatibilityVersion:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCompatibilityVersion:"), value)
 }
 func (t TTSAssetBase) ContentVersion() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentVersion"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("contentVersion"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSAssetBase) SetContentVersion(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setContentVersion:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setContentVersion:"), value)
 }
 func (t TTSAssetBase) MasteredVersion() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("masteredVersion"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("masteredVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAssetBase) SetMasteredVersion(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setMasteredVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setMasteredVersion:"), objc.String(value))
 }

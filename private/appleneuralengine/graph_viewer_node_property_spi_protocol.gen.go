@@ -10,6 +10,15 @@ import (
 // MPSGraphViewerNodePropertySPI protocol.
 type MPSGraphViewerNodePropertySPI interface {
 	objectivec.IObject
+
+	// JsonDictionary protocol.
+	JsonDictionary() objectivec.IObject
+
+	// Name protocol.
+	Name() objectivec.IObject
+
+	// Type protocol.
+	Type() objectivec.IObject
 }
 
 // MPSGraphViewerNodePropertySPIObject wraps an existing Objective-C object that conforms to the MPSGraphViewerNodePropertySPI protocol.
@@ -30,14 +39,14 @@ func MPSGraphViewerNodePropertySPIObjectFromID(id objc.ID) MPSGraphViewerNodePro
 }
 
 func (o MPSGraphViewerNodePropertySPIObject) JsonDictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("jsonDictionary"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("jsonDictionary"))
 	return objectivec.Object{ID: rv}
 }
 func (o MPSGraphViewerNodePropertySPIObject) Name() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
 }
 func (o MPSGraphViewerNodePropertySPIObject) Type() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("type"))
 	return objectivec.Object{ID: rv}
 }

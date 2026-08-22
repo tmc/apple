@@ -39,7 +39,7 @@ func (sc SLSIconAppearanceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSIconAppearanceConfigurationClass) Alloc() SLSIconAppearanceConfiguration {
-	rv := objc.Send[SLSIconAppearanceConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSIconAppearanceConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,25 +100,25 @@ type ISLSIconAppearanceConfiguration interface {
 
 // Init initializes the instance.
 func (s SLSIconAppearanceConfiguration) Init() SLSIconAppearanceConfiguration {
-	rv := objc.Send[SLSIconAppearanceConfiguration](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSIconAppearanceConfiguration](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSIconAppearanceConfiguration) Autorelease() SLSIconAppearanceConfiguration {
-	rv := objc.Send[SLSIconAppearanceConfiguration](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSIconAppearanceConfiguration](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSIconAppearanceConfiguration creates a new SLSIconAppearanceConfiguration instance.
 func NewSLSIconAppearanceConfiguration() SLSIconAppearanceConfiguration {
 	class := getSLSIconAppearanceConfigurationClass()
-	rv := objc.Send[SLSIconAppearanceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSIconAppearanceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSIconAppearanceConfiguration) _initWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme uint32, name uint32, color coregraphics.CGColorRef, theme2 uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"), theme, name, color, theme2)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"), theme, name, color, theme2)
 	return objectivec.Object{ID: rv}
 }
 
@@ -136,39 +136,39 @@ func (s SLSIconAppearanceConfiguration) CanInitWithIconAppearanceThemeIconTintCo
 	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"))
 }
 func (s SLSIconAppearanceConfiguration) Save() {
-	objc.Send[objc.ID](s.ID, objc.Sel("save"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("save"))
 }
 
 func (_SLSIconAppearanceConfigurationClass SLSIconAppearanceConfigurationClass) FetchCurrentIconAppearanceConfiguration() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSIconAppearanceConfigurationClass.class), objc.Sel("fetchCurrentIconAppearanceConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSIconAppearanceConfigurationClass.class), objc.Sel("fetchCurrentIconAppearanceConfiguration"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSIconAppearanceConfiguration) AppearanceTheme() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("appearanceTheme"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("appearanceTheme"))
 	return rv
 }
 func (s SLSIconAppearanceConfiguration) SetAppearanceTheme(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAppearanceTheme:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAppearanceTheme:"), value)
 }
 func (s SLSIconAppearanceConfiguration) IconAppearanceTheme() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("iconAppearanceTheme"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("iconAppearanceTheme"))
 	return rv
 }
 func (s SLSIconAppearanceConfiguration) SetIconAppearanceTheme(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIconAppearanceTheme:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIconAppearanceTheme:"), value)
 }
 func (s SLSIconAppearanceConfiguration) IconTintColorName() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("iconTintColorName"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("iconTintColorName"))
 	return rv
 }
 func (s SLSIconAppearanceConfiguration) SetIconTintColorName(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIconTintColorName:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIconTintColorName:"), value)
 }
 func (s SLSIconAppearanceConfiguration) OtherIconTintColor() coregraphics.CGColorRef {
-	rv := objc.Send[coregraphics.CGColorRef](s.ID, objc.Sel("otherIconTintColor"))
+	rv := objc.SendIfResponds[coregraphics.CGColorRef](s.ID, objc.Sel("otherIconTintColor"))
 	return coregraphics.CGColorRef(rv)
 }
 func (s SLSIconAppearanceConfiguration) SetOtherIconTintColor(value coregraphics.CGColorRef) {
-	objc.Send[struct{}](s.ID, objc.Sel("setOtherIconTintColor:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOtherIconTintColor:"), value)
 }

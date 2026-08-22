@@ -40,7 +40,7 @@ func (vc VZVirtualMachineConfigurationDecoderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineConfigurationDecoderClass) Alloc() VZVirtualMachineConfigurationDecoder {
-	rv := objc.Send[VZVirtualMachineConfigurationDecoder](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationDecoder](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,32 +83,32 @@ type IVZVirtualMachineConfigurationDecoder interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineConfigurationDecoder) Init() VZVirtualMachineConfigurationDecoder {
-	rv := objc.Send[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineConfigurationDecoder) Autorelease() VZVirtualMachineConfigurationDecoder {
-	rv := objc.Send[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineConfigurationDecoder creates a new VZVirtualMachineConfigurationDecoder instance.
 func NewVZVirtualMachineConfigurationDecoder() VZVirtualMachineConfigurationDecoder {
 	class := getVZVirtualMachineConfigurationDecoderClass()
-	rv := objc.Send[VZVirtualMachineConfigurationDecoder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationDecoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationDecoder {
 	instance := getVZVirtualMachineConfigurationDecoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
 	return VZVirtualMachineConfigurationDecoderFromID(rv)
 }
 
 func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(data objectivec.IObject, format *uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationFromData:format:error:"), data, format, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationFromData:format:error:"), data, unsafe.Pointer(format), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -117,14 +117,14 @@ func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(d
 
 }
 func (v VZVirtualMachineConfigurationDecoder) InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationDecoder {
-	rv := objc.Send[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("initWithBaseURL:"), url)
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("initWithBaseURL:"), url)
 	return rv
 }
 
 func (v VZVirtualMachineConfigurationDecoder) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZVirtualMachineConfigurationDecoder) SetDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }

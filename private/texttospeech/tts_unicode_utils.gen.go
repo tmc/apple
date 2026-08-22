@@ -40,7 +40,7 @@ func (tc TTSUnicodeUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSUnicodeUtilsClass) Alloc() TTSUnicodeUtils {
-	rv := objc.Send[TTSUnicodeUtils](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSUnicodeUtils](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,32 +63,32 @@ type ITTSUnicodeUtils interface {
 
 // Init initializes the instance.
 func (t TTSUnicodeUtils) Init() TTSUnicodeUtils {
-	rv := objc.Send[TTSUnicodeUtils](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSUnicodeUtils](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSUnicodeUtils) Autorelease() TTSUnicodeUtils {
-	rv := objc.Send[TTSUnicodeUtils](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSUnicodeUtils](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSUnicodeUtils creates a new TTSUnicodeUtils instance.
 func NewTTSUnicodeUtils() TTSUnicodeUtils {
 	class := getTTSUnicodeUtilsClass()
-	rv := objc.Send[TTSUnicodeUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSUnicodeUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) CodePointToUtf8ByteSize(size uint32) byte {
-	rv := objc.Send[byte](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("codePointToUtf8ByteSize:"), size)
+	rv := objc.SendIfResponds[byte](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("codePointToUtf8ByteSize:"), size)
 	return rv
 }
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf16RangeFromUTF8RangeCharsSize(uTF8Range foundation.NSRange, chars string, size uint64) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf16RangeFromUTF8Range:chars:size:"), uTF8Range, unsafe.Pointer(unsafe.StringData(chars+"\x00")), size)
+	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf16RangeFromUTF8Range:chars:size:"), uTF8Range, unsafe.Pointer(unsafe.StringData(chars+"\x00")), size)
 	return foundation.NSRange(rv)
 }
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf8RangeFromUTF16RangeCharsSize(uTF16Range foundation.NSRange, chars *uint16, size uint64) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf8RangeFromUTF16Range:chars:size:"), uTF16Range, chars, size)
+	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf8RangeFromUTF16Range:chars:size:"), uTF16Range, unsafe.Pointer(chars), size)
 	return foundation.NSRange(rv)
 }

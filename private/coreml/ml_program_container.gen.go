@@ -41,7 +41,7 @@ func (mc MLProgramContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramContainerClass) Alloc() MLProgramContainer {
-	rv := objc.Send[MLProgramContainer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramContainer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,38 +64,38 @@ type IMLProgramContainer interface {
 
 // Init initializes the instance.
 func (m MLProgramContainer) Init() MLProgramContainer {
-	rv := objc.Send[MLProgramContainer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramContainer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramContainer) Autorelease() MLProgramContainer {
-	rv := objc.Send[MLProgramContainer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramContainer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramContainer creates a new MLProgramContainer instance.
 func NewMLProgramContainer() MLProgramContainer {
 	class := getMLProgramContainerClass()
-	rv := objc.Send[MLProgramContainer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramContainer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLProgramContainerFromID(rv)
 }
 
 func NewProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLProgramContainerFromID(rv)
 }
 
 func NewProgramContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLProgramContainer {
 	instance := getMLProgramContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLProgramContainerFromID(rv)
 }
 
@@ -113,5 +113,5 @@ func (_MLProgramContainerClass MLProgramContainerClass) PopulateInputNameToShape
 
 }
 func (_MLProgramContainerClass MLProgramContainerClass) UpdateOptionalDefaultValueParametersInContainerUsingProgramFunctionNameModelDescription(container objectivec.IObject, program unsafe.Pointer, name objectivec.IObject, description objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLProgramContainerClass.class), objc.Sel("updateOptionalDefaultValueParametersInContainer:usingProgram:functionName:modelDescription:"), container, program, name, description)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLProgramContainerClass.class), objc.Sel("updateOptionalDefaultValueParametersInContainer:usingProgram:functionName:modelDescription:"), container, program, name, description)
 }

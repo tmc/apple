@@ -40,7 +40,7 @@ func (mc MLFeatureTypeUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureTypeUtilsClass) Alloc() MLFeatureTypeUtils {
-	rv := objc.Send[MLFeatureTypeUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureTypeUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,29 +63,29 @@ type IMLFeatureTypeUtils interface {
 
 // Init initializes the instance.
 func (m MLFeatureTypeUtils) Init() MLFeatureTypeUtils {
-	rv := objc.Send[MLFeatureTypeUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureTypeUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureTypeUtils) Autorelease() MLFeatureTypeUtils {
-	rv := objc.Send[MLFeatureTypeUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureTypeUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureTypeUtils creates a new MLFeatureTypeUtils instance.
 func NewMLFeatureTypeUtils() MLFeatureTypeUtils {
 	class := getMLFeatureTypeUtilsClass()
-	rv := objc.Send[MLFeatureTypeUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureTypeUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) CanShapeArrayBePromotedFromTo(from objectivec.IObject, to objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("canShapeArrayBePromotedFrom:to:"), from, to)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("canShapeArrayBePromotedFrom:to:"), from, to)
 	return rv
 }
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) DescriptionForType(type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("descriptionForType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("descriptionForType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureDescriptionWithNameConsistentWithFeatureValuesError(name objectivec.IObject, values objectivec.IObject) (objectivec.IObject, error) {
@@ -99,7 +99,7 @@ func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureDescriptionWithNa
 
 }
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureTypeForObject(object objectivec.IObject) int64 {
-	rv := objc.Send[int64](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureTypeForObject:"), object)
+	rv := objc.SendIfResponds[int64](objc.ID(_MLFeatureTypeUtilsClass.class), objc.Sel("featureTypeForObject:"), object)
 	return rv
 }
 func (_MLFeatureTypeUtilsClass MLFeatureTypeUtilsClass) FeatureTypeForValuesInArrayError(array objectivec.IObject) (int64, error) {

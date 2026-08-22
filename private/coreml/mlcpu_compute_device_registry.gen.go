@@ -39,7 +39,7 @@ func (mc MLCPUComputeDeviceRegistryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCPUComputeDeviceRegistryClass) Alloc() MLCPUComputeDeviceRegistry {
-	rv := objc.Send[MLCPUComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCPUComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,60 +91,60 @@ type IMLCPUComputeDeviceRegistry interface {
 
 // Init initializes the instance.
 func (m MLCPUComputeDeviceRegistry) Init() MLCPUComputeDeviceRegistry {
-	rv := objc.Send[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCPUComputeDeviceRegistry) Autorelease() MLCPUComputeDeviceRegistry {
-	rv := objc.Send[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCPUComputeDeviceRegistry creates a new MLCPUComputeDeviceRegistry instance.
 func NewMLCPUComputeDeviceRegistry() MLCPUComputeDeviceRegistry {
 	class := getMLCPUComputeDeviceRegistryClass()
-	rv := objc.Send[MLCPUComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCPUComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPUComputeDeviceRegistryWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
 	instance := getMLCPUComputeDeviceRegistryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCpuDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCpuDevice:"), device)
 	return MLCPUComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLCPUComputeDeviceRegistry) InitWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
-	rv := objc.Send[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("initWithCpuDevice:"), device)
+	rv := objc.SendIfResponds[MLCPUComputeDeviceRegistry](m.ID, objc.Sel("initWithCpuDevice:"), device)
 	return rv
 }
 
 func (_MLCPUComputeDeviceRegistryClass MLCPUComputeDeviceRegistryClass) SharedRegistry() MLCPUComputeDeviceRegistry {
-	rv := objc.Send[objc.ID](objc.ID(_MLCPUComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCPUComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
 	return MLCPUComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLCPUComputeDeviceRegistry) CpuDevice() IMLCPUComputeDevice {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("cpuDevice"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cpuDevice"))
 	return MLCPUComputeDeviceFromID(objc.ID(rv))
 }
 func (m MLCPUComputeDeviceRegistry) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCPUComputeDeviceRegistry) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCPUComputeDeviceRegistry) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLCPUComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCPUComputeDeviceRegistry) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

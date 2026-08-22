@@ -39,7 +39,7 @@ func (ac ANEHashEncodingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEHashEncodingClass) Alloc() ANEHashEncoding {
-	rv := objc.Send[ANEHashEncoding](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEHashEncoding](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,47 +62,47 @@ type IANEHashEncoding interface {
 
 // Init initializes the instance.
 func (a ANEHashEncoding) Init() ANEHashEncoding {
-	rv := objc.Send[ANEHashEncoding](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEHashEncoding](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEHashEncoding) Autorelease() ANEHashEncoding {
-	rv := objc.Send[ANEHashEncoding](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEHashEncoding](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEHashEncoding creates a new ANEHashEncoding instance.
 func NewANEHashEncoding() ANEHashEncoding {
 	class := getANEHashEncodingClass()
-	rv := objc.Send[ANEHashEncoding](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEHashEncoding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEHashEncodingClass ANEHashEncodingClass) ConvertToHexStringLength(string_ string, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("convertToHexString:length:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("convertToHexString:length:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) CopySHA256ForToBuffer(sHA256For objectivec.IObject, buffer string) {
-	objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("copySHA256For:toBuffer:"), sHA256For, unsafe.Pointer(unsafe.StringData(buffer+"\x00")))
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("copySHA256For:toBuffer:"), sHA256For, unsafe.Pointer(unsafe.StringData(buffer+"\x00")))
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) HashForStringSeed(string_ objectivec.IObject, seed uint32) uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hashForString:seed:"), string_, seed)
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hashForString:seed:"), string_, seed)
 	return rv
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForBytesLength(bytes string, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForBytes:length:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForBytes:length:"), unsafe.Pointer(unsafe.StringData(bytes+"\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForDataArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForDataArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForDataArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForString:"), string_)
 	return objectivec.Object{ID: rv}
 }

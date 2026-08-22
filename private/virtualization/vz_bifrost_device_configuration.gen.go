@@ -39,7 +39,7 @@ func (vc VZBifrostDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBifrostDeviceConfigurationClass) Alloc() VZBifrostDeviceConfiguration {
-	rv := objc.Send[VZBifrostDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBifrostDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,25 +97,25 @@ type IVZBifrostDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZBifrostDeviceConfiguration) Init() VZBifrostDeviceConfiguration {
-	rv := objc.Send[VZBifrostDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBifrostDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBifrostDeviceConfiguration) Autorelease() VZBifrostDeviceConfiguration {
-	rv := objc.Send[VZBifrostDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBifrostDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBifrostDeviceConfiguration creates a new VZBifrostDeviceConfiguration instance.
 func NewVZBifrostDeviceConfiguration() VZBifrostDeviceConfiguration {
 	class := getVZBifrostDeviceConfigurationClass()
-	rv := objc.Send[VZBifrostDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBifrostDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZBifrostDeviceConfiguration) _initWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:MMIOSize:"), attachment, mIOSize)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return objectivec.Object{ID: rv}
 }
 
@@ -134,32 +134,32 @@ func (v VZBifrostDeviceConfiguration) CanInitWithAttachmentMMIOSize() bool {
 }
 
 func (v VZBifrostDeviceConfiguration) MMIOSize() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("MMIOSize"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("MMIOSize"))
 	return rv
 }
 func (v VZBifrostDeviceConfiguration) SetMMIOSize(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMMIOSize:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setMMIOSize:"), value)
 }
 func (v VZBifrostDeviceConfiguration) Attachment() IVZBifrostAttachment {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("attachment"))
 	return VZBifrostAttachmentFromID(objc.ID(rv))
 }
 func (v VZBifrostDeviceConfiguration) SetAttachment(value IVZBifrostAttachment) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
 func (v VZBifrostDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZBifrostDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZBifrostDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZBifrostDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

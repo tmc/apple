@@ -39,7 +39,7 @@ func (ac ANEChainingRequestClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEChainingRequestClass) Alloc() ANEChainingRequest {
-	rv := objc.Send[ANEChainingRequest](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEChainingRequest](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,93 +109,93 @@ type IANEChainingRequest interface {
 
 // Init initializes the instance.
 func (a ANEChainingRequest) Init() ANEChainingRequest {
-	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEChainingRequest](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEChainingRequest) Autorelease() ANEChainingRequest {
-	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEChainingRequest](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEChainingRequest creates a new ANEChainingRequest instance.
 func NewANEChainingRequest() ANEChainingRequest {
 	class := getANEChainingRequestClass()
-	rv := objc.Send[ANEChainingRequest](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEChainingRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEChainingRequestWithCoder(coder objectivec.IObject) ANEChainingRequest {
 	instance := getANEChainingRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEChainingRequestFromID(rv)
 }
 
 func NewANEChainingRequestWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProcedureIndexSignalEventsTransactionHandleFwEnqueueDelayMemoryPoolId(inputs objectivec.IObject, outputs objectivec.IObject, id objectivec.IObject, id2 objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject, delay objectivec.IObject, id3 objectivec.IObject) ANEChainingRequest {
 	instance := getANEChainingRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, outputs, id, id2, index, events, handle, delay, id3)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, outputs, id, id2, index, events, handle, delay, id3)
 	return ANEChainingRequestFromID(rv)
 }
 
 func (a ANEChainingRequest) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEChainingRequest) Validate() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("validate"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("validate"))
 	return rv
 }
 func (a ANEChainingRequest) InitWithCoder(coder foundation.INSCoder) ANEChainingRequest {
-	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEChainingRequest](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANEChainingRequest) InitWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProcedureIndexSignalEventsTransactionHandleFwEnqueueDelayMemoryPoolId(inputs objectivec.IObject, outputs objectivec.IObject, id objectivec.IObject, id2 objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject, delay objectivec.IObject, id3 objectivec.IObject) ANEChainingRequest {
-	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, outputs, id, id2, index, events, handle, delay, id3)
+	rv := objc.SendIfResponds[ANEChainingRequest](a.ID, objc.Sel("initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, outputs, id, id2, index, events, handle, delay, id3)
 	return rv
 }
 
 func (_ANEChainingRequestClass ANEChainingRequestClass) ChainingRequestWithInputsOutputSetsLbInputSymbolIdLbOutputSymbolIdProcedureIndexSignalEventsTransactionHandleFwEnqueueDelayMemoryPoolId(inputs objectivec.IObject, sets objectivec.IObject, id objectivec.IObject, id2 objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject, delay objectivec.IObject, id3 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEChainingRequestClass.class), objc.Sel("chainingRequestWithInputs:outputSets:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, sets, id, id2, index, events, handle, delay, id3)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEChainingRequestClass.class), objc.Sel("chainingRequestWithInputs:outputSets:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, sets, id, id2, index, events, handle, delay, id3)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEChainingRequestClass ANEChainingRequestClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEChainingRequestClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEChainingRequestClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a ANEChainingRequest) FwEnqueueDelay() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fwEnqueueDelay"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fwEnqueueDelay"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) InputBuffer() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputBuffer"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputBuffer"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) LoopbackInputSymbolIndex() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("loopbackInputSymbolIndex"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("loopbackInputSymbolIndex"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) LoopbackOutputSymbolIndex() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("loopbackOutputSymbolIndex"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("loopbackOutputSymbolIndex"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) MemoryPoolId() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("memoryPoolId"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("memoryPoolId"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) OutputSets() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputSets"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("outputSets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) ProcedureIndex() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureIndex"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureIndex"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) SignalEvents() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("signalEvents"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("signalEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) TransactionHandle() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("transactionHandle"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("transactionHandle"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

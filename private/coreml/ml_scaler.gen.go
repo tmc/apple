@@ -40,7 +40,7 @@ func (mc MLScalerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLScalerClass) Alloc() MLScaler {
-	rv := objc.Send[MLScaler](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLScaler](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,43 +80,43 @@ type IMLScaler interface {
 
 // Init initializes the instance.
 func (m MLScaler) Init() MLScaler {
-	rv := objc.Send[MLScaler](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLScaler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLScaler) Autorelease() MLScaler {
-	rv := objc.Send[MLScaler](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLScaler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLScaler creates a new MLScaler instance.
 func NewMLScaler() MLScaler {
 	class := getMLScalerClass()
-	rv := objc.Send[MLScaler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLScaler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewScalerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLScalerFromID(rv)
 }
 
 func NewScalerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLScalerFromID(rv)
 }
 
 func NewScalerWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return MLScalerFromID(rv)
 }
 
 func (m MLScaler) InitWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
-	rv := objc.Send[MLScaler](m.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
+	rv := objc.SendIfResponds[MLScaler](m.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return rv
 }
 
@@ -132,10 +132,10 @@ func (_MLScalerClass MLScalerClass) LoadModelFromSpecificationConfigurationError
 }
 
 func (m MLScaler) ScaleValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scaleValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scaleValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
 func (m MLScaler) ShiftValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shiftValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shiftValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }

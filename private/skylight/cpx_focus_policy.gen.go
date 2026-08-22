@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXFocusPolicyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXFocusPolicyClass) Alloc() CPXFocusPolicy {
-	rv := objc.Send[CPXFocusPolicy](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXFocusPolicy](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,8 +79,8 @@ type ICPXFocusPolicy interface {
 
 	// Topic: Methods
 
-	BringNextApplicationToFrontInternal(internal CPSProcessRec)
-	BringNextProcessToFront(front CPSProcessRec)
+	BringNextApplicationToFrontInternal(internal *CPSProcessRec)
+	BringNextProcessToFront(front *CPSProcessRec)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -88,43 +89,43 @@ type ICPXFocusPolicy interface {
 
 // Init initializes the instance.
 func (c CPXFocusPolicy) Init() CPXFocusPolicy {
-	rv := objc.Send[CPXFocusPolicy](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXFocusPolicy](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXFocusPolicy) Autorelease() CPXFocusPolicy {
-	rv := objc.Send[CPXFocusPolicy](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXFocusPolicy](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXFocusPolicy creates a new CPXFocusPolicy instance.
 func NewCPXFocusPolicy() CPXFocusPolicy {
 	class := getCPXFocusPolicyClass()
-	rv := objc.Send[CPXFocusPolicy](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXFocusPolicy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
-	objc.Send[objc.ID](c.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
+func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal *CPSProcessRec) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("bringNextApplicationToFrontInternal:"), unsafe.Pointer(internal))
 }
-func (c CPXFocusPolicy) BringNextProcessToFront(front CPSProcessRec) {
-	objc.Send[objc.ID](c.ID, objc.Sel("bringNextProcessToFront:"), front)
+func (c CPXFocusPolicy) BringNextProcessToFront(front *CPSProcessRec) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("bringNextProcessToFront:"), unsafe.Pointer(front))
 }
 
 func (c CPXFocusPolicy) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXFocusPolicy) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXFocusPolicy) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXFocusPolicy) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

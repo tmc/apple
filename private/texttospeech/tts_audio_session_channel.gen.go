@@ -40,7 +40,7 @@ func (tc TTSAudioSessionChannelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioSessionChannelClass) Alloc() TTSAudioSessionChannel {
-	rv := objc.Send[TTSAudioSessionChannel](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAudioSessionChannel](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,64 +101,64 @@ type ITTSAudioSessionChannel interface {
 
 // Init initializes the instance.
 func (t TTSAudioSessionChannel) Init() TTSAudioSessionChannel {
-	rv := objc.Send[TTSAudioSessionChannel](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAudioSessionChannel](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAudioSessionChannel) Autorelease() TTSAudioSessionChannel {
-	rv := objc.Send[TTSAudioSessionChannel](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAudioSessionChannel](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAudioSessionChannel creates a new TTSAudioSessionChannel instance.
 func NewTTSAudioSessionChannel() TTSAudioSessionChannel {
 	class := getTTSAudioSessionChannelClass()
-	rv := objc.Send[TTSAudioSessionChannel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAudioSessionChannel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSAudioSessionChannelClass TTSAudioSessionChannelClass) ChannelWithChannel(channel objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("channelWithChannel:"), channel)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("channelWithChannel:"), channel)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSAudioSessionChannelClass TTSAudioSessionChannelClass) ConvertChannels(channels objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("convertChannels:"), channels)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAudioSessionChannelClass.class), objc.Sel("convertChannels:"), channels)
 	return objectivec.Object{ID: rv}
 }
 
 func (t TTSAudioSessionChannel) Channel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("channel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("channel"))
 	return rv
 }
 func (t TTSAudioSessionChannel) SetChannel(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
 func (t TTSAudioSessionChannel) ChannelLabel() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("channelLabel"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("channelLabel"))
 	return rv
 }
 func (t TTSAudioSessionChannel) SetChannelLabel(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannelLabel:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannelLabel:"), value)
 }
 func (t TTSAudioSessionChannel) ChannelName() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("channelName"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("channelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAudioSessionChannel) SetChannelName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannelName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannelName:"), objc.String(value))
 }
 func (t TTSAudioSessionChannel) ChannelNumber() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("channelNumber"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("channelNumber"))
 	return rv
 }
 func (t TTSAudioSessionChannel) SetChannelNumber(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setChannelNumber:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setChannelNumber:"), value)
 }
 func (t TTSAudioSessionChannel) OwningPortUID() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("owningPortUID"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("owningPortUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAudioSessionChannel) SetOwningPortUID(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOwningPortUID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOwningPortUID:"), objc.String(value))
 }

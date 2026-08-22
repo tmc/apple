@@ -33,6 +33,6 @@ func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
 }
 
 func (o NSSecureCodingObject) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("supportsSecureCoding"))
 	return rv
 }

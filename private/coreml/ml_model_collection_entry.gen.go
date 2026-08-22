@@ -39,7 +39,7 @@ func (mc MLModelCollectionEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelCollectionEntryClass) Alloc() MLModelCollectionEntry {
-	rv := objc.Send[MLModelCollectionEntry](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelCollectionEntry](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,25 +82,25 @@ type IMLModelCollectionEntry interface {
 
 // Init initializes the instance.
 func (m MLModelCollectionEntry) Init() MLModelCollectionEntry {
-	rv := objc.Send[MLModelCollectionEntry](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelCollectionEntry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelCollectionEntry) Autorelease() MLModelCollectionEntry {
-	rv := objc.Send[MLModelCollectionEntry](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelCollectionEntry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelCollectionEntry creates a new MLModelCollectionEntry instance.
 func NewMLModelCollectionEntry() MLModelCollectionEntry {
 	class := getMLModelCollectionEntryClass()
-	rv := objc.Send[MLModelCollectionEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelCollectionEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLModelCollectionEntry) _initWithModelIdentifierModelUrl(identifier objectivec.IObject, url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:"), identifier, url)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:"), identifier, url)
 	return objectivec.Object{ID: rv}
 }
 
@@ -118,20 +118,20 @@ func (m MLModelCollectionEntry) CanInitWithModelIdentifierModelUrl() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:"))
 }
 func (m MLModelCollectionEntry) IsEqualToModelCollectionEntry(entry objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToModelCollectionEntry:"), entry)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEqualToModelCollectionEntry:"), entry)
 	return rv
 }
 
 func (_MLModelCollectionEntryClass MLModelCollectionEntryClass) EntryWithModelIdentifierModelURL(identifier objectivec.IObject, url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelCollectionEntryClass.class), objc.Sel("entryWithModelIdentifier:modelURL:"), identifier, url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelCollectionEntryClass.class), objc.Sel("entryWithModelIdentifier:modelURL:"), identifier, url)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLModelCollectionEntry) ModelIdentifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelCollectionEntry) ModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

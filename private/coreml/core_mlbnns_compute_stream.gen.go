@@ -38,7 +38,7 @@ func (cc CoreMLBNNSComputeStreamClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLBNNSComputeStreamClass) Alloc() CoreMLBNNSComputeStream {
-	rv := objc.Send[CoreMLBNNSComputeStream](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLBNNSComputeStream](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLBNNSComputeStreamFromID(id objc.ID) CoreMLBNNSComputeStream {
 	return CoreMLBNNSComputeStream{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLBNNSComputeStream struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLBNNSComputeStream embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLBNNSComputeStream implements ICoreMLBNNSComputeStream.
+var _ ICoreMLBNNSComputeStream = CoreMLBNNSComputeStream{}
 
 // An interface definition for the [CoreMLBNNSComputeStream] class.
 type ICoreMLBNNSComputeStream interface {
@@ -61,19 +61,19 @@ type ICoreMLBNNSComputeStream interface {
 
 // Init initializes the instance.
 func (c CoreMLBNNSComputeStream) Init() CoreMLBNNSComputeStream {
-	rv := objc.Send[CoreMLBNNSComputeStream](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLBNNSComputeStream](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLBNNSComputeStream) Autorelease() CoreMLBNNSComputeStream {
-	rv := objc.Send[CoreMLBNNSComputeStream](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLBNNSComputeStream](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLBNNSComputeStream creates a new CoreMLBNNSComputeStream instance.
 func NewCoreMLBNNSComputeStream() CoreMLBNNSComputeStream {
 	class := getCoreMLBNNSComputeStreamClass()
-	rv := objc.Send[CoreMLBNNSComputeStream](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLBNNSComputeStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

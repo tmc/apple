@@ -39,7 +39,7 @@ func (gc GTAGX2ShaderProfilerShaderFunctionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2ShaderProfilerShaderFunctionClass) Alloc() GTAGX2ShaderProfilerShaderFunction {
-	rv := objc.Send[GTAGX2ShaderProfilerShaderFunction](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2ShaderProfilerShaderFunction](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -130,104 +130,104 @@ type IGTAGX2ShaderProfilerShaderFunction interface {
 
 // Init initializes the instance.
 func (g GTAGX2ShaderProfilerShaderFunction) Init() GTAGX2ShaderProfilerShaderFunction {
-	rv := objc.Send[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2ShaderProfilerShaderFunction) Autorelease() GTAGX2ShaderProfilerShaderFunction {
-	rv := objc.Send[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2ShaderProfilerShaderFunction creates a new GTAGX2ShaderProfilerShaderFunction instance.
 func NewGTAGX2ShaderProfilerShaderFunction() GTAGX2ShaderProfilerShaderFunction {
 	class := getGTAGX2ShaderProfilerShaderFunctionClass()
-	rv := objc.Send[GTAGX2ShaderProfilerShaderFunction](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2ShaderProfilerShaderFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2ShaderProfilerShaderFunctionWithCoder(coder objectivec.IObject) GTAGX2ShaderProfilerShaderFunction {
 	instance := getGTAGX2ShaderProfilerShaderFunctionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTAGX2ShaderProfilerShaderFunctionFromID(rv)
 }
 
 func (g GTAGX2ShaderProfilerShaderFunction) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderProfilerShaderFunction {
-	rv := objc.Send[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTAGX2ShaderProfilerShaderFunction](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_GTAGX2ShaderProfilerShaderFunctionClass GTAGX2ShaderProfilerShaderFunctionClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTAGX2ShaderProfilerShaderFunctionClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTAGX2ShaderProfilerShaderFunctionClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTAGX2ShaderProfilerShaderFunction) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderProfilerShaderFunction) FilePath() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("filePath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("filePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetFilePath(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setFilePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setFilePath:"), objc.String(value))
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Index() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("index"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetIndex(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setIndex:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setIndex:"), value)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) LibraryObjectId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("libraryObjectId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("libraryObjectId"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetLibraryObjectId(value uint64) {
-	objc.Send[struct{}](g.ID, objc.Sel("setLibraryObjectId:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setLibraryObjectId:"), value)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Name() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetName(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (g GTAGX2ShaderProfilerShaderFunction) ObjectId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("objectId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("objectId"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetObjectId(value uint64) {
-	objc.Send[struct{}](g.ID, objc.Sel("setObjectId:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setObjectId:"), value)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) PointerId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetPointerId(value uint64) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPointerId:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setPointerId:"), value)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTAGX2ShaderProfilerShaderFunction) Type() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("type"))
 	return rv
 }
 func (g GTAGX2ShaderProfilerShaderFunction) SetType(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setType:"), value)
 }

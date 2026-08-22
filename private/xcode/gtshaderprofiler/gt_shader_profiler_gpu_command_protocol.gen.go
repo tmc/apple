@@ -11,6 +11,12 @@ import (
 type GTShaderProfilerGPUCommand interface {
 	objectivec.IObject
 
+	// AllBinaryKeys protocol.
+	AllBinaryKeys() objectivec.IObject
+
+	// BinaryKeys protocol.
+	BinaryKeys() objectivec.IObject
+
 	// CommandBufferIndex protocol.
 	CommandBufferIndex() uint32
 
@@ -37,6 +43,9 @@ type GTShaderProfilerGPUCommand interface {
 
 	// SubCommandIndex protocol.
 	SubCommandIndex() int
+
+	// TimingInfo protocol.
+	TimingInfo() objectivec.IObject
 }
 
 // GTShaderProfilerGPUCommandObject wraps an existing Objective-C object that conforms to the GTShaderProfilerGPUCommand protocol.
@@ -57,50 +66,50 @@ func GTShaderProfilerGPUCommandObjectFromID(id objc.ID) GTShaderProfilerGPUComma
 }
 
 func (o GTShaderProfilerGPUCommandObject) AllBinaryKeys() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("allBinaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("allBinaryKeys"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerGPUCommandObject) BinaryKeys() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binaryKeys"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerGPUCommandObject) CommandBufferIndex() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("commandBufferIndex"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("commandBufferIndex"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) CommandType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("commandType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("commandType"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) EncoderInfoIndex() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("encoderInfoIndex"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("encoderInfoIndex"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) EncoderObjectId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("encoderObjectId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("encoderObjectId"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) FunctionIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("functionIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("functionIndex"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) Index() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("index"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) PipelineInfoIndex() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("pipelineInfoIndex"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("pipelineInfoIndex"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) PipelineStateObjectId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("pipelineStateObjectId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("pipelineStateObjectId"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) SubCommandIndex() int {
-	rv := objc.Send[int](o.ID, objc.Sel("subCommandIndex"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("subCommandIndex"))
 	return rv
 }
 func (o GTShaderProfilerGPUCommandObject) TimingInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("timingInfo"))
 	return objectivec.Object{ID: rv}
 }

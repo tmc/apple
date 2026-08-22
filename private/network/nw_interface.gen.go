@@ -39,7 +39,7 @@ func (nc NWInterfaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NWInterfaceClass) Alloc() NWInterface {
-	rv := objc.Send[NWInterface](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NWInterface](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -187,222 +187,222 @@ type INWInterface interface {
 
 // Init initializes the instance.
 func (n NWInterface) Init() NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NWInterface) Autorelease() NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNWInterface creates a new NWInterface instance.
 func NewNWInterface() NWInterface {
 	class := getNWInterfaceClass()
-	rv := objc.Send[NWInterface](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NWInterface](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNWInterfaceWithCoder(coder objectivec.IObject) NWInterface {
 	instance := getNWInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NWInterfaceFromID(rv)
 }
 
 func NewNWInterfaceWithInterface(interface_ objectivec.IObject) NWInterface {
 	instance := getNWInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterface:"), interface_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterface:"), interface_)
 	return NWInterfaceFromID(rv)
 }
 
 func NewNWInterfaceWithInterfaceIndex(index uint64) NWInterface {
 	instance := getNWInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterfaceIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterfaceIndex:"), index)
 	return NWInterfaceFromID(rv)
 }
 
 func NewNWInterfaceWithInterfaceIndexInterfaceName(index uint64, name objectivec.IObject) NWInterface {
 	instance := getNWInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterfaceIndex:interfaceName:"), index, name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterfaceIndex:interfaceName:"), index, name)
 	return NWInterfaceFromID(rv)
 }
 
 func NewNWInterfaceWithInterfaceName(name objectivec.IObject) NWInterface {
 	instance := getNWInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInterfaceName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInterfaceName:"), name)
 	return NWInterfaceFromID(rv)
 }
 
 func (n NWInterface) CopyLocalAddressForDefaultIPv4() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyLocalAddressForDefaultIPv4"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyLocalAddressForDefaultIPv4"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) CopyLocalAddressForDefaultIPv6() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyLocalAddressForDefaultIPv6"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyLocalAddressForDefaultIPv6"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) CopyLocalAddressForRemoteAddress(address objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyLocalAddressForRemoteAddress:"), address)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyLocalAddressForRemoteAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) CreateProtocolBufferObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (n NWInterface) Ipv4Broadcast() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("ipv4Broadcast"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("ipv4Broadcast"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) Ipv4Netmask() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("ipv4Netmask"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("ipv4Netmask"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWInterface) IsConstrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isConstrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isConstrained"))
 	return rv
 }
 func (n NWInterface) IsDeepEqual(equal objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isDeepEqual:"), equal)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isDeepEqual:"), equal)
 	return rv
 }
 func (n NWInterface) IsExpensive() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isExpensive"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isExpensive"))
 	return rv
 }
 func (n NWInterface) IsIPv4Routable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isIPv4Routable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isIPv4Routable"))
 	return rv
 }
 func (n NWInterface) IsIPv6Routable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isIPv6Routable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isIPv6Routable"))
 	return rv
 }
 func (n NWInterface) IsShallowEqual(equal objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isShallowEqual:"), equal)
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isShallowEqual:"), equal)
 	return rv
 }
 func (n NWInterface) IsUltraConstrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isUltraConstrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isUltraConstrained"))
 	return rv
 }
 func (n NWInterface) InitWithCoder(coder foundation.INSCoder) NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (n NWInterface) InitWithInterface(interface_ objectivec.IObject) NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("initWithInterface:"), interface_)
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("initWithInterface:"), interface_)
 	return rv
 }
 func (n NWInterface) InitWithInterfaceIndex(index uint64) NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("initWithInterfaceIndex:"), index)
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("initWithInterfaceIndex:"), index)
 	return rv
 }
 func (n NWInterface) InitWithInterfaceIndexInterfaceName(index uint64, name objectivec.IObject) NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("initWithInterfaceIndex:interfaceName:"), index, name)
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("initWithInterfaceIndex:interfaceName:"), index, name)
 	return rv
 }
 func (n NWInterface) InitWithInterfaceName(name objectivec.IObject) NWInterface {
-	rv := objc.Send[NWInterface](n.ID, objc.Sel("initWithInterfaceName:"), name)
+	rv := objc.SendIfResponds[NWInterface](n.ID, objc.Sel("initWithInterfaceName:"), name)
 	return rv
 }
 
 func (_NWInterfaceClass NWInterfaceClass) DescriptionForSubtype(subtype int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("descriptionForSubtype:"), subtype)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("descriptionForSubtype:"), subtype)
 	return objectivec.Object{ID: rv}
 }
 func (_NWInterfaceClass NWInterfaceClass) DescriptionForType(type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("descriptionForType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("descriptionForType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_NWInterfaceClass NWInterfaceClass) InterfaceWithProtocolBufferData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("interfaceWithProtocolBufferData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWInterfaceClass.class), objc.Sel("interfaceWithProtocolBufferData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (_NWInterfaceClass NWInterfaceClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_NWInterfaceClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_NWInterfaceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (n NWInterface) CInterface() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("cInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("cInterface"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWInterface) Constrained() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("constrained"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("constrained"))
 	return rv
 }
 func (n NWInterface) DelegateInterface() INWInterface {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("delegateInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("delegateInterface"))
 	return NWInterfaceFromID(objc.ID(rv))
 }
 func (n NWInterface) Expensive() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("expensive"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("expensive"))
 	return rv
 }
 func (n NWInterface) Generation() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("generation"))
+	rv := objc.SendIfResponds[uint64](n.ID, objc.Sel("generation"))
 	return rv
 }
 func (n NWInterface) HasDNS() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasDNS"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasDNS"))
 	return rv
 }
 func (n NWInterface) HasNAT64() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasNAT64"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasNAT64"))
 	return rv
 }
 func (n NWInterface) InterfaceIndex() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("interfaceIndex"))
+	rv := objc.SendIfResponds[uint64](n.ID, objc.Sel("interfaceIndex"))
 	return rv
 }
 func (n NWInterface) InterfaceName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("interfaceName"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("interfaceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWInterface) InternalInterface() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalInterface"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalInterface"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWInterface) SetInternalInterface(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalInterface:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalInterface:"), value)
 }
 func (n NWInterface) Ipv4Routable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("ipv4Routable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("ipv4Routable"))
 	return rv
 }
 func (n NWInterface) Ipv6Routable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("ipv6Routable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("ipv6Routable"))
 	return rv
 }
 func (n NWInterface) Mtu() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("mtu"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("mtu"))
 	return rv
 }
 func (n NWInterface) PrivateDescription() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("privateDescription"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("privateDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWInterface) Subtype() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("subtype"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("subtype"))
 	return rv
 }
 func (n NWInterface) SupportsMulticast() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("supportsMulticast"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("supportsMulticast"))
 	return rv
 }
 func (n NWInterface) Type() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("type"))
 	return rv
 }
 func (n NWInterface) TypeString() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("typeString"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("typeString"))
 	return foundation.NSStringFromID(rv).String()
 }

@@ -10,6 +10,9 @@ import (
 // DIController2ClientProtocol protocol.
 type DIController2ClientProtocol interface {
 	objectivec.IObject
+
+	// AttachCompletedWithHandleReply protocol.
+	AttachCompletedWithHandleReply(handle objectivec.IObject, reply ErrorHandler)
 }
 
 // DIController2ClientProtocolObject wraps an existing Objective-C object that conforms to the DIController2ClientProtocol protocol.
@@ -30,5 +33,7 @@ func DIController2ClientProtocolObjectFromID(id objc.ID) DIController2ClientProt
 }
 
 func (o DIController2ClientProtocolObject) AttachCompletedWithHandleReply(handle objectivec.IObject, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, objc.ID(_block1))
 }

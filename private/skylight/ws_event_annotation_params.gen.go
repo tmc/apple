@@ -38,7 +38,7 @@ func (wc WSEventAnnotationParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSEventAnnotationParamsClass) Alloc() WSEventAnnotationParams {
-	rv := objc.Send[WSEventAnnotationParams](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSEventAnnotationParams](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,48 +93,48 @@ type IWSEventAnnotationParams interface {
 
 // Init initializes the instance.
 func (w WSEventAnnotationParams) Init() WSEventAnnotationParams {
-	rv := objc.Send[WSEventAnnotationParams](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSEventAnnotationParams](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSEventAnnotationParams) Autorelease() WSEventAnnotationParams {
-	rv := objc.Send[WSEventAnnotationParams](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSEventAnnotationParams](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSEventAnnotationParams creates a new WSEventAnnotationParams instance.
 func NewWSEventAnnotationParams() WSEventAnnotationParams {
 	class := getWSEventAnnotationParamsClass()
-	rv := objc.Send[WSEventAnnotationParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSEventAnnotationParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (w WSEventAnnotationParams) ForceRouting() bool {
-	rv := objc.Send[bool](w.ID, objc.Sel("forceRouting"))
+	rv := objc.SendIfResponds[bool](w.ID, objc.Sel("forceRouting"))
 	return rv
 }
 func (w WSEventAnnotationParams) SetForceRouting(value bool) {
-	objc.Send[struct{}](w.ID, objc.Sel("setForceRouting:"), value)
+	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setForceRouting:"), value)
 }
 func (w WSEventAnnotationParams) NoBackground() bool {
-	rv := objc.Send[bool](w.ID, objc.Sel("noBackground"))
+	rv := objc.SendIfResponds[bool](w.ID, objc.Sel("noBackground"))
 	return rv
 }
 func (w WSEventAnnotationParams) SetNoBackground(value bool) {
-	objc.Send[struct{}](w.ID, objc.Sel("setNoBackground:"), value)
+	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setNoBackground:"), value)
 }
 func (w WSEventAnnotationParams) SetTarget() bool {
-	rv := objc.Send[bool](w.ID, objc.Sel("setTarget"))
+	rv := objc.SendIfResponds[bool](w.ID, objc.Sel("setTarget"))
 	return rv
 }
 func (w WSEventAnnotationParams) SetSetTarget(value bool) {
-	objc.Send[struct{}](w.ID, objc.Sel("setSetTarget:"), value)
+	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setSetTarget:"), value)
 }
 func (w WSEventAnnotationParams) ShouldProcessEvent() bool {
-	rv := objc.Send[bool](w.ID, objc.Sel("shouldProcessEvent"))
+	rv := objc.SendIfResponds[bool](w.ID, objc.Sel("shouldProcessEvent"))
 	return rv
 }
 func (w WSEventAnnotationParams) SetShouldProcessEvent(value bool) {
-	objc.Send[struct{}](w.ID, objc.Sel("setShouldProcessEvent:"), value)
+	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setShouldProcessEvent:"), value)
 }

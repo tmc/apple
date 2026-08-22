@@ -40,7 +40,7 @@ func (vc VZBridgedNetworkInterfaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBridgedNetworkInterfaceClass) Alloc() VZBridgedNetworkInterface {
-	rv := objc.Send[VZBridgedNetworkInterface](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBridgedNetworkInterface](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,20 +63,20 @@ type IVZBridgedNetworkInterface interface {
 
 // Init initializes the instance.
 func (v VZBridgedNetworkInterface) Init() VZBridgedNetworkInterface {
-	rv := objc.Send[VZBridgedNetworkInterface](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBridgedNetworkInterface](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBridgedNetworkInterface) Autorelease() VZBridgedNetworkInterface {
-	rv := objc.Send[VZBridgedNetworkInterface](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBridgedNetworkInterface](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBridgedNetworkInterface creates a new VZBridgedNetworkInterface instance.
 func NewVZBridgedNetworkInterface() VZBridgedNetworkInterface {
 	class := getVZBridgedNetworkInterfaceClass()
-	rv := objc.Send[VZBridgedNetworkInterface](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBridgedNetworkInterface](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

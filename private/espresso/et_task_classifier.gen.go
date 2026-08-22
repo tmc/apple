@@ -39,7 +39,7 @@ func (ec ETTaskClassifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETTaskClassifierClass) Alloc() ETTaskClassifier {
-	rv := objc.Send[ETTaskClassifier](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETTaskClassifier](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,51 +76,51 @@ type IETTaskClassifier interface {
 
 // Init initializes the instance.
 func (e ETTaskClassifier) Init() ETTaskClassifier {
-	rv := objc.Send[ETTaskClassifier](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETTaskClassifier](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETTaskClassifier) Autorelease() ETTaskClassifier {
-	rv := objc.Send[ETTaskClassifier](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETTaskClassifier](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETTaskClassifier creates a new ETTaskClassifier instance.
 func NewETTaskClassifier() ETTaskClassifier {
 	class := getETTaskClassifierClass()
-	rv := objc.Send[ETTaskClassifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETTaskClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETTaskClassifierWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:"), def, def2, extractor)
 	return ETTaskClassifierFromID(rv)
 }
 
 func NewETTaskClassifierWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:extractor:needWeightsInitialization:"), def, def2, extractor, initialization)
 	return ETTaskClassifierFromID(rv)
 }
 
 func NewETTaskClassifierWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:"), def, def2, config)
 	return ETTaskClassifierFromID(rv)
 }
 
 func NewETTaskClassifierWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:optimizerDef:lossConfig:extractor:"), def, def2, config, extractor)
 	return ETTaskClassifierFromID(rv)
 }
 
 func (e ETTaskClassifier) Class_names() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("class_names"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("class_names"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETTaskClassifier) SetClass_names(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setClass_names:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setClass_names:"), value)
 }

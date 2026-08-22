@@ -10,6 +10,9 @@ import (
 // MLRegressor protocol.
 type MLRegressorProtocol interface {
 	objectivec.IObject
+
+	// RegressOptionsError protocol.
+	RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLRegressorProtocolObject wraps an existing Objective-C object that conforms to the MLRegressorProtocol protocol.

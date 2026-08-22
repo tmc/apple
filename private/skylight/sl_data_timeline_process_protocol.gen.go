@@ -13,6 +13,9 @@ type SLDataTimelineProcess interface {
 
 	// Pid protocol.
 	Pid() int
+
+	// WindowData protocol.
+	WindowData() objectivec.IObject
 }
 
 // SLDataTimelineProcessObject wraps an existing Objective-C object that conforms to the SLDataTimelineProcess protocol.
@@ -33,10 +36,10 @@ func SLDataTimelineProcessObjectFromID(id objc.ID) SLDataTimelineProcessObject {
 }
 
 func (o SLDataTimelineProcessObject) Pid() int {
-	rv := objc.Send[int](o.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("pid"))
 	return rv
 }
 func (o SLDataTimelineProcessObject) WindowData() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowData"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("windowData"))
 	return objectivec.Object{ID: rv}
 }

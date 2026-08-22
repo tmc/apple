@@ -40,7 +40,7 @@ func (gc GTAGX2ShaderDiassemblyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2ShaderDiassemblyClass) Alloc() GTAGX2ShaderDiassembly {
-	rv := objc.Send[GTAGX2ShaderDiassembly](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -128,108 +128,108 @@ type IGTAGX2ShaderDiassembly interface {
 
 // Init initializes the instance.
 func (g GTAGX2ShaderDiassembly) Init() GTAGX2ShaderDiassembly {
-	rv := objc.Send[GTAGX2ShaderDiassembly](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2ShaderDiassembly) Autorelease() GTAGX2ShaderDiassembly {
-	rv := objc.Send[GTAGX2ShaderDiassembly](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2ShaderDiassembly creates a new GTAGX2ShaderDiassembly instance.
 func NewGTAGX2ShaderDiassembly() GTAGX2ShaderDiassembly {
 	class := getGTAGX2ShaderDiassemblyClass()
-	rv := objc.Send[GTAGX2ShaderDiassembly](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2ShaderDiassemblyWithCoder(coder objectivec.IObject) GTAGX2ShaderDiassembly {
 	instance := getGTAGX2ShaderDiassemblyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTAGX2ShaderDiassemblyFromID(rv)
 }
 
 func NewGTAGX2ShaderDiassemblyWithOpcodeOpcodeTypeOpcodeMaskAddressDiassemblyBinary(opcode uint32, type_ uint32, mask uint32, address uint32, diassembly objectivec.IObject, binary objectivec.IObject) GTAGX2ShaderDiassembly {
 	instance := getGTAGX2ShaderDiassemblyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOpcode:opcodeType:opcodeMask:address:diassembly:binary:"), opcode, type_, mask, address, diassembly, binary)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOpcode:opcodeType:opcodeMask:address:diassembly:binary:"), opcode, type_, mask, address, diassembly, binary)
 	return GTAGX2ShaderDiassemblyFromID(rv)
 }
 
 func (g GTAGX2ShaderDiassembly) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTAGX2ShaderDiassembly) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderDiassembly {
-	rv := objc.Send[GTAGX2ShaderDiassembly](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) InitWithOpcodeOpcodeTypeOpcodeMaskAddressDiassemblyBinary(opcode uint32, type_ uint32, mask uint32, address uint32, diassembly objectivec.IObject, binary objectivec.IObject) GTAGX2ShaderDiassembly {
-	rv := objc.Send[GTAGX2ShaderDiassembly](g.ID, objc.Sel("initWithOpcode:opcodeType:opcodeMask:address:diassembly:binary:"), opcode, type_, mask, address, diassembly, binary)
+	rv := objc.SendIfResponds[GTAGX2ShaderDiassembly](g.ID, objc.Sel("initWithOpcode:opcodeType:opcodeMask:address:diassembly:binary:"), opcode, type_, mask, address, diassembly, binary)
 	return rv
 }
 
 func (_GTAGX2ShaderDiassemblyClass GTAGX2ShaderDiassemblyClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTAGX2ShaderDiassemblyClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTAGX2ShaderDiassemblyClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTAGX2ShaderDiassembly) Address() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("address"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("address"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) SetAddress(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setAddress:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setAddress:"), value)
 }
 func (g GTAGX2ShaderDiassembly) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binary"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) Cost() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("cost"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("cost"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderDiassembly) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderDiassembly) Diassembly() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("diassembly"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("diassembly"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderDiassembly) SetDiassembly(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDiassembly:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDiassembly:"), objc.String(value))
 }
 func (g GTAGX2ShaderDiassembly) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) Opcode() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("opcode"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("opcode"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) SetOpcode(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setOpcode:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setOpcode:"), value)
 }
 func (g GTAGX2ShaderDiassembly) OpcodeMask() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("opcodeMask"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("opcodeMask"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) SetOpcodeMask(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setOpcodeMask:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setOpcodeMask:"), value)
 }
 func (g GTAGX2ShaderDiassembly) OpcodeType() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("opcodeType"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("opcodeType"))
 	return rv
 }
 func (g GTAGX2ShaderDiassembly) SetOpcodeType(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setOpcodeType:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setOpcodeType:"), value)
 }
 func (g GTAGX2ShaderDiassembly) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

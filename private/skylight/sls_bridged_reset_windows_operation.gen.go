@@ -39,7 +39,7 @@ func (sc SLSBridgedResetWindowsOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedResetWindowsOperationClass) Alloc() SLSBridgedResetWindowsOperation {
-	rv := objc.Send[SLSBridgedResetWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedResetWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedResetWindowsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedResetWindowsOperation) Init() SLSBridgedResetWindowsOperation {
-	rv := objc.Send[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedResetWindowsOperation) Autorelease() SLSBridgedResetWindowsOperation {
-	rv := objc.Send[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedResetWindowsOperation creates a new SLSBridgedResetWindowsOperation instance.
 func NewSLSBridgedResetWindowsOperation() SLSBridgedResetWindowsOperation {
 	class := getSLSBridgedResetWindowsOperationClass()
-	rv := objc.Send[SLSBridgedResetWindowsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedResetWindowsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedResetWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedResetWindowsOperation {
 	instance := getSLSBridgedResetWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedResetWindowsOperationFromID(rv)
 }
 
 func NewSLSBridgedResetWindowsOperationWithWindows(windows objectivec.IObject) SLSBridgedResetWindowsOperation {
 	instance := getSLSBridgedResetWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:"), windows)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindows:"), windows)
 	return SLSBridgedResetWindowsOperationFromID(rv)
 }
 
 func (s SLSBridgedResetWindowsOperation) InitWithWindows(windows objectivec.IObject) SLSBridgedResetWindowsOperation {
-	rv := objc.Send[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("initWithWindows:"), windows)
+	rv := objc.SendIfResponds[SLSBridgedResetWindowsOperation](s.ID, objc.Sel("initWithWindows:"), windows)
 	return rv
 }
 
 func (s SLSBridgedResetWindowsOperation) Windows() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

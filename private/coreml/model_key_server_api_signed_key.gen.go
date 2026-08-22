@@ -39,7 +39,7 @@ func (mc ModelKeyServerAPISignedKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc ModelKeyServerAPISignedKeyClass) Alloc() ModelKeyServerAPISignedKey {
-	rv := objc.Send[ModelKeyServerAPISignedKey](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ModelKeyServerAPISignedKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,8 +62,9 @@ func ModelKeyServerAPISignedKeyFromID(id objc.ID) ModelKeyServerAPISignedKey {
 	return ModelKeyServerAPISignedKey{objectivec.Object{ID: id}}
 }
 
-// NOTE: ModelKeyServerAPISignedKey struct embeds objectivec.Object (parent type unavailable) but
-// IModelKeyServerAPISignedKey embeds the parent interface; skip compile-time assertion.
+// NOTE: ModelKeyServerAPISignedKey embeds objectivec.Object because the parent type is
+// unavailable, but IModelKeyServerAPISignedKey embeds IPBCodable, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [ModelKeyServerAPISignedKey] class.
 //
@@ -94,49 +95,49 @@ type IModelKeyServerAPISignedKey interface {
 
 // Init initializes the instance.
 func (m ModelKeyServerAPISignedKey) Init() ModelKeyServerAPISignedKey {
-	rv := objc.Send[ModelKeyServerAPISignedKey](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ModelKeyServerAPISignedKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m ModelKeyServerAPISignedKey) Autorelease() ModelKeyServerAPISignedKey {
-	rv := objc.Send[ModelKeyServerAPISignedKey](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ModelKeyServerAPISignedKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewModelKeyServerAPISignedKey creates a new ModelKeyServerAPISignedKey instance.
 func NewModelKeyServerAPISignedKey() ModelKeyServerAPISignedKey {
 	class := getModelKeyServerAPISignedKeyClass()
-	rv := objc.Send[ModelKeyServerAPISignedKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ModelKeyServerAPISignedKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m ModelKeyServerAPISignedKey) CopyTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
 func (m ModelKeyServerAPISignedKey) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (m ModelKeyServerAPISignedKey) MergeFrom(from objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
 func (m ModelKeyServerAPISignedKey) ReadFrom(from objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
 func (m ModelKeyServerAPISignedKey) WriteTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
 func (m ModelKeyServerAPISignedKey) Data() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("data"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m ModelKeyServerAPISignedKey) SetData(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setData:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setData:"), value)
 }
 func (m ModelKeyServerAPISignedKey) HasData() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasData"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasData"))
 	return rv
 }

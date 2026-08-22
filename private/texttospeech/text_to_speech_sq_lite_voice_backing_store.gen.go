@@ -38,7 +38,7 @@ func (tc TextToSpeechSQLiteVoiceBackingStoreClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSQLiteVoiceBackingStoreClass) Alloc() TextToSpeechSQLiteVoiceBackingStore {
-	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSQLiteVoiceBackingStore](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechSQLiteVoiceBackingStoreFromID(id objc.ID) TextToSpeechSQLiteVoi
 	return TextToSpeechSQLiteVoiceBackingStore{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechSQLiteVoiceBackingStore struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechSQLiteVoiceBackingStore embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechSQLiteVoiceBackingStore implements ITextToSpeechSQLiteVoiceBackingStore.
+var _ ITextToSpeechSQLiteVoiceBackingStore = TextToSpeechSQLiteVoiceBackingStore{}
 
 // An interface definition for the [TextToSpeechSQLiteVoiceBackingStore] class.
 type ITextToSpeechSQLiteVoiceBackingStore interface {
@@ -61,19 +61,19 @@ type ITextToSpeechSQLiteVoiceBackingStore interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSQLiteVoiceBackingStore) Init() TextToSpeechSQLiteVoiceBackingStore {
-	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSQLiteVoiceBackingStore](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSQLiteVoiceBackingStore) Autorelease() TextToSpeechSQLiteVoiceBackingStore {
-	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSQLiteVoiceBackingStore](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSQLiteVoiceBackingStore creates a new TextToSpeechSQLiteVoiceBackingStore instance.
 func NewTextToSpeechSQLiteVoiceBackingStore() TextToSpeechSQLiteVoiceBackingStore {
 	class := getTextToSpeechSQLiteVoiceBackingStoreClass()
-	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSQLiteVoiceBackingStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

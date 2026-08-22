@@ -38,7 +38,7 @@ func (vc VZSpiceAgentCorePasteboardStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSpiceAgentCorePasteboardStateClass) Alloc() VZSpiceAgentCorePasteboardState {
-	rv := objc.Send[VZSpiceAgentCorePasteboardState](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSpiceAgentCorePasteboardState](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZSpiceAgentCorePasteboardState interface {
 
 // Init initializes the instance.
 func (v VZSpiceAgentCorePasteboardState) Init() VZSpiceAgentCorePasteboardState {
-	rv := objc.Send[VZSpiceAgentCorePasteboardState](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSpiceAgentCorePasteboardState](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSpiceAgentCorePasteboardState) Autorelease() VZSpiceAgentCorePasteboardState {
-	rv := objc.Send[VZSpiceAgentCorePasteboardState](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSpiceAgentCorePasteboardState](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSpiceAgentCorePasteboardState creates a new VZSpiceAgentCorePasteboardState instance.
 func NewVZSpiceAgentCorePasteboardState() VZSpiceAgentCorePasteboardState {
 	class := getVZSpiceAgentCorePasteboardStateClass()
-	rv := objc.Send[VZSpiceAgentCorePasteboardState](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSpiceAgentCorePasteboardState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

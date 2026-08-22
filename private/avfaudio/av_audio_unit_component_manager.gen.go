@@ -38,7 +38,7 @@ func (ac AVAudioUnitComponentManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitComponentManagerClass) Alloc() AVAudioUnitComponentManager {
-	rv := objc.Send[AVAudioUnitComponentManager](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitComponentManager](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,30 +75,30 @@ type IAVAudioUnitComponentManager interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitComponentManager) Init() AVAudioUnitComponentManager {
-	rv := objc.Send[AVAudioUnitComponentManager](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitComponentManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitComponentManager) Autorelease() AVAudioUnitComponentManager {
-	rv := objc.Send[AVAudioUnitComponentManager](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitComponentManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitComponentManager creates a new AVAudioUnitComponentManager instance.
 func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 	class := getAVAudioUnitComponentManagerClass()
-	rv := objc.Send[AVAudioUnitComponentManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitComponentManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioUnitComponentManager) LocaleChanged(changed objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("localeChanged:"), changed)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("localeChanged:"), changed)
 }
 func (a AVAudioUnitComponentManager) RegistrationsChanged(changed objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("registrationsChanged:"), changed)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("registrationsChanged:"), changed)
 }
 
 func (_AVAudioUnitComponentManagerClass AVAudioUnitComponentManagerClass) PrivateAllocInitSingleton() {
-	objc.Send[objc.ID](objc.ID(_AVAudioUnitComponentManagerClass.class), objc.Sel("privateAllocInitSingleton"))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioUnitComponentManagerClass.class), objc.Sel("privateAllocInitSingleton"))
 }

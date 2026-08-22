@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [EspressoMxnetToolsImageBinaryRecordReader] class.
@@ -41,7 +42,7 @@ func (ec EspressoMxnetToolsImageBinaryRecordReaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoMxnetToolsImageBinaryRecordReaderClass) Alloc() EspressoMxnetToolsImageBinaryRecordReader {
-	rv := objc.Send[EspressoMxnetToolsImageBinaryRecordReader](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoMxnetToolsImageBinaryRecordReader](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -108,62 +109,64 @@ type IEspressoMxnetToolsImageBinaryRecordReader interface {
 	CurrentOffset() uint64
 	SetCurrentOffset(value uint64)
 	ImageData() objectivec.IObject
-	ImageHeader() MxnetToolsImageHeaderT
-	SetImageHeader(value MxnetToolsImageHeaderT)
-	ImageID() MxnetToolsImageIDT
+	ImageHeader() appleneuralengine.MxnetToolsImageHeaderT
+	SetImageHeader(value appleneuralengine.MxnetToolsImageHeaderT)
+	ImageID() appleneuralengine.MxnetToolsImageIDT
 	Labels() objectivec.IObject
 	LabelsPrivate() foundation.INSArray
 	SetLabelsPrivate(value foundation.INSArray)
 	NextRecordAndError() (bool, error)
 	RecFileHandle() foundation.FileHandle
 	SetRecFileHandle(value foundation.FileHandle)
-	RecordHeader() MxnetToolsRecordHeaderT
-	SetRecordHeader(value MxnetToolsRecordHeaderT)
+	RecordHeader() appleneuralengine.MxnetToolsRecordHeaderT
+	SetRecordHeader(value appleneuralengine.MxnetToolsRecordHeaderT)
 	SeekRecordWithIDError(id *MxnetToolsImageIDT) (bool, error)
 	InitWithRecFileError(file objectivec.IObject) (EspressoMxnetToolsImageBinaryRecordReader, error)
 }
 
 // Init initializes the instance.
 func (e EspressoMxnetToolsImageBinaryRecordReader) Init() EspressoMxnetToolsImageBinaryRecordReader {
-	rv := objc.Send[EspressoMxnetToolsImageBinaryRecordReader](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoMxnetToolsImageBinaryRecordReader](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoMxnetToolsImageBinaryRecordReader) Autorelease() EspressoMxnetToolsImageBinaryRecordReader {
-	rv := objc.Send[EspressoMxnetToolsImageBinaryRecordReader](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoMxnetToolsImageBinaryRecordReader](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoMxnetToolsImageBinaryRecordReader creates a new EspressoMxnetToolsImageBinaryRecordReader instance.
 func NewEspressoMxnetToolsImageBinaryRecordReader() EspressoMxnetToolsImageBinaryRecordReader {
 	class := getEspressoMxnetToolsImageBinaryRecordReaderClass()
-	rv := objc.Send[EspressoMxnetToolsImageBinaryRecordReader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoMxnetToolsImageBinaryRecordReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspresso_mxnetTools_ImageBinaryRecordReaderWithRecFileError(file objectivec.IObject) (EspressoMxnetToolsImageBinaryRecordReader, error) {
 	var errorPtr objc.ID
 	instance := getEspressoMxnetToolsImageBinaryRecordReaderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRecFile:error:"), file, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRecFile:error:"), file, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return EspressoMxnetToolsImageBinaryRecordReader{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return EspressoMxnetToolsImageBinaryRecordReader{}, objc.ErrInitFailed
 	}
 	return EspressoMxnetToolsImageBinaryRecordReaderFromID(rv), nil
 }
 
 func (e EspressoMxnetToolsImageBinaryRecordReader) ImageData() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageData"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("imageData"))
 	return objectivec.Object{ID: rv}
 }
-func (e EspressoMxnetToolsImageBinaryRecordReader) ImageID() MxnetToolsImageIDT {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageID"))
-	_ = rv
-	return MxnetToolsImageIDT{}
+func (e EspressoMxnetToolsImageBinaryRecordReader) ImageID() appleneuralengine.MxnetToolsImageIDT {
+	rv := objc.SendIfResponds[appleneuralengine.MxnetToolsImageIDT](e.ID, objc.Sel("imageID"))
+	return appleneuralengine.MxnetToolsImageIDT(rv)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) Labels() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("labels"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("labels"))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) NextRecordAndError() (bool, error) {
@@ -181,7 +184,7 @@ func (e EspressoMxnetToolsImageBinaryRecordReader) NextRecordAndError() (bool, e
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SeekRecordWithIDError(id *MxnetToolsImageIDT) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("seekRecordWithID:error:"), id, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](e.ID, objc.Sel("seekRecordWithID:error:"), unsafe.Pointer(id), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -204,39 +207,37 @@ func (e EspressoMxnetToolsImageBinaryRecordReader) InitWithRecFileError(file obj
 }
 
 func (e EspressoMxnetToolsImageBinaryRecordReader) CurrentOffset() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("currentOffset"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("currentOffset"))
 	return rv
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SetCurrentOffset(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setCurrentOffset:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setCurrentOffset:"), value)
 }
-func (e EspressoMxnetToolsImageBinaryRecordReader) ImageHeader() MxnetToolsImageHeaderT {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageHeader"))
-	_ = rv
-	return MxnetToolsImageHeaderT{}
+func (e EspressoMxnetToolsImageBinaryRecordReader) ImageHeader() appleneuralengine.MxnetToolsImageHeaderT {
+	rv := objc.SendIfResponds[appleneuralengine.MxnetToolsImageHeaderT](e.ID, objc.Sel("imageHeader"))
+	return appleneuralengine.MxnetToolsImageHeaderT(rv)
 }
-func (e EspressoMxnetToolsImageBinaryRecordReader) SetImageHeader(value MxnetToolsImageHeaderT) {
-	objc.Send[struct{}](e.ID, objc.Sel("setImageHeader:"), value)
+func (e EspressoMxnetToolsImageBinaryRecordReader) SetImageHeader(value appleneuralengine.MxnetToolsImageHeaderT) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setImageHeader:"), value)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) LabelsPrivate() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("labelsPrivate"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("labelsPrivate"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SetLabelsPrivate(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLabelsPrivate:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLabelsPrivate:"), value)
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) RecFileHandle() foundation.FileHandle {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("recFileHandle"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("recFileHandle"))
 	return foundation.FileHandleFromID(objc.ID(rv))
 }
 func (e EspressoMxnetToolsImageBinaryRecordReader) SetRecFileHandle(value foundation.FileHandle) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRecFileHandle:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRecFileHandle:"), value)
 }
-func (e EspressoMxnetToolsImageBinaryRecordReader) RecordHeader() MxnetToolsRecordHeaderT {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("recordHeader"))
-	_ = rv
-	return MxnetToolsRecordHeaderT{}
+func (e EspressoMxnetToolsImageBinaryRecordReader) RecordHeader() appleneuralengine.MxnetToolsRecordHeaderT {
+	rv := objc.SendIfResponds[appleneuralengine.MxnetToolsRecordHeaderT](e.ID, objc.Sel("recordHeader"))
+	return appleneuralengine.MxnetToolsRecordHeaderT(rv)
 }
-func (e EspressoMxnetToolsImageBinaryRecordReader) SetRecordHeader(value MxnetToolsRecordHeaderT) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRecordHeader:"), value)
+func (e EspressoMxnetToolsImageBinaryRecordReader) SetRecordHeader(value appleneuralengine.MxnetToolsRecordHeaderT) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRecordHeader:"), value)
 }

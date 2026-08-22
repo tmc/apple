@@ -39,7 +39,7 @@ func (vc VZSEPCoprocessorConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSEPCoprocessorConfigurationClass) Alloc() VZSEPCoprocessorConfiguration {
-	rv := objc.Send[VZSEPCoprocessorConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,59 +91,59 @@ type IVZSEPCoprocessorConfiguration interface {
 
 // Init initializes the instance.
 func (v VZSEPCoprocessorConfiguration) Init() VZSEPCoprocessorConfiguration {
-	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSEPCoprocessorConfiguration) Autorelease() VZSEPCoprocessorConfiguration {
-	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSEPCoprocessorConfiguration creates a new VZSEPCoprocessorConfiguration instance.
 func NewVZSEPCoprocessorConfiguration() VZSEPCoprocessorConfiguration {
 	class := getVZSEPCoprocessorConfigurationClass()
-	rv := objc.Send[VZSEPCoprocessorConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZSEPCoprocessorConfigurationWithStorage(storage objectivec.IObject) VZSEPCoprocessorConfiguration {
 	instance := getVZSEPCoprocessorConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStorage:"), storage)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStorage:"), storage)
 	return VZSEPCoprocessorConfigurationFromID(rv)
 }
 
 func NewVZSEPCoprocessorConfigurationWithStorageURL(url foundation.NSURL) VZSEPCoprocessorConfiguration {
 	instance := getVZSEPCoprocessorConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStorageURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStorageURL:"), url)
 	return VZSEPCoprocessorConfigurationFromID(rv)
 }
 
 func (v VZSEPCoprocessorConfiguration) InitWithStorage(storage objectivec.IObject) VZSEPCoprocessorConfiguration {
-	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorage:"), storage)
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorage:"), storage)
 	return rv
 }
 func (v VZSEPCoprocessorConfiguration) InitWithStorageURL(url foundation.NSURL) VZSEPCoprocessorConfiguration {
-	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorageURL:"), url)
+	rv := objc.SendIfResponds[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorageURL:"), url)
 	return rv
 }
 
 func (v VZSEPCoprocessorConfiguration) DebugStub() IVZDebugStubConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugStub"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugStub"))
 	return VZDebugStubConfigurationFromID(objc.ID(rv))
 }
 func (v VZSEPCoprocessorConfiguration) SetDebugStub(value IVZDebugStubConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
 }
 func (v VZSEPCoprocessorConfiguration) RomBinaryURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("romBinaryURL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("romBinaryURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZSEPCoprocessorConfiguration) SetRomBinaryURL(value foundation.NSURL) {
-	objc.Send[struct{}](v.ID, objc.Sel("setRomBinaryURL:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setRomBinaryURL:"), value)
 }
 func (v VZSEPCoprocessorConfiguration) Storage() IVZSEPStorage {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("storage"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("storage"))
 	return VZSEPStorageFromID(objc.ID(rv))
 }

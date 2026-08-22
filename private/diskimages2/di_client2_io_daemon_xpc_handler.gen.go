@@ -41,7 +41,7 @@ func (dc DIClient2IODaemonXPCHandlerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIClient2IODaemonXPCHandlerClass) Alloc() DIClient2IODaemonXPCHandler {
-	rv := objc.Send[DIClient2IODaemonXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,26 +84,26 @@ type IDIClient2IODaemonXPCHandler interface {
 
 // Init initializes the instance.
 func (d DIClient2IODaemonXPCHandler) Init() DIClient2IODaemonXPCHandler {
-	rv := objc.Send[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIClient2IODaemonXPCHandler) Autorelease() DIClient2IODaemonXPCHandler {
-	rv := objc.Send[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIClient2IODaemonXPCHandler creates a new DIClient2IODaemonXPCHandler instance.
 func NewDIClient2IODaemonXPCHandler() DIClient2IODaemonXPCHandler {
 	class := getDIClient2IODaemonXPCHandlerClass()
-	rv := objc.Send[DIClient2IODaemonXPCHandler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIClient2IODaemonXPCHandlerWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler {
 	instance := getDIClient2IODaemonXPCHandlerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEndpoint:"), endpoint)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEndpoint:"), endpoint)
 	return DIClient2IODaemonXPCHandlerFromID(rv)
 }
 
@@ -121,14 +121,14 @@ func (d DIClient2IODaemonXPCHandler) AddToRefCountWithError() (bool, error) {
 
 }
 func (d DIClient2IODaemonXPCHandler) InitWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler {
-	rv := objc.Send[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("initWithEndpoint:"), endpoint)
+	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("initWithEndpoint:"), endpoint)
 	return rv
 }
 
 func (d DIClient2IODaemonXPCHandler) XpcListenerEndpoint() foundation.NSXPCListenerEndpoint {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcListenerEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("xpcListenerEndpoint"))
 	return foundation.NSXPCListenerEndpointFromID(objc.ID(rv))
 }
 func (d DIClient2IODaemonXPCHandler) SetXpcListenerEndpoint(value foundation.NSXPCListenerEndpoint) {
-	objc.Send[struct{}](d.ID, objc.Sel("setXpcListenerEndpoint:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setXpcListenerEndpoint:"), value)
 }

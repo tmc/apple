@@ -37,7 +37,7 @@ func (ec EspressoPassFixInputUnderflowClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFixInputUnderflowClass) Alloc() EspressoPassFixInputUnderflow {
-	rv := objc.Send[EspressoPassFixInputUnderflow](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFixInputUnderflow](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFixInputUnderflow interface {
 
 // Init initializes the instance.
 func (e EspressoPassFixInputUnderflow) Init() EspressoPassFixInputUnderflow {
-	rv := objc.Send[EspressoPassFixInputUnderflow](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFixInputUnderflow](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFixInputUnderflow) Autorelease() EspressoPassFixInputUnderflow {
-	rv := objc.Send[EspressoPassFixInputUnderflow](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFixInputUnderflow](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFixInputUnderflow creates a new EspressoPassFixInputUnderflow instance.
 func NewEspressoPassFixInputUnderflow() EspressoPassFixInputUnderflow {
 	class := getEspressoPassFixInputUnderflowClass()
-	rv := objc.Send[EspressoPassFixInputUnderflow](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFixInputUnderflow](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

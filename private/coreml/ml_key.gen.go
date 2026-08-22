@@ -38,7 +38,7 @@ func (mc MLKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLKeyClass) Alloc() MLKey {
-	rv := objc.Send[MLKey](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,61 +87,61 @@ type IMLKey interface {
 
 // Init initializes the instance.
 func (m MLKey) Init() MLKey {
-	rv := objc.Send[MLKey](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLKey) Autorelease() MLKey {
-	rv := objc.Send[MLKey](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLKey creates a new MLKey instance.
 func NewMLKey() MLKey {
 	class := getMLKeyClass()
-	rv := objc.Send[MLKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewKeyWithKeyName(name objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLKeyFromID(rv)
 }
 
 func NewKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLKeyFromID(rv)
 }
 
 func (m MLKey) DeletingPrefixingScope(scope objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("deletingPrefixingScope:"), scope)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("deletingPrefixingScope:"), scope)
 	return objectivec.Object{ID: rv}
 }
 func (m MLKey) HasGlobalScope() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGlobalScope"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGlobalScope"))
 	return rv
 }
 func (m MLKey) HasSameNameAsKey(key objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasSameNameAsKey:"), key)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasSameNameAsKey:"), key)
 	return rv
 }
 func (m MLKey) ScopedTo(to objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scopedTo:"), to)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scopedTo:"), to)
 	return objectivec.Object{ID: rv}
 }
 func (m MLKey) InitWithKeyName(name objectivec.IObject) MLKey {
-	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:"), name)
+	rv := objc.SendIfResponds[MLKey](m.ID, objc.Sel("initWithKeyName:"), name)
 	return rv
 }
 func (m MLKey) InitWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
-	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
+	rv := objc.SendIfResponds[MLKey](m.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return rv
 }
 
 func (_MLKeyClass MLKeyClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLKeyClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLKeyClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

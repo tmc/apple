@@ -39,7 +39,7 @@ func (mc MLModelAssetModelStructureVendorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetModelStructureVendorClass) Alloc() MLModelAssetModelStructureVendor {
-	rv := objc.Send[MLModelAssetModelStructureVendor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelAssetModelStructureVendor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,51 +88,51 @@ type IMLModelAssetModelStructureVendor interface {
 
 // Init initializes the instance.
 func (m MLModelAssetModelStructureVendor) Init() MLModelAssetModelStructureVendor {
-	rv := objc.Send[MLModelAssetModelStructureVendor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelAssetModelStructureVendor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelAssetModelStructureVendor) Autorelease() MLModelAssetModelStructureVendor {
-	rv := objc.Send[MLModelAssetModelStructureVendor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelAssetModelStructureVendor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelAssetModelStructureVendor creates a new MLModelAssetModelStructureVendor instance.
 func NewMLModelAssetModelStructureVendor() MLModelAssetModelStructureVendor {
 	class := getMLModelAssetModelStructureVendorClass()
-	rv := objc.Send[MLModelAssetModelStructureVendor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelAssetModelStructureVendor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelAssetModelStructureVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
 	instance := getMLModelAssetModelStructureVendorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return MLModelAssetModelStructureVendorFromID(rv)
 }
 
 func (m MLModelAssetModelStructureVendor) _modelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_modelStructureWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_modelStructureWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetModelStructureVendor) ModelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetModelStructureVendor) InitWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
-	rv := objc.Send[MLModelAssetModelStructureVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
+	rv := objc.SendIfResponds[MLModelAssetModelStructureVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return rv
 }
 
 func (m MLModelAssetModelStructureVendor) ModelStructure() IMLModelStructure {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelStructure"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelStructure"))
 	return MLModelStructureFromID(objc.ID(rv))
 }
 func (m MLModelAssetModelStructureVendor) SetModelStructure(value IMLModelStructure) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelStructure:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelStructure:"), value)
 }
 func (m MLModelAssetModelStructureVendor) ResourceFactory() IMLModelAssetResourceFactory {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resourceFactory"))
 	return MLModelAssetResourceFactoryFromID(objc.ID(rv))
 }
 

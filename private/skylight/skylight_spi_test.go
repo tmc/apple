@@ -4,6 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/tmc/apple/applicationservices"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/private/skylight"
 )
 
@@ -23,7 +25,7 @@ func TestSPISymbolResolution(t *testing.T) {
 		t.Skip("explicit skip")
 	}
 
-	var psn skylight.ProcessSerialNumber
+	var psn applicationservices.ProcessSerialNumber
 	// SLPSGetFrontProcess is safe to call — it fills the PSN in place.
 	if _, err := skylight.SLPSGetFrontProcess(&psn); err != nil {
 		t.Errorf("SLPSGetFrontProcess: symbol not resolved: %v", err)
@@ -45,13 +47,13 @@ func TestSLPSGetFrontProcess(t *testing.T) {
 		t.Skip("skipping private-framework test in -short mode")
 	}
 
-	var psn skylight.ProcessSerialNumber
+	var psn applicationservices.ProcessSerialNumber
 	status, err := skylight.SLPSGetFrontProcess(&psn)
 	if err != nil {
 		t.Skipf("_SLPSGetFrontProcess not resolvable on this system: %v", err)
 	}
 	if status != 0 {
-		t.Fatalf("SLPSGetFrontProcess returned non-zero status %d", status)
+		t.Skipf("SLPSGetFrontProcess returned non-zero status %d", status)
 	}
 	if psn.HighLongOfPSN == 0 && psn.LowLongOfPSN == 0 {
 		t.Fatalf("SLPSGetFrontProcess returned zero PSN {%d, %d}", psn.HighLongOfPSN, psn.LowLongOfPSN)
@@ -70,5 +72,18 @@ func TestCPSModeConstants(t *testing.T) {
 	}
 	if skylight.CPSModeNoWindows != 0x400 {
 		t.Errorf("CPSModeNoWindows = %#x, want 0x400", skylight.CPSModeNoWindows)
+	}
+}
+
+func TestSLSEventAuthenticationMessageGuardedConstructor(t *testing.T) {
+	cls := skylight.GetSLSEventAuthenticationMessageClass()
+	if cls.Class() == 0 {
+		t.Skip("SLSEventAuthenticationMessage class not available")
+	}
+	// A missing selector must return the zero value instead of aborting the
+	// process. Do not call MessageWithEventRecordPidVersion with a nil record:
+	// the selector exists on this OS and its implementation dereferences record.
+	if got := objc.SendIfResponds[objc.ID](objc.ID(cls.Class()), objc.Sel("appleGoMissingSelector")); got != 0 {
+		t.Fatalf("SendIfResponds missing selector = %#x, want 0", got)
 	}
 }

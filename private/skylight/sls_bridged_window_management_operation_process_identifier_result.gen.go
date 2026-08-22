@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationProcessIdentifierResultClass) Class(
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationProcessIdentifierResultClass) Alloc() SLSBridgedWindowManagementOperationProcessIdentifierResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationProcessIdentifierResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) Init() SLSBridgedWindowManagementOperationProcessIdentifierResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) Autorelease() SLSBridgedWindowManagementOperationProcessIdentifierResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationProcessIdentifierResult creates a new SLSBridgedWindowManagementOperationProcessIdentifierResult instance.
 func NewSLSBridgedWindowManagementOperationProcessIdentifierResult() SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	class := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	instance := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	instance := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) InitWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) ProcessIdentifier() int {
-	rv := objc.Send[int](s.ID, objc.Sel("processIdentifier"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("processIdentifier"))
 	return rv
 }

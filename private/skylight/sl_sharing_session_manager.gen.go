@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +41,7 @@ func (sc SLSharingSessionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSharingSessionManagerClass) Alloc() SLSharingSessionManager {
-	rv := objc.Send[SLSharingSessionManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSharingSessionManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -115,7 +114,7 @@ type ISLSharingSessionManager interface {
 	ContextForPayload(payload objectivec.IObject) objectivec.IObject
 	CopyAllSessions() objectivec.IObject
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DispatchToClientDelegate(delegate objectivec.IObject)
 	EndSharingSession(session objectivec.IObject)
 	NotificationDictionary() objectivec.IObject
@@ -123,109 +122,112 @@ type ISLSharingSessionManager interface {
 	RegisterNotification()
 	SetDelegateBlock(block VoidHandler)
 	SystemDelegate() unsafe.Pointer
-	SetSystemDelegate(value kernel.Pointer)
+	SetSystemDelegate(value unsafe.Pointer)
 	UnregisterNotification()
 	InitPrivate() SLSharingSessionManager
 }
 
 // Init initializes the instance.
 func (s SLSharingSessionManager) Init() SLSharingSessionManager {
-	rv := objc.Send[SLSharingSessionManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSharingSessionManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSharingSessionManager) Autorelease() SLSharingSessionManager {
-	rv := objc.Send[SLSharingSessionManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSharingSessionManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSharingSessionManager creates a new SLSharingSessionManager instance.
 func NewSLSharingSessionManager() SLSharingSessionManager {
 	class := getSLSharingSessionManagerClass()
-	rv := objc.Send[SLSharingSessionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSharingSessionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSharingSessionManagerPrivate() SLSharingSessionManager {
 	instance := getSLSharingSessionManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initPrivate"))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initPrivate"))
 	return SLSharingSessionManagerFromID(rv)
 }
 
 func (s SLSharingSessionManager) BeginNoPillSharingSessionWithTitle(title objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginNoPillSharingSessionWithTitle:"), title)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("beginNoPillSharingSessionWithTitle:"), title)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) BeginSharingSessionWithTitle(title objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:"), title)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:"), title)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) BeginSharingSessionWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSharingIndicatorNotifications(title objectivec.IObject, indicator bool, notifications bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("beginSharingSessionWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) ContextForPayload(payload objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("contextForPayload:"), payload)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("contextForPayload:"), payload)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) CopyAllSessions() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyAllSessions"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyAllSessions"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) DispatchToClientDelegate(delegate objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("dispatchToClientDelegate:"), delegate)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dispatchToClientDelegate:"), delegate)
 }
 func (s SLSharingSessionManager) EndSharingSession(session objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("endSharingSession:"), session)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("endSharingSession:"), session)
 }
 func (s SLSharingSessionManager) NotificationDictionary() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("notificationDictionary"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("notificationDictionary"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSharingSessionManager) PickerCanceledSession(session objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("pickerCanceledSession:"), session)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("pickerCanceledSession:"), session)
 }
 func (s SLSharingSessionManager) RegisterNotification() {
-	objc.Send[objc.ID](s.ID, objc.Sel("registerNotification"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("registerNotification"))
 }
+
+var _slsharingsessionmanager_setdelegateblock_p0_key byte
+
 func (s SLSharingSessionManager) SetDelegateBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setDelegateBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setDelegateBlock:"), _block0)
 }
 func (s SLSharingSessionManager) UnregisterNotification() {
-	objc.Send[objc.ID](s.ID, objc.Sel("unregisterNotification"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("unregisterNotification"))
 }
 func (s SLSharingSessionManager) InitPrivate() SLSharingSessionManager {
-	rv := objc.Send[SLSharingSessionManager](s.ID, objc.Sel("initPrivate"))
+	rv := objc.SendIfResponds[SLSharingSessionManager](s.ID, objc.Sel("initPrivate"))
 	return rv
 }
 
 func (_SLSharingSessionManagerClass SLSharingSessionManagerClass) Shared() SLSharingSessionManager {
-	rv := objc.Send[objc.ID](objc.ID(_SLSharingSessionManagerClass.class), objc.Sel("shared"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSharingSessionManagerClass.class), objc.Sel("shared"))
 	return SLSharingSessionManagerFromID(rv)
 }
 
 func (s SLSharingSessionManager) ClientContexts() foundation.NSMapTable {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("clientContexts"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("clientContexts"))
 	return foundation.NSMapTableFromID(objc.ID(rv))
 }
 func (s SLSharingSessionManager) SetClientContexts(value foundation.NSMapTable) {
-	objc.Send[struct{}](s.ID, objc.Sel("setClientContexts:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setClientContexts:"), value)
 }
 func (s SLSharingSessionManager) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLSharingSessionManager) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
+func (s SLSharingSessionManager) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLSharingSessionManager) SystemDelegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("systemDelegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("systemDelegate"))
 	return rv
 }
-func (s SLSharingSessionManager) SetSystemDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSystemDelegate:"), value)
+func (s SLSharingSessionManager) SetSystemDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSystemDelegate:"), value)
 }
 
 // SetDelegateBlockSync is a synchronous wrapper around [SLSharingSessionManager.SetDelegateBlock].

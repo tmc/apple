@@ -39,7 +39,7 @@ func (vc VZMacGraphicsDisplayConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacGraphicsDisplayConfigurationClass) Alloc() VZMacGraphicsDisplayConfiguration {
-	rv := objc.Send[VZMacGraphicsDisplayConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplayConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,25 +97,25 @@ type IVZMacGraphicsDisplayConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacGraphicsDisplayConfiguration) Init() VZMacGraphicsDisplayConfiguration {
-	rv := objc.Send[VZMacGraphicsDisplayConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplayConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacGraphicsDisplayConfiguration) Autorelease() VZMacGraphicsDisplayConfiguration {
-	rv := objc.Send[VZMacGraphicsDisplayConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplayConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacGraphicsDisplayConfiguration creates a new VZMacGraphicsDisplayConfiguration instance.
 func NewVZMacGraphicsDisplayConfiguration() VZMacGraphicsDisplayConfiguration {
 	class := getVZMacGraphicsDisplayConfigurationClass()
-	rv := objc.Send[VZMacGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacGraphicsDisplayConfiguration) _setConnectionType(type_ int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setConnectionType:"), type_)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setConnectionType:"), type_)
 }
 
 // SetConnectionType is an exported wrapper for the private method _setConnectionType.
@@ -133,7 +133,7 @@ func (v VZMacGraphicsDisplayConfiguration) CanSetConnectionType() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setConnectionType:"))
 }
 func (v VZMacGraphicsDisplayConfiguration) _setDisplayIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDisplayIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDisplayIdentifier:"), identifier)
 }
 
 // SetDisplayIdentifier is an exported wrapper for the private method _setDisplayIdentifier.
@@ -151,7 +151,7 @@ func (v VZMacGraphicsDisplayConfiguration) CanSetDisplayIdentifier() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayIdentifier:"))
 }
 func (v VZMacGraphicsDisplayConfiguration) _setDisplayMode(mode int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setDisplayMode:"), mode)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDisplayMode:"), mode)
 }
 
 // SetDisplayMode is an exported wrapper for the private method _setDisplayMode.
@@ -170,7 +170,7 @@ func (v VZMacGraphicsDisplayConfiguration) CanSetDisplayMode() bool {
 }
 
 func (v VZMacGraphicsDisplayConfiguration) _connectionType() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_connectionType"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_connectionType"))
 	return rv
 }
 
@@ -187,10 +187,10 @@ func (v VZMacGraphicsDisplayConfiguration) ConnectionType() (int64, error) {
 	return v._connectionType(), nil
 }
 func (v VZMacGraphicsDisplayConfiguration) Set_connectionType(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_connectionType:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_connectionType:"), value)
 }
 func (v VZMacGraphicsDisplayConfiguration) _displayIdentifier() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -207,10 +207,10 @@ func (v VZMacGraphicsDisplayConfiguration) DisplayIdentifier() (string, error) {
 	return v._displayIdentifier(), nil
 }
 func (v VZMacGraphicsDisplayConfiguration) Set_displayIdentifier(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_displayIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_displayIdentifier:"), objc.String(value))
 }
 func (v VZMacGraphicsDisplayConfiguration) _displayMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_displayMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_displayMode"))
 	return rv
 }
 
@@ -227,5 +227,5 @@ func (v VZMacGraphicsDisplayConfiguration) DisplayMode() (int64, error) {
 	return v._displayMode(), nil
 }
 func (v VZMacGraphicsDisplayConfiguration) Set_displayMode(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_displayMode:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_displayMode:"), value)
 }

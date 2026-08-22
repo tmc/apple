@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationInt32ResultClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationInt32ResultClass) Alloc() SLSBridgedWindowManagementOperationInt32Result {
-	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationInt32Result interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationInt32Result) Init() SLSBridgedWindowManagementOperationInt32Result {
-	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationInt32Result) Autorelease() SLSBridgedWindowManagementOperationInt32Result {
-	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationInt32Result creates a new SLSBridgedWindowManagementOperationInt32Result instance.
 func NewSLSBridgedWindowManagementOperationInt32Result() SLSBridgedWindowManagementOperationInt32Result {
 	class := getSLSBridgedWindowManagementOperationInt32ResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationInt32ResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationInt32Result {
 	instance := getSLSBridgedWindowManagementOperationInt32ResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationInt32ResultWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
 	instance := getSLSBridgedWindowManagementOperationInt32ResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInt32Value:"), int32Value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationInt32Result) InitWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
-	rv := objc.Send[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("initWithInt32Value:"), int32Value)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationInt32Result) Int32Value() int {
-	rv := objc.Send[int](s.ID, objc.Sel("int32Value"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("int32Value"))
 	return rv
 }

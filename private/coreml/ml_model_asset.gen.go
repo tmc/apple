@@ -42,7 +42,7 @@ func (mc MLModelAssetClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetClass) Alloc() MLModelAsset {
-	rv := objc.Send[MLModelAsset](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelAsset](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -145,42 +145,45 @@ type IMLModelAsset interface {
 
 // Init initializes the instance.
 func (m MLModelAsset) Init() MLModelAsset {
-	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelAsset](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelAsset) Autorelease() MLModelAsset {
-	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelAsset](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelAsset creates a new MLModelAsset instance.
 func NewMLModelAsset() MLModelAsset {
 	class := getMLModelAssetClass()
-	rv := objc.Send[MLModelAsset](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelAsset](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelAssetWithArchiveData(data objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArchiveData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArchiveData:"), data)
 	return MLModelAssetFromID(rv)
 }
 
 func NewModelAssetWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
 	return MLModelAssetFromID(rv)
 }
 
 func NewModelAssetWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModelAsset{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLModelAsset{}, objc.ErrInitFailed
 	}
 	return MLModelAssetFromID(rv), nil
 }
@@ -188,10 +191,13 @@ func NewModelAssetWithURLConfigurationError(url foundation.NSURL, configuration 
 func NewModelAssetWithURLError(url foundation.NSURL) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModelAsset{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLModelAsset{}, objc.ErrInitFailed
 	}
 	return MLModelAssetFromID(rv), nil
 }
@@ -207,12 +213,12 @@ func (m MLModelAsset) ClassifierWithError() (objectivec.IObject, error) {
 
 }
 func (m MLModelAsset) Load(load []objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("load:"), objectivec.IObjectSliceToNSArray(load))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("load:"), objectivec.IObjectSliceToNSArray(load))
 	return rv
 }
 func (m MLModelAsset) ModelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
 func (m MLModelAsset) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -245,15 +251,15 @@ func (m MLModelAsset) RegressorWithError() (objectivec.IObject, error) {
 
 }
 func (m MLModelAsset) StorageType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("storageType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("storageType"))
 	return rv
 }
 func (m MLModelAsset) InitWithArchiveData(data objectivec.IObject) MLModelAsset {
-	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("initWithArchiveData:"), data)
+	rv := objc.SendIfResponds[MLModelAsset](m.ID, objc.Sel("initWithArchiveData:"), data)
 	return rv
 }
 func (m MLModelAsset) InitWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
-	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
+	rv := objc.SendIfResponds[MLModelAsset](m.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
 	return rv
 }
 func (m MLModelAsset) InitWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
@@ -298,7 +304,7 @@ func (_MLModelAssetClass MLModelAssetClass) FetchNetworkURLFromCompiledModelAtUR
 
 }
 func (_MLModelAssetClass MLModelAssetClass) IsANESupported() bool {
-	rv := objc.Send[bool](objc.ID(_MLModelAssetClass.class), objc.Sel("isANESupported"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLModelAssetClass.class), objc.Sel("isANESupported"))
 	return rv
 }
 func (_MLModelAssetClass MLModelAssetClass) ModelAssetDataByLoadingBlobFileReferencesInModelSpecificationAtURLBlobMappingError(url foundation.NSURL, mapping []objectivec.IObject) (objectivec.IObject, error) {
@@ -442,53 +448,53 @@ func (_MLModelAssetClass MLModelAssetClass) PurgeANEIRForModelAtURLError(url fou
 }
 
 func (m MLModelAsset) ArchiveData() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("archiveData"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("archiveData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelAsset) SetArchiveData(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setArchiveData:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setArchiveData:"), value)
 }
 func (m MLModelAsset) Classifier() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("classifier"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("classifier"))
 	return rv
 }
 func (m MLModelAsset) CompiledModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelAsset) CompiledURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelAsset) DescriptionVendor() IMLModelAssetDescriptionVendor {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptionVendor"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("descriptionVendor"))
 	return MLModelAssetDescriptionVendorFromID(objc.ID(rv))
 }
 func (m MLModelAsset) LastConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lastConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lastConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLModelAsset) SetLastConfiguration(value IMLModelConfiguration) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLastConfiguration:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLastConfiguration:"), value)
 }
 func (m MLModelAsset) Model() IMLModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
 func (m MLModelAsset) ModelVendor() IMLModelAssetModelVendor {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVendor"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVendor"))
 	return MLModelAssetModelVendorFromID(objc.ID(rv))
 }
 func (m MLModelAsset) Regressor() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("regressor"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("regressor"))
 	return rv
 }
 func (m MLModelAsset) ResourceFactory() IMLModelAssetResourceFactory {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resourceFactory"))
 	return MLModelAssetResourceFactoryFromID(objc.ID(rv))
 }
 func (m MLModelAsset) StructureVendor() IMLModelAssetModelStructureVendor {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("structureVendor"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("structureVendor"))
 	return MLModelAssetModelStructureVendorFromID(objc.ID(rv))
 }
 

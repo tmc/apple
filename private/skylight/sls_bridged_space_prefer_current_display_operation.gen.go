@@ -38,7 +38,7 @@ func (sc SLSBridgedSpacePreferCurrentDisplayOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpacePreferCurrentDisplayOperationClass) Alloc() SLSBridgedSpacePreferCurrentDisplayOperation {
-	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpacePreferCurrentDisplayOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedSpacePreferCurrentDisplayOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) Init() SLSBridgedSpacePreferCurrentDisplayOperation {
-	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) Autorelease() SLSBridgedSpacePreferCurrentDisplayOperation {
-	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpacePreferCurrentDisplayOperation creates a new SLSBridgedSpacePreferCurrentDisplayOperation instance.
 func NewSLSBridgedSpacePreferCurrentDisplayOperation() SLSBridgedSpacePreferCurrentDisplayOperation {
 	class := getSLSBridgedSpacePreferCurrentDisplayOperationClass()
-	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpacePreferCurrentDisplayOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpacePreferCurrentDisplayOperationWithCoder(coder objectivec.IObject) SLSBridgedSpacePreferCurrentDisplayOperation {
 	instance := getSLSBridgedSpacePreferCurrentDisplayOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpacePreferCurrentDisplayOperationFromID(rv)
 }
 
 func NewSLSBridgedSpacePreferCurrentDisplayOperationWithSpaceID(id uint64) SLSBridgedSpacePreferCurrentDisplayOperation {
 	instance := getSLSBridgedSpacePreferCurrentDisplayOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpacePreferCurrentDisplayOperationFromID(rv)
 }
 
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) InitWithSpaceID(id uint64) SLSBridgedSpacePreferCurrentDisplayOperation {
-	rv := objc.Send[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpacePreferCurrentDisplayOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpacePreferCurrentDisplayOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

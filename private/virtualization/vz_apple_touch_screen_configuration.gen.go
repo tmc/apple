@@ -39,7 +39,7 @@ func (vc VZAppleTouchScreenConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZAppleTouchScreenConfigurationClass) Alloc() VZAppleTouchScreenConfiguration {
-	rv := objc.Send[VZAppleTouchScreenConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZAppleTouchScreenConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,25 +79,25 @@ type IVZAppleTouchScreenConfiguration interface {
 
 // Init initializes the instance.
 func (v VZAppleTouchScreenConfiguration) Init() VZAppleTouchScreenConfiguration {
-	rv := objc.Send[VZAppleTouchScreenConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZAppleTouchScreenConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZAppleTouchScreenConfiguration) Autorelease() VZAppleTouchScreenConfiguration {
-	rv := objc.Send[VZAppleTouchScreenConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZAppleTouchScreenConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZAppleTouchScreenConfiguration creates a new VZAppleTouchScreenConfiguration instance.
 func NewVZAppleTouchScreenConfiguration() VZAppleTouchScreenConfiguration {
 	class := getVZAppleTouchScreenConfigurationClass()
-	rv := objc.Send[VZAppleTouchScreenConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZAppleTouchScreenConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZAppleTouchScreenConfiguration) _setRegistryProperties(properties objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setRegistryProperties:"), properties)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setRegistryProperties:"), properties)
 }
 
 // SetRegistryProperties is an exported wrapper for the private method _setRegistryProperties.
@@ -116,7 +116,7 @@ func (v VZAppleTouchScreenConfiguration) CanSetRegistryProperties() bool {
 }
 
 func (v VZAppleTouchScreenConfiguration) _registryProperties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_registryProperties"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_registryProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
@@ -133,5 +133,5 @@ func (v VZAppleTouchScreenConfiguration) RegistryProperties() (foundation.INSDic
 	return v._registryProperties(), nil
 }
 func (v VZAppleTouchScreenConfiguration) Set_registryProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_registryProperties:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_registryProperties:"), value)
 }

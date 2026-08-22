@@ -37,7 +37,7 @@ func (ec EspressoPassFusePadClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFusePadClass) Alloc() EspressoPassFusePad {
-	rv := objc.Send[EspressoPassFusePad](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFusePad](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFusePad interface {
 
 // Init initializes the instance.
 func (e EspressoPassFusePad) Init() EspressoPassFusePad {
-	rv := objc.Send[EspressoPassFusePad](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFusePad](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFusePad) Autorelease() EspressoPassFusePad {
-	rv := objc.Send[EspressoPassFusePad](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFusePad](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFusePad creates a new EspressoPassFusePad instance.
 func NewEspressoPassFusePad() EspressoPassFusePad {
 	class := getEspressoPassFusePadClass()
-	rv := objc.Send[EspressoPassFusePad](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFusePad](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (sc SOSRLanguageRowTextViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSRLanguageRowTextViewClass) Alloc() SOSRLanguageRowTextView {
-	rv := objc.Send[SOSRLanguageRowTextView](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSRLanguageRowTextView](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ISOSRLanguageRowTextView interface {
 
 // Init initializes the instance.
 func (s SOSRLanguageRowTextView) Init() SOSRLanguageRowTextView {
-	rv := objc.Send[SOSRLanguageRowTextView](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSRLanguageRowTextView](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSRLanguageRowTextView) Autorelease() SOSRLanguageRowTextView {
-	rv := objc.Send[SOSRLanguageRowTextView](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSRLanguageRowTextView](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSRLanguageRowTextView creates a new SOSRLanguageRowTextView instance.
 func NewSOSRLanguageRowTextView() SOSRLanguageRowTextView {
 	class := getSOSRLanguageRowTextViewClass()
-	rv := objc.Send[SOSRLanguageRowTextView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSRLanguageRowTextView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

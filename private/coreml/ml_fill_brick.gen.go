@@ -39,7 +39,7 @@ func (mc MLFillBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFillBrickClass) Alloc() MLFillBrick {
-	rv := objc.Send[MLFillBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFillBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,74 +106,74 @@ type IMLFillBrick interface {
 
 // Init initializes the instance.
 func (m MLFillBrick) Init() MLFillBrick {
-	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFillBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFillBrick) Autorelease() MLFillBrick {
-	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFillBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFillBrick creates a new MLFillBrick instance.
 func NewMLFillBrick() MLFillBrick {
 	class := getMLFillBrickClass()
-	rv := objc.Send[MLFillBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFillBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFillBrickWithParameters(parameters objectivec.IObject) MLFillBrick {
 	instance := getMLFillBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLFillBrickFromID(rv)
 }
 
 func (m MLFillBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLFillBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLFillBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLFillBrick) InitWithParameters(parameters objectivec.IObject) MLFillBrick {
-	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLFillBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLFillBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLFillBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLFillBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLFillBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFillBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFillBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFillBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFillBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

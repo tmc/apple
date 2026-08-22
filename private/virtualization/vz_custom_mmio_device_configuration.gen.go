@@ -39,7 +39,7 @@ func (vc VZCustomMMIODeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomMMIODeviceConfigurationClass) Alloc() VZCustomMMIODeviceConfiguration {
-	rv := objc.Send[VZCustomMMIODeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,78 +118,78 @@ type IVZCustomMMIODeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZCustomMMIODeviceConfiguration) Init() VZCustomMMIODeviceConfiguration {
-	rv := objc.Send[VZCustomMMIODeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomMMIODeviceConfiguration) Autorelease() VZCustomMMIODeviceConfiguration {
-	rv := objc.Send[VZCustomMMIODeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomMMIODeviceConfiguration creates a new VZCustomMMIODeviceConfiguration instance.
 func NewVZCustomMMIODeviceConfiguration() VZCustomMMIODeviceConfiguration {
 	class := getVZCustomMMIODeviceConfigurationClass()
-	rv := objc.Send[VZCustomMMIODeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomMMIODeviceConfiguration) MMIORegions() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("MMIORegions"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("MMIORegions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (v VZCustomMMIODeviceConfiguration) SetMMIORegions(value foundation.INSArray) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMMIORegions:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setMMIORegions:"), value)
 }
 func (v VZCustomMMIODeviceConfiguration) AdditionalProperties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("additionalProperties"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("additionalProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (v VZCustomMMIODeviceConfiguration) SetAdditionalProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalProperties:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setAdditionalProperties:"), value)
 }
 func (v VZCustomMMIODeviceConfiguration) AdditionalXPCProperties() objectivec.Object {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("additionalXPCProperties"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("additionalXPCProperties"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (v VZCustomMMIODeviceConfiguration) SetAdditionalXPCProperties(value objectivec.Object) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalXPCProperties:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setAdditionalXPCProperties:"), value)
 }
 func (v VZCustomMMIODeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomMMIODeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomMMIODeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZCustomMMIODeviceConfiguration) Irqs() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("irqs"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("irqs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (v VZCustomMMIODeviceConfiguration) SetIrqs(value foundation.INSArray) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIrqs:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setIrqs:"), value)
 }
 func (v VZCustomMMIODeviceConfiguration) Provider() IVZCustomMMIODeviceProvider {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("provider"))
 	return VZCustomMMIODeviceProviderFromID(objc.ID(rv))
 }
 func (v VZCustomMMIODeviceConfiguration) SetProvider(value IVZCustomMMIODeviceProvider) {
-	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
 func (v VZCustomMMIODeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZCustomMMIODeviceConfiguration) SupportsSaveRestore() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("supportsSaveRestore"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("supportsSaveRestore"))
 	return rv
 }
 func (v VZCustomMMIODeviceConfiguration) SetSupportsSaveRestore(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSupportsSaveRestore:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSupportsSaveRestore:"), value)
 }

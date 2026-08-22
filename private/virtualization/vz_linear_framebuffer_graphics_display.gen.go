@@ -42,7 +42,7 @@ func (vc VZLinearFramebufferGraphicsDisplayClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinearFramebufferGraphicsDisplayClass) Alloc() VZLinearFramebufferGraphicsDisplay {
-	rv := objc.Send[VZLinearFramebufferGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,26 +82,26 @@ type IVZLinearFramebufferGraphicsDisplay interface {
 
 // Init initializes the instance.
 func (v VZLinearFramebufferGraphicsDisplay) Init() VZLinearFramebufferGraphicsDisplay {
-	rv := objc.Send[VZLinearFramebufferGraphicsDisplay](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDisplay](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZLinearFramebufferGraphicsDisplay) Autorelease() VZLinearFramebufferGraphicsDisplay {
-	rv := objc.Send[VZLinearFramebufferGraphicsDisplay](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDisplay](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZLinearFramebufferGraphicsDisplay creates a new VZLinearFramebufferGraphicsDisplay instance.
 func NewVZLinearFramebufferGraphicsDisplay() VZLinearFramebufferGraphicsDisplay {
 	class := getVZLinearFramebufferGraphicsDisplayClass()
-	rv := objc.Send[VZLinearFramebufferGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZLinearFramebufferGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZLinearFramebufferGraphicsDisplay {
 	instance := getVZLinearFramebufferGraphicsDisplayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZLinearFramebufferGraphicsDisplayFromID(rv)
 }
 
@@ -132,6 +132,6 @@ func (v VZLinearFramebufferGraphicsDisplay) ReconfigureWithSizeInPixelsError(pix
 
 }
 func (v VZLinearFramebufferGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("sizeInPixels"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](v.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
 }

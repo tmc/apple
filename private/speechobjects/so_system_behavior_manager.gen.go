@@ -38,7 +38,7 @@ func (sc SOSystemBehaviorManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSystemBehaviorManagerClass) Alloc() SOSystemBehaviorManager {
-	rv := objc.Send[SOSystemBehaviorManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSystemBehaviorManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,25 +78,25 @@ type ISOSystemBehaviorManager interface {
 
 // Init initializes the instance.
 func (s SOSystemBehaviorManager) Init() SOSystemBehaviorManager {
-	rv := objc.Send[SOSystemBehaviorManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSystemBehaviorManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSystemBehaviorManager) Autorelease() SOSystemBehaviorManager {
-	rv := objc.Send[SOSystemBehaviorManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSystemBehaviorManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSystemBehaviorManager creates a new SOSystemBehaviorManager instance.
 func NewSOSystemBehaviorManager() SOSystemBehaviorManager {
 	class := getSOSystemBehaviorManagerClass()
-	rv := objc.Send[SOSystemBehaviorManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSystemBehaviorManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOSystemBehaviorManager) _numberObjectFromTimer(timer objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_numberObjectFromTimer:"), timer)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_numberObjectFromTimer:"), timer)
 	return objectivec.Object{ID: rv}
 }
 
@@ -114,13 +114,13 @@ func (s SOSystemBehaviorManager) CanNumberObjectFromTimer() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_numberObjectFromTimer:"))
 }
 func (s SOSystemBehaviorManager) AddTimer(timer objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addTimer:"), timer)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addTimer:"), timer)
 }
 func (s SOSystemBehaviorManager) RemoveTimer(timer objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("removeTimer:"), timer)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("removeTimer:"), timer)
 }
 
 func (_SOSystemBehaviorManagerClass SOSystemBehaviorManagerClass) SharedSOSystemBehaviorManager() SOSystemBehaviorManager {
-	rv := objc.Send[objc.ID](objc.ID(_SOSystemBehaviorManagerClass.class), objc.Sel("sharedSOSystemBehaviorManager"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOSystemBehaviorManagerClass.class), objc.Sel("sharedSOSystemBehaviorManager"))
 	return SOSystemBehaviorManagerFromID(rv)
 }

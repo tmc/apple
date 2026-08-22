@@ -40,7 +40,7 @@ func (mc MLLazyUnionFeatureProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLazyUnionFeatureProviderClass) Alloc() MLLazyUnionFeatureProvider {
-	rv := objc.Send[MLLazyUnionFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLazyUnionFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,57 +95,57 @@ type IMLLazyUnionFeatureProvider interface {
 
 // Init initializes the instance.
 func (m MLLazyUnionFeatureProvider) Init() MLLazyUnionFeatureProvider {
-	rv := objc.Send[MLLazyUnionFeatureProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLazyUnionFeatureProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLazyUnionFeatureProvider) Autorelease() MLLazyUnionFeatureProvider {
-	rv := objc.Send[MLLazyUnionFeatureProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLazyUnionFeatureProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLazyUnionFeatureProvider creates a new MLLazyUnionFeatureProvider instance.
 func NewMLLazyUnionFeatureProvider() MLLazyUnionFeatureProvider {
 	class := getMLLazyUnionFeatureProviderClass()
-	rv := objc.Send[MLLazyUnionFeatureProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLazyUnionFeatureProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewLazyUnionFeatureProviderWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
 	instance := getMLLazyUnionFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
 	return MLLazyUnionFeatureProviderFromID(rv)
 }
 
 func (m MLLazyUnionFeatureProvider) FeatureValueForName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueForName:"), name)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureValueForName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (m MLLazyUnionFeatureProvider) UnionFeatureProvider() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("unionFeatureProvider"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("unionFeatureProvider"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLLazyUnionFeatureProvider) InitWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
-	rv := objc.Send[MLLazyUnionFeatureProvider](m.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
+	rv := objc.SendIfResponds[MLLazyUnionFeatureProvider](m.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
 	return rv
 }
 
 func (m MLLazyUnionFeatureProvider) FeatureNames() foundation.INSSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureNames"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (m MLLazyUnionFeatureProvider) First() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("first"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("first"))
 	return rv
 }
 func (m MLLazyUnionFeatureProvider) SetFirst(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFirst:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirst:"), value)
 }
 func (m MLLazyUnionFeatureProvider) Second() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("second"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("second"))
 	return rv
 }
 func (m MLLazyUnionFeatureProvider) SetSecond(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSecond:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSecond:"), value)
 }

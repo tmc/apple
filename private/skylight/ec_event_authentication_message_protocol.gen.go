@@ -13,6 +13,12 @@ type ECEventAuthenticationMessage interface {
 
 	// Capabilities protocol.
 	Capabilities() uint64
+
+	// EventType protocol.
+	EventType() objectivec.IObject
+
+	// ProxyTargetProcess protocol.
+	ProxyTargetProcess() objectivec.IObject
 }
 
 // ECEventAuthenticationMessageObject wraps an existing Objective-C object that conforms to the ECEventAuthenticationMessage protocol.
@@ -33,14 +39,14 @@ func ECEventAuthenticationMessageObjectFromID(id objc.ID) ECEventAuthenticationM
 }
 
 func (o ECEventAuthenticationMessageObject) Capabilities() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("capabilities"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("capabilities"))
 	return rv
 }
 func (o ECEventAuthenticationMessageObject) EventType() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("eventType"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("eventType"))
 	return objectivec.Object{ID: rv}
 }
 func (o ECEventAuthenticationMessageObject) ProxyTargetProcess() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("proxyTargetProcess"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("proxyTargetProcess"))
 	return objectivec.Object{ID: rv}
 }

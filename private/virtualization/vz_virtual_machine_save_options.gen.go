@@ -38,7 +38,7 @@ func (vc VZVirtualMachineSaveOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineSaveOptionsClass) Alloc() VZVirtualMachineSaveOptions {
-	rv := objc.Send[VZVirtualMachineSaveOptions](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineSaveOptions](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,34 +81,34 @@ type IVZVirtualMachineSaveOptions interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineSaveOptions) Init() VZVirtualMachineSaveOptions {
-	rv := objc.Send[VZVirtualMachineSaveOptions](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineSaveOptions](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineSaveOptions) Autorelease() VZVirtualMachineSaveOptions {
-	rv := objc.Send[VZVirtualMachineSaveOptions](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineSaveOptions](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineSaveOptions creates a new VZVirtualMachineSaveOptions instance.
 func NewVZVirtualMachineSaveOptions() VZVirtualMachineSaveOptions {
 	class := getVZVirtualMachineSaveOptionsClass()
-	rv := objc.Send[VZVirtualMachineSaveOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineSaveOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtualMachineSaveOptions) Compress() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("compress"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("compress"))
 	return rv
 }
 func (v VZVirtualMachineSaveOptions) SetCompress(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCompress:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCompress:"), value)
 }
 func (v VZVirtualMachineSaveOptions) Encrypt() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("encrypt"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("encrypt"))
 	return rv
 }
 func (v VZVirtualMachineSaveOptions) SetEncrypt(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEncrypt:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEncrypt:"), value)
 }

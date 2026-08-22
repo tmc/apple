@@ -40,7 +40,7 @@ func (gc GTShaderProfilerBinaryAnalysisResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerBinaryAnalysisResultClass) Alloc() GTShaderProfilerBinaryAnalysisResult {
-	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerBinaryAnalysisResult](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -167,170 +167,170 @@ type IGTShaderProfilerBinaryAnalysisResult interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerBinaryAnalysisResult) Init() GTShaderProfilerBinaryAnalysisResult {
-	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerBinaryAnalysisResult) Autorelease() GTShaderProfilerBinaryAnalysisResult {
-	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerBinaryAnalysisResult creates a new GTShaderProfilerBinaryAnalysisResult instance.
 func NewGTShaderProfilerBinaryAnalysisResult() GTShaderProfilerBinaryAnalysisResult {
 	class := getGTShaderProfilerBinaryAnalysisResultClass()
-	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerBinaryAnalysisResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerBinaryAnalysisResultWithCoder(coder objectivec.IObject) GTShaderProfilerBinaryAnalysisResult {
 	instance := getGTShaderProfilerBinaryAnalysisResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerBinaryAnalysisResultFromID(rv)
 }
 
 func (g GTShaderProfilerBinaryAnalysisResult) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoOffsetForInstructionIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("registerInfoOffsetForInstructionIndex:"), index)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("registerInfoOffsetForInstructionIndex:"), index)
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) SetStrings(strings objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setStrings:"), strings)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setStrings:"), strings)
 }
 func (g GTShaderProfilerBinaryAnalysisResult) StringAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("stringAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerBinaryAnalysisResult {
-	rv := objc.Send[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTShaderProfilerBinaryAnalysisResult](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) AnalyzeBinaryTargetIndexIsaPrinter(binary objectivec.IObject, index int, printer objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("analyzeBinary:targetIndex:isaPrinter:"), binary, index, printer)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("analyzeBinary:targetIndex:isaPrinter:"), binary, index, printer)
 	return objectivec.Object{ID: rv}
 }
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) CreateWithAnalysisResult(result unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("createWithAnalysisResult:"), result)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("createWithAnalysisResult:"), result)
 	return objectivec.Object{ID: rv}
 }
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) DataFromArchivedDataURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (_GTShaderProfilerBinaryAnalysisResultClass GTShaderProfilerBinaryAnalysisResultClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTShaderProfilerBinaryAnalysisResultClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryInfo"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binaryInfo"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocationCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("binaryLocationCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("binaryLocationCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocationData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryLocationData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryLocationData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryLocations() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryLocations"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryLocations"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryRangeCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("binaryRangeCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("binaryRangeCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryRangeData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRangeData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryRangeData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BinaryRanges() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryRanges"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryRanges"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BranchTargetCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("branchTargetCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("branchTargetCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BranchTargetData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("branchTargetData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("branchTargetData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) BranchTargets() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("branchTargets"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("branchTargets"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) ClauseCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("clauseCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("clauseCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) ClauseData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("clauseData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("clauseData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) Clauses() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("clauses"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("clauses"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) InstructionCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) InstructionData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructionData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("instructionData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) Instructions() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructions"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("instructions"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastBinaryLocation() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBinaryLocation"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastBinaryLocation"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastBinaryRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBinaryRange"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastBinaryRange"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastBranchTarget() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastBranchTarget"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastBranchTarget"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastClause() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastClause"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastClause"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastInstruction() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastInstruction"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastInstruction"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) LastRegisterInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastRegisterInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lastRegisterInfo"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) MaxOffset() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("maxOffset"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("maxOffset"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("registerInfo"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("registerInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("registerInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerBinaryAnalysisResult) RegisterInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("registerInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerBinaryAnalysisResult) Version() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("version"))
 	return rv
 }

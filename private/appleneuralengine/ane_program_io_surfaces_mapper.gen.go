@@ -41,7 +41,7 @@ func (ac ANEProgramIOSurfacesMapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEProgramIOSurfacesMapperClass) Alloc() ANEProgramIOSurfacesMapper {
-	rv := objc.Send[ANEProgramIOSurfacesMapper](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEProgramIOSurfacesMapper](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,7 +87,7 @@ type IANEProgramIOSurfacesMapper interface {
 	Controller() IANEDeviceController
 	DeviceController() IANEDeviceController
 	MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error)
-	PrepareANEMemoryMappingParamsRequest(params ANEMemoryMappingParamsStruct, request objectivec.IObject)
+	PrepareANEMemoryMappingParamsRequest(params *ANEMemoryMappingParamsStruct, request objectivec.IObject)
 	ProgramHandle() uint64
 	UnmapIOSurfacesWithModelRequestError(model objectivec.IObject, request objectivec.IObject) (bool, error)
 	ValidateRequestModel(request objectivec.IObject, model objectivec.IObject) bool
@@ -96,26 +96,26 @@ type IANEProgramIOSurfacesMapper interface {
 
 // Init initializes the instance.
 func (a ANEProgramIOSurfacesMapper) Init() ANEProgramIOSurfacesMapper {
-	rv := objc.Send[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEProgramIOSurfacesMapper) Autorelease() ANEProgramIOSurfacesMapper {
-	rv := objc.Send[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEProgramIOSurfacesMapper creates a new ANEProgramIOSurfacesMapper instance.
 func NewANEProgramIOSurfacesMapper() ANEProgramIOSurfacesMapper {
 	class := getANEProgramIOSurfacesMapperClass()
-	rv := objc.Send[ANEProgramIOSurfacesMapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEProgramIOSurfacesMapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEProgramIOSurfacesMapperWithController(controller objectivec.IObject) ANEProgramIOSurfacesMapper {
 	instance := getANEProgramIOSurfacesMapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithController:"), controller)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithController:"), controller)
 	return ANEProgramIOSurfacesMapperFromID(rv)
 }
 
@@ -132,8 +132,8 @@ func (a ANEProgramIOSurfacesMapper) MapIOSurfacesWithModelRequestCacheInferenceE
 	return rv, nil
 
 }
-func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params ANEMemoryMappingParamsStruct, request objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("prepareANEMemoryMappingParams:request:"), params, request)
+func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params *ANEMemoryMappingParamsStruct, request objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("prepareANEMemoryMappingParams:request:"), unsafe.Pointer(params), request)
 }
 func (a ANEProgramIOSurfacesMapper) UnmapIOSurfacesWithModelRequestError(model objectivec.IObject, request objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -149,32 +149,32 @@ func (a ANEProgramIOSurfacesMapper) UnmapIOSurfacesWithModelRequestError(model o
 
 }
 func (a ANEProgramIOSurfacesMapper) ValidateRequestModel(request objectivec.IObject, model objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("validateRequest:model:"), request, model)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("validateRequest:model:"), request, model)
 	return rv
 }
 func (a ANEProgramIOSurfacesMapper) InitWithController(controller objectivec.IObject) ANEProgramIOSurfacesMapper {
-	rv := objc.Send[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("initWithController:"), controller)
+	rv := objc.SendIfResponds[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("initWithController:"), controller)
 	return rv
 }
 
 func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWithController(controller objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEProgramIOSurfacesMapperClass.class), objc.Sel("mapperWithController:"), controller)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEProgramIOSurfacesMapperClass.class), objc.Sel("mapperWithController:"), controller)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWithProgramHandle(handle uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEProgramIOSurfacesMapperClass.class), objc.Sel("mapperWithProgramHandle:"), handle)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEProgramIOSurfacesMapperClass.class), objc.Sel("mapperWithProgramHandle:"), handle)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEProgramIOSurfacesMapper) Controller() IANEDeviceController {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("controller"))
 	return ANEDeviceControllerFromID(objc.ID(rv))
 }
 func (a ANEProgramIOSurfacesMapper) DeviceController() IANEDeviceController {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("deviceController"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("deviceController"))
 	return ANEDeviceControllerFromID(objc.ID(rv))
 }
 func (a ANEProgramIOSurfacesMapper) ProgramHandle() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }

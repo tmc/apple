@@ -39,7 +39,7 @@ func (gc GTShaderProfilerRegisterPressureViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerRegisterPressureViewClass) Alloc() GTShaderProfilerRegisterPressureView {
-	rv := objc.Send[GTShaderProfilerRegisterPressureView](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterPressureView](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,51 +85,51 @@ type IGTShaderProfilerRegisterPressureView interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerRegisterPressureView) Init() GTShaderProfilerRegisterPressureView {
-	rv := objc.Send[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerRegisterPressureView) Autorelease() GTShaderProfilerRegisterPressureView {
-	rv := objc.Send[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerRegisterPressureView creates a new GTShaderProfilerRegisterPressureView instance.
 func NewGTShaderProfilerRegisterPressureView() GTShaderProfilerRegisterPressureView {
 	class := getGTShaderProfilerRegisterPressureViewClass()
-	rv := objc.Send[GTShaderProfilerRegisterPressureView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterPressureView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerRegisterPressureViewWithDictBinaryGpu(dict objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerRegisterPressureView {
 	instance := getGTShaderProfilerRegisterPressureViewClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDict:binary:gpu:"), dict, binary, gpu)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDict:binary:gpu:"), dict, binary, gpu)
 	return GTShaderProfilerRegisterPressureViewFromID(rv)
 }
 
 func (g GTShaderProfilerRegisterPressureView) LoadFromDict(dict objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("loadFromDict:"), dict)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("loadFromDict:"), dict)
 }
 func (g GTShaderProfilerRegisterPressureView) MaxTheoriticalOccupancy() float32 {
-	rv := objc.Send[float32](g.ID, objc.Sel("maxTheoriticalOccupancy"))
+	rv := objc.SendIfResponds[float32](g.ID, objc.Sel("maxTheoriticalOccupancy"))
 	return rv
 }
 func (g GTShaderProfilerRegisterPressureView) RegisterPressureForAddress(address uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerPressureForAddress:"), address)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("registerPressureForAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerRegisterPressureView) InitWithDictBinaryGpu(dict objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerRegisterPressureView {
-	rv := objc.Send[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("initWithDict:binary:gpu:"), dict, binary, gpu)
+	rv := objc.SendIfResponds[GTShaderProfilerRegisterPressureView](g.ID, objc.Sel("initWithDict:binary:gpu:"), dict, binary, gpu)
 	return rv
 }
 
 func (_GTShaderProfilerRegisterPressureViewClass GTShaderProfilerRegisterPressureViewClass) MaxTheoriticalOccupancyWithRegisterCountGpu(count uint32, gpu uint32) float32 {
-	rv := objc.Send[float32](objc.ID(_GTShaderProfilerRegisterPressureViewClass.class), objc.Sel("maxTheoriticalOccupancyWithRegisterCount:gpu:"), count, gpu)
+	rv := objc.SendIfResponds[float32](objc.ID(_GTShaderProfilerRegisterPressureViewClass.class), objc.Sel("maxTheoriticalOccupancyWithRegisterCount:gpu:"), count, gpu)
 	return rv
 }
 
 func (g GTShaderProfilerRegisterPressureView) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binary"))
 	return rv
 }

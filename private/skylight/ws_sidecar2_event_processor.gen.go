@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -37,7 +38,7 @@ func (wc WSSidecar2EventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSSidecar2EventProcessorClass) Alloc() WSSidecar2EventProcessor {
-	rv := objc.Send[WSSidecar2EventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSSidecar2EventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,25 +61,25 @@ type IWSSidecar2EventProcessor interface {
 
 // Init initializes the instance.
 func (w WSSidecar2EventProcessor) Init() WSSidecar2EventProcessor {
-	rv := objc.Send[WSSidecar2EventProcessor](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSSidecar2EventProcessor](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSSidecar2EventProcessor) Autorelease() WSSidecar2EventProcessor {
-	rv := objc.Send[WSSidecar2EventProcessor](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSSidecar2EventProcessor](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSSidecar2EventProcessor creates a new WSSidecar2EventProcessor instance.
 func NewWSSidecar2EventProcessor() WSSidecar2EventProcessor {
 	class := getWSSidecar2EventProcessorClass()
-	rv := objc.Send[WSSidecar2EventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSSidecar2EventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewWSSidecar2EventProcessorWithSession(session CGXSession) WSSidecar2EventProcessor {
+func NewWSSidecar2EventProcessorWithSession(session *CGXSession) WSSidecar2EventProcessor {
 	instance := getWSSidecar2EventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return WSSidecar2EventProcessorFromID(rv)
 }

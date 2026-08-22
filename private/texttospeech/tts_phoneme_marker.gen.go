@@ -40,7 +40,7 @@ func (tc TTSPhonemeMarkerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSPhonemeMarkerClass) Alloc() TTSPhonemeMarker {
-	rv := objc.Send[TTSPhonemeMarker](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSPhonemeMarker](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,70 +110,70 @@ type ITTSPhonemeMarker interface {
 
 // Init initializes the instance.
 func (t TTSPhonemeMarker) Init() TTSPhonemeMarker {
-	rv := objc.Send[TTSPhonemeMarker](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSPhonemeMarker](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSPhonemeMarker) Autorelease() TTSPhonemeMarker {
-	rv := objc.Send[TTSPhonemeMarker](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSPhonemeMarker](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSPhonemeMarker creates a new TTSPhonemeMarker instance.
 func NewTTSPhonemeMarker() TTSPhonemeMarker {
 	class := getTTSPhonemeMarkerClass()
-	rv := objc.Send[TTSPhonemeMarker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSPhonemeMarker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSPhonemeMarker) ToAVMarkAtOffset(offset int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("toAVMarkAtOffset:"), offset)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("toAVMarkAtOffset:"), offset)
 	return objectivec.Object{ID: rv}
 }
 
 func (t TTSPhonemeMarker) Alphabet() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("alphabet"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("alphabet"))
 	return rv
 }
 func (t TTSPhonemeMarker) SetAlphabet(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAlphabet:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAlphabet:"), value)
 }
 func (t TTSPhonemeMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
 func (t TTSPhonemeMarker) ByteOffset() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
 }
 func (t TTSPhonemeMarker) SetByteOffset(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
 func (t TTSPhonemeMarker) DebugDescription() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSPhonemeMarker) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSPhonemeMarker) Hash() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
 func (t TTSPhonemeMarker) MarkType() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
 func (t TTSPhonemeMarker) Phoneme() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("phoneme"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSPhonemeMarker) SetPhoneme(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
 func (t TTSPhonemeMarker) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](t.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

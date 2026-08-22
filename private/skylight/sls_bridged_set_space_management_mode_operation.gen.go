@@ -38,7 +38,7 @@ func (sc SLSBridgedSetSpaceManagementModeOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSetSpaceManagementModeOperationClass) Alloc() SLSBridgedSetSpaceManagementModeOperation {
-	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSetSpaceManagementModeOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedSetSpaceManagementModeOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSetSpaceManagementModeOperation) Init() SLSBridgedSetSpaceManagementModeOperation {
-	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSetSpaceManagementModeOperation) Autorelease() SLSBridgedSetSpaceManagementModeOperation {
-	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSetSpaceManagementModeOperation creates a new SLSBridgedSetSpaceManagementModeOperation instance.
 func NewSLSBridgedSetSpaceManagementModeOperation() SLSBridgedSetSpaceManagementModeOperation {
 	class := getSLSBridgedSetSpaceManagementModeOperationClass()
-	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSetSpaceManagementModeOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSetSpaceManagementModeOperationWithCoder(coder objectivec.IObject) SLSBridgedSetSpaceManagementModeOperation {
 	instance := getSLSBridgedSetSpaceManagementModeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSetSpaceManagementModeOperationFromID(rv)
 }
 
 func NewSLSBridgedSetSpaceManagementModeOperationWithMode(mode uint64) SLSBridgedSetSpaceManagementModeOperation {
 	instance := getSLSBridgedSetSpaceManagementModeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
 	return SLSBridgedSetSpaceManagementModeOperationFromID(rv)
 }
 
 func (s SLSBridgedSetSpaceManagementModeOperation) InitWithMode(mode uint64) SLSBridgedSetSpaceManagementModeOperation {
-	rv := objc.Send[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("initWithMode:"), mode)
+	rv := objc.SendIfResponds[SLSBridgedSetSpaceManagementModeOperation](s.ID, objc.Sel("initWithMode:"), mode)
 	return rv
 }
 
 func (s SLSBridgedSetSpaceManagementModeOperation) Mode() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("mode"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("mode"))
 	return rv
 }

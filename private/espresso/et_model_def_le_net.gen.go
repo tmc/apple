@@ -38,7 +38,7 @@ func (ec ETModelDefLeNetClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETModelDefLeNetClass) Alloc() ETModelDefLeNet {
-	rv := objc.Send[ETModelDefLeNet](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETModelDefLeNet](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,33 +75,33 @@ type IETModelDefLeNet interface {
 
 // Init initializes the instance.
 func (e ETModelDefLeNet) Init() ETModelDefLeNet {
-	rv := objc.Send[ETModelDefLeNet](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETModelDefLeNet](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETModelDefLeNet) Autorelease() ETModelDefLeNet {
-	rv := objc.Send[ETModelDefLeNet](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETModelDefLeNet](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETModelDefLeNet creates a new ETModelDefLeNet instance.
 func NewETModelDefLeNet() ETModelDefLeNet {
 	class := getETModelDefLeNetClass()
-	rv := objc.Send[ETModelDefLeNet](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETModelDefLeNet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETModelDefLeNetWithNetwork(network objectivec.IObject) ETModelDefLeNet {
 	instance := getETModelDefLeNetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETModelDefLeNetFromID(rv)
 }
 
 func (e ETModelDefLeNet) Output_size() int {
-	rv := objc.Send[int](e.ID, objc.Sel("output_size"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("output_size"))
 	return rv
 }
 func (e ETModelDefLeNet) SetOutput_size(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }

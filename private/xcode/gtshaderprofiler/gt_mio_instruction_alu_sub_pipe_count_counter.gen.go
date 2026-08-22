@@ -38,7 +38,7 @@ func (gc GTMioInstructionALUSubPipeCountCounterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioInstructionALUSubPipeCountCounterClass) Alloc() GTMioInstructionALUSubPipeCountCounter {
-	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioInstructionALUSubPipeCountCounter](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type IGTMioInstructionALUSubPipeCountCounter interface {
 
 // Init initializes the instance.
 func (g GTMioInstructionALUSubPipeCountCounter) Init() GTMioInstructionALUSubPipeCountCounter {
-	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioInstructionALUSubPipeCountCounter) Autorelease() GTMioInstructionALUSubPipeCountCounter {
-	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioInstructionALUSubPipeCountCounter creates a new GTMioInstructionALUSubPipeCountCounter instance.
 func NewGTMioInstructionALUSubPipeCountCounter() GTMioInstructionALUSubPipeCountCounter {
 	class := getGTMioInstructionALUSubPipeCountCounterClass()
-	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioInstructionALUSubPipeCountCounter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioInstructionALUSubPipeCountCounterWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioInstructionALUSubPipeCountCounter {
 	instance := getGTMioInstructionALUSubPipeCountCounterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
 	return GTMioInstructionALUSubPipeCountCounterFromID(rv)
 }
 
 func NewGTMioInstructionALUSubPipeCountCounterWithContainerInstructionCategoryScopeScopeIndex(container unsafe.Pointer, category uint16, scope uint16, index uint64) GTMioInstructionALUSubPipeCountCounter {
 	instance := getGTMioInstructionALUSubPipeCountCounterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
 	return GTMioInstructionALUSubPipeCountCounterFromID(rv)
 }
 
 func (g GTMioInstructionALUSubPipeCountCounter) InitWithContainerInstructionCategoryScopeScopeIndex(container unsafe.Pointer, category uint16, scope uint16, index uint64) GTMioInstructionALUSubPipeCountCounter {
-	rv := objc.Send[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
+	rv := objc.SendIfResponds[GTMioInstructionALUSubPipeCountCounter](g.ID, objc.Sel("initWithContainer:instructionCategory:scope:scopeIndex:"), container, category, scope, index)
 	return rv
 }
 
 func (g GTMioInstructionALUSubPipeCountCounter) SubPipe() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("subPipe"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("subPipe"))
 	return rv
 }

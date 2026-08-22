@@ -38,7 +38,7 @@ func (tc TTSFallbackLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSFallbackLoaderClass) Alloc() TTSFallbackLoader {
-	rv := objc.Send[TTSFallbackLoader](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSFallbackLoader](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type ITTSFallbackLoader interface {
 
 // Init initializes the instance.
 func (t TTSFallbackLoader) Init() TTSFallbackLoader {
-	rv := objc.Send[TTSFallbackLoader](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSFallbackLoader](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSFallbackLoader) Autorelease() TTSFallbackLoader {
-	rv := objc.Send[TTSFallbackLoader](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSFallbackLoader](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSFallbackLoader creates a new TTSFallbackLoader instance.
 func NewTTSFallbackLoader() TTSFallbackLoader {
 	class := getTTSFallbackLoaderClass()
-	rv := objc.Send[TTSFallbackLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSFallbackLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSFallbackLoaderClass TTSFallbackLoaderClass) FallbackRendererClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_TTSFallbackLoaderClass.class), objc.Sel("fallbackRendererClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_TTSFallbackLoaderClass.class), objc.Sel("fallbackRendererClass"))
 	return objectivec.Class(rv)
 }

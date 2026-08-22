@@ -39,7 +39,7 @@ func (sc SOSRLanguageRowCheckboxButtonClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSRLanguageRowCheckboxButtonClass) Alloc() SOSRLanguageRowCheckboxButton {
-	rv := objc.Send[SOSRLanguageRowCheckboxButton](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSRLanguageRowCheckboxButton](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,27 +76,27 @@ type ISOSRLanguageRowCheckboxButton interface {
 
 // Init initializes the instance.
 func (s SOSRLanguageRowCheckboxButton) Init() SOSRLanguageRowCheckboxButton {
-	rv := objc.Send[SOSRLanguageRowCheckboxButton](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSRLanguageRowCheckboxButton](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSRLanguageRowCheckboxButton) Autorelease() SOSRLanguageRowCheckboxButton {
-	rv := objc.Send[SOSRLanguageRowCheckboxButton](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSRLanguageRowCheckboxButton](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSRLanguageRowCheckboxButton creates a new SOSRLanguageRowCheckboxButton instance.
 func NewSOSRLanguageRowCheckboxButton() SOSRLanguageRowCheckboxButton {
 	class := getSOSRLanguageRowCheckboxButtonClass()
-	rv := objc.Send[SOSRLanguageRowCheckboxButton](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSRLanguageRowCheckboxButton](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOSRLanguageRowCheckboxButton) LocaleIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOSRLanguageRowCheckboxButton) SetLocaleIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
 }

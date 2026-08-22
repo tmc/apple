@@ -11,6 +11,9 @@ import (
 type ETDataProvider interface {
 	objectivec.IObject
 
+	// DataPointAtIndexError protocol.
+	DataPointAtIndexError(index uint64) (objectivec.IObject, error)
+
 	// NumberOfDataPoints protocol.
 	NumberOfDataPoints() uint64
 
@@ -43,9 +46,9 @@ func (o ETDataProviderObject) DataPointAtIndexError(index uint64) (objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 }
 func (o ETDataProviderObject) NumberOfDataPoints() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (o ETDataProviderObject) PrepareForEpoch() {
-	objc.Send[struct{}](o.ID, objc.Sel("prepareForEpoch"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("prepareForEpoch"))
 }

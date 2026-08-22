@@ -38,7 +38,7 @@ func (dc DiskImageParamsRawXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsRawXPCClass) Alloc() DiskImageParamsRawXPC {
-	rv := objc.Send[DiskImageParamsRawXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsRawXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -66,37 +66,37 @@ type IDiskImageParamsRawXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsRawXPC) Init() DiskImageParamsRawXPC {
-	rv := objc.Send[DiskImageParamsRawXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsRawXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsRawXPC) Autorelease() DiskImageParamsRawXPC {
-	rv := objc.Send[DiskImageParamsRawXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsRawXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsRawXPC creates a new DiskImageParamsRawXPC instance.
 func NewDiskImageParamsRawXPC() DiskImageParamsRawXPC {
 	class := getDiskImageParamsRawXPCClass()
-	rv := objc.Send[DiskImageParamsRawXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsRawXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsRaw_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
 func NewDiskImageParamsRaw_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
 func NewDiskImageParamsRaw_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsRawXPCFromID(rv)
 }

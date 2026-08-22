@@ -38,7 +38,7 @@ func (vc VZGDBDebugStubClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGDBDebugStubClass) Alloc() VZGDBDebugStub {
-	rv := objc.Send[VZGDBDebugStub](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGDBDebugStub](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,31 +78,31 @@ type IVZGDBDebugStub interface {
 
 // Init initializes the instance.
 func (v VZGDBDebugStub) Init() VZGDBDebugStub {
-	rv := objc.Send[VZGDBDebugStub](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGDBDebugStub](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGDBDebugStub) Autorelease() VZGDBDebugStub {
-	rv := objc.Send[VZGDBDebugStub](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGDBDebugStub](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGDBDebugStub creates a new VZGDBDebugStub instance.
 func NewVZGDBDebugStub() VZGDBDebugStub {
 	class := getVZGDBDebugStubClass()
-	rv := objc.Send[VZGDBDebugStub](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGDBDebugStub](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGDBDebugStub) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZGDBDebugStub) SetDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
 func (v VZGDBDebugStub) Port() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("port"))
 	return rv
 }

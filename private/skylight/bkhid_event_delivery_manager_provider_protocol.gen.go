@@ -10,6 +10,9 @@ import (
 // BKHIDEventDeliveryManagerProvider protocol.
 type BKHIDEventDeliveryManagerProvider interface {
 	objectivec.IObject
+
+	// DeliveryManagerForAuditToken protocol.
+	DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject
 }
 
 // BKHIDEventDeliveryManagerProviderObject wraps an existing Objective-C object that conforms to the BKHIDEventDeliveryManagerProvider protocol.
@@ -30,6 +33,6 @@ func BKHIDEventDeliveryManagerProviderObjectFromID(id objc.ID) BKHIDEventDeliver
 }
 
 func (o BKHIDEventDeliveryManagerProviderObject) DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }

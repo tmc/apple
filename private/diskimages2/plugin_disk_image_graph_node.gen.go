@@ -40,7 +40,7 @@ func (pc PluginDiskImageGraphNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PluginDiskImageGraphNodeClass) Alloc() PluginDiskImageGraphNode {
-	rv := objc.Send[PluginDiskImageGraphNode](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PluginDiskImageGraphNode](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,56 +80,59 @@ type IPluginDiskImageGraphNode interface {
 
 // Init initializes the instance.
 func (p PluginDiskImageGraphNode) Init() PluginDiskImageGraphNode {
-	rv := objc.Send[PluginDiskImageGraphNode](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PluginDiskImageGraphNode](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PluginDiskImageGraphNode) Autorelease() PluginDiskImageGraphNode {
-	rv := objc.Send[PluginDiskImageGraphNode](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PluginDiskImageGraphNode](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPluginDiskImageGraphNode creates a new PluginDiskImageGraphNode instance.
 func NewPluginDiskImageGraphNode() PluginDiskImageGraphNode {
 	class := getPluginDiskImageGraphNodeClass()
-	rv := objc.Send[PluginDiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PluginDiskImageGraphNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPluginDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (PluginDiskImageGraphNode, error) {
 	var errorPtr objc.ID
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionary:workDir:error:"), dictionary, dir, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return PluginDiskImageGraphNode{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return PluginDiskImageGraphNode{}, objc.ErrInitFailed
 	}
 	return PluginDiskImageGraphNodeFromID(rv), nil
 }
 
 func NewPluginDiskImageGraphNodeWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
 	return PluginDiskImageGraphNodeFromID(rv)
 }
 
 func NewPluginDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
 	instance := getPluginDiskImageGraphNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return PluginDiskImageGraphNodeFromID(rv)
 }
 
 func (p PluginDiskImageGraphNode) InitWithPluginNamePluginParamsTagUUIDParentNodeMetadataIsCache(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) PluginDiskImageGraphNode {
-	rv := objc.Send[PluginDiskImageGraphNode](p.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
+	rv := objc.SendIfResponds[PluginDiskImageGraphNode](p.ID, objc.Sel("initWithPluginName:pluginParams:tag:UUID:parentNode:metadata:isCache:"), name, params, tag, uid, node, metadata, cache)
 	return rv
 }
 
 func (p PluginDiskImageGraphNode) PluginName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("pluginName"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (p PluginDiskImageGraphNode) PluginParams() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("pluginParams"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("pluginParams"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

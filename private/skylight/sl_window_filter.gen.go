@@ -39,7 +39,7 @@ func (sc SLWindowFilterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLWindowFilterClass) Alloc() SLWindowFilter {
-	rv := objc.Send[SLWindowFilter](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLWindowFilter](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -139,109 +139,109 @@ type ISLWindowFilter interface {
 
 // Init initializes the instance.
 func (s SLWindowFilter) Init() SLWindowFilter {
-	rv := objc.Send[SLWindowFilter](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLWindowFilter](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLWindowFilter) Autorelease() SLWindowFilter {
-	rv := objc.Send[SLWindowFilter](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLWindowFilter](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLWindowFilter creates a new SLWindowFilter instance.
 func NewSLWindowFilter() SLWindowFilter {
 	class := getSLWindowFilterClass()
-	rv := objc.Send[SLWindowFilter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLWindowFilter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLWindowFilterFromDictionaryRepresentation(representation objectivec.IObject) SLWindowFilter {
 	instance := getSLWindowFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
 	return SLWindowFilterFromID(rv)
 }
 
 func (s SLWindowFilter) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLWindowFilter) IsEqualToWindowFilter(filter objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToWindowFilter:"), filter)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isEqualToWindowFilter:"), filter)
 	return rv
 }
 func (s SLWindowFilter) InitFromDictionaryRepresentation(representation objectivec.IObject) SLWindowFilter {
-	rv := objc.Send[SLWindowFilter](s.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[SLWindowFilter](s.ID, objc.Sel("initFromDictionaryRepresentation:"), representation)
 	return rv
 }
 
 func (s SLWindowFilter) Enforce_sharing_type() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("enforce_sharing_type"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("enforce_sharing_type"))
 	return rv
 }
 func (s SLWindowFilter) SetEnforce_sharing_type(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEnforce_sharing_type:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEnforce_sharing_type:"), value)
 }
 func (s SLWindowFilter) ExcludedApplications() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedApplications"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetExcludedApplications(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setExcludedApplications:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setExcludedApplications:"), value)
 }
 func (s SLWindowFilter) ExcludedPIDS() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedPIDS"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetExcludedPIDS(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
 }
 func (s SLWindowFilter) ExcludedWindows() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedWindows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetExcludedWindows(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setExcludedWindows:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setExcludedWindows:"), value)
 }
 func (s SLWindowFilter) FilterPolicy() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("filterPolicy"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("filterPolicy"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetFilterPolicy(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFilterPolicy:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFilterPolicy:"), value)
 }
 func (s SLWindowFilter) Hide_menu_bar() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hide_menu_bar"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("hide_menu_bar"))
 	return rv
 }
 func (s SLWindowFilter) SetHide_menu_bar(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setHide_menu_bar:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setHide_menu_bar:"), value)
 }
 func (s SLWindowFilter) IncludedApplications() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedApplications"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetIncludedApplications(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIncludedApplications:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIncludedApplications:"), value)
 }
 func (s SLWindowFilter) IncludedPIDS() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedPIDS"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetIncludedPIDS(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
 }
 func (s SLWindowFilter) IncludedWindows() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedWindows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetIncludedWindows(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIncludedWindows:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIncludedWindows:"), value)
 }
 func (s SLWindowFilter) ShieldWindow() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindow"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("shieldWindow"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLWindowFilter) SetShieldWindow(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setShieldWindow:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setShieldWindow:"), value)
 }

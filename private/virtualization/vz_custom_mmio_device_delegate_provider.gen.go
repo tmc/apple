@@ -39,7 +39,7 @@ func (vc VZCustomMMIODeviceDelegateProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomMMIODeviceDelegateProviderClass) Alloc() VZCustomMMIODeviceDelegateProvider {
-	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceDelegateProvider](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IVZCustomMMIODeviceDelegateProvider interface {
 
 // Init initializes the instance.
 func (v VZCustomMMIODeviceDelegateProvider) Init() VZCustomMMIODeviceDelegateProvider {
-	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomMMIODeviceDelegateProvider) Autorelease() VZCustomMMIODeviceDelegateProvider {
-	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomMMIODeviceDelegateProvider creates a new VZCustomMMIODeviceDelegateProvider instance.
 func NewVZCustomMMIODeviceDelegateProvider() VZCustomMMIODeviceDelegateProvider {
 	class := getVZCustomMMIODeviceDelegateProviderClass()
-	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceDelegateProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZCustomMMIODeviceDelegateProviderWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomMMIODeviceDelegateProvider {
 	instance := getVZCustomMMIODeviceDelegateProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return VZCustomMMIODeviceDelegateProviderFromID(rv)
 }
 
 func (v VZCustomMMIODeviceDelegateProvider) InitWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomMMIODeviceDelegateProvider {
-	rv := objc.Send[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
+	rv := objc.SendIfResponds[VZCustomMMIODeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
 	return rv
 }
 
 func (v VZCustomMMIODeviceDelegateProvider) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZCustomMMIODeviceDelegateProvider) DeviceQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

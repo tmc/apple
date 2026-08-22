@@ -40,7 +40,7 @@ func (mc MLIndexedBatchProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLIndexedBatchProviderClass) Alloc() MLIndexedBatchProvider {
-	rv := objc.Send[MLIndexedBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLIndexedBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,36 +92,39 @@ type IMLIndexedBatchProvider interface {
 
 // Init initializes the instance.
 func (m MLIndexedBatchProvider) Init() MLIndexedBatchProvider {
-	rv := objc.Send[MLIndexedBatchProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLIndexedBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLIndexedBatchProvider) Autorelease() MLIndexedBatchProvider {
-	rv := objc.Send[MLIndexedBatchProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLIndexedBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLIndexedBatchProvider creates a new MLIndexedBatchProvider instance.
 func NewMLIndexedBatchProvider() MLIndexedBatchProvider {
 	class := getMLIndexedBatchProviderClass()
-	rv := objc.Send[MLIndexedBatchProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLIndexedBatchProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewIndexedBatchProviderWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLIndexedBatchProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBatch:indices:error:"), batch, indices, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatch:indices:error:"), batch, indices, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLIndexedBatchProvider{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLIndexedBatchProvider{}, objc.ErrInitFailed
 	}
 	return MLIndexedBatchProviderFromID(rv), nil
 }
 
 func (m MLIndexedBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLIndexedBatchProvider) InitWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
@@ -136,20 +139,20 @@ func (m MLIndexedBatchProvider) InitWithBatchIndicesError(batch objectivec.IObje
 }
 
 func (m MLIndexedBatchProvider) Count() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLIndexedBatchProvider) FullBatch() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("fullBatch"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("fullBatch"))
 	return rv
 }
 func (m MLIndexedBatchProvider) SetFullBatch(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFullBatch:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFullBatch:"), value)
 }
 func (m MLIndexedBatchProvider) Indices() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("indices"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("indices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLIndexedBatchProvider) SetIndices(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIndices:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIndices:"), value)
 }

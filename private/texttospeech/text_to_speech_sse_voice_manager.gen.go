@@ -38,7 +38,7 @@ func (tc TextToSpeechSSEVoiceManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSEVoiceManagerClass) Alloc() TextToSpeechSSEVoiceManager {
-	rv := objc.Send[TextToSpeechSSEVoiceManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSSEVoiceManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechSSEVoiceManagerFromID(id objc.ID) TextToSpeechSSEVoiceManager {
 	return TextToSpeechSSEVoiceManager{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechSSEVoiceManager struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechSSEVoiceManager embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechSSEVoiceManager implements ITextToSpeechSSEVoiceManager.
+var _ ITextToSpeechSSEVoiceManager = TextToSpeechSSEVoiceManager{}
 
 // An interface definition for the [TextToSpeechSSEVoiceManager] class.
 type ITextToSpeechSSEVoiceManager interface {
@@ -61,19 +61,19 @@ type ITextToSpeechSSEVoiceManager interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSSEVoiceManager) Init() TextToSpeechSSEVoiceManager {
-	rv := objc.Send[TextToSpeechSSEVoiceManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSSEVoiceManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSSEVoiceManager) Autorelease() TextToSpeechSSEVoiceManager {
-	rv := objc.Send[TextToSpeechSSEVoiceManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSSEVoiceManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSSEVoiceManager creates a new TextToSpeechSSEVoiceManager instance.
 func NewTextToSpeechSSEVoiceManager() TextToSpeechSSEVoiceManager {
 	class := getTextToSpeechSSEVoiceManagerClass()
-	rv := objc.Send[TextToSpeechSSEVoiceManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSSEVoiceManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (vc VZMacHIDDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacHIDDeviceConfigurationClass) Alloc() VZMacHIDDeviceConfiguration {
-	rv := objc.Send[VZMacHIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacHIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,66 +102,66 @@ type IVZMacHIDDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacHIDDeviceConfiguration) Init() VZMacHIDDeviceConfiguration {
-	rv := objc.Send[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacHIDDeviceConfiguration) Autorelease() VZMacHIDDeviceConfiguration {
-	rv := objc.Send[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacHIDDeviceConfiguration creates a new VZMacHIDDeviceConfiguration instance.
 func NewVZMacHIDDeviceConfiguration() VZMacHIDDeviceConfiguration {
 	class := getVZMacHIDDeviceConfigurationClass()
-	rv := objc.Send[VZMacHIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacHIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMacHIDDeviceConfigurationWithVendorIDProductIDUsagePageUsage(id uint16, id2 uint16, page uint32, usage uint32) VZMacHIDDeviceConfiguration {
 	instance := getVZMacHIDDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVendorID:productID:usagePage:usage:"), id, id2, page, usage)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVendorID:productID:usagePage:usage:"), id, id2, page, usage)
 	return VZMacHIDDeviceConfigurationFromID(rv)
 }
 
 func (v VZMacHIDDeviceConfiguration) InitWithVendorIDProductIDUsagePageUsage(id uint16, id2 uint16, page uint32, usage uint32) VZMacHIDDeviceConfiguration {
-	rv := objc.Send[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("initWithVendorID:productID:usagePage:usage:"), id, id2, page, usage)
+	rv := objc.SendIfResponds[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("initWithVendorID:productID:usagePage:usage:"), id, id2, page, usage)
 	return rv
 }
 
 func (v VZMacHIDDeviceConfiguration) ProductID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("productID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("productID"))
 	return rv
 }
 func (v VZMacHIDDeviceConfiguration) SetProductID(value uint16) {
-	objc.Send[struct{}](v.ID, objc.Sel("setProductID:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setProductID:"), value)
 }
 func (v VZMacHIDDeviceConfiguration) RegistryProperties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("registryProperties"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("registryProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (v VZMacHIDDeviceConfiguration) SetRegistryProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("setRegistryProperties:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setRegistryProperties:"), value)
 }
 func (v VZMacHIDDeviceConfiguration) Usage() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("usage"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("usage"))
 	return rv
 }
 func (v VZMacHIDDeviceConfiguration) SetUsage(value uint32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setUsage:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUsage:"), value)
 }
 func (v VZMacHIDDeviceConfiguration) UsagePage() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("usagePage"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("usagePage"))
 	return rv
 }
 func (v VZMacHIDDeviceConfiguration) SetUsagePage(value uint32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setUsagePage:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUsagePage:"), value)
 }
 func (v VZMacHIDDeviceConfiguration) VendorID() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("vendorID"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("vendorID"))
 	return rv
 }
 func (v VZMacHIDDeviceConfiguration) SetVendorID(value uint16) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVendorID:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setVendorID:"), value)
 }

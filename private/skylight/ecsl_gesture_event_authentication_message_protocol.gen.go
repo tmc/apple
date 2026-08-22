@@ -36,10 +36,10 @@ func ECSLGestureEventAuthenticationMessageObjectFromID(id objc.ID) ECSLGestureEv
 }
 
 func (o ECSLGestureEventAuthenticationMessageObject) GestureHidType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("gestureHidType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("gestureHidType"))
 	return rv
 }
 func (o ECSLGestureEventAuthenticationMessageObject) GesturePhase() byte {
-	rv := objc.Send[byte](o.ID, objc.Sel("gesturePhase"))
+	rv := objc.SendIfResponds[byte](o.ID, objc.Sel("gesturePhase"))
 	return rv
 }

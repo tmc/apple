@@ -38,7 +38,7 @@ func (ac AVAudioIONodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioIONodeClass) Alloc() AVAudioIONode {
-	rv := objc.Send[AVAudioIONode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioIONode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,57 +87,57 @@ type IAVAudioIONode interface {
 
 // Init initializes the instance.
 func (a AVAudioIONode) Init() AVAudioIONode {
-	rv := objc.Send[AVAudioIONode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioIONode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioIONode) Autorelease() AVAudioIONode {
-	rv := objc.Send[AVAudioIONode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioIONode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioIONode creates a new AVAudioIONode instance.
 func NewAVAudioIONode() AVAudioIONode {
 	class := getAVAudioIONodeClass()
-	rv := objc.Send[AVAudioIONode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioIONode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioIONodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioIONode {
 	instance := getAVAudioIONodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioIONodeFromID(rv)
 }
 
 func NewAudioIONodeWithImpl(impl unsafe.Pointer) AVAudioIONode {
 	instance := getAVAudioIONodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioIONodeFromID(rv)
 }
 
 func (a AVAudioIONode) EnableManualRenderingModeIsInput(mode int64, input bool) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("enableManualRenderingMode:isInput:"), mode, input)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("enableManualRenderingMode:isInput:"), mode, input)
 	return rv
 }
 func (a AVAudioIONode) EnableRealtimeRenderingModeWithIOUnitIsInputForceIOUnitReset(iOUnit unsafe.Pointer, input bool, reset bool) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:"), iOUnit, input, reset)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:"), iOUnit, input, reset)
 	return rv
 }
 func (a AVAudioIONode) IsInManualRenderingMode() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isInManualRenderingMode"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isInManualRenderingMode"))
 	return rv
 }
 func (a AVAudioIONode) ManualRenderingMode() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("manualRenderingMode"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("manualRenderingMode"))
 	return rv
 }
 func (a AVAudioIONode) InitWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioIONode {
-	rv := objc.Send[AVAudioIONode](a.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
+	rv := objc.SendIfResponds[AVAudioIONode](a.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return rv
 }
 
 func (a AVAudioIONode) VoiceProcessingEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("voiceProcessingEnabled"))
 	return rv
 }

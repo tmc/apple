@@ -41,7 +41,7 @@ func (mc MLNeuralNetworkCompilerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkCompilerClass) Alloc() MLNeuralNetworkCompiler {
-	rv := objc.Send[MLNeuralNetworkCompiler](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkCompiler](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,30 +64,33 @@ type IMLNeuralNetworkCompiler interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkCompiler) Init() MLNeuralNetworkCompiler {
-	rv := objc.Send[MLNeuralNetworkCompiler](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkCompiler) Autorelease() MLNeuralNetworkCompiler {
-	rv := objc.Send[MLNeuralNetworkCompiler](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkCompiler creates a new MLNeuralNetworkCompiler instance.
 func NewMLNeuralNetworkCompiler() MLNeuralNetworkCompiler {
 	class := getMLNeuralNetworkCompilerClass()
-	rv := objc.Send[MLNeuralNetworkCompiler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkCompiler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkCompiler{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkCompiler{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
@@ -95,35 +98,38 @@ func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(
 func NewNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkCompiler{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkCompiler{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
 
 func NewNeuralNetworkCompilerWithConfiguration(configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
 func NewNeuralNetworkCompilerWithDescription(description objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
 func NewNeuralNetworkCompilerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
 func NewNeuralNetworkCompilerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
@@ -138,7 +144,7 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) _compileSpecif
 
 }
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CollectEspressoModelDetailsModelPath(details unsafe.Pointer, path unsafe.Pointer) {
-	objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("collectEspressoModelDetails:modelPath:"), details, path)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("collectEspressoModelDetails:modelPath:"), details, path)
 }
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CollectNNModelDetailsFromArchiveSpecError(archive unsafe.Pointer, spec unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -184,10 +190,10 @@ func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) CompiledVersio
 
 }
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) IOS17CompilerVersionInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS17CompilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS17CompilerVersionInfo"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLNeuralNetworkCompilerClass MLNeuralNetworkCompilerClass) IOS18CompilerVersionInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS18CompilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkCompilerClass.class), objc.Sel("iOS18CompilerVersionInfo"))
 	return objectivec.Object{ID: rv}
 }

@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -40,7 +41,7 @@ func (vc VoiceVerificationEndpointerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VoiceVerificationEndpointerClass) Alloc() VoiceVerificationEndpointer {
-	rv := objc.Send[VoiceVerificationEndpointer](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VoiceVerificationEndpointer](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -105,7 +106,7 @@ type IVoiceVerificationEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status AudioQueueBuffer) int
+	GetStatus(status audiotoolbox.AudioQueueBuffer) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -119,80 +120,80 @@ type IVoiceVerificationEndpointer interface {
 
 // Init initializes the instance.
 func (v VoiceVerificationEndpointer) Init() VoiceVerificationEndpointer {
-	rv := objc.Send[VoiceVerificationEndpointer](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VoiceVerificationEndpointer](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VoiceVerificationEndpointer) Autorelease() VoiceVerificationEndpointer {
-	rv := objc.Send[VoiceVerificationEndpointer](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VoiceVerificationEndpointer](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVoiceVerificationEndpointer creates a new VoiceVerificationEndpointer instance.
 func NewVoiceVerificationEndpointer() VoiceVerificationEndpointer {
 	class := getVoiceVerificationEndpointerClass()
-	rv := objc.Send[VoiceVerificationEndpointer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VoiceVerificationEndpointer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VoiceVerificationEndpointer) ConfigureWithASBDAndFrameRate(asbd coreaudiotypes.AudioStreamBasicDescription, rate uint32) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
 func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (v VoiceVerificationEndpointer) GetStatus(status AudioQueueBuffer) int {
-	rv := objc.Send[int](v.ID, objc.Sel("getStatus:"), status)
+func (v VoiceVerificationEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int {
+	rv := objc.SendIfResponds[int](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
 func (v VoiceVerificationEndpointer) Reset() {
-	objc.Send[objc.ID](v.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("reset"))
 }
 
 func (v VoiceVerificationEndpointer) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VoiceVerificationEndpointer) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VoiceVerificationEndpointer) EndWaitTime() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("endWaitTime"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("endWaitTime"))
 	return rv
 }
 func (v VoiceVerificationEndpointer) SetEndWaitTime(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEndWaitTime:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEndWaitTime:"), value)
 }
 func (v VoiceVerificationEndpointer) EndpointMode() int {
-	rv := objc.Send[int](v.ID, objc.Sel("endpointMode"))
+	rv := objc.SendIfResponds[int](v.ID, objc.Sel("endpointMode"))
 	return rv
 }
 func (v VoiceVerificationEndpointer) SetEndpointMode(value int) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEndpointMode:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEndpointMode:"), value)
 }
 func (v VoiceVerificationEndpointer) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VoiceVerificationEndpointer) InterspeechWaitTime() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("interspeechWaitTime"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("interspeechWaitTime"))
 	return rv
 }
 func (v VoiceVerificationEndpointer) SetInterspeechWaitTime(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setInterspeechWaitTime:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setInterspeechWaitTime:"), value)
 }
 func (v VoiceVerificationEndpointer) StartWaitTime() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("startWaitTime"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("startWaitTime"))
 	return rv
 }
 func (v VoiceVerificationEndpointer) SetStartWaitTime(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStartWaitTime:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setStartWaitTime:"), value)
 }
 func (v VoiceVerificationEndpointer) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

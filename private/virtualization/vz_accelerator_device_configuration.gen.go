@@ -39,7 +39,7 @@ func (vc VZAcceleratorDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZAcceleratorDeviceConfigurationClass) Alloc() VZAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZAcceleratorDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZAcceleratorDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,41 +85,41 @@ type IVZAcceleratorDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZAcceleratorDeviceConfiguration) Init() VZAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZAcceleratorDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZAcceleratorDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZAcceleratorDeviceConfiguration) Autorelease() VZAcceleratorDeviceConfiguration {
-	rv := objc.Send[VZAcceleratorDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZAcceleratorDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZAcceleratorDeviceConfiguration creates a new VZAcceleratorDeviceConfiguration instance.
 func NewVZAcceleratorDeviceConfiguration() VZAcceleratorDeviceConfiguration {
 	class := getVZAcceleratorDeviceConfigurationClass()
-	rv := objc.Send[VZAcceleratorDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZAcceleratorDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZAcceleratorDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZAcceleratorDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAcceleratorDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAcceleratorDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZAcceleratorDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

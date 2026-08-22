@@ -35,5 +35,5 @@ func VZMultiTouchEventSenderObjectFromID(id objc.ID) VZMultiTouchEventSenderObje
 }
 
 func (o VZMultiTouchEventSenderObject) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
 }

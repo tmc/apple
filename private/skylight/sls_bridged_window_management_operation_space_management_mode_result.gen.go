@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationSpaceManagementModeResultClass) Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationSpaceManagementModeResultClass) Alloc() SLSBridgedWindowManagementOperationSpaceManagementModeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceManagementModeResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationSpaceManagementModeResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) Init() SLSBridgedWindowManagementOperationSpaceManagementModeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) Autorelease() SLSBridgedWindowManagementOperationSpaceManagementModeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationSpaceManagementModeResult creates a new SLSBridgedWindowManagementOperationSpaceManagementModeResult instance.
 func NewSLSBridgedWindowManagementOperationSpaceManagementModeResult() SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	class := getSLSBridgedWindowManagementOperationSpaceManagementModeResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceManagementModeResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationSpaceManagementModeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceManagementModeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpaceManagementModeResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationSpaceManagementModeResultWithSpaceManagementMode(mode uint64) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceManagementModeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
 	return SLSBridgedWindowManagementOperationSpaceManagementModeResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) InitWithSpaceManagementMode(mode uint64) SLSBridgedWindowManagementOperationSpaceManagementModeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceManagementModeResult](s.ID, objc.Sel("initWithSpaceManagementMode:"), mode)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationSpaceManagementModeResult) SpaceManagementMode() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceManagementMode"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceManagementMode"))
 	return rv
 }

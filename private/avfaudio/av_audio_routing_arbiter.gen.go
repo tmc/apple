@@ -42,7 +42,7 @@ func (ac AVAudioRoutingArbiterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioRoutingArbiterClass) Alloc() AVAudioRoutingArbiter {
-	rv := objc.Send[AVAudioRoutingArbiter](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioRoutingArbiter](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,26 +91,26 @@ type IAVAudioRoutingArbiter interface {
 
 // Init initializes the instance.
 func (a AVAudioRoutingArbiter) Init() AVAudioRoutingArbiter {
-	rv := objc.Send[AVAudioRoutingArbiter](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioRoutingArbiter](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioRoutingArbiter) Autorelease() AVAudioRoutingArbiter {
-	rv := objc.Send[AVAudioRoutingArbiter](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioRoutingArbiter](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioRoutingArbiter creates a new AVAudioRoutingArbiter instance.
 func NewAVAudioRoutingArbiter() AVAudioRoutingArbiter {
 	class := getAVAudioRoutingArbiterClass()
-	rv := objc.Send[AVAudioRoutingArbiter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioRoutingArbiter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptionsCompletionHandler(category objectivec.IObject, mode objectivec.IObject, options uint64, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("beginArbitrationWithAudioSessionCategory:mode:options:completionHandler:"), category, mode, options, _block3)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("beginArbitrationWithAudioSessionCategory:mode:options:completionHandler:"), category, mode, options, _block3)
 }
 func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptionsError(category objectivec.IObject, mode objectivec.IObject, options uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -127,18 +127,18 @@ func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptio
 }
 func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int, mode int, flags uint32, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("beginArbitrationWithBTSessionCategory:mode:flags:completionHandler:"), category, mode, flags, _block3)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("beginArbitrationWithBTSessionCategory:mode:flags:completionHandler:"), category, mode, flags, _block3)
 }
 func (a AVAudioRoutingArbiter) CreateBTSessionWithCategoryModeFlags(category int, mode int, flags uint32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("createBTSessionWithCategory:mode:flags:"), category, mode, flags)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("createBTSessionWithCategory:mode:flags:"), category, mode, flags)
 }
 
 func (a AVAudioRoutingArbiter) DispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchQueue"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("dispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (a AVAudioRoutingArbiter) SetDispatchQueue(value objectivec.Object) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDispatchQueue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDispatchQueue:"), value)
 }
 
 // BeginArbitrationWithAudioSessionCategoryModeOptions is a synchronous wrapper around [AVAudioRoutingArbiter.BeginArbitrationWithAudioSessionCategoryModeOptionsCompletionHandler].

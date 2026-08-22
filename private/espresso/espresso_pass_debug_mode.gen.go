@@ -37,7 +37,7 @@ func (ec EspressoPassDebugModeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassDebugModeClass) Alloc() EspressoPassDebugMode {
-	rv := objc.Send[EspressoPassDebugMode](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassDebugMode](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassDebugMode interface {
 
 // Init initializes the instance.
 func (e EspressoPassDebugMode) Init() EspressoPassDebugMode {
-	rv := objc.Send[EspressoPassDebugMode](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassDebugMode](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassDebugMode) Autorelease() EspressoPassDebugMode {
-	rv := objc.Send[EspressoPassDebugMode](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassDebugMode](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassDebugMode creates a new EspressoPassDebugMode instance.
 func NewEspressoPassDebugMode() EspressoPassDebugMode {
 	class := getEspressoPassDebugModeClass()
-	rv := objc.Send[EspressoPassDebugMode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassDebugMode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

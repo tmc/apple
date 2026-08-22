@@ -38,7 +38,7 @@ func (ac AVVCAlertInformationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCAlertInformationClass) Alloc() AVVCAlertInformation {
-	rv := objc.Send[AVVCAlertInformation](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCAlertInformation](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,52 +90,52 @@ type IAVVCAlertInformation interface {
 
 // Init initializes the instance.
 func (a AVVCAlertInformation) Init() AVVCAlertInformation {
-	rv := objc.Send[AVVCAlertInformation](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCAlertInformation](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCAlertInformation) Autorelease() AVVCAlertInformation {
-	rv := objc.Send[AVVCAlertInformation](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCAlertInformation](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCAlertInformation creates a new AVVCAlertInformation instance.
 func NewAVVCAlertInformation() AVVCAlertInformation {
 	class := getAVVCAlertInformationClass()
-	rv := objc.Send[AVVCAlertInformation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCAlertInformation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCAlertInformationWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
 	instance := getAVVCAlertInformationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return AVVCAlertInformationFromID(rv)
 }
 
 func (a AVVCAlertInformation) InitWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
-	rv := objc.Send[AVVCAlertInformation](a.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
+	rv := objc.SendIfResponds[AVVCAlertInformation](a.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return rv
 }
 
 func (a AVVCAlertInformation) AlertEndTime() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("alertEndTime"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("alertEndTime"))
 	return rv
 }
 func (a AVVCAlertInformation) SetAlertEndTime(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAlertEndTime:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAlertEndTime:"), value)
 }
 func (a AVVCAlertInformation) Mode() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("mode"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("mode"))
 	return rv
 }
 func (a AVVCAlertInformation) SetMode(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMode:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMode:"), value)
 }
 func (a AVVCAlertInformation) Type() int {
-	rv := objc.Send[int](a.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("type"))
 	return rv
 }
 func (a AVVCAlertInformation) SetType(value int) {
-	objc.Send[struct{}](a.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setType:"), value)
 }

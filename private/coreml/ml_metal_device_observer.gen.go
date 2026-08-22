@@ -38,7 +38,7 @@ func (mc MLMetalDeviceObserverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMetalDeviceObserverClass) Alloc() MLMetalDeviceObserver {
-	rv := objc.Send[MLMetalDeviceObserver](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMetalDeviceObserver](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,33 +78,33 @@ type IMLMetalDeviceObserver interface {
 
 // Init initializes the instance.
 func (m MLMetalDeviceObserver) Init() MLMetalDeviceObserver {
-	rv := objc.Send[MLMetalDeviceObserver](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMetalDeviceObserver](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMetalDeviceObserver) Autorelease() MLMetalDeviceObserver {
-	rv := objc.Send[MLMetalDeviceObserver](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMetalDeviceObserver](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMetalDeviceObserver creates a new MLMetalDeviceObserver instance.
 func NewMLMetalDeviceObserver() MLMetalDeviceObserver {
 	class := getMLMetalDeviceObserverClass()
-	rv := objc.Send[MLMetalDeviceObserver](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMetalDeviceObserver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLMetalDeviceObserver) CopyAllMTLDevicesWithHandlerDeviceObserver(handler VoidHandler, observer []objectivec.IObject) objectivec.IObject {
 	_block0, _ := NewVoidBlock(handler)
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("copyAllMTLDevicesWithHandler:deviceObserver:"), _block0, observer)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyAllMTLDevicesWithHandler:deviceObserver:"), _block0, observer)
 	return objectivec.Object{ID: rv}
 }
 func (m MLMetalDeviceObserver) StartObservingWithBlockDeviceObserver(block VoidHandler, observer []objectivec.IObject) objectivec.IObject {
 	_block0, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("startObservingWithBlock:deviceObserver:"), _block0, observer)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("startObservingWithBlock:deviceObserver:"), _block0, observer)
 	return objectivec.Object{ID: rv}
 }
 func (m MLMetalDeviceObserver) StopObserving(observing objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("stopObserving:"), observing)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stopObserving:"), observing)
 }

@@ -40,7 +40,7 @@ func (ac AVVCAudioBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCAudioBufferClass) Alloc() AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCAudioBuffer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -117,97 +117,97 @@ type IAVVCAudioBuffer interface {
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
 	UpsamplingSourceAudio() bool
-	InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
+	InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
 }
 
 // Init initializes the instance.
 func (a AVVCAudioBuffer) Init() AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCAudioBuffer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCAudioBuffer) Autorelease() AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCAudioBuffer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCAudioBuffer creates a new AVVCAudioBuffer instance.
 func NewAVVCAudioBuffer() AVVCAudioBuffer {
 	class := getAVVCAudioBufferClass()
-	rv := objc.Send[AVVCAudioBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCAudioBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	instance := getAVVCAudioBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), unsafe.Pointer(buffer), channels, stamp)
 	return AVVCAudioBufferFromID(rv)
 }
 
 func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
-func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
+func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+	rv := objc.SendIfResponds[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), unsafe.Pointer(buffer), channels, stamp)
 	return rv
 }
 
 func (a AVVCAudioBuffer) BytesCapacity() int {
-	rv := objc.Send[int](a.ID, objc.Sel("bytesCapacity"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("bytesCapacity"))
 	return rv
 }
 func (a AVVCAudioBuffer) BytesDataSize() int {
-	rv := objc.Send[int](a.ID, objc.Sel("bytesDataSize"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("bytesDataSize"))
 	return rv
 }
 func (a AVVCAudioBuffer) SetBytesDataSize(value int) {
-	objc.Send[struct{}](a.ID, objc.Sel("setBytesDataSize:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setBytesDataSize:"), value)
 }
 func (a AVVCAudioBuffer) Channels() int {
-	rv := objc.Send[int](a.ID, objc.Sel("channels"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("channels"))
 	return rv
 }
 func (a AVVCAudioBuffer) Data() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("data"))
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("data"))
 	return rv
 }
 func (a AVVCAudioBuffer) PacketDescriptionCapacity() int {
-	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCapacity"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("packetDescriptionCapacity"))
 	return rv
 }
 func (a AVVCAudioBuffer) PacketDescriptionCount() int {
-	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCount"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("packetDescriptionCount"))
 	return rv
 }
 func (a AVVCAudioBuffer) PacketDescriptions() coreaudiotypes.AudioStreamPacketDescription {
-	rv := objc.Send[coreaudiotypes.AudioStreamPacketDescription](a.ID, objc.Sel("packetDescriptions"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioStreamPacketDescription](a.ID, objc.Sel("packetDescriptions"))
 	return coreaudiotypes.AudioStreamPacketDescription(rv)
 }
 func (a AVVCAudioBuffer) RemoteVoiceActivityAvailable() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("remoteVoiceActivityAvailable"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("remoteVoiceActivityAvailable"))
 	return rv
 }
 func (a AVVCAudioBuffer) RemoteVoiceActivityRMS() byte {
-	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityRMS"))
+	rv := objc.SendIfResponds[byte](a.ID, objc.Sel("remoteVoiceActivityRMS"))
 	return rv
 }
 func (a AVVCAudioBuffer) RemoteVoiceActivityVAD() byte {
-	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityVAD"))
+	rv := objc.SendIfResponds[byte](a.ID, objc.Sel("remoteVoiceActivityVAD"))
 	return rv
 }
 func (a AVVCAudioBuffer) StreamDescription() coreaudiotypes.AudioStreamBasicDescription {
-	rv := objc.Send[coreaudiotypes.AudioStreamBasicDescription](a.ID, objc.Sel("streamDescription"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioStreamBasicDescription](a.ID, objc.Sel("streamDescription"))
 	return coreaudiotypes.AudioStreamBasicDescription(rv)
 }
 func (a AVVCAudioBuffer) TimeStamp() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("timeStamp"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("timeStamp"))
 	return rv
 }
 func (a AVVCAudioBuffer) SetTimeStamp(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setTimeStamp:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setTimeStamp:"), value)
 }
 func (a AVVCAudioBuffer) UpsamplingSourceAudio() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("upsamplingSourceAudio"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("upsamplingSourceAudio"))
 	return rv
 }

@@ -14,8 +14,14 @@ type GTShaderProfilerShaderDiassembly interface {
 	// Address protocol.
 	Address() uint32
 
+	// Binary protocol.
+	Binary() objectivec.IObject
+
 	// Cost protocol.
 	Cost() float64
+
+	// Diassembly protocol.
+	Diassembly() objectivec.IObject
 
 	// Opcode protocol.
 	Opcode() uint32
@@ -45,30 +51,30 @@ func GTShaderProfilerShaderDiassemblyObjectFromID(id objc.ID) GTShaderProfilerSh
 }
 
 func (o GTShaderProfilerShaderDiassemblyObject) Address() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("address"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("address"))
 	return rv
 }
 func (o GTShaderProfilerShaderDiassemblyObject) Binary() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderDiassemblyObject) Cost() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("cost"))
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("cost"))
 	return rv
 }
 func (o GTShaderProfilerShaderDiassemblyObject) Diassembly() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("diassembly"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("diassembly"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderDiassemblyObject) Opcode() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("opcode"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("opcode"))
 	return rv
 }
 func (o GTShaderProfilerShaderDiassemblyObject) OpcodeMask() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("opcodeMask"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("opcodeMask"))
 	return rv
 }
 func (o GTShaderProfilerShaderDiassemblyObject) OpcodeType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("opcodeType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("opcodeType"))
 	return rv
 }

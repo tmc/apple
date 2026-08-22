@@ -38,7 +38,7 @@ func (gc GTMioInstructionTypeCountCounterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioInstructionTypeCountCounterClass) Alloc() GTMioInstructionTypeCountCounter {
-	rv := objc.Send[GTMioInstructionTypeCountCounter](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioInstructionTypeCountCounter](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type IGTMioInstructionTypeCountCounter interface {
 
 // Init initializes the instance.
 func (g GTMioInstructionTypeCountCounter) Init() GTMioInstructionTypeCountCounter {
-	rv := objc.Send[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioInstructionTypeCountCounter) Autorelease() GTMioInstructionTypeCountCounter {
-	rv := objc.Send[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioInstructionTypeCountCounter creates a new GTMioInstructionTypeCountCounter instance.
 func NewGTMioInstructionTypeCountCounter() GTMioInstructionTypeCountCounter {
 	class := getGTMioInstructionTypeCountCounterClass()
-	rv := objc.Send[GTMioInstructionTypeCountCounter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioInstructionTypeCountCounter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioInstructionTypeCountCounterWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioInstructionTypeCountCounter {
 	instance := getGTMioInstructionTypeCountCounterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
 	return GTMioInstructionTypeCountCounterFromID(rv)
 }
 
 func NewGTMioInstructionTypeCountCounterWithContainerInstructionTypeScopeScopeIndex(container unsafe.Pointer, type_ uint16, scope uint16, index uint64) GTMioInstructionTypeCountCounter {
 	instance := getGTMioInstructionTypeCountCounterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:instructionType:scope:scopeIndex:"), container, type_, scope, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:instructionType:scope:scopeIndex:"), container, type_, scope, index)
 	return GTMioInstructionTypeCountCounterFromID(rv)
 }
 
 func (g GTMioInstructionTypeCountCounter) InitWithContainerInstructionTypeScopeScopeIndex(container unsafe.Pointer, type_ uint16, scope uint16, index uint64) GTMioInstructionTypeCountCounter {
-	rv := objc.Send[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("initWithContainer:instructionType:scope:scopeIndex:"), container, type_, scope, index)
+	rv := objc.SendIfResponds[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("initWithContainer:instructionType:scope:scopeIndex:"), container, type_, scope, index)
 	return rv
 }
 
 func (g GTMioInstructionTypeCountCounter) InstructionType() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("instructionType"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("instructionType"))
 	return rv
 }

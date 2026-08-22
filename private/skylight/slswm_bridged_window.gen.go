@@ -40,7 +40,7 @@ func (sc SLSWMBridgedWindowClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSWMBridgedWindowClass) Alloc() SLSWMBridgedWindow {
-	rv := objc.Send[SLSWMBridgedWindow](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindow](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -113,31 +113,31 @@ type ISLSWMBridgedWindow interface {
 
 // Init initializes the instance.
 func (s SLSWMBridgedWindow) Init() SLSWMBridgedWindow {
-	rv := objc.Send[SLSWMBridgedWindow](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindow](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSWMBridgedWindow) Autorelease() SLSWMBridgedWindow {
-	rv := objc.Send[SLSWMBridgedWindow](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindow](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSWMBridgedWindow creates a new SLSWMBridgedWindow instance.
 func NewSLSWMBridgedWindow() SLSWMBridgedWindow {
 	class := getSLSWMBridgedWindowClass()
-	rv := objc.Send[SLSWMBridgedWindow](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSWMBridgedWindow](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSWMBridgedWindowWithWindowID(id uint32) SLSWMBridgedWindow {
 	instance := getSLSWMBridgedWindowClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindowID:"), id)
 	return SLSWMBridgedWindowFromID(rv)
 }
 
 func (s SLSWMBridgedWindow) _rebuildChildWindowInfos() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_rebuildChildWindowInfos"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
 
 // RebuildChildWindowInfos is an exported wrapper for the private method _rebuildChildWindowInfos.
@@ -155,47 +155,47 @@ func (s SLSWMBridgedWindow) CanRebuildChildWindowInfos() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
 func (s SLSWMBridgedWindow) AddChildWindowOrdered(window objectivec.IObject, ordered int) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addChildWindow:ordered:"), window, ordered)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addChildWindow:ordered:"), window, ordered)
 }
 func (s SLSWMBridgedWindow) ClearOrderingGroup() {
-	objc.Send[objc.ID](s.ID, objc.Sel("clearOrderingGroup"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("clearOrderingGroup"))
 }
 func (s SLSWMBridgedWindow) OrderWindowRelativeToIDRelativeToOrderGroup(window int, id uint32, to objectivec.IObject, group bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("orderWindow:relativeToID:relativeTo:orderGroup:"), window, id, to, group)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("orderWindow:relativeToID:relativeTo:orderGroup:"), window, id, to, group)
 }
 func (s SLSWMBridgedWindow) RemoveChildWindow(window objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("removeChildWindow:"), window)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("removeChildWindow:"), window)
 }
 func (s SLSWMBridgedWindow) RemoveFromParent() {
-	objc.Send[objc.ID](s.ID, objc.Sel("removeFromParent"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("removeFromParent"))
 }
 func (s SLSWMBridgedWindow) SetFrameForceAsync(frame corefoundation.CGRect, async bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setFrame:forceAsync:"), frame, async)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setFrame:forceAsync:"), frame, async)
 }
 func (s SLSWMBridgedWindow) SetWindowLevel(level int) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setWindowLevel:"), level)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setWindowLevel:"), level)
 }
 func (s SLSWMBridgedWindow) WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("window:didUpdateWithChangedProperties:"), window, properties)
 }
 func (s SLSWMBridgedWindow) InitWithWindowID(id uint32) SLSWMBridgedWindow {
-	rv := objc.Send[SLSWMBridgedWindow](s.ID, objc.Sel("initWithWindowID:"), id)
+	rv := objc.SendIfResponds[SLSWMBridgedWindow](s.ID, objc.Sel("initWithWindowID:"), id)
 	return rv
 }
 
 func (s SLSWMBridgedWindow) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSWMBridgedWindow) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSWMBridgedWindow) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSWMBridgedWindow) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

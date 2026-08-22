@@ -40,7 +40,7 @@ func (dc DYWorkloadGPUTimelineInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DYWorkloadGPUTimelineInfoClass) Alloc() DYWorkloadGPUTimelineInfo {
-	rv := objc.Send[DYWorkloadGPUTimelineInfo](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DYWorkloadGPUTimelineInfo](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -173,156 +173,156 @@ type IDYWorkloadGPUTimelineInfo interface {
 
 // Init initializes the instance.
 func (d DYWorkloadGPUTimelineInfo) Init() DYWorkloadGPUTimelineInfo {
-	rv := objc.Send[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DYWorkloadGPUTimelineInfo) Autorelease() DYWorkloadGPUTimelineInfo {
-	rv := objc.Send[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDYWorkloadGPUTimelineInfo creates a new DYWorkloadGPUTimelineInfo instance.
 func NewDYWorkloadGPUTimelineInfo() DYWorkloadGPUTimelineInfo {
 	class := getDYWorkloadGPUTimelineInfoClass()
-	rv := objc.Send[DYWorkloadGPUTimelineInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DYWorkloadGPUTimelineInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDYWorkloadGPUTimelineInfoWithCoder(coder objectivec.IObject) DYWorkloadGPUTimelineInfo {
 	instance := getDYWorkloadGPUTimelineInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYWorkloadGPUTimelineInfoFromID(rv)
 }
 
 func (d DYWorkloadGPUTimelineInfo) CreateCounterGroup() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("createCounterGroup"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createCounterGroup"))
 	return objectivec.Object{ID: rv}
 }
 func (d DYWorkloadGPUTimelineInfo) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DYWorkloadGPUTimelineInfo) EnumerateEncoderDerivedData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedData:"), _block0)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedData:"), _block0)
 }
 func (d DYWorkloadGPUTimelineInfo) EnumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
 }
 func (d DYWorkloadGPUTimelineInfo) IsMio() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isMio"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isMio"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) MGPUTimelineInfoAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mGPUTimelineInfoAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mGPUTimelineInfoAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (d DYWorkloadGPUTimelineInfo) MetalFXCallDuration(duration uint64) uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("metalFXCallDuration:"), duration)
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) InitWithCoder(coder foundation.INSCoder) DYWorkloadGPUTimelineInfo {
-	rv := objc.Send[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DYWorkloadGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DYWorkloadGPUTimelineInfoClass DYWorkloadGPUTimelineInfoClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DYWorkloadGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DYWorkloadGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DYWorkloadGPUTimelineInfo) AggregatedGPUTimelineInfo() IDYGPUTimelineInfo {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("aggregatedGPUTimelineInfo"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("aggregatedGPUTimelineInfo"))
 	return DYGPUTimelineInfoFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetAggregatedGPUTimelineInfo(value IDYGPUTimelineInfo) {
-	objc.Send[struct{}](d.ID, objc.Sel("setAggregatedGPUTimelineInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setAggregatedGPUTimelineInfo:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) CoalescedEncoderInfo() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("coalescedEncoderInfo"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("coalescedEncoderInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetCoalescedEncoderInfo(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCoalescedEncoderInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCoalescedEncoderInfo:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) ConsistentStateAchieved() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("consistentStateAchieved"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("consistentStateAchieved"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) SetConsistentStateAchieved(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setConsistentStateAchieved:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setConsistentStateAchieved:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) CoreCounts() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("coreCounts"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("coreCounts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetCoreCounts(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCoreCounts:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCoreCounts:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) CounterGroups() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("counterGroups"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("counterGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetCounterGroups(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCounterGroups:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCounterGroups:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) DerivedEncoderCounterInfo() IDYGPUDerivedEncoderCounterInfo {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedEncoderCounterInfo"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("derivedEncoderCounterInfo"))
 	return DYGPUDerivedEncoderCounterInfoFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetDerivedEncoderCounterInfo(value IDYGPUDerivedEncoderCounterInfo) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDerivedEncoderCounterInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDerivedEncoderCounterInfo:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) MGPUTimelineInfos() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mGPUTimelineInfos"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mGPUTimelineInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetMGPUTimelineInfos(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setMGPUTimelineInfos:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setMGPUTimelineInfos:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) PerRingSampledDerivedCounters() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("perRingSampledDerivedCounters"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("perRingSampledDerivedCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetPerRingSampledDerivedCounters(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPerRingSampledDerivedCounters:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPerRingSampledDerivedCounters:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) ProfiledState() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("profiledState"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("profiledState"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) SetProfiledState(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setProfiledState:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setProfiledState:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) RestoreTimestamps() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("restoreTimestamps"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("restoreTimestamps"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYWorkloadGPUTimelineInfo) SetRestoreTimestamps(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setRestoreTimestamps:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setRestoreTimestamps:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) TimeBaseDenominator() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("timeBaseDenominator"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("timeBaseDenominator"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) SetTimeBaseDenominator(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTimeBaseDenominator:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setTimeBaseDenominator:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) TimeBaseNumerator() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("timeBaseNumerator"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("timeBaseNumerator"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) SetTimeBaseNumerator(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTimeBaseNumerator:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setTimeBaseNumerator:"), value)
 }
 func (d DYWorkloadGPUTimelineInfo) Version() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("version"))
 	return rv
 }
 func (d DYWorkloadGPUTimelineInfo) SetVersion(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setVersion:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setVersion:"), value)
 }
 
 // EnumerateEncoderDerivedDataSync is a synchronous wrapper around [DYWorkloadGPUTimelineInfo.EnumerateEncoderDerivedData].

@@ -39,7 +39,7 @@ func (sc SLSBridgedManagedDisplaysCopyRoleWindowsOperationClass) Class() objc.Cl
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedManagedDisplaysCopyRoleWindowsOperationClass) Alloc() SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedManagedDisplaysCopyRoleWindowsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) Init() SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) Autorelease() SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedManagedDisplaysCopyRoleWindowsOperation creates a new SLSBridgedManagedDisplaysCopyRoleWindowsOperation instance.
 func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperation() SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	class := getSLSBridgedManagedDisplaysCopyRoleWindowsOperationClass()
-	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	instance := getSLSBridgedManagedDisplaysCopyRoleWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaysCopyRoleWindowsOperationFromID(rv)
 }
 
 func NewSLSBridgedManagedDisplaysCopyRoleWindowsOperationWithDisplayIdentifiersRole(identifiers objectivec.IObject, role uint64) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
 	instance := getSLSBridgedManagedDisplaysCopyRoleWindowsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
 	return SLSBridgedManagedDisplaysCopyRoleWindowsOperationFromID(rv)
 }
 
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) MakeResultWithNumbers(numbers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) InitWithDisplayIdentifiersRole(identifiers objectivec.IObject, role uint64) SLSBridgedManagedDisplaysCopyRoleWindowsOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaysCopyRoleWindowsOperation](s.ID, objc.Sel("initWithDisplayIdentifiers:role:"), identifiers, role)
 	return rv
 }
 
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) DisplayIdentifiers() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifiers"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIdentifiers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSBridgedManagedDisplaysCopyRoleWindowsOperation) Role() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("role"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("role"))
 	return rv
 }

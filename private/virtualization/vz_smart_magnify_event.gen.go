@@ -38,7 +38,7 @@ func (vc VZSmartMagnifyEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSmartMagnifyEventClass) Alloc() VZSmartMagnifyEvent {
-	rv := objc.Send[VZSmartMagnifyEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSmartMagnifyEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IVZSmartMagnifyEvent interface {
 
 // Init initializes the instance.
 func (v VZSmartMagnifyEvent) Init() VZSmartMagnifyEvent {
-	rv := objc.Send[VZSmartMagnifyEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSmartMagnifyEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSmartMagnifyEvent) Autorelease() VZSmartMagnifyEvent {
-	rv := objc.Send[VZSmartMagnifyEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSmartMagnifyEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSmartMagnifyEvent creates a new VZSmartMagnifyEvent instance.
 func NewVZSmartMagnifyEvent() VZSmartMagnifyEvent {
 	class := getVZSmartMagnifyEventClass()
-	rv := objc.Send[VZSmartMagnifyEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSmartMagnifyEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZSmartMagnifyEventWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
 	instance := getVZSmartMagnifyEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZSmartMagnifyEventFromID(rv)
 }
 
 func (v VZSmartMagnifyEvent) InitWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
-	rv := objc.Send[VZSmartMagnifyEvent](v.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[VZSmartMagnifyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }

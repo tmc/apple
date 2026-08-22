@@ -39,7 +39,7 @@ func (sc SLVirtualDisplayCapabilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLVirtualDisplayCapabilitiesClass) Alloc() SLVirtualDisplayCapabilities {
-	rv := objc.Send[SLVirtualDisplayCapabilities](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLVirtualDisplayCapabilities](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,41 +85,41 @@ type ISLVirtualDisplayCapabilities interface {
 
 // Init initializes the instance.
 func (s SLVirtualDisplayCapabilities) Init() SLVirtualDisplayCapabilities {
-	rv := objc.Send[SLVirtualDisplayCapabilities](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLVirtualDisplayCapabilities](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLVirtualDisplayCapabilities) Autorelease() SLVirtualDisplayCapabilities {
-	rv := objc.Send[SLVirtualDisplayCapabilities](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLVirtualDisplayCapabilities](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLVirtualDisplayCapabilities creates a new SLVirtualDisplayCapabilities instance.
 func NewSLVirtualDisplayCapabilities() SLVirtualDisplayCapabilities {
 	class := getSLVirtualDisplayCapabilitiesClass()
-	rv := objc.Send[SLVirtualDisplayCapabilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLVirtualDisplayCapabilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLVirtualDisplayCapabilities) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLVirtualDisplayCapabilities) MaximumPixelsPerPoint() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumPixelsPerPoint"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("maximumPixelsPerPoint"))
 	return rv
 }
 func (s SLVirtualDisplayCapabilities) MaximumSizeInPixels() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("maximumSizeInPixels"))
 	return rv
 }
 func (s SLVirtualDisplayCapabilities) MinimumPixelsPerPoint() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("minimumPixelsPerPoint"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("minimumPixelsPerPoint"))
 	return rv
 }
 func (s SLVirtualDisplayCapabilities) MinimumRefreshRate() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("minimumRefreshRate"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("minimumRefreshRate"))
 	return rv
 }

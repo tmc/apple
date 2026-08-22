@@ -39,7 +39,7 @@ func (dc DIImageHandleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIImageHandleClass) Alloc() DIImageHandle {
-	rv := objc.Send[DIImageHandle](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIImageHandle](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,30 +73,30 @@ type IDIImageHandle interface {
 
 // Init initializes the instance.
 func (d DIImageHandle) Init() DIImageHandle {
-	rv := objc.Send[DIImageHandle](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIImageHandle](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIImageHandle) Autorelease() DIImageHandle {
-	rv := objc.Send[DIImageHandle](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIImageHandle](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIImageHandle creates a new DIImageHandle instance.
 func NewDIImageHandle() DIImageHandle {
 	class := getDIImageHandleClass()
-	rv := objc.Send[DIImageHandle](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIImageHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIImageHandleWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
 	instance := getDIImageHandleClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
 	return DIImageHandleFromID(rv)
 }
 
 func (d DIImageHandle) InitWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
-	rv := objc.Send[DIImageHandle](d.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
+	rv := objc.SendIfResponds[DIImageHandle](d.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
 	return rv
 }

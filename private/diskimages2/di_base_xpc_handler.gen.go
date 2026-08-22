@@ -41,7 +41,7 @@ func (dc DIBaseXPCHandlerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIBaseXPCHandlerClass) Alloc() DIBaseXPCHandler {
-	rv := objc.Send[DIBaseXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIBaseXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -126,25 +126,25 @@ type IDIBaseXPCHandler interface {
 
 // Init initializes the instance.
 func (d DIBaseXPCHandler) Init() DIBaseXPCHandler {
-	rv := objc.Send[DIBaseXPCHandler](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIBaseXPCHandler](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIBaseXPCHandler) Autorelease() DIBaseXPCHandler {
-	rv := objc.Send[DIBaseXPCHandler](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIBaseXPCHandler](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIBaseXPCHandler creates a new DIBaseXPCHandler instance.
 func NewDIBaseXPCHandler() DIBaseXPCHandler {
 	class := getDIBaseXPCHandlerClass()
-	rv := objc.Send[DIBaseXPCHandler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIBaseXPCHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (d DIBaseXPCHandler) CloseConnection() {
-	objc.Send[objc.ID](d.ID, objc.Sel("closeConnection"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("closeConnection"))
 }
 func (d DIBaseXPCHandler) CompleteCommandWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -173,7 +173,7 @@ func (d DIBaseXPCHandler) ConnectWithError() (bool, error) {
 
 }
 func (d DIBaseXPCHandler) CreateConnection() {
-	objc.Send[objc.ID](d.ID, objc.Sel("createConnection"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createConnection"))
 }
 func (d DIBaseXPCHandler) DupStderrWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -189,49 +189,49 @@ func (d DIBaseXPCHandler) DupStderrWithError() (bool, error) {
 
 }
 func (d DIBaseXPCHandler) RemoteObjectInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("remoteObjectInterface"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("remoteObjectInterface"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIBaseXPCHandler) ServiceName() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("serviceName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("serviceName"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIBaseXPCHandler) SignalCommandCompletedWithXpcError(error_ objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("signalCommandCompletedWithXpcError:"), error_)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("signalCommandCompletedWithXpcError:"), error_)
 }
 
 func (d DIBaseXPCHandler) Connection() foundation.NSXPCConnection {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("connection"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
 func (d DIBaseXPCHandler) SetConnection(value foundation.NSXPCConnection) {
-	objc.Send[struct{}](d.ID, objc.Sel("setConnection:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setConnection:"), value)
 }
 func (d DIBaseXPCHandler) IsPrivileged() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isPrivileged"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isPrivileged"))
 	return rv
 }
 func (d DIBaseXPCHandler) SetIsPrivileged(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setIsPrivileged:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setIsPrivileged:"), value)
 }
 func (d DIBaseXPCHandler) RemoteProxy() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("remoteProxy"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("remoteProxy"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIBaseXPCHandler) SetRemoteProxy(value objectivec.IObject) {
-	objc.Send[struct{}](d.ID, objc.Sel("setRemoteProxy:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setRemoteProxy:"), value)
 }
 func (d DIBaseXPCHandler) Semaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("semaphore"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("semaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (d DIBaseXPCHandler) SetSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSemaphore:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSemaphore:"), value)
 }
 func (d DIBaseXPCHandler) XpcError() foundation.NSError {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcError"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("xpcError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (d DIBaseXPCHandler) SetXpcError(value foundation.NSError) {
-	objc.Send[struct{}](d.ID, objc.Sel("setXpcError:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setXpcError:"), value)
 }

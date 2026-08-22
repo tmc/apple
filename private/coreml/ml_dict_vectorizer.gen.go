@@ -40,7 +40,7 @@ func (mc MLDictVectorizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDictVectorizerClass) Alloc() MLDictVectorizer {
-	rv := objc.Send[MLDictVectorizer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDictVectorizer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,43 +80,46 @@ type IMLDictVectorizer interface {
 
 // Init initializes the instance.
 func (m MLDictVectorizer) Init() MLDictVectorizer {
-	rv := objc.Send[MLDictVectorizer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDictVectorizer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDictVectorizer) Autorelease() MLDictVectorizer {
-	rv := objc.Send[MLDictVectorizer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDictVectorizer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDictVectorizer creates a new MLDictVectorizer instance.
 func NewMLDictVectorizer() MLDictVectorizer {
 	class := getMLDictVectorizerClass()
-	rv := objc.Send[MLDictVectorizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDictVectorizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDictVectorizerWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLDictVectorizer, error) {
 	var errorPtr objc.ID
 	instance := getMLDictVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, name, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, name, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDictVectorizer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDictVectorizer{}, objc.ErrInitFailed
 	}
 	return MLDictVectorizerFromID(rv), nil
 }
 
 func NewDictVectorizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDictVectorizer {
 	instance := getMLDictVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDictVectorizerFromID(rv)
 }
 
 func NewDictVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDictVectorizer {
 	instance := getMLDictVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDictVectorizerFromID(rv)
 }
 
@@ -173,6 +176,6 @@ func (_MLDictVectorizerClass MLDictVectorizerClass) LoadModelFromSpecificationCo
 }
 
 func (m MLDictVectorizer) CategoryName() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("categoryName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("categoryName"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }

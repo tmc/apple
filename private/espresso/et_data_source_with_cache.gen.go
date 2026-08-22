@@ -38,7 +38,7 @@ func (ec ETDataSourceWithCacheClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataSourceWithCacheClass) Alloc() ETDataSourceWithCache {
-	rv := objc.Send[ETDataSourceWithCache](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataSourceWithCache](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,48 +81,48 @@ type IETDataSourceWithCache interface {
 
 // Init initializes the instance.
 func (e ETDataSourceWithCache) Init() ETDataSourceWithCache {
-	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataSourceWithCache](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataSourceWithCache) Autorelease() ETDataSourceWithCache {
-	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataSourceWithCache](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataSourceWithCache creates a new ETDataSourceWithCache instance.
 func NewETDataSourceWithCache() ETDataSourceWithCache {
 	class := getETDataSourceWithCacheClass()
-	rv := objc.Send[ETDataSourceWithCache](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataSourceWithCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETDataSourceWithCacheWithDataSource(source objectivec.IObject) ETDataSourceWithCache {
 	instance := getETDataSourceWithCacheClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataSource:"), source)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataSource:"), source)
 	return ETDataSourceWithCacheFromID(rv)
 }
 
 func NewETDataSourceWithCacheWithDataSourceDumpPath(source objectivec.IObject, path objectivec.IObject) ETDataSourceWithCache {
 	instance := getETDataSourceWithCacheClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataSource:dumpPath:"), source, path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataSource:dumpPath:"), source, path)
 	return ETDataSourceWithCacheFromID(rv)
 }
 
 func (e ETDataSourceWithCache) DataPointAtIndex(index int) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (e ETDataSourceWithCache) NumberOfDataPoints() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETDataSourceWithCache) InitWithDataSource(source objectivec.IObject) ETDataSourceWithCache {
-	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:"), source)
+	rv := objc.SendIfResponds[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:"), source)
 	return rv
 }
 func (e ETDataSourceWithCache) InitWithDataSourceDumpPath(source objectivec.IObject, path objectivec.IObject) ETDataSourceWithCache {
-	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:dumpPath:"), source, path)
+	rv := objc.SendIfResponds[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:dumpPath:"), source, path)
 	return rv
 }

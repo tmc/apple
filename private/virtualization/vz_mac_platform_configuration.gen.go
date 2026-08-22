@@ -38,7 +38,7 @@ func (vc VZMacPlatformConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
-	rv := objc.Send[VZMacPlatformConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacPlatformConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -156,25 +156,25 @@ type IVZMacPlatformConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacPlatformConfiguration) Init() VZMacPlatformConfiguration {
-	rv := objc.Send[VZMacPlatformConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacPlatformConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacPlatformConfiguration) Autorelease() VZMacPlatformConfiguration {
-	rv := objc.Send[VZMacPlatformConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacPlatformConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacPlatformConfiguration creates a new VZMacPlatformConfiguration instance.
 func NewVZMacPlatformConfiguration() VZMacPlatformConfiguration {
 	class := getVZMacPlatformConfigurationClass()
-	rv := objc.Send[VZMacPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacPlatformConfiguration) _isFairPlayEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isFairPlayEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isFairPlayEnabled"))
 	return rv
 }
 
@@ -192,7 +192,7 @@ func (v VZMacPlatformConfiguration) CanIsFairPlayEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isFairPlayEnabled"))
 }
 func (v VZMacPlatformConfiguration) _isFakeEncryptionEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isFakeEncryptionEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isFakeEncryptionEnabled"))
 	return rv
 }
 
@@ -210,7 +210,7 @@ func (v VZMacPlatformConfiguration) CanIsFakeEncryptionEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isFakeEncryptionEnabled"))
 }
 func (v VZMacPlatformConfiguration) _isProductionModeEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isProductionModeEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isProductionModeEnabled"))
 	return rv
 }
 
@@ -228,7 +228,7 @@ func (v VZMacPlatformConfiguration) CanIsProductionModeEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isProductionModeEnabled"))
 }
 func (v VZMacPlatformConfiguration) _isSIODescramblerEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isSIODescramblerEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isSIODescramblerEnabled"))
 	return rv
 }
 
@@ -246,7 +246,7 @@ func (v VZMacPlatformConfiguration) CanIsSIODescramblerEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isSIODescramblerEnabled"))
 }
 func (v VZMacPlatformConfiguration) _isStrongIdentityEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_isStrongIdentityEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isStrongIdentityEnabled"))
 	return rv
 }
 
@@ -264,7 +264,7 @@ func (v VZMacPlatformConfiguration) CanIsStrongIdentityEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_isStrongIdentityEnabled"))
 }
 func (v VZMacPlatformConfiguration) _setFairPlayEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setFairPlayEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setFairPlayEnabled:"), enabled)
 }
 
 // SetFairPlayEnabled is an exported wrapper for the private method _setFairPlayEnabled.
@@ -282,7 +282,7 @@ func (v VZMacPlatformConfiguration) CanSetFairPlayEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFairPlayEnabled:"))
 }
 func (v VZMacPlatformConfiguration) _setFakeEncryptionEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setFakeEncryptionEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setFakeEncryptionEnabled:"), enabled)
 }
 
 // SetFakeEncryptionEnabled is an exported wrapper for the private method _setFakeEncryptionEnabled.
@@ -300,7 +300,7 @@ func (v VZMacPlatformConfiguration) CanSetFakeEncryptionEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFakeEncryptionEnabled:"))
 }
 func (v VZMacPlatformConfiguration) _setGuestEncryptionWrappingKey(key objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setGuestEncryptionWrappingKey:"), key)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setGuestEncryptionWrappingKey:"), key)
 }
 
 // SetGuestEncryptionWrappingKey is an exported wrapper for the private method _setGuestEncryptionWrappingKey.
@@ -318,7 +318,7 @@ func (v VZMacPlatformConfiguration) CanSetGuestEncryptionWrappingKey() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGuestEncryptionWrappingKey:"))
 }
 func (v VZMacPlatformConfiguration) _setHostAttributeShareOptions(options uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setHostAttributeShareOptions:"), options)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setHostAttributeShareOptions:"), options)
 }
 
 // SetHostAttributeShareOptions is an exported wrapper for the private method _setHostAttributeShareOptions.
@@ -336,7 +336,7 @@ func (v VZMacPlatformConfiguration) CanSetHostAttributeShareOptions() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setHostAttributeShareOptions:"))
 }
 func (v VZMacPlatformConfiguration) _setProductionModeEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setProductionModeEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setProductionModeEnabled:"), enabled)
 }
 
 // SetProductionModeEnabled is an exported wrapper for the private method _setProductionModeEnabled.
@@ -354,7 +354,7 @@ func (v VZMacPlatformConfiguration) CanSetProductionModeEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setProductionModeEnabled:"))
 }
 func (v VZMacPlatformConfiguration) _setRemoteServiceDiscoveryConfiguration(configuration objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"), configuration)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"), configuration)
 }
 
 // SetRemoteServiceDiscoveryConfiguration is an exported wrapper for the private method _setRemoteServiceDiscoveryConfiguration.
@@ -372,7 +372,7 @@ func (v VZMacPlatformConfiguration) CanSetRemoteServiceDiscoveryConfiguration() 
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"))
 }
 func (v VZMacPlatformConfiguration) _setSIODescramblerEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setSIODescramblerEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSIODescramblerEnabled:"), enabled)
 }
 
 // SetSIODescramblerEnabled is an exported wrapper for the private method _setSIODescramblerEnabled.
@@ -390,7 +390,7 @@ func (v VZMacPlatformConfiguration) CanSetSIODescramblerEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setSIODescramblerEnabled:"))
 }
 func (v VZMacPlatformConfiguration) _setStrongIdentityEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setStrongIdentityEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setStrongIdentityEnabled:"), enabled)
 }
 
 // SetStrongIdentityEnabled is an exported wrapper for the private method _setStrongIdentityEnabled.
@@ -409,7 +409,7 @@ func (v VZMacPlatformConfiguration) CanSetStrongIdentityEnabled() bool {
 }
 
 func (v VZMacPlatformConfiguration) _fairPlayEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_fairPlayEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_fairPlayEnabled"))
 	return rv
 }
 
@@ -426,10 +426,10 @@ func (v VZMacPlatformConfiguration) FairPlayEnabled() (bool, error) {
 	return v._fairPlayEnabled(), nil
 }
 func (v VZMacPlatformConfiguration) Set_fairPlayEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_fairPlayEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_fairPlayEnabled:"), value)
 }
 func (v VZMacPlatformConfiguration) _fakeEncryptionEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_fakeEncryptionEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_fakeEncryptionEnabled"))
 	return rv
 }
 
@@ -446,10 +446,10 @@ func (v VZMacPlatformConfiguration) FakeEncryptionEnabled() (bool, error) {
 	return v._fakeEncryptionEnabled(), nil
 }
 func (v VZMacPlatformConfiguration) Set_fakeEncryptionEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_fakeEncryptionEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_fakeEncryptionEnabled:"), value)
 }
 func (v VZMacPlatformConfiguration) _guestEncryptionWrappingKey() IVZWrappingKey {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_guestEncryptionWrappingKey"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_guestEncryptionWrappingKey"))
 	return VZWrappingKeyFromID(objc.ID(rv))
 }
 
@@ -466,10 +466,10 @@ func (v VZMacPlatformConfiguration) GuestEncryptionWrappingKey() (IVZWrappingKey
 	return v._guestEncryptionWrappingKey(), nil
 }
 func (v VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value IVZWrappingKey) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_guestEncryptionWrappingKey:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_guestEncryptionWrappingKey:"), value)
 }
 func (v VZMacPlatformConfiguration) _hostAttributeShareOptions() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("_hostAttributeShareOptions"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("_hostAttributeShareOptions"))
 	return rv
 }
 
@@ -486,10 +486,10 @@ func (v VZMacPlatformConfiguration) HostAttributeShareOptions() (uint64, error) 
 	return v._hostAttributeShareOptions(), nil
 }
 func (v VZMacPlatformConfiguration) Set_hostAttributeShareOptions(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_hostAttributeShareOptions:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_hostAttributeShareOptions:"), value)
 }
 func (v VZMacPlatformConfiguration) _productionModeEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_productionModeEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_productionModeEnabled"))
 	return rv
 }
 
@@ -506,10 +506,10 @@ func (v VZMacPlatformConfiguration) ProductionModeEnabled() (bool, error) {
 	return v._productionModeEnabled(), nil
 }
 func (v VZMacPlatformConfiguration) Set_productionModeEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_productionModeEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_productionModeEnabled:"), value)
 }
 func (v VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() IVZMacRemoteServiceDiscoveryConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_remoteServiceDiscoveryConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_remoteServiceDiscoveryConfiguration"))
 	return VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
 }
 
@@ -526,10 +526,10 @@ func (v VZMacPlatformConfiguration) RemoteServiceDiscoveryConfiguration() (IVZMa
 	return v._remoteServiceDiscoveryConfiguration(), nil
 }
 func (v VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value IVZMacRemoteServiceDiscoveryConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), value)
 }
 func (v VZMacPlatformConfiguration) _sioDescramblerEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_sioDescramblerEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_sioDescramblerEnabled"))
 	return rv
 }
 
@@ -546,10 +546,10 @@ func (v VZMacPlatformConfiguration) SioDescramblerEnabled() (bool, error) {
 	return v._sioDescramblerEnabled(), nil
 }
 func (v VZMacPlatformConfiguration) Set_sioDescramblerEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_sioDescramblerEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_sioDescramblerEnabled:"), value)
 }
 func (v VZMacPlatformConfiguration) _strongIdentityEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_strongIdentityEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_strongIdentityEnabled"))
 	return rv
 }
 
@@ -566,5 +566,5 @@ func (v VZMacPlatformConfiguration) StrongIdentityEnabled() (bool, error) {
 	return v._strongIdentityEnabled(), nil
 }
 func (v VZMacPlatformConfiguration) Set_strongIdentityEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_strongIdentityEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_strongIdentityEnabled:"), value)
 }

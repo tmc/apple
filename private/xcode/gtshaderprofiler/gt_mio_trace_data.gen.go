@@ -42,7 +42,7 @@ func (gc GTMioTraceDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceDataClass) Alloc() GTMioTraceData {
-	rv := objc.Send[GTMioTraceData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -259,35 +259,35 @@ type IGTMioTraceData interface {
 	BuildNonOverlappingCounters(counters unsafe.Pointer)
 	Cancel()
 	CancelToken(token uint64)
-	CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer
+	CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) *GTMioUSCCliqueMetadata
 	ComputePositionCount() uint64
-	ComputePositions() unsafe.Pointer
+	ComputePositions() *GTMioCliqueComputePosition
 	ConsistentStateAchieved() bool
 	CostCount() uint64
-	CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool
-	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool
+	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	CostTimeline() unsafe.Pointer
-	Costs() unsafe.Pointer
+	Costs() *GTMioCostInfo
 	DrawCount() uint64
 	DrawTraceCount() uint64
-	DrawTraces() unsafe.Pointer
-	Draws() unsafe.Pointer
+	DrawTraces() *GTMioDrawTrace
+	Draws() *GTMioDrawMetadata
 	DurationForDrawDataMaster(draw uint32, master uint16) uint64
 	EncodeWithCoder(coder foundation.INSCoder)
 	EncoderCount() uint64
-	EncoderFromFunctionIndex(index uint32) unsafe.Pointer
-	Encoders() unsafe.Pointer
+	EncoderFromFunctionIndex(index uint32) *GTMioEncoderMetadata
+	Encoders() *GTMioEncoderMetadata
 	EnumerateBinariesForDrawEnumerator(draw uint32, enumerator VoidHandler)
 	EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
-	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
 	EnumerateEncoders(encoders VoidHandler)
-	EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler)
 	EnumeratePipelineStates(states VoidHandler)
@@ -296,8 +296,8 @@ type IGTMioTraceData interface {
 	ExecutionHistoryForDrawProgramTypeDelegateProgressController(draw uint32, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject)
 	ExecutionHistoryForPipelineStateProgramTypeDelegateProgressController(state uint64, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject)
 	FragmentPositionCount() uint64
-	FragmentPositions() unsafe.Pointer
-	GpuCost() unsafe.Pointer
+	FragmentPositions() *GTMioCliqueFragmentPosition
+	GpuCost() *GTMioCostInfo
 	GpuInfo() IGTMioGPUInfo
 	GpuTime() uint64
 	HandleBatchIdFilteredData(data objectivec.IObject)
@@ -306,7 +306,7 @@ type IGTMioTraceData interface {
 	IsMio() bool
 	KickDurationForEncoder(encoder uint32) uint64
 	KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64
-	Kicks() unsafe.Pointer
+	Kicks() *GTMioKickTrace
 	KicksCount() uint64
 	LoadCostTimeline()
 	LoadTimeline()
@@ -322,8 +322,8 @@ type IGTMioTraceData interface {
 	ProfiledState() uint32
 	RequestCostTimeline(timeline VoidHandler) objectivec.IObject
 	RiaTraceCount() uint64
-	RiaTraces() unsafe.Pointer
-	ShaderBinaryInfo() unsafe.Pointer
+	RiaTraces() *GTMioRIATrace
+	ShaderBinaryInfo() *GTMioShaderBinaryInfo
 	ShaderBinaryInfoCount() uint64
 	StreamData() IGTShaderProfilerStreamData
 	SyncedBatchIDObserverCopy() objectivec.IObject
@@ -336,50 +336,53 @@ type IGTMioTraceData interface {
 	UseMinimumTracingMode() bool
 	InitWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error)
 	InitWithCoder(coder foundation.INSCoder) GTMioTraceData
-	InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData
+	InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData
 	InitWithTraceDatabaseDeallocator(database uint64, deallocator VoidHandler) GTMioTraceData
 	Version() uint32
 }
 
 // Init initializes the instance.
 func (g GTMioTraceData) Init() GTMioTraceData {
-	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceData) Autorelease() GTMioTraceData {
-	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceData creates a new GTMioTraceData instance.
 func NewGTMioTraceData() GTMioTraceData {
 	class := getGTMioTraceDataClass()
-	rv := objc.Send[GTMioTraceData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceDataWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error) {
 	var errorPtr objc.ID
 	instance := getGTMioTraceDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArchivedData:error:"), data, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArchivedData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return GTMioTraceData{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return GTMioTraceData{}, objc.ErrInitFailed
 	}
 	return GTMioTraceDataFromID(rv), nil
 }
 
 func NewGTMioTraceDataWithCoder(coder objectivec.IObject) GTMioTraceData {
 	instance := getGTMioTraceDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTMioTraceDataFromID(rv)
 }
 
-func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
+func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData {
 	instance := getGTMioTraceDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
 	return GTMioTraceDataFromID(rv)
 }
 
@@ -431,262 +434,262 @@ func (g GTMioTraceData) ArchivedDataError(data bool) (objectivec.IObject, error)
 
 }
 func (g GTMioTraceData) Binaries() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaries"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaries"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) BinaryForDrawProgramType(draw uint32, type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryForDraw:programType:"), draw, type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryForDraw:programType:"), draw, type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) BinaryForPipelineStateProgramType(state uint64, type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryForPipelineState:programType:"), state, type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryForPipelineState:programType:"), state, type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) BuildNonOverlappingCounters(counters unsafe.Pointer) {
-	objc.Send[objc.ID](g.ID, objc.Sel("buildNonOverlappingCounters:"), counters)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("buildNonOverlappingCounters:"), counters)
 }
 func (g GTMioTraceData) Cancel() {
-	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cancel"))
 }
 func (g GTMioTraceData) CancelToken(token uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("cancelToken:"), token)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cancelToken:"), token)
 }
-func (g GTMioTraceData) CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
-	return rv
+func (g GTMioTraceData) CliqueFromCliqueIndex(index *GTMioUSCCliqueIndex) *GTMioUSCCliqueMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("cliqueFromCliqueIndex:"), unsafe.Pointer(index))
+	return (*GTMioUSCCliqueMetadata)(rv)
 }
 func (g GTMioTraceData) ComputePositionCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("computePositionCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("computePositionCount"))
 	return rv
 }
-func (g GTMioTraceData) ComputePositions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("computePositions"))
-	return rv
+func (g GTMioTraceData) ComputePositions() *GTMioCliqueComputePosition {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("computePositions"))
+	return (*GTMioCliqueComputePosition)(rv)
 }
 func (g GTMioTraceData) CostCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-func (g GTMioTraceData) CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForContext:cost:"), context, cost)
+func (g GTMioTraceData) CostForContextCost(context *GTMioCostContext, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForContext:cost:"), unsafe.Pointer(context), unsafe.Pointer(cost))
 	return rv
 }
-func (g GTMioTraceData) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, cost)
+func (g GTMioTraceData) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, unsafe.Pointer(cost))
 	return rv
 }
-func (g GTMioTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (g GTMioTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
-func (g GTMioTraceData) Costs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costs"))
-	return rv
+func (g GTMioTraceData) Costs() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("costs"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioTraceData) DrawCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("drawCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("drawCount"))
 	return rv
 }
 func (g GTMioTraceData) DrawTraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("drawTraceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("drawTraceCount"))
 	return rv
 }
-func (g GTMioTraceData) DrawTraces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawTraces"))
-	return rv
+func (g GTMioTraceData) DrawTraces() *GTMioDrawTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("drawTraces"))
+	return (*GTMioDrawTrace)(rv)
 }
-func (g GTMioTraceData) Draws() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("draws"))
-	return rv
+func (g GTMioTraceData) Draws() *GTMioDrawMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("draws"))
+	return (*GTMioDrawMetadata)(rv)
 }
 func (g GTMioTraceData) DurationForDrawDataMaster(draw uint32, master uint16) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("durationForDraw:dataMaster:"), draw, master)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("durationForDraw:dataMaster:"), draw, master)
 	return rv
 }
 func (g GTMioTraceData) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTMioTraceData) EncoderCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("encoderCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("encoderCount"))
 	return rv
 }
-func (g GTMioTraceData) EncoderFromFunctionIndex(index uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderFromFunctionIndex:"), index)
-	return rv
+func (g GTMioTraceData) EncoderFromFunctionIndex(index uint32) *GTMioEncoderMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("encoderFromFunctionIndex:"), index)
+	return (*GTMioEncoderMetadata)(rv)
 }
-func (g GTMioTraceData) Encoders() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoders"))
-	return rv
+func (g GTMioTraceData) Encoders() *GTMioEncoderMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("encoders"))
+	return (*GTMioEncoderMetadata)(rv)
 }
 func (g GTMioTraceData) EnumerateBinariesForDrawEnumerator(draw uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForDraw:enumerator:"), draw, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinariesForDraw:enumerator:"), draw, _block1)
 }
 func (g GTMioTraceData) EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForEncoder:enumerator:"), encoder, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinariesForEncoder:enumerator:"), encoder, _block1)
 }
 func (g GTMioTraceData) EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
 func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, _block1)
 }
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, _block2)
 }
 func (g GTMioTraceData) EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
 func (g GTMioTraceData) EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsForEncoder:enumerator:"), encoder, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateDrawsForEncoder:enumerator:"), encoder, _block1)
 }
 func (g GTMioTraceData) EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsForPipelineState:enumerator:"), state, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateDrawsForPipelineState:enumerator:"), state, _block1)
 }
 func (g GTMioTraceData) EnumerateEncoders(encoders VoidHandler) {
 	_block0, _ := NewVoidBlock(encoders)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEncoders:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateEncoders:"), _block0)
 }
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, _block2)
 }
 func (g GTMioTraceData) EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateInstructionsForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
 func (g GTMioTraceData) EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickAtFunctionIndex:enumerator:"), index, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateKickAtFunctionIndex:enumerator:"), index, _block1)
 }
 func (g GTMioTraceData) EnumeratePipelineStates(states VoidHandler) {
 	_block0, _ := NewVoidBlock(states)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStates:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumeratePipelineStates:"), _block0)
 }
 func (g GTMioTraceData) EnumerateUniqueTracesForBinaryEnumerator(binary uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUniqueTracesForBinary:enumerator:"), binary, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateUniqueTracesForBinary:enumerator:"), binary, _block1)
 }
 func (g GTMioTraceData) ExecutionHistoryForCliqueUscIndexDelegate(clique uint32, index uint32, delegate objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:uscIndex:delegate:"), clique, index, delegate)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("executionHistoryForClique:uscIndex:delegate:"), clique, index, delegate)
 }
 func (g GTMioTraceData) ExecutionHistoryForDrawProgramTypeDelegateProgressController(draw uint32, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForDraw:programType:delegate:progressController:"), draw, type_, delegate, controller)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("executionHistoryForDraw:programType:delegate:progressController:"), draw, type_, delegate, controller)
 }
 func (g GTMioTraceData) ExecutionHistoryForPipelineStateProgramTypeDelegateProgressController(state uint64, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForPipelineState:programType:delegate:progressController:"), state, type_, delegate, controller)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("executionHistoryForPipelineState:programType:delegate:progressController:"), state, type_, delegate, controller)
 }
 func (g GTMioTraceData) FragmentPositionCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("fragmentPositionCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("fragmentPositionCount"))
 	return rv
 }
-func (g GTMioTraceData) FragmentPositions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("fragmentPositions"))
-	return rv
+func (g GTMioTraceData) FragmentPositions() *GTMioCliqueFragmentPosition {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("fragmentPositions"))
+	return (*GTMioCliqueFragmentPosition)(rv)
 }
-func (g GTMioTraceData) GpuCost() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("gpuCost"))
-	return rv
+func (g GTMioTraceData) GpuCost() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("gpuCost"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioTraceData) HandleBatchIdFilteredData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("handleBatchIdFilteredData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("handleBatchIdFilteredData:"), data)
 }
 func (g GTMioTraceData) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (g GTMioTraceData) KickDurationForEncoder(encoder uint32) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("kickDurationForEncoder:"), encoder)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("kickDurationForEncoder:"), encoder)
 	return rv
 }
 func (g GTMioTraceData) KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
 	return rv
 }
-func (g GTMioTraceData) Kicks() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("kicks"))
-	return rv
+func (g GTMioTraceData) Kicks() *GTMioKickTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("kicks"))
+	return (*GTMioKickTrace)(rv)
 }
 func (g GTMioTraceData) KicksCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("kicksCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("kicksCount"))
 	return rv
 }
 func (g GTMioTraceData) LoadCostTimeline() {
-	objc.Send[objc.ID](g.ID, objc.Sel("loadCostTimeline"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("loadCostTimeline"))
 }
 func (g GTMioTraceData) LoadTimeline() {
-	objc.Send[objc.ID](g.ID, objc.Sel("loadTimeline"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("loadTimeline"))
 }
 func (g GTMioTraceData) MGPUs() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mGPUs"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mGPUs"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) MetalFXCallDuration(duration uint64) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("metalFXCallDuration:"), duration)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
 }
 func (g GTMioTraceData) NumDrawsForPipelineState(state uint64) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("numDrawsForPipelineState:"), state)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("numDrawsForPipelineState:"), state)
 	return rv
 }
 func (g GTMioTraceData) ObservePerDrawCounterUpdates(updates objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("observePerDrawCounterUpdates:"), updates)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("observePerDrawCounterUpdates:"), updates)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) PipelineStateCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pipelineStateCount"))
 	return rv
 }
 func (g GTMioTraceData) RequestCostTimeline(timeline VoidHandler) objectivec.IObject {
 	_block0, _ := NewVoidBlock(timeline)
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("requestCostTimeline:"), _block0)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("requestCostTimeline:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) RiaTraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("riaTraceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("riaTraceCount"))
 	return rv
 }
-func (g GTMioTraceData) RiaTraces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("riaTraces"))
-	return rv
+func (g GTMioTraceData) RiaTraces() *GTMioRIATrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("riaTraces"))
+	return (*GTMioRIATrace)(rv)
 }
-func (g GTMioTraceData) ShaderBinaryInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderBinaryInfo"))
-	return rv
+func (g GTMioTraceData) ShaderBinaryInfo() *GTMioShaderBinaryInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("shaderBinaryInfo"))
+	return (*GTMioShaderBinaryInfo)(rv)
 }
 func (g GTMioTraceData) ShaderBinaryInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("shaderBinaryInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("shaderBinaryInfoCount"))
 	return rv
 }
 func (g GTMioTraceData) SyncedBatchIDObserverCopy() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("syncedBatchIDObserverCopy"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("syncedBatchIDObserverCopy"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) TimelineCounters() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineCounters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timelineCounters"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) TimestampBegin() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("timestampBegin"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("timestampBegin"))
 	return rv
 }
 func (g GTMioTraceData) TimestampEnd() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("timestampEnd"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("timestampEnd"))
 	return rv
 }
 func (g GTMioTraceData) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (g GTMioTraceData) Uscs() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("uscs"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("uscs"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceData) InitWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error) {
@@ -700,21 +703,24 @@ func (g GTMioTraceData) InitWithArchivedDataError(data objectivec.IObject) (GTMi
 
 }
 func (g GTMioTraceData) InitWithCoder(coder foundation.INSCoder) GTMioTraceData {
-	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTMioTraceData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
-	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
+func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options GTMioTraceDataBuilderOptions) GTMioTraceData {
+	rv := objc.SendIfResponds[GTMioTraceData](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
 	return rv
 }
+
+var _gtmiotracedata_initwithtracedatabase_deallocator_p1_key byte
+
 func (g GTMioTraceData) InitWithTraceDatabaseDeallocator(database uint64, deallocator VoidHandler) GTMioTraceData {
 	_block1, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithTraceDatabase:deallocator:"), database, _block1)
+	rv := objc.SendIfResponds[GTMioTraceData](g.ID, objc.Sel("initWithTraceDatabase:deallocator:"), database, _block1)
 	return rv
 }
 
 func (_GTMioTraceDataClass GTMioTraceDataClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTMioTraceDataClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTMioTraceDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromCompressedDataOriginalSizeCompressionAlgorithmError(data objectivec.IObject, size uint64, algorithm int64) (objectivec.IObject, error) {
@@ -759,67 +765,67 @@ func (_GTMioTraceDataClass GTMioTraceDataClass) UnarchiverFromDataError(data obj
 }
 
 func (g GTMioTraceData) LLVMConnectionHeld() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("LLVMConnectionHeld"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("LLVMConnectionHeld"))
 	return rv
 }
 func (g GTMioTraceData) ConsistentStateAchieved() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("consistentStateAchieved"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("consistentStateAchieved"))
 	return rv
 }
 func (g GTMioTraceData) CostTimeline() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costTimeline"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("costTimeline"))
 	return rv
 }
 func (g GTMioTraceData) GpuInfo() IGTMioGPUInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuInfo"))
 	return GTMioGPUInfoFromID(objc.ID(rv))
 }
 func (g GTMioTraceData) GpuTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuTime"))
 	return rv
 }
 func (g GTMioTraceData) HasSeparateCostsTimeline() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("hasSeparateCostsTimeline"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("hasSeparateCostsTimeline"))
 	return rv
 }
 func (g GTMioTraceData) IsMio() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isMio"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isMio"))
 	return rv
 }
 func (g GTMioTraceData) LoadingCostTimeline() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("loadingCostTimeline"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("loadingCostTimeline"))
 	return rv
 }
 func (g GTMioTraceData) NonOverlappingCounters() IGTMioNonOverlappingCounters {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("nonOverlappingCounters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("nonOverlappingCounters"))
 	return GTMioNonOverlappingCountersFromID(objc.ID(rv))
 }
 func (g GTMioTraceData) NonOverlappingTimeline() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("nonOverlappingTimeline"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("nonOverlappingTimeline"))
 	return rv
 }
 func (g GTMioTraceData) OverlappingTimeline() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("overlappingTimeline"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("overlappingTimeline"))
 	return rv
 }
 func (g GTMioTraceData) ProfiledState() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("profiledState"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("profiledState"))
 	return rv
 }
 func (g GTMioTraceData) StreamData() IGTShaderProfilerStreamData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
 }
 func (g GTMioTraceData) UnixTimestamp() int64 {
-	rv := objc.Send[int64](g.ID, objc.Sel("unixTimestamp"))
+	rv := objc.SendIfResponds[int64](g.ID, objc.Sel("unixTimestamp"))
 	return rv
 }
 func (g GTMioTraceData) UseMinimumTracingMode() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("useMinimumTracingMode"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("useMinimumTracingMode"))
 	return rv
 }
 func (g GTMioTraceData) Version() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("version"))
 	return rv
 }
 
@@ -885,7 +891,7 @@ func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumeratorSync(ctx cont
 
 // EnumerateBinaryRangesForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateBinaryRangesForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique GTMioUSCCliqueMetadata, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadata, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateBinaryRangesForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}
@@ -960,7 +966,7 @@ func (g GTMioTraceData) EnumerateEncodersSync(ctx context.Context) error {
 
 // EnumerateInstructionsForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateInstructionsForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique GTMioUSCCliqueMetadata, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadata, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateInstructionsForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}

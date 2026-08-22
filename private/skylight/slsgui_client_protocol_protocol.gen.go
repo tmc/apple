@@ -11,6 +11,12 @@ import (
 type SLSGUIClientProtocol interface {
 	objectivec.IObject
 
+	// ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock protocol.
+	ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject
+
+	// RequestDisplaysIdleError protocol.
+	RequestDisplaysIdleError(idle objectivec.IObject) (uint64, error)
+
 	// TerminateConnection protocol.
 	TerminateConnection(connection []objectivec.IObject)
 }
@@ -33,7 +39,9 @@ func SLSGUIClientProtocolObjectFromID(id objc.ID) SLSGUIClientProtocolObject {
 }
 
 func (o SLSGUIClientProtocolObject) ConfigGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("configGUIClient:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, objectivec.IObjectSliceToNSArray(error_), queue, type_, block)
+	_block4, _cleanup4 := NewUnsafePointerBlock(block)
+	defer _cleanup4()
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("configGUIClient:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, objectivec.IObjectSliceToNSArray(error_), queue, type_, objc.ID(_block4))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSGUIClientProtocolObject) RequestDisplaysIdleError(idle objectivec.IObject) (uint64, error) {
@@ -44,5 +52,5 @@ func (o SLSGUIClientProtocolObject) RequestDisplaysIdleError(idle objectivec.IOb
 	return rv, nil
 }
 func (o SLSGUIClientProtocolObject) TerminateConnection(connection []objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("terminateConnection:"), objectivec.IObjectSliceToNSArray(connection))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("terminateConnection:"), objectivec.IObjectSliceToNSArray(connection))
 }

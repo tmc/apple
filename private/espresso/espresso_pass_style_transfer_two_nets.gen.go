@@ -37,7 +37,7 @@ func (ec EspressoPassStyleTransferTwoNetsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStyleTransferTwoNetsClass) Alloc() EspressoPassStyleTransferTwoNets {
-	rv := objc.Send[EspressoPassStyleTransferTwoNets](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferTwoNets](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStyleTransferTwoNets interface {
 
 // Init initializes the instance.
 func (e EspressoPassStyleTransferTwoNets) Init() EspressoPassStyleTransferTwoNets {
-	rv := objc.Send[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStyleTransferTwoNets) Autorelease() EspressoPassStyleTransferTwoNets {
-	rv := objc.Send[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStyleTransferTwoNets creates a new EspressoPassStyleTransferTwoNets instance.
 func NewEspressoPassStyleTransferTwoNets() EspressoPassStyleTransferTwoNets {
 	class := getEspressoPassStyleTransferTwoNetsClass()
-	rv := objc.Send[EspressoPassStyleTransferTwoNets](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStyleTransferTwoNets](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

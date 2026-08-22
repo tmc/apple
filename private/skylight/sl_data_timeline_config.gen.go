@@ -41,7 +41,7 @@ func (sc SLDataTimelineConfigClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineConfigClass) Alloc() SLDataTimelineConfig {
-	rv := objc.Send[SLDataTimelineConfig](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineConfig](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -123,30 +123,31 @@ type ISLDataTimelineConfig interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineConfig) Init() SLDataTimelineConfig {
-	rv := objc.Send[SLDataTimelineConfig](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineConfig](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineConfig) Autorelease() SLDataTimelineConfig {
-	rv := objc.Send[SLDataTimelineConfig](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineConfig](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineConfig creates a new SLDataTimelineConfig instance.
 func NewSLDataTimelineConfig() SLDataTimelineConfig {
 	class := getSLDataTimelineConfigClass()
-	rv := objc.Send[SLDataTimelineConfig](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineConfig](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLDataTimelineConfig) AddInfoOption(option objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addInfoOption:"), option)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addInfoOption:"), option)
 }
 func (s SLDataTimelineConfig) CreateCancellableMachRecvSourceWithQueueCancelActionError(queue objectivec.IObject, action func()) (objectivec.IObject, error) {
-	_block1, _ := NewVoidBlock(action)
+	_block1, _cleanup1 := NewVoidBlock(action)
+	defer _cleanup1()
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:cancelAction:error:"), queue, _block1, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCancellableMachRecvSourceWithQueue:cancelAction:error:"), queue, objc.ID(_block1), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -157,69 +158,69 @@ func (s SLDataTimelineConfig) CreateCancellableMachRecvSourceWithQueueCancelActi
 func (s SLDataTimelineConfig) CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler(queue objectivec.IObject, handler VoidHandler, handler2 VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(handler)
 	_block2, _ := NewVoidBlock(handler2)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createNoSenderRecvPairWithQueue:errorHandler:eventHandler:"), queue, _block1, _block2)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createNoSenderRecvPairWithQueue:errorHandler:eventHandler:"), queue, _block1, _block2)
 	return objectivec.Object{ID: rv}
 }
 func (s SLDataTimelineConfig) CreateXPCObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLDataTimelineConfig) EstablishConnectionWithResultBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("establishConnectionWithResultBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("establishConnectionWithResultBlock:"), _block0)
 }
 func (s SLDataTimelineConfig) RequestReportIntervalValueForKey(value uint16, key objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("requestReportIntervalValue:forKey:"), value, key)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("requestReportIntervalValue:forKey:"), value, key)
 }
 func (s SLDataTimelineConfig) RequestSampleIntervalValueForKey(value uint16, key objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("requestSampleIntervalValue:forKey:"), value, key)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("requestSampleIntervalValue:forKey:"), value, key)
 }
 func (s SLDataTimelineConfig) SetTargetQueue(queue objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setTargetQueue:"), queue)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setTargetQueue:"), queue)
 }
 func (s SLDataTimelineConfig) InitWithNameAndUpdateBlock(name objectivec.IObject, block VoidHandler) SLDataTimelineConfig {
 	_block1, _ := NewVoidBlock(block)
-	rv := objc.Send[SLDataTimelineConfig](s.ID, objc.Sel("initWithName:andUpdateBlock:"), name, _block1)
+	rv := objc.SendIfResponds[SLDataTimelineConfig](s.ID, objc.Sel("initWithName:andUpdateBlock:"), name, _block1)
 	return rv
 }
 
 func (_SLDataTimelineConfigClass SLDataTimelineConfigClass) ConfigWithNameAndUpdateBlock(name objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block1, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineConfigClass.class), objc.Sel("configWithName:andUpdateBlock:"), name, _block1)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLDataTimelineConfigClass.class), objc.Sel("configWithName:andUpdateBlock:"), name, _block1)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLDataTimelineConfig) ConnectionQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connectionQueue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connectionQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLDataTimelineConfig) InfoOptions() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("infoOptions"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("infoOptions"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLDataTimelineConfig) Name() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLDataTimelineConfig) ReportIntervals() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("reportIntervals"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("reportIntervals"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLDataTimelineConfig) SampleIntervals() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sampleIntervals"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sampleIntervals"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLDataTimelineConfig) UpdateBlock() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlock"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateBlock"))
 	_ = rv
 	return nil
 }
 func (s SLDataTimelineConfig) UpdateBlockQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlockQueue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateBlockQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLDataTimelineConfig) SetUpdateBlockQueue(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setUpdateBlockQueue:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUpdateBlockQueue:"), value)
 }
 
 // CreateNoSenderRecvPairWithQueueErrorHandlerEventHandlerSync is a synchronous wrapper around [SLDataTimelineConfig.CreateNoSenderRecvPairWithQueueErrorHandlerEventHandler].

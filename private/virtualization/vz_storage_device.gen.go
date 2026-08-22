@@ -39,7 +39,7 @@ func (vc VZStorageDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
-	rv := objc.Send[VZStorageDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZStorageDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,25 +88,25 @@ type IVZStorageDevice interface {
 
 // Init initializes the instance.
 func (v VZStorageDevice) Init() VZStorageDevice {
-	rv := objc.Send[VZStorageDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZStorageDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZStorageDevice) Autorelease() VZStorageDevice {
-	rv := objc.Send[VZStorageDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZStorageDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZStorageDevice creates a new VZStorageDevice instance.
 func NewVZStorageDevice() VZStorageDevice {
 	class := getVZStorageDeviceClass()
-	rv := objc.Send[VZStorageDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZStorageDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZStorageDevice) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -124,7 +124,7 @@ func (v VZStorageDevice) CanAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_attachment"))
 }
 func (v VZStorageDevice) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 
@@ -142,7 +142,7 @@ func (v VZStorageDevice) CanInitWithAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:"))
 }
 func (v VZStorageDevice) _initWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:attachment:"), machine, attachment)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:attachment:"), machine, attachment)
 	return objectivec.Object{ID: rv}
 }
 
@@ -160,7 +160,7 @@ func (v VZStorageDevice) CanInitWithVirtualMachineAttachment() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:attachment:"))
 }
 func (v VZStorageDevice) _initWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"), machine, index, attachment)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"), machine, index, attachment)
 	return objectivec.Object{ID: rv}
 }
 
@@ -179,7 +179,7 @@ func (v VZStorageDevice) CanInitWithVirtualMachineStorageDeviceIndexAttachment()
 }
 func (v VZStorageDevice) _setAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_setAttachment:completionHandler:"), attachment, _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setAttachment:completionHandler:"), attachment, _block1)
 }
 
 // SetAttachmentCompletionHandler is an exported wrapper for the private method _setAttachmentCompletionHandler.
@@ -197,7 +197,7 @@ func (v VZStorageDevice) CanSetAttachmentCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:completionHandler:"))
 }
 func (v VZStorageDevice) _setVirtualMachine(machine objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setVirtualMachine:"), machine)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setVirtualMachine:"), machine)
 }
 
 // SetVirtualMachine is an exported wrapper for the private method _setVirtualMachine.

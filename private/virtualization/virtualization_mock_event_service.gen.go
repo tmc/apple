@@ -38,7 +38,7 @@ func (vc VirtualizationMockEventServiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VirtualizationMockEventServiceClass) Alloc() VirtualizationMockEventService {
-	rv := objc.Send[VirtualizationMockEventService](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VirtualizationMockEventService](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func VirtualizationMockEventServiceFromID(id objc.ID) VirtualizationMockEventSer
 	return VirtualizationMockEventService{objectivec.Object{ID: id}}
 }
 
-// NOTE: VirtualizationMockEventService struct embeds objectivec.Object (parent type unavailable) but
-// IVirtualizationMockEventService embeds the parent interface; skip compile-time assertion.
+// Ensure VirtualizationMockEventService implements IVirtualizationMockEventService.
+var _ IVirtualizationMockEventService = VirtualizationMockEventService{}
 
 // An interface definition for the [VirtualizationMockEventService] class.
 type IVirtualizationMockEventService interface {
@@ -61,19 +61,19 @@ type IVirtualizationMockEventService interface {
 
 // Init initializes the instance.
 func (v VirtualizationMockEventService) Init() VirtualizationMockEventService {
-	rv := objc.Send[VirtualizationMockEventService](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VirtualizationMockEventService](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VirtualizationMockEventService) Autorelease() VirtualizationMockEventService {
-	rv := objc.Send[VirtualizationMockEventService](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VirtualizationMockEventService](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVirtualizationMockEventService creates a new VirtualizationMockEventService instance.
 func NewVirtualizationMockEventService() VirtualizationMockEventService {
 	class := getVirtualizationMockEventServiceClass()
-	rv := objc.Send[VirtualizationMockEventService](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VirtualizationMockEventService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -37,7 +37,7 @@ func (vc VZUSBMouseConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBMouseConfigurationClass) Alloc() VZUSBMouseConfiguration {
-	rv := objc.Send[VZUSBMouseConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBMouseConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZUSBMouseConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBMouseConfiguration) Init() VZUSBMouseConfiguration {
-	rv := objc.Send[VZUSBMouseConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBMouseConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBMouseConfiguration) Autorelease() VZUSBMouseConfiguration {
-	rv := objc.Send[VZUSBMouseConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBMouseConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBMouseConfiguration creates a new VZUSBMouseConfiguration instance.
 func NewVZUSBMouseConfiguration() VZUSBMouseConfiguration {
 	class := getVZUSBMouseConfigurationClass()
-	rv := objc.Send[VZUSBMouseConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBMouseConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

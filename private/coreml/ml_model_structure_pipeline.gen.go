@@ -38,7 +38,7 @@ func (mc MLModelStructurePipelineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructurePipelineClass) Alloc() MLModelStructurePipeline {
-	rv := objc.Send[MLModelStructurePipeline](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructurePipeline](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IMLModelStructurePipeline interface {
 
 // Init initializes the instance.
 func (m MLModelStructurePipeline) Init() MLModelStructurePipeline {
-	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructurePipeline](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructurePipeline) Autorelease() MLModelStructurePipeline {
-	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructurePipeline](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructurePipeline creates a new MLModelStructurePipeline instance.
 func NewMLModelStructurePipeline() MLModelStructurePipeline {
 	class := getMLModelStructurePipelineClass()
-	rv := objc.Send[MLModelStructurePipeline](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructurePipeline](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	instance := getMLModelStructurePipelineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return MLModelStructurePipelineFromID(rv)
 }
 
 func (m MLModelStructurePipeline) InitWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
-	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
+	rv := objc.SendIfResponds[MLModelStructurePipeline](m.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return rv
 }

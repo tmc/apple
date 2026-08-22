@@ -41,7 +41,7 @@ func (mc MLMultiArrayConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiArrayConstraintClass) Alloc() MLMultiArrayConstraint {
-	rv := objc.Send[MLMultiArrayConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,37 +93,37 @@ type IMLMultiArrayConstraint interface {
 
 // Init initializes the instance.
 func (m MLMultiArrayConstraint) Init() MLMultiArrayConstraint {
-	rv := objc.Send[MLMultiArrayConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiArrayConstraint) Autorelease() MLMultiArrayConstraint {
-	rv := objc.Send[MLMultiArrayConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiArrayConstraint creates a new MLMultiArrayConstraint instance.
 func NewMLMultiArrayConstraint() MLMultiArrayConstraint {
 	class := getMLMultiArrayConstraintClass()
-	rv := objc.Send[MLMultiArrayConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiArrayConstraintWithShapeDataTypeShapeConstraint(shape objectivec.IObject, type_ int64, constraint objectivec.IObject) MLMultiArrayConstraint {
 	instance := getMLMultiArrayConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
 	return MLMultiArrayConstraintFromID(rv)
 }
 
 func NewMultiArrayConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLMultiArrayConstraint {
 	instance := getMLMultiArrayConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return MLMultiArrayConstraintFromID(rv)
 }
 
 func (m MLMultiArrayConstraint) DefaultOptionalValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultOptionalValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defaultOptionalValue"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLMultiArrayConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
@@ -179,23 +179,23 @@ func (m MLMultiArrayConstraint) IsAllowedValueIsNeuralNetworkInputOrOutputUsingR
 
 }
 func (m MLMultiArrayConstraint) InitWithShapeDataTypeShapeConstraint(shape objectivec.IObject, type_ int64, constraint objectivec.IObject) MLMultiArrayConstraint {
-	rv := objc.Send[MLMultiArrayConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
 	return rv
 }
 func (m MLMultiArrayConstraint) InitWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLMultiArrayConstraint {
-	rv := objc.Send[MLMultiArrayConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
+	rv := objc.SendIfResponds[MLMultiArrayConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return rv
 }
 
 func (_MLMultiArrayConstraintClass MLMultiArrayConstraintClass) ConstraintWithShapeDataType(shape objectivec.IObject, type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("constraintWithShape:dataType:"), shape, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("constraintWithShape:dataType:"), shape, type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLMultiArrayConstraintClass MLMultiArrayConstraintClass) ConstraintWithShapeDataTypeShapeConstraint(shape objectivec.IObject, type_ int64, constraint objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("constraintWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("constraintWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
 	return objectivec.Object{ID: rv}
 }
 func (_MLMultiArrayConstraintClass MLMultiArrayConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLMultiArrayConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

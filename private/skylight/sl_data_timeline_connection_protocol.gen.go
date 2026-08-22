@@ -16,6 +16,9 @@ type SLDataTimelineConnection interface {
 
 	// Connected protocol.
 	Connected() bool
+
+	// Name protocol.
+	Name() objectivec.IObject
 }
 
 // SLDataTimelineConnectionObject wraps an existing Objective-C object that conforms to the SLDataTimelineConnection protocol.
@@ -36,13 +39,13 @@ func SLDataTimelineConnectionObjectFromID(id objc.ID) SLDataTimelineConnectionOb
 }
 
 func (o SLDataTimelineConnectionObject) Close() {
-	objc.Send[struct{}](o.ID, objc.Sel("close"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("close"))
 }
 func (o SLDataTimelineConnectionObject) Connected() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("connected"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("connected"))
 	return rv
 }
 func (o SLDataTimelineConnectionObject) Name() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
 }

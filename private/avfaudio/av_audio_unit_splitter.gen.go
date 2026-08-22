@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -38,7 +39,7 @@ func (ac AVAudioUnitSplitterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitSplitterClass) Alloc() AVAudioUnitSplitter {
-	rv := objc.Send[AVAudioUnitSplitter](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitSplitter](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -67,41 +68,41 @@ type IAVAudioUnitSplitter interface {
 
 	// Topic: Methods
 
-	InitWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter
+	InitWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSplitter
 }
 
 // Init initializes the instance.
 func (a AVAudioUnitSplitter) Init() AVAudioUnitSplitter {
-	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitSplitter](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitSplitter) Autorelease() AVAudioUnitSplitter {
-	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitSplitter](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitSplitter creates a new AVAudioUnitSplitter instance.
 func NewAVAudioUnitSplitter() AVAudioUnitSplitter {
 	class := getAVAudioUnitSplitterClass()
-	rv := objc.Send[AVAudioUnitSplitter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitSplitter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewAudioUnitSplitterWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
+func NewAudioUnitSplitterWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSplitterFromID(rv)
 }
 
 func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
-	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
+func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSplitter {
+	rv := objc.SendIfResponds[AVAudioUnitSplitter](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }

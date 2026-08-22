@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceCreateTileOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceCreateTileOperationClass) Alloc() SLSBridgedSpaceCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCreateTileOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedSpaceCreateTileOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceCreateTileOperation) Init() SLSBridgedSpaceCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceCreateTileOperation) Autorelease() SLSBridgedSpaceCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceCreateTileOperation creates a new SLSBridgedSpaceCreateTileOperation instance.
 func NewSLSBridgedSpaceCreateTileOperation() SLSBridgedSpaceCreateTileOperation {
 	class := getSLSBridgedSpaceCreateTileOperationClass()
-	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCreateTileOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceCreateTileOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
 	instance := getSLSBridgedSpaceCreateTileOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCreateTileOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceCreateTileOperationWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
 	instance := getSLSBridgedSpaceCreateTileOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return SLSBridgedSpaceCreateTileOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceCreateTileOperation) MakeResultWithSpaceID(id uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithSpaceID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceCreateTileOperation) InitWithSpaceIDValues(id uint64, values objectivec.IObject) SLSBridgedSpaceCreateTileOperation {
-	rv := objc.Send[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
+	rv := objc.SendIfResponds[SLSBridgedSpaceCreateTileOperation](s.ID, objc.Sel("initWithSpaceID:values:"), id, values)
 	return rv
 }
 
 func (s SLSBridgedSpaceCreateTileOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceCreateTileOperation) Values() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("values"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

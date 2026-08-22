@@ -41,7 +41,7 @@ func (mc MLPipelineUpdateEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPipelineUpdateEngineClass) Alloc() MLPipelineUpdateEngine {
-	rv := objc.Send[MLPipelineUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPipelineUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,8 +80,8 @@ func MLPipelineUpdateEngineFromID(id objc.ID) MLPipelineUpdateEngine {
 	return MLPipelineUpdateEngine{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLPipelineUpdateEngine struct embeds objectivec.Object (parent type unavailable) but
-// IMLPipelineUpdateEngine embeds the parent interface; skip compile-time assertion.
+// Ensure MLPipelineUpdateEngine implements IMLPipelineUpdateEngine.
+var _ IMLPipelineUpdateEngine = MLPipelineUpdateEngine{}
 
 // An interface definition for the [MLPipelineUpdateEngine] class.
 //
@@ -112,7 +112,7 @@ func MLPipelineUpdateEngineFromID(id objc.ID) MLPipelineUpdateEngine {
 //   - [IMLPipelineUpdateEngine.Superclass]
 //   - [IMLPipelineUpdateEngine.SupportsConcurrentSubmissions]
 type IMLPipelineUpdateEngine interface {
-	IMLPipeline
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -144,36 +144,39 @@ type IMLPipelineUpdateEngine interface {
 
 // Init initializes the instance.
 func (m MLPipelineUpdateEngine) Init() MLPipelineUpdateEngine {
-	rv := objc.Send[MLPipelineUpdateEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPipelineUpdateEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPipelineUpdateEngine) Autorelease() MLPipelineUpdateEngine {
-	rv := objc.Send[MLPipelineUpdateEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPipelineUpdateEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPipelineUpdateEngine creates a new MLPipelineUpdateEngine instance.
 func NewMLPipelineUpdateEngine() MLPipelineUpdateEngine {
 	class := getMLPipelineUpdateEngineClass()
-	rv := objc.Send[MLPipelineUpdateEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPipelineUpdateEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPipelineUpdateEngineFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (MLPipelineUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLPipelineUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLPipelineUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLPipelineUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLPipelineUpdateEngineFromID(rv), nil
 }
 
 func (m MLPipelineUpdateEngine) CancelUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 func (m MLPipelineUpdateEngine) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -186,16 +189,16 @@ func (m MLPipelineUpdateEngine) ParameterValueForKeyError(key objectivec.IObject
 
 }
 func (m MLPipelineUpdateEngine) ResumeUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 func (m MLPipelineUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 func (m MLPipelineUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
 func (m MLPipelineUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 func (m MLPipelineUpdateEngine) WriteToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -233,64 +236,64 @@ func (_MLPipelineUpdateEngineClass MLPipelineUpdateEngineClass) LoadModelFromCom
 }
 
 func (m MLPipelineUpdateEngine) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLPipelineUpdateEngine) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPipelineUpdateEngine) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPipelineUpdateEngine) DispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dispatchQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLPipelineUpdateEngine) SetDispatchQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDispatchQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDispatchQueue:"), value)
 }
 func (m MLPipelineUpdateEngine) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLPipelineUpdateEngine) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
 func (m MLPipelineUpdateEngine) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLPipelineUpdateEngine) PredictionTypeForKTrace() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
 func (m MLPipelineUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
 func (m MLPipelineUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
 }
 func (m MLPipelineUpdateEngine) RecordsPredictionEvent() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
 func (m MLPipelineUpdateEngine) SignpostID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
 func (m MLPipelineUpdateEngine) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (m MLPipelineUpdateEngine) SupportsConcurrentSubmissions() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }
 func (m MLPipelineUpdateEngine) UpdatableModelIndicies() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("updatableModelIndicies"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("updatableModelIndicies"))
 	return rv
 }

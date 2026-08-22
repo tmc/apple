@@ -41,7 +41,7 @@ func (mc MLNeuralNetworkMLComputeGraphClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkMLComputeGraphClass) Alloc() MLNeuralNetworkMLComputeGraph {
-	rv := objc.Send[MLNeuralNetworkMLComputeGraph](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeGraph](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -189,30 +189,33 @@ type IMLNeuralNetworkMLComputeGraph interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkMLComputeGraph) Init() MLNeuralNetworkMLComputeGraph {
-	rv := objc.Send[MLNeuralNetworkMLComputeGraph](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeGraph](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkMLComputeGraph) Autorelease() MLNeuralNetworkMLComputeGraph {
-	rv := objc.Send[MLNeuralNetworkMLComputeGraph](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeGraph](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkMLComputeGraph creates a new MLNeuralNetworkMLComputeGraph instance.
 func NewMLNeuralNetworkMLComputeGraph() MLNeuralNetworkMLComputeGraph {
 	class := getMLNeuralNetworkMLComputeGraphClass()
-	rv := objc.Send[MLNeuralNetworkMLComputeGraph](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeGraph](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkMLComputeGraphWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (MLNeuralNetworkMLComputeGraph, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:"), archive, description, size, classes, units, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:"), archive, description, size, classes, units, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkMLComputeGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkMLComputeGraph{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkMLComputeGraphFromID(rv), nil
 }
@@ -324,11 +327,11 @@ func (m MLNeuralNetworkMLComputeGraph) LabelTensorMapWithBatchSizeNumberOfClasse
 
 }
 func (m MLNeuralNetworkMLComputeGraph) LossInputsFromUpdateParams(params unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossInputsFromUpdateParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lossInputsFromUpdateParams:"), params)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkMLComputeGraph) MlcDeviceTypeForComputeUnit(unit int64) int {
-	rv := objc.Send[int](m.ID, objc.Sel("mlcDeviceTypeForComputeUnit:"), unit)
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("mlcDeviceTypeForComputeUnit:"), unit)
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SaveUpdatedWeightsToError(to unsafe.Pointer) (bool, error) {
@@ -367,90 +370,90 @@ func (_MLNeuralNetworkMLComputeGraphClass MLNeuralNetworkMLComputeGraphClass) Gr
 }
 
 func (m MLNeuralNetworkMLComputeGraph) ClassifierOutputIsSigmoidOutput() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetClassifierOutputIsSigmoidOutput(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) Device() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("device"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("device"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetDevice(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDevice:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDevice:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) ExecutionOptions() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("executionOptions"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("executionOptions"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetExecutionOptions(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExecutionOptions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExecutionOptions:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) FusedLayerInputName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("fusedLayerInputName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("fusedLayerInputName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkMLComputeGraph) SetFusedLayerInputName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFusedLayerInputName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFusedLayerInputName:"), objc.String(value))
 }
 func (m MLNeuralNetworkMLComputeGraph) Graph() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("graph"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("graph"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetGraph(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setGraph:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setGraph:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) InferenceGraph() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("inferenceGraph"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("inferenceGraph"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetInferenceGraph(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInferenceGraph:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInferenceGraph:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) LayerFusedToLoss() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("layerFusedToLoss"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("layerFusedToLoss"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetLayerFusedToLoss(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLayerFusedToLoss:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLayerFusedToLoss:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) LayersMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("layersMap"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("layersMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeGraph) SetLayersMap(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLayersMap:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLayersMap:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) MlcInputs() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcInputs"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mlcInputs"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeGraph) SetMlcInputs(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMlcInputs:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlcInputs:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) MlcLabels() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mlcLabels"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeGraph) SetMlcLabels(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMlcLabels:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlcLabels:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeGraph) SetModelDescription(value IMLModelDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
 func (m MLNeuralNetworkMLComputeGraph) OutputNameToLayerMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputNameToLayerMap"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputNameToLayerMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeGraph) TrainingGraph() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("trainingGraph"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("trainingGraph"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SetTrainingGraph(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrainingGraph:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTrainingGraph:"), value)
 }

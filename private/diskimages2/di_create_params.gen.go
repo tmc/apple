@@ -41,7 +41,7 @@ func (dc DICreateParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DICreateParamsClass) Alloc() DICreateParams {
-	rv := objc.Send[DICreateParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DICreateParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -159,36 +159,39 @@ type IDICreateParams interface {
 
 // Init initializes the instance.
 func (d DICreateParams) Init() DICreateParams {
-	rv := objc.Send[DICreateParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DICreateParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DICreateParams) Autorelease() DICreateParams {
-	rv := objc.Send[DICreateParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DICreateParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDICreateParams creates a new DICreateParams instance.
 func NewDICreateParams() DICreateParams {
 	class := getDICreateParamsClass()
-	rv := objc.Send[DICreateParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DICreateParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDICreateParamsWithCoder(coder objectivec.IObject) DICreateParams {
 	instance := getDICreateParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateParamsFromID(rv)
 }
 
 func NewDICreateParamsWithURLError(url foundation.NSURL) (DICreateParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateParams{}, objc.ErrInitFailed
 	}
 	return DICreateParamsFromID(rv), nil
 }
@@ -196,10 +199,13 @@ func NewDICreateParamsWithURLError(url foundation.NSURL) (DICreateParams, error)
 func NewDICreateParamsWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateParams{}, objc.ErrInitFailed
 	}
 	return DICreateParamsFromID(rv), nil
 }
@@ -218,7 +224,7 @@ func (d DICreateParams) CreateDiskImageParamsWithError() (bool, error) {
 
 }
 func (d DICreateParams) CreateDiskImageParamsXPC() {
-	objc.Send[objc.ID](d.ID, objc.Sel("createDiskImageParamsXPC"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createDiskImageParamsXPC"))
 }
 func (d DICreateParams) CreateEncryptionWithXPCHandlerError(xPCHandler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -244,7 +250,7 @@ func (d DICreateParams) CreateWithError() (objectivec.IObject, error) {
 
 }
 func (d DICreateParams) OnErrorCleanup() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("onErrorCleanup"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("onErrorCleanup"))
 	return rv
 }
 func (d DICreateParams) ResizeWithDiskImageNumberOfBlocksError(image unsafe.Pointer, blocks uint64) (bool, error) {
@@ -314,7 +320,7 @@ func (d DICreateParams) TraverseSrcFolderAsRootWithURLParallelModeProgressFolder
 	return size, files, nil
 }
 func (d DICreateParams) ValidateBlockSizeSupport() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("validateBlockSizeSupport"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("validateBlockSizeSupport"))
 	return rv
 }
 func (d DICreateParams) InitWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateParams, error) {
@@ -369,62 +375,62 @@ func (_DICreateParamsClass DICreateParamsClass) ToHeaderEncryptionModeHeaderEncM
 }
 
 func (d DICreateParams) Certificate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("certificate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("certificate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DICreateParams) SetCertificate(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
 func (d DICreateParams) CreateFromAuthRef() AuthorizationOpaqueRefRef {
-	rv := objc.Send[AuthorizationOpaqueRefRef](d.ID, objc.Sel("createFromAuthRef"))
+	rv := objc.SendIfResponds[AuthorizationOpaqueRefRef](d.ID, objc.Sel("createFromAuthRef"))
 	return AuthorizationOpaqueRefRef(rv)
 }
 func (d DICreateParams) SetCreateFromAuthRef(value AuthorizationOpaqueRefRef) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCreateFromAuthRef:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCreateFromAuthRef:"), value)
 }
 func (d DICreateParams) EncryptionMethod() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("encryptionMethod"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("encryptionMethod"))
 	return rv
 }
 func (d DICreateParams) SetEncryptionMethod(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
 }
 func (d DICreateParams) FolderCopyXPCHandler() IDIClient2ControllerXPCHandler {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("folderCopyXPCHandler"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("folderCopyXPCHandler"))
 	return DIClient2ControllerXPCHandlerFromID(objc.ID(rv))
 }
 func (d DICreateParams) SetFolderCopyXPCHandler(value IDIClient2ControllerXPCHandler) {
-	objc.Send[struct{}](d.ID, objc.Sel("setFolderCopyXPCHandler:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setFolderCopyXPCHandler:"), value)
 }
 func (d DICreateParams) NumBlocks() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("numBlocks"))
 	return rv
 }
 func (d DICreateParams) SetNumBlocks(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }
 func (d DICreateParams) Passphrase() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("passphrase"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("passphrase"))
 	return rv
 }
 func (d DICreateParams) SetPassphrase(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
 }
 func (d DICreateParams) PublicKey() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("publicKey"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("publicKey"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DICreateParams) SetPublicKey(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
 func (d DICreateParams) SystemKeychainAccount() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("systemKeychainAccount"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("systemKeychainAccount"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DICreateParams) SetSystemKeychainAccount(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSystemKeychainAccount:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSystemKeychainAccount:"), objc.String(value))
 }
 func (d DICreateParams) TemporaryPassphrase() IDITemporaryPassphrase {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
 }

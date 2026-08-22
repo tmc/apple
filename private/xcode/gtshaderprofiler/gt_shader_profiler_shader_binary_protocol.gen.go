@@ -17,6 +17,9 @@ type GTShaderProfilerShaderBinary interface {
 	// AddrStart protocol.
 	AddrStart() uint32
 
+	// BinaryRanges protocol.
+	BinaryRanges() objectivec.IObject
+
 	// CostForAddress protocol.
 	CostForAddress(address uint32) float64
 
@@ -26,17 +29,35 @@ type GTShaderProfilerShaderBinary interface {
 	// CostPercentageForDrawAtIndex protocol.
 	CostPercentageForDrawAtIndex(index uint32) float64
 
+	// Diassemblies protocol.
+	Diassemblies() objectivec.IObject
+
+	// DiassemblyAtAddress protocol.
+	DiassemblyAtAddress(address uint32) objectivec.IObject
+
+	// FullPath protocol.
+	FullPath() objectivec.IObject
+
 	// IsDylib protocol.
 	IsDylib() bool
 
+	// Key protocol.
+	Key() objectivec.IObject
+
 	// NumSamples protocol.
 	NumSamples() uint64
+
+	// StringFromIndex protocol.
+	StringFromIndex(index uint64) objectivec.IObject
 
 	// TotalCost protocol.
 	TotalCost() float64
 
 	// Type protocol.
 	Type() uint32
+
+	// TypeName protocol.
+	TypeName() objectivec.IObject
 }
 
 // GTShaderProfilerShaderBinaryObject wraps an existing Objective-C object that conforms to the GTShaderProfilerShaderBinary protocol.
@@ -57,66 +78,66 @@ func GTShaderProfilerShaderBinaryObjectFromID(id objc.ID) GTShaderProfilerShader
 }
 
 func (o GTShaderProfilerShaderBinaryObject) AddrEnd() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("addrEnd"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("addrEnd"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) AddrStart() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("addrStart"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("addrStart"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) BinaryRanges() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binaryRanges"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binaryRanges"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) CostForAddress(address uint32) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("costForAddress:"), address)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("costForAddress:"), address)
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) CostForDrawAtIndex(index uint32) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("costForDrawAtIndex:"), index)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("costForDrawAtIndex:"), index)
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) CostPercentageForDrawAtIndex(index uint32) float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("costPercentageForDrawAtIndex:"), index)
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("costPercentageForDrawAtIndex:"), index)
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) Diassemblies() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("diassemblies"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("diassemblies"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) DiassemblyAtAddress(address uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("diassemblyAtAddress:"), address)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("diassemblyAtAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) FullPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("fullPath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("fullPath"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) IsDylib() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isDylib"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isDylib"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) Key() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("key"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) NumSamples() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("numSamples"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("numSamples"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) StringFromIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("stringFromIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("stringFromIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryObject) TotalCost() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("totalCost"))
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("totalCost"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) Type() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("type"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryObject) TypeName() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("typeName"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("typeName"))
 	return objectivec.Object{ID: rv}
 }

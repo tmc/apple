@@ -37,7 +37,7 @@ func (vc VZMacHostBatterySourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacHostBatterySourceClass) Alloc() VZMacHostBatterySource {
-	rv := objc.Send[VZMacHostBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacHostBatterySource](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZMacHostBatterySource interface {
 
 // Init initializes the instance.
 func (v VZMacHostBatterySource) Init() VZMacHostBatterySource {
-	rv := objc.Send[VZMacHostBatterySource](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacHostBatterySource](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacHostBatterySource) Autorelease() VZMacHostBatterySource {
-	rv := objc.Send[VZMacHostBatterySource](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacHostBatterySource](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacHostBatterySource creates a new VZMacHostBatterySource instance.
 func NewVZMacHostBatterySource() VZMacHostBatterySource {
 	class := getVZMacHostBatterySourceClass()
-	rv := objc.Send[VZMacHostBatterySource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacHostBatterySource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

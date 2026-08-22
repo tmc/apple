@@ -40,7 +40,7 @@ func (ac AVAudioEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
-	rv := objc.Send[AVAudioEngine](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioEngine](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,45 +89,45 @@ type IAVAudioEngine interface {
 
 // Init initializes the instance.
 func (a AVAudioEngine) Init() AVAudioEngine {
-	rv := objc.Send[AVAudioEngine](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioEngine](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioEngine) Autorelease() AVAudioEngine {
-	rv := objc.Send[AVAudioEngine](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioEngine](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioEngine creates a new AVAudioEngine instance.
 func NewAVAudioEngine() AVAudioEngine {
 	class := getAVAudioEngineClass()
-	rv := objc.Send[AVAudioEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioEngine) ConnectMIDIToFormatBlock(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:block:"), midi, to, format, _block3)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:block:"), midi, to, format, _block3)
 }
 func (a AVAudioEngine) ConnectMIDIToNodesFormatBlock(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:block:"), midi, nodes, format, _block3)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:block:"), midi, nodes, format, _block3)
 }
 func (a AVAudioEngine) Implementation() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("implementation"))
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("implementation"))
 	return rv
 }
 
 func (a AVAudioEngine) AutoShutdownEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("autoShutdownEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("autoShutdownEnabled"))
 	return rv
 }
 func (a AVAudioEngine) SetAutoShutdownEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAutoShutdownEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAutoShutdownEnabled:"), value)
 }
 func (a AVAudioEngine) Running() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("running"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("running"))
 	return rv
 }
 

@@ -39,7 +39,7 @@ func (mc MLGPUComputeDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGPUComputeDeviceClass) Alloc() MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGPUComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,52 +85,52 @@ type IMLGPUComputeDevice interface {
 
 // Init initializes the instance.
 func (m MLGPUComputeDevice) Init() MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGPUComputeDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGPUComputeDevice) Autorelease() MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGPUComputeDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGPUComputeDevice creates a new MLGPUComputeDevice instance.
 func NewMLGPUComputeDevice() MLGPUComputeDevice {
 	class := getMLGPUComputeDeviceClass()
-	rv := objc.Send[MLGPUComputeDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGPUComputeDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
 	instance := getMLGPUComputeDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:"), device)
 	return MLGPUComputeDeviceFromID(rv)
 }
 
 func (m MLGPUComputeDevice) InitWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("initWithMetalDevice:"), device)
+	rv := objc.SendIfResponds[MLGPUComputeDevice](m.ID, objc.Sel("initWithMetalDevice:"), device)
 	return rv
 }
 
 func (_MLGPUComputeDeviceClass MLGPUComputeDeviceClass) DeviceWithMetalDevice(device objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLGPUComputeDeviceClass.class), objc.Sel("deviceWithMetalDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLGPUComputeDeviceClass.class), objc.Sel("deviceWithMetalDevice:"), device)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLGPUComputeDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGPUComputeDevice) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGPUComputeDevice) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLGPUComputeDevice) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

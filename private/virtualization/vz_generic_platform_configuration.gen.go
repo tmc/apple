@@ -39,7 +39,7 @@ func (vc VZGenericPlatformConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGenericPlatformConfigurationClass) Alloc() VZGenericPlatformConfiguration {
-	rv := objc.Send[VZGenericPlatformConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGenericPlatformConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,25 +103,25 @@ type IVZGenericPlatformConfiguration interface {
 
 // Init initializes the instance.
 func (v VZGenericPlatformConfiguration) Init() VZGenericPlatformConfiguration {
-	rv := objc.Send[VZGenericPlatformConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGenericPlatformConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGenericPlatformConfiguration) Autorelease() VZGenericPlatformConfiguration {
-	rv := objc.Send[VZGenericPlatformConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGenericPlatformConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGenericPlatformConfiguration creates a new VZGenericPlatformConfiguration instance.
 func NewVZGenericPlatformConfiguration() VZGenericPlatformConfiguration {
 	class := getVZGenericPlatformConfigurationClass()
-	rv := objc.Send[VZGenericPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGenericPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGenericPlatformConfiguration) _setFineGrainedTrapsEmulationEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"), enabled)
 }
 
 // SetFineGrainedTrapsEmulationEnabled is an exported wrapper for the private method _setFineGrainedTrapsEmulationEnabled.
@@ -139,7 +139,7 @@ func (v VZGenericPlatformConfiguration) CanSetFineGrainedTrapsEmulationEnabled()
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"))
 }
 func (v VZGenericPlatformConfiguration) _setGuestType(type_ objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setGuestType:"), type_)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setGuestType:"), type_)
 }
 
 // SetGuestType is an exported wrapper for the private method _setGuestType.
@@ -157,7 +157,7 @@ func (v VZGenericPlatformConfiguration) CanSetGuestType() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGuestType:"))
 }
 func (v VZGenericPlatformConfiguration) _setPerformanceMonitoringUnitEmulationEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"), enabled)
 }
 
 // SetPerformanceMonitoringUnitEmulationEnabled is an exported wrapper for the private method _setPerformanceMonitoringUnitEmulationEnabled.
@@ -176,7 +176,7 @@ func (v VZGenericPlatformConfiguration) CanSetPerformanceMonitoringUnitEmulation
 }
 
 func (v VZGenericPlatformConfiguration) _fineGrainTrapsEmulationEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
 	return rv
 }
 
@@ -193,10 +193,10 @@ func (v VZGenericPlatformConfiguration) FineGrainTrapsEmulationEnabled() (bool, 
 	return v._fineGrainTrapsEmulationEnabled(), nil
 }
 func (v VZGenericPlatformConfiguration) Set_fineGrainTrapsEmulationEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_fineGrainTrapsEmulationEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_fineGrainTrapsEmulationEnabled:"), value)
 }
 func (v VZGenericPlatformConfiguration) _guestType() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_guestType"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_guestType"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -213,10 +213,10 @@ func (v VZGenericPlatformConfiguration) GuestType() (string, error) {
 	return v._guestType(), nil
 }
 func (v VZGenericPlatformConfiguration) Set_guestType(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_guestType:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_guestType:"), objc.String(value))
 }
 func (v VZGenericPlatformConfiguration) _performanceMonitoringUnitEmulationEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled"))
 	return rv
 }
 
@@ -233,12 +233,12 @@ func (v VZGenericPlatformConfiguration) PerformanceMonitoringUnitEmulationEnable
 	return v._performanceMonitoringUnitEmulationEnabled(), nil
 }
 func (v VZGenericPlatformConfiguration) Set_performanceMonitoringUnitEmulationEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_performanceMonitoringUnitEmulationEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_performanceMonitoringUnitEmulationEnabled:"), value)
 }
 func (v VZGenericPlatformConfiguration) NestedVirtualizationEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("nestedVirtualizationEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("nestedVirtualizationEnabled"))
 	return rv
 }
 func (v VZGenericPlatformConfiguration) SetNestedVirtualizationEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
 }

@@ -16,6 +16,9 @@ type MLProbabilityDictionaryStorage interface {
 
 	// MaxElementIndex protocol.
 	MaxElementIndex() uint64
+
+	// ProbabilityAtIndex protocol.
+	ProbabilityAtIndex(index uint64) objectivec.IObject
 }
 
 // MLProbabilityDictionaryStorageObject wraps an existing Objective-C object that conforms to the MLProbabilityDictionaryStorage protocol.
@@ -36,14 +39,14 @@ func MLProbabilityDictionaryStorageObjectFromID(id objc.ID) MLProbabilityDiction
 }
 
 func (o MLProbabilityDictionaryStorageObject) Count() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("count"))
 	return rv
 }
 func (o MLProbabilityDictionaryStorageObject) MaxElementIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("maxElementIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
 func (o MLProbabilityDictionaryStorageObject) ProbabilityAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("probabilityAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }

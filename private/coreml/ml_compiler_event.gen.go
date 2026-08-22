@@ -39,7 +39,7 @@ func (mc MLCompilerEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCompilerEventClass) Alloc() MLCompilerEvent {
-	rv := objc.Send[MLCompilerEvent](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCompilerEvent](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -142,107 +142,107 @@ type IMLCompilerEvent interface {
 
 // Init initializes the instance.
 func (m MLCompilerEvent) Init() MLCompilerEvent {
-	rv := objc.Send[MLCompilerEvent](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCompilerEvent](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCompilerEvent) Autorelease() MLCompilerEvent {
-	rv := objc.Send[MLCompilerEvent](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCompilerEvent](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCompilerEvent creates a new MLCompilerEvent instance.
 func NewMLCompilerEvent() MLCompilerEvent {
 	class := getMLCompilerEventClass()
-	rv := objc.Send[MLCompilerEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCompilerEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLCompilerEvent) CompilerVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetCompilerVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
 }
 func (m MLCompilerEvent) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) DictionaryRepresentation() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLCompilerEvent) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLCompilerEvent) MilUpgradeFailureReason() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milUpgradeFailureReason"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milUpgradeFailureReason"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetMilUpgradeFailureReason(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMilUpgradeFailureReason:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMilUpgradeFailureReason:"), objc.String(value))
 }
 func (m MLCompilerEvent) MilUpgradeStatus() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("milUpgradeStatus"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milUpgradeStatus"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLCompilerEvent) SetMilUpgradeStatus(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMilUpgradeStatus:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMilUpgradeStatus:"), value)
 }
 func (m MLCompilerEvent) ModelCompiledWithVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelCompiledWithVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelCompiledWithVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetModelCompiledWithVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelCompiledWithVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelCompiledWithVersion:"), objc.String(value))
 }
 func (m MLCompilerEvent) ModelHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetModelHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
 }
 func (m MLCompilerEvent) ModelName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetModelName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLCompilerEvent) ModelOrigin() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelOrigin"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelOrigin"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLCompilerEvent) SetModelOrigin(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
 func (m MLCompilerEvent) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLCompilerEvent) SetModelType(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }
 func (m MLCompilerEvent) ModelVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) SetModelVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
 }
 func (m MLCompilerEvent) Name() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerEvent) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

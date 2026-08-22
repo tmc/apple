@@ -45,22 +45,22 @@ func GTGPUTimelineProtocolObjectFromID(id objc.ID) GTGPUTimelineProtocolObject {
 }
 
 func (o GTGPUTimelineProtocolObject) ConsistentStateAchieved() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("consistentStateAchieved"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("consistentStateAchieved"))
 	return rv
 }
 func (o GTGPUTimelineProtocolObject) IsMio() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isMio"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isMio"))
 	return rv
 }
 func (o GTGPUTimelineProtocolObject) MetalFXCallDuration(duration uint64) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("metalFXCallDuration:"), duration)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
 }
 func (o GTGPUTimelineProtocolObject) ProfiledState() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("profiledState"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("profiledState"))
 	return rv
 }
 func (o GTGPUTimelineProtocolObject) Version() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("version"))
 	return rv
 }

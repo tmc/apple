@@ -37,7 +37,7 @@ func (ec EspressoPassMergeChannelNormClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMergeChannelNormClass) Alloc() EspressoPassMergeChannelNorm {
-	rv := objc.Send[EspressoPassMergeChannelNorm](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMergeChannelNorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMergeChannelNorm interface {
 
 // Init initializes the instance.
 func (e EspressoPassMergeChannelNorm) Init() EspressoPassMergeChannelNorm {
-	rv := objc.Send[EspressoPassMergeChannelNorm](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMergeChannelNorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMergeChannelNorm) Autorelease() EspressoPassMergeChannelNorm {
-	rv := objc.Send[EspressoPassMergeChannelNorm](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMergeChannelNorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMergeChannelNorm creates a new EspressoPassMergeChannelNorm instance.
 func NewEspressoPassMergeChannelNorm() EspressoPassMergeChannelNorm {
 	class := getEspressoPassMergeChannelNormClass()
-	rv := objc.Send[EspressoPassMergeChannelNorm](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMergeChannelNorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

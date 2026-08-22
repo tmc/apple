@@ -38,7 +38,7 @@ func (vc VZCoprocessorBootLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCoprocessorBootLoaderClass) Alloc() VZCoprocessorBootLoader {
-	rv := objc.Send[VZCoprocessorBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCoprocessorBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,25 +75,25 @@ type IVZCoprocessorBootLoader interface {
 
 // Init initializes the instance.
 func (v VZCoprocessorBootLoader) Init() VZCoprocessorBootLoader {
-	rv := objc.Send[VZCoprocessorBootLoader](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCoprocessorBootLoader](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCoprocessorBootLoader) Autorelease() VZCoprocessorBootLoader {
-	rv := objc.Send[VZCoprocessorBootLoader](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCoprocessorBootLoader](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCoprocessorBootLoader creates a new VZCoprocessorBootLoader instance.
 func NewVZCoprocessorBootLoader() VZCoprocessorBootLoader {
 	class := getVZCoprocessorBootLoaderClass()
-	rv := objc.Send[VZCoprocessorBootLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCoprocessorBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCoprocessorBootLoader) _romFileDescriptor() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_romFileDescriptor"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_romFileDescriptor"))
 	return rv
 }
 
@@ -110,5 +110,5 @@ func (v VZCoprocessorBootLoader) RomFileDescriptor() (unsafe.Pointer, error) {
 	return v._romFileDescriptor(), nil
 }
 func (v VZCoprocessorBootLoader) Set_romFileDescriptor(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_romFileDescriptor:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_romFileDescriptor:"), value)
 }

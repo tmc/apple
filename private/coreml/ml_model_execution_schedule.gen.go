@@ -39,7 +39,7 @@ func (mc MLModelExecutionScheduleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelExecutionScheduleClass) Alloc() MLModelExecutionSchedule {
-	rv := objc.Send[MLModelExecutionSchedule](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelExecutionSchedule](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,34 +82,34 @@ type IMLModelExecutionSchedule interface {
 
 // Init initializes the instance.
 func (m MLModelExecutionSchedule) Init() MLModelExecutionSchedule {
-	rv := objc.Send[MLModelExecutionSchedule](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelExecutionSchedule](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelExecutionSchedule) Autorelease() MLModelExecutionSchedule {
-	rv := objc.Send[MLModelExecutionSchedule](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelExecutionSchedule](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelExecutionSchedule creates a new MLModelExecutionSchedule instance.
 func NewMLModelExecutionSchedule() MLModelExecutionSchedule {
 	class := getMLModelExecutionScheduleClass()
-	rv := objc.Send[MLModelExecutionSchedule](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelExecutionSchedule](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLModelExecutionSchedule) ModelExecutionSchedule() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelExecutionSchedule"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelExecutionSchedule"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelExecutionSchedule) SetModelExecutionSchedule(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelExecutionSchedule:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelExecutionSchedule:"), value)
 }
 func (m MLModelExecutionSchedule) ModelExecutionScheduleByModelStructurePath() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelExecutionScheduleByModelStructurePath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelExecutionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelExecutionSchedule) SetModelExecutionScheduleByModelStructurePath(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelExecutionScheduleByModelStructurePath:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelExecutionScheduleByModelStructurePath:"), value)
 }

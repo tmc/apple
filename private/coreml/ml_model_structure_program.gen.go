@@ -38,7 +38,7 @@ func (mc MLModelStructureProgramClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramClass) Alloc() MLModelStructureProgram {
-	rv := objc.Send[MLModelStructureProgram](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgram](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,35 +75,35 @@ type IMLModelStructureProgram interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgram) Init() MLModelStructureProgram {
-	rv := objc.Send[MLModelStructureProgram](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgram](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgram) Autorelease() MLModelStructureProgram {
-	rv := objc.Send[MLModelStructureProgram](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgram](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgram creates a new MLModelStructureProgram instance.
 func NewMLModelStructureProgram() MLModelStructureProgram {
 	class := getMLModelStructureProgramClass()
-	rv := objc.Send[MLModelStructureProgram](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgram](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
 	instance := getMLModelStructureProgramClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFunctions:"), functions)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFunctions:"), functions)
 	return MLModelStructureProgramFromID(rv)
 }
 
 func (m MLModelStructureProgram) InitWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
-	rv := objc.Send[MLModelStructureProgram](m.ID, objc.Sel("initWithFunctions:"), functions)
+	rv := objc.SendIfResponds[MLModelStructureProgram](m.ID, objc.Sel("initWithFunctions:"), functions)
 	return rv
 }
 
 func (m MLModelStructureProgram) MainFunction() IMLModelStructureProgramFunction {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mainFunction"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mainFunction"))
 	return MLModelStructureProgramFunctionFromID(objc.ID(rv))
 }

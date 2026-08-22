@@ -37,7 +37,7 @@ func (vc VZMacGraphicsDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacGraphicsDeviceClass) Alloc() VZMacGraphicsDevice {
-	rv := objc.Send[VZMacGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,25 +74,25 @@ type IVZMacGraphicsDevice interface {
 
 // Init initializes the instance.
 func (v VZMacGraphicsDevice) Init() VZMacGraphicsDevice {
-	rv := objc.Send[VZMacGraphicsDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacGraphicsDevice) Autorelease() VZMacGraphicsDevice {
-	rv := objc.Send[VZMacGraphicsDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacGraphicsDevice creates a new VZMacGraphicsDevice instance.
 func NewVZMacGraphicsDevice() VZMacGraphicsDevice {
 	class := getVZMacGraphicsDeviceClass()
-	rv := objc.Send[VZMacGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacGraphicsDevice) _deviceFeatureLevel() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
 }
 
@@ -110,7 +110,7 @@ func (v VZMacGraphicsDevice) CanDeviceFeatureLevel() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel"))
 }
 func (v VZMacGraphicsDevice) _prefersLowPower() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv
 }
 

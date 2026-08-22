@@ -38,7 +38,7 @@ func (cc CoreMLMLModelTensorSharedEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMLModelTensorSharedEventClass) Alloc() CoreMLMLModelTensorSharedEvent {
-	rv := objc.Send[CoreMLMLModelTensorSharedEvent](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorSharedEvent](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMLModelTensorSharedEventFromID(id objc.ID) CoreMLMLModelTensorSharedE
 	return CoreMLMLModelTensorSharedEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMLModelTensorSharedEvent struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMLModelTensorSharedEvent embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMLModelTensorSharedEvent implements ICoreMLMLModelTensorSharedEvent.
+var _ ICoreMLMLModelTensorSharedEvent = CoreMLMLModelTensorSharedEvent{}
 
 // An interface definition for the [CoreMLMLModelTensorSharedEvent] class.
 type ICoreMLMLModelTensorSharedEvent interface {
@@ -61,19 +61,19 @@ type ICoreMLMLModelTensorSharedEvent interface {
 
 // Init initializes the instance.
 func (c CoreMLMLModelTensorSharedEvent) Init() CoreMLMLModelTensorSharedEvent {
-	rv := objc.Send[CoreMLMLModelTensorSharedEvent](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorSharedEvent](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMLModelTensorSharedEvent) Autorelease() CoreMLMLModelTensorSharedEvent {
-	rv := objc.Send[CoreMLMLModelTensorSharedEvent](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorSharedEvent](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMLModelTensorSharedEvent creates a new CoreMLMLModelTensorSharedEvent instance.
 func NewCoreMLMLModelTensorSharedEvent() CoreMLMLModelTensorSharedEvent {
 	class := getCoreMLMLModelTensorSharedEventClass()
-	rv := objc.Send[CoreMLMLModelTensorSharedEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMLModelTensorSharedEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

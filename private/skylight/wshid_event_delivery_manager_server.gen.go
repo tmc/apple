@@ -40,7 +40,7 @@ func (wc WSHIDEventDeliveryManagerServerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSHIDEventDeliveryManagerServerClass) Alloc() WSHIDEventDeliveryManagerServer {
-	rv := objc.Send[WSHIDEventDeliveryManagerServer](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryManagerServer](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,64 +101,64 @@ type IWSHIDEventDeliveryManagerServer interface {
 
 // Init initializes the instance.
 func (w WSHIDEventDeliveryManagerServer) Init() WSHIDEventDeliveryManagerServer {
-	rv := objc.Send[WSHIDEventDeliveryManagerServer](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryManagerServer](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSHIDEventDeliveryManagerServer) Autorelease() WSHIDEventDeliveryManagerServer {
-	rv := objc.Send[WSHIDEventDeliveryManagerServer](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryManagerServer](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSHIDEventDeliveryManagerServer creates a new WSHIDEventDeliveryManagerServer instance.
 func NewWSHIDEventDeliveryManagerServer() WSHIDEventDeliveryManagerServer {
 	class := getWSHIDEventDeliveryManagerServerClass()
-	rv := objc.Send[WSHIDEventDeliveryManagerServer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryManagerServer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (w WSHIDEventDeliveryManagerServer) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (w WSHIDEventDeliveryManagerServer) Activate() {
-	objc.Send[objc.ID](w.ID, objc.Sel("activate"))
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("activate"))
 }
 func (w WSHIDEventDeliveryManagerServer) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 func (w WSHIDEventDeliveryManagerServer) DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
 func (w WSHIDEventDeliveryManagerServer) PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](w.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
+	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
 	return rv
 }
 
 func (_WSHIDEventDeliveryManagerServerClass WSHIDEventDeliveryManagerServerClass) SharedInstance() WSHIDEventDeliveryManagerServer {
-	rv := objc.Send[objc.ID](objc.ID(_WSHIDEventDeliveryManagerServerClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_WSHIDEventDeliveryManagerServerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDEventDeliveryManagerServerFromID(rv)
 }
 
 func (w WSHIDEventDeliveryManagerServer) DebugDescription() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSHIDEventDeliveryManagerServer) Description() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSHIDEventDeliveryManagerServer) Hash() uint64 {
-	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
 func (w WSHIDEventDeliveryManagerServer) Server() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("server"))
+	rv := objc.SendIfResponds[unsafe.Pointer](w.ID, objc.Sel("server"))
 	return rv
 }
 func (w WSHIDEventDeliveryManagerServer) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](w.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

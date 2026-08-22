@@ -10,6 +10,18 @@ import (
 // ETTaskContext protocol.
 type ETTaskContext interface {
 	objectivec.IObject
+
+	// DoInferenceOnDataError protocol.
+	DoInferenceOnDataError(data objectivec.IObject) (objectivec.IObject, error)
+
+	// GetTensorNamed protocol.
+	GetTensorNamed(named objectivec.IObject) objectivec.IObject
+
+	// SaveNetworkInplaceError protocol.
+	SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error)
+
+	// SetTensorNamedWithValueError protocol.
+	SetTensorNamedWithValueError(named objectivec.IObject, value objectivec.IObject) (bool, error)
 }
 
 // ETTaskContextObject wraps an existing Objective-C object that conforms to the ETTaskContext protocol.
@@ -37,7 +49,7 @@ func (o ETTaskContextObject) DoInferenceOnDataError(data objectivec.IObject) (ob
 	return objectivec.Object{ID: rv}, nil
 }
 func (o ETTaskContextObject) GetTensorNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("getTensorNamed:"), named)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("getTensorNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 func (o ETTaskContextObject) SaveNetworkInplaceError(network objectivec.IObject, inplace bool) (bool, error) {

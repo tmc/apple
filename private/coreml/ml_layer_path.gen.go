@@ -39,7 +39,7 @@ func (mc MLLayerPathClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLayerPathClass) Alloc() MLLayerPath {
-	rv := objc.Send[MLLayerPath](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLayerPath](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,52 +91,52 @@ type IMLLayerPath interface {
 
 // Init initializes the instance.
 func (m MLLayerPath) Init() MLLayerPath {
-	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLayerPath](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLayerPath) Autorelease() MLLayerPath {
-	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLayerPath](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLayerPath creates a new MLLayerPath instance.
 func NewMLLayerPath() MLLayerPath {
 	class := getMLLayerPathClass()
-	rv := objc.Send[MLLayerPath](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLayerPath](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
 	instance := getMLLayerPathClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
 	return MLLayerPathFromID(rv)
 }
 
 func (m MLLayerPath) AppendPathComponent(component objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("appendPathComponent:"), component)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("appendPathComponent:"), component)
 }
 func (m MLLayerPath) IsEqualToMLLayerPath(path objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToMLLayerPath:"), path)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEqualToMLLayerPath:"), path)
 	return rv
 }
 func (m MLLayerPath) InitWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
-	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
+	rv := objc.SendIfResponds[MLLayerPath](m.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
 	return rv
 }
 
 func (m MLLayerPath) LayerName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("layerName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLayerPath) SetLayerName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLayerName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLayerName:"), objc.String(value))
 }
 func (m MLLayerPath) ScopedModelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("scopedModelNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("scopedModelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLLayerPath) SetScopedModelNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setScopedModelNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setScopedModelNames:"), value)
 }

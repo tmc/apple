@@ -40,7 +40,7 @@ func (mc MLStreamingInputDataSourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLStreamingInputDataSourceClass) Alloc() MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLStreamingInputDataSource](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,31 +98,31 @@ type IMLStreamingInputDataSource interface {
 
 // Init initializes the instance.
 func (m MLStreamingInputDataSource) Init() MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLStreamingInputDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLStreamingInputDataSource) Autorelease() MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLStreamingInputDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLStreamingInputDataSource creates a new MLStreamingInputDataSource instance.
 func NewMLStreamingInputDataSource() MLStreamingInputDataSource {
 	class := getMLStreamingInputDataSourceClass()
-	rv := objc.Send[MLStreamingInputDataSource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLStreamingInputDataSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewStreamingInputDataSourceWithBatchSize(size uint64) MLStreamingInputDataSource {
 	instance := getMLStreamingInputDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBatchSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchSize:"), size)
 	return MLStreamingInputDataSourceFromID(rv)
 }
 
 func (m MLStreamingInputDataSource) AppendBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("appendBatchedTensors:numberOfTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("appendBatchedTensors:numberOfTensors:"), tensors, tensors2)
 }
 func (m MLStreamingInputDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -135,29 +135,29 @@ func (m MLStreamingInputDataSource) BatchAtIndexError(index uint64) (objectivec.
 
 }
 func (m MLStreamingInputDataSource) NumberOfBatches() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfBatches"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
 func (m MLStreamingInputDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }
 func (m MLStreamingInputDataSource) InitWithBatchSize(size uint64) MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("initWithBatchSize:"), size)
+	rv := objc.SendIfResponds[MLStreamingInputDataSource](m.ID, objc.Sel("initWithBatchSize:"), size)
 	return rv
 }
 
 func (m MLStreamingInputDataSource) BatchSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("batchSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("batchSize"))
 	return rv
 }
 func (m MLStreamingInputDataSource) SetBatchSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
 }
 func (m MLStreamingInputDataSource) DataSources() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataSources"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dataSources"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLStreamingInputDataSource) SetDataSources(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDataSources:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDataSources:"), value)
 }

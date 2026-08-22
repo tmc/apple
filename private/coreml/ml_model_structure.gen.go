@@ -38,7 +38,7 @@ func (mc MLModelStructureClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureClass) Alloc() MLModelStructure {
-	rv := objc.Send[MLModelStructure](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructure](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,60 +81,60 @@ type IMLModelStructure interface {
 
 // Init initializes the instance.
 func (m MLModelStructure) Init() MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructure) Autorelease() MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructure creates a new MLModelStructure instance.
 func NewMLModelStructure() MLModelStructure {
 	class := getMLModelStructureClass()
-	rv := objc.Send[MLModelStructure](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructure](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:"), network)
 	return MLModelStructureFromID(rv)
 }
 
 func NewModelStructureWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
 	return MLModelStructureFromID(rv)
 }
 
 func NewModelStructureWithPipeline(pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPipeline:"), pipeline)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPipeline:"), pipeline)
 	return MLModelStructureFromID(rv)
 }
 
 func NewModelStructureWithProgram(program objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgram:"), program)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:"), program)
 	return MLModelStructureFromID(rv)
 }
 
 func (m MLModelStructure) InitWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:"), network)
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:"), network)
 	return rv
 }
 func (m MLModelStructure) InitWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
 	return rv
 }
 func (m MLModelStructure) InitWithPipeline(pipeline objectivec.IObject) MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithPipeline:"), pipeline)
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("initWithPipeline:"), pipeline)
 	return rv
 }
 func (m MLModelStructure) InitWithProgram(program objectivec.IObject) MLModelStructure {
-	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithProgram:"), program)
+	rv := objc.SendIfResponds[MLModelStructure](m.ID, objc.Sel("initWithProgram:"), program)
 	return rv
 }

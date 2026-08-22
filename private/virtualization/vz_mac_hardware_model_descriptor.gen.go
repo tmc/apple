@@ -39,7 +39,7 @@ func (vc VZMacHardwareModelDescriptorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacHardwareModelDescriptorClass) Alloc() VZMacHardwareModelDescriptor {
-	rv := objc.Send[VZMacHardwareModelDescriptor](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacHardwareModelDescriptor](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,38 +88,38 @@ type IVZMacHardwareModelDescriptor interface {
 
 // Init initializes the instance.
 func (v VZMacHardwareModelDescriptor) Init() VZMacHardwareModelDescriptor {
-	rv := objc.Send[VZMacHardwareModelDescriptor](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacHardwareModelDescriptor](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacHardwareModelDescriptor) Autorelease() VZMacHardwareModelDescriptor {
-	rv := objc.Send[VZMacHardwareModelDescriptor](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacHardwareModelDescriptor](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacHardwareModelDescriptor creates a new VZMacHardwareModelDescriptor instance.
 func NewVZMacHardwareModelDescriptor() VZMacHardwareModelDescriptor {
 	class := getVZMacHardwareModelDescriptorClass()
-	rv := objc.Send[VZMacHardwareModelDescriptor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacHardwareModelDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacHardwareModelDescriptor) SetBoardID(id uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setBoardID:"), id)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setBoardID:"), id)
 }
 func (v VZMacHardwareModelDescriptor) SetISA(isa int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setISA:"), isa)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setISA:"), isa)
 }
 func (v VZMacHardwareModelDescriptor) SetInitialGuestMacOSVersion(oSVersion unsafe.Pointer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setInitialGuestMacOSVersion:"), oSVersion)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setInitialGuestMacOSVersion:"), oSVersion)
 }
 func (v VZMacHardwareModelDescriptor) SetMinimumSupportedHostOSVersion(oSVersion unsafe.Pointer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setMinimumSupportedHostOSVersion:"), oSVersion)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setMinimumSupportedHostOSVersion:"), oSVersion)
 }
 func (v VZMacHardwareModelDescriptor) SetPlatformVersion(version uint32) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setPlatformVersion:"), version)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setPlatformVersion:"), version)
 }
 func (v VZMacHardwareModelDescriptor) SetVariantIDVariantName(id uint32, name objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setVariantID:variantName:"), id, name)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setVariantID:variantName:"), id, name)
 }

@@ -10,6 +10,12 @@ import (
 // ECAuthenticationMessageInternal protocol.
 type ECAuthenticationMessageInternal interface {
 	objectivec.IObject
+
+	// CopySignedByKey protocol.
+	CopySignedByKey(key objectivec.IObject) objectivec.IObject
+
+	// Signature protocol.
+	Signature() objectivec.IObject
 }
 
 // ECAuthenticationMessageInternalObject wraps an existing Objective-C object that conforms to the ECAuthenticationMessageInternal protocol.
@@ -30,10 +36,10 @@ func ECAuthenticationMessageInternalObjectFromID(id objc.ID) ECAuthenticationMes
 }
 
 func (o ECAuthenticationMessageInternalObject) CopySignedByKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("copySignedByKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("copySignedByKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (o ECAuthenticationMessageInternalObject) Signature() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("signature"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}
 }

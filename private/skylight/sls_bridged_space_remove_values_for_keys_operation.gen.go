@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceRemoveValuesForKeysOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceRemoveValuesForKeysOperationClass) Alloc() SLSBridgedSpaceRemoveValuesForKeysOperation {
-	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveValuesForKeysOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceRemoveValuesForKeysOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) Init() SLSBridgedSpaceRemoveValuesForKeysOperation {
-	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) Autorelease() SLSBridgedSpaceRemoveValuesForKeysOperation {
-	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceRemoveValuesForKeysOperation creates a new SLSBridgedSpaceRemoveValuesForKeysOperation instance.
 func NewSLSBridgedSpaceRemoveValuesForKeysOperation() SLSBridgedSpaceRemoveValuesForKeysOperation {
 	class := getSLSBridgedSpaceRemoveValuesForKeysOperationClass()
-	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveValuesForKeysOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceRemoveValuesForKeysOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
 	instance := getSLSBridgedSpaceRemoveValuesForKeysOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceRemoveValuesForKeysOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceRemoveValuesForKeysOperationWithSpaceIDKeys(id uint64, keys objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
 	instance := getSLSBridgedSpaceRemoveValuesForKeysOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
 	return SLSBridgedSpaceRemoveValuesForKeysOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) InitWithSpaceIDKeys(id uint64, keys objectivec.IObject) SLSBridgedSpaceRemoveValuesForKeysOperation {
-	rv := objc.Send[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
+	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveValuesForKeysOperation](s.ID, objc.Sel("initWithSpaceID:keys:"), id, keys)
 	return rv
 }
 
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) Keys() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("keys"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("keys"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSBridgedSpaceRemoveValuesForKeysOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

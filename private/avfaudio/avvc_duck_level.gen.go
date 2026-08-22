@@ -39,7 +39,7 @@ func (ac AVVCDuckLevelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCDuckLevelClass) Alloc() AVVCDuckLevel {
-	rv := objc.Send[AVVCDuckLevel](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCDuckLevel](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,34 +82,34 @@ type IAVVCDuckLevel interface {
 
 // Init initializes the instance.
 func (a AVVCDuckLevel) Init() AVVCDuckLevel {
-	rv := objc.Send[AVVCDuckLevel](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCDuckLevel](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCDuckLevel) Autorelease() AVVCDuckLevel {
-	rv := objc.Send[AVVCDuckLevel](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCDuckLevel](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCDuckLevel creates a new AVVCDuckLevel instance.
 func NewAVVCDuckLevel() AVVCDuckLevel {
 	class := getAVVCDuckLevelClass()
-	rv := objc.Send[AVVCDuckLevel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCDuckLevel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVCDuckLevel) IsBlur() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isBlur"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isBlur"))
 	return rv
 }
 func (a AVVCDuckLevel) SetIsBlur(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
 func (a AVVCDuckLevel) Value() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("value"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("value"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckLevel) SetValue(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setValue:"), value)
 }

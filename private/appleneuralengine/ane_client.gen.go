@@ -41,7 +41,7 @@ func (ac ANEClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEClientClass) Alloc() ANEClient {
-	rv := objc.Send[ANEClient](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEClient](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -201,31 +201,31 @@ type IANEClient interface {
 
 // Init initializes the instance.
 func (a ANEClient) Init() ANEClient {
-	rv := objc.Send[ANEClient](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEClient](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEClient) Autorelease() ANEClient {
-	rv := objc.Send[ANEClient](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEClient](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEClient creates a new ANEClient instance.
 func NewANEClient() ANEClient {
 	class := getANEClientClass()
-	rv := objc.Send[ANEClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEClientWithRestrictedAccessAllowed(allowed bool) ANEClient {
 	instance := getANEClientClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRestrictedAccessAllowed:"), allowed)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRestrictedAccessAllowed:"), allowed)
 	return ANEClientFromID(rv)
 }
 
 func (a ANEClient) BeginRealTimeTask() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("beginRealTimeTask"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("beginRealTimeTask"))
 	return rv
 }
 func (a ANEClient) BuffersReadyWithModelInputBuffersOptionsQosError(model objectivec.IObject, buffers objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -255,19 +255,19 @@ func (a ANEClient) CompileModelOptionsQosError(model objectivec.IObject, options
 
 }
 func (a ANEClient) CompiledModelExistsFor(for_ objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExistsFor:"), for_)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExistsFor:"), for_)
 	return rv
 }
 func (a ANEClient) CompiledModelExistsMatchingHash(hash objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExistsMatchingHash:"), hash)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExistsMatchingHash:"), hash)
 	return rv
 }
 func (a ANEClient) ConnectionForLoadingModelOptions(model objectivec.IObject, options objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionForLoadingModel:options:"), model, options)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectionForLoadingModel:options:"), model, options)
 	return objectivec.Object{ID: rv}
 }
 func (a ANEClient) ConnectionUsedForLoadingModel(model objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionUsedForLoadingModel:"), model)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectionUsedForLoadingModel:"), model)
 	return objectivec.Object{ID: rv}
 }
 func (a ANEClient) DoBuffersReadyWithModelInputBuffersOptionsQosError(model objectivec.IObject, buffers objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -362,11 +362,11 @@ func (a ANEClient) DoUnloadModelOptionsQosError(model objectivec.IObject, option
 
 }
 func (a ANEClient) Echo(echo objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("echo:"), echo)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("echo:"), echo)
 	return rv
 }
 func (a ANEClient) EndRealTimeTask() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("endRealTimeTask"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("endRealTimeTask"))
 	return rv
 }
 func (a ANEClient) EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set IANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
@@ -409,15 +409,15 @@ func (a ANEClient) EvaluateWithModelOptionsRequestQosError(model objectivec.IObj
 
 }
 func (a ANEClient) FastConnWithoutLock() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fastConnWithoutLock"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fastConnWithoutLock"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEClient) IsAnetoolRootDaemonConnection() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isAnetoolRootDaemonConnection"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isAnetoolRootDaemonConnection"))
 	return rv
 }
 func (a ANEClient) IsVirtualClient() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isVirtualClient"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isVirtualClient"))
 	return rv
 }
 func (a ANEClient) LoadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -486,13 +486,13 @@ func (a ANEClient) PrepareChainingWithModelOptionsChainingReqQosError(model obje
 
 }
 func (a ANEClient) PurgeCompiledModel(model objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel:"), model)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModel:"), model)
 }
 func (a ANEClient) PurgeCompiledModelMatchingHash(hash objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:"), hash)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:"), hash)
 }
 func (a ANEClient) ReportEvaluateFailureFailureReasonQIdx(failure objectivec.IObject, reason uint32, idx uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("reportEvaluateFailure:failureReason:qIdx:"), failure, reason, idx)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("reportEvaluateFailure:failureReason:qIdx:"), failure, reason, idx)
 }
 func (a ANEClient) SessionHintWithModelHintOptionsReportError(model objectivec.IObject, hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -534,51 +534,51 @@ func (a ANEClient) UnloadRealTimeModelOptionsQosError(model objectivec.IObject, 
 
 }
 func (a ANEClient) UnmapIOSurfacesWithModelRequest(model objectivec.IObject, request objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithModel:request:"), model, request)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithModel:request:"), model, request)
 }
 func (a ANEClient) InitWithRestrictedAccessAllowed(allowed bool) ANEClient {
-	rv := objc.Send[ANEClient](a.ID, objc.Sel("initWithRestrictedAccessAllowed:"), allowed)
+	rv := objc.SendIfResponds[ANEClient](a.ID, objc.Sel("initWithRestrictedAccessAllowed:"), allowed)
 	return rv
 }
 
 func (_ANEClientClass ANEClientClass) SharedConnection() ANEClient {
-	rv := objc.Send[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedConnection"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedConnection"))
 	return ANEClientFromID(rv)
 }
 func (_ANEClientClass ANEClientClass) SharedPrivateConnection() ANEClient {
-	rv := objc.Send[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedPrivateConnection"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedPrivateConnection"))
 	return ANEClientFromID(rv)
 }
 
 func (a ANEClient) AllowRestrictedAccess() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("allowRestrictedAccess"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("allowRestrictedAccess"))
 	return rv
 }
 func (a ANEClient) Conn() IANEDaemonConnection {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("conn"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("conn"))
 	return ANEDaemonConnectionFromID(objc.ID(rv))
 }
 func (a ANEClient) Connections() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("connections"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connections"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a ANEClient) ConnectionsUsedForLoadingModels() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionsUsedForLoadingModels"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectionsUsedForLoadingModels"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a ANEClient) FastConn() IANEDaemonConnection {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fastConn"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fastConn"))
 	return ANEDaemonConnectionFromID(objc.ID(rv))
 }
 func (a ANEClient) IsRootDaemon() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isRootDaemon"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isRootDaemon"))
 	return rv
 }
 func (a ANEClient) PriorityQ() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("priorityQ"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("priorityQ"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEClient) VirtualClient() IANEVirtualClient {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("virtualClient"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("virtualClient"))
 	return ANEVirtualClientFromID(objc.ID(rv))
 }

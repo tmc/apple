@@ -38,7 +38,7 @@ func (cc CoreMLIOSurfaceAsyncEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLIOSurfaceAsyncEventClass) Alloc() CoreMLIOSurfaceAsyncEvent {
-	rv := objc.Send[CoreMLIOSurfaceAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLIOSurfaceAsyncEvent](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLIOSurfaceAsyncEventFromID(id objc.ID) CoreMLIOSurfaceAsyncEvent {
 	return CoreMLIOSurfaceAsyncEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLIOSurfaceAsyncEvent struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLIOSurfaceAsyncEvent embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLIOSurfaceAsyncEvent implements ICoreMLIOSurfaceAsyncEvent.
+var _ ICoreMLIOSurfaceAsyncEvent = CoreMLIOSurfaceAsyncEvent{}
 
 // An interface definition for the [CoreMLIOSurfaceAsyncEvent] class.
 type ICoreMLIOSurfaceAsyncEvent interface {
@@ -61,19 +61,19 @@ type ICoreMLIOSurfaceAsyncEvent interface {
 
 // Init initializes the instance.
 func (c CoreMLIOSurfaceAsyncEvent) Init() CoreMLIOSurfaceAsyncEvent {
-	rv := objc.Send[CoreMLIOSurfaceAsyncEvent](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLIOSurfaceAsyncEvent](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLIOSurfaceAsyncEvent) Autorelease() CoreMLIOSurfaceAsyncEvent {
-	rv := objc.Send[CoreMLIOSurfaceAsyncEvent](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLIOSurfaceAsyncEvent](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLIOSurfaceAsyncEvent creates a new CoreMLIOSurfaceAsyncEvent instance.
 func NewCoreMLIOSurfaceAsyncEvent() CoreMLIOSurfaceAsyncEvent {
 	class := getCoreMLIOSurfaceAsyncEventClass()
-	rv := objc.Send[CoreMLIOSurfaceAsyncEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLIOSurfaceAsyncEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

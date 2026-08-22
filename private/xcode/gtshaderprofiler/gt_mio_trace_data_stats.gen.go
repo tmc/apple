@@ -38,7 +38,7 @@ func (gc GTMioTraceDataStatsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceDataStatsClass) Alloc() GTMioTraceDataStats {
-	rv := objc.Send[GTMioTraceDataStats](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceDataStats](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,37 +78,37 @@ type IGTMioTraceDataStats interface {
 
 // Init initializes the instance.
 func (g GTMioTraceDataStats) Init() GTMioTraceDataStats {
-	rv := objc.Send[GTMioTraceDataStats](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceDataStats](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceDataStats) Autorelease() GTMioTraceDataStats {
-	rv := objc.Send[GTMioTraceDataStats](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceDataStats](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceDataStats creates a new GTMioTraceDataStats instance.
 func NewGTMioTraceDataStats() GTMioTraceDataStats {
 	class := getGTMioTraceDataStatsClass()
-	rv := objc.Send[GTMioTraceDataStats](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceDataStats](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceDataStatsWithTraceData(data objectivec.IObject) GTMioTraceDataStats {
 	instance := getGTMioTraceDataStatsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
 	return GTMioTraceDataStatsFromID(rv)
 }
 
 func (g GTMioTraceDataStats) Build() {
-	objc.Send[objc.ID](g.ID, objc.Sel("build"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("build"))
 }
 func (g GTMioTraceDataStats) ShaderStatForShaderProgramType(shader uint64, type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderStatForShader:programType:"), shader, type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("shaderStatForShader:programType:"), shader, type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataStats) InitWithTraceData(data objectivec.IObject) GTMioTraceDataStats {
-	rv := objc.Send[GTMioTraceDataStats](g.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[GTMioTraceDataStats](g.ID, objc.Sel("initWithTraceData:"), data)
 	return rv
 }

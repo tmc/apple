@@ -38,7 +38,7 @@ func (vc VZDisplayPresenterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDisplayPresenterClass) Alloc() VZDisplayPresenter {
-	rv := objc.Send[VZDisplayPresenter](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDisplayPresenter](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZDisplayPresenter interface {
 
 // Init initializes the instance.
 func (v VZDisplayPresenter) Init() VZDisplayPresenter {
-	rv := objc.Send[VZDisplayPresenter](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDisplayPresenter](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDisplayPresenter) Autorelease() VZDisplayPresenter {
-	rv := objc.Send[VZDisplayPresenter](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDisplayPresenter](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDisplayPresenter creates a new VZDisplayPresenter instance.
 func NewVZDisplayPresenter() VZDisplayPresenter {
 	class := getVZDisplayPresenterClass()
-	rv := objc.Send[VZDisplayPresenter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDisplayPresenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

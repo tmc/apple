@@ -40,7 +40,7 @@ func (mc MLNeuralNetworkV1ContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkV1ContainerClass) Alloc() MLNeuralNetworkV1Container {
-	rv := objc.Send[MLNeuralNetworkV1Container](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkV1Container](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,38 +63,38 @@ type IMLNeuralNetworkV1Container interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkV1Container) Init() MLNeuralNetworkV1Container {
-	rv := objc.Send[MLNeuralNetworkV1Container](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkV1Container](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkV1Container) Autorelease() MLNeuralNetworkV1Container {
-	rv := objc.Send[MLNeuralNetworkV1Container](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkV1Container](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkV1Container creates a new MLNeuralNetworkV1Container instance.
 func NewMLNeuralNetworkV1Container() MLNeuralNetworkV1Container {
 	class := getMLNeuralNetworkV1ContainerClass()
-	rv := objc.Send[MLNeuralNetworkV1Container](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkV1Container](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
 func NewNeuralNetworkV1ContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 

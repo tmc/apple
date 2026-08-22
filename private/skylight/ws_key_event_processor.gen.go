@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -37,7 +38,7 @@ func (wc WSKeyEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSKeyEventProcessorClass) Alloc() WSKeyEventProcessor {
-	rv := objc.Send[WSKeyEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSKeyEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,25 +61,25 @@ type IWSKeyEventProcessor interface {
 
 // Init initializes the instance.
 func (w WSKeyEventProcessor) Init() WSKeyEventProcessor {
-	rv := objc.Send[WSKeyEventProcessor](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSKeyEventProcessor](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSKeyEventProcessor) Autorelease() WSKeyEventProcessor {
-	rv := objc.Send[WSKeyEventProcessor](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSKeyEventProcessor](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSKeyEventProcessor creates a new WSKeyEventProcessor instance.
 func NewWSKeyEventProcessor() WSKeyEventProcessor {
 	class := getWSKeyEventProcessorClass()
-	rv := objc.Send[WSKeyEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSKeyEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewWSKeyEventProcessorWithSession(session CGXSession) WSKeyEventProcessor {
+func NewWSKeyEventProcessorWithSession(session *CGXSession) WSKeyEventProcessor {
 	instance := getWSKeyEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return WSKeyEventProcessorFromID(rv)
 }

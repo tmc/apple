@@ -39,7 +39,7 @@ func (vc VZVirtioInputDeviceSpecificConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioInputDeviceSpecificConfigurationClass) Alloc() VZVirtioInputDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioInputDeviceSpecificConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IVZVirtioInputDeviceSpecificConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioInputDeviceSpecificConfiguration) Init() VZVirtioInputDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioInputDeviceSpecificConfiguration) Autorelease() VZVirtioInputDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioInputDeviceSpecificConfiguration creates a new VZVirtioInputDeviceSpecificConfiguration instance.
 func NewVZVirtioInputDeviceSpecificConfiguration() VZVirtioInputDeviceSpecificConfiguration {
 	class := getVZVirtioInputDeviceSpecificConfigurationClass()
-	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioInputDeviceSpecificConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZVirtioInputDeviceSpecificConfigurationWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
 	instance := getVZVirtioInputDeviceSpecificConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfigurations:"), configurations)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfigurations:"), configurations)
 	return VZVirtioInputDeviceSpecificConfigurationFromID(rv)
 }
 
 func (v VZVirtioInputDeviceSpecificConfiguration) InitWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
-	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurations:"), configurations)
+	rv := objc.SendIfResponds[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurations:"), configurations)
 	return rv
 }
 
 func (v VZVirtioInputDeviceSpecificConfiguration) Configurations() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurations"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

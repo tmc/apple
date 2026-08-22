@@ -40,7 +40,7 @@ func (ec EspressoFaceDetectedObjectClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoFaceDetectedObjectClass) Alloc() EspressoFaceDetectedObject {
-	rv := objc.Send[EspressoFaceDetectedObject](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoFaceDetectedObject](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,75 +110,75 @@ type IEspressoFaceDetectedObject interface {
 
 // Init initializes the instance.
 func (e EspressoFaceDetectedObject) Init() EspressoFaceDetectedObject {
-	rv := objc.Send[EspressoFaceDetectedObject](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoFaceDetectedObject](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoFaceDetectedObject) Autorelease() EspressoFaceDetectedObject {
-	rv := objc.Send[EspressoFaceDetectedObject](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoFaceDetectedObject](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoFaceDetectedObject creates a new EspressoFaceDetectedObject instance.
 func NewEspressoFaceDetectedObject() EspressoFaceDetectedObject {
 	class := getEspressoFaceDetectedObjectClass()
-	rv := objc.Send[EspressoFaceDetectedObject](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoFaceDetectedObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoFaceDetectedObjectWithOptionsXlocYlocSizeConfidence(xloc float32, yloc float32, size float32, confidence float32) EspressoFaceDetectedObject {
 	instance := getEspressoFaceDetectedObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
 	return EspressoFaceDetectedObjectFromID(rv)
 }
 
 func (e EspressoFaceDetectedObject) InitWithOptionsXlocYlocSizeConfidence(xloc float32, yloc float32, size float32, confidence float32) EspressoFaceDetectedObject {
-	rv := objc.Send[EspressoFaceDetectedObject](e.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
+	rv := objc.SendIfResponds[EspressoFaceDetectedObject](e.ID, objc.Sel("initWithOptionsXloc:yloc:size:confidence:"), xloc, yloc, size, confidence)
 	return rv
 }
 
 func (e EspressoFaceDetectedObject) Bounds() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](e.ID, objc.Sel("bounds"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](e.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
 func (e EspressoFaceDetectedObject) SetBounds(value corefoundation.CGRect) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBounds:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBounds:"), value)
 }
 func (e EspressoFaceDetectedObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](e.ID, objc.Sel("center"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](e.ID, objc.Sel("center"))
 	return corefoundation.CGPoint(rv)
 }
 func (e EspressoFaceDetectedObject) SetCenter(value corefoundation.CGPoint) {
-	objc.Send[struct{}](e.ID, objc.Sel("setCenter:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setCenter:"), value)
 }
 func (e EspressoFaceDetectedObject) Confidence() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("confidence"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("confidence"))
 	return rv
 }
 func (e EspressoFaceDetectedObject) SetConfidence(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setConfidence:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setConfidence:"), value)
 }
 func (e EspressoFaceDetectedObject) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoFaceDetectedObject) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoFaceDetectedObject) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 func (e EspressoFaceDetectedObject) ObjectType() int64 {
-	rv := objc.Send[int64](e.ID, objc.Sel("objectType"))
+	rv := objc.SendIfResponds[int64](e.ID, objc.Sel("objectType"))
 	return rv
 }
 func (e EspressoFaceDetectedObject) SetObjectType(value int64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setObjectType:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setObjectType:"), value)
 }
 func (e EspressoFaceDetectedObject) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](e.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

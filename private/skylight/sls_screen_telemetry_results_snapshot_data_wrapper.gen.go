@@ -39,7 +39,7 @@ func (sc SLSScreenTelemetryResultsSnapshotDataWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSScreenTelemetryResultsSnapshotDataWrapperClass) Alloc() SLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,94 +109,94 @@ type ISLSScreenTelemetryResultsSnapshotDataWrapper interface {
 
 // Init initializes the instance.
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) Init() SLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) Autorelease() SLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSScreenTelemetryResultsSnapshotDataWrapper creates a new SLSScreenTelemetryResultsSnapshotDataWrapper instance.
 func NewSLSScreenTelemetryResultsSnapshotDataWrapper() SLSScreenTelemetryResultsSnapshotDataWrapper {
 	class := getSLSScreenTelemetryResultsSnapshotDataWrapperClass()
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSScreenTelemetryResultsSnapshotDataWrapperWithObject(object unsafe.Pointer) SLSScreenTelemetryResultsSnapshotDataWrapper {
 	instance := getSLSScreenTelemetryResultsSnapshotDataWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return SLSScreenTelemetryResultsSnapshotDataWrapperFromID(rv)
 }
 
 func NewSLSScreenTelemetryResultsSnapshotDataWrapperWithXPCObject(xPCObject objectivec.IObject) SLSScreenTelemetryResultsSnapshotDataWrapper {
 	instance := getSLSScreenTelemetryResultsSnapshotDataWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLSScreenTelemetryResultsSnapshotDataWrapperFromID(rv)
 }
 
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) AZL_max() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AZL_max"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("AZL_max"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) AZL_mean() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AZL_mean"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("AZL_mean"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) AZL_min() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("AZL_min"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("AZL_min"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) EDR_headroom() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("EDR_headroom"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("EDR_headroom"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) ColumnCount() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("columnCount"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("columnCount"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) ObjectAtIndexedSubscript(subscript uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectAtIndexedSubscript:"), subscript)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("objectAtIndexedSubscript:"), subscript)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) Panel() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("panel"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("panel"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) RawData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("rawData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("rawData"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) RowCount() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("rowCount"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("rowCount"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) Timestamp() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("timestamp"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("timestamp"))
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) InitWithObject(object unsafe.Pointer) SLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("initWithObject:"), object)
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) InitWithXPCObject(xPCObject objectivec.IObject) SLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[SLSScreenTelemetryResultsSnapshotDataWrapper](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
 func (_SLSScreenTelemetryResultsSnapshotDataWrapperClass SLSScreenTelemetryResultsSnapshotDataWrapperClass) WrapperWithObject(object unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSScreenTelemetryResultsSnapshotDataWrapperClass.class), objc.Sel("wrapperWithObject:"), object)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSScreenTelemetryResultsSnapshotDataWrapperClass.class), objc.Sel("wrapperWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSScreenTelemetryResultsSnapshotDataWrapperClass SLSScreenTelemetryResultsSnapshotDataWrapperClass) WrapperWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSScreenTelemetryResultsSnapshotDataWrapperClass.class), objc.Sel("wrapperWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSScreenTelemetryResultsSnapshotDataWrapperClass.class), objc.Sel("wrapperWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSScreenTelemetryResultsSnapshotDataWrapper) Data() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("data"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("data"))
 	return rv
 }

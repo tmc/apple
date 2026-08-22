@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionReshapeToFlattenClass) Class() objc.Class 
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionReshapeToFlattenClass) Alloc() EspressoPassStrengthReductionReshapeToFlatten {
-	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionReshapeToFlatten interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionReshapeToFlatten) Init() EspressoPassStrengthReductionReshapeToFlatten {
-	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionReshapeToFlatten) Autorelease() EspressoPassStrengthReductionReshapeToFlatten {
-	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionReshapeToFlatten creates a new EspressoPassStrengthReductionReshapeToFlatten instance.
 func NewEspressoPassStrengthReductionReshapeToFlatten() EspressoPassStrengthReductionReshapeToFlatten {
 	class := getEspressoPassStrengthReductionReshapeToFlattenClass()
-	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

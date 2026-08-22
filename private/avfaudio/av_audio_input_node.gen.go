@@ -40,7 +40,7 @@ func (ac AVAudioInputNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
-	rv := objc.Send[AVAudioInputNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioInputNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,69 +101,69 @@ type IAVAudioInputNode interface {
 
 // Init initializes the instance.
 func (a AVAudioInputNode) Init() AVAudioInputNode {
-	rv := objc.Send[AVAudioInputNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioInputNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioInputNode) Autorelease() AVAudioInputNode {
-	rv := objc.Send[AVAudioInputNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioInputNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioInputNode creates a new AVAudioInputNode instance.
 func NewAVAudioInputNode() AVAudioInputNode {
 	class := getAVAudioInputNodeClass()
-	rv := objc.Send[AVAudioInputNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioInputNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioInputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioInputNodeFromID(rv)
 }
 
 func NewAudioInputNodeWithImpl(impl unsafe.Pointer) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioInputNodeFromID(rv)
 }
 
 func (a AVAudioInputNode) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioInputNode) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioInputNode) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioInputNode) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (a AVAudioInputNode) VoiceProcessingAGCEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingAGCEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("voiceProcessingAGCEnabled"))
 	return rv
 }
 func (a AVAudioInputNode) SetVoiceProcessingAGCEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingAGCEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setVoiceProcessingAGCEnabled:"), value)
 }
 func (a AVAudioInputNode) VoiceProcessingBypassed() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingBypassed"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("voiceProcessingBypassed"))
 	return rv
 }
 func (a AVAudioInputNode) SetVoiceProcessingBypassed(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingBypassed:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setVoiceProcessingBypassed:"), value)
 }
 func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingInputMuted"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("voiceProcessingInputMuted"))
 	return rv
 }
 func (a AVAudioInputNode) SetVoiceProcessingInputMuted(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingInputMuted:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setVoiceProcessingInputMuted:"), value)
 }

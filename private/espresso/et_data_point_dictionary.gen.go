@@ -7,9 +7,9 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [ETDataPointDictionary] class.
@@ -41,7 +41,7 @@ func (ec ETDataPointDictionaryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataPointDictionaryClass) Alloc() ETDataPointDictionary {
-	rv := objc.Send[ETDataPointDictionary](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataPointDictionary](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,29 +87,29 @@ type IETDataPointDictionary interface {
 	DataArrayForKeyError(key objectivec.IObject) (objectivec.IObject, error)
 	DataForKeyError(key objectivec.IObject) (unsafe.Pointer, error)
 	Float_buffers() unsafe.Pointer
-	SetFloat_buffers(value kernel.Pointer)
+	SetFloat_buffers(value unsafe.Pointer)
 	Image_buffers() unsafe.Pointer
-	SetImage_buffers(value kernel.Pointer)
+	SetImage_buffers(value unsafe.Pointer)
 	SetDataSizeForKeyFreeWhenDone(size uint64, key objectivec.IObject, done bool) (float32, bool)
-	SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool
+	SetImageForKey(image appleneuralengine.VImageBuffer, key objectivec.IObject) bool
 }
 
 // Init initializes the instance.
 func (e ETDataPointDictionary) Init() ETDataPointDictionary {
-	rv := objc.Send[ETDataPointDictionary](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataPointDictionary](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataPointDictionary) Autorelease() ETDataPointDictionary {
-	rv := objc.Send[ETDataPointDictionary](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataPointDictionary](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataPointDictionary creates a new ETDataPointDictionary instance.
 func NewETDataPointDictionary() ETDataPointDictionary {
 	class := getETDataPointDictionaryClass()
-	rv := objc.Send[ETDataPointDictionary](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataPointDictionary](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -138,22 +138,22 @@ func (e ETDataPointDictionary) SetDataSizeForKeyFreeWhenDone(size uint64, key ob
 	rv := objc.Send[bool](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), unsafe.Pointer(&data), size, key, done)
 	return data, rv
 }
-func (e ETDataPointDictionary) SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("setImage:forKey:"), image, key)
+func (e ETDataPointDictionary) SetImageForKey(image appleneuralengine.VImageBuffer, key objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("setImage:forKey:"), image, key)
 	return rv
 }
 
 func (e ETDataPointDictionary) Float_buffers() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("float_buffers"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("float_buffers"))
 	return rv
 }
-func (e ETDataPointDictionary) SetFloat_buffers(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffers:"), value)
+func (e ETDataPointDictionary) SetFloat_buffers(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setFloat_buffers:"), value)
 }
 func (e ETDataPointDictionary) Image_buffers() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("image_buffers"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("image_buffers"))
 	return rv
 }
-func (e ETDataPointDictionary) SetImage_buffers(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setImage_buffers:"), value)
+func (e ETDataPointDictionary) SetImage_buffers(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setImage_buffers:"), value)
 }

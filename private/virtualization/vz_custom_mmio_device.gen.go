@@ -39,7 +39,7 @@ func (vc VZCustomMMIODeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomMMIODeviceClass) Alloc() VZCustomMMIODevice {
-	rv := objc.Send[VZCustomMMIODevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomMMIODevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,49 +94,49 @@ type IVZCustomMMIODevice interface {
 
 // Init initializes the instance.
 func (v VZCustomMMIODevice) Init() VZCustomMMIODevice {
-	rv := objc.Send[VZCustomMMIODevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomMMIODevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomMMIODevice) Autorelease() VZCustomMMIODevice {
-	rv := objc.Send[VZCustomMMIODevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomMMIODevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomMMIODevice creates a new VZCustomMMIODevice instance.
 func NewVZCustomMMIODevice() VZCustomMMIODevice {
 	class := getVZCustomMMIODeviceClass()
-	rv := objc.Send[VZCustomMMIODevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomMMIODevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomMMIODevice) GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:"), address, length)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:"), address, length)
 	return objectivec.Object{ID: rv}
 }
 func (v VZCustomMMIODevice) GuestRAMRegions() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("guestRAMRegions"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("guestRAMRegions"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZCustomMMIODevice) PulseIRQ(irq uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("pulseIRQ:"), irq)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("pulseIRQ:"), irq)
 }
 func (v VZCustomMMIODevice) SetIRQValue(irq uint64, value bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setIRQ:value:"), irq, value)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setIRQ:value:"), irq, value)
 }
 func (v VZCustomMMIODevice) SharedInitializationWithDeviceQueueFromConfiguration(queue objectivec.IObject, configuration objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sharedInitializationWithDeviceQueue:fromConfiguration:"), queue, configuration)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sharedInitializationWithDeviceQueue:fromConfiguration:"), queue, configuration)
 }
 
 func (v VZCustomMMIODevice) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("delegate"))
 	return rv
 }
 func (v VZCustomMMIODevice) SetDelegate(value unsafe.Pointer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
 func (v VZCustomMMIODevice) DeviceQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

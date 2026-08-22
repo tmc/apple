@@ -41,7 +41,7 @@ func (dc DIKeyRetrieverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIKeyRetrieverClass) Alloc() DIKeyRetriever {
-	rv := objc.Send[DIKeyRetriever](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIKeyRetriever](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IDIKeyRetriever interface {
 
 // Init initializes the instance.
 func (d DIKeyRetriever) Init() DIKeyRetriever {
-	rv := objc.Send[DIKeyRetriever](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIKeyRetriever](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIKeyRetriever) Autorelease() DIKeyRetriever {
-	rv := objc.Send[DIKeyRetriever](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIKeyRetriever](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIKeyRetriever creates a new DIKeyRetriever instance.
 func NewDIKeyRetriever() DIKeyRetriever {
 	class := getDIKeyRetrieverClass()
-	rv := objc.Send[DIKeyRetriever](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIKeyRetriever](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -94,9 +94,9 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySize
 	return rv, nil
 
 }
-func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data AuthData, key string, size uint64) (bool, error) {
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data *AuthData, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithAuthData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithAuthData:destKey:destKeySize:error:"), unsafe.Pointer(data), unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -154,7 +154,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetRequestWithURLError(url found
 
 }
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) HintFormat(format objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("hintFormat:"), format)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("hintFormat:"), format)
 	return objectivec.Object{ID: rv}
 }
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) JsonResponseWithRequestSessionError(request objectivec.IObject, session objectivec.IObject) (objectivec.IObject, error) {
@@ -218,7 +218,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewSessionWithError() (objective
 
 }
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewUrl(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newUrl:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newUrl:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) PostRequestWithURLSessionDataError(url foundation.NSURL, session objectivec.IObject, data objectivec.IObject) (objectivec.IObject, error) {

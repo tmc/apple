@@ -39,7 +39,7 @@ func (mc MLNeuralEngineComputeDeviceRegistryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralEngineComputeDeviceRegistryClass) Alloc() MLNeuralEngineComputeDeviceRegistry {
-	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralEngineComputeDeviceRegistry](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,60 +91,60 @@ type IMLNeuralEngineComputeDeviceRegistry interface {
 
 // Init initializes the instance.
 func (m MLNeuralEngineComputeDeviceRegistry) Init() MLNeuralEngineComputeDeviceRegistry {
-	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralEngineComputeDeviceRegistry) Autorelease() MLNeuralEngineComputeDeviceRegistry {
-	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralEngineComputeDeviceRegistry creates a new MLNeuralEngineComputeDeviceRegistry instance.
 func NewMLNeuralEngineComputeDeviceRegistry() MLNeuralEngineComputeDeviceRegistry {
 	class := getMLNeuralEngineComputeDeviceRegistryClass()
-	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralEngineComputeDeviceRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	instance := getMLNeuralEngineComputeDeviceRegistryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLNeuralEngineComputeDeviceRegistry) InitWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
-	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
+	rv := objc.SendIfResponds[MLNeuralEngineComputeDeviceRegistry](m.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
 	return rv
 }
 
 func (_MLNeuralEngineComputeDeviceRegistryClass MLNeuralEngineComputeDeviceRegistryClass) SharedRegistry() MLNeuralEngineComputeDeviceRegistry {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralEngineComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralEngineComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)
 }
 
 func (m MLNeuralEngineComputeDeviceRegistry) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralEngineComputeDeviceRegistry) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralEngineComputeDeviceRegistry) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLNeuralEngineComputeDeviceRegistry) NeuralEngineDevice() IMLNeuralEngineComputeDevice {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralEngineDevice"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("neuralEngineDevice"))
 	return MLNeuralEngineComputeDeviceFromID(objc.ID(rv))
 }
 func (m MLNeuralEngineComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralEngineComputeDeviceRegistry) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

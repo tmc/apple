@@ -39,7 +39,7 @@ func (mc MLUpdateProgressHandlersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLUpdateProgressHandlersClass) Alloc() MLUpdateProgressHandlers {
-	rv := objc.Send[MLUpdateProgressHandlers](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLUpdateProgressHandlers](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,25 +100,25 @@ type IMLUpdateProgressHandlers interface {
 
 // Init initializes the instance.
 func (m MLUpdateProgressHandlers) Init() MLUpdateProgressHandlers {
-	rv := objc.Send[MLUpdateProgressHandlers](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLUpdateProgressHandlers](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLUpdateProgressHandlers) Autorelease() MLUpdateProgressHandlers {
-	rv := objc.Send[MLUpdateProgressHandlers](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLUpdateProgressHandlers](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLUpdateProgressHandlers creates a new MLUpdateProgressHandlers instance.
 func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 	class := getMLUpdateProgressHandlersClass()
-	rv := objc.Send[MLUpdateProgressHandlers](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLUpdateProgressHandlers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLUpdateProgressHandlers) _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"), event, metrics, parameters, error_, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"), event, metrics, parameters, error_, queue)
 }
 
 // DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue is an exported wrapper for the private method _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue.
@@ -136,35 +136,35 @@ func (m MLUpdateProgressHandlers) CanDispatchUpdateProgressHandlerForEventMetric
 	return objc.RespondsToSelector(m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"))
 }
 func (m MLUpdateProgressHandlers) DispatchEpochEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 func (m MLUpdateProgressHandlers) DispatchMiniBatchEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dispatchMiniBatchEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchMiniBatchEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 func (m MLUpdateProgressHandlers) DispatchTrainingBeginProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingBeginProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchTrainingBeginProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 func (m MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithErrorOnQueue(error_ objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithError:onQueue:"), error_, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithError:onQueue:"), error_, queue)
 }
 func (m MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 func (m MLUpdateProgressHandlers) SetCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("setCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 func (m MLUpdateProgressHandlers) SetProgressHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("setProgressHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setProgressHandler:"), _block0)
 }
 
 func (m MLUpdateProgressHandlers) InterestedEvents() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("interestedEvents"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("interestedEvents"))
 	return rv
 }
 func (m MLUpdateProgressHandlers) SetInterestedEvents(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInterestedEvents:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInterestedEvents:"), value)
 }
 
 // Set is a synchronous wrapper around [MLUpdateProgressHandlers.SetCompletionHandler].

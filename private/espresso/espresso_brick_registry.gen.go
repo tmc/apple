@@ -38,7 +38,7 @@ func (ec EspressoBrickRegistryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoBrickRegistryClass) Alloc() EspressoBrickRegistry {
-	rv := objc.Send[EspressoBrickRegistry](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoBrickRegistry](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,23 +61,23 @@ type IEspressoBrickRegistry interface {
 
 // Init initializes the instance.
 func (e EspressoBrickRegistry) Init() EspressoBrickRegistry {
-	rv := objc.Send[EspressoBrickRegistry](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoBrickRegistry](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoBrickRegistry) Autorelease() EspressoBrickRegistry {
-	rv := objc.Send[EspressoBrickRegistry](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoBrickRegistry](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoBrickRegistry creates a new EspressoBrickRegistry instance.
 func NewEspressoBrickRegistry() EspressoBrickRegistry {
 	class := getEspressoBrickRegistryClass()
-	rv := objc.Send[EspressoBrickRegistry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoBrickRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_EspressoBrickRegistryClass EspressoBrickRegistryClass) RegisterBrickClass(class objectivec.Class) {
-	objc.Send[objc.ID](objc.ID(_EspressoBrickRegistryClass.class), objc.Sel("registerBrickClass:"), class)
+	objc.SendIfResponds[objc.ID](objc.ID(_EspressoBrickRegistryClass.class), objc.Sel("registerBrickClass:"), class)
 }

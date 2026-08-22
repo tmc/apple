@@ -39,7 +39,7 @@ func (sc SLSScreenTelemetryUpdateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSScreenTelemetryUpdateClass) Alloc() SLSScreenTelemetryUpdate {
-	rv := objc.Send[SLSScreenTelemetryUpdate](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryUpdate](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,52 +85,52 @@ type ISLSScreenTelemetryUpdate interface {
 
 // Init initializes the instance.
 func (s SLSScreenTelemetryUpdate) Init() SLSScreenTelemetryUpdate {
-	rv := objc.Send[SLSScreenTelemetryUpdate](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryUpdate](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSScreenTelemetryUpdate) Autorelease() SLSScreenTelemetryUpdate {
-	rv := objc.Send[SLSScreenTelemetryUpdate](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryUpdate](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSScreenTelemetryUpdate creates a new SLSScreenTelemetryUpdate instance.
 func NewSLSScreenTelemetryUpdate() SLSScreenTelemetryUpdate {
 	class := getSLSScreenTelemetryUpdateClass()
-	rv := objc.Send[SLSScreenTelemetryUpdate](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSScreenTelemetryUpdate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSScreenTelemetryUpdateWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) SLSScreenTelemetryUpdate {
 	instance := getSLSScreenTelemetryUpdateClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return SLSScreenTelemetryUpdateFromID(rv)
 }
 
 func (s SLSScreenTelemetryUpdate) InitWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) SLSScreenTelemetryUpdate {
-	rv := objc.Send[SLSScreenTelemetryUpdate](s.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
+	rv := objc.SendIfResponds[SLSScreenTelemetryUpdate](s.ID, objc.Sel("initWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return rv
 }
 
 func (_SLSScreenTelemetryUpdateClass SLSScreenTelemetryUpdateClass) UpdateWithActionConnectionErrorAndSnapshot(action uint32, connection objectivec.IObject, error_ objectivec.IObject, snapshot objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSScreenTelemetryUpdateClass.class), objc.Sel("updateWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSScreenTelemetryUpdateClass.class), objc.Sel("updateWithAction:connection:error:andSnapshot:"), action, connection, error_, snapshot)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSScreenTelemetryUpdate) Action() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("action"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("action"))
 	return rv
 }
 func (s SLSScreenTelemetryUpdate) Connection() ISLScreenTelemetryConnection {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connection"))
 	return SLScreenTelemetryConnectionFromID(objc.ID(rv))
 }
 func (s SLSScreenTelemetryUpdate) Error() foundation.NSError {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (s SLSScreenTelemetryUpdate) Snapshot() ISLSScreenTelemetryResultsSnapshotDataWrapper {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("snapshot"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("snapshot"))
 	return SLSScreenTelemetryResultsSnapshotDataWrapperFromID(objc.ID(rv))
 }

@@ -40,7 +40,7 @@ func (mc MLModelConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelConfigurationClass) Alloc() MLModelConfiguration {
-	rv := objc.Send[MLModelConfiguration](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelConfiguration](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -245,243 +245,243 @@ type IMLModelConfiguration interface {
 
 // Init initializes the instance.
 func (m MLModelConfiguration) Init() MLModelConfiguration {
-	rv := objc.Send[MLModelConfiguration](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelConfiguration](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelConfiguration) Autorelease() MLModelConfiguration {
-	rv := objc.Send[MLModelConfiguration](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelConfiguration](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelConfiguration creates a new MLModelConfiguration instance.
 func NewMLModelConfiguration() MLModelConfiguration {
 	class := getMLModelConfigurationClass()
-	rv := objc.Send[MLModelConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelConfigurationWithComputeUnits(units int64) MLModelConfiguration {
 	instance := getMLModelConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:"), units)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:"), units)
 	return MLModelConfigurationFromID(rv)
 }
 
 func (m MLModelConfiguration) BnnsGraphBackendUsageToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("bnnsGraphBackendUsageToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("bnnsGraphBackendUsageToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelConfiguration) ComputeUnitsToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeUnitsToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeUnitsToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelConfiguration) ExperimentalMLE5EngineUsageToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("experimentalMLE5EngineUsageToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("experimentalMLE5EngineUsageToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelConfiguration) ExperimentalMLProgramEncryptedCacheUsageToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("experimentalMLProgramEncryptedCacheUsageToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("experimentalMLProgramEncryptedCacheUsageToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelConfiguration) IsEqualToModelConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToModelConfiguration:"), configuration)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEqualToModelConfiguration:"), configuration)
 	return rv
 }
 func (m MLModelConfiguration) NeuralEngineCompilerOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralEngineCompilerOptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("neuralEngineCompilerOptions"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelConfiguration) UsesCompileTimeMPSGraphTypeInferenceForModelVersion(version objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usesCompileTimeMPSGraphTypeInferenceForModelVersion:"), version)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usesCompileTimeMPSGraphTypeInferenceForModelVersion:"), version)
 	return rv
 }
 func (m MLModelConfiguration) InitWithComputeUnits(units int64) MLModelConfiguration {
-	rv := objc.Send[MLModelConfiguration](m.ID, objc.Sel("initWithComputeUnits:"), units)
+	rv := objc.SendIfResponds[MLModelConfiguration](m.ID, objc.Sel("initWithComputeUnits:"), units)
 	return rv
 }
 
 func (_MLModelConfigurationClass MLModelConfigurationClass) DefaultConfiguration() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelConfigurationClass.class), objc.Sel("defaultConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelConfigurationClass.class), objc.Sel("defaultConfiguration"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelConfigurationClass MLModelConfigurationClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLModelConfigurationClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLModelConfigurationClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLModelConfiguration) AllowBackgroundGPUCompute() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowBackgroundGPUCompute"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowBackgroundGPUCompute"))
 	return rv
 }
 func (m MLModelConfiguration) SetAllowBackgroundGPUCompute(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowBackgroundGPUCompute:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowBackgroundGPUCompute:"), value)
 }
 func (m MLModelConfiguration) AllowBackgroundGPUComputeSetting() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowBackgroundGPUComputeSetting"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowBackgroundGPUComputeSetting"))
 	return rv
 }
 func (m MLModelConfiguration) SetAllowBackgroundGPUComputeSetting(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowBackgroundGPUComputeSetting:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowBackgroundGPUComputeSetting:"), value)
 }
 func (m MLModelConfiguration) AllowFloat16AccumulationOnGPU() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowFloat16AccumulationOnGPU"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowFloat16AccumulationOnGPU"))
 	return rv
 }
 func (m MLModelConfiguration) SetAllowFloat16AccumulationOnGPU(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowFloat16AccumulationOnGPU:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowFloat16AccumulationOnGPU:"), value)
 }
 func (m MLModelConfiguration) AllowsInstrumentation() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowsInstrumentation"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowsInstrumentation"))
 	return rv
 }
 func (m MLModelConfiguration) SetAllowsInstrumentation(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowsInstrumentation:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowsInstrumentation:"), value)
 }
 func (m MLModelConfiguration) E5rtComputeDeviceTypeMask() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("e5rtComputeDeviceTypeMask"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("e5rtComputeDeviceTypeMask"))
 	return rv
 }
 func (m MLModelConfiguration) SetE5rtComputeDeviceTypeMask(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setE5rtComputeDeviceTypeMask:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setE5rtComputeDeviceTypeMask:"), value)
 }
 func (m MLModelConfiguration) E5rtCustomANECompilerOptions() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5rtCustomANECompilerOptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5rtCustomANECompilerOptions"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelConfiguration) SetE5rtCustomANECompilerOptions(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setE5rtCustomANECompilerOptions:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setE5rtCustomANECompilerOptions:"), objc.String(value))
 }
 func (m MLModelConfiguration) E5rtDynamicCallableFunctions() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5rtDynamicCallableFunctions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5rtDynamicCallableFunctions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelConfiguration) SetE5rtDynamicCallableFunctions(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setE5rtDynamicCallableFunctions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setE5rtDynamicCallableFunctions:"), value)
 }
 func (m MLModelConfiguration) E5rtMutableMILWeightURLs() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5rtMutableMILWeightURLs"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5rtMutableMILWeightURLs"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelConfiguration) SetE5rtMutableMILWeightURLs(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setE5rtMutableMILWeightURLs:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setE5rtMutableMILWeightURLs:"), value)
 }
 func (m MLModelConfiguration) EnableTestVectorMode() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("enableTestVectorMode"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("enableTestVectorMode"))
 	return rv
 }
 func (m MLModelConfiguration) SetEnableTestVectorMode(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEnableTestVectorMode:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEnableTestVectorMode:"), value)
 }
 func (m MLModelConfiguration) ExperimentalMLE5BNNSGraphBackendUsage() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("experimentalMLE5BNNSGraphBackendUsage"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("experimentalMLE5BNNSGraphBackendUsage"))
 	return rv
 }
 func (m MLModelConfiguration) SetExperimentalMLE5BNNSGraphBackendUsage(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExperimentalMLE5BNNSGraphBackendUsage:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExperimentalMLE5BNNSGraphBackendUsage:"), value)
 }
 func (m MLModelConfiguration) ExperimentalMLE5BNNSGraphBackendUsageMultiSegment() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("experimentalMLE5BNNSGraphBackendUsageMultiSegment"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("experimentalMLE5BNNSGraphBackendUsageMultiSegment"))
 	return rv
 }
 func (m MLModelConfiguration) SetExperimentalMLE5BNNSGraphBackendUsageMultiSegment(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExperimentalMLE5BNNSGraphBackendUsageMultiSegment:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExperimentalMLE5BNNSGraphBackendUsageMultiSegment:"), value)
 }
 func (m MLModelConfiguration) ExperimentalMLE5EngineUsage() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("experimentalMLE5EngineUsage"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("experimentalMLE5EngineUsage"))
 	return rv
 }
 func (m MLModelConfiguration) SetExperimentalMLE5EngineUsage(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExperimentalMLE5EngineUsage:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExperimentalMLE5EngineUsage:"), value)
 }
 func (m MLModelConfiguration) ExperimentalMLProgramEncryptedCacheUsage() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("experimentalMLProgramEncryptedCacheUsage"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("experimentalMLProgramEncryptedCacheUsage"))
 	return rv
 }
 func (m MLModelConfiguration) SetExperimentalMLProgramEncryptedCacheUsage(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExperimentalMLProgramEncryptedCacheUsage:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExperimentalMLProgramEncryptedCacheUsage:"), value)
 }
 func (m MLModelConfiguration) ParentModelName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parentModelName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parentModelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelConfiguration) SetParentModelName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setParentModelName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setParentModelName:"), objc.String(value))
 }
 func (m MLModelConfiguration) PredictionConcurrencyHint() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("predictionConcurrencyHint"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("predictionConcurrencyHint"))
 	return rv
 }
 func (m MLModelConfiguration) SetPredictionConcurrencyHint(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPredictionConcurrencyHint:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPredictionConcurrencyHint:"), value)
 }
 func (m MLModelConfiguration) PreferredMTLDevice() metal.MTLDeviceObject {
-	rv := objc.Send[metal.MTLDeviceObject](m.ID, objc.Sel("preferredMTLDevice"))
+	rv := objc.SendIfResponds[metal.MTLDeviceObject](m.ID, objc.Sel("preferredMTLDevice"))
 	return metal.MTLDeviceObject(rv)
 }
 func (m MLModelConfiguration) SetPreferredMTLDevice(value metal.MTLDeviceObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMTLDevice:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPreferredMTLDevice:"), value)
 }
 func (m MLModelConfiguration) PreparesLazily() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("preparesLazily"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("preparesLazily"))
 	return rv
 }
 func (m MLModelConfiguration) SetPreparesLazily(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPreparesLazily:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPreparesLazily:"), value)
 }
 func (m MLModelConfiguration) ProfilingOptions() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("profilingOptions"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("profilingOptions"))
 	return rv
 }
 func (m MLModelConfiguration) SetProfilingOptions(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProfilingOptions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProfilingOptions:"), value)
 }
 func (m MLModelConfiguration) RootModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("rootModelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("rootModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelConfiguration) SetRootModelURL(value foundation.NSURL) {
-	objc.Send[struct{}](m.ID, objc.Sel("setRootModelURL:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setRootModelURL:"), value)
 }
 func (m MLModelConfiguration) SerializesMILTextForDebugging() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("serializesMILTextForDebugging"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("serializesMILTextForDebugging"))
 	return rv
 }
 func (m MLModelConfiguration) SetSerializesMILTextForDebugging(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSerializesMILTextForDebugging:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSerializesMILTextForDebugging:"), value)
 }
 func (m MLModelConfiguration) SpecializationUsesMPSGraphExecutable() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("specializationUsesMPSGraphExecutable"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("specializationUsesMPSGraphExecutable"))
 	return rv
 }
 func (m MLModelConfiguration) SetSpecializationUsesMPSGraphExecutable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSpecializationUsesMPSGraphExecutable:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSpecializationUsesMPSGraphExecutable:"), value)
 }
 func (m MLModelConfiguration) TrainWithMLCompute() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("trainWithMLCompute"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("trainWithMLCompute"))
 	return rv
 }
 func (m MLModelConfiguration) SetTrainWithMLCompute(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrainWithMLCompute:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTrainWithMLCompute:"), value)
 }
 func (m MLModelConfiguration) UsePrecompiledE5Bundle() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usePrecompiledE5Bundle"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usePrecompiledE5Bundle"))
 	return rv
 }
 func (m MLModelConfiguration) SetUsePrecompiledE5Bundle(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUsePrecompiledE5Bundle:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUsePrecompiledE5Bundle:"), value)
 }
 func (m MLModelConfiguration) UsePreloadedKey() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usePreloadedKey"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usePreloadedKey"))
 	return rv
 }
 func (m MLModelConfiguration) SetUsePreloadedKey(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUsePreloadedKey:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUsePreloadedKey:"), value)
 }
 func (m MLModelConfiguration) UseWatchSPIForScribble() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useWatchSPIForScribble"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useWatchSPIForScribble"))
 	return rv
 }
 func (m MLModelConfiguration) SetUseWatchSPIForScribble(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUseWatchSPIForScribble:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUseWatchSPIForScribble:"), value)
 }

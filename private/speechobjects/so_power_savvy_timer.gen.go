@@ -39,14 +39,13 @@ func (sc SOPowerSavvyTimerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOPowerSavvyTimerClass) Alloc() SOPowerSavvyTimer {
-	rv := objc.Send[SOPowerSavvyTimer](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOPowerSavvyTimer](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [SOPowerSavvyTimer._target]
-//   - [SOPowerSavvyTimer.IsValid]
 //   - [SOPowerSavvyTimer.Repeats]
 //   - [SOPowerSavvyTimer.SetRepeats]
 //   - [SOPowerSavvyTimer.Selector]
@@ -72,7 +71,6 @@ var _ ISOPowerSavvyTimer = SOPowerSavvyTimer{}
 // # Methods
 //
 //   - [ISOPowerSavvyTimer._target]
-//   - [ISOPowerSavvyTimer.IsValid]
 //   - [ISOPowerSavvyTimer.Repeats]
 //   - [ISOPowerSavvyTimer.SetRepeats]
 //   - [ISOPowerSavvyTimer.Selector]
@@ -87,7 +85,6 @@ type ISOPowerSavvyTimer interface {
 	// Topic: Methods
 
 	_target(_target objectivec.IObject)
-	IsValid() bool
 	Repeats() bool
 	SetRepeats(value bool)
 	Selector() objectivec.SEL
@@ -100,60 +97,60 @@ type ISOPowerSavvyTimer interface {
 
 // Init initializes the instance.
 func (s SOPowerSavvyTimer) Init() SOPowerSavvyTimer {
-	rv := objc.Send[SOPowerSavvyTimer](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOPowerSavvyTimer](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOPowerSavvyTimer) Autorelease() SOPowerSavvyTimer {
-	rv := objc.Send[SOPowerSavvyTimer](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOPowerSavvyTimer](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOPowerSavvyTimer creates a new SOPowerSavvyTimer instance.
 func NewSOPowerSavvyTimer() SOPowerSavvyTimer {
 	class := getSOPowerSavvyTimerClass()
-	rv := objc.Send[SOPowerSavvyTimer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOPowerSavvyTimer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOPowerSavvyTimer) _target(_target objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_target:"), _target)
-}
-func (s SOPowerSavvyTimer) IsValid() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isValid"))
-	return rv
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_target:"), _target)
 }
 
-func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objectivec.SEL, object objectivec.IObject, delay float64) {
-	objc.Send[objc.ID](objc.ID(_SOPowerSavvyTimerClass.class), objc.Sel("requestTarget:performSelector:withObject:afterDelay:"), target, selector, object, delay)
+func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objc.SEL, object objectivec.IObject, delay float64) {
+	objc.SendIfResponds[objc.ID](objc.ID(_SOPowerSavvyTimerClass.class), objc.Sel("requestTarget:performSelector:withObject:afterDelay:"), target, selector, object, delay)
+}
+func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(interval float64, target objectivec.IObject, selector objc.SEL, info objectivec.IObject, repeats bool) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOPowerSavvyTimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:"), interval, target, selector, info, repeats)
+	return objectivec.Object{ID: rv}
 }
 
 func (s SOPowerSavvyTimer) Repeats() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("repeats"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("repeats"))
 	return rv
 }
 func (s SOPowerSavvyTimer) SetRepeats(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRepeats:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setRepeats:"), value)
 }
 func (s SOPowerSavvyTimer) Selector() objectivec.SEL {
-	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selector"))
+	rv := objc.SendIfResponds[objc.SEL](s.ID, objc.Sel("selector"))
 	return objectivec.SEL(rv)
 }
 func (s SOPowerSavvyTimer) SetSelector(value objectivec.SEL) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSelector:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSelector:"), value)
 }
 func (s SOPowerSavvyTimer) Target() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("target"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("target"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOPowerSavvyTimer) SetTarget(value objectivec.IObject) {
-	objc.Send[struct{}](s.ID, objc.Sel("setTarget:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
 func (s SOPowerSavvyTimer) Timer() foundation.Timer {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("timer"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("timer"))
 	return foundation.TimerFromID(objc.ID(rv))
 }
 func (s SOPowerSavvyTimer) SetTimer(value foundation.Timer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setTimer:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTimer:"), value)
 }

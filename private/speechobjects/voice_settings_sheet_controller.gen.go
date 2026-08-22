@@ -38,7 +38,7 @@ func (vc VoiceSettingsSheetControllerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VoiceSettingsSheetControllerClass) Alloc() VoiceSettingsSheetController {
-	rv := objc.Send[VoiceSettingsSheetController](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VoiceSettingsSheetController](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,28 +72,28 @@ type IVoiceSettingsSheetController interface {
 
 // Init initializes the instance.
 func (v VoiceSettingsSheetController) Init() VoiceSettingsSheetController {
-	rv := objc.Send[VoiceSettingsSheetController](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VoiceSettingsSheetController](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VoiceSettingsSheetController) Autorelease() VoiceSettingsSheetController {
-	rv := objc.Send[VoiceSettingsSheetController](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VoiceSettingsSheetController](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVoiceSettingsSheetController creates a new VoiceSettingsSheetController instance.
 func NewVoiceSettingsSheetController() VoiceSettingsSheetController {
 	class := getVoiceSettingsSheetControllerClass()
-	rv := objc.Send[VoiceSettingsSheetController](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VoiceSettingsSheetController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VoiceSettingsSheetController) ShowSheetWithVoiceSettingsModalDelegateModalForWindow(settings objectivec.IObject, delegate objectivec.IObject, window objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("showSheetWithVoiceSettings:modalDelegate:modalForWindow:"), settings, delegate, window)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("showSheetWithVoiceSettings:modalDelegate:modalForWindow:"), settings, delegate, window)
 }
 
 func (_VoiceSettingsSheetControllerClass VoiceSettingsSheetControllerClass) DefaultVoiceSettingsSheetController() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VoiceSettingsSheetControllerClass.class), objc.Sel("defaultVoiceSettingsSheetController"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VoiceSettingsSheetControllerClass.class), objc.Sel("defaultVoiceSettingsSheetController"))
 	return objectivec.Object{ID: rv}
 }

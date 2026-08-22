@@ -37,7 +37,7 @@ func (ec EspressoPassMergeTfNormalizationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMergeTfNormalizationClass) Alloc() EspressoPassMergeTfNormalization {
-	rv := objc.Send[EspressoPassMergeTfNormalization](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfNormalization](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMergeTfNormalization interface {
 
 // Init initializes the instance.
 func (e EspressoPassMergeTfNormalization) Init() EspressoPassMergeTfNormalization {
-	rv := objc.Send[EspressoPassMergeTfNormalization](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfNormalization](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMergeTfNormalization) Autorelease() EspressoPassMergeTfNormalization {
-	rv := objc.Send[EspressoPassMergeTfNormalization](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfNormalization](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMergeTfNormalization creates a new EspressoPassMergeTfNormalization instance.
 func NewEspressoPassMergeTfNormalization() EspressoPassMergeTfNormalization {
 	class := getEspressoPassMergeTfNormalizationClass()
-	rv := objc.Send[EspressoPassMergeTfNormalization](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfNormalization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

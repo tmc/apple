@@ -42,15 +42,15 @@ func SLSBrightnessPolicyTransactionObjectFromID(id objc.ID) SLSBrightnessPolicyT
 }
 
 func (o SLSBrightnessPolicyTransactionObject) CommitBrightnessPolicy(policy []objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("commitBrightnessPolicy:"), objectivec.IObjectSliceToNSArray(policy))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("commitBrightnessPolicy:"), objectivec.IObjectSliceToNSArray(policy))
 	return rv
 }
 func (o SLSBrightnessPolicyTransactionObject) SetDimMessagingPolicy(policy byte) {
-	objc.Send[struct{}](o.ID, objc.Sel("setDimMessagingPolicy:"), policy)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setDimMessagingPolicy:"), policy)
 }
 func (o SLSBrightnessPolicyTransactionObject) SetShieldingPolicy(policy byte) {
-	objc.Send[struct{}](o.ID, objc.Sel("setShieldingPolicy:"), policy)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setShieldingPolicy:"), policy)
 }
 func (o SLSBrightnessPolicyTransactionObject) SetSleepMessagingPolicy(policy byte) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSleepMessagingPolicy:"), policy)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setSleepMessagingPolicy:"), policy)
 }

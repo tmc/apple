@@ -39,7 +39,7 @@ func (mc MLModelStructureProgramArgumentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramArgumentClass) Alloc() MLModelStructureProgramArgument {
-	rv := objc.Send[MLModelStructureProgramArgument](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,40 +76,40 @@ type IMLModelStructureProgramArgument interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgramArgument) Init() MLModelStructureProgramArgument {
-	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgramArgument) Autorelease() MLModelStructureProgramArgument {
-	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgramArgument creates a new MLModelStructureProgramArgument instance.
 func NewMLModelStructureProgramArgument() MLModelStructureProgramArgument {
 	class := getMLModelStructureProgramArgumentClass()
-	rv := objc.Send[MLModelStructureProgramArgument](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramArgumentWithBindings(bindings objectivec.IObject) MLModelStructureProgramArgument {
 	instance := getMLModelStructureProgramArgumentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBindings:"), bindings)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBindings:"), bindings)
 	return MLModelStructureProgramArgumentFromID(rv)
 }
 
 func NewModelStructureProgramArgumentWithMILArguments(mILArguments unsafe.Pointer) MLModelStructureProgramArgument {
 	instance := getMLModelStructureProgramArgumentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMILArguments:"), mILArguments)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILArguments:"), mILArguments)
 	return MLModelStructureProgramArgumentFromID(rv)
 }
 
 func (m MLModelStructureProgramArgument) InitWithBindings(bindings objectivec.IObject) MLModelStructureProgramArgument {
-	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithBindings:"), bindings)
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithBindings:"), bindings)
 	return rv
 }
 func (m MLModelStructureProgramArgument) InitWithMILArguments(mILArguments unsafe.Pointer) MLModelStructureProgramArgument {
-	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithMILArguments:"), mILArguments)
+	rv := objc.SendIfResponds[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithMILArguments:"), mILArguments)
 	return rv
 }

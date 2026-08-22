@@ -39,7 +39,7 @@ func (mc MLTaskClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTaskClass) Alloc() MLTask {
-	rv := objc.Send[MLTask](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTask](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -121,31 +121,31 @@ type IMLTask interface {
 
 // Init initializes the instance.
 func (m MLTask) Init() MLTask {
-	rv := objc.Send[MLTask](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTask) Autorelease() MLTask {
-	rv := objc.Send[MLTask](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTask creates a new MLTask instance.
 func NewMLTask() MLTask {
 	class := getMLTaskClass()
-	rv := objc.Send[MLTask](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTaskWithState(state int64) MLTask {
 	instance := getMLTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
 	return MLTaskFromID(rv)
 }
 
 func (m MLTask) _canCancel() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_canCancel"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_canCancel"))
 	return rv
 }
 
@@ -163,7 +163,7 @@ func (m MLTask) CanCanCancel() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_canCancel"))
 }
 func (m MLTask) _canComplete() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_canComplete"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_canComplete"))
 	return rv
 }
 
@@ -181,7 +181,7 @@ func (m MLTask) CanCanComplete() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_canComplete"))
 }
 func (m MLTask) _canFail() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_canFail"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_canFail"))
 	return rv
 }
 
@@ -199,7 +199,7 @@ func (m MLTask) CanCanFail() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_canFail"))
 }
 func (m MLTask) _canResume() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_canResume"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_canResume"))
 	return rv
 }
 
@@ -217,7 +217,7 @@ func (m MLTask) CanCanResume() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_canResume"))
 }
 func (m MLTask) _canSuspend() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_canSuspend"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_canSuspend"))
 	return rv
 }
 
@@ -235,44 +235,44 @@ func (m MLTask) CanCanSuspend() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_canSuspend"))
 }
 func (m MLTask) _resumeWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_resumeWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_resumeWithTaskContext:"), context)
 }
 func (m MLTask) CompleteWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("completeWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("completeWithTaskContext:"), context)
 }
 func (m MLTask) FailWithErrorTaskContext(error_ objectivec.IObject, context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("failWithError:taskContext:"), error_, context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("failWithError:taskContext:"), error_, context)
 }
 func (m MLTask) ResumeWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeWithTaskContext:"), context)
 }
 func (m MLTask) SuspendWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("suspendWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("suspendWithTaskContext:"), context)
 }
 func (m MLTask) TaskStatesToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("taskStatesToString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("taskStatesToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLTask) InitWithState(state int64) MLTask {
-	rv := objc.Send[MLTask](m.ID, objc.Sel("initWithState:"), state)
+	rv := objc.SendIfResponds[MLTask](m.ID, objc.Sel("initWithState:"), state)
 	return rv
 }
 
 func (m MLTask) Error() foundation.NSError {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (m MLTask) SetError(value foundation.NSError) {
-	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setError:"), value)
 }
 func (m MLTask) State() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("state"))
 	return rv
 }
 func (m MLTask) SetState(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setState:"), value)
 }
 func (m MLTask) SyncQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("syncQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("syncQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

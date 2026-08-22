@@ -40,7 +40,7 @@ func (tc TTSWordMarkerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSWordMarkerClass) Alloc() TTSWordMarker {
-	rv := objc.Send[TTSWordMarker](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSWordMarker](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,58 +101,58 @@ type ITTSWordMarker interface {
 
 // Init initializes the instance.
 func (t TTSWordMarker) Init() TTSWordMarker {
-	rv := objc.Send[TTSWordMarker](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSWordMarker](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSWordMarker) Autorelease() TTSWordMarker {
-	rv := objc.Send[TTSWordMarker](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSWordMarker](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSWordMarker creates a new TTSWordMarker instance.
 func NewTTSWordMarker() TTSWordMarker {
 	class := getTTSWordMarkerClass()
-	rv := objc.Send[TTSWordMarker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSWordMarker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSWordMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
 func (t TTSWordMarker) ByteOffset() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("byteOffset"))
 	return rv
 }
 func (t TTSWordMarker) SetByteOffset(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
 func (t TTSWordMarker) DebugDescription() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSWordMarker) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSWordMarker) Hash() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
 func (t TTSWordMarker) MarkType() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
 func (t TTSWordMarker) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](t.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (t TTSWordMarker) WordRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("wordRange"))
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("wordRange"))
 	return foundation.NSRange(rv)
 }
 func (t TTSWordMarker) SetWordRange(value foundation.NSRange) {
-	objc.Send[struct{}](t.ID, objc.Sel("setWordRange:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setWordRange:"), value)
 }

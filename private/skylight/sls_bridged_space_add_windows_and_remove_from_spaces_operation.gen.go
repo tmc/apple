@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass) Class() obj
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass) Alloc() SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
-	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Init() SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
-	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Autorelease() SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
-	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation creates a new SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation instance.
 func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation() SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	class := getSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass()
-	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	instance := getSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationWithSpaceIDWindowsOptions(id uint64, windows objectivec.IObject, options uint32) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
 	instance := getSLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
 	return SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) InitWithSpaceIDWindowsOptions(id uint64, windows objectivec.IObject, options uint32) SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation {
-	rv := objc.Send[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation](s.ID, objc.Sel("initWithSpaceID:windows:options:"), id, windows, options)
 	return rv
 }
 
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Options() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("options"))
 	return rv
 }
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceAddWindowsAndRemoveFromSpacesOperation) Windows() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

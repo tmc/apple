@@ -40,7 +40,7 @@ func (bc BlankDiskImageCreatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (bc BlankDiskImageCreatorClass) Alloc() BlankDiskImageCreator {
-	rv := objc.Send[BlankDiskImageCreator](objc.ID(bc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[BlankDiskImageCreator](objc.ID(bc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,30 +77,33 @@ type IBlankDiskImageCreator interface {
 
 // Init initializes the instance.
 func (b BlankDiskImageCreator) Init() BlankDiskImageCreator {
-	rv := objc.Send[BlankDiskImageCreator](b.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[BlankDiskImageCreator](b.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (b BlankDiskImageCreator) Autorelease() BlankDiskImageCreator {
-	rv := objc.Send[BlankDiskImageCreator](b.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[BlankDiskImageCreator](b.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewBlankDiskImageCreator creates a new BlankDiskImageCreator instance.
 func NewBlankDiskImageCreator() BlankDiskImageCreator {
 	class := getBlankDiskImageCreatorClass()
-	rv := objc.Send[BlankDiskImageCreator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[BlankDiskImageCreator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewBlankDiskImageCreatorWithURLDefaultFormatError(url foundation.NSURL, format int64) (BlankDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBlankDiskImageCreatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return BlankDiskImageCreator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return BlankDiskImageCreator{}, objc.ErrInitFailed
 	}
 	return BlankDiskImageCreatorFromID(rv), nil
 }
@@ -108,10 +111,13 @@ func NewBlankDiskImageCreatorWithURLDefaultFormatError(url foundation.NSURL, for
 func NewBlankDiskImageCreatorWithURLError(url foundation.NSURL) (BlankDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBlankDiskImageCreatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return BlankDiskImageCreator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return BlankDiskImageCreator{}, objc.ErrInitFailed
 	}
 	return BlankDiskImageCreatorFromID(rv), nil
 }

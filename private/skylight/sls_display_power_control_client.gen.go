@@ -40,7 +40,7 @@ func (sc SLSDisplayPowerControlClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSDisplayPowerControlClientClass) Alloc() SLSDisplayPowerControlClient {
-	rv := objc.Send[SLSDisplayPowerControlClient](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,20 +89,20 @@ type ISLSDisplayPowerControlClient interface {
 
 // Init initializes the instance.
 func (s SLSDisplayPowerControlClient) Init() SLSDisplayPowerControlClient {
-	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSDisplayPowerControlClient) Autorelease() SLSDisplayPowerControlClient {
-	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSDisplayPowerControlClient creates a new SLSDisplayPowerControlClient instance.
 func NewSLSDisplayPowerControlClient() SLSDisplayPowerControlClient {
 	class := getSLSDisplayPowerControlClientClass()
-	rv := objc.Send[SLSDisplayPowerControlClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -117,24 +117,24 @@ func (s SLSDisplayPowerControlClient) RequestStateChangeError(change objectivec.
 
 }
 func (s SLSDisplayPowerControlClient) SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int {
-	rv := objc.Send[int](s.ID, objc.Sel("sendStateChangeRequest:uuid:"), request, uuid)
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendStateChangeRequest:uuid:"), request, unsafe.Pointer(uuid))
 	return rv
 }
 func (s SLSDisplayPowerControlClient) InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient {
 	_block3, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("initAsyncPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](s.ID, objc.Sel("initAsyncPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
 	return rv
 }
 func (s SLSDisplayPowerControlClient) InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient {
 	_block3, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSDisplayPowerControlClient](s.ID, objc.Sel("initPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
+	rv := objc.SendIfResponds[SLSDisplayPowerControlClient](s.ID, objc.Sel("initPowerControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
 	return rv
 }
 
 func (s SLSDisplayPowerControlClient) Service() ISLSXPCService {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("service"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("service"))
 	return SLSXPCServiceFromID(objc.ID(rv))
 }
 func (s SLSDisplayPowerControlClient) SetService(value ISLSXPCService) {
-	objc.Send[struct{}](s.ID, objc.Sel("setService:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setService:"), value)
 }

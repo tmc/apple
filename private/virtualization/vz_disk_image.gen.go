@@ -40,7 +40,7 @@ func (vc VZDiskImageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDiskImageClass) Alloc() VZDiskImage {
-	rv := objc.Send[VZDiskImage](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDiskImage](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,30 +101,33 @@ type IVZDiskImage interface {
 
 // Init initializes the instance.
 func (v VZDiskImage) Init() VZDiskImage {
-	rv := objc.Send[VZDiskImage](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDiskImage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDiskImage) Autorelease() VZDiskImage {
-	rv := objc.Send[VZDiskImage](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDiskImage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDiskImage creates a new VZDiskImage instance.
 func NewVZDiskImage() VZDiskImage {
 	class := getVZDiskImageClass()
-	rv := objc.Send[VZDiskImage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDiskImage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZDiskImageWithDescriptorError(descriptor objectivec.IObject) (VZDiskImage, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskImageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZDiskImage{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZDiskImage{}, objc.ErrInitFailed
 	}
 	return VZDiskImageFromID(rv), nil
 }
@@ -132,16 +135,19 @@ func NewVZDiskImageWithDescriptorError(descriptor objectivec.IObject) (VZDiskIma
 func NewVZDiskImageWithURLReadOnlyError(url foundation.NSURL, only bool) (VZDiskImage, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskImageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZDiskImage{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZDiskImage{}, objc.ErrInitFailed
 	}
 	return VZDiskImageFromID(rv), nil
 }
 
 func (v VZDiskImage) IsReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isReadOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isReadOnly"))
 	return rv
 }
 func (v VZDiskImage) InitWithDescriptorError(descriptor objectivec.IObject) (VZDiskImage, error) {
@@ -166,29 +172,29 @@ func (v VZDiskImage) InitWithURLReadOnlyError(url foundation.NSURL, only bool) (
 }
 
 func (v VZDiskImage) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZDiskImage) CachingMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("cachingMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("cachingMode"))
 	return rv
 }
 func (v VZDiskImage) Identifier() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZDiskImage) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }
 func (v VZDiskImage) SynchronizationMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("synchronizationMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("synchronizationMode"))
 	return rv
 }
 func (v VZDiskImage) UpdateDiskSize() foundation.NSNumber {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("updateDiskSize"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("updateDiskSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (v VZDiskImage) SetUpdateDiskSize(value foundation.NSNumber) {
-	objc.Send[struct{}](v.ID, objc.Sel("setUpdateDiskSize:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUpdateDiskSize:"), value)
 }

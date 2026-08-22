@@ -40,7 +40,7 @@ func (vc VZPowerSourceDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPowerSourceDeviceConfigurationClass) Alloc() VZPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,34 +92,34 @@ type IVZPowerSourceDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZPowerSourceDeviceConfiguration) Init() VZPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPowerSourceDeviceConfiguration) Autorelease() VZPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPowerSourceDeviceConfiguration creates a new VZPowerSourceDeviceConfiguration instance.
 func NewVZPowerSourceDeviceConfiguration() VZPowerSourceDeviceConfiguration {
 	class := getVZPowerSourceDeviceConfigurationClass()
-	rv := objc.Send[VZPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZPowerSourceDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZPowerSourceDeviceConfiguration) MakePowerSourceDeviceForVirtualMachinePowerSourceDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makePowerSourceDeviceForVirtualMachine:powerSourceDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makePowerSourceDeviceForVirtualMachine:powerSourceDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZPowerSourceDeviceConfiguration) _powerSourceDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_powerSourceDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_powerSourceDevice"))
 	return rv
 }
 
@@ -136,18 +136,18 @@ func (v VZPowerSourceDeviceConfiguration) PowerSourceDevice() (unsafe.Pointer, e
 	return v._powerSourceDevice(), nil
 }
 func (v VZPowerSourceDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPowerSourceDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPowerSourceDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZPowerSourceDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

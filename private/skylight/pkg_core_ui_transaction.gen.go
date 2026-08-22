@@ -39,7 +39,7 @@ func (pc PKGCoreUITransactionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PKGCoreUITransactionClass) Alloc() PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PKGCoreUITransaction](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,31 +85,31 @@ type IPKGCoreUITransaction interface {
 
 // Init initializes the instance.
 func (p PKGCoreUITransaction) Init() PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PKGCoreUITransaction](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PKGCoreUITransaction) Autorelease() PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PKGCoreUITransaction](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPKGCoreUITransaction creates a new PKGCoreUITransaction instance.
 func NewPKGCoreUITransaction() PKGCoreUITransaction {
 	class := getPKGCoreUITransactionClass()
-	rv := objc.Send[PKGCoreUITransaction](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PKGCoreUITransaction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGCoreUITransactionWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
 	instance := getPKGCoreUITransactionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return PKGCoreUITransactionFromID(rv)
 }
 
 func (p PKGCoreUITransaction) _layerUpdateKeyForOptions(options objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("_layerUpdateKeyForOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("_layerUpdateKeyForOptions:"), options)
 	return objectivec.Object{ID: rv}
 }
 
@@ -129,7 +129,7 @@ func (p PKGCoreUITransaction) CanLayerUpdateKeyForOptions() bool {
 func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
 	_block1, _ := NewVoidBlock(work2)
-	objc.Send[objc.ID](p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"), _block0, _block1)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"), _block0, _block1)
 }
 
 // ScheduleRendererWorkMainThreadWork is an exported wrapper for the private method _scheduleRendererWorkMainThreadWork.
@@ -147,14 +147,14 @@ func (p PKGCoreUITransaction) CanScheduleRendererWorkMainThreadWork() bool {
 	return objc.RespondsToSelector(p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"))
 }
 func (p PKGCoreUITransaction) Commit() {
-	objc.Send[objc.ID](p.ID, objc.Sel("commit"))
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("commit"))
 }
 func (p PKGCoreUITransaction) UpdateLayerKeyRendererWork(layer objectivec.IObject, key objectivec.IObject, work VoidHandler) {
 	_block2, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](p.ID, objc.Sel("updateLayer:key:rendererWork:"), layer, key, _block2)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("updateLayer:key:rendererWork:"), layer, key, _block2)
 }
 func (p PKGCoreUITransaction) InitWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
+	rv := objc.SendIfResponds[PKGCoreUITransaction](p.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return rv
 }
 

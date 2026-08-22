@@ -41,7 +41,7 @@ func (ac ANEInMemoryModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEInMemoryModelClass) Alloc() ANEInMemoryModel {
-	rv := objc.Send[ANEInMemoryModel](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEInMemoryModel](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -186,26 +186,26 @@ type IANEInMemoryModel interface {
 
 // Init initializes the instance.
 func (a ANEInMemoryModel) Init() ANEInMemoryModel {
-	rv := objc.Send[ANEInMemoryModel](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEInMemoryModel](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEInMemoryModel) Autorelease() ANEInMemoryModel {
-	rv := objc.Send[ANEInMemoryModel](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEInMemoryModel](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEInMemoryModel creates a new ANEInMemoryModel instance.
 func NewANEInMemoryModel() ANEInMemoryModel {
 	class := getANEInMemoryModelClass()
-	rv := objc.Send[ANEInMemoryModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEInMemoryModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEInMemoryModelWithDesctiptor(desctiptor objectivec.IObject) ANEInMemoryModel {
 	instance := getANEInMemoryModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
 	return ANEInMemoryModelFromID(rv)
 }
 
@@ -223,11 +223,11 @@ func (a ANEInMemoryModel) CompileWithQoSOptionsError(s uint32, options objective
 
 }
 func (a ANEInMemoryModel) CompiledModelExists() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExists"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExists"))
 	return rv
 }
 func (a ANEInMemoryModel) CompilerOptionsWithOptionsIsCompiledModelCached(options objectivec.IObject, cached bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("compilerOptionsWithOptions:isCompiledModelCached:"), options, cached)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compilerOptionsWithOptions:isCompiledModelCached:"), options, cached)
 	return objectivec.Object{ID: rv}
 }
 func (a ANEInMemoryModel) EvaluateWithQoSOptionsRequestError(s uint32, options objectivec.IObject, request objectivec.IObject) (bool, error) {
@@ -257,7 +257,7 @@ func (a ANEInMemoryModel) LoadWithQoSOptionsError(s uint32, options objectivec.I
 
 }
 func (a ANEInMemoryModel) LocalModelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("localModelPath"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("localModelPath"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEInMemoryModel) MapIOSurfacesWithRequestCacheInferenceError(request objectivec.IObject, inference bool) (bool, error) {
@@ -274,10 +274,10 @@ func (a ANEInMemoryModel) MapIOSurfacesWithRequestCacheInferenceError(request ob
 
 }
 func (a ANEInMemoryModel) PurgeCompiledModel() {
-	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModel"))
 }
 func (a ANEInMemoryModel) SaveModelFiles() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("saveModelFiles"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("saveModelFiles"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEInMemoryModel) UnloadWithQoSError(s uint32) (bool, error) {
@@ -294,108 +294,108 @@ func (a ANEInMemoryModel) UnloadWithQoSError(s uint32) (bool, error) {
 
 }
 func (a ANEInMemoryModel) UnmapIOSurfacesWithRequest(request objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithRequest:"), request)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithRequest:"), request)
 }
 func (a ANEInMemoryModel) InitWithDesctiptor(desctiptor objectivec.IObject) ANEInMemoryModel {
-	rv := objc.Send[ANEInMemoryModel](a.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
+	rv := objc.SendIfResponds[ANEInMemoryModel](a.ID, objc.Sel("initWithDesctiptor:"), desctiptor)
 	return rv
 }
 
 func (_ANEInMemoryModelClass ANEInMemoryModelClass) InMemoryModelWithDescriptor(descriptor objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelClass.class), objc.Sel("inMemoryModelWithDescriptor:"), descriptor)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEInMemoryModelClass.class), objc.Sel("inMemoryModelWithDescriptor:"), descriptor)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEInMemoryModel) CompilerOptionsFileName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("compilerOptionsFileName"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compilerOptionsFileName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEInMemoryModel) SetCompilerOptionsFileName(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCompilerOptionsFileName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setCompilerOptionsFileName:"), objc.String(value))
 }
 func (a ANEInMemoryModel) Descriptor() IANEInMemoryModelDescriptor {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("descriptor"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("descriptor"))
 	return ANEInMemoryModelDescriptorFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) SetDescriptor(value IANEInMemoryModelDescriptor) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDescriptor:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDescriptor:"), value)
 }
 func (a ANEInMemoryModel) HexStringIdentifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEInMemoryModel) IntermediateBufferHandle() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("intermediateBufferHandle"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("intermediateBufferHandle"))
 	return rv
 }
 func (a ANEInMemoryModel) SetIntermediateBufferHandle(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
 }
 func (a ANEInMemoryModel) IsMILModel() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isMILModel"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isMILModel"))
 	return rv
 }
 func (a ANEInMemoryModel) Model() IANEModel {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("model"))
 	return ANEModelFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) SetModel(value IANEModel) {
-	objc.Send[struct{}](a.ID, objc.Sel("setModel:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModel:"), value)
 }
 func (a ANEInMemoryModel) ModelAttributes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelAttributes"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("modelAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) SetModelAttributes(value foundation.INSDictionary) {
-	objc.Send[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
 }
 func (a ANEInMemoryModel) ModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelURL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) SetModelURL(value foundation.NSURL) {
-	objc.Send[struct{}](a.ID, objc.Sel("setModelURL:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModelURL:"), value)
 }
 func (a ANEInMemoryModel) PerfStatsMask() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("perfStatsMask"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("perfStatsMask"))
 	return rv
 }
 func (a ANEInMemoryModel) SetPerfStatsMask(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPerfStatsMask:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPerfStatsMask:"), value)
 }
 func (a ANEInMemoryModel) Program() IANEProgramForEvaluation {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("program"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("program"))
 	return ANEProgramForEvaluationFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) SetProgram(value IANEProgramForEvaluation) {
-	objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setProgram:"), value)
 }
 func (a ANEInMemoryModel) ProgramHandle() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }
 func (a ANEInMemoryModel) SetProgramHandle(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
 }
 func (a ANEInMemoryModel) QueueDepth() int8 {
-	rv := objc.Send[int8](a.ID, objc.Sel("queueDepth"))
+	rv := objc.SendIfResponds[int8](a.ID, objc.Sel("queueDepth"))
 	return rv
 }
 func (a ANEInMemoryModel) SetQueueDepth(value int8) {
-	objc.Send[struct{}](a.ID, objc.Sel("setQueueDepth:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setQueueDepth:"), value)
 }
 func (a ANEInMemoryModel) SharedConnection() IANEClient {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedConnection"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sharedConnection"))
 	return ANEClientFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModel) State() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("state"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("state"))
 	return rv
 }
 func (a ANEInMemoryModel) SetState(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setState:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setState:"), value)
 }
 func (a ANEInMemoryModel) String_id() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("string_id"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("string_id"))
 	return rv
 }

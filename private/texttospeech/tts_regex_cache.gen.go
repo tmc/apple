@@ -39,7 +39,7 @@ func (tc TTSRegexCacheClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexCacheClass) Alloc() TTSRegexCache {
-	rv := objc.Send[TTSRegexCache](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRegexCache](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,41 +82,41 @@ type ITTSRegexCache interface {
 
 // Init initializes the instance.
 func (t TTSRegexCache) Init() TTSRegexCache {
-	rv := objc.Send[TTSRegexCache](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRegexCache](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRegexCache) Autorelease() TTSRegexCache {
-	rv := objc.Send[TTSRegexCache](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRegexCache](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRegexCache creates a new TTSRegexCache instance.
 func NewTTSRegexCache() TTSRegexCache {
 	class := getTTSRegexCacheClass()
-	rv := objc.Send[TTSRegexCache](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRegexCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSRegexCache) RegexForString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("regexForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSRegexCache) RegexForStringAtStart(string_ objectivec.IObject, start bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:atStart:"), string_, start)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("regexForString:atStart:"), string_, start)
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSRegexCacheClass TTSRegexCacheClass) SharedInstance() TTSRegexCache {
-	rv := objc.Send[objc.ID](objc.ID(_TTSRegexCacheClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSRegexCacheClass.class), objc.Sel("sharedInstance"))
 	return TTSRegexCacheFromID(rv)
 }
 
 func (t TTSRegexCache) Cache() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("cache"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("cache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSRegexCache) SetCache(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCache:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCache:"), value)
 }

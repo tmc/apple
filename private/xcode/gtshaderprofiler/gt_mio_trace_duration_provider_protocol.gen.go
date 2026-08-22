@@ -36,10 +36,10 @@ func GTMioTraceDurationProviderObjectFromID(id objc.ID) GTMioTraceDurationProvid
 }
 
 func (o GTMioTraceDurationProviderObject) KickDurationForEncoder(encoder uint32) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("kickDurationForEncoder:"), encoder)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("kickDurationForEncoder:"), encoder)
 	return rv
 }
 func (o GTMioTraceDurationProviderObject) KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
 	return rv
 }

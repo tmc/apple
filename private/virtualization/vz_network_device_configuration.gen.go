@@ -40,15 +40,15 @@ func (vc VZNetworkDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNetworkDeviceConfigurationClass) Alloc() VZNetworkDeviceConfiguration {
-	rv := objc.Send[VZNetworkDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZNetworkDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [VZNetworkDeviceConfiguration._init]
-//   - [VZNetworkDeviceConfiguration.MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex]
 //   - [VZNetworkDeviceConfiguration._networkDevice]
+//   - [VZNetworkDeviceConfiguration.MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex]
 //   - [VZNetworkDeviceConfiguration.DebugDescription]
 //   - [VZNetworkDeviceConfiguration.Description]
 //   - [VZNetworkDeviceConfiguration.Hash]
@@ -70,8 +70,8 @@ var _ IVZNetworkDeviceConfiguration = VZNetworkDeviceConfiguration{}
 // # Methods
 //
 //   - [IVZNetworkDeviceConfiguration._init]
-//   - [IVZNetworkDeviceConfiguration.MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex]
 //   - [IVZNetworkDeviceConfiguration._networkDevice]
+//   - [IVZNetworkDeviceConfiguration.MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex]
 //   - [IVZNetworkDeviceConfiguration.DebugDescription]
 //   - [IVZNetworkDeviceConfiguration.Description]
 //   - [IVZNetworkDeviceConfiguration.Hash]
@@ -82,8 +82,8 @@ type IVZNetworkDeviceConfiguration interface {
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	_networkDevice() unsafe.Pointer
+	MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -92,34 +92,34 @@ type IVZNetworkDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZNetworkDeviceConfiguration) Init() VZNetworkDeviceConfiguration {
-	rv := objc.Send[VZNetworkDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZNetworkDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZNetworkDeviceConfiguration) Autorelease() VZNetworkDeviceConfiguration {
-	rv := objc.Send[VZNetworkDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZNetworkDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZNetworkDeviceConfiguration creates a new VZNetworkDeviceConfiguration instance.
 func NewVZNetworkDeviceConfiguration() VZNetworkDeviceConfiguration {
 	class := getVZNetworkDeviceConfigurationClass()
-	rv := objc.Send[VZNetworkDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZNetworkDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZNetworkDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZNetworkDeviceConfiguration) MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeNetworkDeviceForVirtualMachine:networkDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeNetworkDeviceForVirtualMachine:networkDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZNetworkDeviceConfiguration) _networkDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_networkDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_networkDevice"))
 	return rv
 }
 
@@ -136,18 +136,18 @@ func (v VZNetworkDeviceConfiguration) NetworkDevice() (unsafe.Pointer, error) {
 	return v._networkDevice(), nil
 }
 func (v VZNetworkDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZNetworkDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZNetworkDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZNetworkDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -40,7 +40,7 @@ func (ac AVAudioUnitDSPGraphClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitDSPGraphClass) Alloc() AVAudioUnitDSPGraph {
-	rv := objc.Send[AVAudioUnitDSPGraph](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitDSPGraph](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,31 +86,31 @@ type IAVAudioUnitDSPGraph interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitDSPGraph) Init() AVAudioUnitDSPGraph {
-	rv := objc.Send[AVAudioUnitDSPGraph](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitDSPGraph](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitDSPGraph) Autorelease() AVAudioUnitDSPGraph {
-	rv := objc.Send[AVAudioUnitDSPGraph](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitDSPGraph](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitDSPGraph creates a new AVAudioUnitDSPGraph instance.
 func NewAVAudioUnitDSPGraph() AVAudioUnitDSPGraph {
 	class := getAVAudioUnitDSPGraphClass()
-	rv := objc.Send[AVAudioUnitDSPGraph](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitDSPGraph](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioUnitDSPGraphWithImpl(impl unsafe.Pointer) AVAudioUnitDSPGraph {
 	instance := getAVAudioUnitDSPGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitDSPGraphFromID(rv)
 }
 
 func (a AVAudioUnitDSPGraph) LoadAudioDSPManager() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("loadAudioDSPManager"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("loadAudioDSPManager"))
 	return rv
 }
 func (a AVAudioUnitDSPGraph) LoadAudioUnitProcessingStripAtURLError(url foundation.NSURL) (bool, error) {
@@ -141,10 +141,10 @@ func (a AVAudioUnitDSPGraph) LoadDSPGraphAtURLError(url foundation.NSURL) (bool,
 }
 
 func (a AVAudioUnitDSPGraph) AuProcessingStripURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("auProcessingStripURL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("auProcessingStripURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (a AVAudioUnitDSPGraph) DspGraphURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("dspGraphURL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("dspGraphURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

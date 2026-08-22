@@ -39,7 +39,7 @@ func (vc VZDebugStubClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDebugStubClass) Alloc() VZDebugStub {
-	rv := objc.Send[VZDebugStub](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDebugStub](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,30 +76,30 @@ type IVZDebugStub interface {
 
 // Init initializes the instance.
 func (v VZDebugStub) Init() VZDebugStub {
-	rv := objc.Send[VZDebugStub](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDebugStub](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDebugStub) Autorelease() VZDebugStub {
-	rv := objc.Send[VZDebugStub](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDebugStub](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDebugStub creates a new VZDebugStub instance.
 func NewVZDebugStub() VZDebugStub {
 	class := getVZDebugStubClass()
-	rv := objc.Send[VZDebugStub](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDebugStub](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZDebugStub) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZDebugStub) _debugStub() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_debugStub"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_debugStub"))
 	return rv
 }
 

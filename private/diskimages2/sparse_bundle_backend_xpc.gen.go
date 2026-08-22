@@ -39,7 +39,7 @@ func (sc SparseBundleBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SparseBundleBackendXPCClass) Alloc() SparseBundleBackendXPC {
-	rv := objc.Send[SparseBundleBackendXPC](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,51 +76,51 @@ type ISparseBundleBackendXPC interface {
 
 // Init initializes the instance.
 func (s SparseBundleBackendXPC) Init() SparseBundleBackendXPC {
-	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SparseBundleBackendXPC) Autorelease() SparseBundleBackendXPC {
-	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSparseBundleBackendXPC creates a new SparseBundleBackendXPC instance.
 func NewSparseBundleBackendXPC() SparseBundleBackendXPC {
 	class := getSparseBundleBackendXPCClass()
-	rv := objc.Send[SparseBundleBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSparseBundleBackendXPCWithCoder(coder objectivec.IObject) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
 func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
 func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
 func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
-	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }
 func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
-	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
+	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return rv
 }
 
 func (_SparseBundleBackendXPCClass SparseBundleBackendXPCClass) IsSparseBundleWithURL(url foundation.NSURL) bool {
-	rv := objc.Send[bool](objc.ID(_SparseBundleBackendXPCClass.class), objc.Sel("isSparseBundleWithURL:"), url)
+	rv := objc.SendIfResponds[bool](objc.ID(_SparseBundleBackendXPCClass.class), objc.Sel("isSparseBundleWithURL:"), url)
 	return rv
 }

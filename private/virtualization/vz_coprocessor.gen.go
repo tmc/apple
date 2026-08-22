@@ -38,7 +38,7 @@ func (vc VZCoprocessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCoprocessorClass) Alloc() VZCoprocessor {
-	rv := objc.Send[VZCoprocessor](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCoprocessor](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZCoprocessor interface {
 
 // Init initializes the instance.
 func (v VZCoprocessor) Init() VZCoprocessor {
-	rv := objc.Send[VZCoprocessor](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCoprocessor](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCoprocessor) Autorelease() VZCoprocessor {
-	rv := objc.Send[VZCoprocessor](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCoprocessor](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCoprocessor creates a new VZCoprocessor instance.
 func NewVZCoprocessor() VZCoprocessor {
 	class := getVZCoprocessorClass()
-	rv := objc.Send[VZCoprocessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCoprocessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCoprocessor) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

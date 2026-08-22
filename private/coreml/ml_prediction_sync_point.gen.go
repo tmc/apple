@@ -39,7 +39,7 @@ func (mc MLPredictionSyncPointClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPredictionSyncPointClass) Alloc() MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPredictionSyncPoint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,42 +82,42 @@ type IMLPredictionSyncPoint interface {
 
 // Init initializes the instance.
 func (m MLPredictionSyncPoint) Init() MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPredictionSyncPoint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPredictionSyncPoint) Autorelease() MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPredictionSyncPoint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPredictionSyncPoint creates a new MLPredictionSyncPoint instance.
 func NewMLPredictionSyncPoint() MLPredictionSyncPoint {
 	class := getMLPredictionSyncPointClass()
-	rv := objc.Send[MLPredictionSyncPoint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPredictionSyncPoint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	instance := getMLPredictionSyncPointClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return MLPredictionSyncPointFromID(rv)
 }
 
 func (m MLPredictionSyncPoint) Notify() {
-	objc.Send[objc.ID](m.ID, objc.Sel("notify"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("notify"))
 }
 func (m MLPredictionSyncPoint) InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
+	rv := objc.SendIfResponds[MLPredictionSyncPoint](m.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return rv
 }
 
 func (m MLPredictionSyncPoint) SharedEvent() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("sharedEvent"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("sharedEvent"))
 	return rv
 }
 func (m MLPredictionSyncPoint) Value() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("value"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("value"))
 	return rv
 }

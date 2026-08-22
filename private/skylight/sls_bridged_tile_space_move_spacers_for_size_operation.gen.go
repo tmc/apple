@@ -39,7 +39,7 @@ func (sc SLSBridgedTileSpaceMoveSpacersForSizeOperationClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedTileSpaceMoveSpacersForSizeOperationClass) Alloc() SLSBridgedTileSpaceMoveSpacersForSizeOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedTileSpaceMoveSpacersForSizeOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) Init() SLSBridgedTileSpaceMoveSpacersForSizeOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) Autorelease() SLSBridgedTileSpaceMoveSpacersForSizeOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedTileSpaceMoveSpacersForSizeOperation creates a new SLSBridgedTileSpaceMoveSpacersForSizeOperation instance.
 func NewSLSBridgedTileSpaceMoveSpacersForSizeOperation() SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	class := getSLSBridgedTileSpaceMoveSpacersForSizeOperationClass()
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedTileSpaceMoveSpacersForSizeOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceMoveSpacersForSizeOperationFromID(rv)
 }
 
 func NewSLSBridgedTileSpaceMoveSpacersForSizeOperationWithTileSpaceIDSize(id uint64, size corefoundation.CGSize) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
 	return SLSBridgedTileSpaceMoveSpacersForSizeOperationFromID(rv)
 }
 
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) InitWithTileSpaceIDSize(id uint64, size corefoundation.CGSize) SLSBridgedTileSpaceMoveSpacersForSizeOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeOperation](s.ID, objc.Sel("initWithTileSpaceID:size:"), id, size)
 	return rv
 }
 
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) Size() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
 func (s SLSBridgedTileSpaceMoveSpacersForSizeOperation) TileSpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("tileSpaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("tileSpaceID"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (cc CryptoBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CryptoBackendXPCClass) Alloc() CryptoBackendXPC {
-	rv := objc.Send[CryptoBackendXPC](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CryptoBackendXPC](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ICryptoBackendXPC interface {
 
 // Init initializes the instance.
 func (c CryptoBackendXPC) Init() CryptoBackendXPC {
-	rv := objc.Send[CryptoBackendXPC](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CryptoBackendXPC](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CryptoBackendXPC) Autorelease() CryptoBackendXPC {
-	rv := objc.Send[CryptoBackendXPC](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CryptoBackendXPC](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCryptoBackendXPC creates a new CryptoBackendXPC instance.
 func NewCryptoBackendXPC() CryptoBackendXPC {
 	class := getCryptoBackendXPCClass()
-	rv := objc.Send[CryptoBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CryptoBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCryptoBackendXPCWithCoder(coder objectivec.IObject) CryptoBackendXPC {
 	instance := getCryptoBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return CryptoBackendXPCFromID(rv)
 }
 
 func NewCryptoBackendXPCWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC {
 	instance := getCryptoBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
 	return CryptoBackendXPCFromID(rv)
 }
 
 func (c CryptoBackendXPC) InitWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC {
-	rv := objc.Send[CryptoBackendXPC](c.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
+	rv := objc.SendIfResponds[CryptoBackendXPC](c.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
 	return rv
 }
 
 func (c CryptoBackendXPC) BaseBackendXPC() IBackendXPC {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("baseBackendXPC"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }

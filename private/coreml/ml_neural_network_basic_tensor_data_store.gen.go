@@ -41,7 +41,7 @@ func (mc MLNeuralNetworkBasicTensorDataStoreClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkBasicTensorDataStoreClass) Alloc() MLNeuralNetworkBasicTensorDataStore {
-	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkBasicTensorDataStore](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,42 +99,45 @@ type IMLNeuralNetworkBasicTensorDataStore interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkBasicTensorDataStore) Init() MLNeuralNetworkBasicTensorDataStore {
-	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkBasicTensorDataStore) Autorelease() MLNeuralNetworkBasicTensorDataStore {
-	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkBasicTensorDataStore creates a new MLNeuralNetworkBasicTensorDataStore instance.
 func NewMLNeuralNetworkBasicTensorDataStore() MLNeuralNetworkBasicTensorDataStore {
 	class := getMLNeuralNetworkBasicTensorDataStoreClass()
-	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkBasicTensorDataStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLNeuralNetworkBasicTensorDataStoreWithContentsOfFileError(file objectivec.IObject) (MLNeuralNetworkBasicTensorDataStore, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkBasicTensorDataStoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:error:"), file, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:error:"), file, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkBasicTensorDataStore{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkBasicTensorDataStore{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkBasicTensorDataStoreFromID(rv), nil
 }
 
 func NewMLNeuralNetworkBasicTensorDataStoreWithData(data objectivec.IObject) MLNeuralNetworkBasicTensorDataStore {
 	instance := getMLNeuralNetworkBasicTensorDataStoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return MLNeuralNetworkBasicTensorDataStoreFromID(rv)
 }
 
 func (m MLNeuralNetworkBasicTensorDataStore) TensorDataForOffsetExpectedLength(offset uint64, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("tensorDataForOffset:expectedLength:"), offset, length)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("tensorDataForOffset:expectedLength:"), offset, length)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkBasicTensorDataStore) WriteToFileError(file objectivec.IObject) (bool, error) {
@@ -161,27 +164,27 @@ func (m MLNeuralNetworkBasicTensorDataStore) InitWithContentsOfFileError(file ob
 
 }
 func (m MLNeuralNetworkBasicTensorDataStore) InitWithData(data objectivec.IObject) MLNeuralNetworkBasicTensorDataStore {
-	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
 
 func (m MLNeuralNetworkBasicTensorDataStore) Data() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("data"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("data"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkBasicTensorDataStore) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkBasicTensorDataStore) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkBasicTensorDataStore) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLNeuralNetworkBasicTensorDataStore) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

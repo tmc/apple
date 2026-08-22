@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (gc GTMioGPUInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioGPUInfoClass) Alloc() GTMioGPUInfo {
-	rv := objc.Send[GTMioGPUInfo](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioGPUInfo](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,68 +92,68 @@ type IGTMioGPUInfo interface {
 	NumGPs() uint64
 	NumMGPUs() uint64
 	NumShaderCores() uint64
-	InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo
+	InitWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo
 }
 
 // Init initializes the instance.
 func (g GTMioGPUInfo) Init() GTMioGPUInfo {
-	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioGPUInfo](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioGPUInfo) Autorelease() GTMioGPUInfo {
-	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioGPUInfo](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioGPUInfo creates a new GTMioGPUInfo instance.
 func NewGTMioGPUInfo() GTMioGPUInfo {
 	class := getGTMioGPUInfoClass()
-	rv := objc.Send[GTMioGPUInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioGPUInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewGTMioGPUInfoWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
+func NewGTMioGPUInfoWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo {
 	instance := getGTMioGPUInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGPUInfo:"), unsafe.Pointer(gPUInfo))
 	return GTMioGPUInfoFromID(rv)
 }
 
 func (g GTMioGPUInfo) FormattedName(name bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("formattedName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("formattedName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioGPUInfo) GpuType() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuType"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuType"))
 	return rv
 }
-func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
-	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
+func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo *GTMioGPUInfoInternal) GTMioGPUInfo {
+	rv := objc.SendIfResponds[GTMioGPUInfo](g.ID, objc.Sel("initWithGPUInfo:"), unsafe.Pointer(gPUInfo))
 	return rv
 }
 
 func (g GTMioGPUInfo) GpuGeneration() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuGeneration"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
 func (g GTMioGPUInfo) GpuRevision() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuRevision"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuRevision"))
 	return rv
 }
 func (g GTMioGPUInfo) GpuVariant() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuVariant"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuVariant"))
 	return rv
 }
 func (g GTMioGPUInfo) NumGPs() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("numGPs"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("numGPs"))
 	return rv
 }
 func (g GTMioGPUInfo) NumMGPUs() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("numMGPUs"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("numMGPUs"))
 	return rv
 }
 func (g GTMioGPUInfo) NumShaderCores() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("numShaderCores"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("numShaderCores"))
 	return rv
 }

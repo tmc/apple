@@ -38,7 +38,7 @@ func (gc GTMioTraceAggregatedDrawTrackClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceAggregatedDrawTrackClass) Alloc() GTMioTraceAggregatedDrawTrack {
-	rv := objc.Send[GTMioTraceAggregatedDrawTrack](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedDrawTrack](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,48 +74,48 @@ type IGTMioTraceAggregatedDrawTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take GTMioDrawTrace)
+	Take(take *GTMioDrawTrace)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioDrawTrace
 }
 
 // Init initializes the instance.
 func (g GTMioTraceAggregatedDrawTrack) Init() GTMioTraceAggregatedDrawTrack {
-	rv := objc.Send[GTMioTraceAggregatedDrawTrack](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedDrawTrack](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceAggregatedDrawTrack) Autorelease() GTMioTraceAggregatedDrawTrack {
-	rv := objc.Send[GTMioTraceAggregatedDrawTrack](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedDrawTrack](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceAggregatedDrawTrack creates a new GTMioTraceAggregatedDrawTrack instance.
 func NewGTMioTraceAggregatedDrawTrack() GTMioTraceAggregatedDrawTrack {
 	class := getGTMioTraceAggregatedDrawTrackClass()
-	rv := objc.Send[GTMioTraceAggregatedDrawTrack](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceAggregatedDrawTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceAggregatedDrawTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceAggregatedDrawTrack {
 	instance := getGTMioTraceAggregatedDrawTrackClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceAggregatedDrawTrackFromID(rv)
 }
 
 func (g GTMioTraceAggregatedDrawTrack) PostProcess() {
-	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-func (g GTMioTraceAggregatedDrawTrack) Take(take GTMioDrawTrace) {
-	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
+func (g GTMioTraceAggregatedDrawTrack) Take(take *GTMioDrawTrace) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("take:"), unsafe.Pointer(take))
 }
 
 func (g GTMioTraceAggregatedDrawTrack) TraceCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
-func (g GTMioTraceAggregatedDrawTrack) Traces() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+func (g GTMioTraceAggregatedDrawTrack) Traces() *GTMioDrawTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traces"))
+	return (*GTMioDrawTrace)(rv)
 }

@@ -41,7 +41,7 @@ func (dc DIEncryptionChpassClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIEncryptionChpassClass) Alloc() DIEncryptionChpass {
-	rv := objc.Send[DIEncryptionChpass](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIEncryptionChpass](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,32 +84,32 @@ type IDIEncryptionChpass interface {
 
 // Init initializes the instance.
 func (d DIEncryptionChpass) Init() DIEncryptionChpass {
-	rv := objc.Send[DIEncryptionChpass](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIEncryptionChpass](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIEncryptionChpass) Autorelease() DIEncryptionChpass {
-	rv := objc.Send[DIEncryptionChpass](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIEncryptionChpass](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIEncryptionChpass creates a new DIEncryptionChpass instance.
 func NewDIEncryptionChpass() DIEncryptionChpass {
 	class := getDIEncryptionChpassClass()
-	rv := objc.Send[DIEncryptionChpass](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIEncryptionChpass](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIEncryptionChpassWithCoder(coder objectivec.IObject) DIEncryptionChpass {
 	instance := getDIEncryptionChpassClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionChpassFromID(rv)
 }
 
 func NewDIEncryptionChpassWithParams(params objectivec.IObject) DIEncryptionChpass {
 	instance := getDIEncryptionChpassClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionChpassFromID(rv)
 }
 
@@ -141,9 +141,9 @@ func (d DIEncryptionChpass) ReplacePassphraseError(passphrase string) (bool, err
 }
 
 func (d DIEncryptionChpass) PassEntryToChange() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("passEntryToChange"))
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("passEntryToChange"))
 	return rv
 }
 func (d DIEncryptionChpass) SetPassEntryToChange(value unsafe.Pointer) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPassEntryToChange:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPassEntryToChange:"), value)
 }

@@ -40,7 +40,7 @@ func (bc BackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (bc BackendXPCClass) Alloc() BackendXPC {
-	rv := objc.Send[BackendXPC](objc.ID(bc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[BackendXPC](objc.ID(bc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -104,38 +104,38 @@ type IBackendXPC interface {
 
 // Init initializes the instance.
 func (b BackendXPC) Init() BackendXPC {
-	rv := objc.Send[BackendXPC](b.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[BackendXPC](b.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (b BackendXPC) Autorelease() BackendXPC {
-	rv := objc.Send[BackendXPC](b.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[BackendXPC](b.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewBackendXPC creates a new BackendXPC instance.
 func NewBackendXPC() BackendXPC {
 	class := getBackendXPCClass()
-	rv := objc.Send[BackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[BackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewBackendXPCWithCoder(coder objectivec.IObject) BackendXPC {
 	instance := getBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return BackendXPCFromID(rv)
 }
 
 func (b BackendXPC) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (b BackendXPC) IsUnlocked() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("isUnlocked"))
+	rv := objc.SendIfResponds[bool](b.ID, objc.Sel("isUnlocked"))
 	return rv
 }
 func (b BackendXPC) Lock() int {
-	rv := objc.Send[int](b.ID, objc.Sel("lock"))
+	rv := objc.SendIfResponds[int](b.ID, objc.Sel("lock"))
 	return rv
 }
 func (b BackendXPC) NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.IObject, error) {
@@ -149,14 +149,14 @@ func (b BackendXPC) NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.
 
 }
 func (b BackendXPC) ReplaceWithBackendXPC(xpc objectivec.IObject) {
-	objc.Send[objc.ID](b.ID, objc.Sel("replaceWithBackendXPC:"), xpc)
+	objc.SendIfResponds[objc.ID](b.ID, objc.Sel("replaceWithBackendXPC:"), xpc)
 }
 func (b BackendXPC) TryCreatingCryptoHeader() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("tryCreatingCryptoHeader"))
+	rv := objc.SendIfResponds[bool](b.ID, objc.Sel("tryCreatingCryptoHeader"))
 	return rv
 }
 func (b BackendXPC) InitWithCoder(coder foundation.INSCoder) BackendXPC {
-	rv := objc.Send[BackendXPC](b.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[BackendXPC](b.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -171,22 +171,22 @@ func (_BackendXPCClass BackendXPCClass) NewFileBackendWithURLFileOpenFlagsError(
 
 }
 func (_BackendXPCClass BackendXPCClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_BackendXPCClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_BackendXPCClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (b BackendXPC) Backend() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](b.ID, objc.Sel("backend"))
+	rv := objc.SendIfResponds[unsafe.Pointer](b.ID, objc.Sel("backend"))
 	return rv
 }
 func (b BackendXPC) SetBackend(value unsafe.Pointer) {
-	objc.Send[struct{}](b.ID, objc.Sel("setBackend:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setBackend:"), value)
 }
 func (b BackendXPC) CryptoHeader() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](b.ID, objc.Sel("cryptoHeader"))
+	rv := objc.SendIfResponds[unsafe.Pointer](b.ID, objc.Sel("cryptoHeader"))
 	return rv
 }
 func (b BackendXPC) InstanceID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("instanceID"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("instanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }

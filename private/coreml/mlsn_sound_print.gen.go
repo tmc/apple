@@ -40,7 +40,7 @@ func (mc MLSNSoundPrintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSNSoundPrintClass) Alloc() MLSNSoundPrint {
-	rv := objc.Send[MLSNSoundPrint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSNSoundPrint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IMLSNSoundPrint interface {
 
 // Init initializes the instance.
 func (m MLSNSoundPrint) Init() MLSNSoundPrint {
-	rv := objc.Send[MLSNSoundPrint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSNSoundPrint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSNSoundPrint) Autorelease() MLSNSoundPrint {
-	rv := objc.Send[MLSNSoundPrint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSNSoundPrint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSNSoundPrint creates a new MLSNSoundPrint instance.
 func NewMLSNSoundPrint() MLSNSoundPrint {
 	class := getMLSNSoundPrintClass()
-	rv := objc.Send[MLSNSoundPrint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSNSoundPrint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLSNSoundPrintWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNSoundPrint, error) {
 	var errorPtr objc.ID
 	instance := getMLSNSoundPrintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSNSoundPrint{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSNSoundPrint{}, objc.ErrInitFailed
 	}
 	return MLSNSoundPrintFromID(rv), nil
 }
@@ -130,6 +133,6 @@ func (m MLSNSoundPrint) InitWithModelDescriptionParameterDictionaryError(descrip
 }
 
 func (m MLSNSoundPrint) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }

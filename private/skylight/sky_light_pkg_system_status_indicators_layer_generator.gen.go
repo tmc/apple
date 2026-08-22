@@ -38,7 +38,7 @@ func (sc SkyLightPKGSystemStatusIndicatorsLayerGeneratorClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPKGSystemStatusIndicatorsLayerGeneratorClass) Alloc() SkyLightPKGSystemStatusIndicatorsLayerGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsLayerGenerator](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsLayerGenerator](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPKGSystemStatusIndicatorsLayerGeneratorFromID(id objc.ID) SkyLightP
 	return SkyLightPKGSystemStatusIndicatorsLayerGenerator{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPKGSystemStatusIndicatorsLayerGenerator struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPKGSystemStatusIndicatorsLayerGenerator embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPKGSystemStatusIndicatorsLayerGenerator implements ISkyLightPKGSystemStatusIndicatorsLayerGenerator.
+var _ ISkyLightPKGSystemStatusIndicatorsLayerGenerator = SkyLightPKGSystemStatusIndicatorsLayerGenerator{}
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsLayerGenerator] class.
 type ISkyLightPKGSystemStatusIndicatorsLayerGenerator interface {
@@ -61,19 +61,19 @@ type ISkyLightPKGSystemStatusIndicatorsLayerGenerator interface {
 
 // Init initializes the instance.
 func (s SkyLightPKGSystemStatusIndicatorsLayerGenerator) Init() SkyLightPKGSystemStatusIndicatorsLayerGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsLayerGenerator](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsLayerGenerator](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPKGSystemStatusIndicatorsLayerGenerator) Autorelease() SkyLightPKGSystemStatusIndicatorsLayerGenerator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsLayerGenerator](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsLayerGenerator](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPKGSystemStatusIndicatorsLayerGenerator creates a new SkyLightPKGSystemStatusIndicatorsLayerGenerator instance.
 func NewSkyLightPKGSystemStatusIndicatorsLayerGenerator() SkyLightPKGSystemStatusIndicatorsLayerGenerator {
 	class := getSkyLightPKGSystemStatusIndicatorsLayerGeneratorClass()
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsLayerGenerator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsLayerGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

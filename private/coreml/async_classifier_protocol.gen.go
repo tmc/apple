@@ -10,6 +10,9 @@ import (
 // MLAsyncClassifier protocol.
 type MLAsyncClassifier interface {
 	objectivec.IObject
+
+	// ClassifyOptionsCompletionHandler protocol.
+	ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler MLClassifierResultErrorHandler)
 }
 
 // MLAsyncClassifierObject wraps an existing Objective-C object that conforms to the MLAsyncClassifier protocol.
@@ -30,5 +33,6 @@ func MLAsyncClassifierObjectFromID(id objc.ID) MLAsyncClassifierObject {
 }
 
 func (o MLAsyncClassifierObject) ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler MLClassifierResultErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("classify:options:completionHandler:"), classify, options, handler)
+	_block2, _ := NewMLClassifierResultErrorBlock(handler)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("classify:options:completionHandler:"), classify, options, _block2)
 }

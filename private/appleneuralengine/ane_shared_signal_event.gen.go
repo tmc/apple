@@ -39,7 +39,7 @@ func (ac ANESharedSignalEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANESharedSignalEventClass) Alloc() ANESharedSignalEvent {
-	rv := objc.Send[ANESharedSignalEvent](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANESharedSignalEvent](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,83 +103,83 @@ type IANESharedSignalEvent interface {
 
 // Init initializes the instance.
 func (a ANESharedSignalEvent) Init() ANESharedSignalEvent {
-	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANESharedSignalEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANESharedSignalEvent) Autorelease() ANESharedSignalEvent {
-	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANESharedSignalEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANESharedSignalEvent creates a new ANESharedSignalEvent instance.
 func NewANESharedSignalEvent() ANESharedSignalEvent {
 	class := getANESharedSignalEventClass()
-	rv := objc.Send[ANESharedSignalEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANESharedSignalEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANESharedSignalEventWithCoder(coder objectivec.IObject) ANESharedSignalEvent {
 	instance := getANESharedSignalEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANESharedSignalEventFromID(rv)
 }
 
 func NewANESharedSignalEventWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent {
 	instance := getANESharedSignalEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:symbolIndex:eventType:sharedEvent:agentMask:"), value, index, type_, event, mask)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:symbolIndex:eventType:sharedEvent:agentMask:"), value, index, type_, event, mask)
 	return ANESharedSignalEventFromID(rv)
 }
 
 func (a ANESharedSignalEvent) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANESharedSignalEvent) WaitEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("waitEvent"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("waitEvent"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANESharedSignalEvent) InitWithCoder(coder foundation.INSCoder) ANESharedSignalEvent {
-	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANESharedSignalEvent](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANESharedSignalEvent) InitWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent {
-	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("initWithValue:symbolIndex:eventType:sharedEvent:agentMask:"), value, index, type_, event, mask)
+	rv := objc.SendIfResponds[ANESharedSignalEvent](a.ID, objc.Sel("initWithValue:symbolIndex:eventType:sharedEvent:agentMask:"), value, index, type_, event, mask)
 	return rv
 }
 
 func (_ANESharedSignalEventClass ANESharedSignalEventClass) SignalEventWithValueSymbolIndexEventTypeSharedEvent(value uint64, index uint32, type_ int64, event objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("signalEventWithValue:symbolIndex:eventType:sharedEvent:"), value, index, type_, event)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("signalEventWithValue:symbolIndex:eventType:sharedEvent:"), value, index, type_, event)
 	return objectivec.Object{ID: rv}
 }
 func (_ANESharedSignalEventClass ANESharedSignalEventClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a ANESharedSignalEvent) AgentMask() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("agentMask"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("agentMask"))
 	return rv
 }
 func (a ANESharedSignalEvent) SetAgentMask(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAgentMask:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAgentMask:"), value)
 }
 func (a ANESharedSignalEvent) EventType() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("eventType"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("eventType"))
 	return rv
 }
 func (a ANESharedSignalEvent) SharedEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvent"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANESharedSignalEvent) SymbolIndex() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("symbolIndex"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("symbolIndex"))
 	return rv
 }
 func (a ANESharedSignalEvent) Value() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("value"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("value"))
 	return rv
 }
 func (a ANESharedSignalEvent) SetValue(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setValue:"), value)
 }

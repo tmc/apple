@@ -39,7 +39,7 @@ func (vc VZMacSerialNumberClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacSerialNumberClass) Alloc() VZMacSerialNumber {
-	rv := objc.Send[VZMacSerialNumber](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacSerialNumber](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IVZMacSerialNumber interface {
 
 // Init initializes the instance.
 func (v VZMacSerialNumber) Init() VZMacSerialNumber {
-	rv := objc.Send[VZMacSerialNumber](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacSerialNumber](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacSerialNumber) Autorelease() VZMacSerialNumber {
-	rv := objc.Send[VZMacSerialNumber](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacSerialNumber](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacSerialNumber creates a new VZMacSerialNumber instance.
 func NewVZMacSerialNumber() VZMacSerialNumber {
 	class := getVZMacSerialNumberClass()
-	rv := objc.Send[VZMacSerialNumber](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacSerialNumber](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMacSerialNumberWithString(string_ objectivec.IObject) VZMacSerialNumber {
 	instance := getVZMacSerialNumberClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithString:"), string_)
 	return VZMacSerialNumberFromID(rv)
 }
 
 func (v VZMacSerialNumber) InitWithString(string_ objectivec.IObject) VZMacSerialNumber {
-	rv := objc.Send[VZMacSerialNumber](v.ID, objc.Sel("initWithString:"), string_)
+	rv := objc.SendIfResponds[VZMacSerialNumber](v.ID, objc.Sel("initWithString:"), string_)
 	return rv
 }
 
 func (v VZMacSerialNumber) String() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("string"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }

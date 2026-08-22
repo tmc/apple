@@ -40,7 +40,7 @@ func (gc GTMioShaderProfilerEncoderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderProfilerEncoderClass) Alloc() GTMioShaderProfilerEncoder {
-	rv := objc.Send[GTMioShaderProfilerEncoder](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerEncoder](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,7 +101,7 @@ type IGTMioShaderProfilerEncoder interface {
 	PointerId() uint64
 	StoreTime() uint64
 	TimingInfo() IGTShaderProfilerTimingInfo
-	InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder
+	InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -110,79 +110,79 @@ type IGTMioShaderProfilerEncoder interface {
 
 // Init initializes the instance.
 func (g GTMioShaderProfilerEncoder) Init() GTMioShaderProfilerEncoder {
-	rv := objc.Send[GTMioShaderProfilerEncoder](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerEncoder](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderProfilerEncoder) Autorelease() GTMioShaderProfilerEncoder {
-	rv := objc.Send[GTMioShaderProfilerEncoder](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerEncoder](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderProfilerEncoder creates a new GTMioShaderProfilerEncoder instance.
 func NewGTMioShaderProfilerEncoder() GTMioShaderProfilerEncoder {
 	class := getGTMioShaderProfilerEncoderClass()
-	rv := objc.Send[GTMioShaderProfilerEncoder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerEncoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
+func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
 	instance := getGTMioShaderProfilerEncoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, unsafe.Pointer(metadata), data)
 	return GTMioShaderProfilerEncoderFromID(rv)
 }
 
-func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
-	rv := objc.Send[GTMioShaderProfilerEncoder](g.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
+func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info unsafe.Pointer, metadata *GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
+	rv := objc.SendIfResponds[GTMioShaderProfilerEncoder](g.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, unsafe.Pointer(metadata), data)
 	return rv
 }
 
 func (g GTMioShaderProfilerEncoder) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerEncoder) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerEncoder) FunctionIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("functionIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("functionIndex"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) GpuCommandStartIndex() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpuCommandStartIndex"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpuCommandStartIndex"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) Index() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("index"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) LoadTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("loadTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("loadTime"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) NumGPUCommands() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("numGPUCommands"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("numGPUCommands"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) PointerId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) StoreTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("storeTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("storeTime"))
 	return rv
 }
 func (g GTMioShaderProfilerEncoder) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTMioShaderProfilerEncoder) TimingInfo() IGTShaderProfilerTimingInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))
 }

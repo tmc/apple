@@ -38,7 +38,7 @@ func (ac AVAudioSessionCapabilityClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioSessionCapabilityClass) Alloc() AVAudioSessionCapability {
-	rv := objc.Send[AVAudioSessionCapability](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioSessionCapability](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,39 +78,39 @@ type IAVAudioSessionCapability interface {
 
 // Init initializes the instance.
 func (a AVAudioSessionCapability) Init() AVAudioSessionCapability {
-	rv := objc.Send[AVAudioSessionCapability](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioSessionCapability](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioSessionCapability) Autorelease() AVAudioSessionCapability {
-	rv := objc.Send[AVAudioSessionCapability](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioSessionCapability](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioSessionCapability creates a new AVAudioSessionCapability instance.
 func NewAVAudioSessionCapability() AVAudioSessionCapability {
 	class := getAVAudioSessionCapabilityClass()
-	rv := objc.Send[AVAudioSessionCapability](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioSessionCapability](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioSessionCapabilityWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
 	instance := getAVAudioSessionCapabilityClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
 	return AVAudioSessionCapabilityFromID(rv)
 }
 
 func (a AVAudioSessionCapability) InitWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
-	rv := objc.Send[AVAudioSessionCapability](a.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
+	rv := objc.SendIfResponds[AVAudioSessionCapability](a.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
 	return rv
 }
 
 func (a AVAudioSessionCapability) Enabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("enabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("enabled"))
 	return rv
 }
 func (a AVAudioSessionCapability) Supported() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("supported"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("supported"))
 	return rv
 }

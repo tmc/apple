@@ -10,6 +10,9 @@ import (
 // ECAuthenticationMessageSignable protocol.
 type ECAuthenticationMessageSignable interface {
 	objectivec.IObject
+
+	// AddToSigningContext protocol.
+	AddToSigningContext(context objectivec.IObject)
 }
 
 // ECAuthenticationMessageSignableObject wraps an existing Objective-C object that conforms to the ECAuthenticationMessageSignable protocol.
@@ -30,5 +33,5 @@ func ECAuthenticationMessageSignableObjectFromID(id objc.ID) ECAuthenticationMes
 }
 
 func (o ECAuthenticationMessageSignableObject) AddToSigningContext(context objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("addToSigningContext:"), context)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("addToSigningContext:"), context)
 }

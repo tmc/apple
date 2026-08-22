@@ -39,7 +39,7 @@ func (vc VZVNCAuthenticationSecurityConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVNCAuthenticationSecurityConfigurationClass) Alloc() VZVNCAuthenticationSecurityConfiguration {
-	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVNCAuthenticationSecurityConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IVZVNCAuthenticationSecurityConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVNCAuthenticationSecurityConfiguration) Init() VZVNCAuthenticationSecurityConfiguration {
-	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVNCAuthenticationSecurityConfiguration) Autorelease() VZVNCAuthenticationSecurityConfiguration {
-	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVNCAuthenticationSecurityConfiguration creates a new VZVNCAuthenticationSecurityConfiguration instance.
 func NewVZVNCAuthenticationSecurityConfiguration() VZVNCAuthenticationSecurityConfiguration {
 	class := getVZVNCAuthenticationSecurityConfigurationClass()
-	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVNCAuthenticationSecurityConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZVNCAuthenticationSecurityConfigurationWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
 	instance := getVZVNCAuthenticationSecurityConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassword:"), password)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPassword:"), password)
 	return VZVNCAuthenticationSecurityConfigurationFromID(rv)
 }
 
 func (v VZVNCAuthenticationSecurityConfiguration) InitWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
-	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("initWithPassword:"), password)
+	rv := objc.SendIfResponds[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("initWithPassword:"), password)
 	return rv
 }
 
 func (v VZVNCAuthenticationSecurityConfiguration) Password() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("password"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("password"))
 	return foundation.NSStringFromID(rv).String()
 }

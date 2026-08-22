@@ -39,7 +39,7 @@ func (sc SLWindowMirroringContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLWindowMirroringContextClass) Alloc() SLWindowMirroringContext {
-	rv := objc.Send[SLWindowMirroringContext](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLWindowMirroringContext](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,75 +109,75 @@ type ISLWindowMirroringContext interface {
 
 // Init initializes the instance.
 func (s SLWindowMirroringContext) Init() SLWindowMirroringContext {
-	rv := objc.Send[SLWindowMirroringContext](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLWindowMirroringContext](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLWindowMirroringContext) Autorelease() SLWindowMirroringContext {
-	rv := objc.Send[SLWindowMirroringContext](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLWindowMirroringContext](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLWindowMirroringContext creates a new SLWindowMirroringContext instance.
 func NewSLWindowMirroringContext() SLWindowMirroringContext {
 	class := getSLWindowMirroringContextClass()
-	rv := objc.Send[SLWindowMirroringContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLWindowMirroringContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLWindowMirroringContextWithDisplay(display objectivec.IObject) SLWindowMirroringContext {
 	instance := getSLWindowMirroringContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
 	return SLWindowMirroringContextFromID(rv)
 }
 
 func (s SLWindowMirroringContext) CurrentSession() {
-	objc.Send[objc.ID](s.ID, objc.Sel("currentSession"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("currentSession"))
 }
 func (s SLWindowMirroringContext) CurrentShieldWindowID() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("currentShieldWindowID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("currentShieldWindowID"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLWindowMirroringContext) Extend() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("extend"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("extend"))
 	return rv
 }
 func (s SLWindowMirroringContext) Filter() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("filter"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLWindowMirroringContext) MirrorTo(to objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("mirrorTo:"), to)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("mirrorTo:"), to)
 	return rv
 }
 func (s SLWindowMirroringContext) MirrorToWithFilterShowCursor(to objectivec.IObject, filter objectivec.IObject, cursor bool) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("mirrorTo:withFilter:showCursor:"), to, filter, cursor)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("mirrorTo:withFilter:showCursor:"), to, filter, cursor)
 	return rv
 }
 func (s SLWindowMirroringContext) ResetSession() {
-	objc.Send[objc.ID](s.ID, objc.Sel("resetSession"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("resetSession"))
 }
 func (s SLWindowMirroringContext) SetupSession() {
-	objc.Send[objc.ID](s.ID, objc.Sel("setupSession"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setupSession"))
 }
 func (s SLWindowMirroringContext) InitWithDisplay(display objectivec.IObject) SLWindowMirroringContext {
-	rv := objc.Send[SLWindowMirroringContext](s.ID, objc.Sel("initWithDisplay:"), display)
+	rv := objc.SendIfResponds[SLWindowMirroringContext](s.ID, objc.Sel("initWithDisplay:"), display)
 	return rv
 }
 
 func (s SLWindowMirroringContext) DisplayID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLWindowMirroringContext) ShieldWindowID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindowID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("shieldWindowID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLWindowMirroringContext) SetShieldWindowID(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setShieldWindowID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setShieldWindowID:"), value)
 }
 func (s SLWindowMirroringContext) SrcDisplayID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("srcDisplayID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("srcDisplayID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

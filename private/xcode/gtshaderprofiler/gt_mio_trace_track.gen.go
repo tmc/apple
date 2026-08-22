@@ -40,7 +40,7 @@ func (gc GTMioTraceTrackClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceTrackClass) Alloc() GTMioTraceTrack {
-	rv := objc.Send[GTMioTraceTrack](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceTrack](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,7 +93,7 @@ type IGTMioTraceTrack interface {
 
 	// Topic: Methods
 
-	Context() unsafe.Pointer
+	Context() *GTMioCostContext
 	Duration() uint64
 	EndTimestamp() uint64
 	FirstIndex() uint64
@@ -110,76 +110,76 @@ type IGTMioTraceTrack interface {
 
 // Init initializes the instance.
 func (g GTMioTraceTrack) Init() GTMioTraceTrack {
-	rv := objc.Send[GTMioTraceTrack](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceTrack](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceTrack) Autorelease() GTMioTraceTrack {
-	rv := objc.Send[GTMioTraceTrack](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceTrack](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceTrack creates a new GTMioTraceTrack instance.
 func NewGTMioTraceTrack() GTMioTraceTrack {
 	class := getGTMioTraceTrackClass()
-	rv := objc.Send[GTMioTraceTrack](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceTrack {
 	instance := getGTMioTraceTrackClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return GTMioTraceTrackFromID(rv)
 }
 
 func (g GTMioTraceTrack) LaneIdForStartEnd(start uint64, end uint64) int {
-	rv := objc.Send[int](g.ID, objc.Sel("laneIdForStart:end:"), start, end)
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("laneIdForStart:end:"), start, end)
 	return rv
 }
 func (g GTMioTraceTrack) TakeEndIndex(take uint64, end uint64, index uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("take:end:index:"), take, end, index)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("take:end:index:"), take, end, index)
 }
 func (g GTMioTraceTrack) TakeEndIndexLaneId(take uint64, end uint64, index uint64, id int) {
-	objc.Send[objc.ID](g.ID, objc.Sel("take:end:index:laneId:"), take, end, index, id)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("take:end:index:laneId:"), take, end, index, id)
 }
 func (g GTMioTraceTrack) TakeEndIndexesBeginIndexesEndLaneId(take uint64, end uint64, begin uint64, end2 uint64, id int) {
-	objc.Send[objc.ID](g.ID, objc.Sel("take:end:indexesBegin:indexesEnd:laneId:"), take, end, begin, end2, id)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("take:end:indexesBegin:indexesEnd:laneId:"), take, end, begin, end2, id)
 }
 func (g GTMioTraceTrack) InitWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceTrack {
-	rv := objc.Send[GTMioTraceTrack](g.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
+	rv := objc.SendIfResponds[GTMioTraceTrack](g.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
 	return rv
 }
 
-func (g GTMioTraceTrack) Context() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("context"))
-	return rv
+func (g GTMioTraceTrack) Context() *GTMioCostContext {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("context"))
+	return (*GTMioCostContext)(rv)
 }
 func (g GTMioTraceTrack) Duration() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("duration"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("duration"))
 	return rv
 }
 func (g GTMioTraceTrack) EndTimestamp() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("endTimestamp"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("endTimestamp"))
 	return rv
 }
 func (g GTMioTraceTrack) FirstIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("firstIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("firstIndex"))
 	return rv
 }
 func (g GTMioTraceTrack) IsEmpty() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isEmpty"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isEmpty"))
 	return rv
 }
 func (g GTMioTraceTrack) Lanes() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("lanes"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("lanes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioTraceTrack) StartTimestamp() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("startTimestamp"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("startTimestamp"))
 	return rv
 }
 func (g GTMioTraceTrack) TrackId() int {
-	rv := objc.Send[int](g.ID, objc.Sel("trackId"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("trackId"))
 	return rv
 }

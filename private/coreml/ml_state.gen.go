@@ -41,7 +41,7 @@ func (mc MLStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLStateClass) Alloc() MLState {
-	rv := objc.Send[MLState](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLState](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,53 +87,53 @@ type IMLState interface {
 
 // Init initializes the instance.
 func (m MLState) Init() MLState {
-	rv := objc.Send[MLState](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLState](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLState) Autorelease() MLState {
-	rv := objc.Send[MLState](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLState](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLState creates a new MLState instance.
 func NewMLState() MLState {
 	class := getMLStateClass()
-	rv := objc.Send[MLState](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewStateWithBackings(backings objectivec.IObject) MLState {
 	instance := getMLStateClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackings:"), backings)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackings:"), backings)
 	return MLStateFromID(rv)
 }
 
 func (m MLState) GetMultiArrayWithHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("getMultiArrayWithHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("getMultiArrayWithHandler:"), _block0)
 }
 func (m MLState) InternalGetMultiArrayWithHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("internalGetMultiArrayWithHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("internalGetMultiArrayWithHandler:"), _block0)
 }
 func (m MLState) InitWithBackings(backings objectivec.IObject) MLState {
-	rv := objc.Send[MLState](m.ID, objc.Sel("initWithBackings:"), backings)
+	rv := objc.SendIfResponds[MLState](m.ID, objc.Sel("initWithBackings:"), backings)
 	return rv
 }
 
 func (_MLStateClass MLStateClass) EmptyState() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLStateClass.class), objc.Sel("emptyState"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLStateClass.class), objc.Sel("emptyState"))
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLState) Backings() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("backings"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("backings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLState) FeatureProviderRepresentation() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("featureProviderRepresentation"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("featureProviderRepresentation"))
 	return rv
 }
 

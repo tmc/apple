@@ -6,8 +6,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [EspressoTrainingInnerProductWeightsForMPS] class.
@@ -39,7 +39,7 @@ func (ec EspressoTrainingInnerProductWeightsForMPSClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoTrainingInnerProductWeightsForMPSClass) Alloc() EspressoTrainingInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoTrainingInnerProductWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,59 +77,59 @@ type IEspressoTrainingInnerProductWeightsForMPS interface {
 	// Topic: Methods
 
 	BiasesBuffer() unsafe.Pointer
-	SetBiasesBuffer(value kernel.Pointer)
+	SetBiasesBuffer(value unsafe.Pointer)
 	WeightsBuffer() unsafe.Pointer
-	SetWeightsBuffer(value kernel.Pointer)
-	InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS
+	SetWeightsBuffer(value unsafe.Pointer)
+	InitWithParamsForMode(params appleneuralengine.InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS
 }
 
 // Init initializes the instance.
 func (e EspressoTrainingInnerProductWeightsForMPS) Init() EspressoTrainingInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoTrainingInnerProductWeightsForMPS) Autorelease() EspressoTrainingInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoTrainingInnerProductWeightsForMPS creates a new EspressoTrainingInnerProductWeightsForMPS instance.
 func NewEspressoTrainingInnerProductWeightsForMPS() EspressoTrainingInnerProductWeightsForMPS {
 	class := getEspressoTrainingInnerProductWeightsForMPSClass()
-	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoTrainingInnerProductWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewEspressoTrainingInnerProductWeightsForMPSWithParams(params InnerProductUniforms) EspressoTrainingInnerProductWeightsForMPS {
+func NewEspressoTrainingInnerProductWeightsForMPSWithParams(params appleneuralengine.InnerProductUniforms) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
-func NewEspressoTrainingInnerProductWeightsForMPSWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
+func NewEspressoTrainingInnerProductWeightsForMPSWithParamsForMode(params appleneuralengine.InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
-func (e EspressoTrainingInnerProductWeightsForMPS) InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
+func (e EspressoTrainingInnerProductWeightsForMPS) InitWithParamsForMode(params appleneuralengine.InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
+	rv := objc.SendIfResponds[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return rv
 }
 
 func (e EspressoTrainingInnerProductWeightsForMPS) BiasesBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
 	return rv
 }
-func (e EspressoTrainingInnerProductWeightsForMPS) SetBiasesBuffer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
+func (e EspressoTrainingInnerProductWeightsForMPS) SetBiasesBuffer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
 func (e EspressoTrainingInnerProductWeightsForMPS) WeightsBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
 	return rv
 }
-func (e EspressoTrainingInnerProductWeightsForMPS) SetWeightsBuffer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
+func (e EspressoTrainingInnerProductWeightsForMPS) SetWeightsBuffer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }

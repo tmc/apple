@@ -39,7 +39,7 @@ func (ac ANEAnalyticsProcedureClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEAnalyticsProcedureClass) Alloc() ANEAnalyticsProcedure {
-	rv := objc.Send[ANEAnalyticsProcedure](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEAnalyticsProcedure](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,52 +85,52 @@ type IANEAnalyticsProcedure interface {
 
 // Init initializes the instance.
 func (a ANEAnalyticsProcedure) Init() ANEAnalyticsProcedure {
-	rv := objc.Send[ANEAnalyticsProcedure](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEAnalyticsProcedure](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEAnalyticsProcedure) Autorelease() ANEAnalyticsProcedure {
-	rv := objc.Send[ANEAnalyticsProcedure](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEAnalyticsProcedure](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEAnalyticsProcedure creates a new ANEAnalyticsProcedure instance.
 func NewANEAnalyticsProcedure() ANEAnalyticsProcedure {
 	class := getANEAnalyticsProcedureClass()
-	rv := objc.Send[ANEAnalyticsProcedure](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEAnalyticsProcedure](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEAnalyticsProcedureWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
 	instance := getANEAnalyticsProcedureClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
 	return ANEAnalyticsProcedureFromID(rv)
 }
 
 func (a ANEAnalyticsProcedure) Serialize() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEAnalyticsProcedure) InitWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
-	rv := objc.Send[ANEAnalyticsProcedure](a.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
+	rv := objc.SendIfResponds[ANEAnalyticsProcedure](a.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
 	return rv
 }
 
 func (_ANEAnalyticsProcedureClass ANEAnalyticsProcedureClass) ObjectWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsProcedureClass.class), objc.Sel("objectWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEAnalyticsProcedureClass.class), objc.Sel("objectWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEAnalyticsProcedure) GroupInfo() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupInfo"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("groupInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEAnalyticsProcedure) Identifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEAnalyticsProcedure) ProcedureMetrics() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureMetrics"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureMetrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

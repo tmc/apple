@@ -39,7 +39,7 @@ func (ec ETOpaqueCopyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETOpaqueCopyClass) Alloc() ETOpaqueCopy {
-	rv := objc.Send[ETOpaqueCopy](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETOpaqueCopy](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,34 +76,34 @@ type IETOpaqueCopy interface {
 
 // Init initializes the instance.
 func (e ETOpaqueCopy) Init() ETOpaqueCopy {
-	rv := objc.Send[ETOpaqueCopy](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETOpaqueCopy](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETOpaqueCopy) Autorelease() ETOpaqueCopy {
-	rv := objc.Send[ETOpaqueCopy](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETOpaqueCopy](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETOpaqueCopy creates a new ETOpaqueCopy instance.
 func NewETOpaqueCopy() ETOpaqueCopy {
 	class := getETOpaqueCopyClass()
-	rv := objc.Send[ETOpaqueCopy](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETOpaqueCopy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETOpaqueCopyWithAbstractBlobContainer(container unsafe.Pointer) ETOpaqueCopy {
 	instance := getETOpaqueCopyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
 	return ETOpaqueCopyFromID(rv)
 }
 
 func (e ETOpaqueCopy) GetBlob() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("getBlob"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("getBlob"))
 	return rv
 }
 func (e ETOpaqueCopy) InitWithAbstractBlobContainer(container unsafe.Pointer) ETOpaqueCopy {
-	rv := objc.Send[ETOpaqueCopy](e.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
+	rv := objc.SendIfResponds[ETOpaqueCopy](e.ID, objc.Sel("initWithAbstractBlobContainer:"), container)
 	return rv
 }

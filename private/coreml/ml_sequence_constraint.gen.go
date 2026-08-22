@@ -41,7 +41,7 @@ func (mc MLSequenceConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSequenceConstraintClass) Alloc() MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSequenceConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,20 +75,20 @@ type IMLSequenceConstraint interface {
 
 // Init initializes the instance.
 func (m MLSequenceConstraint) Init() MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSequenceConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSequenceConstraint) Autorelease() MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSequenceConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSequenceConstraint creates a new MLSequenceConstraint instance.
 func NewMLSequenceConstraint() MLSequenceConstraint {
 	class := getMLSequenceConstraintClass()
-	rv := objc.Send[MLSequenceConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSequenceConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -107,6 +107,6 @@ func (m MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (boo
 }
 
 func (_MLSequenceConstraintClass MLSequenceConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLSequenceConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLSequenceConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

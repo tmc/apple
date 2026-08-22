@@ -39,7 +39,7 @@ func (mc MLCeilBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCeilBrickClass) Alloc() MLCeilBrick {
-	rv := objc.Send[MLCeilBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCeilBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,74 +106,74 @@ type IMLCeilBrick interface {
 
 // Init initializes the instance.
 func (m MLCeilBrick) Init() MLCeilBrick {
-	rv := objc.Send[MLCeilBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCeilBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCeilBrick) Autorelease() MLCeilBrick {
-	rv := objc.Send[MLCeilBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCeilBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCeilBrick creates a new MLCeilBrick instance.
 func NewMLCeilBrick() MLCeilBrick {
 	class := getMLCeilBrickClass()
-	rv := objc.Send[MLCeilBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCeilBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCeilBrickWithParameters(parameters objectivec.IObject) MLCeilBrick {
 	instance := getMLCeilBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCeilBrickFromID(rv)
 }
 
 func (m MLCeilBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLCeilBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLCeilBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLCeilBrick) InitWithParameters(parameters objectivec.IObject) MLCeilBrick {
-	rv := objc.Send[MLCeilBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLCeilBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLCeilBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCeilBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCeilBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLCeilBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCeilBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCeilBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCeilBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCeilBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

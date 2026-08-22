@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationRectResultClass) Class() objc.Class 
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationRectResultClass) Alloc() SLSBridgedWindowManagementOperationRectResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRectResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRectResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWindowManagementOperationRectResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationRectResult) Init() SLSBridgedWindowManagementOperationRectResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationRectResult) Autorelease() SLSBridgedWindowManagementOperationRectResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationRectResult creates a new SLSBridgedWindowManagementOperationRectResult instance.
 func NewSLSBridgedWindowManagementOperationRectResult() SLSBridgedWindowManagementOperationRectResult {
 	class := getSLSBridgedWindowManagementOperationRectResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationRectResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRectResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationRectResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationRectResult {
 	instance := getSLSBridgedWindowManagementOperationRectResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationRectResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationRectResultWithRect(rect corefoundation.CGRect) SLSBridgedWindowManagementOperationRectResult {
 	instance := getSLSBridgedWindowManagementOperationRectResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRect:"), rect)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRect:"), rect)
 	return SLSBridgedWindowManagementOperationRectResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationRectResult) InitWithRect(rect corefoundation.CGRect) SLSBridgedWindowManagementOperationRectResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("initWithRect:"), rect)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationRectResult](s.ID, objc.Sel("initWithRect:"), rect)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationRectResult) Rect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }

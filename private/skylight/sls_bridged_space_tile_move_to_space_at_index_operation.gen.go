@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass) Alloc() SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
-	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,49 +81,49 @@ type ISLSBridgedSpaceTileMoveToSpaceAtIndexOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) Init() SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
-	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) Autorelease() SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
-	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperation creates a new SLSBridgedSpaceTileMoveToSpaceAtIndexOperation instance.
 func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperation() SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	class := getSLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass()
-	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	instance := getSLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceTileMoveToSpaceAtIndexOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceTileMoveToSpaceAtIndexOperationWithTileIDParentIDIndex(id uint64, id2 uint64, index uint64) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
 	instance := getSLSBridgedSpaceTileMoveToSpaceAtIndexOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
 	return SLSBridgedSpaceTileMoveToSpaceAtIndexOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) InitWithTileIDParentIDIndex(id uint64, id2 uint64, index uint64) SLSBridgedSpaceTileMoveToSpaceAtIndexOperation {
-	rv := objc.Send[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
+	rv := objc.SendIfResponds[SLSBridgedSpaceTileMoveToSpaceAtIndexOperation](s.ID, objc.Sel("initWithTileID:parentID:index:"), id, id2, index)
 	return rv
 }
 
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) Index() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("index"))
 	return rv
 }
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) ParentID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("parentID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("parentID"))
 	return rv
 }
 func (s SLSBridgedSpaceTileMoveToSpaceAtIndexOperation) TileID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("tileID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("tileID"))
 	return rv
 }

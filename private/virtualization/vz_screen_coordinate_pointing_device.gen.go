@@ -38,7 +38,7 @@ func (vc VZScreenCoordinatePointingDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZScreenCoordinatePointingDeviceClass) Alloc() VZScreenCoordinatePointingDevice {
-	rv := objc.Send[VZScreenCoordinatePointingDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointingDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,29 +72,29 @@ type IVZScreenCoordinatePointingDevice interface {
 
 // Init initializes the instance.
 func (v VZScreenCoordinatePointingDevice) Init() VZScreenCoordinatePointingDevice {
-	rv := objc.Send[VZScreenCoordinatePointingDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointingDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZScreenCoordinatePointingDevice) Autorelease() VZScreenCoordinatePointingDevice {
-	rv := objc.Send[VZScreenCoordinatePointingDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointingDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZScreenCoordinatePointingDevice creates a new VZScreenCoordinatePointingDevice instance.
 func NewVZScreenCoordinatePointingDevice() VZScreenCoordinatePointingDevice {
 	class := getVZScreenCoordinatePointingDeviceClass()
-	rv := objc.Send[VZScreenCoordinatePointingDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZScreenCoordinatePointingDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZScreenCoordinatePointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZScreenCoordinatePointingDevice {
 	instance := getVZScreenCoordinatePointingDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZScreenCoordinatePointingDeviceFromID(rv)
 }
 
 func (v VZScreenCoordinatePointingDevice) SendPointerEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendPointerEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendPointerEvents:"), events)
 }

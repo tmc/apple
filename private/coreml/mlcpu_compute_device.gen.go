@@ -39,7 +39,7 @@ func (mc MLCPUComputeDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCPUComputeDeviceClass) Alloc() MLCPUComputeDevice {
-	rv := objc.Send[MLCPUComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCPUComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,41 +82,41 @@ type IMLCPUComputeDevice interface {
 
 // Init initializes the instance.
 func (m MLCPUComputeDevice) Init() MLCPUComputeDevice {
-	rv := objc.Send[MLCPUComputeDevice](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCPUComputeDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCPUComputeDevice) Autorelease() MLCPUComputeDevice {
-	rv := objc.Send[MLCPUComputeDevice](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCPUComputeDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCPUComputeDevice creates a new MLCPUComputeDevice instance.
 func NewMLCPUComputeDevice() MLCPUComputeDevice {
 	class := getMLCPUComputeDeviceClass()
-	rv := objc.Send[MLCPUComputeDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCPUComputeDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLCPUComputeDeviceClass MLCPUComputeDeviceClass) PhysicalDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCPUComputeDeviceClass.class), objc.Sel("physicalDevice"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCPUComputeDeviceClass.class), objc.Sel("physicalDevice"))
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLCPUComputeDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCPUComputeDevice) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCPUComputeDevice) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLCPUComputeDevice) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

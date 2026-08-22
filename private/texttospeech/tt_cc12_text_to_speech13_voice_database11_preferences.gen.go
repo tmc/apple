@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCC12TextToSpeech13VoiceDatabase11Preferences] class.
+// The class instance for the [Preferences] class.
 var (
-	_TtCC12TextToSpeech13VoiceDatabase11PreferencesClass     TtCC12TextToSpeech13VoiceDatabase11PreferencesClass
-	_TtCC12TextToSpeech13VoiceDatabase11PreferencesClassOnce sync.Once
+	_PreferencesClass     PreferencesClass
+	_PreferencesClassOnce sync.Once
 )
 
-func getTtCC12TextToSpeech13VoiceDatabase11PreferencesClass() TtCC12TextToSpeech13VoiceDatabase11PreferencesClass {
-	_TtCC12TextToSpeech13VoiceDatabase11PreferencesClassOnce.Do(func() {
-		_TtCC12TextToSpeech13VoiceDatabase11PreferencesClass = TtCC12TextToSpeech13VoiceDatabase11PreferencesClass{class: objc.GetClass("_TtCC12TextToSpeech13VoiceDatabase11Preferences")}
+func getPreferencesClass() PreferencesClass {
+	_PreferencesClassOnce.Do(func() {
+		_PreferencesClass = PreferencesClass{class: objc.GetClass("_TtCC12TextToSpeech13VoiceDatabase11Preferences")}
 	})
-	return _TtCC12TextToSpeech13VoiceDatabase11PreferencesClass
+	return _PreferencesClass
 }
 
-// GetTtCC12TextToSpeech13VoiceDatabase11PreferencesClass returns the class object for _TtCC12TextToSpeech13VoiceDatabase11Preferences.
-func GetTtCC12TextToSpeech13VoiceDatabase11PreferencesClass() TtCC12TextToSpeech13VoiceDatabase11PreferencesClass {
-	return getTtCC12TextToSpeech13VoiceDatabase11PreferencesClass()
+// GetPreferencesClass returns the class object for _TtCC12TextToSpeech13VoiceDatabase11Preferences.
+func GetPreferencesClass() PreferencesClass {
+	return getPreferencesClass()
 }
 
-type TtCC12TextToSpeech13VoiceDatabase11PreferencesClass struct {
+type PreferencesClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC12TextToSpeech13VoiceDatabase11PreferencesClass) Class() objc.Class {
-	return tc.class
+func (pc PreferencesClass) Class() objc.Class {
+	return pc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC12TextToSpeech13VoiceDatabase11PreferencesClass) Alloc() TtCC12TextToSpeech13VoiceDatabase11Preferences {
-	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](objc.ID(tc.class), objc.Sel("alloc"))
+func (pc PreferencesClass) Alloc() Preferences {
+	rv := objc.SendIfResponds[Preferences](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC12TextToSpeech13VoiceDatabase11Preferences struct {
+type Preferences struct {
 	objectivec.Object
 }
 
-// TtCC12TextToSpeech13VoiceDatabase11PreferencesFromID constructs a [TtCC12TextToSpeech13VoiceDatabase11Preferences] from an objc.ID.
-func TtCC12TextToSpeech13VoiceDatabase11PreferencesFromID(id objc.ID) TtCC12TextToSpeech13VoiceDatabase11Preferences {
-	return TtCC12TextToSpeech13VoiceDatabase11Preferences{objectivec.Object{ID: id}}
+// PreferencesFromID constructs a [Preferences] from an objc.ID.
+func PreferencesFromID(id objc.ID) Preferences {
+	return Preferences{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCC12TextToSpeech13VoiceDatabase11Preferences struct embeds objectivec.Object (parent type unavailable) but
-// ITtCC12TextToSpeech13VoiceDatabase11Preferences embeds the parent interface; skip compile-time assertion.
+// Ensure Preferences implements IPreferences.
+var _ IPreferences = Preferences{}
 
-// An interface definition for the [TtCC12TextToSpeech13VoiceDatabase11Preferences] class.
-type ITtCC12TextToSpeech13VoiceDatabase11Preferences interface {
+// An interface definition for the [Preferences] class.
+type IPreferences interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCC12TextToSpeech13VoiceDatabase11Preferences) Init() TtCC12TextToSpeech13VoiceDatabase11Preferences {
-	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](t.ID, objc.Sel("init"))
+func (p Preferences) Init() Preferences {
+	rv := objc.SendIfResponds[Preferences](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC12TextToSpeech13VoiceDatabase11Preferences) Autorelease() TtCC12TextToSpeech13VoiceDatabase11Preferences {
-	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](t.ID, objc.Sel("autorelease"))
+func (p Preferences) Autorelease() Preferences {
+	rv := objc.SendIfResponds[Preferences](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC12TextToSpeech13VoiceDatabase11Preferences creates a new TtCC12TextToSpeech13VoiceDatabase11Preferences instance.
-func NewTtCC12TextToSpeech13VoiceDatabase11Preferences() TtCC12TextToSpeech13VoiceDatabase11Preferences {
-	class := getTtCC12TextToSpeech13VoiceDatabase11PreferencesClass()
-	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](objc.ID(class.class), objc.Sel("new"))
+// NewPreferences creates a new Preferences instance.
+func NewPreferences() Preferences {
+	class := getPreferencesClass()
+	rv := objc.SendIfResponds[Preferences](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

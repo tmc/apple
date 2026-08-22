@@ -39,7 +39,7 @@ func (ec EspressoProfilingLayerInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingLayerInfoClass) Alloc() EspressoProfilingLayerInfo {
-	rv := objc.Send[EspressoProfilingLayerInfo](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerInfo](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -112,69 +112,69 @@ type IEspressoProfilingLayerInfo interface {
 
 // Init initializes the instance.
 func (e EspressoProfilingLayerInfo) Init() EspressoProfilingLayerInfo {
-	rv := objc.Send[EspressoProfilingLayerInfo](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerInfo](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoProfilingLayerInfo) Autorelease() EspressoProfilingLayerInfo {
-	rv := objc.Send[EspressoProfilingLayerInfo](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerInfo](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoProfilingLayerInfo creates a new EspressoProfilingLayerInfo instance.
 func NewEspressoProfilingLayerInfo() EspressoProfilingLayerInfo {
 	class := getEspressoProfilingLayerInfoClass()
-	rv := objc.Send[EspressoProfilingLayerInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoProfilingLayerInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoProfilingLayerInfo) Average_runtime() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("average_runtime"))
+	rv := objc.SendIfResponds[float64](e.ID, objc.Sel("average_runtime"))
 	return rv
 }
 func (e EspressoProfilingLayerInfo) SetAverage_runtime(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setAverage_runtime:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setAverage_runtime:"), value)
 }
 func (e EspressoProfilingLayerInfo) Debug_name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debug_name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("debug_name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoProfilingLayerInfo) SetDebug_name(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDebug_name:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDebug_name:"), objc.String(value))
 }
 func (e EspressoProfilingLayerInfo) Main_engine_support() IEspressoProfilingLayerSupportInfo {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("main_engine_support"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("main_engine_support"))
 	return EspressoProfilingLayerSupportInfoFromID(objc.ID(rv))
 }
 func (e EspressoProfilingLayerInfo) SetMain_engine_support(value IEspressoProfilingLayerSupportInfo) {
-	objc.Send[struct{}](e.ID, objc.Sel("setMain_engine_support:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMain_engine_support:"), value)
 }
 func (e EspressoProfilingLayerInfo) Name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoProfilingLayerInfo) SetName(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (e EspressoProfilingLayerInfo) Per_platform_support() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("per_platform_support"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("per_platform_support"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoProfilingLayerInfo) SetPer_platform_support(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPer_platform_support:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setPer_platform_support:"), value)
 }
 func (e EspressoProfilingLayerInfo) Runtimes() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("runtimes"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("runtimes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoProfilingLayerInfo) SetRuntimes(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRuntimes:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRuntimes:"), value)
 }
 func (e EspressoProfilingLayerInfo) Selected_runtime_engine() int {
-	rv := objc.Send[int](e.ID, objc.Sel("selected_runtime_engine"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("selected_runtime_engine"))
 	return rv
 }
 func (e EspressoProfilingLayerInfo) SetSelected_runtime_engine(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setSelected_runtime_engine:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSelected_runtime_engine:"), value)
 }

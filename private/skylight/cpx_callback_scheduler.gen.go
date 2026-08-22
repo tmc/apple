@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXCallbackSchedulerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXCallbackSchedulerClass) Alloc() CPXCallbackScheduler {
-	rv := objc.Send[CPXCallbackScheduler](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXCallbackScheduler](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,10 +89,10 @@ type ICPXCallbackScheduler interface {
 
 	DescheduleForceLogoutCallback()
 	DescheduleKillProcessCallback()
-	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
+	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec)
 	ScheduleForceLogoutCallbackForTime(time float64)
 	ScheduleKillProcessCallbackForTime(time float64)
-	InitWithSession(session CGXSession) CPXCallbackScheduler
+	InitWithSession(session *CGXSession) CPXCallbackScheduler
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -100,62 +101,62 @@ type ICPXCallbackScheduler interface {
 
 // Init initializes the instance.
 func (c CPXCallbackScheduler) Init() CPXCallbackScheduler {
-	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXCallbackScheduler](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXCallbackScheduler) Autorelease() CPXCallbackScheduler {
-	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXCallbackScheduler](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXCallbackScheduler creates a new CPXCallbackScheduler instance.
 func NewCPXCallbackScheduler() CPXCallbackScheduler {
 	class := getCPXCallbackSchedulerClass()
-	rv := objc.Send[CPXCallbackScheduler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXCallbackScheduler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewCPXCallbackSchedulerWithSession(session CGXSession) CPXCallbackScheduler {
+func NewCPXCallbackSchedulerWithSession(session *CGXSession) CPXCallbackScheduler {
 	instance := getCPXCallbackSchedulerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return CPXCallbackSchedulerFromID(rv)
 }
 
 func (c CPXCallbackScheduler) DescheduleForceLogoutCallback() {
-	objc.Send[objc.ID](c.ID, objc.Sel("descheduleForceLogoutCallback"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("descheduleForceLogoutCallback"))
 }
 func (c CPXCallbackScheduler) DescheduleKillProcessCallback() {
-	objc.Send[objc.ID](c.ID, objc.Sel("descheduleKillProcessCallback"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
-	objc.Send[objc.ID](c.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
+func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), unsafe.Pointer(process))
 }
 func (c CPXCallbackScheduler) ScheduleForceLogoutCallbackForTime(time float64) {
-	objc.Send[objc.ID](c.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
 }
 func (c CPXCallbackScheduler) ScheduleKillProcessCallbackForTime(time float64) {
-	objc.Send[objc.ID](c.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
 }
-func (c CPXCallbackScheduler) InitWithSession(session CGXSession) CPXCallbackScheduler {
-	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("initWithSession:"), session)
+func (c CPXCallbackScheduler) InitWithSession(session *CGXSession) CPXCallbackScheduler {
+	rv := objc.SendIfResponds[CPXCallbackScheduler](c.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return rv
 }
 
 func (c CPXCallbackScheduler) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXCallbackScheduler) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXCallbackScheduler) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXCallbackScheduler) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

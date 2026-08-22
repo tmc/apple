@@ -40,7 +40,7 @@ func (gc GTMioTimelineCountersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTimelineCountersClass) Alloc() GTMioTimelineCounters {
-	rv := objc.Send[GTMioTimelineCounters](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTimelineCounters](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,39 +80,39 @@ type IGTMioTimelineCounters interface {
 
 // Init initializes the instance.
 func (g GTMioTimelineCounters) Init() GTMioTimelineCounters {
-	rv := objc.Send[GTMioTimelineCounters](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTimelineCounters](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTimelineCounters) Autorelease() GTMioTimelineCounters {
-	rv := objc.Send[GTMioTimelineCounters](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTimelineCounters](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTimelineCounters creates a new GTMioTimelineCounters instance.
 func NewGTMioTimelineCounters() GTMioTimelineCounters {
 	class := getGTMioTimelineCountersClass()
-	rv := objc.Send[GTMioTimelineCounters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTimelineCounters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTimelineCountersWithTimelineCountersScopeScopeIndex(counters unsafe.Pointer, scope uint16, index uint32) GTMioTimelineCounters {
 	instance := getGTMioTimelineCountersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimelineCounters:scope:scopeIndex:"), counters, scope, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTimelineCounters:scope:scopeIndex:"), counters, scope, index)
 	return GTMioTimelineCountersFromID(rv)
 }
 
 func (g GTMioTimelineCounters) CounterForName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterForName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("counterForName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTimelineCounters) InitWithTimelineCountersScopeScopeIndex(counters unsafe.Pointer, scope uint16, index uint32) GTMioTimelineCounters {
-	rv := objc.Send[GTMioTimelineCounters](g.ID, objc.Sel("initWithTimelineCounters:scope:scopeIndex:"), counters, scope, index)
+	rv := objc.SendIfResponds[GTMioTimelineCounters](g.ID, objc.Sel("initWithTimelineCounters:scope:scopeIndex:"), counters, scope, index)
 	return rv
 }
 
 func (g GTMioTimelineCounters) Counters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

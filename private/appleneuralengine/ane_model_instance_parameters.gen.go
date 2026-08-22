@@ -39,7 +39,7 @@ func (ac ANEModelInstanceParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEModelInstanceParametersClass) Alloc() ANEModelInstanceParameters {
-	rv := objc.Send[ANEModelInstanceParameters](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,61 +85,61 @@ type IANEModelInstanceParameters interface {
 
 // Init initializes the instance.
 func (a ANEModelInstanceParameters) Init() ANEModelInstanceParameters {
-	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEModelInstanceParameters) Autorelease() ANEModelInstanceParameters {
-	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEModelInstanceParameters creates a new ANEModelInstanceParameters instance.
 func NewANEModelInstanceParameters() ANEModelInstanceParameters {
 	class := getANEModelInstanceParametersClass()
-	rv := objc.Send[ANEModelInstanceParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEModelInstanceParametersWithCoder(coder objectivec.IObject) ANEModelInstanceParameters {
 	instance := getANEModelInstanceParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEModelInstanceParametersFromID(rv)
 }
 
 func NewANEModelInstanceParametersWithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) ANEModelInstanceParameters {
 	instance := getANEModelInstanceParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
 	return ANEModelInstanceParametersFromID(rv)
 }
 
 func (a ANEModelInstanceParameters) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEModelInstanceParameters) InitWithCoder(coder foundation.INSCoder) ANEModelInstanceParameters {
-	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANEModelInstanceParameters) InitWithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) ANEModelInstanceParameters {
-	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
+	rv := objc.SendIfResponds[ANEModelInstanceParameters](a.ID, objc.Sel("initWithProcedureData:procedureArray:"), data, array)
 	return rv
 }
 
 func (_ANEModelInstanceParametersClass ANEModelInstanceParametersClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_ANEModelInstanceParametersClass ANEModelInstanceParametersClass) WithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("withProcedureData:procedureArray:"), data, array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelInstanceParametersClass.class), objc.Sel("withProcedureData:procedureArray:"), data, array)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEModelInstanceParameters) InstanceName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("instanceName"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("instanceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEModelInstanceParameters) ProcedureArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureArray"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

@@ -40,7 +40,7 @@ func (gc GTMioTraceDataHelperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceDataHelperClass) Alloc() GTMioTraceDataHelper {
-	rv := objc.Send[GTMioTraceDataHelper](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceDataHelper](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -183,7 +183,7 @@ type IGTMioTraceDataHelper interface {
 	GenerateTopDrawTracks() objectivec.IObject
 	GenerateTopKickTracks() objectivec.IObject
 	GenerateTopRIATracks() objectivec.IObject
-	GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject
+	GenerateTrackForCliqueIndexesCountGroup(indexes *GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject
 	ShowDriverInternalShaders() bool
 	SetShowDriverInternalShaders(value bool)
 	ShowDriverIntersectionShaders() bool
@@ -197,31 +197,31 @@ type IGTMioTraceDataHelper interface {
 
 // Init initializes the instance.
 func (g GTMioTraceDataHelper) Init() GTMioTraceDataHelper {
-	rv := objc.Send[GTMioTraceDataHelper](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceDataHelper](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceDataHelper) Autorelease() GTMioTraceDataHelper {
-	rv := objc.Send[GTMioTraceDataHelper](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceDataHelper](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceDataHelper creates a new GTMioTraceDataHelper instance.
 func NewGTMioTraceDataHelper() GTMioTraceDataHelper {
 	class := getGTMioTraceDataHelperClass()
-	rv := objc.Send[GTMioTraceDataHelper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceDataHelper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceDataHelperWithTraceData(data objectivec.IObject) GTMioTraceDataHelper {
 	instance := getGTMioTraceDataHelperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
 	return GTMioTraceDataHelperFromID(rv)
 }
 
 func (g GTMioTraceDataHelper) _cachePerEncoderShaderTracks() {
-	objc.Send[objc.ID](g.ID, objc.Sel("_cachePerEncoderShaderTracks"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_cachePerEncoderShaderTracks"))
 }
 
 // CachePerEncoderShaderTracks is an exported wrapper for the private method _cachePerEncoderShaderTracks.
@@ -239,171 +239,171 @@ func (g GTMioTraceDataHelper) CanCachePerEncoderShaderTracks() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_cachePerEncoderShaderTracks"))
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedCliqueTrackForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedCliqueTrackForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedCliqueTrackForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedDrawTrackForEncoder(encoder uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedDrawTrackForEncoder:"), encoder)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedDrawTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedPerBinaryShaderTrackForEncoder(encoder uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedPerBinaryShaderTrackForEncoder:"), encoder)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedPerBinaryShaderTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMaster(master uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMaster:"), master)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMaster:"), master)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMasterWithBinaries(binaries uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithBinaries:"), binaries)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithBinaries:"), binaries)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMasterWithCliques(cliques uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithCliques:"), cliques)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithCliques:"), cliques)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForEncoder(encoder uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForEncoder:"), encoder)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateDataMaster(state uint64, master uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:dataMaster:"), state, master)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:dataMaster:"), state, master)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndex(state uint64, index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:"), state, index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:"), state, index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndexCacheKeyDataMaster(state uint64, index uint32, key uint64, master uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:dataMaster:"), state, index, key, master)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:dataMaster:"), state, index, key, master)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndexCacheKeyProgramType(state uint64, index uint32, key uint64, type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:programType:"), state, index, key, type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:programType:"), state, index, key, type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateProgramType(state uint64, type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:programType:"), state, type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:programType:"), state, type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateBinaryTrack(track uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateBinaryTrack:"), track)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateBinaryTrack:"), track)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateCliqueInstructionTracksForShaderProgramTypeUscIndex(shader uint64, type_ uint16, index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForShader:programType:uscIndex:"), shader, type_, index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForShader:programType:uscIndex:"), shader, type_, index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateCliqueInstructionTracksForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateCliqueTracksForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueTracksForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateCliqueTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateEncoderShaderTracks(tracks uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateEncoderShaderTracks:"), tracks)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateEncoderShaderTracks:"), tracks)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateIndividualShaderTrackForProgramTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateIndividualShaderTrackForProgramTypes"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateIndividualShaderTrackForProgramTypes"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateKickTracksForMGPU(mgpu uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateKickTracksForMGPU:"), mgpu)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateKickTracksForMGPU:"), mgpu)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateKickTracksForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateKickTracksForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateKickTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramType(type_ uint16) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypes"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypes"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramTypesForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypesForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypesForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateShaderTracksForPipelineState(state uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTracksForPipelineState:"), state)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateShaderTracksForPipelineState:"), state)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateTileTracksForUSC(usc uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTileTracksForUSC:"), usc)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTileTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateTopBinaryTracks() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopBinaryTracks"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTopBinaryTracks"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateTopDrawTracks() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopDrawTracks"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTopDrawTracks"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateTopKickTracks() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopKickTracks"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTopKickTracks"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) GenerateTopRIATracks() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopRIATracks"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTopRIATracks"))
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes *GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject {
 	_block2, _ := NewVoidBlock(group)
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTrackForCliqueIndexes:count:group:"), indexes, count, _block2)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateTrackForCliqueIndexes:count:group:"), indexes, count, _block2)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) Stats() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("stats"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("stats"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioTraceDataHelper) InitWithTraceData(data objectivec.IObject) GTMioTraceDataHelper {
-	rv := objc.Send[GTMioTraceDataHelper](g.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[GTMioTraceDataHelper](g.ID, objc.Sel("initWithTraceData:"), data)
 	return rv
 }
 
 func (g GTMioTraceDataHelper) DoNotMergeProgramTypes() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("doNotMergeProgramTypes"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("doNotMergeProgramTypes"))
 	return rv
 }
 func (g GTMioTraceDataHelper) SetDoNotMergeProgramTypes(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDoNotMergeProgramTypes:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDoNotMergeProgramTypes:"), value)
 }
 func (g GTMioTraceDataHelper) ShowDriverInternalShaders() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("showDriverInternalShaders"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("showDriverInternalShaders"))
 	return rv
 }
 func (g GTMioTraceDataHelper) SetShowDriverInternalShaders(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setShowDriverInternalShaders:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setShowDriverInternalShaders:"), value)
 }
 func (g GTMioTraceDataHelper) ShowDriverIntersectionShaders() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("showDriverIntersectionShaders"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("showDriverIntersectionShaders"))
 	return rv
 }
 func (g GTMioTraceDataHelper) SetShowDriverIntersectionShaders(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setShowDriverIntersectionShaders:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setShowDriverIntersectionShaders:"), value)
 }
 func (g GTMioTraceDataHelper) ShowESLShaders() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("showESLShaders"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("showESLShaders"))
 	return rv
 }
 func (g GTMioTraceDataHelper) SetShowESLShaders(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setShowESLShaders:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setShowESLShaders:"), value)
 }
 func (g GTMioTraceDataHelper) TraceData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traceData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traceData"))
 	return rv
 }
 
 // GenerateTrackForCliqueIndexesCountGroupSync is a synchronous wrapper around [GTMioTraceDataHelper.GenerateTrackForCliqueIndexesCountGroup].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes GTMioUSCCliqueIndex, count uint64) error {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes *GTMioUSCCliqueIndex, count uint64) error {
 	done := make(chan struct{}, 1)
 	g.GenerateTrackForCliqueIndexesCountGroup(indexes, count, func() {
 		done <- struct{}{}

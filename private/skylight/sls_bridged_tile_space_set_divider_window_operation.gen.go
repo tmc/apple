@@ -38,7 +38,7 @@ func (sc SLSBridgedTileSpaceSetDividerWindowOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedTileSpaceSetDividerWindowOperationClass) Alloc() SLSBridgedTileSpaceSetDividerWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceSetDividerWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceSetDividerWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,53 +84,53 @@ type ISLSBridgedTileSpaceSetDividerWindowOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) Init() SLSBridgedTileSpaceSetDividerWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) Autorelease() SLSBridgedTileSpaceSetDividerWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedTileSpaceSetDividerWindowOperation creates a new SLSBridgedTileSpaceSetDividerWindowOperation instance.
 func NewSLSBridgedTileSpaceSetDividerWindowOperation() SLSBridgedTileSpaceSetDividerWindowOperation {
 	class := getSLSBridgedTileSpaceSetDividerWindowOperationClass()
-	rv := objc.Send[SLSBridgedTileSpaceSetDividerWindowOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceSetDividerWindowOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedTileSpaceSetDividerWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceSetDividerWindowOperation {
 	instance := getSLSBridgedTileSpaceSetDividerWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceSetDividerWindowOperationFromID(rv)
 }
 
 func NewSLSBridgedTileSpaceSetDividerWindowOperationWithSpaceIDDirectionWindowID(id uint64, direction uint64, id2 uint32) SLSBridgedTileSpaceSetDividerWindowOperation {
 	instance := getSLSBridgedTileSpaceSetDividerWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:direction:windowID:"), id, direction, id2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:direction:windowID:"), id, direction, id2)
 	return SLSBridgedTileSpaceSetDividerWindowOperationFromID(rv)
 }
 
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) MakeResultWithVerticalIndexHorizontalIndex(index uint64, index2 uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithVerticalIndex:horizontalIndex:"), index, index2)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithVerticalIndex:horizontalIndex:"), index, index2)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) InitWithSpaceIDDirectionWindowID(id uint64, direction uint64, id2 uint32) SLSBridgedTileSpaceSetDividerWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("initWithSpaceID:direction:windowID:"), id, direction, id2)
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceSetDividerWindowOperation](s.ID, objc.Sel("initWithSpaceID:direction:windowID:"), id, direction, id2)
 	return rv
 }
 
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) Direction() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("direction"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("direction"))
 	return rv
 }
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedTileSpaceSetDividerWindowOperation) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }

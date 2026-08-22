@@ -38,7 +38,7 @@ func (dc DIEncryptionUnlockerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIEncryptionUnlockerClass) Alloc() DIEncryptionUnlocker {
-	rv := objc.Send[DIEncryptionUnlocker](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIEncryptionUnlocker](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,31 +61,31 @@ type IDIEncryptionUnlocker interface {
 
 // Init initializes the instance.
 func (d DIEncryptionUnlocker) Init() DIEncryptionUnlocker {
-	rv := objc.Send[DIEncryptionUnlocker](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIEncryptionUnlocker](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIEncryptionUnlocker) Autorelease() DIEncryptionUnlocker {
-	rv := objc.Send[DIEncryptionUnlocker](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIEncryptionUnlocker](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIEncryptionUnlocker creates a new DIEncryptionUnlocker instance.
 func NewDIEncryptionUnlocker() DIEncryptionUnlocker {
 	class := getDIEncryptionUnlockerClass()
-	rv := objc.Send[DIEncryptionUnlocker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIEncryptionUnlocker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIEncryptionUnlockerWithCoder(coder objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionUnlockerFromID(rv)
 }
 
 func NewDIEncryptionUnlockerWithParams(params objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionUnlockerFromID(rv)
 }

@@ -42,7 +42,7 @@ func (dc DIConvertParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIConvertParamsClass) Alloc() DIConvertParams {
-	rv := objc.Send[DIConvertParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIConvertParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -205,30 +205,33 @@ type IDIConvertParams interface {
 
 // Init initializes the instance.
 func (d DIConvertParams) Init() DIConvertParams {
-	rv := objc.Send[DIConvertParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIConvertParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIConvertParams) Autorelease() DIConvertParams {
-	rv := objc.Send[DIConvertParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIConvertParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIConvertParams creates a new DIConvertParams instance.
 func NewDIConvertParams() DIConvertParams {
 	class := getDIConvertParamsClass()
-	rv := objc.Send[DIConvertParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIConvertParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIConvertParamsForInplaceWithExistingParamsError(params objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForInplaceWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForInplaceWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIConvertParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIConvertParams{}, objc.ErrInitFailed
 	}
 	return DIConvertParamsFromID(rv), nil
 }
@@ -236,27 +239,33 @@ func NewDIConvertParamsForInplaceWithExistingParamsError(params objectivec.IObje
 func NewDIConvertParamsForInplaceWithURLError(url foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForInplaceWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForInplaceWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIConvertParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIConvertParams{}, objc.ErrInitFailed
 	}
 	return DIConvertParamsFromID(rv), nil
 }
 
 func NewDIConvertParamsWithCoder(coder objectivec.IObject) DIConvertParams {
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIConvertParamsFromID(rv)
 }
 
 func NewDIConvertParamsWithInputURLOutputURLError(url foundation.NSURL, url2 foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:error:"), url, url2, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:error:"), url, url2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIConvertParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIConvertParams{}, objc.ErrInitFailed
 	}
 	return DIConvertParamsFromID(rv), nil
 }
@@ -264,10 +273,13 @@ func NewDIConvertParamsWithInputURLOutputURLError(url foundation.NSURL, url2 fou
 func NewDIConvertParamsWithInputURLOutputURLShadowURLsError(url foundation.NSURL, url2 foundation.NSURL, uRLs objectivec.IObject) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:shadowURLs:error:"), url, url2, uRLs, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputURL:outputURL:shadowURLs:error:"), url, url2, uRLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIConvertParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIConvertParams{}, objc.ErrInitFailed
 	}
 	return DIConvertParamsFromID(rv), nil
 }
@@ -275,17 +287,20 @@ func NewDIConvertParamsWithInputURLOutputURLShadowURLsError(url foundation.NSURL
 func NewDIConvertParamsWithURLError(url foundation.NSURL) (DIConvertParams, error) {
 	var errorPtr objc.ID
 	instance := getDIConvertParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIConvertParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIConvertParams{}, objc.ErrInitFailed
 	}
 	return DIConvertParamsFromID(rv), nil
 }
 
 func (d DIConvertParams) ConvertWithCompletionBlock(block VoidHandler) objectivec.IObject {
 	_block0, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("convertWithCompletionBlock:"), _block0)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("convertWithCompletionBlock:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 func (d DIConvertParams) CopyUpdatedOutputURLWithError() (objectivec.IObject, error) {
@@ -299,7 +314,7 @@ func (d DIConvertParams) CopyUpdatedOutputURLWithError() (objectivec.IObject, er
 
 }
 func (d DIConvertParams) IsInputURLDevice() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isInputURLDevice"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isInputURLDevice"))
 	return rv
 }
 func (d DIConvertParams) OnConvertCompletionWithInErrorOutError(error_ objectivec.IObject) (bool, error) {
@@ -388,7 +403,7 @@ func (d DIConvertParams) SetPassphraseError(passphrase string) (bool, error) {
 
 }
 func (d DIConvertParams) ShouldPerformInplaceSquash() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("shouldPerformInplaceSquash"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("shouldPerformInplaceSquash"))
 	return rv
 }
 func (d DIConvertParams) ValidateFileWithURLError(url foundation.NSURL) (bool, error) {
@@ -405,7 +420,7 @@ func (d DIConvertParams) ValidateFileWithURLError(url foundation.NSURL) (bool, e
 
 }
 func (d DIConvertParams) ValidateSquashFormats() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("validateSquashFormats"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("validateSquashFormats"))
 	return rv
 }
 func (d DIConvertParams) InitForInplaceWithExistingParamsError(params objectivec.IObject) (DIConvertParams, error) {
@@ -450,100 +465,100 @@ func (d DIConvertParams) InitWithInputURLOutputURLShadowURLsError(url foundation
 }
 
 func (d DIConvertParams) Certificate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("certificate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("certificate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIConvertParams) SetCertificate(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
 func (d DIConvertParams) ConversionMethod() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("conversionMethod"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("conversionMethod"))
 	return rv
 }
 func (d DIConvertParams) SetConversionMethod(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setConversionMethod:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setConversionMethod:"), value)
 }
 func (d DIConvertParams) EncryptionMethod() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("encryptionMethod"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("encryptionMethod"))
 	return rv
 }
 func (d DIConvertParams) SetEncryptionMethod(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
 }
 func (d DIConvertParams) InPlaceConversion() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("inPlaceConversion"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("inPlaceConversion"))
 	return rv
 }
 func (d DIConvertParams) MaxRawUDIFRunSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("maxRawUDIFRunSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("maxRawUDIFRunSize"))
 	return rv
 }
 func (d DIConvertParams) SetMaxRawUDIFRunSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setMaxRawUDIFRunSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setMaxRawUDIFRunSize:"), value)
 }
 func (d DIConvertParams) OutputFormat() int64 {
-	rv := objc.Send[int64](d.ID, objc.Sel("outputFormat"))
+	rv := objc.SendIfResponds[int64](d.ID, objc.Sel("outputFormat"))
 	return rv
 }
 func (d DIConvertParams) SetOutputFormat(value int64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOutputFormat:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOutputFormat:"), value)
 }
 func (d DIConvertParams) OutputParams() IDIBaseParams {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("outputParams"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("outputParams"))
 	return DIBaseParamsFromID(objc.ID(rv))
 }
 func (d DIConvertParams) SetOutputParams(value IDIBaseParams) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOutputParams:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOutputParams:"), value)
 }
 func (d DIConvertParams) OutputURL() IDIURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("outputURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("outputURL"))
 	return DIURLFromID(objc.ID(rv))
 }
 func (d DIConvertParams) SetOutputURL(value IDIURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOutputURL:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOutputURL:"), value)
 }
 func (d DIConvertParams) Passphrase() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("passphrase"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("passphrase"))
 	return rv
 }
 func (d DIConvertParams) SetPassphrase(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
 }
 func (d DIConvertParams) PublicKey() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("publicKey"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("publicKey"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIConvertParams) SetPublicKey(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
 func (d DIConvertParams) ShadowURLs() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowURLs"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowURLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIConvertParams) ShouldValidateShadows() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("shouldValidateShadows"))
 	return rv
 }
 func (d DIConvertParams) SetShouldValidateShadows(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
 }
 func (d DIConvertParams) SparseBundleBandSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
 	return rv
 }
 func (d DIConvertParams) SetSparseBundleBandSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
 func (d DIConvertParams) TemporaryPassphrase() IDITemporaryPassphrase {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
 }
 func (d DIConvertParams) UseFormatMappingInfo() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("useFormatMappingInfo"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("useFormatMappingInfo"))
 	return rv
 }
 func (d DIConvertParams) SetUseFormatMappingInfo(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setUseFormatMappingInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setUseFormatMappingInfo:"), value)
 }
 
 // ConvertWithCompletionBlockSync is a synchronous wrapper around [DIConvertParams.ConvertWithCompletionBlock].

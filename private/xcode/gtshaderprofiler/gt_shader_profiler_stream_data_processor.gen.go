@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +39,7 @@ func (gc GTShaderProfilerStreamDataProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerStreamDataProcessorClass) Alloc() GTShaderProfilerStreamDataProcessor {
-	rv := objc.Send[GTShaderProfilerStreamDataProcessor](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataProcessor](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -126,9 +125,9 @@ type IGTShaderProfilerStreamDataProcessor interface {
 	WaitUntilShaderProfilerFinished()
 	WaitUntilTimelineFinished()
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value kernel.Pointer)
+	SetIsaPrinter(value unsafe.Pointer)
 	MioData() IGTMioTraceData
 	ProcessAPSCostData() bool
 	ProcessBatchIDFilteringData(data objectivec.IObject)
@@ -143,109 +142,109 @@ type IGTShaderProfilerStreamDataProcessor interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerStreamDataProcessor) Init() GTShaderProfilerStreamDataProcessor {
-	rv := objc.Send[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerStreamDataProcessor) Autorelease() GTShaderProfilerStreamDataProcessor {
-	rv := objc.Send[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerStreamDataProcessor creates a new GTShaderProfilerStreamDataProcessor instance.
 func NewGTShaderProfilerStreamDataProcessor() GTShaderProfilerStreamDataProcessor {
 	class := getGTShaderProfilerStreamDataProcessorClass()
-	rv := objc.Send[GTShaderProfilerStreamDataProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerStreamDataProcessorWithStreamDataLlvmHelperPath(data IGTShaderProfilerStreamData, path string) GTShaderProfilerStreamDataProcessor {
 	instance := getGTShaderProfilerStreamDataProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamData:llvmHelperPath:"), data, objc.String(path))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamData:llvmHelperPath:"), data, objc.String(path))
 	return GTShaderProfilerStreamDataProcessorFromID(rv)
 }
 
 func (g GTShaderProfilerStreamDataProcessor) ProcessAPSTimelineData() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("processAPSTimelineData"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("processAPSTimelineData"))
 	return rv
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessShaderProfilerStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamData"))
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessTimelineStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processTimelineStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processTimelineStreamData"))
 }
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
 }
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilShaderProfilerFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilShaderProfilerFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilShaderProfilerFinished"))
 }
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilTimelineFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilTimelineFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilTimelineFinished"))
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessAPSCostData() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("processAPSCostData"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("processAPSCostData"))
 	return rv
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessBatchIDFilteringData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessBatchIdFilteredCounterStreamData() {
-	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIdFilteredCounterStreamData"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processBatchIdFilteredCounterStreamData"))
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessGPUTimelineData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("processGPUTimelineData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processGPUTimelineData:"), data)
 }
 func (g GTShaderProfilerStreamDataProcessor) ProcessShaderProfilerData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processShaderProfilerData:"), data)
 }
 func (g GTShaderProfilerStreamDataProcessor) SetupForBatchIDFilteringCounters(counters objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
 	return rv
 }
 func (g GTShaderProfilerStreamDataProcessor) StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo(updated objectivec.IObject, info objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
 }
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilBatchIDCounterFinished() {
-	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
 }
 func (g GTShaderProfilerStreamDataProcessor) InitWithStreamDataLlvmHelperPath(data IGTShaderProfilerStreamData, path string) GTShaderProfilerStreamDataProcessor {
-	rv := objc.Send[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:"), data, objc.String(path))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamDataProcessor](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:"), data, objc.String(path))
 	return rv
 }
 
 func (g GTShaderProfilerStreamDataProcessor) GpuGeneration() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
 func (g GTShaderProfilerStreamDataProcessor) Result() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("result"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("result"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamDataProcessor) StreamData() IGTShaderProfilerStreamData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamDataProcessor) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
+func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
 	return rv
 }
-func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
+func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 func (g GTShaderProfilerStreamDataProcessor) MioData() IGTMioTraceData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mioData"))
 	return GTMioTraceDataFromID(objc.ID(rv))
 }

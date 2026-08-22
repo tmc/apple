@@ -38,7 +38,7 @@ func (vc VZHIDDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHIDDeviceClass) Alloc() VZHIDDevice {
-	rv := objc.Send[VZHIDDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZHIDDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,23 +72,23 @@ type IVZHIDDevice interface {
 
 // Init initializes the instance.
 func (v VZHIDDevice) Init() VZHIDDevice {
-	rv := objc.Send[VZHIDDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZHIDDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZHIDDevice) Autorelease() VZHIDDevice {
-	rv := objc.Send[VZHIDDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZHIDDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZHIDDevice creates a new VZHIDDevice instance.
 func NewVZHIDDevice() VZHIDDevice {
 	class := getVZHIDDeviceClass()
-	rv := objc.Send[VZHIDDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZHIDDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZHIDDevice) SendIOHIDEvents(iOHIDEvents objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:"), iOHIDEvents)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:"), iOHIDEvents)
 }

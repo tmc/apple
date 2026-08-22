@@ -41,7 +41,7 @@ func (ac AVAudioPlayerNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
-	rv := objc.Send[AVAudioPlayerNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioPlayerNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,52 +90,52 @@ type IAVAudioPlayerNode interface {
 
 // Init initializes the instance.
 func (a AVAudioPlayerNode) Init() AVAudioPlayerNode {
-	rv := objc.Send[AVAudioPlayerNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioPlayerNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioPlayerNode) Autorelease() AVAudioPlayerNode {
-	rv := objc.Send[AVAudioPlayerNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioPlayerNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioPlayerNode creates a new AVAudioPlayerNode instance.
 func NewAVAudioPlayerNode() AVAudioPlayerNode {
 	class := getAVAudioPlayerNodeClass()
-	rv := objc.Send[AVAudioPlayerNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioPlayerNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioPlayerNodeWithImpl(impl unsafe.Pointer) AVAudioPlayerNode {
 	instance := getAVAudioPlayerNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioPlayerNodeFromID(rv)
 }
 
 func (a AVAudioPlayerNode) CallLegacyCompletionHandlerForTypeLegacyHandler(type_ int64, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("callLegacyCompletionHandlerForType:legacyHandler:"), type_, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callLegacyCompletionHandlerForType:legacyHandler:"), type_, _block1)
 }
 
 func (a AVAudioPlayerNode) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioPlayerNode) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioPlayerNode) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioPlayerNode) Playing() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("playing"))
 	return rv
 }
 func (a AVAudioPlayerNode) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 

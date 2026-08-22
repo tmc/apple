@@ -37,7 +37,7 @@ func (ec EspressoPassFoldConstantsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFoldConstantsClass) Alloc() EspressoPassFoldConstants {
-	rv := objc.Send[EspressoPassFoldConstants](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFoldConstants](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFoldConstants interface {
 
 // Init initializes the instance.
 func (e EspressoPassFoldConstants) Init() EspressoPassFoldConstants {
-	rv := objc.Send[EspressoPassFoldConstants](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFoldConstants](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFoldConstants) Autorelease() EspressoPassFoldConstants {
-	rv := objc.Send[EspressoPassFoldConstants](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFoldConstants](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFoldConstants creates a new EspressoPassFoldConstants instance.
 func NewEspressoPassFoldConstants() EspressoPassFoldConstants {
 	class := getEspressoPassFoldConstantsClass()
-	rv := objc.Send[EspressoPassFoldConstants](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFoldConstants](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

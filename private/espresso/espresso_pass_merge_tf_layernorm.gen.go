@@ -37,7 +37,7 @@ func (ec EspressoPassMergeTfLayernormClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMergeTfLayernormClass) Alloc() EspressoPassMergeTfLayernorm {
-	rv := objc.Send[EspressoPassMergeTfLayernorm](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfLayernorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMergeTfLayernorm interface {
 
 // Init initializes the instance.
 func (e EspressoPassMergeTfLayernorm) Init() EspressoPassMergeTfLayernorm {
-	rv := objc.Send[EspressoPassMergeTfLayernorm](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfLayernorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMergeTfLayernorm) Autorelease() EspressoPassMergeTfLayernorm {
-	rv := objc.Send[EspressoPassMergeTfLayernorm](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfLayernorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMergeTfLayernorm creates a new EspressoPassMergeTfLayernorm instance.
 func NewEspressoPassMergeTfLayernorm() EspressoPassMergeTfLayernorm {
 	class := getEspressoPassMergeTfLayernormClass()
-	rv := objc.Send[EspressoPassMergeTfLayernorm](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMergeTfLayernorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

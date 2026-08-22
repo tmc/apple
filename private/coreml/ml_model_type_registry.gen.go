@@ -38,7 +38,7 @@ func (mc MLModelTypeRegistryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelTypeRegistryClass) Alloc() MLModelTypeRegistry {
-	rv := objc.Send[MLModelTypeRegistry](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelTypeRegistry](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,41 +81,41 @@ type IMLModelTypeRegistry interface {
 
 // Init initializes the instance.
 func (m MLModelTypeRegistry) Init() MLModelTypeRegistry {
-	rv := objc.Send[MLModelTypeRegistry](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelTypeRegistry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelTypeRegistry) Autorelease() MLModelTypeRegistry {
-	rv := objc.Send[MLModelTypeRegistry](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelTypeRegistry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelTypeRegistry creates a new MLModelTypeRegistry instance.
 func NewMLModelTypeRegistry() MLModelTypeRegistry {
 	class := getMLModelTypeRegistryClass()
-	rv := objc.Send[MLModelTypeRegistry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelTypeRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLModelTypeRegistry) ClassForCompilingModelType(type_ int) objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("classForCompilingModelType:"), type_)
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("classForCompilingModelType:"), type_)
 	return objectivec.Class(rv)
 }
 func (m MLModelTypeRegistry) ClassesForLoadingModelType(type_ int) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelTypeRegistry) ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:configuration:isUpdatable:isEncrypted:"), type_, configuration, updatable, encrypted)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:configuration:isUpdatable:isEncrypted:"), type_, configuration, updatable, encrypted)
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelTypeRegistry) LoadNeuralNetworkClassesTrainWithMLCompute(classes bool, mLCompute bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("loadNeuralNetworkClasses:trainWithMLCompute:"), classes, mLCompute)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("loadNeuralNetworkClasses:trainWithMLCompute:"), classes, mLCompute)
 	return objectivec.Object{ID: rv}
 }
 
 func (_MLModelTypeRegistryClass MLModelTypeRegistryClass) SharedInstance() MLModelTypeRegistry {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelTypeRegistryClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelTypeRegistryClass.class), objc.Sel("sharedInstance"))
 	return MLModelTypeRegistryFromID(rv)
 }

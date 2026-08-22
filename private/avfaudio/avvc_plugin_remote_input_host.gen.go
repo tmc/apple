@@ -38,7 +38,7 @@ func (ac AVVCPluginRemoteInputHostClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCPluginRemoteInputHostClass) Alloc() AVVCPluginRemoteInputHost {
-	rv := objc.Send[AVVCPluginRemoteInputHost](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCPluginRemoteInputHost](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,56 +99,56 @@ type IAVVCPluginRemoteInputHost interface {
 
 // Init initializes the instance.
 func (a AVVCPluginRemoteInputHost) Init() AVVCPluginRemoteInputHost {
-	rv := objc.Send[AVVCPluginRemoteInputHost](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCPluginRemoteInputHost](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCPluginRemoteInputHost) Autorelease() AVVCPluginRemoteInputHost {
-	rv := objc.Send[AVVCPluginRemoteInputHost](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCPluginRemoteInputHost](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCPluginRemoteInputHost creates a new AVVCPluginRemoteInputHost instance.
 func NewAVVCPluginRemoteInputHost() AVVCPluginRemoteInputHost {
 	class := getAVVCPluginRemoteInputHostClass()
-	rv := objc.Send[AVVCPluginRemoteInputHost](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCPluginRemoteInputHost](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVCPluginRemoteInputHost) AllBundles(bundles []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("allBundles:"), objectivec.IObjectSliceToNSArray(bundles))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("allBundles:"), objectivec.IObjectSliceToNSArray(bundles))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCPluginRemoteInputHost) FindDeviceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("findDeviceWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("findDeviceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCPluginRemoteInputHost) FindFirstBluetoothDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("findFirstBluetoothDevice"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("findFirstBluetoothDevice"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCPluginRemoteInputHost) InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
 }
 func (a AVVCPluginRemoteInputHost) InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
 }
 func (a AVVCPluginRemoteInputHost) InvalidatePlugins() {
-	objc.Send[objc.ID](a.ID, objc.Sel("invalidatePlugins"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("invalidatePlugins"))
 }
 func (a AVVCPluginRemoteInputHost) MockPluginEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mockPluginEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("mockPluginEndpoint"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCPluginRemoteInputHost) SetParentVoiceController(controller objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setParentVoiceController:"), controller)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setParentVoiceController:"), controller)
 }
 
 func (a AVVCPluginRemoteInputHost) MMotherController() IAVVoiceController {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mMotherController"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("mMotherController"))
 	return AVVoiceControllerFromID(objc.ID(rv))
 }
 func (a AVVCPluginRemoteInputHost) SetMMotherController(value IAVVoiceController) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMMotherController:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMMotherController:"), value)
 }

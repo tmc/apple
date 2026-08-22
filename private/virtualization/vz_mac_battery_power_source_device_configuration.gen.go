@@ -37,7 +37,7 @@ func (vc VZMacBatteryPowerSourceDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacBatteryPowerSourceDeviceConfigurationClass) Alloc() VZMacBatteryPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacBatteryPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacBatteryPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,27 +74,27 @@ type IVZMacBatteryPowerSourceDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacBatteryPowerSourceDeviceConfiguration) Init() VZMacBatteryPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacBatteryPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacBatteryPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacBatteryPowerSourceDeviceConfiguration) Autorelease() VZMacBatteryPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacBatteryPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacBatteryPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacBatteryPowerSourceDeviceConfiguration creates a new VZMacBatteryPowerSourceDeviceConfiguration instance.
 func NewVZMacBatteryPowerSourceDeviceConfiguration() VZMacBatteryPowerSourceDeviceConfiguration {
 	class := getVZMacBatteryPowerSourceDeviceConfigurationClass()
-	rv := objc.Send[VZMacBatteryPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacBatteryPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacBatteryPowerSourceDeviceConfiguration) Source() IVZMacBatterySource {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("source"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("source"))
 	return VZMacBatterySourceFromID(objc.ID(rv))
 }
 func (v VZMacBatteryPowerSourceDeviceConfiguration) SetSource(value IVZMacBatterySource) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSource:"), value)
 }

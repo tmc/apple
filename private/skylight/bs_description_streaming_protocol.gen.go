@@ -10,6 +10,9 @@ import (
 // BSDescriptionStreaming protocol.
 type BSDescriptionStreaming interface {
 	objectivec.IObject
+
+	// AppendDescriptionToStream protocol.
+	AppendDescriptionToStream(stream objectivec.IObject)
 }
 
 // BSDescriptionStreamingObject wraps an existing Objective-C object that conforms to the BSDescriptionStreaming protocol.
@@ -30,5 +33,5 @@ func BSDescriptionStreamingObjectFromID(id objc.ID) BSDescriptionStreamingObject
 }
 
 func (o BSDescriptionStreamingObject) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }

@@ -40,7 +40,7 @@ func (mc MLComputeBatchDataSourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputeBatchDataSourceClass) Alloc() MLComputeBatchDataSource {
-	rv := objc.Send[MLComputeBatchDataSource](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputeBatchDataSource](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,30 +101,33 @@ type IMLComputeBatchDataSource interface {
 
 // Init initializes the instance.
 func (m MLComputeBatchDataSource) Init() MLComputeBatchDataSource {
-	rv := objc.Send[MLComputeBatchDataSource](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputeBatchDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputeBatchDataSource) Autorelease() MLComputeBatchDataSource {
-	rv := objc.Send[MLComputeBatchDataSource](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputeBatchDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputeBatchDataSource creates a new MLComputeBatchDataSource instance.
 func NewMLComputeBatchDataSource() MLComputeBatchDataSource {
 	class := getMLComputeBatchDataSourceClass()
-	rv := objc.Send[MLComputeBatchDataSource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputeBatchDataSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLComputeBatchDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLComputeBatchDataSource{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLComputeBatchDataSource{}, objc.ErrInitFailed
 	}
 	return MLComputeBatchDataSourceFromID(rv), nil
 }
@@ -150,11 +153,11 @@ func (m MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (object
 
 }
 func (m MLComputeBatchDataSource) NumberOfBatches() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfBatches"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
 func (m MLComputeBatchDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }
 func (m MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
@@ -169,21 +172,21 @@ func (m MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeu
 }
 
 func (m MLComputeBatchDataSource) BatchProvider() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("batchProvider"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("batchProvider"))
 	return rv
 }
 func (m MLComputeBatchDataSource) BatchSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("batchSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("batchSize"))
 	return rv
 }
 func (m MLComputeBatchDataSource) SetBatchSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
 }
 func (m MLComputeBatchDataSource) NnEngine() IMLNeuralNetworkEngine {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnEngine"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nnEngine"))
 	return MLNeuralNetworkEngineFromID(objc.ID(rv))
 }
 func (m MLComputeBatchDataSource) UseForPrediction() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useForPrediction"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useForPrediction"))
 	return rv
 }

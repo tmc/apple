@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -15,8 +16,41 @@ var _ = fmt.Sprintf
 type GTMioShaderExecutionHistoryParserDelegate interface {
 	objectivec.IObject
 
+	// CacheKey protocol.
+	CacheKey() objectivec.IObject
+
+	// CacheObject protocol.
+	CacheObject() objectivec.IObject
+
+	// CliqueExecutionHistoryBeginUsc protocol.
+	CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadata, usc objectivec.IObject)
+
+	// CliqueExecutionHistoryEndUsc protocol.
+	CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadata, usc objectivec.IObject)
+
 	// CliqueExecutionHistoryStyle protocol.
 	CliqueExecutionHistoryStyle() uint32
+
+	// HandleCachedObject protocol.
+	HandleCachedObject(object objectivec.IObject) bool
+
+	// LoopBackInstructionEndLoopCountCurrentLoopCountBinary protocol.
+	LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject)
+
+	// PopFunctionBinaryRangeBinary protocol.
+	PopFunctionBinaryRangeBinary(function *GTMioShaderBinaryDebugLocation, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject)
+
+	// PopLoopInstructionEndLoopCountBinary protocol.
+	PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
+
+	// ProcessInstructionBinaryRangeBinaryNumHits protocol.
+	ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32)
+
+	// PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary protocol.
+	PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function *GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject)
+
+	// PushLoopInstructionEndLoopCountBinary protocol.
+	PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
 
 	// TimestampNextInstructionCount protocol.
 	TimestampNextInstructionCount(timestamp uint64, next uint64, count uint32)
@@ -40,47 +74,47 @@ func GTMioShaderExecutionHistoryParserDelegateObjectFromID(id objc.ID) GTMioShad
 }
 
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheKey() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("cacheKey"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("cacheKey"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("cacheObject"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("cacheObject"))
 	return objectivec.Object{ID: rv}
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), unsafe.Pointer(begin), usc)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), unsafe.Pointer(end), usc)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryStyle() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("cliqueExecutionHistoryStyle"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("cliqueExecutionHistoryStyle"))
 	return rv
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) HandleCachedObject(object objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("handleCachedObject:"), object)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("handleCachedObject:"), object)
 	return rv
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
+func (o GTMioShaderExecutionHistoryParserDelegateObject) PopFunctionBinaryRangeBinary(function *GTMioShaderBinaryDebugLocation, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("popFunction:binaryRange:binary:"), unsafe.Pointer(function), unsafe.Pointer(range_), binary)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
+func (o GTMioShaderExecutionHistoryParserDelegateObject) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, unsafe.Pointer(range_), binary, hits)
 }
-func (o GTMioShaderExecutionHistoryParserDelegateObject) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
+func (o GTMioShaderExecutionHistoryParserDelegateObject) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function *GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), unsafe.Pointer(function), index, inlined, binary, unsafe.Pointer(location), index2, binary2)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
 func (o GTMioShaderExecutionHistoryParserDelegateObject) TimestampNextInstructionCount(timestamp uint64, next uint64, count uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
 }
 
 // GTMioShaderExecutionHistoryParserDelegateConfig holds optional typed callbacks for [GTMioShaderExecutionHistoryParserDelegate] methods.
@@ -113,7 +147,20 @@ func NewGTMioShaderExecutionHistoryParserDelegate(config GTMioShaderExecutionHis
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("cliqueExecutionHistoryStyle"),
 			Fn: func(self objc.ID, _cmd objc.SEL) uint32 {
-				return fn()
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("GTMioShaderExecutionHistoryParserDelegate", "cliqueExecutionHistoryStyle")
+					}
+				}()
+				_delegateResult := fn()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -123,7 +170,19 @@ func NewGTMioShaderExecutionHistoryParserDelegate(config GTMioShaderExecutionHis
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("timestamp:next:instructionCount:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, timestamp uint64, next uint64, count uint32) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("GTMioShaderExecutionHistoryParserDelegate", "timestamp:next:instructionCount:")
+					}
+				}()
 				fn(timestamp, next, count)
+				_delegateDone = true
 			},
 		})
 	}

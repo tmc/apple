@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -12,10 +14,10 @@ type CPXFocusPolicyProtocol interface {
 	objectivec.IObject
 
 	// BringNextApplicationToFrontInternal protocol.
-	BringNextApplicationToFrontInternal(internal CPSProcessRec)
+	BringNextApplicationToFrontInternal(internal *CPSProcessRec)
 
 	// BringNextProcessToFront protocol.
-	BringNextProcessToFront(front CPSProcessRec)
+	BringNextProcessToFront(front *CPSProcessRec)
 }
 
 // CPXFocusPolicyProtocolObject wraps an existing Objective-C object that conforms to the CPXFocusPolicyProtocol protocol.
@@ -35,9 +37,9 @@ func CPXFocusPolicyProtocolObjectFromID(id objc.ID) CPXFocusPolicyProtocolObject
 	}
 }
 
-func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
-	objc.Send[struct{}](o.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
+func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal *CPSProcessRec) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("bringNextApplicationToFrontInternal:"), unsafe.Pointer(internal))
 }
-func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front CPSProcessRec) {
-	objc.Send[struct{}](o.ID, objc.Sel("bringNextProcessToFront:"), front)
+func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front *CPSProcessRec) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("bringNextProcessToFront:"), unsafe.Pointer(front))
 }

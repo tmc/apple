@@ -37,7 +37,7 @@ func (ec EspressoPassFuseFastGelu1Class) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseFastGelu1Class) Alloc() EspressoPassFuseFastGelu1 {
-	rv := objc.Send[EspressoPassFuseFastGelu1](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseFastGelu1](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseFastGelu1 interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseFastGelu1) Init() EspressoPassFuseFastGelu1 {
-	rv := objc.Send[EspressoPassFuseFastGelu1](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseFastGelu1](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseFastGelu1) Autorelease() EspressoPassFuseFastGelu1 {
-	rv := objc.Send[EspressoPassFuseFastGelu1](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseFastGelu1](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseFastGelu1 creates a new EspressoPassFuseFastGelu1 instance.
 func NewEspressoPassFuseFastGelu1() EspressoPassFuseFastGelu1 {
 	class := getEspressoPassFuseFastGelu1Class()
-	rv := objc.Send[EspressoPassFuseFastGelu1](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseFastGelu1](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

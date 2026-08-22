@@ -39,7 +39,7 @@ func (ac ANEInMemoryModelDescriptorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEInMemoryModelDescriptorClass) Alloc() ANEInMemoryModelDescriptor {
-	rv := objc.Send[ANEInMemoryModelDescriptor](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEInMemoryModelDescriptor](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,76 +100,76 @@ type IANEInMemoryModelDescriptor interface {
 
 // Init initializes the instance.
 func (a ANEInMemoryModelDescriptor) Init() ANEInMemoryModelDescriptor {
-	rv := objc.Send[ANEInMemoryModelDescriptor](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEInMemoryModelDescriptor](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEInMemoryModelDescriptor) Autorelease() ANEInMemoryModelDescriptor {
-	rv := objc.Send[ANEInMemoryModelDescriptor](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEInMemoryModelDescriptor](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEInMemoryModelDescriptor creates a new ANEInMemoryModelDescriptor instance.
 func NewANEInMemoryModelDescriptor() ANEInMemoryModelDescriptor {
 	class := getANEInMemoryModelDescriptorClass()
-	rv := objc.Send[ANEInMemoryModelDescriptor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEInMemoryModelDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEInMemoryModelDescriptorWithNetworkTextWeightsOptionsPlistIsMILModel(text objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, mILModel bool) ANEInMemoryModelDescriptor {
 	instance := getANEInMemoryModelDescriptorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
 	return ANEInMemoryModelDescriptorFromID(rv)
 }
 
 func (a ANEInMemoryModelDescriptor) HexStringIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("hexStringIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEInMemoryModelDescriptor) IsEqualToInMemoryModelDescriptor(descriptor objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isEqualToInMemoryModelDescriptor:"), descriptor)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isEqualToInMemoryModelDescriptor:"), descriptor)
 	return rv
 }
 func (a ANEInMemoryModelDescriptor) InitWithNetworkTextWeightsOptionsPlistIsMILModel(text objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, mILModel bool) ANEInMemoryModelDescriptor {
-	rv := objc.Send[ANEInMemoryModelDescriptor](a.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
+	rv := objc.SendIfResponds[ANEInMemoryModelDescriptor](a.ID, objc.Sel("initWithNetworkText:weights:optionsPlist:isMILModel:"), text, weights, plist, mILModel)
 	return rv
 }
 
 func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWithMILTextWeightsOptionsPlist(mILText objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithMILText:weights:optionsPlist:"), mILText, weights, plist)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithMILText:weights:optionsPlist:"), mILText, weights, plist)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWithNetworkDescriptionWeightsOptionsPlist(description objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithNetworkDescription:weights:optionsPlist:"), description, weights, plist)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithNetworkDescription:weights:optionsPlist:"), description, weights, plist)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEInMemoryModelDescriptor) IsMILModel() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isMILModel"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isMILModel"))
 	return rv
 }
 func (a ANEInMemoryModelDescriptor) NetworkText() foundation.NSData {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("networkText"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("networkText"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModelDescriptor) NetworkTextHash() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("networkTextHash"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("networkTextHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEInMemoryModelDescriptor) OptionsPlist() foundation.NSData {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("optionsPlist"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("optionsPlist"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModelDescriptor) OptionsPlistHash() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("optionsPlistHash"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("optionsPlistHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEInMemoryModelDescriptor) Weights() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weights"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weights"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a ANEInMemoryModelDescriptor) WeightsHash() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightsHash"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightsHash"))
 	return foundation.NSStringFromID(rv).String()
 }

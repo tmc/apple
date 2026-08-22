@@ -41,16 +41,16 @@ func (vc VZConsoleDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration {
-	rv := objc.Send[VZConsoleDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZConsoleDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
+//   - [VZConsoleDeviceConfiguration._consoleDevice]
 //   - [VZConsoleDeviceConfiguration._init]
 //   - [VZConsoleDeviceConfiguration.MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex]
 //   - [VZConsoleDeviceConfiguration.ValidateWithError]
-//   - [VZConsoleDeviceConfiguration._consoleDevice]
 //   - [VZConsoleDeviceConfiguration.DebugDescription]
 //   - [VZConsoleDeviceConfiguration.Description]
 //   - [VZConsoleDeviceConfiguration.Hash]
@@ -71,10 +71,10 @@ var _ IVZConsoleDeviceConfiguration = VZConsoleDeviceConfiguration{}
 //
 // # Methods
 //
+//   - [IVZConsoleDeviceConfiguration._consoleDevice]
 //   - [IVZConsoleDeviceConfiguration._init]
 //   - [IVZConsoleDeviceConfiguration.MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex]
 //   - [IVZConsoleDeviceConfiguration.ValidateWithError]
-//   - [IVZConsoleDeviceConfiguration._consoleDevice]
 //   - [IVZConsoleDeviceConfiguration.DebugDescription]
 //   - [IVZConsoleDeviceConfiguration.Description]
 //   - [IVZConsoleDeviceConfiguration.Hash]
@@ -84,10 +84,10 @@ type IVZConsoleDeviceConfiguration interface {
 
 	// Topic: Methods
 
+	_consoleDevice() unsafe.Pointer
 	_init() objectivec.IObject
 	MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	ValidateWithError() (bool, error)
-	_consoleDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -96,29 +96,29 @@ type IVZConsoleDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZConsoleDeviceConfiguration) Init() VZConsoleDeviceConfiguration {
-	rv := objc.Send[VZConsoleDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZConsoleDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZConsoleDeviceConfiguration) Autorelease() VZConsoleDeviceConfiguration {
-	rv := objc.Send[VZConsoleDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZConsoleDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZConsoleDeviceConfiguration creates a new VZConsoleDeviceConfiguration instance.
 func NewVZConsoleDeviceConfiguration() VZConsoleDeviceConfiguration {
 	class := getVZConsoleDeviceConfigurationClass()
-	rv := objc.Send[VZConsoleDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZConsoleDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZConsoleDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZConsoleDeviceConfiguration) MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 func (v VZConsoleDeviceConfiguration) ValidateWithError() (bool, error) {
@@ -136,7 +136,7 @@ func (v VZConsoleDeviceConfiguration) ValidateWithError() (bool, error) {
 }
 
 func (v VZConsoleDeviceConfiguration) _consoleDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_consoleDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_consoleDevice"))
 	return rv
 }
 
@@ -153,18 +153,18 @@ func (v VZConsoleDeviceConfiguration) ConsoleDevice() (unsafe.Pointer, error) {
 	return v._consoleDevice(), nil
 }
 func (v VZConsoleDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZConsoleDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZConsoleDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZConsoleDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

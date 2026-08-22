@@ -39,7 +39,7 @@ func (sc SOAudioFileUtilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOAudioFileUtilitiesClass) Alloc() SOAudioFileUtilities {
-	rv := objc.Send[SOAudioFileUtilities](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOAudioFileUtilities](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,28 +62,28 @@ type ISOAudioFileUtilities interface {
 
 // Init initializes the instance.
 func (s SOAudioFileUtilities) Init() SOAudioFileUtilities {
-	rv := objc.Send[SOAudioFileUtilities](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOAudioFileUtilities](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOAudioFileUtilities) Autorelease() SOAudioFileUtilities {
-	rv := objc.Send[SOAudioFileUtilities](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOAudioFileUtilities](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOAudioFileUtilities creates a new SOAudioFileUtilities instance.
 func NewSOAudioFileUtilities() SOAudioFileUtilities {
 	class := getSOAudioFileUtilitiesClass()
-	rv := objc.Send[SOAudioFileUtilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOAudioFileUtilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) SampleDataFromContentsOfFileStreamDescription(file objectivec.IObject, description coreaudiotypes.AudioStreamBasicDescription) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("sampleDataFromContentsOfFile:streamDescription:"), file, description)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("sampleDataFromContentsOfFile:streamDescription:"), file, description)
 	return objectivec.Object{ID: rv}
 }
 func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) WriteSampleDataToFileDataStreamDescriptionFileStreamDescription(data objectivec.IObject, file objectivec.IObject, description coreaudiotypes.AudioStreamBasicDescription, description2 coreaudiotypes.AudioStreamBasicDescription) bool {
-	rv := objc.Send[bool](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("writeSampleData:toFile:dataStreamDescription:fileStreamDescription:"), data, file, description, description2)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("writeSampleData:toFile:dataStreamDescription:fileStreamDescription:"), data, file, description, description2)
 	return rv
 }

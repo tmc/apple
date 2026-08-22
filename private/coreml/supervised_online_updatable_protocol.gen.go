@@ -10,6 +10,9 @@ import (
 // MLSupervisedOnlineUpdatable protocol.
 type MLSupervisedOnlineUpdatable interface {
 	objectivec.IObject
+
+	// UpdateModelFromFeaturesToTargetOptionsError protocol.
+	UpdateModelFromFeaturesToTargetOptionsError(features objectivec.IObject, target objectivec.IObject, options objectivec.IObject) (bool, error)
 }
 
 // MLSupervisedOnlineUpdatableObject wraps an existing Objective-C object that conforms to the MLSupervisedOnlineUpdatable protocol.

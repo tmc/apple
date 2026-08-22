@@ -38,7 +38,7 @@ func (sc SLSBridgedProcessAssignToAllSpacesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedProcessAssignToAllSpacesOperationClass) Alloc() SLSBridgedProcessAssignToAllSpacesOperation {
-	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedProcessAssignToAllSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedProcessAssignToAllSpacesOperation) Init() SLSBridgedProcessAssignToAllSpacesOperation {
-	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedProcessAssignToAllSpacesOperation) Autorelease() SLSBridgedProcessAssignToAllSpacesOperation {
-	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedProcessAssignToAllSpacesOperation creates a new SLSBridgedProcessAssignToAllSpacesOperation instance.
 func NewSLSBridgedProcessAssignToAllSpacesOperation() SLSBridgedProcessAssignToAllSpacesOperation {
 	class := getSLSBridgedProcessAssignToAllSpacesOperationClass()
-	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedProcessAssignToAllSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedProcessAssignToAllSpacesOperation {
 	instance := getSLSBridgedProcessAssignToAllSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedProcessAssignToAllSpacesOperationWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
 	instance := getSLSBridgedProcessAssignToAllSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedProcessAssignToAllSpacesOperation) InitWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
-	rv := objc.Send[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("initWithProcess:"), process)
+	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("initWithProcess:"), process)
 	return rv
 }
 
 func (s SLSBridgedProcessAssignToAllSpacesOperation) Process() int {
-	rv := objc.Send[int](s.ID, objc.Sel("process"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("process"))
 	return rv
 }

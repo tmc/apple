@@ -37,7 +37,7 @@ func (wc WSGestureEventAnnotationParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSGestureEventAnnotationParamsClass) Alloc() WSGestureEventAnnotationParams {
-	rv := objc.Send[WSGestureEventAnnotationParams](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSGestureEventAnnotationParams](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,27 +74,27 @@ type IWSGestureEventAnnotationParams interface {
 
 // Init initializes the instance.
 func (w WSGestureEventAnnotationParams) Init() WSGestureEventAnnotationParams {
-	rv := objc.Send[WSGestureEventAnnotationParams](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSGestureEventAnnotationParams](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSGestureEventAnnotationParams) Autorelease() WSGestureEventAnnotationParams {
-	rv := objc.Send[WSGestureEventAnnotationParams](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSGestureEventAnnotationParams](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSGestureEventAnnotationParams creates a new WSGestureEventAnnotationParams instance.
 func NewWSGestureEventAnnotationParams() WSGestureEventAnnotationParams {
 	class := getWSGestureEventAnnotationParamsClass()
-	rv := objc.Send[WSGestureEventAnnotationParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSGestureEventAnnotationParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (w WSGestureEventAnnotationParams) GestureStreamState() int {
-	rv := objc.Send[int](w.ID, objc.Sel("gestureStreamState"))
+	rv := objc.SendIfResponds[int](w.ID, objc.Sel("gestureStreamState"))
 	return rv
 }
 func (w WSGestureEventAnnotationParams) SetGestureStreamState(value int) {
-	objc.Send[struct{}](w.ID, objc.Sel("setGestureStreamState:"), value)
+	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setGestureStreamState:"), value)
 }

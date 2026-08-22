@@ -10,6 +10,12 @@ import (
 // ECAuthenticationKey protocol.
 type ECAuthenticationKey interface {
 	objectivec.IObject
+
+	// CreateSignatureForMessage protocol.
+	CreateSignatureForMessage(message objectivec.IObject) objectivec.IObject
+
+	// SigningContext protocol.
+	SigningContext() objectivec.IObject
 }
 
 // ECAuthenticationKeyObject wraps an existing Objective-C object that conforms to the ECAuthenticationKey protocol.
@@ -30,10 +36,10 @@ func ECAuthenticationKeyObjectFromID(id objc.ID) ECAuthenticationKeyObject {
 }
 
 func (o ECAuthenticationKeyObject) CreateSignatureForMessage(message objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("createSignatureForMessage:"), message)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("createSignatureForMessage:"), message)
 	return objectivec.Object{ID: rv}
 }
 func (o ECAuthenticationKeyObject) SigningContext() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("signingContext"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("signingContext"))
 	return objectivec.Object{ID: rv}
 }

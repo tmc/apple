@@ -39,7 +39,7 @@ func (dc DownloadableVoiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DownloadableVoiceClass) Alloc() DownloadableVoice {
-	rv := objc.Send[DownloadableVoice](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DownloadableVoice](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,84 +109,84 @@ type IDownloadableVoice interface {
 
 // Init initializes the instance.
 func (d DownloadableVoice) Init() DownloadableVoice {
-	rv := objc.Send[DownloadableVoice](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DownloadableVoice](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DownloadableVoice) Autorelease() DownloadableVoice {
-	rv := objc.Send[DownloadableVoice](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DownloadableVoice](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDownloadableVoice creates a new DownloadableVoice instance.
 func NewDownloadableVoice() DownloadableVoice {
 	class := getDownloadableVoiceClass()
-	rv := objc.Send[DownloadableVoice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DownloadableVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDownloadableVoiceWithVoiceIDProperties(id objectivec.IObject, properties objectivec.IObject) DownloadableVoice {
 	instance := getDownloadableVoiceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVoiceID:properties:"), id, properties)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVoiceID:properties:"), id, properties)
 	return DownloadableVoiceFromID(rv)
 }
 
 func NewDownloadableVoiceWithVoiceIdentifier(voice objectivec.IObject, identifier objectivec.IObject) DownloadableVoice {
 	instance := getDownloadableVoiceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
 	return DownloadableVoiceFromID(rv)
 }
 
 func (d DownloadableVoice) DisplayedSize() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("displayedSize"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("displayedSize"))
 	return objectivec.Object{ID: rv}
 }
 func (d DownloadableVoice) InitWithVoiceIDProperties(id objectivec.IObject, properties objectivec.IObject) DownloadableVoice {
-	rv := objc.Send[DownloadableVoice](d.ID, objc.Sel("initWithVoiceID:properties:"), id, properties)
+	rv := objc.SendIfResponds[DownloadableVoice](d.ID, objc.Sel("initWithVoiceID:properties:"), id, properties)
 	return rv
 }
 
 func (d DownloadableVoice) ByteSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("byteSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("byteSize"))
 	return rv
 }
 func (d DownloadableVoice) CompactSizeBundleIdentifier() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeBundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("compactSizeBundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) CompactSizeByteSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("compactSizeByteSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("compactSizeByteSize"))
 	return rv
 }
 func (d DownloadableVoice) CompactSizeTagName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeTagName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("compactSizeTagName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) CompactSizeVersion() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeVersion"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("compactSizeVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) DownloadCompactSize() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("downloadCompactSize"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("downloadCompactSize"))
 	return rv
 }
 func (d DownloadableVoice) SetDownloadCompactSize(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDownloadCompactSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDownloadCompactSize:"), value)
 }
 func (d DownloadableVoice) TagName() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("tagName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("tagName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) Variant() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("variant"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("variant"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) Version() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("version"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DownloadableVoice) VoiceIdentifierToMarkAsPurgeableAfterInstall() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("voiceIdentifierToMarkAsPurgeableAfterInstall"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("voiceIdentifierToMarkAsPurgeableAfterInstall"))
 	return foundation.NSStringFromID(rv).String()
 }

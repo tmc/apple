@@ -40,7 +40,7 @@ func (dc DIStatsParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIStatsParamsClass) Alloc() DIStatsParams {
-	rv := objc.Send[DIStatsParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIStatsParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,39 @@ type IDIStatsParams interface {
 
 // Init initializes the instance.
 func (d DIStatsParams) Init() DIStatsParams {
-	rv := objc.Send[DIStatsParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIStatsParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIStatsParams) Autorelease() DIStatsParams {
-	rv := objc.Send[DIStatsParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIStatsParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIStatsParams creates a new DIStatsParams instance.
 func NewDIStatsParams() DIStatsParams {
 	class := getDIStatsParamsClass()
-	rv := objc.Send[DIStatsParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIStatsParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIStatsParamsWithCoder(coder objectivec.IObject) DIStatsParams {
 	instance := getDIStatsParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIStatsParamsFromID(rv)
 }
 
 func NewDIStatsParamsWithURLError(url foundation.NSURL) (DIStatsParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStatsParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIStatsParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIStatsParams{}, objc.ErrInitFailed
 	}
 	return DIStatsParamsFromID(rv), nil
 }
@@ -117,10 +120,13 @@ func NewDIStatsParamsWithURLError(url foundation.NSURL) (DIStatsParams, error) {
 func NewDIStatsParamsWithURLInstanceIdError(url foundation.NSURL, id objectivec.IObject) (DIStatsParams, error) {
 	var errorPtr objc.ID
 	instance := getDIStatsParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:instanceId:error:"), url, id, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:instanceId:error:"), url, id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIStatsParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIStatsParams{}, objc.ErrInitFailed
 	}
 	return DIStatsParamsFromID(rv), nil
 }
@@ -147,6 +153,6 @@ func (d DIStatsParams) InitWithURLInstanceIdError(url foundation.NSURL, id objec
 }
 
 func (d DIStatsParams) StatInstanceID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("statInstanceID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("statInstanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }

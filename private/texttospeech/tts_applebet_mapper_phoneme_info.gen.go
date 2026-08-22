@@ -39,7 +39,7 @@ func (tc TTSApplebetMapperPhonemeInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSApplebetMapperPhonemeInfoClass) Alloc() TTSApplebetMapperPhonemeInfo {
-	rv := objc.Send[TTSApplebetMapperPhonemeInfo](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSApplebetMapperPhonemeInfo](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,41 +88,41 @@ type ITTSApplebetMapperPhonemeInfo interface {
 
 // Init initializes the instance.
 func (t TTSApplebetMapperPhonemeInfo) Init() TTSApplebetMapperPhonemeInfo {
-	rv := objc.Send[TTSApplebetMapperPhonemeInfo](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSApplebetMapperPhonemeInfo](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSApplebetMapperPhonemeInfo) Autorelease() TTSApplebetMapperPhonemeInfo {
-	rv := objc.Send[TTSApplebetMapperPhonemeInfo](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSApplebetMapperPhonemeInfo](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSApplebetMapperPhonemeInfo creates a new TTSApplebetMapperPhonemeInfo instance.
 func NewTTSApplebetMapperPhonemeInfo() TTSApplebetMapperPhonemeInfo {
 	class := getTTSApplebetMapperPhonemeInfoClass()
-	rv := objc.Send[TTSApplebetMapperPhonemeInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSApplebetMapperPhonemeInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSApplebetMapperPhonemeInfo) EndTime() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("endTime"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("endTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperPhonemeInfo) SetEndTime(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEndTime:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEndTime:"), value)
 }
 func (t TTSApplebetMapperPhonemeInfo) Phoneme() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("phoneme"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSApplebetMapperPhonemeInfo) SetPhoneme(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
 func (t TTSApplebetMapperPhonemeInfo) StartTime() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("startTime"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("startTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSApplebetMapperPhonemeInfo) SetStartTime(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setStartTime:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setStartTime:"), value)
 }

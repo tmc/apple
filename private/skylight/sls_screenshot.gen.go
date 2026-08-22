@@ -42,7 +42,7 @@ func (sc SLSScreenshotClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSScreenshotClass) Alloc() SLSScreenshot {
-	rv := objc.Send[SLSScreenshot](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSScreenshot](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,30 +100,30 @@ type ISLSScreenshot interface {
 
 // Init initializes the instance.
 func (s SLSScreenshot) Init() SLSScreenshot {
-	rv := objc.Send[SLSScreenshot](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSScreenshot](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSScreenshot) Autorelease() SLSScreenshot {
-	rv := objc.Send[SLSScreenshot](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSScreenshot](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSScreenshot creates a new SLSScreenshot instance.
 func NewSLSScreenshot() SLSScreenshot {
 	class := getSLSScreenshotClass()
-	rv := objc.Send[SLSScreenshot](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSScreenshot](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSScreenshot) SetHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
 }
 
 func (_SLSScreenshotClass SLSScreenshotClass) ConvertContentStreamPropertiesToScreenshot(screenshot objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSScreenshotClass.class), objc.Sel("convertContentStreamPropertiesToScreenshot:"), screenshot)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSScreenshotClass.class), objc.Sel("convertContentStreamPropertiesToScreenshot:"), screenshot)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSScreenshotClass SLSScreenshotClass) CreateScreenshotPropertiesQueueHandlerError(screenshot objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler func()) (bool, error) {
@@ -141,38 +141,38 @@ func (_SLSScreenshotClass SLSScreenshotClass) CreateScreenshotPropertiesQueueHan
 
 }
 func (_SLSScreenshotClass SLSScreenshotClass) ReplaceColorSpaceInDictionaryWithProfileIDForKey(id objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SLSScreenshotClass.class), objc.Sel("replaceColorSpaceInDictionaryWithProfileID:forKey:"), id, key)
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSScreenshotClass.class), objc.Sel("replaceColorSpaceInDictionaryWithProfileID:forKey:"), id, key)
 	return rv
 }
 
 func (s SLSScreenshot) BridgingHandler() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bridgingHandler"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("bridgingHandler"))
 	_ = rv
 	return nil
 }
 func (s SLSScreenshot) Filter() ISLContentFilter {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("filter"))
 	return SLContentFilterFromID(objc.ID(rv))
 }
 func (s SLSScreenshot) SetFilter(value ISLContentFilter) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFilter:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFilter:"), value)
 }
 func (s SLSScreenshot) Properties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("properties"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLSScreenshot) SetProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setProperties:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setProperties:"), value)
 }
 func (s SLSScreenshot) Queue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLSScreenshot) SetQueue(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setQueue:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setQueue:"), value)
 }
 func (s SLSScreenshot) ZeroWeakSelf() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
 	_ = rv
 	return nil
 }

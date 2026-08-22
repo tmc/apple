@@ -38,7 +38,7 @@ func (sc SLSZeroingWeakContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSZeroingWeakContainerClass) Alloc() SLSZeroingWeakContainer {
-	rv := objc.Send[SLSZeroingWeakContainer](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSZeroingWeakContainer](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,50 +84,50 @@ type ISLSZeroingWeakContainer interface {
 
 // Init initializes the instance.
 func (s SLSZeroingWeakContainer) Init() SLSZeroingWeakContainer {
-	rv := objc.Send[SLSZeroingWeakContainer](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSZeroingWeakContainer](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSZeroingWeakContainer) Autorelease() SLSZeroingWeakContainer {
-	rv := objc.Send[SLSZeroingWeakContainer](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSZeroingWeakContainer](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSZeroingWeakContainer creates a new SLSZeroingWeakContainer instance.
 func NewSLSZeroingWeakContainer() SLSZeroingWeakContainer {
 	class := getSLSZeroingWeakContainerClass()
-	rv := objc.Send[SLSZeroingWeakContainer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSZeroingWeakContainer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSZeroingWeakContainerWithObject(object objectivec.IObject) SLSZeroingWeakContainer {
 	instance := getSLSZeroingWeakContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return SLSZeroingWeakContainerFromID(rv)
 }
 
 func (s SLSZeroingWeakContainer) Invalidate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidate"))
 }
 func (s SLSZeroingWeakContainer) InitWithObject(object objectivec.IObject) SLSZeroingWeakContainer {
-	rv := objc.Send[SLSZeroingWeakContainer](s.ID, objc.Sel("initWithObject:"), object)
+	rv := objc.SendIfResponds[SLSZeroingWeakContainer](s.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
 
 func (_SLSZeroingWeakContainerClass SLSZeroingWeakContainerClass) ContainerWithObject(object objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSZeroingWeakContainerClass.class), objc.Sel("containerWithObject:"), object)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSZeroingWeakContainerClass.class), objc.Sel("containerWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSZeroingWeakContainer) GetObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("object"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSZeroingWeakContainer) Reference() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("reference"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("reference"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSZeroingWeakContainer) SetReference(value objectivec.IObject) {
-	objc.Send[struct{}](s.ID, objc.Sel("setReference:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setReference:"), value)
 }

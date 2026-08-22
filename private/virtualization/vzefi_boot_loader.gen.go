@@ -38,7 +38,7 @@ func (vc VZEFIBootLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZEFIBootLoaderClass) Alloc() VZEFIBootLoader {
-	rv := objc.Send[VZEFIBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZEFIBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,25 +78,25 @@ type IVZEFIBootLoader interface {
 
 // Init initializes the instance.
 func (v VZEFIBootLoader) Init() VZEFIBootLoader {
-	rv := objc.Send[VZEFIBootLoader](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZEFIBootLoader](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZEFIBootLoader) Autorelease() VZEFIBootLoader {
-	rv := objc.Send[VZEFIBootLoader](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZEFIBootLoader](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZEFIBootLoader creates a new VZEFIBootLoader instance.
 func NewVZEFIBootLoader() VZEFIBootLoader {
 	class := getVZEFIBootLoaderClass()
-	rv := objc.Send[VZEFIBootLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZEFIBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZEFIBootLoader) _setROMImageURL(url foundation.NSURL) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setROMImageURL:"), url)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setROMImageURL:"), url)
 }
 
 // SetROMImageURL is an exported wrapper for the private method _setROMImageURL.
@@ -115,7 +115,7 @@ func (v VZEFIBootLoader) CanSetROMImageURL() bool {
 }
 
 func (v VZEFIBootLoader) _ROMImageURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_ROMImageURL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_ROMImageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
@@ -132,5 +132,5 @@ func (v VZEFIBootLoader) ROMImageURL() (foundation.NSURL, error) {
 	return v._ROMImageURL(), nil
 }
 func (v VZEFIBootLoader) Set_ROMImageURL(value foundation.NSURL) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_ROMImageURL:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_ROMImageURL:"), value)
 }

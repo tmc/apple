@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (cc CPXEntryPointsServiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXEntryPointsServiceClass) Alloc() CPXEntryPointsService {
-	rv := objc.Send[CPXEntryPointsService](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXEntryPointsService](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,45 +72,45 @@ type ICPXEntryPointsService interface {
 
 	// Topic: Methods
 
-	ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
-	ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
+	ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
+	ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
 	InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService
 }
 
 // Init initializes the instance.
 func (c CPXEntryPointsService) Init() CPXEntryPointsService {
-	rv := objc.Send[CPXEntryPointsService](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXEntryPointsService](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXEntryPointsService) Autorelease() CPXEntryPointsService {
-	rv := objc.Send[CPXEntryPointsService](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXEntryPointsService](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXEntryPointsService creates a new CPXEntryPointsService instance.
 func NewCPXEntryPointsService() CPXEntryPointsService {
 	class := getCPXEntryPointsServiceClass()
-	rv := objc.Send[CPXEntryPointsService](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXEntryPointsService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXEntryPointsServiceWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService {
 	instance := getCPXEntryPointsServiceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
 	return CPXEntryPointsServiceFromID(rv)
 }
 
-func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
-	rv := objc.Send[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), client, list)
+func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), unsafe.Pointer(client), list)
 	return rv
 }
-func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
-	rv := objc.Send[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), client, list)
+func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), unsafe.Pointer(client), list)
 	return rv
 }
 func (c CPXEntryPointsService) InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService {
-	rv := objc.Send[CPXEntryPointsService](c.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
+	rv := objc.SendIfResponds[CPXEntryPointsService](c.ID, objc.Sel("initWithFocusController:processManager:"), controller, manager)
 	return rv
 }

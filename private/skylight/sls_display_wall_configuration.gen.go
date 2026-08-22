@@ -39,7 +39,7 @@ func (sc SLSDisplayWallConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSDisplayWallConfigurationClass) Alloc() SLSDisplayWallConfiguration {
-	rv := objc.Send[SLSDisplayWallConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSDisplayWallConfiguration](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,41 +88,41 @@ type ISLSDisplayWallConfiguration interface {
 
 // Init initializes the instance.
 func (s SLSDisplayWallConfiguration) Init() SLSDisplayWallConfiguration {
-	rv := objc.Send[SLSDisplayWallConfiguration](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSDisplayWallConfiguration](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSDisplayWallConfiguration) Autorelease() SLSDisplayWallConfiguration {
-	rv := objc.Send[SLSDisplayWallConfiguration](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSDisplayWallConfiguration](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSDisplayWallConfiguration creates a new SLSDisplayWallConfiguration instance.
 func NewSLSDisplayWallConfiguration() SLSDisplayWallConfiguration {
 	class := getSLSDisplayWallConfigurationClass()
-	rv := objc.Send[SLSDisplayWallConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSDisplayWallConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSDisplayWallConfiguration) DisplayIDs() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIDs"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIDs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSDisplayWallConfiguration) SetDisplayIDs(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplayIDs:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayIDs:"), value)
 }
 func (s SLSDisplayWallConfiguration) GridHeight() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("gridHeight"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("gridHeight"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLSDisplayWallConfiguration) SetGridHeight(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setGridHeight:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setGridHeight:"), value)
 }
 func (s SLSDisplayWallConfiguration) GridWidth() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("gridWidth"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("gridWidth"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (s SLSDisplayWallConfiguration) SetGridWidth(value foundation.NSNumber) {
-	objc.Send[struct{}](s.ID, objc.Sel("setGridWidth:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setGridWidth:"), value)
 }

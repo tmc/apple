@@ -39,7 +39,7 @@ func (vc VZMultiTouchEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMultiTouchEventClass) Alloc() VZMultiTouchEvent {
-	rv := objc.Send[VZMultiTouchEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMultiTouchEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type IVZMultiTouchEvent interface {
 
 // Init initializes the instance.
 func (v VZMultiTouchEvent) Init() VZMultiTouchEvent {
-	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMultiTouchEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMultiTouchEvent) Autorelease() VZMultiTouchEvent {
-	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMultiTouchEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMultiTouchEvent creates a new VZMultiTouchEvent instance.
 func NewVZMultiTouchEvent() VZMultiTouchEvent {
 	class := getVZMultiTouchEventClass()
-	rv := objc.Send[VZMultiTouchEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMultiTouchEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMultiTouchEventWithEventView(event objectivec.IObject, view objectivec.IObject) VZMultiTouchEvent {
 	instance := getVZMultiTouchEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:view:"), event, view)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return VZMultiTouchEventFromID(rv)
 }
 
 func NewVZMultiTouchEventWithTouches(touches objectivec.IObject) VZMultiTouchEvent {
 	instance := getVZMultiTouchEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTouches:"), touches)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTouches:"), touches)
 	return VZMultiTouchEventFromID(rv)
 }
 
 func (v VZMultiTouchEvent) InitWithEventView(event objectivec.IObject, view objectivec.IObject) VZMultiTouchEvent {
-	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
+	rv := objc.SendIfResponds[VZMultiTouchEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return rv
 }
 func (v VZMultiTouchEvent) InitWithTouches(touches objectivec.IObject) VZMultiTouchEvent {
-	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("initWithTouches:"), touches)
+	rv := objc.SendIfResponds[VZMultiTouchEvent](v.ID, objc.Sel("initWithTouches:"), touches)
 	return rv
 }
 
 func (v VZMultiTouchEvent) Touches() foundation.INSSet {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("touches"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("touches"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }

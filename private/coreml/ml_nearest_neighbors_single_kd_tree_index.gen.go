@@ -41,7 +41,7 @@ func (mc MLNearestNeighborsSingleKdTreeIndexClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNearestNeighborsSingleKdTreeIndexClass) Alloc() MLNearestNeighborsSingleKdTreeIndex {
-	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNearestNeighborsSingleKdTreeIndex](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -114,57 +114,60 @@ type IMLNearestNeighborsSingleKdTreeIndex interface {
 
 // Init initializes the instance.
 func (m MLNearestNeighborsSingleKdTreeIndex) Init() MLNearestNeighborsSingleKdTreeIndex {
-	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNearestNeighborsSingleKdTreeIndex) Autorelease() MLNearestNeighborsSingleKdTreeIndex {
-	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNearestNeighborsSingleKdTreeIndex creates a new MLNearestNeighborsSingleKdTreeIndex instance.
 func NewMLNearestNeighborsSingleKdTreeIndex() MLNearestNeighborsSingleKdTreeIndex {
 	class := getMLNearestNeighborsSingleKdTreeIndexClass()
-	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNearestNeighborsSingleKdTreeIndex](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNearestNeighborsSingleKdTreeIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsSingleKdTreeIndex {
 	instance := getMLNearestNeighborsSingleKdTreeIndexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNearestNeighborsSingleKdTreeIndexFromID(rv)
 }
 
 func NewNearestNeighborsSingleKdTreeIndexWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
 	var errorPtr objc.ID
 	instance := getMLNearestNeighborsSingleKdTreeIndexClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:leafSize:error:"), dataset, dimensions, size, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:leafSize:error:"), dataset, dimensions, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNearestNeighborsSingleKdTreeIndex{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNearestNeighborsSingleKdTreeIndex{}, objc.ErrInitFailed
 	}
 	return MLNearestNeighborsSingleKdTreeIndexFromID(rv), nil
 }
 
 func (m MLNearestNeighborsSingleKdTreeIndex) ConstructTree() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("constructTree"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("constructTree"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) ConstructTreeForPointsBoundedByStartingIndexCount(by unsafe.Pointer, index uint64, count uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("constructTreeForPointsBoundedBy:startingIndex:count:"), by, index, count)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("constructTreeForPointsBoundedBy:startingIndex:count:"), objc.CArray(by), index, count)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) DataPointCount() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("dataPointCount"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("dataPointCount"))
 	return rv
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) FindKNearestNeighborsToQueryPointInTree(k uint64, neighbors unsafe.Pointer, point unsafe.Pointer, tree objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("findK:nearestNeighbors:toQueryPoint:inTree:"), k, neighbors, point, tree)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("findK:nearestNeighbors:toQueryPoint:inTree:"), k, neighbors, point, tree)
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) UpdateWithDataError(data unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -180,7 +183,7 @@ func (m MLNearestNeighborsSingleKdTreeIndex) UpdateWithDataError(data unsafe.Poi
 
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) InitWithCoder(coder foundation.INSCoder) MLNearestNeighborsSingleKdTreeIndex {
-	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLNearestNeighborsSingleKdTreeIndex](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) InitWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
@@ -195,28 +198,28 @@ func (m MLNearestNeighborsSingleKdTreeIndex) InitWithDatasetNumberOfDimensionsLe
 }
 
 func (_MLNearestNeighborsSingleKdTreeIndexClass MLNearestNeighborsSingleKdTreeIndexClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLNearestNeighborsSingleKdTreeIndexClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLNearestNeighborsSingleKdTreeIndexClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLNearestNeighborsSingleKdTreeIndex) LeafSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("leafSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("leafSize"))
 	return rv
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) SetLeafSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLeafSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLeafSize:"), value)
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) NumDimensions() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numDimensions"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numDimensions"))
 	return rv
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) SetNumDimensions(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumDimensions:"), value)
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) Root() IKDNode {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("root"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("root"))
 	return KDNodeFromID(objc.ID(rv))
 }
 func (m MLNearestNeighborsSingleKdTreeIndex) SetRoot(value IKDNode) {
-	objc.Send[struct{}](m.ID, objc.Sel("setRoot:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setRoot:"), value)
 }

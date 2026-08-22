@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceGetAbsoluteLevelOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceGetAbsoluteLevelOperationClass) Alloc() SLSBridgedSpaceGetAbsoluteLevelOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAbsoluteLevelOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAbsoluteLevelOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedSpaceGetAbsoluteLevelOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceGetAbsoluteLevelOperation) Init() SLSBridgedSpaceGetAbsoluteLevelOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceGetAbsoluteLevelOperation) Autorelease() SLSBridgedSpaceGetAbsoluteLevelOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceGetAbsoluteLevelOperation creates a new SLSBridgedSpaceGetAbsoluteLevelOperation instance.
 func NewSLSBridgedSpaceGetAbsoluteLevelOperation() SLSBridgedSpaceGetAbsoluteLevelOperation {
 	class := getSLSBridgedSpaceGetAbsoluteLevelOperationClass()
-	rv := objc.Send[SLSBridgedSpaceGetAbsoluteLevelOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAbsoluteLevelOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceGetAbsoluteLevelOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceGetAbsoluteLevelOperation {
 	instance := getSLSBridgedSpaceGetAbsoluteLevelOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceGetAbsoluteLevelOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceGetAbsoluteLevelOperationWithSpaceID(id uint64) SLSBridgedSpaceGetAbsoluteLevelOperation {
 	instance := getSLSBridgedSpaceGetAbsoluteLevelOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceGetAbsoluteLevelOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceGetAbsoluteLevelOperation) MakeResultWithInt32Value(int32Value int) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithInt32Value:"), int32Value)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithInt32Value:"), int32Value)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceGetAbsoluteLevelOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceGetAbsoluteLevelOperation {
-	rv := objc.Send[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceGetAbsoluteLevelOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceGetAbsoluteLevelOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

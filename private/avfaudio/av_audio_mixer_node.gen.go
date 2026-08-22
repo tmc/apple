@@ -40,7 +40,7 @@ func (ac AVAudioMixerNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioMixerNodeClass) Alloc() AVAudioMixerNode {
-	rv := objc.Send[AVAudioMixerNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioMixerNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,52 +92,52 @@ type IAVAudioMixerNode interface {
 
 // Init initializes the instance.
 func (a AVAudioMixerNode) Init() AVAudioMixerNode {
-	rv := objc.Send[AVAudioMixerNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioMixerNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioMixerNode) Autorelease() AVAudioMixerNode {
-	rv := objc.Send[AVAudioMixerNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioMixerNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioMixerNode creates a new AVAudioMixerNode instance.
 func NewAVAudioMixerNode() AVAudioMixerNode {
 	class := getAVAudioMixerNodeClass()
-	rv := objc.Send[AVAudioMixerNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioMixerNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioMixerNodeWithImpl(impl unsafe.Pointer) AVAudioMixerNode {
 	instance := getAVAudioMixerNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioMixerNodeFromID(rv)
 }
 
 func (a AVAudioMixerNode) InputConnected(connected uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("inputConnected:"), connected)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputConnected:"), connected)
 }
 func (a AVAudioMixerNode) SetInputPanBus(pan float32, bus uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setInputPan:bus:"), pan, bus)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setInputPan:bus:"), pan, bus)
 }
 func (a AVAudioMixerNode) SetInputVolumeBus(volume float32, bus uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setInputVolume:bus:"), volume, bus)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setInputVolume:bus:"), volume, bus)
 }
 
 func (a AVAudioMixerNode) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioMixerNode) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioMixerNode) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioMixerNode) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

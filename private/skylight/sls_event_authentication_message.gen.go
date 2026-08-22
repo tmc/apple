@@ -5,6 +5,7 @@ package skylight
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -40,7 +41,7 @@ func (sc SLSEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSEventAuthenticationMessageClass) Alloc() SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -136,8 +137,8 @@ type ISLSEventAuthenticationMessage interface {
 	ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler)
 	InitWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSEventAuthenticationMessage
 	InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessage
-	InitWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage
-	InitWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage
+	InitWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage
+	InitWithMessageInitData(data *MessageInitData) SLSEventAuthenticationMessage
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -146,161 +147,163 @@ type ISLSEventAuthenticationMessage interface {
 
 // Init initializes the instance.
 func (s SLSEventAuthenticationMessage) Init() SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSEventAuthenticationMessage) Autorelease() SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSEventAuthenticationMessage creates a new SLSEventAuthenticationMessage instance.
 func NewSLSEventAuthenticationMessage() SLSEventAuthenticationMessage {
 	class := getSLSEventAuthenticationMessageClass()
-	rv := objc.Send[SLSEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSEventAuthenticationMessageFromID(rv)
 }
 
 func NewSLSEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
+func NewSLSEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage {
+func NewSLSEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return SLSEventAuthenticationMessageFromID(rv)
 }
 
 func (s SLSEventAuthenticationMessage) AddToSigningContext(context objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addToSigningContext:"), context)
 }
 func (s SLSEventAuthenticationMessage) CopySignedByKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copySignedByKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copySignedByKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSEventAuthenticationMessage) CopyWithSignature(signature objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyWithSignature:"), signature)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyWithSignature:"), signature)
 	return objectivec.Object{ID: rv}
 }
+
+// zone is a [skylight.NSZoneRef].
 func (s SLSEventAuthenticationMessage) CopyWithZoneSignature(zone NSZoneRef, signature objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("copyWithZone:signature:"), zone, signature)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyWithZone:signature:"), zone, signature)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSEventAuthenticationMessage) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLSEventAuthenticationMessage) HasSuperclassEquivalentUnsignedData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasSuperclassEquivalentUnsignedData:"), data)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("hasSuperclassEquivalentUnsignedData:"), data)
 	return rv
 }
 func (s SLSEventAuthenticationMessage) IsSuperclassEquivalent(equivalent objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isSuperclassEquivalent:"), equivalent)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isSuperclassEquivalent:"), equivalent)
 	return rv
 }
 func (s SLSEventAuthenticationMessage) MatchesMessageData(data objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("matchesMessageData:"), data)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("matchesMessageData:"), data)
 	return rv
 }
 func (s SLSEventAuthenticationMessage) ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("validateWithOptions:andResultBlock:"), options, _block1)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("validateWithOptions:andResultBlock:"), options, _block1)
 }
 func (s SLSEventAuthenticationMessage) InitWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return rv
 }
 func (s SLSEventAuthenticationMessage) InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (s SLSEventAuthenticationMessage) InitWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+func (s SLSEventAuthenticationMessage) InitWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return rv
 }
-func (s SLSEventAuthenticationMessage) InitWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage {
-	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithMessageInitData:"), data)
+func (s SLSEventAuthenticationMessage) InitWithMessageInitData(data *MessageInitData) SLSEventAuthenticationMessage {
+	rv := objc.SendIfResponds[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return rv
 }
 
 func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) BasisMessageSignedByKey(message objectivec.IObject, key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("basisMessage:signedByKey:"), message, key)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("basisMessage:signedByKey:"), message, key)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) ClassForEventType(type_ uint32) objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("classForEventType:"), type_)
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("classForEventType:"), type_)
 	return objectivec.Class(rv)
 }
-func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) MessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("messageWithEventRecord:pid:version:"), record, pid, version)
+func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) MessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("messageWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return objectivec.Object{ID: rv}
 }
 func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (s SLSEventAuthenticationMessage) Capabilities() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("capabilities"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("capabilities"))
 	return rv
 }
 func (s SLSEventAuthenticationMessage) Context() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("context"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("context"))
 	return rv
 }
 func (s SLSEventAuthenticationMessage) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSEventAuthenticationMessage) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSEventAuthenticationMessage) EventType() ISLSEventAuthenticationMessageEventType {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("eventType"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("eventType"))
 	return SLSEventAuthenticationMessageEventTypeFromID(objc.ID(rv))
 }
 func (s SLSEventAuthenticationMessage) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSEventAuthenticationMessage) OriginIdentifier() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("originIdentifier"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("originIdentifier"))
 	return rv
 }
 func (s SLSEventAuthenticationMessage) ProxyTargetProcess() ISLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("proxyTargetProcess"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("proxyTargetProcess"))
 	return SLSEventAuthenticationMessageVersionedPIDFromID(objc.ID(rv))
 }
 func (s SLSEventAuthenticationMessage) Signature() foundation.NSData {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("signature"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("signature"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (s SLSEventAuthenticationMessage) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (s SLSEventAuthenticationMessage) TargetProcess() ISLSEventAuthenticationMessageVersionedPID {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("targetProcess"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("targetProcess"))
 	return SLSEventAuthenticationMessageVersionedPIDFromID(objc.ID(rv))
 }
 func (s SLSEventAuthenticationMessage) Timestamp() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("timestamp"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("timestamp"))
 	return rv
 }
 

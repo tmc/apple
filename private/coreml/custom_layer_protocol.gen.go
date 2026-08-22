@@ -10,6 +10,18 @@ import (
 // MLCustomLayer protocol.
 type MLCustomLayer interface {
 	objectivec.IObject
+
+	// EncodeToCommandBufferInputsOutputsError protocol.
+	EncodeToCommandBufferInputsOutputsError(buffer objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject) (bool, error)
+
+	// EvaluateOnCPUWithInputsOutputsError protocol.
+	EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error)
+
+	// OutputShapesForInputShapesError protocol.
+	OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error)
+
+	// SetWeightDataError protocol.
+	SetWeightDataError(data objectivec.IObject) (bool, error)
 }
 
 // MLCustomLayerObject wraps an existing Objective-C object that conforms to the MLCustomLayer protocol.

@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceAddOwnerOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceAddOwnerOperationClass) Alloc() SLSBridgedSpaceAddOwnerOperation {
-	rv := objc.Send[SLSBridgedSpaceAddOwnerOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddOwnerOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedSpaceAddOwnerOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceAddOwnerOperation) Init() SLSBridgedSpaceAddOwnerOperation {
-	rv := objc.Send[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceAddOwnerOperation) Autorelease() SLSBridgedSpaceAddOwnerOperation {
-	rv := objc.Send[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceAddOwnerOperation creates a new SLSBridgedSpaceAddOwnerOperation instance.
 func NewSLSBridgedSpaceAddOwnerOperation() SLSBridgedSpaceAddOwnerOperation {
 	class := getSLSBridgedSpaceAddOwnerOperationClass()
-	rv := objc.Send[SLSBridgedSpaceAddOwnerOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddOwnerOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceAddOwnerOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceAddOwnerOperation {
 	instance := getSLSBridgedSpaceAddOwnerOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceAddOwnerOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceAddOwnerOperationWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceAddOwnerOperation {
 	instance := getSLSBridgedSpaceAddOwnerOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return SLSBridgedSpaceAddOwnerOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceAddOwnerOperation) InitWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceAddOwnerOperation {
-	rv := objc.Send[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
+	rv := objc.SendIfResponds[SLSBridgedSpaceAddOwnerOperation](s.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return rv
 }
 
 func (s SLSBridgedSpaceAddOwnerOperation) Owner() int {
-	rv := objc.Send[int](s.ID, objc.Sel("owner"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("owner"))
 	return rv
 }
 func (s SLSBridgedSpaceAddOwnerOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

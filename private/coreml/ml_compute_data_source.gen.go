@@ -41,7 +41,7 @@ func (mc MLComputeDataSourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputeDataSourceClass) Alloc() MLComputeDataSource {
-	rv := objc.Send[MLComputeDataSource](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputeDataSource](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,30 +90,33 @@ type IMLComputeDataSource interface {
 
 // Init initializes the instance.
 func (m MLComputeDataSource) Init() MLComputeDataSource {
-	rv := objc.Send[MLComputeDataSource](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputeDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputeDataSource) Autorelease() MLComputeDataSource {
-	rv := objc.Send[MLComputeDataSource](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputeDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputeDataSource creates a new MLComputeDataSource instance.
 func NewMLComputeDataSource() MLComputeDataSource {
 	class := getMLComputeDataSourceClass()
-	rv := objc.Send[MLComputeDataSource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputeDataSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLComputeDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLComputeDataSource{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLComputeDataSource{}, objc.ErrInitFailed
 	}
 	return MLComputeDataSourceFromID(rv), nil
 }
@@ -170,6 +173,6 @@ func (m MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEn
 }
 
 func (m MLComputeDataSource) DataDictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataDictionary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dataDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

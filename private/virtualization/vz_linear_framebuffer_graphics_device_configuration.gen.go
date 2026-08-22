@@ -38,7 +38,7 @@ func (vc VZLinearFramebufferGraphicsDeviceConfigurationClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinearFramebufferGraphicsDeviceConfigurationClass) Alloc() VZLinearFramebufferGraphicsDeviceConfiguration {
-	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,38 +78,38 @@ type IVZLinearFramebufferGraphicsDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) Init() VZLinearFramebufferGraphicsDeviceConfiguration {
-	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) Autorelease() VZLinearFramebufferGraphicsDeviceConfiguration {
-	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZLinearFramebufferGraphicsDeviceConfiguration creates a new VZLinearFramebufferGraphicsDeviceConfiguration instance.
 func NewVZLinearFramebufferGraphicsDeviceConfiguration() VZLinearFramebufferGraphicsDeviceConfiguration {
 	class := getVZLinearFramebufferGraphicsDeviceConfigurationClass()
-	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZLinearFramebufferGraphicsDeviceConfigurationWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
 	instance := getVZLinearFramebufferGraphicsDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackingStoreSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackingStoreSize:"), size)
 	return VZLinearFramebufferGraphicsDeviceConfigurationFromID(rv)
 }
 
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) InitWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
-	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("initWithBackingStoreSize:"), size)
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("initWithBackingStoreSize:"), size)
 	return rv
 }
 
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) BackingStoreSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("backingStoreSize"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](v.ID, objc.Sel("backingStoreSize"))
 	return corefoundation.CGSize(rv)
 }
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) SetBackingStoreSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBackingStoreSize:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setBackingStoreSize:"), value)
 }

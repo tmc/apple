@@ -38,7 +38,7 @@ func (mc MLProbabilityDictionaryFloat64StorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProbabilityDictionaryFloat64StorageClass) Alloc() MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryFloat64Storage](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,36 +81,36 @@ type IMLProbabilityDictionaryFloat64Storage interface {
 
 // Init initializes the instance.
 func (m MLProbabilityDictionaryFloat64Storage) Init() MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProbabilityDictionaryFloat64Storage) Autorelease() MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProbabilityDictionaryFloat64Storage creates a new MLProbabilityDictionaryFloat64Storage instance.
 func NewMLProbabilityDictionaryFloat64Storage() MLProbabilityDictionaryFloat64Storage {
 	class := getMLProbabilityDictionaryFloat64StorageClass()
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryFloat64Storage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLProbabilityDictionaryFloat64Storage) Count() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLProbabilityDictionaryFloat64Storage) MaxElementIndex() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("maxElementIndex"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
 func (m MLProbabilityDictionaryFloat64Storage) ProbabilityAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProbabilityDictionaryFloat64Storage) InitWithFloat64CArrayCount(float64CArray []float64, count uint64) MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("initWithFloat64CArray:count:"), objc.CArray(float64CArray), count)
+	rv := objc.SendIfResponds[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("initWithFloat64CArray:count:"), objc.CArray(float64CArray), count)
 	return rv
 }

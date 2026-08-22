@@ -40,7 +40,7 @@ func (nc NWConnectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NWConnectionClass) Alloc() NWConnection {
-	rv := objc.Send[NWConnection](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NWConnection](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -170,178 +170,178 @@ type INWConnection interface {
 
 // Init initializes the instance.
 func (n NWConnection) Init() NWConnection {
-	rv := objc.Send[NWConnection](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NWConnection) Autorelease() NWConnection {
-	rv := objc.Send[NWConnection](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNWConnection creates a new NWConnection instance.
 func NewNWConnection() NWConnection {
 	class := getNWConnectionClass()
-	rv := objc.Send[NWConnection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NWConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNWConnectionWithConnectedSocket(socket int) NWConnection {
 	instance := getNWConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConnectedSocket:"), socket)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConnectedSocket:"), socket)
 	return NWConnectionFromID(rv)
 }
 
 func NewNWConnectionWithEndpointParameters(endpoint objectivec.IObject, parameters objectivec.IObject) NWConnection {
 	instance := getNWConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEndpoint:parameters:"), endpoint, parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEndpoint:parameters:"), endpoint, parameters)
 	return NWConnectionFromID(rv)
 }
 
 func NewNWConnectionWithInternalConnection(connection objectivec.IObject) NWConnection {
 	instance := getNWConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInternalConnection:"), connection)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInternalConnection:"), connection)
 	return NWConnectionFromID(rv)
 }
 
 func (n NWConnection) Cancel() {
-	objc.Send[objc.ID](n.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("cancel"))
 }
 func (n NWConnection) CancelCurrentEndpoint() {
-	objc.Send[objc.ID](n.ID, objc.Sel("cancelCurrentEndpoint"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("cancelCurrentEndpoint"))
 }
 func (n NWConnection) CopyCurrentPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyCurrentPath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyCurrentPath"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWConnection) CopyError() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyError"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyError"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWConnection) ForceCancel() {
-	objc.Send[objc.ID](n.ID, objc.Sel("forceCancel"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("forceCancel"))
 }
 func (n NWConnection) GetConnectedSocket() int {
-	rv := objc.Send[int](n.ID, objc.Sel("getConnectedSocket"))
+	rv := objc.SendIfResponds[int](n.ID, objc.Sel("getConnectedSocket"))
 	return rv
 }
 func (n NWConnection) IsViable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isViable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("isViable"))
 	return rv
 }
 func (n NWConnection) Start() {
-	objc.Send[objc.ID](n.ID, objc.Sel("start"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("start"))
 }
 func (n NWConnection) InitWithConnectedSocket(socket int) NWConnection {
-	rv := objc.Send[NWConnection](n.ID, objc.Sel("initWithConnectedSocket:"), socket)
+	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("initWithConnectedSocket:"), socket)
 	return rv
 }
 func (n NWConnection) InitWithEndpointParameters(endpoint objectivec.IObject, parameters objectivec.IObject) NWConnection {
-	rv := objc.Send[NWConnection](n.ID, objc.Sel("initWithEndpoint:parameters:"), endpoint, parameters)
+	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("initWithEndpoint:parameters:"), endpoint, parameters)
 	return rv
 }
 func (n NWConnection) InitWithInternalConnection(connection objectivec.IObject) NWConnection {
-	rv := objc.Send[NWConnection](n.ID, objc.Sel("initWithInternalConnection:"), connection)
+	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("initWithInternalConnection:"), connection)
 	return rv
 }
 
 func (_NWConnectionClass NWConnectionClass) AutomaticallyNotifiesObserversForKey(key objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_NWConnectionClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
+	rv := objc.SendIfResponds[bool](objc.ID(_NWConnectionClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
 	return rv
 }
 func (_NWConnectionClass NWConnectionClass) ConnectionWithConnectedSocket(socket int) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithConnectedSocket:"), socket)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithConnectedSocket:"), socket)
 	return objectivec.Object{ID: rv}
 }
 func (_NWConnectionClass NWConnectionClass) ConnectionWithEndpointParameters(endpoint objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithEndpoint:parameters:"), endpoint, parameters)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithEndpoint:parameters:"), endpoint, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (_NWConnectionClass NWConnectionClass) ConnectionWithInternalConnection(connection objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithInternalConnection:"), connection)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithInternalConnection:"), connection)
 	return objectivec.Object{ID: rv}
 }
 
 func (n NWConnection) ConnectedLocalEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("connectedLocalEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("connectedLocalEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWConnection) ConnectedRemoteEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("connectedRemoteEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("connectedRemoteEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWConnection) ConnectionState() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("connectionState"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("connectionState"))
 	return rv
 }
 func (n NWConnection) CurrentPath() INWPath {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("currentPath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("currentPath"))
 	return NWPathFromID(objc.ID(rv))
 }
 func (n NWConnection) Endpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("endpoint"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("endpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWConnection) Error() foundation.NSError {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("error"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (n NWConnection) HasBetterPath() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasBetterPath"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasBetterPath"))
 	return rv
 }
 func (n NWConnection) InternalConnection() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](n.ID, objc.Sel("internalConnection"))
+	rv := objc.SendIfResponds[unsafe.Pointer](n.ID, objc.Sel("internalConnection"))
 	return rv
 }
 func (n NWConnection) SetInternalConnection(value unsafe.Pointer) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalConnection:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalConnection:"), value)
 }
 func (n NWConnection) InternalConnectionState() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("internalConnectionState"))
+	rv := objc.SendIfResponds[int64](n.ID, objc.Sel("internalConnectionState"))
 	return rv
 }
 func (n NWConnection) SetInternalConnectionState(value int64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalConnectionState:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalConnectionState:"), value)
 }
 func (n NWConnection) InternalError() foundation.NSError {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalError"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (n NWConnection) SetInternalError(value foundation.NSError) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalError:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalError:"), value)
 }
 func (n NWConnection) InternalHasBetterPath() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("internalHasBetterPath"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("internalHasBetterPath"))
 	return rv
 }
 func (n NWConnection) SetInternalHasBetterPath(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalHasBetterPath:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalHasBetterPath:"), value)
 }
 func (n NWConnection) InternalIsViable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("internalIsViable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("internalIsViable"))
 	return rv
 }
 func (n NWConnection) SetInternalIsViable(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalIsViable:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalIsViable:"), value)
 }
 func (n NWConnection) InternalPath() INWPath {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalPath"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalPath"))
 	return NWPathFromID(objc.ID(rv))
 }
 func (n NWConnection) SetInternalPath(value INWPath) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalPath:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalPath:"), value)
 }
 func (n NWConnection) Parameters() INWParameters {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("parameters"))
 	return NWParametersFromID(objc.ID(rv))
 }
 func (n NWConnection) TlsConnectionTime() uint32 {
-	rv := objc.Send[uint32](n.ID, objc.Sel("tlsConnectionTime"))
+	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("tlsConnectionTime"))
 	return rv
 }
 func (n NWConnection) Viable() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("viable"))
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("viable"))
 	return rv
 }

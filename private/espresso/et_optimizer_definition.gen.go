@@ -40,7 +40,7 @@ func (ec ETOptimizerDefinitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETOptimizerDefinitionClass) Alloc() ETOptimizerDefinition {
-	rv := objc.Send[ETOptimizerDefinition](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETOptimizerDefinition](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IETOptimizerDefinition interface {
 
 // Init initializes the instance.
 func (e ETOptimizerDefinition) Init() ETOptimizerDefinition {
-	rv := objc.Send[ETOptimizerDefinition](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETOptimizerDefinition](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETOptimizerDefinition) Autorelease() ETOptimizerDefinition {
-	rv := objc.Send[ETOptimizerDefinition](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETOptimizerDefinition](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETOptimizerDefinition creates a new ETOptimizerDefinition instance.
 func NewETOptimizerDefinition() ETOptimizerDefinition {
 	class := getETOptimizerDefinitionClass()
-	rv := objc.Send[ETOptimizerDefinition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETOptimizerDefinition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETOptimizerDefinitionWithOptimizationAlgorithmParametersError(algorithm int64, parameters objectivec.IObject) (ETOptimizerDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETOptimizerDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptimizationAlgorithm:parameters:error:"), algorithm, parameters, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptimizationAlgorithm:parameters:error:"), algorithm, parameters, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETOptimizerDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETOptimizerDefinition{}, objc.ErrInitFailed
 	}
 	return ETOptimizerDefinitionFromID(rv), nil
 }
@@ -120,10 +123,10 @@ func (e ETOptimizerDefinition) InitWithOptimizationAlgorithmParametersError(algo
 }
 
 func (e ETOptimizerDefinition) OptimizationParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("optimizationParameters"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("optimizationParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e ETOptimizerDefinition) Type() int64 {
-	rv := objc.Send[int64](e.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int64](e.ID, objc.Sel("type"))
 	return rv
 }

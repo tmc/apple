@@ -40,7 +40,7 @@ func (mc MLFeatureVectorizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureVectorizerClass) Alloc() MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureVectorizer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,38 +83,38 @@ type IMLFeatureVectorizer interface {
 
 // Init initializes the instance.
 func (m MLFeatureVectorizer) Init() MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureVectorizer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureVectorizer) Autorelease() MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureVectorizer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureVectorizer creates a new MLFeatureVectorizer instance.
 func NewMLFeatureVectorizer() MLFeatureVectorizer {
 	class := getMLFeatureVectorizerClass()
-	rv := objc.Send[MLFeatureVectorizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureVectorizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFeatureVectorizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLFeatureVectorizerFromID(rv)
 }
 
 func NewFeatureVectorizerWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
 	return MLFeatureVectorizerFromID(rv)
 }
 
 func NewFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLFeatureVectorizerFromID(rv)
 }
 
@@ -129,7 +129,7 @@ func (m MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objective
 
 }
 func (m MLFeatureVectorizer) InitWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[MLFeatureVectorizer](m.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -145,10 +145,10 @@ func (_MLFeatureVectorizerClass MLFeatureVectorizerClass) LoadModelFromSpecifica
 }
 
 func (m MLFeatureVectorizer) ColumnNameEncoding() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("columnNameEncoding"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("columnNameEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLFeatureVectorizer) DimensionEncoding() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dimensionEncoding"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dimensionEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

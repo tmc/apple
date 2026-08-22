@@ -39,7 +39,7 @@ func (vc VZMultiTouchDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMultiTouchDeviceClass) Alloc() VZMultiTouchDevice {
-	rv := objc.Send[VZMultiTouchDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMultiTouchDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,28 +76,28 @@ type IVZMultiTouchDevice interface {
 
 // Init initializes the instance.
 func (v VZMultiTouchDevice) Init() VZMultiTouchDevice {
-	rv := objc.Send[VZMultiTouchDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMultiTouchDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMultiTouchDevice) Autorelease() VZMultiTouchDevice {
-	rv := objc.Send[VZMultiTouchDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMultiTouchDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMultiTouchDevice creates a new VZMultiTouchDevice instance.
 func NewVZMultiTouchDevice() VZMultiTouchDevice {
 	class := getVZMultiTouchDeviceClass()
-	rv := objc.Send[VZMultiTouchDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMultiTouchDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMultiTouchDevice) SendMultiTouchEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:"), events)
 }
 
 func (v VZMultiTouchDevice) AssociationIdentifier() foundation.NSUUID {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("associationIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }

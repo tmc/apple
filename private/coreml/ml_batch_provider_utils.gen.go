@@ -41,7 +41,7 @@ func (mc MLBatchProviderUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLBatchProviderUtilsClass) Alloc() MLBatchProviderUtils {
-	rv := objc.Send[MLBatchProviderUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLBatchProviderUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,37 +64,37 @@ type IMLBatchProviderUtils interface {
 
 // Init initializes the instance.
 func (m MLBatchProviderUtils) Init() MLBatchProviderUtils {
-	rv := objc.Send[MLBatchProviderUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLBatchProviderUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLBatchProviderUtils) Autorelease() MLBatchProviderUtils {
-	rv := objc.Send[MLBatchProviderUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLBatchProviderUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLBatchProviderUtils creates a new MLBatchProviderUtils instance.
 func NewMLBatchProviderUtils() MLBatchProviderUtils {
 	class := getMLBatchProviderUtilsClass()
-	rv := objc.Send[MLBatchProviderUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLBatchProviderUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) BatchFromConcatinatingBatches(batches objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("batchFromConcatinatingBatches:"), batches)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("batchFromConcatinatingBatches:"), batches)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) BatchWithSubsetOfFeaturesNamedFromBatch(named objectivec.IObject, batch objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("batchWithSubsetOfFeaturesNamed:fromBatch:"), named, batch)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("batchWithSubsetOfFeaturesNamed:fromBatch:"), named, batch)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) DictionaryFromBatch(batch objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("dictionaryFromBatch:"), batch)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("dictionaryFromBatch:"), batch)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) DictionaryFromBatchFeatureNames(batch objectivec.IObject, names objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("dictionaryFromBatch:featureNames:"), batch, names)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("dictionaryFromBatch:featureNames:"), batch, names)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) FeatureDescriptionsByNameForBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
@@ -108,11 +108,11 @@ func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) FeatureDescriptionsB
 
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) FeatureNamesInBatch(batch objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("featureNamesInBatch:"), batch)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("featureNamesInBatch:"), batch)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) FeatureProviderArrayFromBatch(batch objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("featureProviderArrayFromBatch:"), batch)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBatchProviderUtilsClass.class), objc.Sel("featureProviderArrayFromBatch:"), batch)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBatchProviderUtilsClass MLBatchProviderUtilsClass) FeatureValueArrayForNameBatchError(name objectivec.IObject, batch objectivec.IObject) (objectivec.IObject, error) {

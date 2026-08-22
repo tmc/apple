@@ -38,7 +38,7 @@ func (vc VZScrollWheelEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZScrollWheelEventClass) Alloc() VZScrollWheelEvent {
-	rv := objc.Send[VZScrollWheelEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZScrollWheelEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,65 +93,65 @@ type IVZScrollWheelEvent interface {
 
 // Init initializes the instance.
 func (v VZScrollWheelEvent) Init() VZScrollWheelEvent {
-	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZScrollWheelEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZScrollWheelEvent) Autorelease() VZScrollWheelEvent {
-	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZScrollWheelEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZScrollWheelEvent creates a new VZScrollWheelEvent instance.
 func NewVZScrollWheelEvent() VZScrollWheelEvent {
 	class := getVZScrollWheelEventClass()
-	rv := objc.Send[VZScrollWheelEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZScrollWheelEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZScrollWheelEventWithEvent(event objectivec.IObject) VZScrollWheelEvent {
 	instance := getVZScrollWheelEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZScrollWheelEventFromID(rv)
 }
 
 func NewVZScrollWheelEventWithScrollingDeltaXScrollingDeltaYAcceleratedScrollingDeltaXAcceleratedScrollingDeltaYScrollPhaseMomentumPhase(x float64, y float64, x2 float64, y2 float64, phase uint64, phase2 uint64) VZScrollWheelEvent {
 	instance := getVZScrollWheelEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:"), x, y, x2, y2, phase, phase2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:"), x, y, x2, y2, phase, phase2)
 	return VZScrollWheelEventFromID(rv)
 }
 
 func (v VZScrollWheelEvent) InitWithEvent(event objectivec.IObject) VZScrollWheelEvent {
-	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[VZScrollWheelEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
 func (v VZScrollWheelEvent) InitWithScrollingDeltaXScrollingDeltaYAcceleratedScrollingDeltaXAcceleratedScrollingDeltaYScrollPhaseMomentumPhase(x float64, y float64, x2 float64, y2 float64, phase uint64, phase2 uint64) VZScrollWheelEvent {
-	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:"), x, y, x2, y2, phase, phase2)
+	rv := objc.SendIfResponds[VZScrollWheelEvent](v.ID, objc.Sel("initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:"), x, y, x2, y2, phase, phase2)
 	return rv
 }
 
 func (v VZScrollWheelEvent) AcceleratedScrollingDeltaX() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("acceleratedScrollingDeltaX"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("acceleratedScrollingDeltaX"))
 	return rv
 }
 func (v VZScrollWheelEvent) AcceleratedScrollingDeltaY() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("acceleratedScrollingDeltaY"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("acceleratedScrollingDeltaY"))
 	return rv
 }
 func (v VZScrollWheelEvent) MomentumPhase() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("momentumPhase"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("momentumPhase"))
 	return rv
 }
 func (v VZScrollWheelEvent) ScrollPhase() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("scrollPhase"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("scrollPhase"))
 	return rv
 }
 func (v VZScrollWheelEvent) ScrollingDeltaX() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("scrollingDeltaX"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("scrollingDeltaX"))
 	return rv
 }
 func (v VZScrollWheelEvent) ScrollingDeltaY() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("scrollingDeltaY"))
+	rv := objc.SendIfResponds[float64](v.ID, objc.Sel("scrollingDeltaY"))
 	return rv
 }

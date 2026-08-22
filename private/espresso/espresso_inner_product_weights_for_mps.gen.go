@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [EspressoInnerProductWeightsForMPS] class.
@@ -40,7 +41,7 @@ func (ec EspressoInnerProductWeightsForMPSClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoInnerProductWeightsForMPSClass) Alloc() EspressoInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoInnerProductWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoInnerProductWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,10 +102,10 @@ type IEspressoInnerProductWeightsForMPS interface {
 	Label() objectivec.IObject
 	LookupTableForUInt8Kernel() unsafe.Pointer
 	Purge()
-	RangesForUInt8Kernel() []objectivec.IObject
+	RangesForUInt8Kernel() unsafe.Pointer
 	Ready() bool
 	Weights() unsafe.Pointer
-	InitWithParams(params InnerProductUniforms) EspressoInnerProductWeightsForMPS
+	InitWithParams(params appleneuralengine.InnerProductUniforms) EspressoInnerProductWeightsForMPS
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -113,84 +114,82 @@ type IEspressoInnerProductWeightsForMPS interface {
 
 // Init initializes the instance.
 func (e EspressoInnerProductWeightsForMPS) Init() EspressoInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoInnerProductWeightsForMPS) Autorelease() EspressoInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoInnerProductWeightsForMPS creates a new EspressoInnerProductWeightsForMPS instance.
 func NewEspressoInnerProductWeightsForMPS() EspressoInnerProductWeightsForMPS {
 	class := getEspressoInnerProductWeightsForMPSClass()
-	rv := objc.Send[EspressoInnerProductWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoInnerProductWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewEspressoInnerProductWeightsForMPSWithParams(params InnerProductUniforms) EspressoInnerProductWeightsForMPS {
+func NewEspressoInnerProductWeightsForMPSWithParams(params appleneuralengine.InnerProductUniforms) EspressoInnerProductWeightsForMPS {
 	instance := getEspressoInnerProductWeightsForMPSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoInnerProductWeightsForMPSFromID(rv)
 }
 
 func (e EspressoInnerProductWeightsForMPS) BiasTerms() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasTerms"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("biasTerms"))
 	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) DataType() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("dataType"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("dataType"))
 	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) Descriptor() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("descriptor"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("descriptor"))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoInnerProductWeightsForMPS) Label() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("label"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("label"))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoInnerProductWeightsForMPS) LookupTableForUInt8Kernel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("lookupTableForUInt8Kernel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("lookupTableForUInt8Kernel"))
 	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) Purge() {
-	objc.Send[objc.ID](e.ID, objc.Sel("purge"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("purge"))
 }
-func (e EspressoInnerProductWeightsForMPS) RangesForUInt8Kernel() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("rangesForUInt8Kernel"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
+func (e EspressoInnerProductWeightsForMPS) RangesForUInt8Kernel() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("rangesForUInt8Kernel"))
+	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) Ready() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("ready"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("ready"))
 	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) Weights() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weights"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("weights"))
 	return rv
 }
-func (e EspressoInnerProductWeightsForMPS) InitWithParams(params InnerProductUniforms) EspressoInnerProductWeightsForMPS {
-	rv := objc.Send[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:"), params)
+func (e EspressoInnerProductWeightsForMPS) InitWithParams(params appleneuralengine.InnerProductUniforms) EspressoInnerProductWeightsForMPS {
+	rv := objc.SendIfResponds[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:"), params)
 	return rv
 }
 
 func (e EspressoInnerProductWeightsForMPS) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoInnerProductWeightsForMPS) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoInnerProductWeightsForMPS) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 func (e EspressoInnerProductWeightsForMPS) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](e.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

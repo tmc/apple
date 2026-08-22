@@ -39,7 +39,7 @@ func (dc DIBaseServiceDelegateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIBaseServiceDelegateClass) Alloc() DIBaseServiceDelegate {
-	rv := objc.Send[DIBaseServiceDelegate](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIBaseServiceDelegate](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -115,76 +115,76 @@ type IDIBaseServiceDelegate interface {
 
 // Init initializes the instance.
 func (d DIBaseServiceDelegate) Init() DIBaseServiceDelegate {
-	rv := objc.Send[DIBaseServiceDelegate](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIBaseServiceDelegate](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIBaseServiceDelegate) Autorelease() DIBaseServiceDelegate {
-	rv := objc.Send[DIBaseServiceDelegate](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIBaseServiceDelegate](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIBaseServiceDelegate creates a new DIBaseServiceDelegate instance.
 func NewDIBaseServiceDelegate() DIBaseServiceDelegate {
 	class := getDIBaseServiceDelegateClass()
-	rv := objc.Send[DIBaseServiceDelegate](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIBaseServiceDelegate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (d DIBaseServiceDelegate) CreateListener() {
-	objc.Send[objc.ID](d.ID, objc.Sel("createListener"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createListener"))
 }
 func (d DIBaseServiceDelegate) EnterSandbox() {
-	objc.Send[objc.ID](d.ID, objc.Sel("enterSandbox"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("enterSandbox"))
 }
 func (d DIBaseServiceDelegate) ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
 	return rv
 }
 func (d DIBaseServiceDelegate) SandboxProfile() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("sandboxProfile"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("sandboxProfile"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIBaseServiceDelegate) ServiceName() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("serviceName"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("serviceName"))
 	return objectivec.Object{ID: rv}
 }
 func (d DIBaseServiceDelegate) SetupNewConnection(connection objectivec.IObject) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("setupNewConnection:"), connection)
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("setupNewConnection:"), connection)
 	return rv
 }
 func (d DIBaseServiceDelegate) StartXPClistener() {
-	objc.Send[objc.ID](d.ID, objc.Sel("startXPClistener"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("startXPClistener"))
 }
 func (d DIBaseServiceDelegate) ValidateConnection() {
-	objc.Send[objc.ID](d.ID, objc.Sel("validateConnection"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("validateConnection"))
 }
 
 func (d DIBaseServiceDelegate) DebugDescription() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIBaseServiceDelegate) Description() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIBaseServiceDelegate) DispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("dispatchQueue"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("dispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (d DIBaseServiceDelegate) Hash() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("hash"))
 	return rv
 }
 func (d DIBaseServiceDelegate) Listener() foundation.NSXPCListener {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("listener"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("listener"))
 	return foundation.NSXPCListenerFromID(objc.ID(rv))
 }
 func (d DIBaseServiceDelegate) SetListener(value foundation.NSXPCListener) {
-	objc.Send[struct{}](d.ID, objc.Sel("setListener:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setListener:"), value)
 }
 func (d DIBaseServiceDelegate) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](d.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](d.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -39,7 +39,7 @@ func (ac AVSpeechSynthesisProviderVoiceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpeechSynthesisProviderVoiceClass) Alloc() AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderVoice](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -142,116 +142,116 @@ type IAVSpeechSynthesisProviderVoice interface {
 
 // Init initializes the instance.
 func (a AVSpeechSynthesisProviderVoice) Init() AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVSpeechSynthesisProviderVoice) Autorelease() AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVSpeechSynthesisProviderVoice creates a new AVSpeechSynthesisProviderVoice instance.
 func NewAVSpeechSynthesisProviderVoice() AVSpeechSynthesisProviderVoice {
 	class := getAVSpeechSynthesisProviderVoiceClass()
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVSpeechSynthesisProviderVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVSpeechSynthesisProviderVoice) FullBundleIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("fullBundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fullBundleIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesisProviderVoice) RawTTSIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("rawTTSIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("rawTTSIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesisProviderVoice) SupportedCharacterSet() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportedCharacterSet"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("supportedCharacterSet"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesisProviderVoice) UniqueAudioDescSpeechSynthTuple() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("uniqueAudioDescSpeechSynthTuple"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("uniqueAudioDescSpeechSynthTuple"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVSpeechSynthesisProviderVoice) UniqueAudioDescTriple() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("uniqueAudioDescTriple"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("uniqueAudioDescTriple"))
 	return objectivec.Object{ID: rv}
 }
 
 func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) UpdateSpeechVoicesForClient(client objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("updateSpeechVoicesForClient:"), client)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("updateSpeechVoicesForClient:"), client)
 }
 
 func (a AVSpeechSynthesisProviderVoice) ExtraAttributes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("extraAttributes"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("extraAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a AVSpeechSynthesisProviderVoice) SetExtraAttributes(value foundation.INSDictionary) {
-	objc.Send[struct{}](a.ID, objc.Sel("setExtraAttributes:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setExtraAttributes:"), value)
 }
 func (a AVSpeechSynthesisProviderVoice) GroupName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupName"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("groupName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderVoice) Identifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderVoice) SetIdentifier(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
 func (a AVSpeechSynthesisProviderVoice) IsFirstParty() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isFirstParty"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isFirstParty"))
 	return rv
 }
 func (a AVSpeechSynthesisProviderVoice) SetIsFirstParty(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIsFirstParty:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsFirstParty:"), value)
 }
 func (a AVSpeechSynthesisProviderVoice) IsPersonalVoice() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isPersonalVoice"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isPersonalVoice"))
 	return rv
 }
 func (a AVSpeechSynthesisProviderVoice) SetIsPersonalVoice(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIsPersonalVoice:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsPersonalVoice:"), value)
 }
 func (a AVSpeechSynthesisProviderVoice) ManufacturerName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("manufacturerName"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("manufacturerName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderVoice) SetManufacturerName(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setManufacturerName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setManufacturerName:"), objc.String(value))
 }
 func (a AVSpeechSynthesisProviderVoice) Name() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderVoice) SetName(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (a AVSpeechSynthesisProviderVoice) PrimaryLanguages() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("primaryLanguages"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("primaryLanguages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a AVSpeechSynthesisProviderVoice) SetPrimaryLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPrimaryLanguages:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPrimaryLanguages:"), value)
 }
 func (a AVSpeechSynthesisProviderVoice) SupportedLanguages() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportedLanguages"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("supportedLanguages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a AVSpeechSynthesisProviderVoice) SetSupportedLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSupportedLanguages:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSupportedLanguages:"), value)
 }
 func (a AVSpeechSynthesisProviderVoice) SynthesizerBundleIdentifier() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("synthesizerBundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("synthesizerBundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVSpeechSynthesisProviderVoice) SetSynthesizerBundleIdentifier(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSynthesizerBundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSynthesizerBundleIdentifier:"), objc.String(value))
 }

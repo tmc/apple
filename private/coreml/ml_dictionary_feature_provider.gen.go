@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,13 +40,14 @@ func (mc MLDictionaryFeatureProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDictionaryFeatureProviderClass) Alloc() MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [MLDictionaryFeatureProvider.CachedFeatureNames]
+//   - [MLDictionaryFeatureProvider.CountByEnumeratingWithStateObjectsCount]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureProvider]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureProviderFeatureNames]
 //   - [MLDictionaryFeatureProvider.InitWithFeatureValueDictionary]
@@ -68,6 +70,7 @@ var _ IMLDictionaryFeatureProvider = MLDictionaryFeatureProvider{}
 // # Methods
 //
 //   - [IMLDictionaryFeatureProvider.CachedFeatureNames]
+//   - [IMLDictionaryFeatureProvider.CountByEnumeratingWithStateObjectsCount]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureProvider]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureProviderFeatureNames]
 //   - [IMLDictionaryFeatureProvider.InitWithFeatureValueDictionary]
@@ -79,6 +82,7 @@ type IMLDictionaryFeatureProvider interface {
 	// Topic: Methods
 
 	CachedFeatureNames() foundation.INSSet
+	CountByEnumeratingWithStateObjectsCount(state unsafe.Pointer, objects []objectivec.IObject, count uint64) uint64
 	InitWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider
 	InitWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider
 	InitWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider
@@ -88,67 +92,71 @@ type IMLDictionaryFeatureProvider interface {
 
 // Init initializes the instance.
 func (m MLDictionaryFeatureProvider) Init() MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDictionaryFeatureProvider) Autorelease() MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDictionaryFeatureProvider creates a new MLDictionaryFeatureProvider instance.
 func NewMLDictionaryFeatureProvider() MLDictionaryFeatureProvider {
 	class := getMLDictionaryFeatureProviderClass()
-	rv := objc.Send[MLDictionaryFeatureProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDictionaryFeatureProviderWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:"), provider)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:"), provider)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
 func NewDictionaryFeatureProviderWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
 func NewDictionaryFeatureProviderWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
+func (m MLDictionaryFeatureProvider) CountByEnumeratingWithStateObjectsCount(state unsafe.Pointer, objects []objectivec.IObject, count uint64) uint64 {
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), objc.CArray(state), objc.CArray(objects), count)
+	return rv
+}
 func (m MLDictionaryFeatureProvider) InitWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:"), provider)
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:"), provider)
 	return rv
 }
 func (m MLDictionaryFeatureProvider) InitWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
 	return rv
 }
 func (m MLDictionaryFeatureProvider) InitWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
-	rv := objc.Send[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
+	rv := objc.SendIfResponds[MLDictionaryFeatureProvider](m.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
 	return rv
 }
 
 func (_MLDictionaryFeatureProviderClass MLDictionaryFeatureProviderClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLDictionaryFeatureProvider) CachedFeatureNames() foundation.INSSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("cachedFeatureNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cachedFeatureNames"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (m MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLDictionaryFeatureProvider) SetDictionary(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDictionary:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDictionary:"), value)
 }

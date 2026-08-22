@@ -39,7 +39,7 @@ func (ac ANEProcedureDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEProcedureDataClass) Alloc() ANEProcedureData {
-	rv := objc.Send[ANEProcedureData](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEProcedureData](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,61 +85,61 @@ type IANEProcedureData interface {
 
 // Init initializes the instance.
 func (a ANEProcedureData) Init() ANEProcedureData {
-	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEProcedureData](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEProcedureData) Autorelease() ANEProcedureData {
-	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEProcedureData](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEProcedureData creates a new ANEProcedureData instance.
 func NewANEProcedureData() ANEProcedureData {
 	class := getANEProcedureDataClass()
-	rv := objc.Send[ANEProcedureData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEProcedureData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEProcedureDataWithCoder(coder objectivec.IObject) ANEProcedureData {
 	instance := getANEProcedureDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEProcedureDataFromID(rv)
 }
 
 func NewANEProcedureDataWithProcedureWeightArray(procedure objectivec.IObject, array objectivec.IObject) ANEProcedureData {
 	instance := getANEProcedureDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProcedure:weightArray:"), procedure, array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcedure:weightArray:"), procedure, array)
 	return ANEProcedureDataFromID(rv)
 }
 
 func (a ANEProcedureData) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEProcedureData) InitWithCoder(coder foundation.INSCoder) ANEProcedureData {
-	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEProcedureData](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANEProcedureData) InitWithProcedureWeightArray(procedure objectivec.IObject, array objectivec.IObject) ANEProcedureData {
-	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("initWithProcedure:weightArray:"), procedure, array)
+	rv := objc.SendIfResponds[ANEProcedureData](a.ID, objc.Sel("initWithProcedure:weightArray:"), procedure, array)
 	return rv
 }
 
 func (_ANEProcedureDataClass ANEProcedureDataClass) ProcedureDataWithSymbolWeightArray(symbol objectivec.IObject, array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEProcedureDataClass.class), objc.Sel("procedureDataWithSymbol:weightArray:"), symbol, array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEProcedureDataClass.class), objc.Sel("procedureDataWithSymbol:weightArray:"), symbol, array)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEProcedureDataClass ANEProcedureDataClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEProcedureDataClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEProcedureDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a ANEProcedureData) ProcedureSymbol() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureSymbol"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureSymbol"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEProcedureData) WeightArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightArray"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

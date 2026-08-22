@@ -10,6 +10,12 @@ import (
 // VZUSBDeviceConfiguration protocol.
 type VZUSBDeviceConfiguration interface {
 	objectivec.IObject
+
+	// SetUuid protocol.
+	SetUuid(uuid objectivec.IObject)
+
+	// Uuid protocol.
+	Uuid() objectivec.IObject
 }
 
 // VZUSBDeviceConfigurationObject wraps an existing Objective-C object that conforms to the VZUSBDeviceConfiguration protocol.
@@ -30,9 +36,9 @@ func VZUSBDeviceConfigurationObjectFromID(id objc.ID) VZUSBDeviceConfigurationOb
 }
 
 func (o VZUSBDeviceConfigurationObject) SetUuid(uuid objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setUuid:"), uuid)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setUuid:"), uuid)
 }
 func (o VZUSBDeviceConfigurationObject) Uuid() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("uuid"))
 	return objectivec.Object{ID: rv}
 }

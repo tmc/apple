@@ -38,7 +38,7 @@ func (vc VZMacOSInstallerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
-	rv := objc.Send[VZMacOSInstaller](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSInstaller](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,25 +72,25 @@ type IVZMacOSInstaller interface {
 
 // Init initializes the instance.
 func (v VZMacOSInstaller) Init() VZMacOSInstaller {
-	rv := objc.Send[VZMacOSInstaller](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSInstaller](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSInstaller) Autorelease() VZMacOSInstaller {
-	rv := objc.Send[VZMacOSInstaller](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSInstaller](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSInstaller creates a new VZMacOSInstaller instance.
 func NewVZMacOSInstaller() VZMacOSInstaller {
 	class := getVZMacOSInstallerClass()
-	rv := objc.Send[VZMacOSInstaller](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSInstaller](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacOSInstaller) _disableMobileDeviceUpdate() {
-	objc.Send[objc.ID](v.ID, objc.Sel("_disableMobileDeviceUpdate"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_disableMobileDeviceUpdate"))
 }
 
 // DisableMobileDeviceUpdate is an exported wrapper for the private method _disableMobileDeviceUpdate.

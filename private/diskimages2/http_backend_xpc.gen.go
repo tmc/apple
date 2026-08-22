@@ -39,7 +39,7 @@ func (hc HTTPBackendXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (hc HTTPBackendXPCClass) Alloc() HTTPBackendXPC {
-	rv := objc.Send[HTTPBackendXPC](objc.ID(hc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[HTTPBackendXPC](objc.ID(hc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,65 +97,65 @@ type IHTTPBackendXPC interface {
 
 // Init initializes the instance.
 func (h HTTPBackendXPC) Init() HTTPBackendXPC {
-	rv := objc.Send[HTTPBackendXPC](h.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[HTTPBackendXPC](h.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (h HTTPBackendXPC) Autorelease() HTTPBackendXPC {
-	rv := objc.Send[HTTPBackendXPC](h.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[HTTPBackendXPC](h.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewHTTPBackendXPC creates a new HTTPBackendXPC instance.
 func NewHTTPBackendXPC() HTTPBackendXPC {
 	class := getHTTPBackendXPCClass()
-	rv := objc.Send[HTTPBackendXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[HTTPBackendXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewHTTPBackendXPCWithCoder(coder objectivec.IObject) HTTPBackendXPC {
 	instance := getHTTPBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return HTTPBackendXPCFromID(rv)
 }
 
 func NewHTTPBackendXPCWithURL(url foundation.NSURL) HTTPBackendXPC {
 	instance := getHTTPBackendXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return HTTPBackendXPCFromID(rv)
 }
 
 func (h HTTPBackendXPC) AddToURLWithUserPassword(user objectivec.IObject, password objectivec.IObject) {
-	objc.Send[objc.ID](h.ID, objc.Sel("addToURLWithUser:password:"), user, password)
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("addToURLWithUser:password:"), user, password)
 }
 func (h HTTPBackendXPC) AskForPasswordUsingGUI() bool {
-	rv := objc.Send[bool](h.ID, objc.Sel("askForPasswordUsingGUI"))
+	rv := objc.SendIfResponds[bool](h.ID, objc.Sel("askForPasswordUsingGUI"))
 	return rv
 }
 func (h HTTPBackendXPC) AskForPasswordUsingTTY() bool {
-	rv := objc.Send[bool](h.ID, objc.Sel("askForPasswordUsingTTY"))
+	rv := objc.SendIfResponds[bool](h.ID, objc.Sel("askForPasswordUsingTTY"))
 	return rv
 }
 func (h HTTPBackendXPC) CreateBackend() {
-	objc.Send[objc.ID](h.ID, objc.Sel("createBackend"))
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("createBackend"))
 }
 func (h HTTPBackendXPC) CreateBackendWithSize(size uint64) {
-	objc.Send[objc.ID](h.ID, objc.Sel("createBackendWithSize:"), size)
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("createBackendWithSize:"), size)
 }
 func (h HTTPBackendXPC) LookupPasswordInKeychainWithRealm(realm objectivec.IObject) bool {
-	rv := objc.Send[bool](h.ID, objc.Sel("lookupPasswordInKeychainWithRealm:"), realm)
+	rv := objc.SendIfResponds[bool](h.ID, objc.Sel("lookupPasswordInKeychainWithRealm:"), realm)
 	return rv
 }
 func (h HTTPBackendXPC) InitWithURL(url foundation.NSURL) HTTPBackendXPC {
-	rv := objc.Send[HTTPBackendXPC](h.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[HTTPBackendXPC](h.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
 func (h HTTPBackendXPC) URL() IDIURL {
-	rv := objc.Send[objc.ID](h.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](h.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }
 func (h HTTPBackendXPC) SetURL(value IDIURL) {
-	objc.Send[struct{}](h.ID, objc.Sel("setURL:"), value)
+	objc.SendIfResponds[struct{}](h.ID, objc.Sel("setURL:"), value)
 }

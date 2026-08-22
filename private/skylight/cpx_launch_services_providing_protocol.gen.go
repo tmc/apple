@@ -10,6 +10,9 @@ import (
 // CPXLaunchServicesProviding protocol.
 type CPXLaunchServicesProviding interface {
 	objectivec.IObject
+
+	// LaunchServicesInterface protocol.
+	LaunchServicesInterface() objectivec.IObject
 }
 
 // CPXLaunchServicesProvidingObject wraps an existing Objective-C object that conforms to the CPXLaunchServicesProviding protocol.
@@ -30,6 +33,6 @@ func CPXLaunchServicesProvidingObjectFromID(id objc.ID) CPXLaunchServicesProvidi
 }
 
 func (o CPXLaunchServicesProvidingObject) LaunchServicesInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("launchServicesInterface"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("launchServicesInterface"))
 	return objectivec.Object{ID: rv}
 }

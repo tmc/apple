@@ -40,7 +40,7 @@ func (mc MLLazyUnionBatchProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLazyUnionBatchProviderClass) Alloc() MLLazyUnionBatchProvider {
-	rv := objc.Send[MLLazyUnionBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLazyUnionBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,36 +92,39 @@ type IMLLazyUnionBatchProvider interface {
 
 // Init initializes the instance.
 func (m MLLazyUnionBatchProvider) Init() MLLazyUnionBatchProvider {
-	rv := objc.Send[MLLazyUnionBatchProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLazyUnionBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLazyUnionBatchProvider) Autorelease() MLLazyUnionBatchProvider {
-	rv := objc.Send[MLLazyUnionBatchProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLazyUnionBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLazyUnionBatchProvider creates a new MLLazyUnionBatchProvider instance.
 func NewMLLazyUnionBatchProvider() MLLazyUnionBatchProvider {
 	class := getMLLazyUnionBatchProviderClass()
-	rv := objc.Send[MLLazyUnionBatchProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLazyUnionBatchProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLLazyUnionBatchProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLLazyUnionBatchProvider{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLLazyUnionBatchProvider{}, objc.ErrInitFailed
 	}
 	return MLLazyUnionBatchProviderFromID(rv), nil
 }
 
 func (m MLLazyUnionBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
@@ -136,20 +139,20 @@ func (m MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(f
 }
 
 func (m MLLazyUnionBatchProvider) Count() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLLazyUnionBatchProvider) First() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("first"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("first"))
 	return rv
 }
 func (m MLLazyUnionBatchProvider) SetFirst(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFirst:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirst:"), value)
 }
 func (m MLLazyUnionBatchProvider) Second() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("second"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("second"))
 	return rv
 }
 func (m MLLazyUnionBatchProvider) SetSecond(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSecond:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSecond:"), value)
 }

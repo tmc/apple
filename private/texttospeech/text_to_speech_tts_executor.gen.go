@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSExecutorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSExecutorClass) Alloc() TextToSpeechTTSExecutor {
-	rv := objc.Send[TextToSpeechTTSExecutor](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSExecutor](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSExecutorFromID(id objc.ID) TextToSpeechTTSExecutor {
 	return TextToSpeechTTSExecutor{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSExecutor struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSExecutor embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSExecutor implements ITextToSpeechTTSExecutor.
+var _ ITextToSpeechTTSExecutor = TextToSpeechTTSExecutor{}
 
 // An interface definition for the [TextToSpeechTTSExecutor] class.
 type ITextToSpeechTTSExecutor interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSExecutor interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSExecutor) Init() TextToSpeechTTSExecutor {
-	rv := objc.Send[TextToSpeechTTSExecutor](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSExecutor](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSExecutor) Autorelease() TextToSpeechTTSExecutor {
-	rv := objc.Send[TextToSpeechTTSExecutor](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSExecutor](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSExecutor creates a new TextToSpeechTTSExecutor instance.
 func NewTextToSpeechTTSExecutor() TextToSpeechTTSExecutor {
 	class := getTextToSpeechTTSExecutorClass()
-	rv := objc.Send[TextToSpeechTTSExecutor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSExecutor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (ac AVAudioPCMBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioPCMBufferClass) Alloc() AVAudioPCMBuffer {
-	rv := objc.Send[AVAudioPCMBuffer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioPCMBuffer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,31 +94,31 @@ type IAVAudioPCMBuffer interface {
 
 // Init initializes the instance.
 func (a AVAudioPCMBuffer) Init() AVAudioPCMBuffer {
-	rv := objc.Send[AVAudioPCMBuffer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioPCMBuffer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioPCMBuffer) Autorelease() AVAudioPCMBuffer {
-	rv := objc.Send[AVAudioPCMBuffer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioPCMBuffer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioPCMBuffer creates a new AVAudioPCMBuffer instance.
 func NewAVAudioPCMBuffer() AVAudioPCMBuffer {
 	class := getAVAudioPCMBufferClass()
-	rv := objc.Send[AVAudioPCMBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioPCMBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioPCMBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioPCMBuffer {
 	instance := getAVAudioPCMBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return AVAudioPCMBufferFromID(rv)
 }
 
 func (a AVAudioPCMBuffer) _initChannelPtrs() {
-	objc.Send[objc.ID](a.ID, objc.Sel("_initChannelPtrs"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_initChannelPtrs"))
 }
 
 // InitChannelPtrs is an exported wrapper for the private method _initChannelPtrs.
@@ -136,31 +136,31 @@ func (a AVAudioPCMBuffer) CanInitChannelPtrs() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_initChannelPtrs"))
 }
 func (a AVAudioPCMBuffer) AppendDataFromBuffer(buffer objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("appendDataFromBuffer:"), buffer)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("appendDataFromBuffer:"), buffer)
 	return rv
 }
 func (a AVAudioPCMBuffer) AppendDataFromBufferChannel(buffer objectivec.IObject, channel int64) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("appendDataFromBuffer:channel:"), buffer, channel)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("appendDataFromBuffer:channel:"), buffer, channel)
 	return rv
 }
 func (a AVAudioPCMBuffer) CalculatePower(power uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("calculatePower:"), power)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("calculatePower:"), power)
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioPCMBuffer) CalculatePowerForFloatDataStrideFrameLength(power uint64, data *float32, stride int64, length uint32) float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("calculatePower:forFloatData:stride:frameLength:"), power, data, stride, length)
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("calculatePower:forFloatData:stride:frameLength:"), power, data, stride, length)
 	return rv
 }
 func (a AVAudioPCMBuffer) SplitIntoSingleChannelBuffers() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("splitIntoSingleChannelBuffers"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("splitIntoSingleChannelBuffers"))
 	return objectivec.Object{ID: rv}
 }
 
 func (a AVAudioPCMBuffer) AveragePowerPerChannel() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("averagePowerPerChannel"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("averagePowerPerChannel"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a AVAudioPCMBuffer) PeakPowerPerChannel() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("peakPowerPerChannel"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("peakPowerPerChannel"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

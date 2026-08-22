@@ -40,7 +40,7 @@ func (sc SOCustomizeSRLanguagesWindowControllerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOCustomizeSRLanguagesWindowControllerClass) Alloc() SOCustomizeSRLanguagesWindowController {
-	rv := objc.Send[SOCustomizeSRLanguagesWindowController](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOCustomizeSRLanguagesWindowController](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -131,25 +131,25 @@ type ISOCustomizeSRLanguagesWindowController interface {
 
 // Init initializes the instance.
 func (s SOCustomizeSRLanguagesWindowController) Init() SOCustomizeSRLanguagesWindowController {
-	rv := objc.Send[SOCustomizeSRLanguagesWindowController](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOCustomizeSRLanguagesWindowController](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOCustomizeSRLanguagesWindowController) Autorelease() SOCustomizeSRLanguagesWindowController {
-	rv := objc.Send[SOCustomizeSRLanguagesWindowController](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOCustomizeSRLanguagesWindowController](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOCustomizeSRLanguagesWindowController creates a new SOCustomizeSRLanguagesWindowController instance.
 func NewSOCustomizeSRLanguagesWindowController() SOCustomizeSRLanguagesWindowController {
 	class := getSOCustomizeSRLanguagesWindowControllerClass()
-	rv := objc.Send[SOCustomizeSRLanguagesWindowController](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOCustomizeSRLanguagesWindowController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SOCustomizeSRLanguagesWindowController) _propagateCheckboxSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
 }
 
 // PropagateCheckboxSelection is an exported wrapper for the private method _propagateCheckboxSelection.
@@ -167,7 +167,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanPropagateCheckboxSelection() 
 	return objc.RespondsToSelector(s.ID, objc.Sel("_propagateCheckboxSelection:"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _propagateDownloadVariantSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
 }
 
 // PropagateDownloadVariantSelection is an exported wrapper for the private method _propagateDownloadVariantSelection.
@@ -185,7 +185,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanPropagateDownloadVariantSelec
 	return objc.RespondsToSelector(s.ID, objc.Sel("_propagateDownloadVariantSelection:"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _rebuildList() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_rebuildList"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_rebuildList"))
 }
 
 // RebuildList is an exported wrapper for the private method _rebuildList.
@@ -203,7 +203,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanRebuildList() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildList"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view objectivec.IObject, button objectivec.IObject, item objectivec.IObject, selected bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"), view, button, item, selected)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"), view, button, item, selected)
 }
 
 // SetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected is an exported wrapper for the private method _setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected.
@@ -221,7 +221,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanSetRowStatusFieldViewVariantP
 	return objc.RespondsToSelector(s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _updateButtonStatesOnlyIfDownloadRequired(required bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:"), required)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:"), required)
 }
 
 // UpdateButtonStatesOnlyIfDownloadRequired is an exported wrapper for the private method _updateButtonStatesOnlyIfDownloadRequired.
@@ -239,7 +239,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanUpdateButtonStatesOnlyIfDownl
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _updateDisplayUsingFilterString(string_ objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateDisplayUsingFilterString:"), string_)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateDisplayUsingFilterString:"), string_)
 }
 
 // UpdateDisplayUsingFilterString is an exported wrapper for the private method _updateDisplayUsingFilterString.
@@ -257,7 +257,7 @@ func (s SOCustomizeSRLanguagesWindowController) CanUpdateDisplayUsingFilterStrin
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDisplayUsingFilterString:"))
 }
 func (s SOCustomizeSRLanguagesWindowController) _updateRowDownloadStatus() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateRowDownloadStatus"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 
 // UpdateRowDownloadStatus is an exported wrapper for the private method _updateRowDownloadStatus.
@@ -275,50 +275,50 @@ func (s SOCustomizeSRLanguagesWindowController) CanUpdateRowDownloadStatus() boo
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 func (s SOCustomizeSRLanguagesWindowController) AcceptSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("acceptSelection:"), selection)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("acceptSelection:"), selection)
 }
 func (s SOCustomizeSRLanguagesWindowController) CancelSelection(selection objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("cancelSelection:"), selection)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("cancelSelection:"), selection)
 }
 func (s SOCustomizeSRLanguagesWindowController) NumberOfRowsInTableView(view objectivec.IObject) int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("numberOfRowsInTableView:"), view)
+	rv := objc.SendIfResponds[int64](s.ID, objc.Sel("numberOfRowsInTableView:"), view)
 	return rv
 }
 func (s SOCustomizeSRLanguagesWindowController) SearchFieldChanged(changed objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("searchFieldChanged:"), changed)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("searchFieldChanged:"), changed)
 }
 func (s SOCustomizeSRLanguagesWindowController) ShowSheetForWindowNetworkSupportedLocaleIdentifiersRequiredLocaleIdentifierSupportDownloadsShowOnlyNetworkSupportedItems(window objectivec.IObject, identifiers objectivec.IObject, identifier objectivec.IObject, downloads bool, items bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("showSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:"), window, identifiers, identifier, downloads, items)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("showSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:"), window, identifiers, identifier, downloads, items)
 }
 func (s SOCustomizeSRLanguagesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("tableView:isGroupRow:"), view, row)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("tableView:isGroupRow:"), view, row)
 	return rv
 }
 func (s SOCustomizeSRLanguagesWindowController) TableViewShouldSelectRow(view objectivec.IObject, row int64) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
 	return rv
 }
 func (s SOCustomizeSRLanguagesWindowController) TableViewViewForTableColumnRow(view objectivec.IObject, column objectivec.IObject, row int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
 	return objectivec.Object{ID: rv}
 }
 func (s SOCustomizeSRLanguagesWindowController) TableViewSelectionDidChange(change objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("tableViewSelectionDidChange:"), change)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("tableViewSelectionDidChange:"), change)
 }
 
 func (s SOCustomizeSRLanguagesWindowController) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOCustomizeSRLanguagesWindowController) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOCustomizeSRLanguagesWindowController) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SOCustomizeSRLanguagesWindowController) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

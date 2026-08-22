@@ -40,7 +40,7 @@ func (mc MLSNVGGishFeatureEmbeddingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSNVGGishFeatureEmbeddingClass) Alloc() MLSNVGGishFeatureEmbedding {
-	rv := objc.Send[MLSNVGGishFeatureEmbedding](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSNVGGishFeatureEmbedding](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IMLSNVGGishFeatureEmbedding interface {
 
 // Init initializes the instance.
 func (m MLSNVGGishFeatureEmbedding) Init() MLSNVGGishFeatureEmbedding {
-	rv := objc.Send[MLSNVGGishFeatureEmbedding](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSNVGGishFeatureEmbedding](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSNVGGishFeatureEmbedding) Autorelease() MLSNVGGishFeatureEmbedding {
-	rv := objc.Send[MLSNVGGishFeatureEmbedding](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSNVGGishFeatureEmbedding](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSNVGGishFeatureEmbedding creates a new MLSNVGGishFeatureEmbedding instance.
 func NewMLSNVGGishFeatureEmbedding() MLSNVGGishFeatureEmbedding {
 	class := getMLSNVGGishFeatureEmbeddingClass()
-	rv := objc.Send[MLSNVGGishFeatureEmbedding](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSNVGGishFeatureEmbedding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLSNVGGishFeatureEmbeddingWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNVGGishFeatureEmbedding, error) {
 	var errorPtr objc.ID
 	instance := getMLSNVGGishFeatureEmbeddingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSNVGGishFeatureEmbedding{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSNVGGishFeatureEmbedding{}, objc.ErrInitFailed
 	}
 	return MLSNVGGishFeatureEmbeddingFromID(rv), nil
 }
@@ -130,6 +133,6 @@ func (m MLSNVGGishFeatureEmbedding) InitWithModelDescriptionParameterDictionaryE
 }
 
 func (m MLSNVGGishFeatureEmbedding) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }

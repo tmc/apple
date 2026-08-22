@@ -39,7 +39,7 @@ func (mc ModelKeyServerAPIResultErrorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc ModelKeyServerAPIResultErrorClass) Alloc() ModelKeyServerAPIResultError {
-	rv := objc.Send[ModelKeyServerAPIResultError](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIResultError](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,8 +62,9 @@ func ModelKeyServerAPIResultErrorFromID(id objc.ID) ModelKeyServerAPIResultError
 	return ModelKeyServerAPIResultError{objectivec.Object{ID: id}}
 }
 
-// NOTE: ModelKeyServerAPIResultError struct embeds objectivec.Object (parent type unavailable) but
-// IModelKeyServerAPIResultError embeds the parent interface; skip compile-time assertion.
+// NOTE: ModelKeyServerAPIResultError embeds objectivec.Object because the parent type is
+// unavailable, but IModelKeyServerAPIResultError embeds IPBCodable, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [ModelKeyServerAPIResultError] class.
 //
@@ -94,49 +95,49 @@ type IModelKeyServerAPIResultError interface {
 
 // Init initializes the instance.
 func (m ModelKeyServerAPIResultError) Init() ModelKeyServerAPIResultError {
-	rv := objc.Send[ModelKeyServerAPIResultError](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIResultError](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m ModelKeyServerAPIResultError) Autorelease() ModelKeyServerAPIResultError {
-	rv := objc.Send[ModelKeyServerAPIResultError](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIResultError](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewModelKeyServerAPIResultError creates a new ModelKeyServerAPIResultError instance.
 func NewModelKeyServerAPIResultError() ModelKeyServerAPIResultError {
 	class := getModelKeyServerAPIResultErrorClass()
-	rv := objc.Send[ModelKeyServerAPIResultError](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIResultError](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m ModelKeyServerAPIResultError) CopyTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
 func (m ModelKeyServerAPIResultError) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (m ModelKeyServerAPIResultError) MergeFrom(from objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
 func (m ModelKeyServerAPIResultError) ReadFrom(from objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
 func (m ModelKeyServerAPIResultError) WriteTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
 func (m ModelKeyServerAPIResultError) HasMessage() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasMessage"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasMessage"))
 	return rv
 }
 func (m ModelKeyServerAPIResultError) Message() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("message"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("message"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m ModelKeyServerAPIResultError) SetMessage(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMessage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMessage:"), objc.String(value))
 }

@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceCopyManagedShapeOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceCopyManagedShapeOperationClass) Alloc() SLSBridgedSpaceCopyManagedShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyManagedShapeOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,52 +71,52 @@ type ISLSBridgedSpaceCopyManagedShapeOperation interface {
 
 	// Topic: Methods
 
-	MakeResultWithRegion(region uintptr) objectivec.IObject
+	MakeResultWithRegion(region CGSRegionObjectRef) objectivec.IObject
 	SpaceID() uint64
 	InitWithSpaceID(id uint64) SLSBridgedSpaceCopyManagedShapeOperation
 }
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceCopyManagedShapeOperation) Init() SLSBridgedSpaceCopyManagedShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceCopyManagedShapeOperation) Autorelease() SLSBridgedSpaceCopyManagedShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceCopyManagedShapeOperation creates a new SLSBridgedSpaceCopyManagedShapeOperation instance.
 func NewSLSBridgedSpaceCopyManagedShapeOperation() SLSBridgedSpaceCopyManagedShapeOperation {
 	class := getSLSBridgedSpaceCopyManagedShapeOperationClass()
-	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyManagedShapeOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceCopyManagedShapeOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyManagedShapeOperation {
 	instance := getSLSBridgedSpaceCopyManagedShapeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyManagedShapeOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceCopyManagedShapeOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyManagedShapeOperation {
 	instance := getSLSBridgedSpaceCopyManagedShapeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyManagedShapeOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceCopyManagedShapeOperation) MakeResultWithRegion(region uintptr) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithRegion:"), region)
+func (s SLSBridgedSpaceCopyManagedShapeOperation) MakeResultWithRegion(region CGSRegionObjectRef) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithRegion:"), region)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceCopyManagedShapeOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyManagedShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyManagedShapeOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceCopyManagedShapeOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

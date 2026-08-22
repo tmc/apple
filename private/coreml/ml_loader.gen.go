@@ -41,7 +41,7 @@ func (mc MLLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLoaderClass) Alloc() MLLoader {
-	rv := objc.Send[MLLoader](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLoader](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,25 +64,25 @@ type IMLLoader interface {
 
 // Init initializes the instance.
 func (m MLLoader) Init() MLLoader {
-	rv := objc.Send[MLLoader](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLoader) Autorelease() MLLoader {
-	rv := objc.Send[MLLoader](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLoader creates a new MLLoader instance.
 func NewMLLoader() MLLoader {
 	class := getMLLoaderClass()
-	rv := objc.Send[MLLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLLoaderClass MLLoaderClass) _conformConfigurationUsingModelArchive(configuration objectivec.IObject, archive unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_conformConfiguration:usingModelArchive:"), configuration, archive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_conformConfiguration:usingModelArchive:"), configuration, archive)
 	return objectivec.Object{ID: rv}
 }
 
@@ -127,7 +127,7 @@ func (_MLLoaderClass MLLoaderClass) CanCreateDecryptSessionForModelAtURLConfigur
 	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:"))
 }
 func (_MLLoaderClass MLLoaderClass) _findCodedObjectURLInModelArchive(archive unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_findCodedObjectURLInModelArchive:"), archive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_findCodedObjectURLInModelArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
 
@@ -313,7 +313,7 @@ func (_MLLoaderClass MLLoaderClass) CanLoadWithModelLoaderFromArchiveConfigurati
 	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:"))
 }
 func (_MLLoaderClass MLLoaderClass) _populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject, duration uint64) {
-	objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:"), event, model, configuration, duration)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:"), event, model, configuration, duration)
 }
 
 // PopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration is an exported wrapper for the private method _populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration.

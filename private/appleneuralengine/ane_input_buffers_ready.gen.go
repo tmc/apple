@@ -39,7 +39,7 @@ func (ac ANEInputBuffersReadyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEInputBuffersReadyClass) Alloc() ANEInputBuffersReady {
-	rv := objc.Send[ANEInputBuffersReady](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEInputBuffersReady](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,56 +88,56 @@ type IANEInputBuffersReady interface {
 
 // Init initializes the instance.
 func (a ANEInputBuffersReady) Init() ANEInputBuffersReady {
-	rv := objc.Send[ANEInputBuffersReady](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEInputBuffersReady](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEInputBuffersReady) Autorelease() ANEInputBuffersReady {
-	rv := objc.Send[ANEInputBuffersReady](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEInputBuffersReady](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEInputBuffersReady creates a new ANEInputBuffersReady instance.
 func NewANEInputBuffersReady() ANEInputBuffersReady {
 	class := getANEInputBuffersReadyClass()
-	rv := objc.Send[ANEInputBuffersReady](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEInputBuffersReady](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEInputBuffersReadyInputsProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) ANEInputBuffersReady {
 	instance := getANEInputBuffersReadyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
 	return ANEInputBuffersReadyFromID(rv)
 }
 
 func (a ANEInputBuffersReady) Validate() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("validate"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("validate"))
 	return rv
 }
 func (a ANEInputBuffersReady) InitInputsProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) ANEInputBuffersReady {
-	rv := objc.Send[ANEInputBuffersReady](a.ID, objc.Sel("initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
+	rv := objc.SendIfResponds[ANEInputBuffersReady](a.ID, objc.Sel("initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
 	return rv
 }
 
 func (_ANEInputBuffersReadyClass ANEInputBuffersReadyClass) InputBuffersWithProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEInputBuffersReadyClass.class), objc.Sel("inputBuffersWithProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEInputBuffersReadyClass.class), objc.Sel("inputBuffersWithProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEInputBuffersReady) ExecutionDelay() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("executionDelay"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("executionDelay"))
 	return rv
 }
 func (a ANEInputBuffersReady) InputBufferInfoIndex() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputBufferInfoIndex"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputBufferInfoIndex"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEInputBuffersReady) InputFreeValue() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputFreeValue"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputFreeValue"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEInputBuffersReady) ProcedureIndex() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("procedureIndex"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("procedureIndex"))
 	return rv
 }

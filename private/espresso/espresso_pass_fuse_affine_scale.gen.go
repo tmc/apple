@@ -37,7 +37,7 @@ func (ec EspressoPassFuseAffineScaleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseAffineScaleClass) Alloc() EspressoPassFuseAffineScale {
-	rv := objc.Send[EspressoPassFuseAffineScale](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseAffineScale](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseAffineScale interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseAffineScale) Init() EspressoPassFuseAffineScale {
-	rv := objc.Send[EspressoPassFuseAffineScale](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseAffineScale](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseAffineScale) Autorelease() EspressoPassFuseAffineScale {
-	rv := objc.Send[EspressoPassFuseAffineScale](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseAffineScale](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseAffineScale creates a new EspressoPassFuseAffineScale instance.
 func NewEspressoPassFuseAffineScale() EspressoPassFuseAffineScale {
 	class := getEspressoPassFuseAffineScaleClass()
-	rv := objc.Send[EspressoPassFuseAffineScale](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseAffineScale](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

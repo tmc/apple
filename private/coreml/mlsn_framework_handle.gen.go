@@ -38,7 +38,7 @@ func (mc MLSNFrameworkHandleClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSNFrameworkHandleClass) Alloc() MLSNFrameworkHandle {
-	rv := objc.Send[MLSNFrameworkHandle](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSNFrameworkHandle](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,24 +61,24 @@ type IMLSNFrameworkHandle interface {
 
 // Init initializes the instance.
 func (m MLSNFrameworkHandle) Init() MLSNFrameworkHandle {
-	rv := objc.Send[MLSNFrameworkHandle](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSNFrameworkHandle](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSNFrameworkHandle) Autorelease() MLSNFrameworkHandle {
-	rv := objc.Send[MLSNFrameworkHandle](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSNFrameworkHandle](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSNFrameworkHandle creates a new MLSNFrameworkHandle instance.
 func NewMLSNFrameworkHandle() MLSNFrameworkHandle {
 	class := getMLSNFrameworkHandleClass()
-	rv := objc.Send[MLSNFrameworkHandle](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSNFrameworkHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLSNFrameworkHandleClass MLSNFrameworkHandleClass) SharedHandle() MLSNFrameworkHandle {
-	rv := objc.Send[objc.ID](objc.ID(_MLSNFrameworkHandleClass.class), objc.Sel("sharedHandle"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSNFrameworkHandleClass.class), objc.Sel("sharedHandle"))
 	return MLSNFrameworkHandleFromID(rv)
 }

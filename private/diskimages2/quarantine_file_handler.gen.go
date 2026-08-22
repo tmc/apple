@@ -41,7 +41,7 @@ func (qc QuarantineFileHandlerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (qc QuarantineFileHandlerClass) Alloc() QuarantineFileHandler {
-	rv := objc.Send[QuarantineFileHandler](objc.ID(qc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[QuarantineFileHandler](objc.ID(qc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,30 +99,33 @@ type IQuarantineFileHandler interface {
 
 // Init initializes the instance.
 func (q QuarantineFileHandler) Init() QuarantineFileHandler {
-	rv := objc.Send[QuarantineFileHandler](q.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[QuarantineFileHandler](q.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (q QuarantineFileHandler) Autorelease() QuarantineFileHandler {
-	rv := objc.Send[QuarantineFileHandler](q.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[QuarantineFileHandler](q.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewQuarantineFileHandler creates a new QuarantineFileHandler instance.
 func NewQuarantineFileHandler() QuarantineFileHandler {
 	class := getQuarantineFileHandlerClass()
-	rv := objc.Send[QuarantineFileHandler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[QuarantineFileHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewQuarantineFileHandlerWithBackendError(backend unsafe.Pointer) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackend:error:"), backend, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackend:error:"), backend, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return QuarantineFileHandler{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return QuarantineFileHandler{}, objc.ErrInitFailed
 	}
 	return QuarantineFileHandlerFromID(rv), nil
 }
@@ -130,10 +133,13 @@ func NewQuarantineFileHandlerWithBackendError(backend unsafe.Pointer) (Quarantin
 func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFD:error:"), fd, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFD:error:"), fd, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return QuarantineFileHandler{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return QuarantineFileHandler{}, objc.ErrInitFailed
 	}
 	return QuarantineFileHandlerFromID(rv), nil
 }
@@ -141,10 +147,13 @@ func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) 
 func NewQuarantineFileHandlerWithFlagError(flag uint32) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
 	instance := getQuarantineFileHandlerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFlag:error:"), flag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFlag:error:"), flag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return QuarantineFileHandler{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return QuarantineFileHandler{}, objc.ErrInitFailed
 	}
 	return QuarantineFileHandlerFromID(rv), nil
 }
@@ -217,13 +226,13 @@ func (q QuarantineFileHandler) InitWithFlagError(flag uint32) (QuarantineFileHan
 }
 
 func (q QuarantineFileHandler) IsQuarantined() bool {
-	rv := objc.Send[bool](q.ID, objc.Sel("isQuarantined"))
+	rv := objc.SendIfResponds[bool](q.ID, objc.Sel("isQuarantined"))
 	return rv
 }
 func (q QuarantineFileHandler) QtFile() QtnFileRef {
-	rv := objc.Send[objc.ID](q.ID, objc.Sel("qtFile"))
+	rv := objc.SendIfResponds[objc.ID](q.ID, objc.Sel("qtFile"))
 	return QtnFileRef(rv)
 }
 func (q QuarantineFileHandler) SetQtFile(value QtnFileRef) {
-	objc.Send[struct{}](q.ID, objc.Sel("setQtFile:"), value)
+	objc.SendIfResponds[struct{}](q.ID, objc.Sel("setQtFile:"), value)
 }

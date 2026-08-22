@@ -40,7 +40,7 @@ func (dc DYGPUDerivedEncoderCounterInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DYGPUDerivedEncoderCounterInfoClass) Alloc() DYGPUDerivedEncoderCounterInfo {
-	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DYGPUDerivedEncoderCounterInfo](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,32 +101,32 @@ type IDYGPUDerivedEncoderCounterInfo interface {
 
 // Init initializes the instance.
 func (d DYGPUDerivedEncoderCounterInfo) Init() DYGPUDerivedEncoderCounterInfo {
-	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DYGPUDerivedEncoderCounterInfo) Autorelease() DYGPUDerivedEncoderCounterInfo {
-	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDYGPUDerivedEncoderCounterInfo creates a new DYGPUDerivedEncoderCounterInfo instance.
 func NewDYGPUDerivedEncoderCounterInfo() DYGPUDerivedEncoderCounterInfo {
 	class := getDYGPUDerivedEncoderCounterInfoClass()
-	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DYGPUDerivedEncoderCounterInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDYGPUDerivedEncoderCounterInfoWithCoder(coder objectivec.IObject) DYGPUDerivedEncoderCounterInfo {
 	instance := getDYGPUDerivedEncoderCounterInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYGPUDerivedEncoderCounterInfoFromID(rv)
 }
 
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
-	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedData:"), _block0)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedData:"), _block0)
 }
 
 // EnumerateEncoderDerivedData is an exported wrapper for the private method _enumerateEncoderDerivedData.
@@ -145,7 +145,7 @@ func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedData() bool {
 }
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
 }
 
 // EnumerateEncoderDerivedDataAtIndexWithBlock is an exported wrapper for the private method _enumerateEncoderDerivedDataAtIndexWithBlock.
@@ -163,38 +163,38 @@ func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedDataAtIndexWit
 	return objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"))
 }
 func (d DYGPUDerivedEncoderCounterInfo) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DYGPUDerivedEncoderCounterInfo) InitWithCoder(coder foundation.INSCoder) DYGPUDerivedEncoderCounterInfo {
-	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DYGPUDerivedEncoderCounterInfoClass DYGPUDerivedEncoderCounterInfoClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DYGPUDerivedEncoderCounterInfoClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DYGPUDerivedEncoderCounterInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DYGPUDerivedEncoderCounterInfo) DerivedCounterNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounterNames(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
 }
 func (d DYGPUDerivedEncoderCounterInfo) DerivedCounters() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounters"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("derivedCounters"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounters(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
 }
 func (d DYGPUDerivedEncoderCounterInfo) EncoderInfos() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("encoderInfos"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encoderInfos"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUDerivedEncoderCounterInfo) SetEncoderInfos(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEncoderInfos:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEncoderInfos:"), value)
 }
 
 // _enumerateEncoderDerivedDataSync is a synchronous wrapper around [DYGPUDerivedEncoderCounterInfo._enumerateEncoderDerivedData].

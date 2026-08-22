@@ -37,7 +37,7 @@ func (vc VZPCIPassthroughDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPCIPassthroughDeviceConfigurationClass) Alloc() VZPCIPassthroughDeviceConfiguration {
-	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPCIPassthroughDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,30 +71,30 @@ type IVZPCIPassthroughDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZPCIPassthroughDeviceConfiguration) Init() VZPCIPassthroughDeviceConfiguration {
-	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPCIPassthroughDeviceConfiguration) Autorelease() VZPCIPassthroughDeviceConfiguration {
-	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPCIPassthroughDeviceConfiguration creates a new VZPCIPassthroughDeviceConfiguration instance.
 func NewVZPCIPassthroughDeviceConfiguration() VZPCIPassthroughDeviceConfiguration {
 	class := getVZPCIPassthroughDeviceConfigurationClass()
-	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPCIPassthroughDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZPCIPassthroughDeviceConfigurationWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
 	instance := getVZPCIPassthroughDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
 	return VZPCIPassthroughDeviceConfigurationFromID(rv)
 }
 
 func (v VZPCIPassthroughDeviceConfiguration) InitWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
-	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
+	rv := objc.SendIfResponds[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
 	return rv
 }

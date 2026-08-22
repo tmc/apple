@@ -37,7 +37,7 @@ func (ec EspressoPassCompressSegmentsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassCompressSegmentsClass) Alloc() EspressoPassCompressSegments {
-	rv := objc.Send[EspressoPassCompressSegments](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassCompressSegments](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassCompressSegments interface {
 
 // Init initializes the instance.
 func (e EspressoPassCompressSegments) Init() EspressoPassCompressSegments {
-	rv := objc.Send[EspressoPassCompressSegments](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassCompressSegments](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassCompressSegments) Autorelease() EspressoPassCompressSegments {
-	rv := objc.Send[EspressoPassCompressSegments](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassCompressSegments](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassCompressSegments creates a new EspressoPassCompressSegments instance.
 func NewEspressoPassCompressSegments() EspressoPassCompressSegments {
 	class := getEspressoPassCompressSegmentsClass()
-	rv := objc.Send[EspressoPassCompressSegments](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassCompressSegments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

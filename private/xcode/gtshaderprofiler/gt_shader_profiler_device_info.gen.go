@@ -39,7 +39,7 @@ func (gc GTShaderProfilerDeviceInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerDeviceInfoClass) Alloc() GTShaderProfilerDeviceInfo {
-	rv := objc.Send[GTShaderProfilerDeviceInfo](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerDeviceInfo](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,74 +106,74 @@ type IGTShaderProfilerDeviceInfo interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerDeviceInfo) Init() GTShaderProfilerDeviceInfo {
-	rv := objc.Send[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerDeviceInfo) Autorelease() GTShaderProfilerDeviceInfo {
-	rv := objc.Send[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerDeviceInfo creates a new GTShaderProfilerDeviceInfo instance.
 func NewGTShaderProfilerDeviceInfo() GTShaderProfilerDeviceInfo {
 	class := getGTShaderProfilerDeviceInfoClass()
-	rv := objc.Send[GTShaderProfilerDeviceInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerDeviceInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerDeviceInfoWithCoder(coder objectivec.IObject) GTShaderProfilerDeviceInfo {
 	instance := getGTShaderProfilerDeviceInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerDeviceInfoFromID(rv)
 }
 
 func (g GTShaderProfilerDeviceInfo) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTShaderProfilerDeviceInfo) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerDeviceInfo {
-	rv := objc.Send[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_GTShaderProfilerDeviceInfoClass GTShaderProfilerDeviceInfoClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTShaderProfilerDeviceInfoClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTShaderProfilerDeviceInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTShaderProfilerDeviceInfo) Build() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("build"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("build"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerDeviceInfo) SetBuild(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setBuild:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setBuild:"), objc.String(value))
 }
 func (g GTShaderProfilerDeviceInfo) MetalVersion() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalVersion"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("metalVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerDeviceInfo) SetMetalVersion(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMetalVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setMetalVersion:"), objc.String(value))
 }
 func (g GTShaderProfilerDeviceInfo) Name() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerDeviceInfo) SetName(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (g GTShaderProfilerDeviceInfo) Platform() int {
-	rv := objc.Send[int](g.ID, objc.Sel("platform"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("platform"))
 	return rv
 }
 func (g GTShaderProfilerDeviceInfo) SetPlatform(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPlatform:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setPlatform:"), value)
 }
 func (g GTShaderProfilerDeviceInfo) Version() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("version"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerDeviceInfo) SetVersion(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setVersion:"), objc.String(value))
 }

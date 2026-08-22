@@ -39,7 +39,7 @@ func (mc MLSliceNDBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSliceNDBrickClass) Alloc() MLSliceNDBrick {
-	rv := objc.Send[MLSliceNDBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSliceNDBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -127,102 +127,102 @@ type IMLSliceNDBrick interface {
 
 // Init initializes the instance.
 func (m MLSliceNDBrick) Init() MLSliceNDBrick {
-	rv := objc.Send[MLSliceNDBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSliceNDBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSliceNDBrick) Autorelease() MLSliceNDBrick {
-	rv := objc.Send[MLSliceNDBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSliceNDBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSliceNDBrick creates a new MLSliceNDBrick instance.
 func NewMLSliceNDBrick() MLSliceNDBrick {
 	class := getMLSliceNDBrickClass()
-	rv := objc.Send[MLSliceNDBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSliceNDBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSliceNDBrickWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
 	instance := getMLSliceNDBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSliceNDBrickFromID(rv)
 }
 
 func (m MLSliceNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLSliceNDBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLSliceNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLSliceNDBrick) InitWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
-	rv := objc.Send[MLSliceNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLSliceNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLSliceNDBrick) Begin_ids() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("begin_ids"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("begin_ids"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) Begin_masks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("begin_masks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("begin_masks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLSliceNDBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLSliceNDBrick) End_ids() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("end_ids"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("end_ids"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) End_masks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("end_masks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("end_masks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLSliceNDBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) Rank() int {
-	rv := objc.Send[int](m.ID, objc.Sel("rank"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("rank"))
 	return rv
 }
 func (m MLSliceNDBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 func (m MLSliceNDBrick) Strides() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("strides"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("strides"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSliceNDBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

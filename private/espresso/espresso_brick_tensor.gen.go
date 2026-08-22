@@ -38,7 +38,7 @@ func (ec EspressoBrickTensorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoBrickTensorClass) Alloc() EspressoBrickTensor {
-	rv := objc.Send[EspressoBrickTensor](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoBrickTensor](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,27 +75,27 @@ type IEspressoBrickTensor interface {
 
 // Init initializes the instance.
 func (e EspressoBrickTensor) Init() EspressoBrickTensor {
-	rv := objc.Send[EspressoBrickTensor](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoBrickTensor](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoBrickTensor) Autorelease() EspressoBrickTensor {
-	rv := objc.Send[EspressoBrickTensor](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoBrickTensor](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoBrickTensor creates a new EspressoBrickTensor instance.
 func NewEspressoBrickTensor() EspressoBrickTensor {
 	class := getEspressoBrickTensorClass()
-	rv := objc.Send[EspressoBrickTensor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoBrickTensor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoBrickTensor) Shape() IEspressoBrickTensorShape {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("shape"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("shape"))
 	return EspressoBrickTensorShapeFromID(objc.ID(rv))
 }
 func (e EspressoBrickTensor) SetShape(value IEspressoBrickTensorShape) {
-	objc.Send[struct{}](e.ID, objc.Sel("setShape:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setShape:"), value)
 }

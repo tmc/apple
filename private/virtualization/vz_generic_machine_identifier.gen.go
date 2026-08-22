@@ -39,7 +39,7 @@ func (vc VZGenericMachineIdentifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
-	rv := objc.Send[VZGenericMachineIdentifier](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGenericMachineIdentifier](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,36 +82,36 @@ type IVZGenericMachineIdentifier interface {
 
 // Init initializes the instance.
 func (v VZGenericMachineIdentifier) Init() VZGenericMachineIdentifier {
-	rv := objc.Send[VZGenericMachineIdentifier](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGenericMachineIdentifier](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGenericMachineIdentifier) Autorelease() VZGenericMachineIdentifier {
-	rv := objc.Send[VZGenericMachineIdentifier](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGenericMachineIdentifier](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGenericMachineIdentifier creates a new VZGenericMachineIdentifier instance.
 func NewVZGenericMachineIdentifier() VZGenericMachineIdentifier {
 	class := getVZGenericMachineIdentifierClass()
-	rv := objc.Send[VZGenericMachineIdentifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGenericMachineIdentifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGenericMachineIdentifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZGenericMachineIdentifier) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZGenericMachineIdentifier) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZGenericMachineIdentifier) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

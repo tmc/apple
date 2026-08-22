@@ -37,7 +37,7 @@ func (vc VZSEPCoprocessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSEPCoprocessorClass) Alloc() VZSEPCoprocessor {
-	rv := objc.Send[VZSEPCoprocessor](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSEPCoprocessor](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,24 +71,24 @@ type IVZSEPCoprocessor interface {
 
 // Init initializes the instance.
 func (v VZSEPCoprocessor) Init() VZSEPCoprocessor {
-	rv := objc.Send[VZSEPCoprocessor](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSEPCoprocessor](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSEPCoprocessor) Autorelease() VZSEPCoprocessor {
-	rv := objc.Send[VZSEPCoprocessor](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSEPCoprocessor](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSEPCoprocessor creates a new VZSEPCoprocessor instance.
 func NewVZSEPCoprocessor() VZSEPCoprocessor {
 	class := getVZSEPCoprocessorClass()
-	rv := objc.Send[VZSEPCoprocessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSEPCoprocessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSEPCoprocessor) DebugStub() IVZDebugStub {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugStub"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugStub"))
 	return VZDebugStubFromID(objc.ID(rv))
 }

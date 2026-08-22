@@ -16,11 +16,17 @@ type CPXHIDEventDeferringResolutionProtocol interface {
 	// ConnectionID protocol.
 	ConnectionID() uint32
 
+	// Environment protocol.
+	Environment() objectivec.IObject
+
 	// Pid protocol.
 	Pid() int
 
 	// ProcessRecord protocol.
-	ProcessRecord() unsafe.Pointer
+	ProcessRecord() *CPSProcessRec
+
+	// Token protocol.
+	Token() objectivec.IObject
 }
 
 // CPXHIDEventDeferringResolutionProtocolObject wraps an existing Objective-C object that conforms to the CPXHIDEventDeferringResolutionProtocol protocol.
@@ -41,22 +47,22 @@ func CPXHIDEventDeferringResolutionProtocolObjectFromID(id objc.ID) CPXHIDEventD
 }
 
 func (o CPXHIDEventDeferringResolutionProtocolObject) ConnectionID() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("connectionID"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("connectionID"))
 	return rv
 }
 func (o CPXHIDEventDeferringResolutionProtocolObject) Environment() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("environment"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("environment"))
 	return objectivec.Object{ID: rv}
 }
 func (o CPXHIDEventDeferringResolutionProtocolObject) Pid() int {
-	rv := objc.Send[int](o.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("pid"))
 	return rv
 }
-func (o CPXHIDEventDeferringResolutionProtocolObject) ProcessRecord() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("processRecord"))
-	return rv
+func (o CPXHIDEventDeferringResolutionProtocolObject) ProcessRecord() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("processRecord"))
+	return (*CPSProcessRec)(rv)
 }
 func (o CPXHIDEventDeferringResolutionProtocolObject) Token() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("token"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("token"))
 	return objectivec.Object{ID: rv}
 }

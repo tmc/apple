@@ -39,7 +39,7 @@ func (mc MLCompilerOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCompilerOptionsClass) Alloc() MLCompilerOptions {
-	rv := objc.Send[MLCompilerOptions](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCompilerOptions](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -178,151 +178,151 @@ type IMLCompilerOptions interface {
 
 // Init initializes the instance.
 func (m MLCompilerOptions) Init() MLCompilerOptions {
-	rv := objc.Send[MLCompilerOptions](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCompilerOptions](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCompilerOptions) Autorelease() MLCompilerOptions {
-	rv := objc.Send[MLCompilerOptions](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCompilerOptions](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCompilerOptions creates a new MLCompilerOptions instance.
 func NewMLCompilerOptions() MLCompilerOptions {
 	class := getMLCompilerOptionsClass()
-	rv := objc.Send[MLCompilerOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCompilerOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLCompilerOptionsClass MLCompilerOptionsClass) DefaultOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCompilerOptionsClass.class), objc.Sel("defaultOptions"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerOptionsClass.class), objc.Sel("defaultOptions"))
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLCompilerOptions) AllowMultipleInputsWithEnumeratedShapes() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowMultipleInputsWithEnumeratedShapes"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowMultipleInputsWithEnumeratedShapes"))
 	return rv
 }
 func (m MLCompilerOptions) SetAllowMultipleInputsWithEnumeratedShapes(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowMultipleInputsWithEnumeratedShapes:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowMultipleInputsWithEnumeratedShapes:"), value)
 }
 func (m MLCompilerOptions) AllowsPixelBufferDirectBinding() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("allowsPixelBufferDirectBinding"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("allowsPixelBufferDirectBinding"))
 	return rv
 }
 func (m MLCompilerOptions) SetAllowsPixelBufferDirectBinding(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllowsPixelBufferDirectBinding:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAllowsPixelBufferDirectBinding:"), value)
 }
 func (m MLCompilerOptions) ContainerIsCloud() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("containerIsCloud"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("containerIsCloud"))
 	return rv
 }
 func (m MLCompilerOptions) SetContainerIsCloud(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContainerIsCloud:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContainerIsCloud:"), value)
 }
 func (m MLCompilerOptions) DryRun() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("dryRun"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("dryRun"))
 	return rv
 }
 func (m MLCompilerOptions) SetDryRun(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDryRun:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDryRun:"), value)
 }
 func (m MLCompilerOptions) EncryptModel() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("encryptModel"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("encryptModel"))
 	return rv
 }
 func (m MLCompilerOptions) SetEncryptModel(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEncryptModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptModel:"), value)
 }
 func (m MLCompilerOptions) Iv() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("iv"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("iv"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetIv(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIv:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIv:"), value)
 }
 func (m MLCompilerOptions) Key() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("key"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("key"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetKey(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setKey:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
 func (m MLCompilerOptions) KeyID() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyID"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("keyID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerOptions) SetKeyID(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setKeyID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKeyID:"), objc.String(value))
 }
 func (m MLCompilerOptions) KeyInfoVersion() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyInfoVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("keyInfoVersion"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetKeyInfoVersion(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setKeyInfoVersion:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKeyInfoVersion:"), value)
 }
 func (m MLCompilerOptions) MlProgramAddDuringCompilationMode() int {
-	rv := objc.Send[int](m.ID, objc.Sel("mlProgramAddDuringCompilationMode"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("mlProgramAddDuringCompilationMode"))
 	return rv
 }
 func (m MLCompilerOptions) SetMlProgramAddDuringCompilationMode(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMlProgramAddDuringCompilationMode:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlProgramAddDuringCompilationMode:"), value)
 }
 func (m MLCompilerOptions) Mlsinf() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlsinf"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mlsinf"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetMlsinf(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMlsinf:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlsinf:"), value)
 }
 func (m MLCompilerOptions) Platform() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("platform"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("platform"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerOptions) SetPlatform(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlatform:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPlatform:"), objc.String(value))
 }
 func (m MLCompilerOptions) PlatformVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("platformVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("platformVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCompilerOptions) SetPlatformVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlatformVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPlatformVersion:"), objc.String(value))
 }
 func (m MLCompilerOptions) Sinf() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("sinf"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("sinf"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetSinf(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSinf:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSinf:"), value)
 }
 func (m MLCompilerOptions) SpecURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("specURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("specURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetSpecURL(value foundation.NSURL) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSpecURL:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSpecURL:"), value)
 }
 func (m MLCompilerOptions) TrainWithMLCompute() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("trainWithMLCompute"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("trainWithMLCompute"))
 	return rv
 }
 func (m MLCompilerOptions) SetTrainWithMLCompute(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrainWithMLCompute:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTrainWithMLCompute:"), value)
 }
 func (m MLCompilerOptions) UsesCodeSigningIdentityForEncryption() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("usesCodeSigningIdentityForEncryption"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("usesCodeSigningIdentityForEncryption"))
 	return rv
 }
 func (m MLCompilerOptions) SetUsesCodeSigningIdentityForEncryption(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUsesCodeSigningIdentityForEncryption:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUsesCodeSigningIdentityForEncryption:"), value)
 }
 func (m MLCompilerOptions) Warnings() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("warnings"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("warnings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCompilerOptions) SetWarnings(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWarnings:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWarnings:"), value)
 }

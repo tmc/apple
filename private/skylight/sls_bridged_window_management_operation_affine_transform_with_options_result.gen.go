@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass) Alloc() SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedWindowManagementOperationAffineTransformWithOptionsResult interf
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) Init() SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) Autorelease() SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResult creates a new SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult instance.
 func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResult() SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	class := getSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	instance := getSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
 	return SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
 	instance := getSLSBridgedWindowManagementOperationAffineTransformWithOptionsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationAffineTransformWithOptionsResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) InitWithAffineTransformOptions(transform corefoundation.CGAffineTransform, options uint32) SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult](s.ID, objc.Sel("initWithAffineTransform:options:"), transform, options)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) AffineTransform() corefoundation.CGAffineTransform {
-	rv := objc.Send[corefoundation.CGAffineTransform](s.ID, objc.Sel("affineTransform"))
+	rv := objc.SendIfResponds[corefoundation.CGAffineTransform](s.ID, objc.Sel("affineTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
 func (s SLSBridgedWindowManagementOperationAffineTransformWithOptionsResult) Options() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("options"))
 	return rv
 }

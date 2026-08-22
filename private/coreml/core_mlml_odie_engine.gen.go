@@ -40,7 +40,7 @@ func (cc CoreMLMLOdieEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMLOdieEngineClass) Alloc() CoreMLMLOdieEngine {
-	rv := objc.Send[CoreMLMLOdieEngine](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMLOdieEngine](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,32 +80,32 @@ type ICoreMLMLOdieEngine interface {
 
 // Init initializes the instance.
 func (c CoreMLMLOdieEngine) Init() CoreMLMLOdieEngine {
-	rv := objc.Send[CoreMLMLOdieEngine](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMLOdieEngine](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMLOdieEngine) Autorelease() CoreMLMLOdieEngine {
-	rv := objc.Send[CoreMLMLOdieEngine](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMLOdieEngine](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMLOdieEngine creates a new CoreMLMLOdieEngine instance.
 func NewCoreMLMLOdieEngine() CoreMLMLOdieEngine {
 	class := getCoreMLMLOdieEngineClass()
-	rv := objc.Send[CoreMLMLOdieEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMLOdieEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCoreMLMLOdieEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) CoreMLMLOdieEngine {
 	instance := getCoreMLMLOdieEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return CoreMLMLOdieEngineFromID(rv)
 }
 
 func NewCoreMLMLOdieEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) CoreMLMLOdieEngine {
 	instance := getCoreMLMLOdieEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return CoreMLMLOdieEngineFromID(rv)
 }
 
@@ -120,7 +120,7 @@ func (c CoreMLMLOdieEngine) NewRequestForModelInputFeaturesUsingStateOptionsErro
 
 }
 func (c CoreMLMLOdieEngine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
 func (c CoreMLMLOdieEngine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {

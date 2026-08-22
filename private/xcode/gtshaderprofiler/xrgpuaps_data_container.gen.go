@@ -41,7 +41,7 @@ func (xc XRGPUAPSDataContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (xc XRGPUAPSDataContainerClass) Alloc() XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](objc.ID(xc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](objc.ID(xc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -150,116 +150,116 @@ type IXRGPUAPSDataContainer interface {
 
 // Init initializes the instance.
 func (x XRGPUAPSDataContainer) Init() XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](x.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](x.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (x XRGPUAPSDataContainer) Autorelease() XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](x.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](x.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewXRGPUAPSDataContainer creates a new XRGPUAPSDataContainer instance.
 func NewXRGPUAPSDataContainer() XRGPUAPSDataContainer {
 	class := getXRGPUAPSDataContainerClass()
-	rv := objc.Send[XRGPUAPSDataContainer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewXRGPUAPSDataContainerWithCoder(coder objectivec.IObject) XRGPUAPSDataContainer {
 	instance := getXRGPUAPSDataContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return XRGPUAPSDataContainerFromID(rv)
 }
 
 func NewXRGPUAPSDataContainerWithConfigBaseFolder(config objectivec.IObject, folder objectivec.IObject) XRGPUAPSDataContainer {
 	instance := getXRGPUAPSDataContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfig:baseFolder:"), config, folder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfig:baseFolder:"), config, folder)
 	return XRGPUAPSDataContainerFromID(rv)
 }
 
 func NewXRGPUAPSDataContainerWithConfigBaseFolderVariant(config objectivec.IObject, folder objectivec.IObject, variant uint64) XRGPUAPSDataContainer {
 	instance := getXRGPUAPSDataContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfig:baseFolder:variant:"), config, folder, variant)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfig:baseFolder:variant:"), config, folder, variant)
 	return XRGPUAPSDataContainerFromID(rv)
 }
 
 func (x XRGPUAPSDataContainer) AddConfigEntryValue(entry objectivec.IObject, value objectivec.IObject) {
-	objc.Send[objc.ID](x.ID, objc.Sel("addConfigEntry:value:"), entry, value)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("addConfigEntry:value:"), entry, value)
 }
 func (x XRGPUAPSDataContainer) AddCustomDataData(data objectivec.IObject, data2 objectivec.IObject) {
-	objc.Send[objc.ID](x.ID, objc.Sel("addCustomData:data:"), data, data2)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("addCustomData:data:"), data, data2)
 }
 func (x XRGPUAPSDataContainer) AddDataForRDESourceIndexBufferIndexData(index uint32, index2 uint32, data objectivec.IObject) {
-	objc.Send[objc.ID](x.ID, objc.Sel("addDataForRDESourceIndex:bufferIndex:data:"), index, index2, data)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("addDataForRDESourceIndex:bufferIndex:data:"), index, index2, data)
 }
 func (x XRGPUAPSDataContainer) AddDataForUSCAtIndexData(index uint32, data objectivec.IObject) {
-	objc.Send[objc.ID](x.ID, objc.Sel("addDataForUSCAtIndex:data:"), index, data)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("addDataForUSCAtIndex:data:"), index, data)
 }
 func (x XRGPUAPSDataContainer) AddShaderMapDataVariant(data objectivec.IObject, variant uint64) {
-	objc.Send[objc.ID](x.ID, objc.Sel("addShaderMapData:variant:"), data, variant)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("addShaderMapData:variant:"), data, variant)
 }
 func (x XRGPUAPSDataContainer) Encode() objectivec.IObject {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("encode"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("encode"))
 	return objectivec.Object{ID: rv}
 }
 func (x XRGPUAPSDataContainer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (x XRGPUAPSDataContainer) EnumerateRDEData(rDEData VoidHandler) {
 	_block0, _ := NewVoidBlock(rDEData)
-	objc.Send[objc.ID](x.ID, objc.Sel("enumerateRDEData:"), _block0)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("enumerateRDEData:"), _block0)
 }
 func (x XRGPUAPSDataContainer) EnumerateUSCData(uSCData VoidHandler) {
 	_block0, _ := NewVoidBlock(uSCData)
-	objc.Send[objc.ID](x.ID, objc.Sel("enumerateUSCData:"), _block0)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("enumerateUSCData:"), _block0)
 }
 func (x XRGPUAPSDataContainer) GetData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("getData:"), data)
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("getData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (x XRGPUAPSDataContainer) LoadATRCConfig() bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("loadATRCConfig"))
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("loadATRCConfig"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) LoadGTAConfig() bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("loadGTAConfig"))
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("loadGTAConfig"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) LoadInstrumentsConfig() bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("loadInstrumentsConfig"))
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("loadInstrumentsConfig"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) NumBuffersAtRDEIndex(rDEIndex uint64) uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("numBuffersAtRDEIndex:"), rDEIndex)
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("numBuffersAtRDEIndex:"), rDEIndex)
 	return rv
 }
 func (x XRGPUAPSDataContainer) ParseGRCConfig(gRCConfig objectivec.IObject) bool {
-	rv := objc.Send[bool](x.ID, objc.Sel("parseGRCConfig:"), gRCConfig)
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("parseGRCConfig:"), gRCConfig)
 	return rv
 }
 func (x XRGPUAPSDataContainer) ReleaseData() {
-	objc.Send[objc.ID](x.ID, objc.Sel("releaseData"))
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("releaseData"))
 }
 func (x XRGPUAPSDataContainer) SetRDECounterNames(names objectivec.IObject) {
-	objc.Send[objc.ID](x.ID, objc.Sel("setRDECounterNames:"), names)
+	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("setRDECounterNames:"), names)
 }
 func (x XRGPUAPSDataContainer) InitWithCoder(coder foundation.INSCoder) XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (x XRGPUAPSDataContainer) InitWithConfigBaseFolder(config objectivec.IObject, folder objectivec.IObject) XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithConfig:baseFolder:"), config, folder)
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithConfig:baseFolder:"), config, folder)
 	return rv
 }
 func (x XRGPUAPSDataContainer) InitWithConfigBaseFolderVariant(config objectivec.IObject, folder objectivec.IObject, variant uint64) XRGPUAPSDataContainer {
-	rv := objc.Send[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithConfig:baseFolder:variant:"), config, folder, variant)
+	rv := objc.SendIfResponds[XRGPUAPSDataContainer](x.ID, objc.Sel("initWithConfig:baseFolder:variant:"), config, folder, variant)
 	return rv
 }
 
 func (_XRGPUAPSDataContainerClass XRGPUAPSDataContainerClass) ConfigVariantFromConfig(config objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](objc.ID(_XRGPUAPSDataContainerClass.class), objc.Sel("configVariantFromConfig:"), config)
+	rv := objc.SendIfResponds[uint64](objc.ID(_XRGPUAPSDataContainerClass.class), objc.Sel("configVariantFromConfig:"), config)
 	return rv
 }
 func (_XRGPUAPSDataContainerClass XRGPUAPSDataContainerClass) FromDataError(data objectivec.IObject) (objectivec.IObject, error) {
@@ -273,32 +273,32 @@ func (_XRGPUAPSDataContainerClass XRGPUAPSDataContainerClass) FromDataError(data
 
 }
 func (_XRGPUAPSDataContainerClass XRGPUAPSDataContainerClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_XRGPUAPSDataContainerClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_XRGPUAPSDataContainerClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (x XRGPUAPSDataContainer) Config() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("config"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("config"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (x XRGPUAPSDataContainer) ConfigVariant() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("configVariant"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("configVariant"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) NumRDEs() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("numRDEs"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("numRDEs"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) NumUSCs() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("numUSCs"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("numUSCs"))
 	return rv
 }
 func (x XRGPUAPSDataContainer) ShaderMapData() objectivec.IObject {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("shaderMapData"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("shaderMapData"))
 	return objectivec.Object{ID: rv}
 }
 func (x XRGPUAPSDataContainer) ShaderMapDataVariant() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("shaderMapDataVariant"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("shaderMapDataVariant"))
 	return rv
 }
 

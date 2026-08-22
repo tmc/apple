@@ -38,7 +38,7 @@ func (vc VZCustomCPUEmulatorConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomCPUEmulatorConfigurationClass) Alloc() VZCustomCPUEmulatorConfiguration {
-	rv := objc.Send[VZCustomCPUEmulatorConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomCPUEmulatorConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,41 +87,41 @@ type IVZCustomCPUEmulatorConfiguration interface {
 
 // Init initializes the instance.
 func (v VZCustomCPUEmulatorConfiguration) Init() VZCustomCPUEmulatorConfiguration {
-	rv := objc.Send[VZCustomCPUEmulatorConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomCPUEmulatorConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomCPUEmulatorConfiguration) Autorelease() VZCustomCPUEmulatorConfiguration {
-	rv := objc.Send[VZCustomCPUEmulatorConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomCPUEmulatorConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomCPUEmulatorConfiguration creates a new VZCustomCPUEmulatorConfiguration instance.
 func NewVZCustomCPUEmulatorConfiguration() VZCustomCPUEmulatorConfiguration {
 	class := getVZCustomCPUEmulatorConfigurationClass()
-	rv := objc.Send[VZCustomCPUEmulatorConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomCPUEmulatorConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomCPUEmulatorConfiguration) EmulatorURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("emulatorURL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("emulatorURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZCustomCPUEmulatorConfiguration) SetEmulatorURL(value foundation.NSURL) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEmulatorURL:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEmulatorURL:"), value)
 }
 func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("memorySize"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("memorySize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (v VZCustomCPUEmulatorConfiguration) SetMemorySize(value foundation.NSNumber) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
 }
 func (v VZCustomCPUEmulatorConfiguration) Options() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("options"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomCPUEmulatorConfiguration) SetOptions(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("setOptions:"), objc.String(value))
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setOptions:"), objc.String(value))
 }

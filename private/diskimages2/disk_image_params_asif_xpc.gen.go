@@ -39,7 +39,7 @@ func (dc DiskImageParamsASIFXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsASIFXPCClass) Alloc() DiskImageParamsASIFXPC {
-	rv := objc.Send[DiskImageParamsASIFXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsASIFXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -67,43 +67,43 @@ type IDiskImageParamsASIFXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsASIFXPC) Init() DiskImageParamsASIFXPC {
-	rv := objc.Send[DiskImageParamsASIFXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsASIFXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsASIFXPC) Autorelease() DiskImageParamsASIFXPC {
-	rv := objc.Send[DiskImageParamsASIFXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsASIFXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsASIFXPC creates a new DiskImageParamsASIFXPC instance.
 func NewDiskImageParamsASIFXPC() DiskImageParamsASIFXPC {
 	class := getDiskImageParamsASIFXPCClass()
-	rv := objc.Send[DiskImageParamsASIFXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsASIFXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsASIF_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsASIFXPC {
 	instance := getDiskImageParamsASIFXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsASIFXPCFromID(rv)
 }
 
 func NewDiskImageParamsASIF_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsASIFXPC {
 	instance := getDiskImageParamsASIFXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsASIFXPCFromID(rv)
 }
 
 func NewDiskImageParamsASIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, header unsafe.Pointer) DiskImageParamsASIFXPC {
 	instance := getDiskImageParamsASIFXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
 	return DiskImageParamsASIFXPCFromID(rv)
 }
 
 func NewDiskImageParamsASIF_XPCWithCoder(coder objectivec.IObject) DiskImageParamsASIFXPC {
 	instance := getDiskImageParamsASIFXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsASIFXPCFromID(rv)
 }

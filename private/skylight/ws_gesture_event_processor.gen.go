@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (wc WSGestureEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSGestureEventProcessorClass) Alloc() WSGestureEventProcessor {
-	rv := objc.Send[WSGestureEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSGestureEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,30 +62,30 @@ type IWSGestureEventProcessor interface {
 
 // Init initializes the instance.
 func (w WSGestureEventProcessor) Init() WSGestureEventProcessor {
-	rv := objc.Send[WSGestureEventProcessor](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSGestureEventProcessor](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSGestureEventProcessor) Autorelease() WSGestureEventProcessor {
-	rv := objc.Send[WSGestureEventProcessor](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSGestureEventProcessor](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSGestureEventProcessor creates a new WSGestureEventProcessor instance.
 func NewWSGestureEventProcessor() WSGestureEventProcessor {
 	class := getWSGestureEventProcessorClass()
-	rv := objc.Send[WSGestureEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSGestureEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewWSGestureEventProcessorWithSession(session CGXSession) WSGestureEventProcessor {
+func NewWSGestureEventProcessorWithSession(session *CGXSession) WSGestureEventProcessor {
 	instance := getWSGestureEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return WSGestureEventProcessorFromID(rv)
 }
 
-func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event SLSEventRecord, conn uint32, id *uint64, captured bool, params objectivec.IObject) int {
-	rv := objc.Send[int](objc.ID(_WSGestureEventProcessorClass.class), objc.Sel("annotate_scroll_zoom_event:windowConn:eventRegionID:isCaptured:annotationParams:"), annotate_scroll_zoom_event, conn, id, captured, params)
+func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event *SLSEventRecord, conn uint32, id *uint64, captured bool, params objectivec.IObject) int {
+	rv := objc.SendIfResponds[int](objc.ID(_WSGestureEventProcessorClass.class), objc.Sel("annotate_scroll_zoom_event:windowConn:eventRegionID:isCaptured:annotationParams:"), unsafe.Pointer(annotate_scroll_zoom_event), conn, unsafe.Pointer(id), captured, params)
 	return rv
 }

@@ -39,7 +39,7 @@ func (dc DITemporaryPassphraseClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DITemporaryPassphraseClass) Alloc() DITemporaryPassphrase {
-	rv := objc.Send[DITemporaryPassphrase](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DITemporaryPassphrase](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,38 +79,38 @@ type IDITemporaryPassphrase interface {
 
 // Init initializes the instance.
 func (d DITemporaryPassphrase) Init() DITemporaryPassphrase {
-	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DITemporaryPassphrase](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DITemporaryPassphrase) Autorelease() DITemporaryPassphrase {
-	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DITemporaryPassphrase](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDITemporaryPassphrase creates a new DITemporaryPassphrase instance.
 func NewDITemporaryPassphrase() DITemporaryPassphrase {
 	class := getDITemporaryPassphraseClass()
-	rv := objc.Send[DITemporaryPassphrase](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DITemporaryPassphrase](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDITemporaryPassphraseWithPassphrase(passphrase string) DITemporaryPassphrase {
 	instance := getDITemporaryPassphraseClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return DITemporaryPassphraseFromID(rv)
 }
 
 func (d DITemporaryPassphrase) InitWithPassphrase(passphrase string) DITemporaryPassphrase {
-	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
+	rv := objc.SendIfResponds[DITemporaryPassphrase](d.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return rv
 }
 
 func (d DITemporaryPassphrase) Buf() string {
-	rv := objc.Send[*byte](d.ID, objc.Sel("buf"))
+	rv := objc.SendIfResponds[*byte](d.ID, objc.Sel("buf"))
 	return objc.GoString(rv)
 }
 func (d DITemporaryPassphrase) SetBuf(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBuf:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBuf:"), objc.String(value))
 }

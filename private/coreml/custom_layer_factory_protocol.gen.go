@@ -10,6 +10,9 @@ import (
 // MLCustomLayerFactory protocol.
 type MLCustomLayerFactory interface {
 	objectivec.IObject
+
+	// CreateCustomLayerWithParametersError protocol.
+	CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLCustomLayerFactoryObject wraps an existing Objective-C object that conforms to the MLCustomLayerFactory protocol.

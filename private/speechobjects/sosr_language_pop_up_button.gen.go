@@ -41,7 +41,7 @@ func (sc SOSRLanguagePopUpButtonClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOSRLanguagePopUpButtonClass) Alloc() SOSRLanguagePopUpButton {
-	rv := objc.Send[SOSRLanguagePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOSRLanguagePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -129,37 +129,37 @@ type ISOSRLanguagePopUpButton interface {
 
 // Init initializes the instance.
 func (s SOSRLanguagePopUpButton) Init() SOSRLanguagePopUpButton {
-	rv := objc.Send[SOSRLanguagePopUpButton](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOSRLanguagePopUpButton](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOSRLanguagePopUpButton) Autorelease() SOSRLanguagePopUpButton {
-	rv := objc.Send[SOSRLanguagePopUpButton](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOSRLanguagePopUpButton](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOSRLanguagePopUpButton creates a new SOSRLanguagePopUpButton instance.
 func NewSOSRLanguagePopUpButton() SOSRLanguagePopUpButton {
 	class := getSOSRLanguagePopUpButtonClass()
-	rv := objc.Send[SOSRLanguagePopUpButton](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOSRLanguagePopUpButton](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOSRLanguagePopUpButtonWithCoder(coder objectivec.IObject) SOSRLanguagePopUpButton {
 	instance := getSOSRLanguagePopUpButtonClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SOSRLanguagePopUpButtonFromID(rv)
 }
 
 func NewSOSRLanguagePopUpButtonWithFrame(frame corefoundation.CGRect) SOSRLanguagePopUpButton {
 	instance := getSOSRLanguagePopUpButtonClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frame)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frame)
 	return SOSRLanguagePopUpButtonFromID(rv)
 }
 
 func (s SOSRLanguagePopUpButton) _clearDownloadStatusFieldAfterPreHeat() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_clearDownloadStatusFieldAfterPreHeat"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_clearDownloadStatusFieldAfterPreHeat"))
 }
 
 // ClearDownloadStatusFieldAfterPreHeat is an exported wrapper for the private method _clearDownloadStatusFieldAfterPreHeat.
@@ -177,7 +177,7 @@ func (s SOSRLanguagePopUpButton) CanClearDownloadStatusFieldAfterPreHeat() bool 
 	return objc.RespondsToSelector(s.ID, objc.Sel("_clearDownloadStatusFieldAfterPreHeat"))
 }
 func (s SOSRLanguagePopUpButton) _initCommon() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_initCommon"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_initCommon"))
 }
 
 // InitCommon is an exported wrapper for the private method _initCommon.
@@ -195,7 +195,7 @@ func (s SOSRLanguagePopUpButton) CanInitCommon() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_initCommon"))
 }
 func (s SOSRLanguagePopUpButton) _startDelayedPopUpUpdate() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_startDelayedPopUpUpdate"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 
 // StartDelayedPopUpUpdate is an exported wrapper for the private method _startDelayedPopUpUpdate.
@@ -213,7 +213,7 @@ func (s SOSRLanguagePopUpButton) CanStartDelayedPopUpUpdate() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 func (s SOSRLanguagePopUpButton) _statusStringForActiveDownloads() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_statusStringForActiveDownloads"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_statusStringForActiveDownloads"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -231,7 +231,7 @@ func (s SOSRLanguagePopUpButton) CanStatusStringForActiveDownloads() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads"))
 }
 func (s SOSRLanguagePopUpButton) _updateDownloadStatusFields() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateDownloadStatusFields"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 
 // UpdateDownloadStatusFields is an exported wrapper for the private method _updateDownloadStatusFields.
@@ -249,7 +249,7 @@ func (s SOSRLanguagePopUpButton) CanUpdateDownloadStatusFields() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 func (s SOSRLanguagePopUpButton) _updateSRLanguageMenu() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateSRLanguageMenu"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 
 // UpdateSRLanguageMenu is an exported wrapper for the private method _updateSRLanguageMenu.
@@ -267,48 +267,48 @@ func (s SOSRLanguagePopUpButton) CanUpdateSRLanguageMenu() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 func (s SOSRLanguagePopUpButton) BuildPopUpButtonAndSelectLocaleIdentifierNetworkSupportedLocaleIdentifiersOfflineSupportedLocaleIdentifiers(identifier objectivec.IObject, identifiers objectivec.IObject, identifiers2 objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("buildPopUpButtonAndSelectLocaleIdentifier:networkSupportedLocaleIdentifiers:offlineSupportedLocaleIdentifiers:"), identifier, identifiers, identifiers2)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("buildPopUpButtonAndSelectLocaleIdentifier:networkSupportedLocaleIdentifiers:offlineSupportedLocaleIdentifiers:"), identifier, identifiers, identifiers2)
 }
 func (s SOSRLanguagePopUpButton) InstallationFinished(finished objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("installationFinished:"), finished)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("installationFinished:"), finished)
 }
 func (s SOSRLanguagePopUpButton) SelectedLanguageItem() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("selectedLanguageItem"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("selectedLanguageItem"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SOSRLanguagePopUpButton) LanguagesAreDownloadable() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("languagesAreDownloadable"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("languagesAreDownloadable"))
 	return rv
 }
 func (s SOSRLanguagePopUpButton) SetLanguagesAreDownloadable(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setLanguagesAreDownloadable:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setLanguagesAreDownloadable:"), value)
 }
 func (s SOSRLanguagePopUpButton) NetworkBasedLocaleIdentifiers() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("networkBasedLocaleIdentifiers"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("networkBasedLocaleIdentifiers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SOSRLanguagePopUpButton) SetNetworkBasedLocaleIdentifiers(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setNetworkBasedLocaleIdentifiers:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setNetworkBasedLocaleIdentifiers:"), value)
 }
 func (s SOSRLanguagePopUpButton) OfflineBasedLocaleIdentifiers() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("offlineBasedLocaleIdentifiers"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("offlineBasedLocaleIdentifiers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SOSRLanguagePopUpButton) SetOfflineBasedLocaleIdentifiers(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setOfflineBasedLocaleIdentifiers:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOfflineBasedLocaleIdentifiers:"), value)
 }
 func (s SOSRLanguagePopUpButton) PreviouslyChosenLocaleIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("previouslyChosenLocaleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("previouslyChosenLocaleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SOSRLanguagePopUpButton) SetPreviouslyChosenLocaleIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPreviouslyChosenLocaleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setPreviouslyChosenLocaleIdentifier:"), objc.String(value))
 }
 func (s SOSRLanguagePopUpButton) ShowOnlyNetworkSupportedItems() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("showOnlyNetworkSupportedItems"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("showOnlyNetworkSupportedItems"))
 	return rv
 }
 func (s SOSRLanguagePopUpButton) SetShowOnlyNetworkSupportedItems(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setShowOnlyNetworkSupportedItems:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setShowOnlyNetworkSupportedItems:"), value)
 }

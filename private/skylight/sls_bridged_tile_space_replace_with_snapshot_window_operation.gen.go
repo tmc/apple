@@ -38,7 +38,7 @@ func (sc SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass) Class() obj
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass) Alloc() SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedTileSpaceReplaceWithSnapshotWindowOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) Init() SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) Autorelease() SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperation creates a new SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation instance.
 func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperation() SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	class := getSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass()
-	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	instance := getSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationFromID(rv)
 }
 
 func NewSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationWithSpaceID(id uint64) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
 	instance := getSLSBridgedTileSpaceReplaceWithSnapshotWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedTileSpaceReplaceWithSnapshotWindowOperationFromID(rv)
 }
 
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) MakeResultWithWindowID(id uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithWindowID:"), id)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithWindowID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) InitWithSpaceID(id uint64) SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation {
-	rv := objc.Send[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedTileSpaceReplaceWithSnapshotWindowOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

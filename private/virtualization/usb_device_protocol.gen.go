@@ -10,6 +10,12 @@ import (
 // VZUSBDevice protocol.
 type VZUSBDevice interface {
 	objectivec.IObject
+
+	// UsbController protocol.
+	UsbController() objectivec.IObject
+
+	// Uuid protocol.
+	Uuid() objectivec.IObject
 }
 
 // VZUSBDeviceObject wraps an existing Objective-C object that conforms to the VZUSBDevice protocol.
@@ -30,10 +36,10 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 }
 
 func (o VZUSBDeviceObject) UsbController() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("usbController"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("usbController"))
 	return objectivec.Object{ID: rv}
 }
 func (o VZUSBDeviceObject) Uuid() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("uuid"))
 	return objectivec.Object{ID: rv}
 }

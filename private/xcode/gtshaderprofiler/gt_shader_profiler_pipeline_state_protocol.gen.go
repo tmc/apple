@@ -11,6 +11,12 @@ import (
 type GTShaderProfilerPipelineState interface {
 	objectivec.IObject
 
+	// AllBinaryKeys protocol.
+	AllBinaryKeys() objectivec.IObject
+
+	// BinaryKeys protocol.
+	BinaryKeys() objectivec.IObject
+
 	// FunctionIndex protocol.
 	FunctionIndex() uint64
 
@@ -25,6 +31,12 @@ type GTShaderProfilerPipelineState interface {
 
 	// PointerId protocol.
 	PointerId() uint64
+
+	// ShaderFunctions protocol.
+	ShaderFunctions() objectivec.IObject
+
+	// TimingInfo protocol.
+	TimingInfo() objectivec.IObject
 }
 
 // GTShaderProfilerPipelineStateObject wraps an existing Objective-C object that conforms to the GTShaderProfilerPipelineState protocol.
@@ -45,38 +57,38 @@ func GTShaderProfilerPipelineStateObjectFromID(id objc.ID) GTShaderProfilerPipel
 }
 
 func (o GTShaderProfilerPipelineStateObject) AllBinaryKeys() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("allBinaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("allBinaryKeys"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerPipelineStateObject) BinaryKeys() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binaryKeys"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerPipelineStateObject) FunctionIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("functionIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("functionIndex"))
 	return rv
 }
 func (o GTShaderProfilerPipelineStateObject) Index() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("index"))
 	return rv
 }
 func (o GTShaderProfilerPipelineStateObject) NumGPUCommands() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("numGPUCommands"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("numGPUCommands"))
 	return rv
 }
 func (o GTShaderProfilerPipelineStateObject) ObjectId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("objectId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("objectId"))
 	return rv
 }
 func (o GTShaderProfilerPipelineStateObject) PointerId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (o GTShaderProfilerPipelineStateObject) ShaderFunctions() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("shaderFunctions"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("shaderFunctions"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerPipelineStateObject) TimingInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("timingInfo"))
 	return objectivec.Object{ID: rv}
 }

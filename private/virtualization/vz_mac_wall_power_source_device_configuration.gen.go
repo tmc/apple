@@ -37,7 +37,7 @@ func (vc VZMacWallPowerSourceDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacWallPowerSourceDeviceConfigurationClass) Alloc() VZMacWallPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacWallPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacWallPowerSourceDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZMacWallPowerSourceDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacWallPowerSourceDeviceConfiguration) Init() VZMacWallPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacWallPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacWallPowerSourceDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacWallPowerSourceDeviceConfiguration) Autorelease() VZMacWallPowerSourceDeviceConfiguration {
-	rv := objc.Send[VZMacWallPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacWallPowerSourceDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacWallPowerSourceDeviceConfiguration creates a new VZMacWallPowerSourceDeviceConfiguration instance.
 func NewVZMacWallPowerSourceDeviceConfiguration() VZMacWallPowerSourceDeviceConfiguration {
 	class := getVZMacWallPowerSourceDeviceConfigurationClass()
-	rv := objc.Send[VZMacWallPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacWallPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

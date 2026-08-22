@@ -17,17 +17,38 @@ type MTLComputeCommandEncoder interface {
 	// DispatchThreadgroupsThreadsPerThreadgroup protocol.
 	DispatchThreadgroupsThreadsPerThreadgroup(threadgroups unsafe.Pointer, threadgroup unsafe.Pointer)
 
+	// DispatchThreadgroupsWithIndirectBufferIndirectBufferOffsetThreadsPerThreadgroup protocol.
+	DispatchThreadgroupsWithIndirectBufferIndirectBufferOffsetThreadsPerThreadgroup(buffer objectivec.IObject, offset uint64, threadgroup unsafe.Pointer)
+
 	// DispatchThreadsThreadsPerThreadgroup protocol.
 	DispatchThreadsThreadsPerThreadgroup(threads unsafe.Pointer, threadgroup unsafe.Pointer)
 
 	// DispatchType protocol.
 	DispatchType() uint64
 
+	// ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset protocol.
+	ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(buffer objectivec.IObject, buffer2 objectivec.IObject, offset uint64)
+
+	// ExecuteCommandsInBufferWithRange protocol.
+	ExecuteCommandsInBufferWithRange(buffer objectivec.IObject, range_ foundation.NSRange)
+
 	// MemoryBarrierWithResourcesCount protocol.
 	MemoryBarrierWithResourcesCount(resources []objectivec.IObject, count uint64)
 
 	// MemoryBarrierWithScope protocol.
 	MemoryBarrierWithScope(scope uint64)
+
+	// SampleCountersInBufferAtSampleIndexWithBarrier protocol.
+	SampleCountersInBufferAtSampleIndexWithBarrier(buffer objectivec.IObject, index uint64, barrier bool)
+
+	// SetAccelerationStructureAtBufferIndex protocol.
+	SetAccelerationStructureAtBufferIndex(structure objectivec.IObject, index uint64)
+
+	// SetBufferOffsetAtIndex protocol.
+	SetBufferWithOffsetAtIndex(buffer objectivec.IObject, offset uint64, index uint64)
+
+	// SetBufferOffsetAttributeStrideAtIndex protocol.
+	SetBufferWithOffsetAttributeStrideAtIndex(buffer objectivec.IObject, offset uint64, stride uint64, index uint64)
 
 	// SetBufferOffsetAtIndex protocol.
 	SetBufferOffsetAtIndex(offset uint64, index uint64)
@@ -42,16 +63,28 @@ type MTLComputeCommandEncoder interface {
 	SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange)
 
 	// SetBytesLengthAtIndex protocol.
-	SetBytesLengthAtIndex(bytes []byte, length uint64, index uint64)
+	SetBytesLengthAtIndex(bytes []byte, index uint64)
 
 	// SetBytesLengthAttributeStrideAtIndex protocol.
-	SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint64, stride uint64, index uint64)
+	SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint64, index uint64)
+
+	// SetComputePipelineState protocol.
+	SetComputePipelineState(state objectivec.IObject)
 
 	// SetImageblockWidthHeight protocol.
 	SetImageblockWidthHeight(width uint64, height uint64)
 
+	// SetIntersectionFunctionTableAtBufferIndex protocol.
+	SetIntersectionFunctionTableAtBufferIndex(table objectivec.IObject, index uint64)
+
 	// SetIntersectionFunctionTablesWithBufferRange protocol.
 	SetIntersectionFunctionTablesWithBufferRange(tables []objectivec.IObject, range_ foundation.NSRange)
+
+	// SetSamplerStateAtIndex protocol.
+	SetSamplerStateAtIndex(state objectivec.IObject, index uint64)
+
+	// SetSamplerStateLodMinClampLodMaxClampAtIndex protocol.
+	SetSamplerStateLodMinClampLodMaxClampAtIndex(state objectivec.IObject, clamp float32, clamp2 float32, index uint64)
 
 	// SetSamplerStatesLodMinClampsLodMaxClampsWithRange protocol.
 	SetSamplerStatesLodMinClampsLodMaxClampsWithRange(states []objectivec.IObject, clamps *float32, clamps2 *float32, range_ foundation.NSRange)
@@ -62,20 +95,41 @@ type MTLComputeCommandEncoder interface {
 	// SetStageInRegion protocol.
 	SetStageInRegion(region unsafe.Pointer)
 
+	// SetStageInRegionWithIndirectBufferIndirectBufferOffset protocol.
+	SetStageInRegionWithIndirectBufferIndirectBufferOffset(buffer objectivec.IObject, offset uint64)
+
+	// SetTextureAtIndex protocol.
+	SetTextureAtIndex(texture objectivec.IObject, index uint64)
+
 	// SetTexturesWithRange protocol.
 	SetTexturesWithRange(textures []objectivec.IObject, range_ foundation.NSRange)
 
 	// SetThreadgroupMemoryLengthAtIndex protocol.
 	SetThreadgroupMemoryLengthAtIndex(length uint64, index uint64)
 
+	// SetVisibleFunctionTableAtBufferIndex protocol.
+	SetVisibleFunctionTableAtBufferIndex(table objectivec.IObject, index uint64)
+
 	// SetVisibleFunctionTablesWithBufferRange protocol.
 	SetVisibleFunctionTablesWithBufferRange(tables []objectivec.IObject, range_ foundation.NSRange)
+
+	// UpdateFence protocol.
+	UpdateFence(fence objectivec.IObject)
+
+	// UseHeap protocol.
+	UseHeap(heap objectivec.IObject)
 
 	// UseHeapsCount protocol.
 	UseHeapsCount(heaps []objectivec.IObject, count uint64)
 
+	// UseResourceUsage protocol.
+	UseResourceUsage(resource objectivec.IObject, usage uint64)
+
 	// UseResourcesCountUsage protocol.
 	UseResourcesCountUsage(resources []objectivec.IObject, count uint64, usage uint64)
+
+	// WaitForFence protocol.
+	WaitForFence(fence objectivec.IObject)
 }
 
 // MTLComputeCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLComputeCommandEncoder protocol.
@@ -96,120 +150,120 @@ func MTLComputeCommandEncoderObjectFromID(id objc.ID) MTLComputeCommandEncoderOb
 }
 
 func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsThreadsPerThreadgroup(threadgroups unsafe.Pointer, threadgroup unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadgroups:threadsPerThreadgroup:"), threadgroups, threadgroup)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("dispatchThreadgroups:threadsPerThreadgroup:"), threadgroups, threadgroup)
 }
 func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsWithIndirectBufferIndirectBufferOffsetThreadsPerThreadgroup(buffer objectivec.IObject, offset uint64, threadgroup unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadgroupsWithIndirectBuffer:indirectBufferOffset:threadsPerThreadgroup:"), buffer, offset, threadgroup)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("dispatchThreadgroupsWithIndirectBuffer:indirectBufferOffset:threadsPerThreadgroup:"), buffer, offset, threadgroup)
 }
 func (o MTLComputeCommandEncoderObject) DispatchThreadsThreadsPerThreadgroup(threads unsafe.Pointer, threadgroup unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreads:threadsPerThreadgroup:"), threads, threadgroup)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("dispatchThreads:threadsPerThreadgroup:"), threads, threadgroup)
 }
 func (o MTLComputeCommandEncoderObject) DispatchType() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("dispatchType"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("dispatchType"))
 	return rv
 }
 func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(buffer objectivec.IObject, buffer2 objectivec.IObject, offset uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:"), buffer, buffer2, offset)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:"), buffer, buffer2, offset)
 }
 func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferWithRange(buffer objectivec.IObject, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), buffer, range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), buffer, range_)
 }
 func (o MTLComputeCommandEncoderObject) MemoryBarrierWithResourcesCount(resources []objectivec.IObject, count uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("memoryBarrierWithResources:count:"), objc.CArray(resources), count)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("memoryBarrierWithResources:count:"), objc.CArray(resources), count)
 }
 func (o MTLComputeCommandEncoderObject) MemoryBarrierWithScope(scope uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("memoryBarrierWithScope:"), scope)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("memoryBarrierWithScope:"), scope)
 }
 func (o MTLComputeCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarrier(buffer objectivec.IObject, index uint64, barrier bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), buffer, index, barrier)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), buffer, index, barrier)
 }
 func (o MTLComputeCommandEncoderObject) SetAccelerationStructureAtBufferIndex(structure objectivec.IObject, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccelerationStructure:atBufferIndex:"), structure, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setAccelerationStructure:atBufferIndex:"), structure, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBufferWithOffsetAtIndex(buffer objectivec.IObject, offset uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBufferWithOffsetAttributeStrideAtIndex(buffer objectivec.IObject, offset uint64, stride uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBufferOffsetAtIndex(offset uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBufferOffset:atIndex:"), offset, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBufferOffset:atIndex:"), offset, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(offset uint64, stride uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBufferOffset:attributeStride:atIndex:"), offset, stride, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBufferOffset:attributeStride:atIndex:"), offset, stride, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsAttributeStridesWithRange(buffers []objectivec.IObject, offsets *uint64, strides *uint64, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:attributeStrides:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, strides, range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:attributeStrides:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), unsafe.Pointer(strides), range_)
 }
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
 }
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, length uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), bytes, length, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint64) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint64, stride uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint64, index uint64) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), stride, index)
 }
 func (o MTLComputeCommandEncoderObject) SetComputePipelineState(state objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:"), state)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setComputePipelineState:"), state)
 }
 func (o MTLComputeCommandEncoderObject) SetImageblockWidthHeight(width uint64, height uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setImageblockWidth:height:"), width, height)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setImageblockWidth:height:"), width, height)
 }
 func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTableAtBufferIndex(table objectivec.IObject, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTable:atBufferIndex:"), table, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setIntersectionFunctionTable:atBufferIndex:"), table, index)
 }
 func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTablesWithBufferRange(tables []objectivec.IObject, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTables:withBufferRange:"), objectivec.IObjectSliceToNSArray(tables), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setIntersectionFunctionTables:withBufferRange:"), objectivec.IObjectSliceToNSArray(tables), range_)
 }
 func (o MTLComputeCommandEncoderObject) SetSamplerStateAtIndex(state objectivec.IObject, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:atIndex:"), state, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setSamplerState:atIndex:"), state, index)
 }
 func (o MTLComputeCommandEncoderObject) SetSamplerStateLodMinClampLodMaxClampAtIndex(state objectivec.IObject, clamp float32, clamp2 float32, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), state, clamp, clamp2, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), state, clamp, clamp2, index)
 }
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesLodMinClampsLodMaxClampsWithRange(states []objectivec.IObject, clamps *float32, clamps2 *float32, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), objectivec.IObjectSliceToNSArray(states), clamps, clamps2, range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), objectivec.IObjectSliceToNSArray(states), clamps, clamps2, range_)
 }
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(states []objectivec.IObject, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), objectivec.IObjectSliceToNSArray(states), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), objectivec.IObjectSliceToNSArray(states), range_)
 }
 func (o MTLComputeCommandEncoderObject) SetStageInRegion(region unsafe.Pointer) {
-	objc.Send[struct{}](o.ID, objc.Sel("setStageInRegion:"), region)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setStageInRegion:"), region)
 }
 func (o MTLComputeCommandEncoderObject) SetStageInRegionWithIndirectBufferIndirectBufferOffset(buffer objectivec.IObject, offset uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setStageInRegionWithIndirectBuffer:indirectBufferOffset:"), buffer, offset)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setStageInRegionWithIndirectBuffer:indirectBufferOffset:"), buffer, offset)
 }
 func (o MTLComputeCommandEncoderObject) SetTextureAtIndex(texture objectivec.IObject, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), texture, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), texture, index)
 }
 func (o MTLComputeCommandEncoderObject) SetTexturesWithRange(textures []objectivec.IObject, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setTextures:withRange:"), objectivec.IObjectSliceToNSArray(textures), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setTextures:withRange:"), objectivec.IObjectSliceToNSArray(textures), range_)
 }
 func (o MTLComputeCommandEncoderObject) SetThreadgroupMemoryLengthAtIndex(length uint64, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setThreadgroupMemoryLength:atIndex:"), length, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setThreadgroupMemoryLength:atIndex:"), length, index)
 }
 func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTableAtBufferIndex(table objectivec.IObject, index uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTable:atBufferIndex:"), table, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setVisibleFunctionTable:atBufferIndex:"), table, index)
 }
 func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(tables []objectivec.IObject, range_ foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withBufferRange:"), objectivec.IObjectSliceToNSArray(tables), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withBufferRange:"), objectivec.IObjectSliceToNSArray(tables), range_)
 }
 func (o MTLComputeCommandEncoderObject) UpdateFence(fence objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateFence:"), fence)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateFence:"), fence)
 }
 func (o MTLComputeCommandEncoderObject) UseHeap(heap objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("useHeap:"), heap)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("useHeap:"), heap)
 }
 func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []objectivec.IObject, count uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("useHeaps:count:"), objc.CArray(heaps), count)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("useHeaps:count:"), objc.CArray(heaps), count)
 }
 func (o MTLComputeCommandEncoderObject) UseResourceUsage(resource objectivec.IObject, usage uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("useResource:usage:"), resource, usage)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("useResource:usage:"), resource, usage)
 }
 func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []objectivec.IObject, count uint64, usage uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
 }
 func (o MTLComputeCommandEncoderObject) WaitForFence(fence objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
 }

@@ -39,7 +39,7 @@ func (sc SLSScreenshotResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSScreenshotResultClass) Alloc() SLSScreenshotResult {
-	rv := objc.Send[SLSScreenshotResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSScreenshotResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,43 +82,43 @@ type ISLSScreenshotResult interface {
 
 // Init initializes the instance.
 func (s SLSScreenshotResult) Init() SLSScreenshotResult {
-	rv := objc.Send[SLSScreenshotResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSScreenshotResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSScreenshotResult) Autorelease() SLSScreenshotResult {
-	rv := objc.Send[SLSScreenshotResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSScreenshotResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSScreenshotResult creates a new SLSScreenshotResult instance.
 func NewSLSScreenshotResult() SLSScreenshotResult {
 	class := getSLSScreenshotResultClass()
-	rv := objc.Send[SLSScreenshotResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSScreenshotResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSScreenshotResultWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
 	instance := getSLSScreenshotResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return SLSScreenshotResultFromID(rv)
 }
 
 func (s SLSScreenshotResult) InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
-	rv := objc.Send[SLSScreenshotResult](s.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
+	rv := objc.SendIfResponds[SLSScreenshotResult](s.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return rv
 }
 
 func (s SLSScreenshotResult) FrameSurfaceHDR() iosurface.IOSurface {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameSurfaceHDR"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceHDR"))
 	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
 func (s SLSScreenshotResult) FrameSurfaceSDR() iosurface.IOSurface {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameSurfaceSDR"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceSDR"))
 	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
 func (s SLSScreenshotResult) Status() int {
-	rv := objc.Send[int](s.ID, objc.Sel("status"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("status"))
 	return rv
 }

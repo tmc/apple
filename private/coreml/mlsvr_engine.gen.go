@@ -40,7 +40,7 @@ func (mc MLSVREngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSVREngineClass) Alloc() MLSVREngine {
-	rv := objc.Send[MLSVREngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSVREngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,66 +110,69 @@ type IMLSVREngine interface {
 
 // Init initializes the instance.
 func (m MLSVREngine) Init() MLSVREngine {
-	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSVREngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSVREngine) Autorelease() MLSVREngine {
-	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSVREngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSVREngine creates a new MLSVREngine instance.
 func NewMLSVREngine() MLSVREngine {
 	class := getMLSVREngineClass()
-	rv := objc.Send[MLSVREngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSVREngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSVREngineWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
 	return MLSVREngineFromID(rv)
 }
 
 func NewSVREngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel *SvmModel, dealloc bool, only bool, size uint64) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
 	return MLSVREngineFromID(rv)
 }
 
 func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
 	var errorPtr objc.ID
 	instance := getMLSVREngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSVREngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSVREngine{}, objc.ErrInitFailed
 	}
 	return MLSVREngineFromID(rv), nil
 }
 
 func (m MLSVREngine) AllocSVMNodeVector(vector uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("allocSVMNodeVector:"), vector)
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("allocSVMNodeVector:"), vector)
 	return rv
 }
 func (m MLSVREngine) DeallocSVMNodeVector(vector *SvmNode) {
-	objc.Send[objc.ID](m.ID, objc.Sel("deallocSVMNodeVector:"), vector)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
 func (m MLSVREngine) FillSVMNodeVectorValuesCount(vector *SvmNode, values []float64, count uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
 }
 func (m MLSVREngine) Predict(predict objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predict:"), predict)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("predict:"), predict)
 	return objectivec.Object{ID: rv}
 }
 func (m MLSVREngine) InitWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
-	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
+	rv := objc.SendIfResponds[MLSVREngine](m.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
 	return rv
 }
 func (m MLSVREngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel *SvmModel, dealloc bool, only bool, size uint64) MLSVREngine {
-	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
+	rv := objc.SendIfResponds[MLSVREngine](m.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
 	return rv
 }
 func (m MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
@@ -184,24 +187,24 @@ func (m MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (M
 }
 
 func (m MLSVREngine) FreeModelOnDealloc() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("freeModelOnDealloc"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("freeModelOnDealloc"))
 	return rv
 }
 func (m MLSVREngine) SetFreeModelOnDealloc(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFreeModelOnDealloc:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFreeModelOnDealloc:"), value)
 }
 func (m MLSVREngine) InputSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("inputSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("inputSize"))
 	return rv
 }
 func (m MLSVREngine) IsInputSizeLowerBoundOnly() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isInputSizeLowerBoundOnly"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isInputSizeLowerBoundOnly"))
 	return rv
 }
 func (m MLSVREngine) Model() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("model"))
 	return rv
 }
 func (m MLSVREngine) SetModel(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModel:"), value)
 }

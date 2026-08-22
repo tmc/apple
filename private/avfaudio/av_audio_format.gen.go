@@ -38,7 +38,7 @@ func (ac AVAudioFormatClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioFormatClass) Alloc() AVAudioFormat {
-	rv := objc.Send[AVAudioFormat](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioFormat](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,37 +75,37 @@ type IAVAudioFormat interface {
 
 // Init initializes the instance.
 func (a AVAudioFormat) Init() AVAudioFormat {
-	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioFormat](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioFormat) Autorelease() AVAudioFormat {
-	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioFormat](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioFormat creates a new AVAudioFormat instance.
 func NewAVAudioFormat() AVAudioFormat {
 	class := getAVAudioFormatClass()
-	rv := objc.Send[AVAudioFormat](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioFormat](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_AVAudioFormatClass AVAudioFormatClass) FormatWithInvalidSampleRateAndChannelCount() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVAudioFormatClass.class), objc.Sel("formatWithInvalidSampleRateAndChannelCount"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVAudioFormatClass.class), objc.Sel("formatWithInvalidSampleRateAndChannelCount"))
 	return objectivec.Object{ID: rv}
 }
 func (_AVAudioFormatClass AVAudioFormatClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioFormatClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioFormatClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a AVAudioFormat) Interleaved() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("interleaved"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("interleaved"))
 	return rv
 }
 func (a AVAudioFormat) Standard() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("standard"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("standard"))
 	return rv
 }

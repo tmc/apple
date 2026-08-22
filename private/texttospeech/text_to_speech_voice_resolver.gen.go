@@ -40,7 +40,7 @@ func (tc TextToSpeechVoiceResolverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoiceResolverClass) Alloc() TextToSpeechVoiceResolver {
-	rv := objc.Send[TextToSpeechVoiceResolver](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceResolver](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,8 +63,9 @@ func TextToSpeechVoiceResolverFromID(id objc.ID) TextToSpeechVoiceResolver {
 	return TextToSpeechVoiceResolver{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechVoiceResolver struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechVoiceResolver embeds the parent interface; skip compile-time assertion.
+// NOTE: TextToSpeechVoiceResolver embeds objectivec.Object because the parent type is
+// unavailable, but ITextToSpeechVoiceResolver embeds ISwiftNativeNSObject, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoiceResolver] class.
 //
@@ -95,58 +96,58 @@ type ITextToSpeechVoiceResolver interface {
 
 // Init initializes the instance.
 func (t TextToSpeechVoiceResolver) Init() TextToSpeechVoiceResolver {
-	rv := objc.Send[TextToSpeechVoiceResolver](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceResolver](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechVoiceResolver) Autorelease() TextToSpeechVoiceResolver {
-	rv := objc.Send[TextToSpeechVoiceResolver](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceResolver](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechVoiceResolver creates a new TextToSpeechVoiceResolver instance.
 func NewTextToSpeechVoiceResolver() TextToSpeechVoiceResolver {
 	class := getTextToSpeechVoiceResolverClass()
-	rv := objc.Send[TextToSpeechVoiceResolver](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechVoiceResolver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechVoiceResolver) CurrentLocaleIdentifiersWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("currentLocaleIdentifiersWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("currentLocaleIdentifiersWithCompletionHandler:"), _block0)
 }
 func (t TextToSpeechVoiceResolver) CurrentSystemLocaleIdentifierWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("currentSystemLocaleIdentifierWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("currentSystemLocaleIdentifierWithCompletionHandler:"), _block0)
 }
 func (t TextToSpeechVoiceResolver) CurrentSystemLocaleWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("currentSystemLocaleWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("currentSystemLocaleWithCompletionHandler:"), _block0)
 }
 func (t TextToSpeechVoiceResolver) FallbackForVoiceCompletionHandler(voice ITTSSpeechVoice, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("fallbackForVoice:completionHandler:"), voice, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("fallbackForVoice:completionHandler:"), voice, _block1)
 }
 func (t TextToSpeechVoiceResolver) VoiceForIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceForIdentifier:completionHandler:"), objc.String(identifier), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceForIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 func (t TextToSpeechVoiceResolver) VoiceForIdentifierPreferringLanguageCompletionHandler(identifier objectivec.IObject, language objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceForIdentifier:preferringLanguage:completionHandler:"), identifier, language, _block2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceForIdentifier:preferringLanguage:completionHandler:"), identifier, language, _block2)
 }
 func (t TextToSpeechVoiceResolver) VoiceForLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceForLocale:completionHandler:"), locale, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceForLocale:completionHandler:"), locale, _block1)
 }
 func (t TextToSpeechVoiceResolver) VoiceForLocaleIdentifierCompletionHandler(identifier objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceForLocaleIdentifier:completionHandler:"), identifier, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceForLocaleIdentifier:completionHandler:"), identifier, _block1)
 }
 
 func (_TextToSpeechVoiceResolverClass TextToSpeechVoiceResolverClass) SetShared(shared objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_TextToSpeechVoiceResolverClass.class), objc.Sel("setShared:"), shared)
+	objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechVoiceResolverClass.class), objc.Sel("setShared:"), shared)
 }
 
 // CurrentLocaleIdentifiers is a synchronous wrapper around [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler].

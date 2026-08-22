@@ -41,7 +41,7 @@ func (dc DIBaseParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIBaseParamsClass) Alloc() DIBaseParams {
-	rv := objc.Send[DIBaseParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIBaseParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -177,45 +177,48 @@ type IDIBaseParams interface {
 
 // Init initializes the instance.
 func (d DIBaseParams) Init() DIBaseParams {
-	rv := objc.Send[DIBaseParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIBaseParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIBaseParams) Autorelease() DIBaseParams {
-	rv := objc.Send[DIBaseParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIBaseParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIBaseParams creates a new DIBaseParams instance.
 func NewDIBaseParams() DIBaseParams {
 	class := getDIBaseParamsClass()
-	rv := objc.Send[DIBaseParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIBaseParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIBaseParamsWithCoder(coder objectivec.IObject) DIBaseParams {
 	instance := getDIBaseParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIBaseParamsFromID(rv)
 }
 
 func NewDIBaseParamsWithURLError(url foundation.NSURL) (DIBaseParams, error) {
 	var errorPtr objc.ID
 	instance := getDIBaseParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIBaseParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIBaseParams{}, objc.ErrInitFailed
 	}
 	return DIBaseParamsFromID(rv), nil
 }
 
 func (d DIBaseParams) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIBaseParams) Invalidate() {
-	objc.Send[objc.ID](d.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("invalidate"))
 }
 func (d DIBaseParams) OpenExistingImageWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -270,11 +273,11 @@ func (d DIBaseParams) ReplaceDiskImageWithUnlockedBackendXPCError(xpc objectivec
 
 }
 func (d DIBaseParams) SupportsPstack() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("supportsPstack"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("supportsPstack"))
 	return rv
 }
 func (d DIBaseParams) TryResolvePstackChain(chain []objectivec.IObject) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("tryResolvePstackChain:"), objectivec.IObjectSliceToNSArray(chain))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("tryResolvePstackChain:"), objectivec.IObjectSliceToNSArray(chain))
 	return rv
 }
 func (d DIBaseParams) UnlockWithPassphraseError(passphrase string) (bool, error) {
@@ -304,7 +307,7 @@ func (d DIBaseParams) ValidateDeserializationWithError() (bool, error) {
 
 }
 func (d DIBaseParams) InitWithCoder(coder foundation.INSCoder) DIBaseParams {
-	rv := objc.Send[DIBaseParams](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIBaseParams](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (d DIBaseParams) InitWithURLError(url foundation.NSURL) (DIBaseParams, error) {
@@ -319,93 +322,93 @@ func (d DIBaseParams) InitWithURLError(url foundation.NSURL) (DIBaseParams, erro
 }
 
 func (_DIBaseParamsClass DIBaseParamsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIBaseParamsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIBaseParamsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIBaseParams) RAMdisk() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("RAMdisk"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("RAMdisk"))
 	return rv
 }
 func (d DIBaseParams) Backend() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("backend"))
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("backend"))
 	return rv
 }
 func (d DIBaseParams) BlockSize() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (d DIBaseParams) SetBlockSize(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
 func (d DIBaseParams) CryptoHeader() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("cryptoHeader"))
+	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("cryptoHeader"))
 	return rv
 }
 func (d DIBaseParams) DeserializationError() foundation.NSError {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("deserializationError"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("deserializationError"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SetDeserializationError(value foundation.NSError) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDeserializationError:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDeserializationError:"), value)
 }
 func (d DIBaseParams) DiskImageParamsXPC() IDiskImageParamsXPC {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("diskImageParamsXPC"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("diskImageParamsXPC"))
 	return DiskImageParamsXPCFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SetDiskImageParamsXPC(value IDiskImageParamsXPC) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDiskImageParamsXPC:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDiskImageParamsXPC:"), value)
 }
 func (d DIBaseParams) EncryptionUUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("encryptionUUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encryptionUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DIBaseParams) HasUnlockedBackend() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("hasUnlockedBackend"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("hasUnlockedBackend"))
 	return rv
 }
 func (d DIBaseParams) InputURL() IDIURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("inputURL"))
 	return DIURLFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SetInputURL(value IDIURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputURL:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputURL:"), value)
 }
 func (d DIBaseParams) InstanceID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("instanceID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DIBaseParams) IsPstack() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isPstack"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isPstack"))
 	return rv
 }
 func (d DIBaseParams) MutableSymmetricKey() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mutableSymmetricKey"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mutableSymmetricKey"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (d DIBaseParams) OverrideBlockSize() foundation.NSNumber {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("overrideBlockSize"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("overrideBlockSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (d DIBaseParams) ReadPassphraseFlags() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("readPassphraseFlags"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("readPassphraseFlags"))
 	return rv
 }
 func (d DIBaseParams) SetReadPassphraseFlags(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setReadPassphraseFlags:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setReadPassphraseFlags:"), value)
 }
 func (d DIBaseParams) RequiresRootDaemon() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("requiresRootDaemon"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("requiresRootDaemon"))
 	return rv
 }
 func (d DIBaseParams) ShadowChain() IDIShadowChain {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowChain"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowChain"))
 	return DIShadowChainFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SymmetricKey() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("symmetricKey"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("symmetricKey"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SetSymmetricKey(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSymmetricKey:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSymmetricKey:"), value)
 }

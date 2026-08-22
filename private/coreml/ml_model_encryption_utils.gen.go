@@ -41,7 +41,7 @@ func (mc MLModelEncryptionUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelEncryptionUtilsClass) Alloc() MLModelEncryptionUtils {
-	rv := objc.Send[MLModelEncryptionUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelEncryptionUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLModelEncryptionUtils interface {
 
 // Init initializes the instance.
 func (m MLModelEncryptionUtils) Init() MLModelEncryptionUtils {
-	rv := objc.Send[MLModelEncryptionUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelEncryptionUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelEncryptionUtils) Autorelease() MLModelEncryptionUtils {
-	rv := objc.Send[MLModelEncryptionUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelEncryptionUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelEncryptionUtils creates a new MLModelEncryptionUtils instance.
 func NewMLModelEncryptionUtils() MLModelEncryptionUtils {
 	class := getMLModelEncryptionUtilsClass()
-	rv := objc.Send[MLModelEncryptionUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelEncryptionUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -108,6 +108,6 @@ func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) EncryptFileWithK
 
 }
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) SinfData() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("sinfData"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("sinfData"))
 	return objectivec.Object{ID: rv}
 }

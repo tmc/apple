@@ -38,7 +38,7 @@ func (ac ANESharedWaitEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANESharedWaitEventClass) Alloc() ANESharedWaitEvent {
-	rv := objc.Send[ANESharedWaitEvent](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANESharedWaitEvent](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,55 +84,55 @@ type IANESharedWaitEvent interface {
 
 // Init initializes the instance.
 func (a ANESharedWaitEvent) Init() ANESharedWaitEvent {
-	rv := objc.Send[ANESharedWaitEvent](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANESharedWaitEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANESharedWaitEvent) Autorelease() ANESharedWaitEvent {
-	rv := objc.Send[ANESharedWaitEvent](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANESharedWaitEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANESharedWaitEvent creates a new ANESharedWaitEvent instance.
 func NewANESharedWaitEvent() ANESharedWaitEvent {
 	class := getANESharedWaitEventClass()
-	rv := objc.Send[ANESharedWaitEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANESharedWaitEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANESharedWaitEventWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) ANESharedWaitEvent {
 	instance := getANESharedWaitEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:sharedEvent:eventType:"), value, event, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:sharedEvent:eventType:"), value, event, type_)
 	return ANESharedWaitEventFromID(rv)
 }
 
 func (a ANESharedWaitEvent) InitWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) ANESharedWaitEvent {
-	rv := objc.Send[ANESharedWaitEvent](a.ID, objc.Sel("initWithValue:sharedEvent:eventType:"), value, event, type_)
+	rv := objc.SendIfResponds[ANESharedWaitEvent](a.ID, objc.Sel("initWithValue:sharedEvent:eventType:"), value, event, type_)
 	return rv
 }
 
 func (_ANESharedWaitEventClass ANESharedWaitEventClass) WaitEventWithValueSharedEvent(value uint64, event objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:"), value, event)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:"), value, event)
 	return objectivec.Object{ID: rv}
 }
 func (_ANESharedWaitEventClass ANESharedWaitEventClass) WaitEventWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:eventType:"), value, event, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:eventType:"), value, event, type_)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANESharedWaitEvent) EventType() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("eventType"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("eventType"))
 	return rv
 }
 func (a ANESharedWaitEvent) SharedEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvent"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANESharedWaitEvent) Value() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("value"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("value"))
 	return rv
 }
 func (a ANESharedWaitEvent) SetValue(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setValue:"), value)
 }

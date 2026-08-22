@@ -41,7 +41,7 @@ func (mc MLDictionaryConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDictionaryConstraintClass) Alloc() MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDictionaryConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,26 +78,26 @@ type IMLDictionaryConstraint interface {
 
 // Init initializes the instance.
 func (m MLDictionaryConstraint) Init() MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDictionaryConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDictionaryConstraint) Autorelease() MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDictionaryConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDictionaryConstraint creates a new MLDictionaryConstraint instance.
 func NewMLDictionaryConstraint() MLDictionaryConstraint {
 	class := getMLDictionaryConstraintClass()
-	rv := objc.Send[MLDictionaryConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDictionaryConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDictionaryConstraintWithKeyType(type_ int64) MLDictionaryConstraint {
 	instance := getMLDictionaryConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyType:"), type_)
 	return MLDictionaryConstraintFromID(rv)
 }
 
@@ -115,19 +115,19 @@ func (m MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (b
 
 }
 func (m MLDictionaryConstraint) InitWithKeyType(type_ int64) MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("initWithKeyType:"), type_)
+	rv := objc.SendIfResponds[MLDictionaryConstraint](m.ID, objc.Sel("initWithKeyType:"), type_)
 	return rv
 }
 
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) ConstraintWithInt64Keys() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithInt64Keys"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithInt64Keys"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) ConstraintWithStringKeys() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithStringKeys"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("constraintWithStringKeys"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLDictionaryConstraintClass MLDictionaryConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLDictionaryConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

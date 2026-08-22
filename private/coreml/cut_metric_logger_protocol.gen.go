@@ -10,6 +10,9 @@ import (
 // CUTMetricLogger protocol.
 type CUTMetricLogger interface {
 	objectivec.IObject
+
+	// LogMetric protocol.
+	LogMetric(metric objectivec.IObject)
 }
 
 // CUTMetricLoggerObject wraps an existing Objective-C object that conforms to the CUTMetricLogger protocol.
@@ -30,5 +33,5 @@ func CUTMetricLoggerObjectFromID(id objc.ID) CUTMetricLoggerObject {
 }
 
 func (o CUTMetricLoggerObject) LogMetric(metric objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("logMetric:"), metric)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("logMetric:"), metric)
 }

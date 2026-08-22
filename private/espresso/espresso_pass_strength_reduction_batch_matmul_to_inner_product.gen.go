@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionBatchMatmulToInnerProductClass) Class() ob
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionBatchMatmulToInnerProductClass) Alloc() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
-	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionBatchMatmulToInnerProduct interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionBatchMatmulToInnerProduct) Init() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
-	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionBatchMatmulToInnerProduct) Autorelease() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
-	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionBatchMatmulToInnerProduct creates a new EspressoPassStrengthReductionBatchMatmulToInnerProduct instance.
 func NewEspressoPassStrengthReductionBatchMatmulToInnerProduct() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
 	class := getEspressoPassStrengthReductionBatchMatmulToInnerProductClass()
-	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

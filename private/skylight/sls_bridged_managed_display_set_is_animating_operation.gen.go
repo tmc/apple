@@ -39,7 +39,7 @@ func (sc SLSBridgedManagedDisplaySetIsAnimatingOperationClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedManagedDisplaySetIsAnimatingOperationClass) Alloc() SLSBridgedManagedDisplaySetIsAnimatingOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetIsAnimatingOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedManagedDisplaySetIsAnimatingOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) Init() SLSBridgedManagedDisplaySetIsAnimatingOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) Autorelease() SLSBridgedManagedDisplaySetIsAnimatingOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedManagedDisplaySetIsAnimatingOperation creates a new SLSBridgedManagedDisplaySetIsAnimatingOperation instance.
 func NewSLSBridgedManagedDisplaySetIsAnimatingOperation() SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	class := getSLSBridgedManagedDisplaySetIsAnimatingOperationClass()
-	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetIsAnimatingOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedManagedDisplaySetIsAnimatingOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	instance := getSLSBridgedManagedDisplaySetIsAnimatingOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplaySetIsAnimatingOperationFromID(rv)
 }
 
 func NewSLSBridgedManagedDisplaySetIsAnimatingOperationWithDisplayIdentifierIsAnimating(identifier objectivec.IObject, animating bool) SLSBridgedManagedDisplaySetIsAnimatingOperation {
 	instance := getSLSBridgedManagedDisplaySetIsAnimatingOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
 	return SLSBridgedManagedDisplaySetIsAnimatingOperationFromID(rv)
 }
 
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) InitWithDisplayIdentifierIsAnimating(identifier objectivec.IObject, animating bool) SLSBridgedManagedDisplaySetIsAnimatingOperation {
-	rv := objc.Send[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplaySetIsAnimatingOperation](s.ID, objc.Sel("initWithDisplayIdentifier:isAnimating:"), identifier, animating)
 	return rv
 }
 
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) DisplayIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSBridgedManagedDisplaySetIsAnimatingOperation) IsAnimating() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isAnimating"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isAnimating"))
 	return rv
 }

@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +40,7 @@ func (gc GTMioShaderExecutionHistoryRootNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderExecutionHistoryRootNodeClass) Alloc() GTMioShaderExecutionHistoryRootNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryRootNode](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -121,11 +120,11 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 	_pushNewFunction(function objectivec.IObject)
 	CacheKey() objectivec.IObject
 	CacheObject() objectivec.IObject
-	CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject)
-	CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject)
+	CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadata, usc objectivec.IObject)
+	CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadata, usc objectivec.IObject)
 	CliqueExecutionHistoryStyle() uint32
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	DumpTree(tree objectivec.IObject)
 	EnumerateFunctionCallSites(sites VoidHandler)
 	FunctionCallSitesForIdentifier(identifier uint64) objectivec.IObject
@@ -133,11 +132,11 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 	LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject)
 	NumHitsForInstructionBinaryIndex(instruction uint32, index uint32) uint32
 	Options() uint32
-	PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject)
+	PopFunctionBinaryRangeBinary(function *GTMioShaderBinaryDebugLocation, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject)
 	PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
 	PopStack()
-	ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32)
-	PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject)
+	ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32)
+	PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function *GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject)
 	PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
 	PushStack(stack objectivec.IObject)
 	Style() uint32
@@ -147,37 +146,37 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 
 // Init initializes the instance.
 func (g GTMioShaderExecutionHistoryRootNode) Init() GTMioShaderExecutionHistoryRootNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderExecutionHistoryRootNode) Autorelease() GTMioShaderExecutionHistoryRootNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderExecutionHistoryRootNode creates a new GTMioShaderExecutionHistoryRootNode instance.
 func NewGTMioShaderExecutionHistoryRootNode() GTMioShaderExecutionHistoryRootNode {
 	class := getGTMioShaderExecutionHistoryRootNodeClass()
-	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryRootNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderExecutionHistoryRootNodeWithStyleOptionsDelegate(style uint32, options uint32, delegate objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
 	instance := getGTMioShaderExecutionHistoryRootNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStyle:options:delegate:"), style, options, delegate)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStyle:options:delegate:"), style, options, delegate)
 	return GTMioShaderExecutionHistoryRootNodeFromID(rv)
 }
 
 func NewGTMioShaderExecutionHistoryRootNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
 	instance := getGTMioShaderExecutionHistoryRootNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
 	return GTMioShaderExecutionHistoryRootNodeFromID(rv)
 }
 
 func (g GTMioShaderExecutionHistoryRootNode) _pushNewFunction(function objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_pushNewFunction:"), function)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_pushNewFunction:"), function)
 }
 
 // PushNewFunction is an exported wrapper for the private method _pushNewFunction.
@@ -195,87 +194,87 @@ func (g GTMioShaderExecutionHistoryRootNode) CanPushNewFunction() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_pushNewFunction:"))
 }
 func (g GTMioShaderExecutionHistoryRootNode) CacheKey() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("cacheKey"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cacheKey"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderExecutionHistoryRootNode) CacheObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("cacheObject"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cacheObject"))
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), unsafe.Pointer(begin), usc)
 }
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadata, usc objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), unsafe.Pointer(end), usc)
 }
 func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryStyle() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("cliqueExecutionHistoryStyle"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("cliqueExecutionHistoryStyle"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryRootNode) DumpTree(tree objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("dumpTree:"), tree)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("dumpTree:"), tree)
 }
 func (g GTMioShaderExecutionHistoryRootNode) EnumerateFunctionCallSites(sites VoidHandler) {
 	_block0, _ := NewVoidBlock(sites)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateFunctionCallSites:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateFunctionCallSites:"), _block0)
 }
 func (g GTMioShaderExecutionHistoryRootNode) FunctionCallSitesForIdentifier(identifier uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionCallSitesForIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("functionCallSitesForIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderExecutionHistoryRootNode) HandleCachedObject(object objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("handleCachedObject:"), object)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("handleCachedObject:"), object)
 	return rv
 }
 func (g GTMioShaderExecutionHistoryRootNode) LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
 }
 func (g GTMioShaderExecutionHistoryRootNode) NumHitsForInstructionBinaryIndex(instruction uint32, index uint32) uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("numHitsForInstruction:binaryIndex:"), instruction, index)
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("numHitsForInstruction:binaryIndex:"), instruction, index)
 	return rv
 }
-func (g GTMioShaderExecutionHistoryRootNode) PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
+func (g GTMioShaderExecutionHistoryRootNode) PopFunctionBinaryRangeBinary(function *GTMioShaderBinaryDebugLocation, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("popFunction:binaryRange:binary:"), unsafe.Pointer(function), unsafe.Pointer(range_), binary)
 }
 func (g GTMioShaderExecutionHistoryRootNode) PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
 func (g GTMioShaderExecutionHistoryRootNode) PopStack() {
-	objc.Send[objc.ID](g.ID, objc.Sel("popStack"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("popStack"))
 }
-func (g GTMioShaderExecutionHistoryRootNode) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
+func (g GTMioShaderExecutionHistoryRootNode) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ *GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, unsafe.Pointer(range_), binary, hits)
 }
-func (g GTMioShaderExecutionHistoryRootNode) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
+func (g GTMioShaderExecutionHistoryRootNode) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function *GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location *GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), unsafe.Pointer(function), index, inlined, binary, unsafe.Pointer(location), index2, binary2)
 }
 func (g GTMioShaderExecutionHistoryRootNode) PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
 func (g GTMioShaderExecutionHistoryRootNode) PushStack(stack objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("pushStack:"), stack)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pushStack:"), stack)
 }
 func (g GTMioShaderExecutionHistoryRootNode) TimestampNextInstructionCount(timestamp uint64, next uint64, count uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
 }
 func (g GTMioShaderExecutionHistoryRootNode) InitWithStyleOptionsDelegate(style uint32, options uint32, delegate objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("initWithStyle:options:delegate:"), style, options, delegate)
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("initWithStyle:options:delegate:"), style, options, delegate)
 	return rv
 }
 
 func (g GTMioShaderExecutionHistoryRootNode) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("delegate"))
 	return rv
 }
-func (g GTMioShaderExecutionHistoryRootNode) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
+func (g GTMioShaderExecutionHistoryRootNode) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 func (g GTMioShaderExecutionHistoryRootNode) Options() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("options"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryRootNode) Style() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("style"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("style"))
 	return rv
 }
 

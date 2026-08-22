@@ -37,7 +37,7 @@ func (vc VZBridgedNetworkDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBridgedNetworkDeviceAttachmentClass) Alloc() VZBridgedNetworkDeviceAttachment {
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZBridgedNetworkDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,25 +77,25 @@ type IVZBridgedNetworkDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZBridgedNetworkDeviceAttachment) Init() VZBridgedNetworkDeviceAttachment {
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZBridgedNetworkDeviceAttachment) Autorelease() VZBridgedNetworkDeviceAttachment {
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZBridgedNetworkDeviceAttachment creates a new VZBridgedNetworkDeviceAttachment instance.
 func NewVZBridgedNetworkDeviceAttachment() VZBridgedNetworkDeviceAttachment {
 	class := getVZBridgedNetworkDeviceAttachmentClass()
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZBridgedNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZBridgedNetworkDeviceAttachment) _setMacNatEnabled(enabled bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setMacNatEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setMacNatEnabled:"), enabled)
 }
 
 // SetMacNatEnabled is an exported wrapper for the private method _setMacNatEnabled.
@@ -114,7 +114,7 @@ func (v VZBridgedNetworkDeviceAttachment) CanSetMacNatEnabled() bool {
 }
 
 func (v VZBridgedNetworkDeviceAttachment) _macNatEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_macNatEnabled"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_macNatEnabled"))
 	return rv
 }
 
@@ -131,5 +131,5 @@ func (v VZBridgedNetworkDeviceAttachment) MacNatEnabled() (bool, error) {
 	return v._macNatEnabled(), nil
 }
 func (v VZBridgedNetworkDeviceAttachment) Set_macNatEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_macNatEnabled:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_macNatEnabled:"), value)
 }

@@ -37,7 +37,7 @@ func (ec EspressoPassWavernnAneClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassWavernnAneClass) Alloc() EspressoPassWavernnAne {
-	rv := objc.Send[EspressoPassWavernnAne](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassWavernnAne](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassWavernnAne interface {
 
 // Init initializes the instance.
 func (e EspressoPassWavernnAne) Init() EspressoPassWavernnAne {
-	rv := objc.Send[EspressoPassWavernnAne](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassWavernnAne](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassWavernnAne) Autorelease() EspressoPassWavernnAne {
-	rv := objc.Send[EspressoPassWavernnAne](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassWavernnAne](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassWavernnAne creates a new EspressoPassWavernnAne instance.
 func NewEspressoPassWavernnAne() EspressoPassWavernnAne {
 	class := getEspressoPassWavernnAneClass()
-	rv := objc.Send[EspressoPassWavernnAne](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassWavernnAne](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

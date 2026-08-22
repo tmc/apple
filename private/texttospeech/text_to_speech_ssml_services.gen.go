@@ -40,7 +40,7 @@ func (tc TextToSpeechSSMLServicesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSMLServicesClass) Alloc() TextToSpeechSSMLServices {
-	rv := objc.Send[TextToSpeechSSMLServices](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLServices](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,25 +77,25 @@ type ITextToSpeechSSMLServices interface {
 
 // Init initializes the instance.
 func (t TextToSpeechSSMLServices) Init() TextToSpeechSSMLServices {
-	rv := objc.Send[TextToSpeechSSMLServices](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLServices](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechSSMLServices) Autorelease() TextToSpeechSSMLServices {
-	rv := objc.Send[TextToSpeechSSMLServices](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLServices](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechSSMLServices creates a new TextToSpeechSSMLServices instance.
 func NewTextToSpeechSSMLServices() TextToSpeechSSMLServices {
 	class := getTextToSpeechSSMLServicesClass()
-	rv := objc.Send[TextToSpeechSSMLServices](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechSSMLServices](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechSSMLServices) MakeProsodySnippetWithStringRatePitchVolume(string_ objectivec.IObject, rate objectivec.IObject, pitch objectivec.IObject, volume objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("makeProsodySnippetWithString:rate:pitch:volume:"), string_, rate, pitch, volume)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("makeProsodySnippetWithString:rate:pitch:volume:"), string_, rate, pitch, volume)
 	return objectivec.Object{ID: rv}
 }
 func (t TextToSpeechSSMLServices) ParseSSMLToPlainTextError(text objectivec.IObject) (objectivec.IObject, error) {
@@ -110,5 +110,5 @@ func (t TextToSpeechSSMLServices) ParseSSMLToPlainTextError(text objectivec.IObj
 }
 
 func (_TextToSpeechSSMLServicesClass TextToSpeechSSMLServicesClass) SetShared(shared objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_TextToSpeechSSMLServicesClass.class), objc.Sel("setShared:"), shared)
+	objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechSSMLServicesClass.class), objc.Sel("setShared:"), shared)
 }

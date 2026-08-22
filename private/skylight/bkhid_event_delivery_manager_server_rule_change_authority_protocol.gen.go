@@ -10,6 +10,9 @@ import (
 // BKHIDEventDeliveryManagerServerRuleChangeAuthority protocol.
 type BKHIDEventDeliveryManagerServerRuleChangeAuthority interface {
 	objectivec.IObject
+
+	// PermittedRuleChangeMaskForAuditToken protocol.
+	PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64
 }
 
 // BKHIDEventDeliveryManagerServerRuleChangeAuthorityObject wraps an existing Objective-C object that conforms to the BKHIDEventDeliveryManagerServerRuleChangeAuthority protocol.
@@ -30,6 +33,6 @@ func BKHIDEventDeliveryManagerServerRuleChangeAuthorityObjectFromID(id objc.ID) 
 }
 
 func (o BKHIDEventDeliveryManagerServerRuleChangeAuthorityObject) PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)
 	return rv
 }

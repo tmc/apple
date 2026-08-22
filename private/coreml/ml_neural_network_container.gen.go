@@ -40,7 +40,7 @@ func (mc MLNeuralNetworkContainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkContainerClass) Alloc() MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -242,51 +242,51 @@ type IMLNeuralNetworkContainer interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkContainer) Init() MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkContainer) Autorelease() MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkContainer creates a new MLNeuralNetworkContainer instance.
 func NewMLNeuralNetworkContainer() MLNeuralNetworkContainer {
 	class := getMLNeuralNetworkContainerClass()
-	rv := objc.Send[MLNeuralNetworkContainer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLNeuralNetworkContainerFromID(rv)
 }
 
 func NewNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLNeuralNetworkContainerFromID(rv)
 }
 
 func NewNeuralNetworkContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLNeuralNetworkContainerFromID(rv)
 }
 
 func (m MLNeuralNetworkContainer) InitWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return rv
 }
 func (m MLNeuralNetworkContainer) InitWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return rv
 }
 func (m MLNeuralNetworkContainer) InitWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkContainer {
-	rv := objc.Send[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
+	rv := objc.SendIfResponds[MLNeuralNetworkContainer](m.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return rv
 }
 
@@ -311,197 +311,197 @@ func (_MLNeuralNetworkContainerClass MLNeuralNetworkContainerClass) ContainerFro
 
 }
 func (_MLNeuralNetworkContainerClass MLNeuralNetworkContainerClass) ContainerFromFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkContainerClass.class), objc.Sel("containerFromFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkContainerClass.class), objc.Sel("containerFromFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLNeuralNetworkContainer) ActiveFunction() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("activeFunction"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("activeFunction"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkContainer) ClassLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetClassLabels(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassLabels:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassLabels:"), value)
 }
 func (m MLNeuralNetworkContainer) ClassScoreVectorName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkContainer) SetClassScoreVectorName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
 }
 func (m MLNeuralNetworkContainer) CompilerOutput() IMLCompilerNeuralNetworkOutput {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerOutput"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerOutput"))
 	return MLCompilerNeuralNetworkOutputFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetCompilerOutput(value IMLCompilerNeuralNetworkOutput) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompilerOutput:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompilerOutput:"), value)
 }
 func (m MLNeuralNetworkContainer) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetCompilerVersionInfo(value IMLVersionInfo) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompilerVersionInfo:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompilerVersionInfo:"), value)
 }
 func (m MLNeuralNetworkContainer) ConfigurationList() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configurationList"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configurationList"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetConfigurationList(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConfigurationList:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setConfigurationList:"), value)
 }
 func (m MLNeuralNetworkContainer) Engine() int {
-	rv := objc.Send[int](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetEngine(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 func (m MLNeuralNetworkContainer) HasBidirectionalLayer() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasBidirectionalLayer"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasBidirectionalLayer"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetHasBidirectionalLayer(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasBidirectionalLayer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasBidirectionalLayer:"), value)
 }
 func (m MLNeuralNetworkContainer) HasDynamicLayer() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasDynamicLayer"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasDynamicLayer"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetHasDynamicLayer(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasDynamicLayer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasDynamicLayer:"), value)
 }
 func (m MLNeuralNetworkContainer) HasOptionalInputSequenceConcat() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasOptionalInputSequenceConcat"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasOptionalInputSequenceConcat"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetHasOptionalInputSequenceConcat(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
 }
 func (m MLNeuralNetworkContainer) ImageParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imageParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetImageParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setImageParameters:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setImageParameters:"), value)
 }
 func (m MLNeuralNetworkContainer) ImagePreprocessingParams() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("imagePreprocessingParams"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("imagePreprocessingParams"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetImagePreprocessingParams(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setImagePreprocessingParams:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setImagePreprocessingParams:"), value)
 }
 func (m MLNeuralNetworkContainer) InputDescription() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputDescription"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetInputDescription(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputDescription:"), value)
 }
 func (m MLNeuralNetworkContainer) InputLayerNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputLayerNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputLayerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetInputLayerNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputLayerNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputLayerNames:"), value)
 }
 func (m MLNeuralNetworkContainer) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) ModelFilePath() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelFilePath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkContainer) SetModelFilePath(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelFilePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelFilePath:"), objc.String(value))
 }
 func (m MLNeuralNetworkContainer) ModelIsEncrypted() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("modelIsEncrypted"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("modelIsEncrypted"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetModelIsEncrypted(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
 }
 func (m MLNeuralNetworkContainer) ModelIsMIL() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("modelIsMIL"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("modelIsMIL"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetModelIsMIL(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelIsMIL:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsMIL:"), value)
 }
 func (m MLNeuralNetworkContainer) ModelIsTrainingProgram() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("modelIsTrainingProgram"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("modelIsTrainingProgram"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetModelIsTrainingProgram(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelIsTrainingProgram:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsTrainingProgram:"), value)
 }
 func (m MLNeuralNetworkContainer) ModelVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetModelVersionInfo(value IMLVersionInfo) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelVersionInfo:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelVersionInfo:"), value)
 }
 func (m MLNeuralNetworkContainer) Name() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkContainer) SetName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (m MLNeuralNetworkContainer) NdArrayInterpretation() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("ndArrayInterpretation"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("ndArrayInterpretation"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetNdArrayInterpretation(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNdArrayInterpretation:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNdArrayInterpretation:"), value)
 }
 func (m MLNeuralNetworkContainer) OptionalInputDefaultValues() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputDefaultValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optionalInputDefaultValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetOptionalInputDefaultValues(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOptionalInputDefaultValues:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOptionalInputDefaultValues:"), value)
 }
 func (m MLNeuralNetworkContainer) OptionalInputTypes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetOptionalInputTypes(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOptionalInputTypes:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOptionalInputTypes:"), value)
 }
 func (m MLNeuralNetworkContainer) OutputDescription() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputDescription"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetOutputDescription(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputDescription:"), value)
 }
 func (m MLNeuralNetworkContainer) OutputLayerNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputLayerNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputLayerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetOutputLayerNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputLayerNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputLayerNames:"), value)
 }
 func (m MLNeuralNetworkContainer) Precision() int {
-	rv := objc.Send[int](m.ID, objc.Sel("precision"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("precision"))
 	return rv
 }
 func (m MLNeuralNetworkContainer) SetPrecision(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPrecision:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPrecision:"), value)
 }
 func (m MLNeuralNetworkContainer) UpdatableModelCompiledParams() IMLNeuralNetworksCompileTimeParams {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModelCompiledParams"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updatableModelCompiledParams"))
 	return MLNeuralNetworksCompileTimeParamsFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkContainer) SetUpdatableModelCompiledParams(value IMLNeuralNetworksCompileTimeParams) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUpdatableModelCompiledParams:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUpdatableModelCompiledParams:"), value)
 }

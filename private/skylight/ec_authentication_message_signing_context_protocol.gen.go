@@ -11,8 +11,17 @@ import (
 type ECAuthenticationMessageSigningContext interface {
 	objectivec.IObject
 
+	// FinalizedData protocol.
+	FinalizedData() objectivec.IObject
+
 	// UpdateSigningContextWithBytesLength protocol.
-	UpdateSigningContextWithBytesLength(bytes []byte, length uint64)
+	UpdateSigningContextWithBytesLength(bytes []byte)
+
+	// UpdateSigningContextWithData protocol.
+	UpdateSigningContextWithData(data objectivec.IObject)
+
+	// UpdateSigningContextWithObject protocol.
+	UpdateSigningContextWithObject(object objectivec.IObject)
 }
 
 // ECAuthenticationMessageSigningContextObject wraps an existing Objective-C object that conforms to the ECAuthenticationMessageSigningContext protocol.
@@ -33,15 +42,15 @@ func ECAuthenticationMessageSigningContextObjectFromID(id objc.ID) ECAuthenticat
 }
 
 func (o ECAuthenticationMessageSigningContextObject) FinalizedData() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("finalizedData"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("finalizedData"))
 	return objectivec.Object{ID: rv}
 }
-func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte, length uint64) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), bytes, length)
+func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithBytesLength(bytes []byte) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateSigningContextWithBytes:length:"), objc.BytesPointer(bytes), uint(len(bytes)))
 }
 func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithData(data objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithData:"), data)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateSigningContextWithData:"), data)
 }
 func (o ECAuthenticationMessageSigningContextObject) UpdateSigningContextWithObject(object objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("updateSigningContextWithObject:"), object)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateSigningContextWithObject:"), object)
 }

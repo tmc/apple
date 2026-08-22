@@ -38,7 +38,7 @@ func (pc PKGCoreUIRendererClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PKGCoreUIRendererClass) Alloc() PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PKGCoreUIRenderer](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,43 +78,43 @@ type IPKGCoreUIRenderer interface {
 
 // Init initializes the instance.
 func (p PKGCoreUIRenderer) Init() PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PKGCoreUIRenderer](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PKGCoreUIRenderer) Autorelease() PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PKGCoreUIRenderer](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPKGCoreUIRenderer creates a new PKGCoreUIRenderer instance.
 func NewPKGCoreUIRenderer() PKGCoreUIRenderer {
 	class := getPKGCoreUIRendererClass()
-	rv := objc.Send[PKGCoreUIRenderer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PKGCoreUIRenderer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGCoreUIRendererWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
 	instance := getPKGCoreUIRendererClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRendererName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRendererName:"), name)
 	return PKGCoreUIRendererFromID(rv)
 }
 
 func (p PKGCoreUIRenderer) Renderer() OpaqueCUIRendererRefRef {
-	rv := objc.Send[OpaqueCUIRendererRefRef](p.ID, objc.Sel("renderer"))
+	rv := objc.SendIfResponds[OpaqueCUIRendererRefRef](p.ID, objc.Sel("renderer"))
 	return OpaqueCUIRendererRefRef(rv)
 }
 func (p PKGCoreUIRenderer) RendererName() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("rendererName"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rendererName"))
 	return objectivec.Object{ID: rv}
 }
 func (p PKGCoreUIRenderer) InitWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("initWithRendererName:"), name)
+	rv := objc.SendIfResponds[PKGCoreUIRenderer](p.ID, objc.Sel("initWithRendererName:"), name)
 	return rv
 }
 
 func (_PKGCoreUIRendererClass PKGCoreUIRendererClass) RendererForThemeUseAX(theme uint32, ax bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_PKGCoreUIRendererClass.class), objc.Sel("rendererForTheme:useAX:"), theme, ax)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_PKGCoreUIRendererClass.class), objc.Sel("rendererForTheme:useAX:"), theme, ax)
 	return objectivec.Object{ID: rv}
 }

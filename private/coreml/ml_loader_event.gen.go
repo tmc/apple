@@ -40,7 +40,7 @@ func (mc MLLoaderEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLLoaderEventClass) Alloc() MLLoaderEvent {
-	rv := objc.Send[MLLoaderEvent](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLLoaderEvent](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -221,199 +221,199 @@ type IMLLoaderEvent interface {
 
 // Init initializes the instance.
 func (m MLLoaderEvent) Init() MLLoaderEvent {
-	rv := objc.Send[MLLoaderEvent](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLLoaderEvent](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLLoaderEvent) Autorelease() MLLoaderEvent {
-	rv := objc.Send[MLLoaderEvent](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLLoaderEvent](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLLoaderEvent creates a new MLLoaderEvent instance.
 func NewMLLoaderEvent() MLLoaderEvent {
 	class := getMLLoaderEventClass()
-	rv := objc.Send[MLLoaderEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLLoaderEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLLoaderEvent) ExtractAndSetModelDetailsFromArchive(archive unsafe.Pointer) {
-	objc.Send[objc.ID](m.ID, objc.Sel("extractAndSetModelDetailsFromArchive:"), archive)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("extractAndSetModelDetailsFromArchive:"), archive)
 }
 func (m MLLoaderEvent) NumberFromCString(cString string) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("numberFromCString:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("numberFromCString:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")))
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLLoaderEvent) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetBundleIdentifier(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (m MLLoaderEvent) CompilerVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetCompilerVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
 }
 func (m MLLoaderEvent) ComputeUnits() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeUnits"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeUnits"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetComputeUnits(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
 }
 func (m MLLoaderEvent) ContainsCustomLayer() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("containsCustomLayer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("containsCustomLayer"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetContainsCustomLayer(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContainsCustomLayer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContainsCustomLayer:"), value)
 }
 func (m MLLoaderEvent) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) DictionaryRepresentation() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
 }
 func (m MLLoaderEvent) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLLoaderEvent) ModelDimension() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDimension"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDimension"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelDimension(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelDimension:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelDimension:"), value)
 }
 func (m MLLoaderEvent) ModelEngineType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelEngineType"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelEngineType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelEngineType(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelEngineType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelEngineType:"), value)
 }
 func (m MLLoaderEvent) ModelHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetModelHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
 }
 func (m MLLoaderEvent) ModelIsEncrypted() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelIsEncrypted"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelIsEncrypted"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelIsEncrypted(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
 }
 func (m MLLoaderEvent) ModelLoadError() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadError"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelLoadError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelLoadError(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelLoadError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelLoadError:"), value)
 }
 func (m MLLoaderEvent) ModelLoadTime() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadTime"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelLoadTime"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelLoadTime(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelLoadTime:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelLoadTime:"), value)
 }
 func (m MLLoaderEvent) ModelName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetModelName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLLoaderEvent) ModelOrigin() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelOrigin"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelOrigin"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelOrigin(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
 func (m MLLoaderEvent) ModelProgramParsingError() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelProgramParsingError"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelProgramParsingError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelProgramParsingError(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelProgramParsingError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelProgramParsingError:"), value)
 }
 func (m MLLoaderEvent) ModelProgramValidationError() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelProgramValidationError"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelProgramValidationError"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelProgramValidationError(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelProgramValidationError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelProgramValidationError:"), value)
 }
 func (m MLLoaderEvent) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) SetModelType(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }
 func (m MLLoaderEvent) ModelVersion() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersion"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetModelVersion(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
 }
 func (m MLLoaderEvent) Name() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) NnModelNetHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelNetHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nnModelNetHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetNnModelNetHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNnModelNetHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNnModelNetHash:"), objc.String(value))
 }
 func (m MLLoaderEvent) NnModelShapeHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelShapeHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nnModelShapeHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetNnModelShapeHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNnModelShapeHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNnModelShapeHash:"), objc.String(value))
 }
 func (m MLLoaderEvent) NnModelWeightsHash() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnModelWeightsHash"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nnModelWeightsHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetNnModelWeightsHash(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNnModelWeightsHash:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNnModelWeightsHash:"), objc.String(value))
 }
 func (m MLLoaderEvent) ProcessName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("processName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("processName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLLoaderEvent) SetProcessName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProcessName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProcessName:"), objc.String(value))
 }
 func (m MLLoaderEvent) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

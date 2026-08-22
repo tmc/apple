@@ -38,7 +38,7 @@ func (vc VZVirtioSocketDeviceObserverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSocketDeviceObserverClass) Alloc() VZVirtioSocketDeviceObserver {
-	rv := objc.Send[VZVirtioSocketDeviceObserver](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceObserver](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,25 +72,25 @@ type IVZVirtioSocketDeviceObserver interface {
 
 // Init initializes the instance.
 func (v VZVirtioSocketDeviceObserver) Init() VZVirtioSocketDeviceObserver {
-	rv := objc.Send[VZVirtioSocketDeviceObserver](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceObserver](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioSocketDeviceObserver) Autorelease() VZVirtioSocketDeviceObserver {
-	rv := objc.Send[VZVirtioSocketDeviceObserver](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceObserver](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioSocketDeviceObserver creates a new VZVirtioSocketDeviceObserver instance.
 func NewVZVirtioSocketDeviceObserver() VZVirtioSocketDeviceObserver {
 	class := getVZVirtioSocketDeviceObserverClass()
-	rv := objc.Send[VZVirtioSocketDeviceObserver](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioSocketDeviceObserver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioSocketDeviceObserver) _initWithConnectionQueueDelegate(connection objectivec.IObject, queue objectivec.IObject, delegate objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConnection:queue:delegate:"), connection, queue, delegate)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithConnection:queue:delegate:"), connection, queue, delegate)
 	return objectivec.Object{ID: rv}
 }
 

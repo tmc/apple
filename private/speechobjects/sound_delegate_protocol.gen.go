@@ -10,6 +10,9 @@ import (
 // NSSoundDelegate protocol.
 type NSSoundDelegate interface {
 	objectivec.IObject
+
+	// SoundDidFinishPlaying protocol.
+	SoundDidFinishPlaying(sound objectivec.IObject, playing bool)
 }
 
 // NSSoundDelegateObject wraps an existing Objective-C object that conforms to the NSSoundDelegate protocol.
@@ -30,5 +33,5 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 }
 
 func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound objectivec.IObject, playing bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
 }

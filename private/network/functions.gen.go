@@ -9,7 +9,6 @@ import (
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -149,7 +148,7 @@ func tryNWParametersCreatePlainTCP(configureTCP NWParametersConfigureProtocolBlo
 		}
 		_block1 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configureTCP(objectivec.ObjectFromID(blockArg0)) })
+		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 NWProtocolOptions) { configureTCP(blockArg0) })
 		defer _block1Value.Release()
 		_block1 = unsafe.Pointer(_block1Value)
 	}

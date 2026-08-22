@@ -40,7 +40,7 @@ func (mc MLComputePlanClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanClass) Alloc() MLComputePlan {
-	rv := objc.Send[MLComputePlan](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLComputePlan](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,31 +89,31 @@ type IMLComputePlan interface {
 
 // Init initializes the instance.
 func (m MLComputePlan) Init() MLComputePlan {
-	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLComputePlan](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLComputePlan) Autorelease() MLComputePlan {
-	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLComputePlan](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLComputePlan creates a new MLComputePlan instance.
 func NewMLComputePlan() MLComputePlan {
 	class := getMLComputePlanClass()
-	rv := objc.Send[MLComputePlan](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLComputePlan](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	instance := getMLComputePlanClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return MLComputePlanFromID(rv)
 }
 
 func (m MLComputePlan) InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
-	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
+	rv := objc.SendIfResponds[MLComputePlan](m.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return rv
 }
 
@@ -129,22 +129,22 @@ func (_MLComputePlanClass MLComputePlanClass) ComputePlanOfModelStructureModelAs
 }
 
 func (m MLComputePlan) ComputeDevicesBySupportedComputeUnits() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLComputePlan) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLComputePlan) ExecutionScheduleByModelStructurePath() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionScheduleByModelStructurePath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("executionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLComputePlan) ModelAssetStorageType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("modelAssetStorageType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("modelAssetStorageType"))
 	return rv
 }
 func (m MLComputePlan) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }

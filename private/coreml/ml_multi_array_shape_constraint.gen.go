@@ -41,7 +41,7 @@ func (mc MLMultiArrayShapeConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiArrayShapeConstraintClass) Alloc() MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,43 +90,43 @@ type IMLMultiArrayShapeConstraint interface {
 
 // Init initializes the instance.
 func (m MLMultiArrayShapeConstraint) Init() MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiArrayShapeConstraint) Autorelease() MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiArrayShapeConstraint creates a new MLMultiArrayShapeConstraint instance.
 func NewMLMultiArrayShapeConstraint() MLMultiArrayShapeConstraint {
 	class := getMLMultiArrayShapeConstraintClass()
-	rv := objc.Send[MLMultiArrayShapeConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiArrayShapeConstraintUnspecified() MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initUnspecified"))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initUnspecified"))
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
 func NewMultiArrayShapeConstraintWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
 func NewMultiArrayShapeConstraintWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
 func (m MLMultiArrayShapeConstraint) FindAvailableShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("findAvailableShape:"), shape)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("findAvailableShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
 func (m MLMultiArrayShapeConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, error) {
@@ -143,24 +143,24 @@ func (m MLMultiArrayShapeConstraint) IsAllowedShapeError(shape objectivec.IObjec
 
 }
 func (m MLMultiArrayShapeConstraint) InitUnspecified() MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initUnspecified"))
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initUnspecified"))
 	return rv
 }
 func (m MLMultiArrayShapeConstraint) InitWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
 	return rv
 }
 func (m MLMultiArrayShapeConstraint) InitWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
-	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
+	rv := objc.SendIfResponds[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
 	return rv
 }
 
 func (_MLMultiArrayShapeConstraintClass MLMultiArrayShapeConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLMultiArrayShapeConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLMultiArrayShapeConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLMultiArrayShapeConstraint) ShapeSet() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeSet"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shapeSet"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }

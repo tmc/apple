@@ -39,7 +39,7 @@ func (mc MLModelAssetDescriptionVendorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetDescriptionVendorClass) Alloc() MLModelAssetDescriptionVendor {
-	rv := objc.Send[MLModelAssetDescriptionVendor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelAssetDescriptionVendor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,32 +94,32 @@ type IMLModelAssetDescriptionVendor interface {
 
 // Init initializes the instance.
 func (m MLModelAssetDescriptionVendor) Init() MLModelAssetDescriptionVendor {
-	rv := objc.Send[MLModelAssetDescriptionVendor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelAssetDescriptionVendor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelAssetDescriptionVendor) Autorelease() MLModelAssetDescriptionVendor {
-	rv := objc.Send[MLModelAssetDescriptionVendor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelAssetDescriptionVendor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelAssetDescriptionVendor creates a new MLModelAssetDescriptionVendor instance.
 func NewMLModelAssetDescriptionVendor() MLModelAssetDescriptionVendor {
 	class := getMLModelAssetDescriptionVendorClass()
-	rv := objc.Send[MLModelAssetDescriptionVendor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelAssetDescriptionVendor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelAssetDescriptionVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetDescriptionVendor {
 	instance := getMLModelAssetDescriptionVendorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return MLModelAssetDescriptionVendorFromID(rv)
 }
 
 func (m MLModelAssetDescriptionVendor) _modelAssetDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:"), _block0)
 }
 
 // ModelAssetDescriptionWithCompletionHandler is an exported wrapper for the private method _modelAssetDescriptionWithCompletionHandler.
@@ -138,30 +138,30 @@ func (m MLModelAssetDescriptionVendor) CanModelAssetDescriptionWithCompletionHan
 }
 func (m MLModelAssetDescriptionVendor) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetDescriptionVendor) ModelDescriptionOfFunctionNamedCompletionHandler(named objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), named, _block1)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), named, _block1)
 }
 func (m MLModelAssetDescriptionVendor) ModelDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetDescriptionVendor) InitWithResourceFactory(factory objectivec.IObject) MLModelAssetDescriptionVendor {
-	rv := objc.Send[MLModelAssetDescriptionVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
+	rv := objc.SendIfResponds[MLModelAssetDescriptionVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return rv
 }
 
 func (m MLModelAssetDescriptionVendor) ModelAssetDescription() IMLModelAssetDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
 	return MLModelAssetDescriptionFromID(objc.ID(rv))
 }
 func (m MLModelAssetDescriptionVendor) SetModelAssetDescription(value IMLModelAssetDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelAssetDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelAssetDescription:"), value)
 }
 func (m MLModelAssetDescriptionVendor) ResourceFactory() IMLModelAssetResourceFactory {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resourceFactory"))
 	return MLModelAssetResourceFactoryFromID(objc.ID(rv))
 }
 

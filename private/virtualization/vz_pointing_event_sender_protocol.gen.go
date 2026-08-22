@@ -22,6 +22,9 @@ type VZPointingEventSender interface {
 	// SendMouseEventsPointingDeviceIndex protocol.
 	SendMouseEventsPointingDeviceIndex(events VZOpaqueMouseEvents, index uint32)
 
+	// SendPointerNSEventPointingDeviceIndex protocol.
+	SendPointerNSEventPointingDeviceIndex(nSEvent objectivec.IObject, index uint32)
+
 	// SendQuickLookEventsPointingDeviceIndex protocol.
 	SendQuickLookEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 
@@ -53,26 +56,26 @@ func VZPointingEventSenderObjectFromID(id objc.ID) VZPointingEventSenderObject {
 }
 
 func (o VZPointingEventSenderObject) SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
 }
 func (o VZPointingEventSenderObject) SendMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
 func (o VZPointingEventSenderObject) SendMouseEventsPointingDeviceIndex(events VZOpaqueMouseEvents, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events.UnsafePointer(), index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events.UnsafePointer(), index)
 }
 func (o VZPointingEventSenderObject) SendPointerNSEventPointingDeviceIndex(nSEvent objectivec.IObject, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
 }
 func (o VZPointingEventSenderObject) SendQuickLookEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
 }
 func (o VZPointingEventSenderObject) SendRotationEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
 }
 func (o VZPointingEventSenderObject) SendScrollWheelEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
 }
 func (o VZPointingEventSenderObject) SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
 }

@@ -42,7 +42,7 @@ func (dc DIEncryptionFrontendClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIEncryptionFrontendClass) Alloc() DIEncryptionFrontend {
-	rv := objc.Send[DIEncryptionFrontend](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIEncryptionFrontend](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -187,32 +187,32 @@ type IDIEncryptionFrontend interface {
 
 // Init initializes the instance.
 func (d DIEncryptionFrontend) Init() DIEncryptionFrontend {
-	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIEncryptionFrontend](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIEncryptionFrontend) Autorelease() DIEncryptionFrontend {
-	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIEncryptionFrontend](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIEncryptionFrontend creates a new DIEncryptionFrontend instance.
 func NewDIEncryptionFrontend() DIEncryptionFrontend {
 	class := getDIEncryptionFrontendClass()
-	rv := objc.Send[DIEncryptionFrontend](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIEncryptionFrontend](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIEncryptionFrontendWithCoder(coder objectivec.IObject) DIEncryptionFrontend {
 	instance := getDIEncryptionFrontendClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIEncryptionFrontendFromID(rv)
 }
 
 func NewDIEncryptionFrontendWithParams(params objectivec.IObject) DIEncryptionFrontend {
 	instance := getDIEncryptionFrontendClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionFrontendFromID(rv)
 }
 
@@ -309,7 +309,7 @@ func (d DIEncryptionFrontend) ConsoleAskForPassphraseWithUseStdinUsageError(stdi
 
 }
 func (d DIEncryptionFrontend) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIEncryptionFrontend) GenerateAuthTableWithError() (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -498,20 +498,20 @@ func (d DIEncryptionFrontend) ValidateDeserializationWithError() (bool, error) {
 
 }
 func (d DIEncryptionFrontend) InitWithCoder(coder foundation.INSCoder) DIEncryptionFrontend {
-	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIEncryptionFrontend](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (d DIEncryptionFrontend) InitWithParams(params objectivec.IObject) DIEncryptionFrontend {
-	rv := objc.Send[DIEncryptionFrontend](d.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[DIEncryptionFrontend](d.ID, objc.Sel("initWithParams:"), params)
 	return rv
 }
 
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) HasGUIaccess() bool {
-	rv := objc.Send[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("hasGUIaccess"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("hasGUIaccess"))
 	return rv
 }
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIEncryptionFrontendClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) UpdateSystemKeychainAttrWithDictIsStoringError(dict objectivec.IObject, storing bool) (bool, error) {
@@ -529,53 +529,53 @@ func (_DIEncryptionFrontendClass DIEncryptionFrontendClass) UpdateSystemKeychain
 }
 
 func (d DIEncryptionFrontend) CLIPassphrasePromptCreate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptCreate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) CLIPassphrasePromptUnlock() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptUnlock"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("CLIPassphrasePromptUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) CLIVerifyPassphrasePromptCreate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("CLIVerifyPassphrasePromptCreate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("CLIVerifyPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) GUIPassphraseLabelCreate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelCreate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) GUIPassphraseLabelUnlock() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelUnlock"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("GUIPassphraseLabelUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) GUIPassphrasePromptCreate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptCreate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) GUIPassphrasePromptUnlock() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptUnlock"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("GUIPassphrasePromptUnlock"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) GUIVerifyPassphraseLabelCreate() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("GUIVerifyPassphraseLabelCreate"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("GUIVerifyPassphraseLabelCreate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIEncryptionFrontend) AllowStoringInKeychain() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("allowStoringInKeychain"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("allowStoringInKeychain"))
 	return rv
 }
 func (d DIEncryptionFrontend) SetAllowStoringInKeychain(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setAllowStoringInKeychain:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setAllowStoringInKeychain:"), value)
 }
 func (d DIEncryptionFrontend) DiParams() IDIBaseParams {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("diParams"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("diParams"))
 	return DIBaseParamsFromID(objc.ID(rv))
 }
 func (d DIEncryptionFrontend) EncryptionUUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("encryptionUUID"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encryptionUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (d DIEncryptionFrontend) Flags() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("flags"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("flags"))
 	return rv
 }

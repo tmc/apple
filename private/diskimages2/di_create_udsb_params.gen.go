@@ -40,7 +40,7 @@ func (dc DICreateUDSBParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DICreateUDSBParamsClass) Alloc() DICreateUDSBParams {
-	rv := objc.Send[DICreateUDSBParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DICreateUDSBParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,36 +77,39 @@ type IDICreateUDSBParams interface {
 
 // Init initializes the instance.
 func (d DICreateUDSBParams) Init() DICreateUDSBParams {
-	rv := objc.Send[DICreateUDSBParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DICreateUDSBParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DICreateUDSBParams) Autorelease() DICreateUDSBParams {
-	rv := objc.Send[DICreateUDSBParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DICreateUDSBParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDICreateUDSBParams creates a new DICreateUDSBParams instance.
 func NewDICreateUDSBParams() DICreateUDSBParams {
 	class := getDICreateUDSBParamsClass()
-	rv := objc.Send[DICreateUDSBParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DICreateUDSBParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDICreateUDSBParamsWithCoder(coder objectivec.IObject) DICreateUDSBParams {
 	instance := getDICreateUDSBParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DICreateUDSBParamsFromID(rv)
 }
 
 func NewDICreateUDSBParamsWithURLError(url foundation.NSURL) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateUDSBParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateUDSBParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateUDSBParams{}, objc.ErrInitFailed
 	}
 	return DICreateUDSBParamsFromID(rv), nil
 }
@@ -114,18 +117,21 @@ func NewDICreateUDSBParamsWithURLError(url foundation.NSURL) (DICreateUDSBParams
 func NewDICreateUDSBParamsWithURLNumBlocksError(url foundation.NSURL, blocks uint64) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
 	instance := getDICreateUDSBParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DICreateUDSBParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DICreateUDSBParams{}, objc.ErrInitFailed
 	}
 	return DICreateUDSBParamsFromID(rv), nil
 }
 
 func (d DICreateUDSBParams) SparseBundleBandSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("sparseBundleBandSize"))
 	return rv
 }
 func (d DICreateUDSBParams) SetSparseBundleBandSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }

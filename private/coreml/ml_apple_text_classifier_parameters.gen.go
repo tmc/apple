@@ -40,7 +40,7 @@ func (mc MLAppleTextClassifierParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleTextClassifierParametersClass) Alloc() MLAppleTextClassifierParameters {
-	rv := objc.Send[MLAppleTextClassifierParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleTextClassifierParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -119,30 +119,33 @@ type IMLAppleTextClassifierParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleTextClassifierParameters) Init() MLAppleTextClassifierParameters {
-	rv := objc.Send[MLAppleTextClassifierParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleTextClassifierParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleTextClassifierParameters) Autorelease() MLAppleTextClassifierParameters {
-	rv := objc.Send[MLAppleTextClassifierParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleTextClassifierParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleTextClassifierParameters creates a new MLAppleTextClassifierParameters instance.
 func NewMLAppleTextClassifierParameters() MLAppleTextClassifierParameters {
 	class := getMLAppleTextClassifierParametersClass()
-	rv := objc.Send[MLAppleTextClassifierParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleTextClassifierParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:error:"), data, language, name, name2, data2, names, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:error:"), data, language, name, name2, data2, names, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifierParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleTextClassifierParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleTextClassifierParametersFromID(rv), nil
 }
@@ -150,10 +153,13 @@ func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatu
 func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifierParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleTextClassifierParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleTextClassifierParametersFromID(rv), nil
 }
@@ -180,51 +186,51 @@ func (m MLAppleTextClassifierParameters) InitWithDataLanguageInputFeatureNameOut
 }
 
 func (m MLAppleTextClassifierParameters) InputFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleTextClassifierParameters) SetInputFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
 func (m MLAppleTextClassifierParameters) LabelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("labelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAppleTextClassifierParameters) SetLabelNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
 }
 func (m MLAppleTextClassifierParameters) Language() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("language"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleTextClassifierParameters) SetLanguage(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLanguage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 func (m MLAppleTextClassifierParameters) Metadata() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("metadata"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLAppleTextClassifierParameters) SetMetadata(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleTextClassifierParameters) ModelParameterData() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelParameterData"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLAppleTextClassifierParameters) SetModelParameterData(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)
 }
 func (m MLAppleTextClassifierParameters) OutputFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleTextClassifierParameters) SetOutputFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
 }
 func (m MLAppleTextClassifierParameters) Revision() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("revision"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("revision"))
 	return rv
 }
 func (m MLAppleTextClassifierParameters) SetRevision(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setRevision:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setRevision:"), value)
 }

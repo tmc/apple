@@ -11,11 +11,20 @@ import (
 type GTShaderProfilerShaderBinaryLocation interface {
 	objectivec.IObject
 
+	// Binary protocol.
+	Binary() objectivec.IObject
+
 	// Column protocol.
 	Column() int
 
 	// FileIndex protocol.
 	FileIndex() uint64
+
+	// FullPath protocol.
+	FullPath() objectivec.IObject
+
+	// FunctionName protocol.
+	FunctionName() objectivec.IObject
 
 	// FunctionNameIndex protocol.
 	FunctionNameIndex() uint64
@@ -42,30 +51,30 @@ func GTShaderProfilerShaderBinaryLocationObjectFromID(id objc.ID) GTShaderProfil
 }
 
 func (o GTShaderProfilerShaderBinaryLocationObject) Binary() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) Column() int {
-	rv := objc.Send[int](o.ID, objc.Sel("column"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("column"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) FileIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("fileIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("fileIndex"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) FullPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("fullPath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("fullPath"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) FunctionName() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionName"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("functionName"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) FunctionNameIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("functionNameIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("functionNameIndex"))
 	return rv
 }
 func (o GTShaderProfilerShaderBinaryLocationObject) Line() int {
-	rv := objc.Send[int](o.ID, objc.Sel("line"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("line"))
 	return rv
 }

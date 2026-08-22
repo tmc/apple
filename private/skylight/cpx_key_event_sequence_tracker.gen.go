@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (cc CPXKeyEventSequenceTrackerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyEventSequenceTrackerClass) Alloc() CPXKeyEventSequenceTracker {
-	rv := objc.Send[CPXKeyEventSequenceTracker](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTracker](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,49 +75,49 @@ type ICPXKeyEventSequenceTracker interface {
 	// Topic: Methods
 
 	Count() uint64
-	DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject
-	NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool
+	DestinationForEventExtras(event *SLSEventRecord, extras []objectivec.IObject) objectivec.IObject
+	NoteKeyEventProcessedDestination(processed *SLSEventRecord, destination objectivec.IObject) bool
 	InitWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker
 }
 
 // Init initializes the instance.
 func (c CPXKeyEventSequenceTracker) Init() CPXKeyEventSequenceTracker {
-	rv := objc.Send[CPXKeyEventSequenceTracker](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTracker](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyEventSequenceTracker) Autorelease() CPXKeyEventSequenceTracker {
-	rv := objc.Send[CPXKeyEventSequenceTracker](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTracker](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyEventSequenceTracker creates a new CPXKeyEventSequenceTracker instance.
 func NewCPXKeyEventSequenceTracker() CPXKeyEventSequenceTracker {
 	class := getCPXKeyEventSequenceTrackerClass()
-	rv := objc.Send[CPXKeyEventSequenceTracker](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTracker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXKeyEventSequenceTrackerWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker {
 	instance := getCPXKeyEventSequenceTrackerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProvider:"), provider)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProvider:"), provider)
 	return CPXKeyEventSequenceTrackerFromID(rv)
 }
 
 func (c CPXKeyEventSequenceTracker) Count() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("count"))
 	return rv
 }
-func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:extras:"), event, objectivec.IObjectSliceToNSArray(extras))
+func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event *SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("destinationForEvent:extras:"), unsafe.Pointer(event), objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
-func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("noteKeyEventProcessed:destination:"), processed, destination)
+func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed *SLSEventRecord, destination objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("noteKeyEventProcessed:destination:"), unsafe.Pointer(processed), destination)
 	return rv
 }
 func (c CPXKeyEventSequenceTracker) InitWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker {
-	rv := objc.Send[CPXKeyEventSequenceTracker](c.ID, objc.Sel("initWithProvider:"), provider)
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTracker](c.ID, objc.Sel("initWithProvider:"), provider)
 	return rv
 }

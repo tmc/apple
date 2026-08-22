@@ -41,7 +41,7 @@ func (mc MLSaverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSaverClass) Alloc() MLSaver {
-	rv := objc.Send[MLSaver](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSaver](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLSaver interface {
 
 // Init initializes the instance.
 func (m MLSaver) Init() MLSaver {
-	rv := objc.Send[MLSaver](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSaver](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSaver) Autorelease() MLSaver {
-	rv := objc.Send[MLSaver](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSaver](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSaver creates a new MLSaver instance.
 func NewMLSaver() MLSaver {
 	class := getMLSaverClass()
-	rv := objc.Send[MLSaver](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSaver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

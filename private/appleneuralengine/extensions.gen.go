@@ -43,11 +43,25 @@ func (b *CompletionHandlerBinding) Release() {
 
 // SetCompletionHandlerRetained sets a completion handler and retains the block
 // via associated object to avoid premature release on async paths.
-func (a ANERequest) SetCompletionHandlerRetained(handler BoolErrorHandler) *CompletionHandlerBinding {
+//
+// The handler takes one BOOL. The framework invokes setCompletionHandler:'s
+// block with a single argument, established from runtime evidence rather than
+// from the header: the pinned _ANERequest.h declares the property as an opaque
+// "id /* block */", and an ObjC block encoding is "@?", which carries no inner
+// signature at all. A block must therefore be treated as arity-unknown, never
+// as arity-0 and never as taking an error.
+//
+// This helper previously declared func(bool, error) and read a second register
+// that the caller never set. Under the arm64 procedure call standard a callee
+// reading FEWER arguments than were passed is safe, while one reading MORE is
+// not: the extra register holds whatever was left there, and consuming it as
+// an NSError sends a message to a non-object. That is the SIGSEGV reported
+// against this path.
+func (a ANERequest) SetCompletionHandlerRetained(handler BoolHandler) *CompletionHandlerBinding {
 	if a.ID == 0 {
 		return nil
 	}
-	blockID, blockCleanup := NewBoolErrorBlock(handler)
+	blockID, blockCleanup := NewBoolBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("setCompletionHandler:"), blockID)
 	objectivec.Objc_setAssociatedObject(
 		objectivec.Object{ID: a.ID},

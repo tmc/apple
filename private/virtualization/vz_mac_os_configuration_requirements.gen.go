@@ -38,7 +38,7 @@ func (vc VZMacOSConfigurationRequirementsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSConfigurationRequirementsClass) Alloc() VZMacOSConfigurationRequirements {
-	rv := objc.Send[VZMacOSConfigurationRequirements](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSConfigurationRequirements](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,25 +72,25 @@ type IVZMacOSConfigurationRequirements interface {
 
 // Init initializes the instance.
 func (v VZMacOSConfigurationRequirements) Init() VZMacOSConfigurationRequirements {
-	rv := objc.Send[VZMacOSConfigurationRequirements](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSConfigurationRequirements](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSConfigurationRequirements) Autorelease() VZMacOSConfigurationRequirements {
-	rv := objc.Send[VZMacOSConfigurationRequirements](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSConfigurationRequirements](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSConfigurationRequirements creates a new VZMacOSConfigurationRequirements instance.
 func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 	class := getVZMacOSConfigurationRequirementsClass()
-	rv := objc.Send[VZMacOSConfigurationRequirements](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSConfigurationRequirements](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_variants"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_variants"))
 	return objectivec.Object{ID: rv}
 }
 

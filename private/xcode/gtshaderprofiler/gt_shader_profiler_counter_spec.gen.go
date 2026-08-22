@@ -39,7 +39,7 @@ func (gc GTShaderProfilerCounterSpecClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerCounterSpecClass) Alloc() GTShaderProfilerCounterSpec {
-	rv := objc.Send[GTShaderProfilerCounterSpec](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterSpec](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,63 +94,63 @@ type IGTShaderProfilerCounterSpec interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerCounterSpec) Init() GTShaderProfilerCounterSpec {
-	rv := objc.Send[GTShaderProfilerCounterSpec](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterSpec](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerCounterSpec) Autorelease() GTShaderProfilerCounterSpec {
-	rv := objc.Send[GTShaderProfilerCounterSpec](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterSpec](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerCounterSpec creates a new GTShaderProfilerCounterSpec instance.
 func NewGTShaderProfilerCounterSpec() GTShaderProfilerCounterSpec {
 	class := getGTShaderProfilerCounterSpecClass()
-	rv := objc.Send[GTShaderProfilerCounterSpec](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterSpec](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerCounterSpecWithSpecFile(file objectivec.IObject) GTShaderProfilerCounterSpec {
 	instance := getGTShaderProfilerCounterSpecClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecFile:"), file)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecFile:"), file)
 	return GTShaderProfilerCounterSpecFromID(rv)
 }
 
 func (g GTShaderProfilerCounterSpec) BatchIdFilterableCounterNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("batchIdFilterableCounterNames"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("batchIdFilterableCounterNames"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerCounterSpec) CounterFromName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterFromName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("counterFromName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerCounterSpec) UpdateMioNonOverlappingCounters(counters objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("updateMioNonOverlappingCounters:"), counters)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("updateMioNonOverlappingCounters:"), counters)
 }
 func (g GTShaderProfilerCounterSpec) InitWithSpecFile(file objectivec.IObject) GTShaderProfilerCounterSpec {
-	rv := objc.Send[GTShaderProfilerCounterSpec](g.ID, objc.Sel("initWithSpecFile:"), file)
+	rv := objc.SendIfResponds[GTShaderProfilerCounterSpec](g.ID, objc.Sel("initWithSpecFile:"), file)
 	return rv
 }
 
 func (_GTShaderProfilerCounterSpecClass GTShaderProfilerCounterSpecClass) Spec() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerCounterSpecClass.class), objc.Sel("spec"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerCounterSpecClass.class), objc.Sel("spec"))
 	return objectivec.Object{ID: rv}
 }
 
 func (g GTShaderProfilerCounterSpec) CounterTableGroups() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterTableGroups"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("counterTableGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerCounterSpec) Counters() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerCounterSpec) FilterSynonyms() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("filterSynonyms"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("filterSynonyms"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerCounterSpec) TimelineGroups() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineGroups"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timelineGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

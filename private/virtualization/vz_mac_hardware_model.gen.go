@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (vc VZMacHardwareModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
-	rv := objc.Send[VZMacHardwareModel](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacHardwareModel](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -47,6 +48,7 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 //
 //   - [VZMacHardwareModel._boardID]
 //   - [VZMacHardwareModel._isa]
+//   - [VZMacHardwareModel._minimumSupportedHostOSVersion]
 //   - [VZMacHardwareModel._variantID]
 //   - [VZMacHardwareModel._variantName]
 //   - [VZMacHardwareModel.Supported]
@@ -68,6 +70,7 @@ var _ IVZMacHardwareModel = VZMacHardwareModel{}
 //
 //   - [IVZMacHardwareModel._boardID]
 //   - [IVZMacHardwareModel._isa]
+//   - [IVZMacHardwareModel._minimumSupportedHostOSVersion]
 //   - [IVZMacHardwareModel._variantID]
 //   - [IVZMacHardwareModel._variantName]
 //   - [IVZMacHardwareModel.Supported]
@@ -78,6 +81,7 @@ type IVZMacHardwareModel interface {
 
 	_boardID() uint32
 	_isa() int64
+	_minimumSupportedHostOSVersion() unsafe.Pointer
 	_variantID() uint32
 	_variantName() string
 	Supported() bool
@@ -85,25 +89,25 @@ type IVZMacHardwareModel interface {
 
 // Init initializes the instance.
 func (v VZMacHardwareModel) Init() VZMacHardwareModel {
-	rv := objc.Send[VZMacHardwareModel](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacHardwareModel](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacHardwareModel) Autorelease() VZMacHardwareModel {
-	rv := objc.Send[VZMacHardwareModel](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacHardwareModel](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacHardwareModel creates a new VZMacHardwareModel instance.
 func NewVZMacHardwareModel() VZMacHardwareModel {
 	class := getVZMacHardwareModelClass()
-	rv := objc.Send[VZMacHardwareModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacHardwareModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultBoardIDForPlatformVersion(version uint32) uint32 {
-	rv := objc.Send[uint32](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultBoardIDForPlatformVersion:"), version)
+	rv := objc.SendIfResponds[uint32](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultBoardIDForPlatformVersion:"), version)
 	return rv
 }
 
@@ -121,7 +125,7 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) CanDefaultBoardIDForPlat
 	return objc.RespondsToSelector(objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultBoardIDForPlatformVersion:"))
 }
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultHardwareModel() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultHardwareModel"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultHardwareModel"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -139,7 +143,7 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) CanDefaultHardwareModel(
 	return objc.RespondsToSelector(objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultHardwareModel"))
 }
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _hardwareModelWithDescriptor(descriptor objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_hardwareModelWithDescriptor:"), descriptor)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_hardwareModelWithDescriptor:"), descriptor)
 	return objectivec.Object{ID: rv}
 }
 
@@ -158,7 +162,7 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) CanHardwareModelWithDesc
 }
 
 func (v VZMacHardwareModel) _boardID() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("_boardID"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("_boardID"))
 	return rv
 }
 
@@ -175,7 +179,7 @@ func (v VZMacHardwareModel) BoardID() (uint32, error) {
 	return v._boardID(), nil
 }
 func (v VZMacHardwareModel) _isa() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_isa"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_isa"))
 	return rv
 }
 
@@ -191,8 +195,25 @@ func (v VZMacHardwareModel) Isa() (int64, error) {
 	}
 	return v._isa(), nil
 }
+func (v VZMacHardwareModel) _minimumSupportedHostOSVersion() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_minimumSupportedHostOSVersion"))
+	return rv
+}
+
+// CanMinimumSupportedHostOSVersion reports whether the receiver responds to the private selector _minimumSupportedHostOSVersion.
+func (v VZMacHardwareModel) CanMinimumSupportedHostOSVersion() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_minimumSupportedHostOSVersion"))
+}
+
+// MinimumSupportedHostOSVersion is an exported wrapper for the private property _minimumSupportedHostOSVersion.
+func (v VZMacHardwareModel) MinimumSupportedHostOSVersion() (unsafe.Pointer, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_minimumSupportedHostOSVersion")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_minimumSupportedHostOSVersion"}
+	}
+	return v._minimumSupportedHostOSVersion(), nil
+}
 func (v VZMacHardwareModel) _variantID() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("_variantID"))
+	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("_variantID"))
 	return rv
 }
 
@@ -209,7 +230,7 @@ func (v VZMacHardwareModel) VariantID() (uint32, error) {
 	return v._variantID(), nil
 }
 func (v VZMacHardwareModel) _variantName() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_variantName"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_variantName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -226,6 +247,6 @@ func (v VZMacHardwareModel) VariantName() (string, error) {
 	return v._variantName(), nil
 }
 func (v VZMacHardwareModel) Supported() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("supported"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("supported"))
 	return rv
 }

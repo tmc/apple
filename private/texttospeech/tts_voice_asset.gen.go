@@ -39,7 +39,7 @@ func (tc TTSVoiceAssetClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSVoiceAssetClass) Alloc() TTSVoiceAsset {
-	rv := objc.Send[TTSVoiceAsset](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSVoiceAsset](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -130,114 +130,114 @@ type ITTSVoiceAsset interface {
 
 // Init initializes the instance.
 func (t TTSVoiceAsset) Init() TTSVoiceAsset {
-	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSVoiceAsset](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSVoiceAsset) Autorelease() TTSVoiceAsset {
-	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSVoiceAsset](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSVoiceAsset creates a new TTSVoiceAsset instance.
 func NewTTSVoiceAsset() TTSVoiceAsset {
 	class := getTTSVoiceAssetClass()
-	rv := objc.Send[TTSVoiceAsset](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSVoiceAsset](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSVoiceAssetWithCoder(coder objectivec.IObject) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return TTSVoiceAssetFromID(rv)
 }
 
 func NewTTSVoiceAssetWithDictionaryRepresentation(representation objectivec.IObject) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionaryRepresentation:"), representation)
 	return TTSVoiceAssetFromID(rv)
 }
 
 func NewTTSVoiceAssetWithNameLanguagesGenderFootprintIsInstalledIsBuiltInMasteredVersionCompatibilityVersionNeural(name objectivec.IObject, languages objectivec.IObject, gender int64, footprint int64, installed bool, in bool, version objectivec.IObject, version2 objectivec.IObject, neural bool) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:"), name, languages, gender, footprint, installed, in, version, version2, neural)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:"), name, languages, gender, footprint, installed, in, version, version2, neural)
 	return TTSVoiceAssetFromID(rv)
 }
 
 func (t TTSVoiceAsset) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSVoiceAsset) InitWithDictionaryRepresentation(representation objectivec.IObject) TTSVoiceAsset {
-	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("initWithDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[TTSVoiceAsset](t.ID, objc.Sel("initWithDictionaryRepresentation:"), representation)
 	return rv
 }
 func (t TTSVoiceAsset) InitWithNameLanguagesGenderFootprintIsInstalledIsBuiltInMasteredVersionCompatibilityVersionNeural(name objectivec.IObject, languages objectivec.IObject, gender int64, footprint int64, installed bool, in bool, version objectivec.IObject, version2 objectivec.IObject, neural bool) TTSVoiceAsset {
-	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:"), name, languages, gender, footprint, installed, in, version, version2, neural)
+	rv := objc.SendIfResponds[TTSVoiceAsset](t.ID, objc.Sel("initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:"), name, languages, gender, footprint, installed, in, version, version2, neural)
 	return rv
 }
 
 func (t TTSVoiceAsset) FileSize() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("fileSize"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("fileSize"))
 	return rv
 }
 func (t TTSVoiceAsset) SetFileSize(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFileSize:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFileSize:"), value)
 }
 func (t TTSVoiceAsset) Footprint() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("footprint"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("footprint"))
 	return rv
 }
 func (t TTSVoiceAsset) Gender() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("gender"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("gender"))
 	return rv
 }
 func (t TTSVoiceAsset) Identifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSVoiceAsset) SetIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
 func (t TTSVoiceAsset) IsBuiltInVoice() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isBuiltInVoice"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isBuiltInVoice"))
 	return rv
 }
 func (t TTSVoiceAsset) IsDownloading() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isDownloading"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isDownloading"))
 	return rv
 }
 func (t TTSVoiceAsset) SetIsDownloading(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsDownloading:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsDownloading:"), value)
 }
 func (t TTSVoiceAsset) IsInstalled() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isInstalled"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isInstalled"))
 	return rv
 }
 func (t TTSVoiceAsset) Languages() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSVoiceAsset) Name() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSVoiceAsset) Neural() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("neural"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("neural"))
 	return rv
 }
 func (t TTSVoiceAsset) VoicePath() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voicePath"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voicePath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSVoiceAsset) SetVoicePath(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoicePath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoicePath:"), objc.String(value))
 }
 func (t TTSVoiceAsset) VoiceType() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("voiceType"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("voiceType"))
 	return rv
 }
 func (t TTSVoiceAsset) SetVoiceType(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
 }

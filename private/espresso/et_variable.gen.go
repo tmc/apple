@@ -39,7 +39,7 @@ func (ec ETVariableClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETVariableClass) Alloc() ETVariable {
-	rv := objc.Send[ETVariable](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETVariable](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -127,95 +127,95 @@ type IETVariable interface {
 
 // Init initializes the instance.
 func (e ETVariable) Init() ETVariable {
-	rv := objc.Send[ETVariable](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETVariable](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETVariable) Autorelease() ETVariable {
-	rv := objc.Send[ETVariable](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETVariable](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETVariable creates a new ETVariable instance.
 func NewETVariable() ETVariable {
 	class := getETVariableClass()
-	rv := objc.Send[ETVariable](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETVariable](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETVariableWithModelDef(def objectivec.IObject) ETVariable {
 	instance := getETVariableClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDef:"), def)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDef:"), def)
 	return ETVariableFromID(rv)
 }
 
 func (e ETVariable) CopyData() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("copyData"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("copyData"))
 	return objectivec.Object{ID: rv}
 }
 func (e ETVariable) GetOpaqueCopy() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("getOpaqueCopy"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getOpaqueCopy"))
 	return objectivec.Object{ID: rv}
 }
 func (e ETVariable) SwapWithOpaqueCopy(copy_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("swapWithOpaqueCopy:"), copy_)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("swapWithOpaqueCopy:"), copy_)
 	return objectivec.Object{ID: rv}
 }
 func (e ETVariable) UpdateWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("updateWithData:"), data)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("updateWithData:"), data)
 }
 func (e ETVariable) InitWithModelDef(def objectivec.IObject) ETVariable {
-	rv := objc.Send[ETVariable](e.ID, objc.Sel("initWithModelDef:"), def)
+	rv := objc.SendIfResponds[ETVariable](e.ID, objc.Sel("initWithModelDef:"), def)
 	return rv
 }
 
 func (e ETVariable) InitializationAlpha() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("initializationAlpha"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("initializationAlpha"))
 	return rv
 }
 func (e ETVariable) SetInitializationAlpha(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInitializationAlpha:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInitializationAlpha:"), value)
 }
 func (e ETVariable) InitializationBeta() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("initializationBeta"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("initializationBeta"))
 	return rv
 }
 func (e ETVariable) SetInitializationBeta(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInitializationBeta:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInitializationBeta:"), value)
 }
 func (e ETVariable) InitializationMode() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("initializationMode"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("initializationMode"))
 	return rv
 }
 func (e ETVariable) SetInitializationMode(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setInitializationMode:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInitializationMode:"), value)
 }
 func (e ETVariable) Kind() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("kind"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("kind"))
 	return rv
 }
 func (e ETVariable) SetKind(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setKind:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setKind:"), value)
 }
 func (e ETVariable) LayerName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETVariable) SetLayerName(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLayerName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLayerName:"), objc.String(value))
 }
 func (e ETVariable) Model() IETModelDef {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("model"))
 	return ETModelDefFromID(objc.ID(rv))
 }
 func (e ETVariable) SetModel(value IETModelDef) {
-	objc.Send[struct{}](e.ID, objc.Sel("setModel:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setModel:"), value)
 }
 func (e ETVariable) Name() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETVariable) SetName(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setName:"), objc.String(value))
 }

@@ -40,7 +40,7 @@ func (mc MLFairPlayKeyLoadingSessionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFairPlayKeyLoadingSessionClass) Alloc() MLFairPlayKeyLoadingSession {
-	rv := objc.Send[MLFairPlayKeyLoadingSession](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFairPlayKeyLoadingSession](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,20 +98,20 @@ type IMLFairPlayKeyLoadingSession interface {
 
 // Init initializes the instance.
 func (m MLFairPlayKeyLoadingSession) Init() MLFairPlayKeyLoadingSession {
-	rv := objc.Send[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFairPlayKeyLoadingSession) Autorelease() MLFairPlayKeyLoadingSession {
-	rv := objc.Send[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFairPlayKeyLoadingSession creates a new MLFairPlayKeyLoadingSession instance.
 func NewMLFairPlayKeyLoadingSession() MLFairPlayKeyLoadingSession {
 	class := getMLFairPlayKeyLoadingSessionClass()
-	rv := objc.Send[MLFairPlayKeyLoadingSession](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFairPlayKeyLoadingSession](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -147,23 +147,23 @@ func (m MLFairPlayKeyLoadingSession) TransformKeyIdentifierError(identifier obje
 }
 
 func (m MLFairPlayKeyLoadingSession) KeyIdentifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("keyIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLFairPlayKeyLoadingSession) SetKeyIdentifier(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setKeyIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKeyIdentifier:"), objc.String(value))
 }
 func (m MLFairPlayKeyLoadingSession) SessionContext() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("sessionContext"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("sessionContext"))
 	return rv
 }
 func (m MLFairPlayKeyLoadingSession) SetSessionContext(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSessionContext:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSessionContext:"), value)
 }
 func (m MLFairPlayKeyLoadingSession) SessionID() uint32 {
-	rv := objc.Send[uint32](m.ID, objc.Sel("sessionID"))
+	rv := objc.SendIfResponds[uint32](m.ID, objc.Sel("sessionID"))
 	return rv
 }
 func (m MLFairPlayKeyLoadingSession) SetSessionID(value uint32) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSessionID:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSessionID:"), value)
 }

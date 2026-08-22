@@ -39,7 +39,7 @@ func (mc ModelKeyServerAPIRawKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc ModelKeyServerAPIRawKeyClass) Alloc() ModelKeyServerAPIRawKey {
-	rv := objc.Send[ModelKeyServerAPIRawKey](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIRawKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,8 +65,9 @@ func ModelKeyServerAPIRawKeyFromID(id objc.ID) ModelKeyServerAPIRawKey {
 	return ModelKeyServerAPIRawKey{objectivec.Object{ID: id}}
 }
 
-// NOTE: ModelKeyServerAPIRawKey struct embeds objectivec.Object (parent type unavailable) but
-// IModelKeyServerAPIRawKey embeds the parent interface; skip compile-time assertion.
+// NOTE: ModelKeyServerAPIRawKey embeds objectivec.Object because the parent type is
+// unavailable, but IModelKeyServerAPIRawKey embeds IPBCodable, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [ModelKeyServerAPIRawKey] class.
 //
@@ -103,60 +104,60 @@ type IModelKeyServerAPIRawKey interface {
 
 // Init initializes the instance.
 func (m ModelKeyServerAPIRawKey) Init() ModelKeyServerAPIRawKey {
-	rv := objc.Send[ModelKeyServerAPIRawKey](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIRawKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m ModelKeyServerAPIRawKey) Autorelease() ModelKeyServerAPIRawKey {
-	rv := objc.Send[ModelKeyServerAPIRawKey](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIRawKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewModelKeyServerAPIRawKey creates a new ModelKeyServerAPIRawKey instance.
 func NewModelKeyServerAPIRawKey() ModelKeyServerAPIRawKey {
 	class := getModelKeyServerAPIRawKeyClass()
-	rv := objc.Send[ModelKeyServerAPIRawKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIRawKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m ModelKeyServerAPIRawKey) CopyTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
 func (m ModelKeyServerAPIRawKey) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (m ModelKeyServerAPIRawKey) MergeFrom(from objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
 func (m ModelKeyServerAPIRawKey) ReadFrom(from objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
 func (m ModelKeyServerAPIRawKey) WriteTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
 func (m ModelKeyServerAPIRawKey) EncryptionIv() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("encryptionIv"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encryptionIv"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m ModelKeyServerAPIRawKey) SetEncryptionIv(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEncryptionIv:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptionIv:"), value)
 }
 func (m ModelKeyServerAPIRawKey) EncryptionKey() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("encryptionKey"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encryptionKey"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m ModelKeyServerAPIRawKey) SetEncryptionKey(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEncryptionKey:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptionKey:"), value)
 }
 func (m ModelKeyServerAPIRawKey) HasEncryptionIv() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasEncryptionIv"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasEncryptionIv"))
 	return rv
 }
 func (m ModelKeyServerAPIRawKey) HasEncryptionKey() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasEncryptionKey"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasEncryptionKey"))
 	return rv
 }

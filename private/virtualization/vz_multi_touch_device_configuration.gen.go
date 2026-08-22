@@ -40,7 +40,7 @@ func (vc VZMultiTouchDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMultiTouchDeviceConfigurationClass) Alloc() VZMultiTouchDeviceConfiguration {
-	rv := objc.Send[VZMultiTouchDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMultiTouchDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,34 +98,34 @@ type IVZMultiTouchDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMultiTouchDeviceConfiguration) Init() VZMultiTouchDeviceConfiguration {
-	rv := objc.Send[VZMultiTouchDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMultiTouchDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMultiTouchDeviceConfiguration) Autorelease() VZMultiTouchDeviceConfiguration {
-	rv := objc.Send[VZMultiTouchDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMultiTouchDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMultiTouchDeviceConfiguration creates a new VZMultiTouchDeviceConfiguration instance.
 func NewVZMultiTouchDeviceConfiguration() VZMultiTouchDeviceConfiguration {
 	class := getVZMultiTouchDeviceConfigurationClass()
-	rv := objc.Send[VZMultiTouchDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMultiTouchDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMultiTouchDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZMultiTouchDeviceConfiguration) MakeMultiTouchDeviceForVirtualMachineMultiTouchDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeMultiTouchDeviceForVirtualMachine:multiTouchDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeMultiTouchDeviceForVirtualMachine:multiTouchDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZMultiTouchDeviceConfiguration) _multiTouchDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_multiTouchDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_multiTouchDevice"))
 	return rv
 }
 
@@ -142,25 +142,25 @@ func (v VZMultiTouchDeviceConfiguration) MultiTouchDevice() (unsafe.Pointer, err
 	return v._multiTouchDevice(), nil
 }
 func (v VZMultiTouchDeviceConfiguration) AssociationIdentifier() foundation.NSUUID {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("associationIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (v VZMultiTouchDeviceConfiguration) SetAssociationIdentifier(value foundation.NSUUID) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAssociationIdentifier:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setAssociationIdentifier:"), value)
 }
 func (v VZMultiTouchDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMultiTouchDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMultiTouchDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZMultiTouchDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

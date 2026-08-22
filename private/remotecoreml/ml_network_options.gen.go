@@ -39,7 +39,7 @@ func (mc MLNetworkOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNetworkOptionsClass) Alloc() MLNetworkOptions {
-	rv := objc.Send[MLNetworkOptions](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNetworkOptions](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -112,83 +112,83 @@ type IMLNetworkOptions interface {
 
 // Init initializes the instance.
 func (m MLNetworkOptions) Init() MLNetworkOptions {
-	rv := objc.Send[MLNetworkOptions](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNetworkOptions](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNetworkOptions) Autorelease() MLNetworkOptions {
-	rv := objc.Send[MLNetworkOptions](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNetworkOptions](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNetworkOptions creates a new MLNetworkOptions instance.
 func NewMLNetworkOptions() MLNetworkOptions {
 	class := getMLNetworkOptionsClass()
-	rv := objc.Send[MLNetworkOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNetworkOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLNetworkOptionsWithOptions(options objectivec.IObject) MLNetworkOptions {
 	instance := getMLNetworkOptionsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return MLNetworkOptionsFromID(rv)
 }
 
 func (m MLNetworkOptions) Family() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("family"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("family"))
 	return rv
 }
 func (m MLNetworkOptions) LocalAddr() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("localAddr"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("localAddr"))
 	return objc.GoString(rv)
 }
 func (m MLNetworkOptions) LocalPort() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("localPort"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("localPort"))
 	return objc.GoString(rv)
 }
 func (m MLNetworkOptions) NetworkNameIdentifier() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("networkNameIdentifier"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("networkNameIdentifier"))
 	return objc.GoString(rv)
 }
 func (m MLNetworkOptions) Port() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("port"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("port"))
 	return objc.GoString(rv)
 }
 func (m MLNetworkOptions) Psk() string {
-	rv := objc.Send[*byte](m.ID, objc.Sel("psk"))
+	rv := objc.SendIfResponds[*byte](m.ID, objc.Sel("psk"))
 	return objc.GoString(rv)
 }
 func (m MLNetworkOptions) ReceiveTimeoutValue() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("receiveTimeoutValue"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("receiveTimeoutValue"))
 	return rv
 }
 func (m MLNetworkOptions) UseAWDL() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useAWDL"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useAWDL"))
 	return rv
 }
 func (m MLNetworkOptions) UseBonjour() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useBonjour"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useBonjour"))
 	return rv
 }
 func (m MLNetworkOptions) UseTLS() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useTLS"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useTLS"))
 	return rv
 }
 func (m MLNetworkOptions) UseUDP() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("useUDP"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("useUDP"))
 	return rv
 }
 func (m MLNetworkOptions) InitWithOptions(options objectivec.IObject) MLNetworkOptions {
-	rv := objc.Send[MLNetworkOptions](m.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[MLNetworkOptions](m.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
 func (m MLNetworkOptions) NetworkOptions() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("networkOptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("networkOptions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNetworkOptions) ReceiveTimeout() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("receiveTimeout"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("receiveTimeout"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (mc MLSlidingWindowsBrickClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSlidingWindowsBrickClass) Alloc() MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSlidingWindowsBrick](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -118,90 +118,90 @@ type IMLSlidingWindowsBrick interface {
 
 // Init initializes the instance.
 func (m MLSlidingWindowsBrick) Init() MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSlidingWindowsBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSlidingWindowsBrick) Autorelease() MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSlidingWindowsBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSlidingWindowsBrick creates a new MLSlidingWindowsBrick instance.
 func NewMLSlidingWindowsBrick() MLSlidingWindowsBrick {
 	class := getMLSlidingWindowsBrickClass()
-	rv := objc.Send[MLSlidingWindowsBrick](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSlidingWindowsBrick](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSlidingWindowsBrickWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
 	instance := getMLSlidingWindowsBrickClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSlidingWindowsBrickFromID(rv)
 }
 
 func (m MLSlidingWindowsBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLSlidingWindowsBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLSlidingWindowsBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLSlidingWindowsBrick) InitWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLSlidingWindowsBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (m MLSlidingWindowsBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLSlidingWindowsBrick) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLSlidingWindowsBrick) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLSlidingWindowsBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 func (m MLSlidingWindowsBrick) Size() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("size"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) Step() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("step"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("step"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLSlidingWindowsBrick) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -38,7 +38,7 @@ func (mc MLProbabilityDictionaryMultiArrayStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProbabilityDictionaryMultiArrayStorageClass) Alloc() MLProbabilityDictionaryMultiArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryMultiArrayStorage](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryMultiArrayStorage](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,42 +81,42 @@ type IMLProbabilityDictionaryMultiArrayStorage interface {
 
 // Init initializes the instance.
 func (m MLProbabilityDictionaryMultiArrayStorage) Init() MLProbabilityDictionaryMultiArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProbabilityDictionaryMultiArrayStorage) Autorelease() MLProbabilityDictionaryMultiArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProbabilityDictionaryMultiArrayStorage creates a new MLProbabilityDictionaryMultiArrayStorage instance.
 func NewMLProbabilityDictionaryMultiArrayStorage() MLProbabilityDictionaryMultiArrayStorage {
 	class := getMLProbabilityDictionaryMultiArrayStorageClass()
-	rv := objc.Send[MLProbabilityDictionaryMultiArrayStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProbabilityDictionaryMultiArrayStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProbabilityDictionaryMultiArrayStorageWithMultiArray(array objectivec.IObject) MLProbabilityDictionaryMultiArrayStorage {
 	instance := getMLProbabilityDictionaryMultiArrayStorageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMultiArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMultiArray:"), array)
 	return MLProbabilityDictionaryMultiArrayStorageFromID(rv)
 }
 
 func (m MLProbabilityDictionaryMultiArrayStorage) Count() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLProbabilityDictionaryMultiArrayStorage) MaxElementIndex() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("maxElementIndex"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
 func (m MLProbabilityDictionaryMultiArrayStorage) ProbabilityAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProbabilityDictionaryMultiArrayStorage) InitWithMultiArray(array objectivec.IObject) MLProbabilityDictionaryMultiArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("initWithMultiArray:"), array)
+	rv := objc.SendIfResponds[MLProbabilityDictionaryMultiArrayStorage](m.ID, objc.Sel("initWithMultiArray:"), array)
 	return rv
 }

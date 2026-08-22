@@ -4,11 +4,11 @@ package espresso
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [ETDataSourceFromFolderData] class.
@@ -40,7 +40,7 @@ func (ec ETDataSourceFromFolderDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETDataSourceFromFolderDataClass) Alloc() ETDataSourceFromFolderData {
-	rv := objc.Send[ETDataSourceFromFolderData](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETDataSourceFromFolderData](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -105,7 +105,7 @@ type IETDataSourceFromFolderData interface {
 
 	BalanceClassesForTraining() bool
 	SetBalanceClassesForTraining(value bool)
-	BufferWithPath(path objectivec.IObject) unsafe.Pointer
+	BufferWithPath(path objectivec.IObject) appleneuralengine.VImageBuffer
 	ClassNames() foundation.INSArray
 	SetClassNames(value foundation.INSArray)
 	DataPointAtIndex(index int) objectivec.IObject
@@ -125,92 +125,92 @@ type IETDataSourceFromFolderData interface {
 
 // Init initializes the instance.
 func (e ETDataSourceFromFolderData) Init() ETDataSourceFromFolderData {
-	rv := objc.Send[ETDataSourceFromFolderData](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETDataSourceFromFolderData](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETDataSourceFromFolderData) Autorelease() ETDataSourceFromFolderData {
-	rv := objc.Send[ETDataSourceFromFolderData](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETDataSourceFromFolderData](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETDataSourceFromFolderData creates a new ETDataSourceFromFolderData instance.
 func NewETDataSourceFromFolderData() ETDataSourceFromFolderData {
 	class := getETDataSourceFromFolderDataClass()
-	rv := objc.Send[ETDataSourceFromFolderData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETDataSourceFromFolderData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETDataSourceFromFolderDataWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
 	instance := getETDataSourceFromFolderDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
 	return ETDataSourceFromFolderDataFromID(rv)
 }
 
-func (e ETDataSourceFromFolderData) BufferWithPath(path objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithPath:"), path)
-	return rv
+func (e ETDataSourceFromFolderData) BufferWithPath(path objectivec.IObject) appleneuralengine.VImageBuffer {
+	rv := objc.SendIfResponds[appleneuralengine.VImageBuffer](e.ID, objc.Sel("bufferWithPath:"), path)
+	return appleneuralengine.VImageBuffer(rv)
 }
 func (e ETDataSourceFromFolderData) DataPointAtIndex(index int) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (e ETDataSourceFromFolderData) NumberOfDataPoints() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETDataSourceFromFolderData) InitWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
-	rv := objc.Send[ETDataSourceFromFolderData](e.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
+	rv := objc.SendIfResponds[ETDataSourceFromFolderData](e.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
 	return rv
 }
 
 func (e ETDataSourceFromFolderData) BalanceClassesForTraining() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("balanceClassesForTraining"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("balanceClassesForTraining"))
 	return rv
 }
 func (e ETDataSourceFromFolderData) SetBalanceClassesForTraining(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBalanceClassesForTraining:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBalanceClassesForTraining:"), value)
 }
 func (e ETDataSourceFromFolderData) ClassNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("classNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("classNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETDataSourceFromFolderData) SetClassNames(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setClassNames:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setClassNames:"), value)
 }
 func (e ETDataSourceFromFolderData) FolderToImages() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("folderToImages"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("folderToImages"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e ETDataSourceFromFolderData) SetFolderToImages(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setFolderToImages:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setFolderToImages:"), value)
 }
 func (e ETDataSourceFromFolderData) ImageFileNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageFileNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("imageFileNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETDataSourceFromFolderData) SetImageFileNames(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setImageFileNames:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setImageFileNames:"), value)
 }
 func (e ETDataSourceFromFolderData) ImagesDir() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("imagesDir"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("imagesDir"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETDataSourceFromFolderData) SetImagesDir(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setImagesDir:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setImagesDir:"), objc.String(value))
 }
 func (e ETDataSourceFromFolderData) NumberOfClasses() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfClasses"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfClasses"))
 	return rv
 }
 func (e ETDataSourceFromFolderData) SetNumberOfClasses(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNumberOfClasses:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNumberOfClasses:"), value)
 }
 func (e ETDataSourceFromFolderData) PathToClassIndex() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pathToClassIndex"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("pathToClassIndex"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e ETDataSourceFromFolderData) SetPathToClassIndex(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPathToClassIndex:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setPathToClassIndex:"), value)
 }

@@ -38,7 +38,7 @@ func (cc CoreMLMultiArrayStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMultiArrayStorageClass) Alloc() CoreMLMultiArrayStorage {
-	rv := objc.Send[CoreMLMultiArrayStorage](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMultiArrayStorage](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMultiArrayStorageFromID(id objc.ID) CoreMLMultiArrayStorage {
 	return CoreMLMultiArrayStorage{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMultiArrayStorage struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMultiArrayStorage embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMultiArrayStorage implements ICoreMLMultiArrayStorage.
+var _ ICoreMLMultiArrayStorage = CoreMLMultiArrayStorage{}
 
 // An interface definition for the [CoreMLMultiArrayStorage] class.
 type ICoreMLMultiArrayStorage interface {
@@ -61,19 +61,19 @@ type ICoreMLMultiArrayStorage interface {
 
 // Init initializes the instance.
 func (c CoreMLMultiArrayStorage) Init() CoreMLMultiArrayStorage {
-	rv := objc.Send[CoreMLMultiArrayStorage](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMultiArrayStorage](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMultiArrayStorage) Autorelease() CoreMLMultiArrayStorage {
-	rv := objc.Send[CoreMLMultiArrayStorage](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMultiArrayStorage](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMultiArrayStorage creates a new CoreMLMultiArrayStorage instance.
 func NewCoreMLMultiArrayStorage() CoreMLMultiArrayStorage {
 	class := getCoreMLMultiArrayStorageClass()
-	rv := objc.Send[CoreMLMultiArrayStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMultiArrayStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

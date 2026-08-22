@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationWorkspaceTypeResultClass) Class() ob
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationWorkspaceTypeResultClass) Alloc() SLSBridgedWindowManagementOperationWorkspaceTypeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationWorkspaceTypeResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) Init() SLSBridgedWindowManagementOperationWorkspaceTypeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) Autorelease() SLSBridgedWindowManagementOperationWorkspaceTypeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationWorkspaceTypeResult creates a new SLSBridgedWindowManagementOperationWorkspaceTypeResult instance.
 func NewSLSBridgedWindowManagementOperationWorkspaceTypeResult() SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	class := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	instance := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	instance := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWorkspaceType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) InitWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("initWithWorkspaceType:"), type_)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) WorkspaceType() int {
-	rv := objc.Send[int](s.ID, objc.Sel("workspaceType"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("workspaceType"))
 	return rv
 }

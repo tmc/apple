@@ -39,7 +39,7 @@ func (sc SLSBridgedCopyBestManagedDisplayForPointOperationClass) Class() objc.Cl
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyBestManagedDisplayForPointOperationClass) Alloc() SLSBridgedCopyBestManagedDisplayForPointOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForPointOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedCopyBestManagedDisplayForPointOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) Init() SLSBridgedCopyBestManagedDisplayForPointOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) Autorelease() SLSBridgedCopyBestManagedDisplayForPointOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyBestManagedDisplayForPointOperation creates a new SLSBridgedCopyBestManagedDisplayForPointOperation instance.
 func NewSLSBridgedCopyBestManagedDisplayForPointOperation() SLSBridgedCopyBestManagedDisplayForPointOperation {
 	class := getSLSBridgedCopyBestManagedDisplayForPointOperationClass()
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForPointOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyBestManagedDisplayForPointOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyBestManagedDisplayForPointOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForPointOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyBestManagedDisplayForPointOperationFromID(rv)
 }
 
 func NewSLSBridgedCopyBestManagedDisplayForPointOperationWithPoint(point corefoundation.CGPoint) SLSBridgedCopyBestManagedDisplayForPointOperation {
 	instance := getSLSBridgedCopyBestManagedDisplayForPointOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPoint:"), point)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPoint:"), point)
 	return SLSBridgedCopyBestManagedDisplayForPointOperationFromID(rv)
 }
 
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) InitWithPoint(point corefoundation.CGPoint) SLSBridgedCopyBestManagedDisplayForPointOperation {
-	rv := objc.Send[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("initWithPoint:"), point)
+	rv := objc.SendIfResponds[SLSBridgedCopyBestManagedDisplayForPointOperation](s.ID, objc.Sel("initWithPoint:"), point)
 	return rv
 }
 
 func (s SLSBridgedCopyBestManagedDisplayForPointOperation) Point() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("point"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("point"))
 	return corefoundation.CGPoint(rv)
 }

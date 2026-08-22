@@ -39,7 +39,7 @@ func (mc MLMultiArrayBufferLayoutClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiArrayBufferLayoutClass) Alloc() MLMultiArrayBufferLayout {
-	rv := objc.Send[MLMultiArrayBufferLayout](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiArrayBufferLayout](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,51 +88,51 @@ type IMLMultiArrayBufferLayout interface {
 
 // Init initializes the instance.
 func (m MLMultiArrayBufferLayout) Init() MLMultiArrayBufferLayout {
-	rv := objc.Send[MLMultiArrayBufferLayout](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiArrayBufferLayout](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiArrayBufferLayout) Autorelease() MLMultiArrayBufferLayout {
-	rv := objc.Send[MLMultiArrayBufferLayout](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiArrayBufferLayout](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiArrayBufferLayout creates a new MLMultiArrayBufferLayout instance.
 func NewMLMultiArrayBufferLayout() MLMultiArrayBufferLayout {
 	class := getMLMultiArrayBufferLayoutClass()
-	rv := objc.Send[MLMultiArrayBufferLayout](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiArrayBufferLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiArrayBufferLayoutWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
 	instance := getMLMultiArrayBufferLayoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:strides:"), shape, strides)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:strides:"), shape, strides)
 	return MLMultiArrayBufferLayoutFromID(rv)
 }
 
 func (m MLMultiArrayBufferLayout) IsSubspaceOfBufferLayout(layout objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isSubspaceOfBufferLayout:"), layout)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isSubspaceOfBufferLayout:"), layout)
 	return rv
 }
 func (m MLMultiArrayBufferLayout) OffsetOfScalarAtIndexContiguousScalars(index int64, scalars *int64) int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("offsetOfScalarAtIndex:contiguousScalars:"), index, scalars)
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("offsetOfScalarAtIndex:contiguousScalars:"), index, scalars)
 	return rv
 }
 func (m MLMultiArrayBufferLayout) InitWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
-	rv := objc.Send[MLMultiArrayBufferLayout](m.ID, objc.Sel("initWithShape:strides:"), shape, strides)
+	rv := objc.SendIfResponds[MLMultiArrayBufferLayout](m.ID, objc.Sel("initWithShape:strides:"), shape, strides)
 	return rv
 }
 
 func (m MLMultiArrayBufferLayout) Count() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLMultiArrayBufferLayout) Shape() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shape"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLMultiArrayBufferLayout) Strides() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("strides"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("strides"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

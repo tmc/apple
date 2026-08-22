@@ -40,7 +40,7 @@ func (gc GTMioShaderProfilerPipelineStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderProfilerPipelineStateClass) Alloc() GTMioShaderProfilerPipelineState {
-	rv := objc.Send[GTMioShaderProfilerPipelineState](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerPipelineState](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -119,89 +119,89 @@ type IGTMioShaderProfilerPipelineState interface {
 
 // Init initializes the instance.
 func (g GTMioShaderProfilerPipelineState) Init() GTMioShaderProfilerPipelineState {
-	rv := objc.Send[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderProfilerPipelineState) Autorelease() GTMioShaderProfilerPipelineState {
-	rv := objc.Send[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderProfilerPipelineState creates a new GTMioShaderProfilerPipelineState instance.
 func NewGTMioShaderProfilerPipelineState() GTMioShaderProfilerPipelineState {
 	class := getGTMioShaderProfilerPipelineStateClass()
-	rv := objc.Send[GTMioShaderProfilerPipelineState](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerPipelineState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderProfilerPipelineStateWithInfoTraceData(info unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerPipelineState {
 	instance := getGTMioShaderProfilerPipelineStateClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInfo:traceData:"), info, data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInfo:traceData:"), info, data)
 	return GTMioShaderProfilerPipelineStateFromID(rv)
 }
 
 func (g GTMioShaderProfilerPipelineState) AddBinaryKeyForType(key objectivec.IObject, type_ uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addBinaryKey:forType:"), key, type_)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addBinaryKey:forType:"), key, type_)
 }
 func (g GTMioShaderProfilerPipelineState) AddFunctionForType(function objectivec.IObject, type_ uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addFunction:forType:"), function, type_)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addFunction:forType:"), function, type_)
 }
 func (g GTMioShaderProfilerPipelineState) InitWithInfoTraceData(info unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerPipelineState {
-	rv := objc.Send[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("initWithInfo:traceData:"), info, data)
+	rv := objc.SendIfResponds[GTMioShaderProfilerPipelineState](g.ID, objc.Sel("initWithInfo:traceData:"), info, data)
 	return rv
 }
 
 func (g GTMioShaderProfilerPipelineState) AllBinaryKeys() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("allBinaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("allBinaryKeys"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerPipelineState) BinaryKeys() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryKeys"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryKeys"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerPipelineState) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerPipelineState) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerPipelineState) FunctionIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("functionIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("functionIndex"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) Index() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("index"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) NumGPUCommands() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("numGPUCommands"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("numGPUCommands"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) ObjectId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("objectId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("objectId"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) PointerId() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (g GTMioShaderProfilerPipelineState) ShaderFunctions() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderFunctions"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("shaderFunctions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerPipelineState) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTMioShaderProfilerPipelineState) TimingInfo() IGTShaderProfilerTimingInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))
 }

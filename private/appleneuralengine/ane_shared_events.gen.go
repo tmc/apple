@@ -39,7 +39,7 @@ func (ac ANESharedEventsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANESharedEventsClass) Alloc() ANESharedEvents {
-	rv := objc.Send[ANESharedEvents](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANESharedEvents](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,50 +85,50 @@ type IANESharedEvents interface {
 
 // Init initializes the instance.
 func (a ANESharedEvents) Init() ANESharedEvents {
-	rv := objc.Send[ANESharedEvents](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANESharedEvents](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANESharedEvents) Autorelease() ANESharedEvents {
-	rv := objc.Send[ANESharedEvents](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANESharedEvents](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANESharedEvents creates a new ANESharedEvents instance.
 func NewANESharedEvents() ANESharedEvents {
 	class := getANESharedEventsClass()
-	rv := objc.Send[ANESharedEvents](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANESharedEvents](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANESharedEventsWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) ANESharedEvents {
 	instance := getANESharedEventsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
 	return ANESharedEventsFromID(rv)
 }
 
 func (a ANESharedEvents) InitWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) ANESharedEvents {
-	rv := objc.Send[ANESharedEvents](a.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
+	rv := objc.SendIfResponds[ANESharedEvents](a.ID, objc.Sel("initWithSignalEvents:waitEvents:"), events, events2)
 	return rv
 }
 
 func (_ANESharedEventsClass ANESharedEventsClass) SharedEventsWithSignalEventsWaitEvents(events objectivec.IObject, events2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANESharedEventsClass.class), objc.Sel("sharedEventsWithSignalEvents:waitEvents:"), events, events2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESharedEventsClass.class), objc.Sel("sharedEventsWithSignalEvents:waitEvents:"), events, events2)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANESharedEvents) SignalEvents() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("signalEvents"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("signalEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANESharedEvents) SetSignalEvents(value foundation.INSArray) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSignalEvents:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSignalEvents:"), value)
 }
 func (a ANESharedEvents) WaitEvents() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("waitEvents"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("waitEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANESharedEvents) SetWaitEvents(value foundation.INSArray) {
-	objc.Send[struct{}](a.ID, objc.Sel("setWaitEvents:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setWaitEvents:"), value)
 }

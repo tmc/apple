@@ -39,7 +39,7 @@ func (sc SLSBridgedWillSwitchSpacesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWillSwitchSpacesOperationClass) Alloc() SLSBridgedWillSwitchSpacesOperation {
-	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWillSwitchSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWillSwitchSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWillSwitchSpacesOperation) Init() SLSBridgedWillSwitchSpacesOperation {
-	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWillSwitchSpacesOperation) Autorelease() SLSBridgedWillSwitchSpacesOperation {
-	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWillSwitchSpacesOperation creates a new SLSBridgedWillSwitchSpacesOperation instance.
 func NewSLSBridgedWillSwitchSpacesOperation() SLSBridgedWillSwitchSpacesOperation {
 	class := getSLSBridgedWillSwitchSpacesOperationClass()
-	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWillSwitchSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWillSwitchSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
 	instance := getSLSBridgedWillSwitchSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWillSwitchSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedWillSwitchSpacesOperationWithSpaces(spaces objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
 	instance := getSLSBridgedWillSwitchSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
 	return SLSBridgedWillSwitchSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedWillSwitchSpacesOperation) InitWithSpaces(spaces objectivec.IObject) SLSBridgedWillSwitchSpacesOperation {
-	rv := objc.Send[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
+	rv := objc.SendIfResponds[SLSBridgedWillSwitchSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
 	return rv
 }
 
 func (s SLSBridgedWillSwitchSpacesOperation) Spaces() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

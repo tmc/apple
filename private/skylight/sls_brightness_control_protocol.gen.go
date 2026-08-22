@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -20,10 +19,16 @@ type SLSBrightnessControl interface {
 	AbortContrastEnhancerRampError() (float32, error)
 
 	// AbortWhitePointRampError protocol.
-	AbortWhitePointRampError(ramp kernel.Pointer) (bool, error)
+	AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error)
 
 	// BrightnessAvailable protocol.
 	BrightnessAvailable() bool
+
+	// BrightnessCapabilities protocol.
+	BrightnessCapabilities() objectivec.IObject
+
+	// ContainerId protocol.
+	ContainerId() objectivec.IObject
 
 	// DisplayId protocol.
 	DisplayId() int
@@ -49,6 +54,9 @@ type SLSBrightnessControl interface {
 	// ProductId protocol.
 	ProductId() uint64
 
+	// RegisterForNotificationsWithBlock protocol.
+	RegisterForNotificationsWithBlock(notifications objectivec.IObject, block ObjectHandler)
+
 	// SerialNumber protocol.
 	SerialNumber() uint64
 
@@ -58,11 +66,17 @@ type SLSBrightnessControl interface {
 	// SetLinearBrightnessError protocol.
 	SetLinearBrightnessError(brightness float32) (bool, error)
 
+	// SetNotificationQueue protocol.
+	SetNotificationQueue(queue objectivec.IObject)
+
 	// SetWhitePointRampDurationError protocol.
-	SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error)
+	SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error)
 
 	// UnregisterNotificationBlocks protocol.
 	UnregisterNotificationBlocks()
+
+	// Uuid protocol.
+	Uuid() objectivec.IObject
 
 	// VendorId protocol.
 	VendorId() uint64
@@ -104,7 +118,7 @@ func (o SLSBrightnessControlObject) AbortContrastEnhancerRampError() (float32, e
 	}
 	return ramp, nil
 }
-func (o SLSBrightnessControlObject) AbortWhitePointRampError(ramp kernel.Pointer) (bool, error) {
+func (o SLSBrightnessControlObject) AbortWhitePointRampError(ramp unsafe.Pointer) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("abortWhitePointRamp:error:"), ramp)
 	if err != nil {
 		return false, err
@@ -112,23 +126,23 @@ func (o SLSBrightnessControlObject) AbortWhitePointRampError(ramp kernel.Pointer
 	return rv, nil
 }
 func (o SLSBrightnessControlObject) BrightnessAvailable() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("brightnessAvailable"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("brightnessAvailable"))
 	return rv
 }
 func (o SLSBrightnessControlObject) BrightnessCapabilities() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("brightnessCapabilities"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("brightnessCapabilities"))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSBrightnessControlObject) ContainerId() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("containerId"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("containerId"))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSBrightnessControlObject) DisplayId() int {
-	rv := objc.Send[int](o.ID, objc.Sel("displayId"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("displayId"))
 	return rv
 }
 func (o SLSBrightnessControlObject) DisplayType() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("displayType"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("displayType"))
 	return rv
 }
 func (o SLSBrightnessControlObject) GetLinearBrightnessError() (float32, error) {
@@ -158,26 +172,28 @@ func (o SLSBrightnessControlObject) GetNitsError() (float32, error) {
 	return nits, nil
 }
 func (o SLSBrightnessControlObject) IsOnline() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isOnline"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isOnline"))
 	return rv
 }
 func (o SLSBrightnessControlObject) MaximumLuminance() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("maximumLuminance"))
+	rv := objc.SendIfResponds[float32](o.ID, objc.Sel("maximumLuminance"))
 	return rv
 }
 func (o SLSBrightnessControlObject) NativeWhitePoint() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("nativeWhitePoint"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("nativeWhitePoint"))
 	return rv
 }
 func (o SLSBrightnessControlObject) ProductId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("productId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("productId"))
 	return rv
 }
 func (o SLSBrightnessControlObject) RegisterForNotificationsWithBlock(notifications objectivec.IObject, block ObjectHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("registerForNotifications:withBlock:"), notifications, block)
+	_block1, _cleanup1 := NewObjectBlock(block)
+	defer _cleanup1()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("registerForNotifications:withBlock:"), notifications, objc.ID(_block1))
 }
 func (o SLSBrightnessControlObject) SerialNumber() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("serialNumber"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("serialNumber"))
 	return rv
 }
 func (o SLSBrightnessControlObject) SetContrastEnhancerRampDurationError(enhancer float32, duration float64) (bool, error) {
@@ -195,9 +211,9 @@ func (o SLSBrightnessControlObject) SetLinearBrightnessError(brightness float32)
 	return rv, nil
 }
 func (o SLSBrightnessControlObject) SetNotificationQueue(queue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setNotificationQueue:"), queue)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setNotificationQueue:"), queue)
 }
-func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point kernel.Pointer, duration float64) (bool, error) {
+func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setWhitePoint:rampDuration:error:"), point, duration)
 	if err != nil {
 		return false, err
@@ -205,21 +221,21 @@ func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point kernel.
 	return rv, nil
 }
 func (o SLSBrightnessControlObject) UnregisterNotificationBlocks() {
-	objc.Send[struct{}](o.ID, objc.Sel("unregisterNotificationBlocks"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("unregisterNotificationBlocks"))
 }
 func (o SLSBrightnessControlObject) Uuid() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("uuid"))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSBrightnessControlObject) VendorId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("vendorId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("vendorId"))
 	return rv
 }
 func (o SLSBrightnessControlObject) WhitePointAvailable() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("whitePointAvailable"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("whitePointAvailable"))
 	return rv
 }
 func (o SLSBrightnessControlObject) WhitePointD50XYZ() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("whitePointD50XYZ"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("whitePointD50XYZ"))
 	return rv
 }

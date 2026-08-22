@@ -40,7 +40,7 @@ func (sc SLSWindowManagementFallbackBridgeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSWindowManagementFallbackBridgeClass) Alloc() SLSWindowManagementFallbackBridge {
-	rv := objc.Send[SLSWindowManagementFallbackBridge](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSWindowManagementFallbackBridge](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,49 +92,49 @@ type ISLSWindowManagementFallbackBridge interface {
 
 // Init initializes the instance.
 func (s SLSWindowManagementFallbackBridge) Init() SLSWindowManagementFallbackBridge {
-	rv := objc.Send[SLSWindowManagementFallbackBridge](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSWindowManagementFallbackBridge](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSWindowManagementFallbackBridge) Autorelease() SLSWindowManagementFallbackBridge {
-	rv := objc.Send[SLSWindowManagementFallbackBridge](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSWindowManagementFallbackBridge](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSWindowManagementFallbackBridge creates a new SLSWindowManagementFallbackBridge instance.
 func NewSLSWindowManagementFallbackBridge() SLSWindowManagementFallbackBridge {
 	class := getSLSWindowManagementFallbackBridgeClass()
-	rv := objc.Send[SLSWindowManagementFallbackBridge](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSWindowManagementFallbackBridge](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSWindowManagementFallbackBridge) PerformAsynchronousBridgedWindowManagementOperation(operation objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("performAsynchronousBridgedWindowManagementOperation:"), operation)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("performAsynchronousBridgedWindowManagementOperation:"), operation)
 }
 func (s SLSWindowManagementFallbackBridge) PerformSynchronousBridgedWindowManagementOperation(operation objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("performSynchronousBridgedWindowManagementOperation:"), operation)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("performSynchronousBridgedWindowManagementOperation:"), operation)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSWindowManagementFallbackBridge) PerformWindowManagementBridgeTransactionUsingBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("performWindowManagementBridgeTransactionUsingBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("performWindowManagementBridgeTransactionUsingBlock:"), _block0)
 }
 
 func (s SLSWindowManagementFallbackBridge) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSWindowManagementFallbackBridge) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSWindowManagementFallbackBridge) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSWindowManagementFallbackBridge) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 

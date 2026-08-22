@@ -39,7 +39,7 @@ func (gc GTShaderProfilerMCABinaryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerMCABinaryClass) Alloc() GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,79 +100,79 @@ type IGTShaderProfilerMCABinary interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerMCABinary) Init() GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerMCABinary) Autorelease() GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerMCABinary creates a new GTShaderProfilerMCABinary instance.
 func NewGTShaderProfilerMCABinary() GTShaderProfilerMCABinary {
 	class := getGTShaderProfilerMCABinaryClass()
-	rv := objc.Send[GTShaderProfilerMCABinary](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerMCABinaryWithAGX2BinaryProgramTypeUniqueIdentifier(aGX2Binary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAGX2Binary:programType:uniqueIdentifier:"), aGX2Binary, type_, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAGX2Binary:programType:uniqueIdentifier:"), aGX2Binary, type_, identifier)
 	return GTShaderProfilerMCABinaryFromID(rv)
 }
 
 func NewGTShaderProfilerMCABinaryWithAPSBinaryProgramTypeUniqueIdentifier(aPSBinary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAPSBinary:programType:uniqueIdentifier:"), aPSBinary, type_, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAPSBinary:programType:uniqueIdentifier:"), aPSBinary, type_, identifier)
 	return GTShaderProfilerMCABinaryFromID(rv)
 }
 
 func NewGTShaderProfilerMCABinaryWithMioBinaryProgramTypeUniqueIdentifier(binary objectivec.IObject, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMioBinary:programType:uniqueIdentifier:"), binary, type_, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMioBinary:programType:uniqueIdentifier:"), binary, type_, identifier)
 	return GTShaderProfilerMCABinaryFromID(rv)
 }
 
 func (g GTShaderProfilerMCABinary) GenerateAGX2Assembly() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAGX2Assembly"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAGX2Assembly"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerMCABinary) GenerateAPSAssembly() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAPSAssembly"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAPSAssembly"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerMCABinary) GenerateAssemblyContent() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAssemblyContent"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("generateAssemblyContent"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerMCABinary) InitWithAGX2BinaryProgramTypeUniqueIdentifier(aGX2Binary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAGX2Binary:programType:uniqueIdentifier:"), aGX2Binary, type_, identifier)
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAGX2Binary:programType:uniqueIdentifier:"), aGX2Binary, type_, identifier)
 	return rv
 }
 func (g GTShaderProfilerMCABinary) InitWithAPSBinaryProgramTypeUniqueIdentifier(aPSBinary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAPSBinary:programType:uniqueIdentifier:"), aPSBinary, type_, identifier)
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAPSBinary:programType:uniqueIdentifier:"), aPSBinary, type_, identifier)
 	return rv
 }
 func (g GTShaderProfilerMCABinary) InitWithMioBinaryProgramTypeUniqueIdentifier(binary objectivec.IObject, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
-	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithMioBinary:programType:uniqueIdentifier:"), binary, type_, identifier)
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithMioBinary:programType:uniqueIdentifier:"), binary, type_, identifier)
 	return rv
 }
 
 func (g GTShaderProfilerMCABinary) AllocatedGPRCount() int {
-	rv := objc.Send[int](g.ID, objc.Sel("allocatedGPRCount"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("allocatedGPRCount"))
 	return rv
 }
 func (g GTShaderProfilerMCABinary) HighRegisterCount() int {
-	rv := objc.Send[int](g.ID, objc.Sel("highRegisterCount"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("highRegisterCount"))
 	return rv
 }
 func (g GTShaderProfilerMCABinary) ProgramType() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("programType"))
 	return rv
 }
 func (g GTShaderProfilerMCABinary) UniqueIdentifier() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("uniqueIdentifier"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("uniqueIdentifier"))
 	return rv
 }

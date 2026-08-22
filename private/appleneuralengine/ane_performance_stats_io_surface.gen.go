@@ -38,7 +38,7 @@ func (ac ANEPerformanceStatsIOSurfaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEPerformanceStatsIOSurfaceClass) Alloc() ANEPerformanceStatsIOSurface {
-	rv := objc.Send[ANEPerformanceStatsIOSurface](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEPerformanceStatsIOSurface](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,44 +78,44 @@ type IANEPerformanceStatsIOSurface interface {
 
 // Init initializes the instance.
 func (a ANEPerformanceStatsIOSurface) Init() ANEPerformanceStatsIOSurface {
-	rv := objc.Send[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEPerformanceStatsIOSurface) Autorelease() ANEPerformanceStatsIOSurface {
-	rv := objc.Send[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEPerformanceStatsIOSurface creates a new ANEPerformanceStatsIOSurface instance.
 func NewANEPerformanceStatsIOSurface() ANEPerformanceStatsIOSurface {
 	class := getANEPerformanceStatsIOSurfaceClass()
-	rv := objc.Send[ANEPerformanceStatsIOSurface](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEPerformanceStatsIOSurface](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEPerformanceStatsIOSurfaceWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) ANEPerformanceStatsIOSurface {
 	instance := getANEPerformanceStatsIOSurfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:statType:"), iOSurface, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOSurface:statType:"), iOSurface, type_)
 	return ANEPerformanceStatsIOSurfaceFromID(rv)
 }
 
 func (a ANEPerformanceStatsIOSurface) InitWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) ANEPerformanceStatsIOSurface {
-	rv := objc.Send[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("initWithIOSurface:statType:"), iOSurface, type_)
+	rv := objc.SendIfResponds[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("initWithIOSurface:statType:"), iOSurface, type_)
 	return rv
 }
 
 func (_ANEPerformanceStatsIOSurfaceClass ANEPerformanceStatsIOSurfaceClass) ObjectWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEPerformanceStatsIOSurfaceClass.class), objc.Sel("objectWithIOSurface:statType:"), iOSurface, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsIOSurfaceClass.class), objc.Sel("objectWithIOSurface:statType:"), iOSurface, type_)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEPerformanceStatsIOSurface) StatType() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("statType"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("statType"))
 	return rv
 }
 func (a ANEPerformanceStatsIOSurface) Stats() IANEIOSurfaceObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("stats"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("stats"))
 	return ANEIOSurfaceObjectFromID(objc.ID(rv))
 }

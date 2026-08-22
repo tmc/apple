@@ -40,7 +40,7 @@ func (mc MLCustomModelWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCustomModelWrapperClass) Alloc() MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCustomModelWrapper](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,30 +86,33 @@ type IMLCustomModelWrapper interface {
 
 // Init initializes the instance.
 func (m MLCustomModelWrapper) Init() MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCustomModelWrapper](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCustomModelWrapper) Autorelease() MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCustomModelWrapper](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCustomModelWrapper creates a new MLCustomModelWrapper instance.
 func NewMLCustomModelWrapper() MLCustomModelWrapper {
 	class := getMLCustomModelWrapperClass()
-	rv := objc.Send[MLCustomModelWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCustomModelWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLCustomModelWrapper{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLCustomModelWrapper{}, objc.ErrInitFailed
 	}
 	return MLCustomModelWrapperFromID(rv), nil
 }
@@ -117,41 +120,44 @@ func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(spe
 func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLCustomModelWrapper{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLCustomModelWrapper{}, objc.ErrInitFailed
 	}
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
 func NewCustomModelWrapperWithConfiguration(configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
 func NewCustomModelWrapperWithDescription(description objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLCustomModelWrapperFromID(rv)
 }
 
 func NewCustomModelWrapperWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
 func NewCustomModelWrapperWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
 func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
@@ -176,14 +182,14 @@ func (m MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.
 
 }
 func (m MLCustomModelWrapper) InitWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
+	rv := objc.SendIfResponds[MLCustomModelWrapper](m.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return rv
 }
 
 func (m MLCustomModelWrapper) CustomModel() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("customModel"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("customModel"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLCustomModelWrapper) SetCustomModel(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCustomModel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCustomModel:"), value)
 }

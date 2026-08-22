@@ -39,7 +39,7 @@ func (cc CPXRemoteViewEventServerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXRemoteViewEventServerClass) Alloc() CPXRemoteViewEventServer {
-	rv := objc.Send[CPXRemoteViewEventServer](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventServer](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,69 +100,69 @@ type ICPXRemoteViewEventServer interface {
 
 // Init initializes the instance.
 func (c CPXRemoteViewEventServer) Init() CPXRemoteViewEventServer {
-	rv := objc.Send[CPXRemoteViewEventServer](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventServer](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXRemoteViewEventServer) Autorelease() CPXRemoteViewEventServer {
-	rv := objc.Send[CPXRemoteViewEventServer](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventServer](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXRemoteViewEventServer creates a new CPXRemoteViewEventServer instance.
 func NewCPXRemoteViewEventServer() CPXRemoteViewEventServer {
 	class := getCPXRemoteViewEventServerClass()
-	rv := objc.Send[CPXRemoteViewEventServer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXRemoteViewEventServer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXRemoteViewEventServerWithConfig(config objectivec.IObject) CPXRemoteViewEventServer {
 	instance := getCPXRemoteViewEventServerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfig:"), config)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfig:"), config)
 	return CPXRemoteViewEventServerFromID(rv)
 }
 
 func (c CPXRemoteViewEventServer) DidUpdateRemoteViewEventManagerForSession() {
-	objc.Send[objc.ID](c.ID, objc.Sel("didUpdateRemoteViewEventManagerForSession"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("didUpdateRemoteViewEventManagerForSession"))
 }
 func (c CPXRemoteViewEventServer) Endpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("endpoint"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("endpoint"))
 	return objectivec.Object{ID: rv}
 }
 func (c CPXRemoteViewEventServer) Invalidate() {
-	objc.Send[objc.ID](c.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("invalidate"))
 }
 func (c CPXRemoteViewEventServer) ListenerDidReceiveConnectionWithContext(listener objectivec.IObject, connection objectivec.IObject, context objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("listener:didReceiveConnection:withContext:"), listener, connection, context)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("listener:didReceiveConnection:withContext:"), listener, connection, context)
 }
 func (c CPXRemoteViewEventServer) PendingConnectionsCount() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("pendingConnectionsCount"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("pendingConnectionsCount"))
 	return rv
 }
 func (c CPXRemoteViewEventServer) InitWithConfig(config objectivec.IObject) CPXRemoteViewEventServer {
-	rv := objc.Send[CPXRemoteViewEventServer](c.ID, objc.Sel("initWithConfig:"), config)
+	rv := objc.SendIfResponds[CPXRemoteViewEventServer](c.ID, objc.Sel("initWithConfig:"), config)
 	return rv
 }
 
 func (_CPXRemoteViewEventServerClass CPXRemoteViewEventServerClass) SharedInstance() CPXRemoteViewEventServer {
-	rv := objc.Send[objc.ID](objc.ID(_CPXRemoteViewEventServerClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_CPXRemoteViewEventServerClass.class), objc.Sel("sharedInstance"))
 	return CPXRemoteViewEventServerFromID(rv)
 }
 
 func (c CPXRemoteViewEventServer) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXRemoteViewEventServer) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXRemoteViewEventServer) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXRemoteViewEventServer) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

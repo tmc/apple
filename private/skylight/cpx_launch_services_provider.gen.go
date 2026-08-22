@@ -39,7 +39,7 @@ func (cc CPXLaunchServicesProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXLaunchServicesProviderClass) Alloc() CPXLaunchServicesProvider {
-	rv := objc.Send[CPXLaunchServicesProvider](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXLaunchServicesProvider](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,48 +91,48 @@ type ICPXLaunchServicesProvider interface {
 
 // Init initializes the instance.
 func (c CPXLaunchServicesProvider) Init() CPXLaunchServicesProvider {
-	rv := objc.Send[CPXLaunchServicesProvider](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXLaunchServicesProvider](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXLaunchServicesProvider) Autorelease() CPXLaunchServicesProvider {
-	rv := objc.Send[CPXLaunchServicesProvider](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXLaunchServicesProvider](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXLaunchServicesProvider creates a new CPXLaunchServicesProvider instance.
 func NewCPXLaunchServicesProvider() CPXLaunchServicesProvider {
 	class := getCPXLaunchServicesProviderClass()
-	rv := objc.Send[CPXLaunchServicesProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXLaunchServicesProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CPXLaunchServicesProvider) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (c CPXLaunchServicesProvider) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXLaunchServicesProvider) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXLaunchServicesProvider) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXLaunchServicesProvider) LaunchServicesInterface() ICPXLaunchServicesInterface {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("launchServicesInterface"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("launchServicesInterface"))
 	return CPXLaunchServicesInterfaceFromID(objc.ID(rv))
 }
 func (c CPXLaunchServicesProvider) SetLaunchServicesInterface(value ICPXLaunchServicesInterface) {
-	objc.Send[struct{}](c.ID, objc.Sel("setLaunchServicesInterface:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setLaunchServicesInterface:"), value)
 }
 func (c CPXLaunchServicesProvider) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

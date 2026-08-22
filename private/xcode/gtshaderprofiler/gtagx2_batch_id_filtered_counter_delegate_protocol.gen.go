@@ -10,6 +10,9 @@ import (
 // GTAGX2BatchIdFilteredCounterDelegate protocol.
 type GTAGX2BatchIdFilteredCounterDelegate interface {
 	objectivec.IObject
+
+	// StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo protocol.
+	StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo(updated objectivec.IObject, info objectivec.IObject)
 }
 
 // GTAGX2BatchIdFilteredCounterDelegateObject wraps an existing Objective-C object that conforms to the GTAGX2BatchIdFilteredCounterDelegate protocol.
@@ -30,5 +33,5 @@ func GTAGX2BatchIdFilteredCounterDelegateObjectFromID(id objc.ID) GTAGX2BatchIdF
 }
 
 func (o GTAGX2BatchIdFilteredCounterDelegateObject) StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo(updated objectivec.IObject, info objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
 }

@@ -39,7 +39,7 @@ func (tc TTSAXResourceMigrationUtilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAXResourceMigrationUtilitiesClass) Alloc() TTSAXResourceMigrationUtilities {
-	rv := objc.Send[TTSAXResourceMigrationUtilities](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAXResourceMigrationUtilities](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,25 +85,25 @@ type ITTSAXResourceMigrationUtilities interface {
 
 // Init initializes the instance.
 func (t TTSAXResourceMigrationUtilities) Init() TTSAXResourceMigrationUtilities {
-	rv := objc.Send[TTSAXResourceMigrationUtilities](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAXResourceMigrationUtilities](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAXResourceMigrationUtilities) Autorelease() TTSAXResourceMigrationUtilities {
-	rv := objc.Send[TTSAXResourceMigrationUtilities](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAXResourceMigrationUtilities](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAXResourceMigrationUtilities creates a new TTSAXResourceMigrationUtilities instance.
 func NewTTSAXResourceMigrationUtilities() TTSAXResourceMigrationUtilities {
 	class := getTTSAXResourceMigrationUtilitiesClass()
-	rv := objc.Send[TTSAXResourceMigrationUtilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAXResourceMigrationUtilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 
@@ -121,23 +121,23 @@ func (t TTSAXResourceMigrationUtilities) CanTtsAssetForSpec() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:"))
 }
 func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceMigrationUtilities) TtsIdentifierForLegacyMacIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ttsIdentifierForLegacyMacIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ttsIdentifierForLegacyMacIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResourceMigrationUtilities) UpdatedIdentifierForLegacyIdentifierWithLanguageCode(identifier objectivec.IObject, code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("updatedIdentifierForLegacyIdentifier:withLanguageCode:"), identifier, code)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("updatedIdentifierForLegacyIdentifier:withLanguageCode:"), identifier, code)
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSAXResourceMigrationUtilitiesClass TTSAXResourceMigrationUtilitiesClass) SharedInstance() TTSAXResourceMigrationUtilities {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceMigrationUtilitiesClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAXResourceMigrationUtilitiesClass.class), objc.Sel("sharedInstance"))
 	return TTSAXResourceMigrationUtilitiesFromID(rv)
 }

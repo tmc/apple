@@ -40,7 +40,7 @@ func (ac AVAudioNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioNodeClass) Alloc() AVAudioNode {
-	rv := objc.Send[AVAudioNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -158,39 +158,39 @@ type IAVAudioNode interface {
 
 // Init initializes the instance.
 func (a AVAudioNode) Init() AVAudioNode {
-	rv := objc.Send[AVAudioNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioNode) Autorelease() AVAudioNode {
-	rv := objc.Send[AVAudioNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioNode creates a new AVAudioNode instance.
 func NewAVAudioNode() AVAudioNode {
 	class := getAVAudioNodeClass()
-	rv := objc.Send[AVAudioNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioNodeWithImpl(impl unsafe.Pointer) AVAudioNode {
 	instance := getAVAudioNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioNodeFromID(rv)
 }
 
 func (a AVAudioNode) Clock() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("clock"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("clock"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioNode) DestinationForMixerBus(mixer objectivec.IObject, bus uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioNode) DidAttachToEngine(engine objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("didAttachToEngine:"), engine)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("didAttachToEngine:"), engine)
 }
 func (a AVAudioNode) DidDetachFromEngineError(engine objectivec.IObject) error {
 	var errorPtr objc.ID
@@ -203,92 +203,92 @@ func (a AVAudioNode) DidDetachFromEngineError(engine objectivec.IObject) error {
 
 }
 func (a AVAudioNode) Obstruction() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("obstruction"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("obstruction"))
 	return rv
 }
 func (a AVAudioNode) Occlusion() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("occlusion"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("occlusion"))
 	return rv
 }
 func (a AVAudioNode) Pan() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("pan"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("pan"))
 	return rv
 }
 func (a AVAudioNode) PointSourceInHeadMode() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("pointSourceInHeadMode"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("pointSourceInHeadMode"))
 	return rv
 }
 func (a AVAudioNode) Rate() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("rate"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("rate"))
 	return rv
 }
 func (a AVAudioNode) RenderingAlgorithm() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("renderingAlgorithm"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("renderingAlgorithm"))
 	return rv
 }
 func (a AVAudioNode) ResetImpl(impl unsafe.Pointer) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("resetImpl:"), impl)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("resetImpl:"), impl)
 	return rv
 }
 func (a AVAudioNode) ReverbBlend() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("reverbBlend"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("reverbBlend"))
 	return rv
 }
 func (a AVAudioNode) SetInputFormatForBus(format objectivec.IObject, bus uint64) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setInputFormat:forBus:"), format, bus)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setInputFormat:forBus:"), format, bus)
 	return rv
 }
 func (a AVAudioNode) SetNumberOfInputs(inputs uint32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setNumberOfInputs:"), inputs)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setNumberOfInputs:"), inputs)
 }
 func (a AVAudioNode) SetNumberOfOutputs(outputs uint32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setNumberOfOutputs:"), outputs)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setNumberOfOutputs:"), outputs)
 }
 func (a AVAudioNode) SetObstruction(obstruction float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setObstruction:"), obstruction)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setObstruction:"), obstruction)
 }
 func (a AVAudioNode) SetOcclusion(occlusion float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setOcclusion:"), occlusion)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setOcclusion:"), occlusion)
 }
 func (a AVAudioNode) SetOutputFormatForBus(format objectivec.IObject, bus uint64) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setOutputFormat:forBus:"), format, bus)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setOutputFormat:forBus:"), format, bus)
 	return rv
 }
 func (a AVAudioNode) SetPan(pan float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setPan:"), pan)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPan:"), pan)
 }
 func (a AVAudioNode) SetPointSourceInHeadMode(mode int64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setPointSourceInHeadMode:"), mode)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPointSourceInHeadMode:"), mode)
 }
 func (a AVAudioNode) SetRate(rate float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setRate:"), rate)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setRate:"), rate)
 }
 func (a AVAudioNode) SetRenderingAlgorithm(algorithm int64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setRenderingAlgorithm:"), algorithm)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setRenderingAlgorithm:"), algorithm)
 }
 func (a AVAudioNode) SetReverbBlend(blend float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setReverbBlend:"), blend)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setReverbBlend:"), blend)
 }
 func (a AVAudioNode) SetSourceMode(mode int64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setSourceMode:"), mode)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSourceMode:"), mode)
 }
 func (a AVAudioNode) SetVolume(volume float32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setVolume:"), volume)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setVolume:"), volume)
 }
 func (a AVAudioNode) SourceMode() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("sourceMode"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("sourceMode"))
 	return rv
 }
 func (a AVAudioNode) Volume() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("volume"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("volume"))
 	return rv
 }
 func (a AVAudioNode) InitWithImpl(impl unsafe.Pointer) AVAudioNode {
-	rv := objc.Send[AVAudioNode](a.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[AVAudioNode](a.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }
 
 func (a AVAudioNode) Impl() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("impl"))
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("impl"))
 	return rv
 }

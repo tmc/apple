@@ -39,7 +39,7 @@ func (ac AVVCContextSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCContextSettingsClass) Alloc() AVVCContextSettings {
-	rv := objc.Send[AVVCContextSettings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCContextSettings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,52 +91,52 @@ type IAVVCContextSettings interface {
 
 // Init initializes the instance.
 func (a AVVCContextSettings) Init() AVVCContextSettings {
-	rv := objc.Send[AVVCContextSettings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCContextSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCContextSettings) Autorelease() AVVCContextSettings {
-	rv := objc.Send[AVVCContextSettings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCContextSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCContextSettings creates a new AVVCContextSettings instance.
 func NewAVVCContextSettings() AVVCContextSettings {
 	class := getAVVCContextSettingsClass()
-	rv := objc.Send[AVVCContextSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCContextSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCContextSettingsWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
 	instance := getAVVCContextSettingsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
 	return AVVCContextSettingsFromID(rv)
 }
 
 func (a AVVCContextSettings) InitWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
-	rv := objc.Send[AVVCContextSettings](a.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
+	rv := objc.SendIfResponds[AVVCContextSettings](a.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
 	return rv
 }
 
 func (a AVVCContextSettings) ActivationDeviceUID() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("activationDeviceUID"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("activationDeviceUID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVVCContextSettings) SetActivationDeviceUID(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setActivationDeviceUID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setActivationDeviceUID:"), objc.String(value))
 }
 func (a AVVCContextSettings) ActivationMode() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("activationMode"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("activationMode"))
 	return rv
 }
 func (a AVVCContextSettings) SetActivationMode(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setActivationMode:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setActivationMode:"), value)
 }
 func (a AVVCContextSettings) AnnounceCallsEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("announceCallsEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("announceCallsEnabled"))
 	return rv
 }
 func (a AVVCContextSettings) SetAnnounceCallsEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAnnounceCallsEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAnnounceCallsEnabled:"), value)
 }

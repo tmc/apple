@@ -38,7 +38,7 @@ func (sc SLDataTimelineSessionPlaceholderEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineSessionPlaceholderEntryClass) Alloc() SLDataTimelineSessionPlaceholderEntry {
-	rv := objc.Send[SLDataTimelineSessionPlaceholderEntry](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionPlaceholderEntry](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,25 +61,25 @@ type ISLDataTimelineSessionPlaceholderEntry interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineSessionPlaceholderEntry) Init() SLDataTimelineSessionPlaceholderEntry {
-	rv := objc.Send[SLDataTimelineSessionPlaceholderEntry](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionPlaceholderEntry](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineSessionPlaceholderEntry) Autorelease() SLDataTimelineSessionPlaceholderEntry {
-	rv := objc.Send[SLDataTimelineSessionPlaceholderEntry](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionPlaceholderEntry](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineSessionPlaceholderEntry creates a new SLDataTimelineSessionPlaceholderEntry instance.
 func NewSLDataTimelineSessionPlaceholderEntry() SLDataTimelineSessionPlaceholderEntry {
 	class := getSLDataTimelineSessionPlaceholderEntryClass()
-	rv := objc.Send[SLDataTimelineSessionPlaceholderEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineSessionPlaceholderEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLDataTimelineSessionPlaceholderEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineSessionPlaceholderEntry {
 	instance := getSLDataTimelineSessionPlaceholderEntryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineSessionPlaceholderEntryFromID(rv)
 }

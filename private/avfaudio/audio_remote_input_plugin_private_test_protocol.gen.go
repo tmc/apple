@@ -10,6 +10,9 @@ import (
 // AVAudioRemoteInputPlugin_PrivateTest protocol.
 type AVAudioRemoteInputPlugin_PrivateTest interface {
 	objectivec.IObject
+
+	// MockPluginEndpoint protocol.
+	MockPluginEndpoint() objectivec.IObject
 }
 
 // AVAudioRemoteInputPlugin_PrivateTestObject wraps an existing Objective-C object that conforms to the AVAudioRemoteInputPlugin_PrivateTest protocol.
@@ -30,6 +33,6 @@ func AVAudioRemoteInputPlugin_PrivateTestObjectFromID(id objc.ID) AVAudioRemoteI
 }
 
 func (o AVAudioRemoteInputPlugin_PrivateTestObject) MockPluginEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("mockPluginEndpoint"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("mockPluginEndpoint"))
 	return objectivec.Object{ID: rv}
 }

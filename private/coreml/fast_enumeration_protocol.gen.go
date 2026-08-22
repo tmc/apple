@@ -35,6 +35,6 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 }
 
 func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state unsafe.Pointer, objects []objectivec.IObject, count uint64) uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(objects), count)
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), objc.CArray(state), objc.CArray(objects), count)
 	return rv
 }

@@ -38,7 +38,7 @@ func (vc VZKeyEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZKeyEventClass) Alloc() VZKeyEvent {
-	rv := objc.Send[VZKeyEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZKeyEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,49 +81,49 @@ type IVZKeyEvent interface {
 
 // Init initializes the instance.
 func (v VZKeyEvent) Init() VZKeyEvent {
-	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZKeyEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZKeyEvent) Autorelease() VZKeyEvent {
-	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZKeyEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZKeyEvent creates a new VZKeyEvent instance.
 func NewVZKeyEvent() VZKeyEvent {
 	class := getVZKeyEventClass()
-	rv := objc.Send[VZKeyEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZKeyEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZKeyEventWithEvent(event objectivec.IObject) VZKeyEvent {
 	instance := getVZKeyEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZKeyEventFromID(rv)
 }
 
 func NewVZKeyEventWithTypeKeyCode(type_ int64, code uint16) VZKeyEvent {
 	instance := getVZKeyEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:keyCode:"), type_, code)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:keyCode:"), type_, code)
 	return VZKeyEventFromID(rv)
 }
 
 func (v VZKeyEvent) InitWithEvent(event objectivec.IObject) VZKeyEvent {
-	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[VZKeyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
 func (v VZKeyEvent) InitWithTypeKeyCode(type_ int64, code uint16) VZKeyEvent {
-	rv := objc.Send[VZKeyEvent](v.ID, objc.Sel("initWithType:keyCode:"), type_, code)
+	rv := objc.SendIfResponds[VZKeyEvent](v.ID, objc.Sel("initWithType:keyCode:"), type_, code)
 	return rv
 }
 
 func (v VZKeyEvent) KeyCode() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("keyCode"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("keyCode"))
 	return rv
 }
 func (v VZKeyEvent) Type() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("type"))
 	return rv
 }

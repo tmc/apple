@@ -40,7 +40,7 @@ func (mc MLAppleImageFeatureExtractorParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleImageFeatureExtractorParametersClass) Alloc() MLAppleImageFeatureExtractorParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IMLAppleImageFeatureExtractorParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleImageFeatureExtractorParameters) Init() MLAppleImageFeatureExtractorParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleImageFeatureExtractorParameters) Autorelease() MLAppleImageFeatureExtractorParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleImageFeatureExtractorParameters creates a new MLAppleImageFeatureExtractorParameters instance.
 func NewMLAppleImageFeatureExtractorParameters() MLAppleImageFeatureExtractorParameters {
 	class := getMLAppleImageFeatureExtractorParametersClass()
-	rv := objc.Send[MLAppleImageFeatureExtractorParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjectPrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithObjectPrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractorParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleImageFeatureExtractorParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 }
@@ -111,10 +114,13 @@ func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(param
 func NewAppleImageFeatureExtractorParametersWithScenePrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithScenePrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScenePrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractorParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleImageFeatureExtractorParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 }
@@ -141,6 +147,6 @@ func (m MLAppleImageFeatureExtractorParameters) InitWithScenePrintParametersErro
 }
 
 func (m MLAppleImageFeatureExtractorParameters) FeatureExtractorParameters() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureExtractorParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featureExtractorParameters"))
 	return objectivec.Object{ID: rv}
 }

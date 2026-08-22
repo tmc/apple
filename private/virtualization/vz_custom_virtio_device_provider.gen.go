@@ -39,7 +39,7 @@ func (vc VZCustomVirtioDeviceProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomVirtioDeviceProviderClass) Alloc() VZCustomVirtioDeviceProvider {
-	rv := objc.Send[VZCustomVirtioDeviceProvider](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceProvider](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,30 +76,30 @@ type IVZCustomVirtioDeviceProvider interface {
 
 // Init initializes the instance.
 func (v VZCustomVirtioDeviceProvider) Init() VZCustomVirtioDeviceProvider {
-	rv := objc.Send[VZCustomVirtioDeviceProvider](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceProvider](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomVirtioDeviceProvider) Autorelease() VZCustomVirtioDeviceProvider {
-	rv := objc.Send[VZCustomVirtioDeviceProvider](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceProvider](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomVirtioDeviceProvider creates a new VZCustomVirtioDeviceProvider instance.
 func NewVZCustomVirtioDeviceProvider() VZCustomVirtioDeviceProvider {
 	class := getVZCustomVirtioDeviceProviderClass()
-	rv := objc.Send[VZCustomVirtioDeviceProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomVirtioDeviceProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomVirtioDeviceProvider) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZCustomVirtioDeviceProvider) _connectionIdentifier() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_connectionIdentifier"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_connectionIdentifier"))
 	return rv
 }
 

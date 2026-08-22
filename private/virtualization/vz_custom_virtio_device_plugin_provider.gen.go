@@ -39,7 +39,7 @@ func (vc VZCustomVirtioDevicePluginProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomVirtioDevicePluginProviderClass) Alloc() VZCustomVirtioDevicePluginProvider {
-	rv := objc.Send[VZCustomVirtioDevicePluginProvider](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomVirtioDevicePluginProvider](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IVZCustomVirtioDevicePluginProvider interface {
 
 // Init initializes the instance.
 func (v VZCustomVirtioDevicePluginProvider) Init() VZCustomVirtioDevicePluginProvider {
-	rv := objc.Send[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomVirtioDevicePluginProvider) Autorelease() VZCustomVirtioDevicePluginProvider {
-	rv := objc.Send[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomVirtioDevicePluginProvider creates a new VZCustomVirtioDevicePluginProvider instance.
 func NewVZCustomVirtioDevicePluginProvider() VZCustomVirtioDevicePluginProvider {
 	class := getVZCustomVirtioDevicePluginProviderClass()
-	rv := objc.Send[VZCustomVirtioDevicePluginProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomVirtioDevicePluginProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZCustomVirtioDevicePluginProviderWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomVirtioDevicePluginProvider {
 	instance := getVZCustomVirtioDevicePluginProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
 	return VZCustomVirtioDevicePluginProviderFromID(rv)
 }
 
 func (v VZCustomVirtioDevicePluginProvider) InitWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomVirtioDevicePluginProvider {
-	rv := objc.Send[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
+	rv := objc.SendIfResponds[VZCustomVirtioDevicePluginProvider](v.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
 	return rv
 }
 
 func (v VZCustomVirtioDevicePluginProvider) PluginName() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginName"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomVirtioDevicePluginProvider) PluginPersonality() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginPersonality"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()
 }

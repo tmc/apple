@@ -41,7 +41,7 @@ func (fc FastFolderCopierWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (fc FastFolderCopierWrapperClass) Alloc() FastFolderCopierWrapper {
-	rv := objc.Send[FastFolderCopierWrapper](objc.ID(fc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[FastFolderCopierWrapper](objc.ID(fc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,26 +99,26 @@ type IFastFolderCopierWrapper interface {
 
 // Init initializes the instance.
 func (f FastFolderCopierWrapper) Init() FastFolderCopierWrapper {
-	rv := objc.Send[FastFolderCopierWrapper](f.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[FastFolderCopierWrapper](f.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (f FastFolderCopierWrapper) Autorelease() FastFolderCopierWrapper {
-	rv := objc.Send[FastFolderCopierWrapper](f.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[FastFolderCopierWrapper](f.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewFastFolderCopierWrapper creates a new FastFolderCopierWrapper instance.
 func NewFastFolderCopierWrapper() FastFolderCopierWrapper {
 	class := getFastFolderCopierWrapperClass()
-	rv := objc.Send[FastFolderCopierWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[FastFolderCopierWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFastFolderCopierWrapperWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token unsafe.Pointer) FastFolderCopierWrapper {
 	instance := getFastFolderCopierWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSrcFolder:parallelMode:auditToken:"), folder, mode, token)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSrcFolder:parallelMode:auditToken:"), folder, mode, token)
 	return FastFolderCopierWrapperFromID(rv)
 }
 
@@ -149,29 +149,29 @@ func (f FastFolderCopierWrapper) TraverseSrcFolderWithProgressError(progress obj
 
 }
 func (f FastFolderCopierWrapper) InitWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token unsafe.Pointer) FastFolderCopierWrapper {
-	rv := objc.Send[FastFolderCopierWrapper](f.ID, objc.Sel("initWithSrcFolder:parallelMode:auditToken:"), folder, mode, token)
+	rv := objc.SendIfResponds[FastFolderCopierWrapper](f.ID, objc.Sel("initWithSrcFolder:parallelMode:auditToken:"), folder, mode, token)
 	return rv
 }
 
 func (f FastFolderCopierWrapper) Copier() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("copier"))
+	rv := objc.SendIfResponds[unsafe.Pointer](f.ID, objc.Sel("copier"))
 	return rv
 }
 func (f FastFolderCopierWrapper) SetCopier(value unsafe.Pointer) {
-	objc.Send[struct{}](f.ID, objc.Sel("setCopier:"), value)
+	objc.SendIfResponds[struct{}](f.ID, objc.Sel("setCopier:"), value)
 }
 func (f FastFolderCopierWrapper) FolderSize() uint64 {
-	rv := objc.Send[uint64](f.ID, objc.Sel("folderSize"))
+	rv := objc.SendIfResponds[uint64](f.ID, objc.Sel("folderSize"))
 	return rv
 }
 func (f FastFolderCopierWrapper) NumFiles() uint64 {
-	rv := objc.Send[uint64](f.ID, objc.Sel("numFiles"))
+	rv := objc.SendIfResponds[uint64](f.ID, objc.Sel("numFiles"))
 	return rv
 }
 func (f FastFolderCopierWrapper) Progress() foundation.Progress {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
+	rv := objc.SendIfResponds[objc.ID](f.ID, objc.Sel("progress"))
 	return foundation.ProgressFromID(objc.ID(rv))
 }
 func (f FastFolderCopierWrapper) SetProgress(value foundation.Progress) {
-	objc.Send[struct{}](f.ID, objc.Sel("setProgress:"), value)
+	objc.SendIfResponds[struct{}](f.ID, objc.Sel("setProgress:"), value)
 }

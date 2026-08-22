@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationFloatResultClass) Class() objc.Class
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationFloatResultClass) Alloc() SLSBridgedWindowManagementOperationFloatResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationFloatResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationFloatResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationFloatResult) Init() SLSBridgedWindowManagementOperationFloatResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationFloatResult) Autorelease() SLSBridgedWindowManagementOperationFloatResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationFloatResult creates a new SLSBridgedWindowManagementOperationFloatResult instance.
 func NewSLSBridgedWindowManagementOperationFloatResult() SLSBridgedWindowManagementOperationFloatResult {
 	class := getSLSBridgedWindowManagementOperationFloatResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationFloatResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationFloatResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationFloatResult {
 	instance := getSLSBridgedWindowManagementOperationFloatResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationFloatResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationFloatResultWithFloatValue(value float32) SLSBridgedWindowManagementOperationFloatResult {
 	instance := getSLSBridgedWindowManagementOperationFloatResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFloatValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFloatValue:"), value)
 	return SLSBridgedWindowManagementOperationFloatResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationFloatResult) InitWithFloatValue(value float32) SLSBridgedWindowManagementOperationFloatResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("initWithFloatValue:"), value)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationFloatResult](s.ID, objc.Sel("initWithFloatValue:"), value)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationFloatResult) FloatValue() float32 {
-	rv := objc.Send[float32](s.ID, objc.Sel("floatValue"))
+	rv := objc.SendIfResponds[float32](s.ID, objc.Sel("floatValue"))
 	return rv
 }

@@ -37,7 +37,7 @@ func (vc VZMailboxHandleMailboxDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMailboxHandleMailboxDeviceConfigurationClass) Alloc() VZMailboxHandleMailboxDeviceConfiguration {
-	rv := objc.Send[VZMailboxHandleMailboxDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMailboxHandleMailboxDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZMailboxHandleMailboxDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMailboxHandleMailboxDeviceConfiguration) Init() VZMailboxHandleMailboxDeviceConfiguration {
-	rv := objc.Send[VZMailboxHandleMailboxDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMailboxHandleMailboxDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMailboxHandleMailboxDeviceConfiguration) Autorelease() VZMailboxHandleMailboxDeviceConfiguration {
-	rv := objc.Send[VZMailboxHandleMailboxDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMailboxHandleMailboxDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMailboxHandleMailboxDeviceConfiguration creates a new VZMailboxHandleMailboxDeviceConfiguration instance.
 func NewVZMailboxHandleMailboxDeviceConfiguration() VZMailboxHandleMailboxDeviceConfiguration {
 	class := getVZMailboxHandleMailboxDeviceConfigurationClass()
-	rv := objc.Send[VZMailboxHandleMailboxDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMailboxHandleMailboxDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

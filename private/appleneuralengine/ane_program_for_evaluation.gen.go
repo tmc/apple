@@ -41,7 +41,7 @@ func (ac ANEProgramForEvaluationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEProgramForEvaluationClass) Alloc() ANEProgramForEvaluation {
-	rv := objc.Send[ANEProgramForEvaluation](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEProgramForEvaluation](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,7 +109,7 @@ type IANEProgramForEvaluation interface {
 	ProcessSessionHintOptionsReportError(hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error)
 	ProgramHandle() uint64
 	SetProgramHandle(value uint64)
-	ProgramInferenceOtherErrorForMessageModelMethodName(message ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject
+	ProgramInferenceOtherErrorForMessageModelMethodName(message *ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject
 	QueueDepth() int8
 	RequestsInFlight() objectivec.Object
 	InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation
@@ -117,26 +117,26 @@ type IANEProgramForEvaluation interface {
 
 // Init initializes the instance.
 func (a ANEProgramForEvaluation) Init() ANEProgramForEvaluation {
-	rv := objc.Send[ANEProgramForEvaluation](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEProgramForEvaluation](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEProgramForEvaluation) Autorelease() ANEProgramForEvaluation {
-	rv := objc.Send[ANEProgramForEvaluation](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEProgramForEvaluation](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEProgramForEvaluation creates a new ANEProgramForEvaluation instance.
 func NewANEProgramForEvaluation() ANEProgramForEvaluation {
 	class := getANEProgramForEvaluationClass()
-	rv := objc.Send[ANEProgramForEvaluation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEProgramForEvaluation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEProgramForEvaluationWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation {
 	instance := getANEProgramForEvaluationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
 	return ANEProgramForEvaluationFromID(rv)
 }
 
@@ -168,7 +168,7 @@ func (a ANEProgramForEvaluation) ProcessOutputSetModelOptionsError(set objective
 }
 func (a ANEProgramForEvaluation) ProcessRequestModelQosQIndexModelStringIDOptionsReturnValueError(request objectivec.IObject, model objectivec.IObject, qos uint32, index uint64, id uint64, options objectivec.IObject, value *uint32) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:"), request, model, qos, index, id, options, value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](a.ID, objc.Sel("processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:"), request, model, qos, index, id, options, unsafe.Pointer(value), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -192,54 +192,54 @@ func (a ANEProgramForEvaluation) ProcessSessionHintOptionsReportError(hint objec
 	return rv, nil
 
 }
-func (a ANEProgramForEvaluation) ProgramInferenceOtherErrorForMessageModelMethodName(message ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("programInferenceOtherErrorForMessage:model:methodName:"), message, model, name)
+func (a ANEProgramForEvaluation) ProgramInferenceOtherErrorForMessageModelMethodName(message *ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("programInferenceOtherErrorForMessage:model:methodName:"), unsafe.Pointer(message), model, name)
 	return objectivec.Object{ID: rv}
 }
 func (a ANEProgramForEvaluation) InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation {
-	rv := objc.Send[ANEProgramForEvaluation](a.ID, objc.Sel("initWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
+	rv := objc.SendIfResponds[ANEProgramForEvaluation](a.ID, objc.Sel("initWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
 	return rv
 }
 
 func (_ANEProgramForEvaluationClass ANEProgramForEvaluationClass) ProgramWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEProgramForEvaluationClass.class), objc.Sel("programWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEProgramForEvaluationClass.class), objc.Sel("programWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEProgramForEvaluationClass ANEProgramForEvaluationClass) ProgramWithHandleIntermediateBufferHandleQueueDepth(handle uint64, handle2 uint64, depth int8) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEProgramForEvaluationClass.class), objc.Sel("programWithHandle:intermediateBufferHandle:queueDepth:"), handle, handle2, depth)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEProgramForEvaluationClass.class), objc.Sel("programWithHandle:intermediateBufferHandle:queueDepth:"), handle, handle2, depth)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEProgramForEvaluation) Controller() IANEDeviceController {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("controller"))
 	return ANEDeviceControllerFromID(objc.ID(rv))
 }
 func (a ANEProgramForEvaluation) CurrentAsyncRequestsInFlight() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("currentAsyncRequestsInFlight"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("currentAsyncRequestsInFlight"))
 	return rv
 }
 func (a ANEProgramForEvaluation) SetCurrentAsyncRequestsInFlight(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCurrentAsyncRequestsInFlight:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setCurrentAsyncRequestsInFlight:"), value)
 }
 func (a ANEProgramForEvaluation) IntermediateBufferHandle() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("intermediateBufferHandle"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("intermediateBufferHandle"))
 	return rv
 }
 func (a ANEProgramForEvaluation) SetIntermediateBufferHandle(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
 }
 func (a ANEProgramForEvaluation) ProgramHandle() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }
 func (a ANEProgramForEvaluation) SetProgramHandle(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
 }
 func (a ANEProgramForEvaluation) QueueDepth() int8 {
-	rv := objc.Send[int8](a.ID, objc.Sel("queueDepth"))
+	rv := objc.SendIfResponds[int8](a.ID, objc.Sel("queueDepth"))
 	return rv
 }
 func (a ANEProgramForEvaluation) RequestsInFlight() objectivec.Object {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("requestsInFlight"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("requestsInFlight"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

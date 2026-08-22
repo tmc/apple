@@ -39,7 +39,7 @@ func (mc MLNetworkingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNetworkingClass) Alloc() MLNetworking {
-	rv := objc.Send[MLNetworking](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNetworking](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -124,101 +124,107 @@ type IMLNetworking interface {
 
 // Init initializes the instance.
 func (m MLNetworking) Init() MLNetworking {
-	rv := objc.Send[MLNetworking](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNetworking](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNetworking) Autorelease() MLNetworking {
-	rv := objc.Send[MLNetworking](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNetworking](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNetworking creates a new MLNetworking instance.
 func NewMLNetworking() MLNetworking {
 	class := getMLNetworkingClass()
-	rv := objc.Send[MLNetworking](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNetworking](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLNetworkingConnection(connection objectivec.IObject) MLNetworking {
 	instance := getMLNetworkingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initConnection:"), connection)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initConnection:"), connection)
 	return MLNetworkingFromID(rv)
 }
 
 func NewMLNetworkingListener(listener objectivec.IObject) MLNetworking {
 	instance := getMLNetworkingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initListener:"), listener)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initListener:"), listener)
 	return MLNetworkingFromID(rv)
 }
 
 func (m MLNetworking) ReceiveLoop(loop VoidHandler) {
 	_block0, _ := NewVoidBlock(loop)
-	objc.Send[objc.ID](m.ID, objc.Sel("receiveLoop:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("receiveLoop:"), _block0)
 }
 func (m MLNetworking) RestartConnection() {
-	objc.Send[objc.ID](m.ID, objc.Sel("restartConnection"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("restartConnection"))
 }
 func (m MLNetworking) SendData(data objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sendData:"), data)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("sendData:"), data)
 }
+
+var _mlnetworking_setlistenerreceivedatacallback_p0_key byte
+
 func (m MLNetworking) SetListenerReceiveDataCallBack(back VoidHandler) {
 	_block0, _ := NewVoidBlock(back)
-	objc.Send[objc.ID](m.ID, objc.Sel("setListenerReceiveDataCallBack:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setListenerReceiveDataCallBack:"), _block0)
 }
+
+var _mlnetworking_setreceivedatacallback_p0_key byte
+
 func (m MLNetworking) SetReceiveDataCallBack(back VoidHandler) {
 	_block0, _ := NewVoidBlock(back)
-	objc.Send[objc.ID](m.ID, objc.Sel("setReceiveDataCallBack:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setReceiveDataCallBack:"), _block0)
 }
 func (m MLNetworking) StartConnection() {
-	objc.Send[objc.ID](m.ID, objc.Sel("startConnection"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("startConnection"))
 }
 func (m MLNetworking) Stop() {
-	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stop"))
 }
 func (m MLNetworking) InitConnection(connection objectivec.IObject) MLNetworking {
-	rv := objc.Send[MLNetworking](m.ID, objc.Sel("initConnection:"), connection)
+	rv := objc.SendIfResponds[MLNetworking](m.ID, objc.Sel("initConnection:"), connection)
 	return rv
 }
 func (m MLNetworking) InitListener(listener objectivec.IObject) MLNetworking {
-	rv := objc.Send[MLNetworking](m.ID, objc.Sel("initListener:"), listener)
+	rv := objc.SendIfResponds[MLNetworking](m.ID, objc.Sel("initListener:"), listener)
 	return rv
 }
 
 func (m MLNetworking) Connection() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNetworking) SetConnection(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConnection:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setConnection:"), value)
 }
 func (m MLNetworking) IsClient() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isClient"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isClient"))
 	return rv
 }
 func (m MLNetworking) Listener() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("listener"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("listener"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNetworking) LogType() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("logType"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("logType"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNetworking) NwOptions() uint {
-	rv := objc.Send[uint](m.ID, objc.Sel("nwOptions"))
+	rv := objc.SendIfResponds[uint](m.ID, objc.Sel("nwOptions"))
 	return rv
 }
 func (m MLNetworking) Parameters() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameters"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNetworking) Protocol_stack() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("protocol_stack"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("protocol_stack"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNetworking) Q() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("q"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 

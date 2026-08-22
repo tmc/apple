@@ -41,7 +41,7 @@ func (vc VZMacAuxiliaryStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
-	rv := objc.Send[VZMacAuxiliaryStorage](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacAuxiliaryStorage](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,20 +102,20 @@ type IVZMacAuxiliaryStorage interface {
 
 // Init initializes the instance.
 func (v VZMacAuxiliaryStorage) Init() VZMacAuxiliaryStorage {
-	rv := objc.Send[VZMacAuxiliaryStorage](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacAuxiliaryStorage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacAuxiliaryStorage) Autorelease() VZMacAuxiliaryStorage {
-	rv := objc.Send[VZMacAuxiliaryStorage](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacAuxiliaryStorage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacAuxiliaryStorage creates a new VZMacAuxiliaryStorage instance.
 func NewVZMacAuxiliaryStorage() VZMacAuxiliaryStorage {
 	class := getVZMacAuxiliaryStorageClass()
-	rv := objc.Send[VZMacAuxiliaryStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacAuxiliaryStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [EspressoTrainingConvolutionWeightsForMPS] class.
@@ -39,7 +39,7 @@ func (ec EspressoTrainingConvolutionWeightsForMPSClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoTrainingConvolutionWeightsForMPSClass) Alloc() EspressoTrainingConvolutionWeightsForMPS {
-	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoTrainingConvolutionWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,64 +79,64 @@ type IEspressoTrainingConvolutionWeightsForMPS interface {
 	// Topic: Methods
 
 	BiasesBuffer() unsafe.Pointer
-	SetBiasesBuffer(value kernel.Pointer)
+	SetBiasesBuffer(value unsafe.Pointer)
 	WeightsBuffer() unsafe.Pointer
-	SetWeightsBuffer(value kernel.Pointer)
+	SetWeightsBuffer(value unsafe.Pointer)
 	WeightsLayout() uint32
-	InitWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS
+	InitWithParamsForMode(params appleneuralengine.ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS
 }
 
 // Init initializes the instance.
 func (e EspressoTrainingConvolutionWeightsForMPS) Init() EspressoTrainingConvolutionWeightsForMPS {
-	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoTrainingConvolutionWeightsForMPS) Autorelease() EspressoTrainingConvolutionWeightsForMPS {
-	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoTrainingConvolutionWeightsForMPS creates a new EspressoTrainingConvolutionWeightsForMPS instance.
 func NewEspressoTrainingConvolutionWeightsForMPS() EspressoTrainingConvolutionWeightsForMPS {
 	class := getEspressoTrainingConvolutionWeightsForMPSClass()
-	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoTrainingConvolutionWeightsForMPS](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params ConvolutionUniforms) EspressoTrainingConvolutionWeightsForMPS {
+func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params appleneuralengine.ConvolutionUniforms) EspressoTrainingConvolutionWeightsForMPS {
 	instance := getEspressoTrainingConvolutionWeightsForMPSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
 }
 
-func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
+func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params appleneuralengine.ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
 	instance := getEspressoTrainingConvolutionWeightsForMPSClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
 }
 
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsLayout() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("weightsLayout"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("weightsLayout"))
 	return rv
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
-	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
+func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params appleneuralengine.ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
+	rv := objc.SendIfResponds[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return rv
 }
 
 func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
 	return rv
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
+func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
 	return rv
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
+func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }

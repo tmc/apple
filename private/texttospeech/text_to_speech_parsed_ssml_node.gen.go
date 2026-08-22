@@ -39,7 +39,7 @@ func (tc TextToSpeechParsedSSMLNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechParsedSSMLNodeClass) Alloc() TextToSpeechParsedSSMLNode {
-	rv := objc.Send[TextToSpeechParsedSSMLNode](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechParsedSSMLNode](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,24 +73,24 @@ type ITextToSpeechParsedSSMLNode interface {
 
 // Init initializes the instance.
 func (t TextToSpeechParsedSSMLNode) Init() TextToSpeechParsedSSMLNode {
-	rv := objc.Send[TextToSpeechParsedSSMLNode](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechParsedSSMLNode](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechParsedSSMLNode) Autorelease() TextToSpeechParsedSSMLNode {
-	rv := objc.Send[TextToSpeechParsedSSMLNode](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechParsedSSMLNode](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechParsedSSMLNode creates a new TextToSpeechParsedSSMLNode instance.
 func NewTextToSpeechParsedSSMLNode() TextToSpeechParsedSSMLNode {
 	class := getTextToSpeechParsedSSMLNodeClass()
-	rv := objc.Send[TextToSpeechParsedSSMLNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechParsedSSMLNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechParsedSSMLNode) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }

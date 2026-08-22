@@ -40,7 +40,7 @@ func (mc MLProgramTrainerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramTrainerClass) Alloc() MLProgramTrainer {
-	rv := objc.Send[MLProgramTrainer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramTrainer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -134,40 +134,43 @@ type IMLProgramTrainer interface {
 
 // Init initializes the instance.
 func (m MLProgramTrainer) Init() MLProgramTrainer {
-	rv := objc.Send[MLProgramTrainer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramTrainer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramTrainer) Autorelease() MLProgramTrainer {
-	rv := objc.Send[MLProgramTrainer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramTrainer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramTrainer creates a new MLProgramTrainer instance.
 func NewMLProgramTrainer() MLProgramTrainer {
 	class := getMLProgramTrainerClass()
-	rv := objc.Send[MLProgramTrainer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramTrainer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramTrainerWithProgramLearningRateError(program objectivec.IObject, rate float64) (MLProgramTrainer, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramTrainerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgram:learningRate:error:"), program, rate, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:learningRate:error:"), program, rate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLProgramTrainer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLProgramTrainer{}, objc.ErrInitFailed
 	}
 	return MLProgramTrainerFromID(rv), nil
 }
 
 func (m MLProgramTrainer) AttachLearningRateToFeatures(features objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("attachLearningRateToFeatures:"), features)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("attachLearningRateToFeatures:"), features)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramTrainer) CopyCurrentTrainingDelta() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("copyCurrentTrainingDelta"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyCurrentTrainingDelta"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramTrainer) EvaluateUsingTestDataError(data objectivec.IObject) (objectivec.IObject, error) {
@@ -201,11 +204,11 @@ func (m MLProgramTrainer) EvaluateUsingTestDataEvaluationMetricNamesEvaluateOnTr
 
 }
 func (m MLProgramTrainer) FlattenFeaturesOrderedFeatures(features objectivec.IObject, features2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("flattenFeatures:orderedFeatures:"), features, features2)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("flattenFeatures:orderedFeatures:"), features, features2)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramTrainer) OrderedTrainableWeightsNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("orderedTrainableWeightsNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("orderedTrainableWeightsNames"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramTrainer) TrainUsingTrainingDataError(data objectivec.IObject) (objectivec.IObject, error) {
@@ -240,41 +243,41 @@ func (m MLProgramTrainer) InitWithProgramLearningRateError(program objectivec.IO
 }
 
 func (m MLProgramTrainer) Context() IMLProgramContext {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("context"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("context"))
 	return MLProgramContextFromID(objc.ID(rv))
 }
 func (m MLProgramTrainer) SetContext(value IMLProgramContext) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContext:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContext:"), value)
 }
 func (m MLProgramTrainer) CurrentUpdatedWeights() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("currentUpdatedWeights"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("currentUpdatedWeights"))
 	return rv
 }
 func (m MLProgramTrainer) SetCurrentUpdatedWeights(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCurrentUpdatedWeights:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCurrentUpdatedWeights:"), value)
 }
 func (m MLProgramTrainer) Evaluator() IMLProgramEvaluator {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluator"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("evaluator"))
 	return MLProgramEvaluatorFromID(objc.ID(rv))
 }
 func (m MLProgramTrainer) SetEvaluator(value IMLProgramEvaluator) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEvaluator:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEvaluator:"), value)
 }
 func (m MLProgramTrainer) InferenceModel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("inferenceModel"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("inferenceModel"))
 	return rv
 }
 func (m MLProgramTrainer) LearningRate() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("learningRate"))
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("learningRate"))
 	return rv
 }
 func (m MLProgramTrainer) SetLearningRate(value float64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLearningRate:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLearningRate:"), value)
 }
 func (m MLProgramTrainer) Program() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("program"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("program"))
 	return rv
 }
 func (m MLProgramTrainer) SetProgram(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgram:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgram:"), value)
 }

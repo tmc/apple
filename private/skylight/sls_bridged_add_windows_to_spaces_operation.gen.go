@@ -39,7 +39,7 @@ func (sc SLSBridgedAddWindowsToSpacesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedAddWindowsToSpacesOperationClass) Alloc() SLSBridgedAddWindowsToSpacesOperation {
-	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedAddWindowsToSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedAddWindowsToSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedAddWindowsToSpacesOperation) Init() SLSBridgedAddWindowsToSpacesOperation {
-	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedAddWindowsToSpacesOperation) Autorelease() SLSBridgedAddWindowsToSpacesOperation {
-	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedAddWindowsToSpacesOperation creates a new SLSBridgedAddWindowsToSpacesOperation instance.
 func NewSLSBridgedAddWindowsToSpacesOperation() SLSBridgedAddWindowsToSpacesOperation {
 	class := getSLSBridgedAddWindowsToSpacesOperationClass()
-	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedAddWindowsToSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedAddWindowsToSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
 	instance := getSLSBridgedAddWindowsToSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedAddWindowsToSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedAddWindowsToSpacesOperationWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
 	instance := getSLSBridgedAddWindowsToSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return SLSBridgedAddWindowsToSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedAddWindowsToSpacesOperation) InitWithWindowsSpaces(windows objectivec.IObject, spaces objectivec.IObject) SLSBridgedAddWindowsToSpacesOperation {
-	rv := objc.Send[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
+	rv := objc.SendIfResponds[SLSBridgedAddWindowsToSpacesOperation](s.ID, objc.Sel("initWithWindows:spaces:"), windows, spaces)
 	return rv
 }
 
 func (s SLSBridgedAddWindowsToSpacesOperation) Spaces() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSBridgedAddWindowsToSpacesOperation) Windows() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windows"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

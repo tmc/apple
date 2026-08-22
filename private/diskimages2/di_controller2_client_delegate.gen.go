@@ -39,7 +39,7 @@ func (dc DIController2ClientDelegateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIController2ClientDelegateClass) Alloc() DIController2ClientDelegate {
-	rv := objc.Send[DIController2ClientDelegate](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIController2ClientDelegate](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,34 +79,34 @@ type IDIController2ClientDelegate interface {
 
 // Init initializes the instance.
 func (d DIController2ClientDelegate) Init() DIController2ClientDelegate {
-	rv := objc.Send[DIController2ClientDelegate](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIController2ClientDelegate](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIController2ClientDelegate) Autorelease() DIController2ClientDelegate {
-	rv := objc.Send[DIController2ClientDelegate](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIController2ClientDelegate](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIController2ClientDelegate creates a new DIController2ClientDelegate instance.
 func NewDIController2ClientDelegate() DIController2ClientDelegate {
 	class := getDIController2ClientDelegateClass()
-	rv := objc.Send[DIController2ClientDelegate](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIController2ClientDelegate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (d DIController2ClientDelegate) AttachCompletedWithHandleReply(handle objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](d.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, _block1)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, _block1)
 }
 
 func (d DIController2ClientDelegate) DeviceHandle() IDIDeviceHandle {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("deviceHandle"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("deviceHandle"))
 	return DIDeviceHandleFromID(objc.ID(rv))
 }
 func (d DIController2ClientDelegate) SetDeviceHandle(value IDIDeviceHandle) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDeviceHandle:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDeviceHandle:"), value)
 }
 
 // AttachCompletedWithHandleReplySync is a synchronous wrapper around [DIController2ClientDelegate.AttachCompletedWithHandleReply].

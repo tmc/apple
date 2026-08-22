@@ -41,7 +41,7 @@ func (vc VZVirtioQueueElementClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioQueueElementClass) Alloc() VZVirtioQueueElement {
-	rv := objc.Send[VZVirtioQueueElement](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioQueueElement](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -108,20 +108,20 @@ type IVZVirtioQueueElement interface {
 
 // Init initializes the instance.
 func (v VZVirtioQueueElement) Init() VZVirtioQueueElement {
-	rv := objc.Send[VZVirtioQueueElement](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioQueueElement](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioQueueElement) Autorelease() VZVirtioQueueElement {
-	rv := objc.Send[VZVirtioQueueElement](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioQueueElement](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioQueueElement creates a new VZVirtioQueueElement instance.
 func NewVZVirtioQueueElement() VZVirtioQueueElement {
 	class := getVZVirtioQueueElementClass()
-	rv := objc.Send[VZVirtioQueueElement](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioQueueElement](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -136,7 +136,7 @@ func (v VZVirtioQueueElement) PeekIntoReadBuffersError(buffers uint64) (objectiv
 
 }
 func (v VZVirtioQueueElement) ReadBuffers() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("readBuffers"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("readBuffers"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZVirtioQueueElement) ReadBytesError(bytes uint64) (objectivec.IObject, error) {
@@ -163,7 +163,7 @@ func (v VZVirtioQueueElement) ReadBytesIntoLengthError(into unsafe.Pointer, leng
 
 }
 func (v VZVirtioQueueElement) ReturnToQueue() {
-	objc.Send[objc.ID](v.ID, objc.Sel("returnToQueue"))
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("returnToQueue"))
 }
 func (v VZVirtioQueueElement) WriteError(write objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -193,22 +193,22 @@ func (v VZVirtioQueueElement) WriteDataLengthError(data unsafe.Pointer, length u
 }
 
 func (v VZVirtioQueueElement) ReadBuffersAvailableByteCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("readBuffersAvailableByteCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("readBuffersAvailableByteCount"))
 	return rv
 }
 func (v VZVirtioQueueElement) ReadBuffersByteCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("readBuffersByteCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("readBuffersByteCount"))
 	return rv
 }
 func (v VZVirtioQueueElement) WriteBuffersAvailableByteCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("writeBuffersAvailableByteCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("writeBuffersAvailableByteCount"))
 	return rv
 }
 func (v VZVirtioQueueElement) WriteBuffersByteCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("writeBuffersByteCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("writeBuffersByteCount"))
 	return rv
 }
 func (v VZVirtioQueueElement) WrittenByteCount() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("writtenByteCount"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("writtenByteCount"))
 	return rv
 }

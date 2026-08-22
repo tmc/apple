@@ -38,7 +38,7 @@ func (tc TextToSpeechTTSPronunciationUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSPronunciationUtilsClass) Alloc() TextToSpeechTTSPronunciationUtils {
-	rv := objc.Send[TextToSpeechTTSPronunciationUtils](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSPronunciationUtils](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechTTSPronunciationUtilsFromID(id objc.ID) TextToSpeechTTSPronunci
 	return TextToSpeechTTSPronunciationUtils{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSPronunciationUtils struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSPronunciationUtils embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechTTSPronunciationUtils implements ITextToSpeechTTSPronunciationUtils.
+var _ ITextToSpeechTTSPronunciationUtils = TextToSpeechTTSPronunciationUtils{}
 
 // An interface definition for the [TextToSpeechTTSPronunciationUtils] class.
 type ITextToSpeechTTSPronunciationUtils interface {
@@ -61,19 +61,19 @@ type ITextToSpeechTTSPronunciationUtils interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSPronunciationUtils) Init() TextToSpeechTTSPronunciationUtils {
-	rv := objc.Send[TextToSpeechTTSPronunciationUtils](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSPronunciationUtils](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSPronunciationUtils) Autorelease() TextToSpeechTTSPronunciationUtils {
-	rv := objc.Send[TextToSpeechTTSPronunciationUtils](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSPronunciationUtils](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSPronunciationUtils creates a new TextToSpeechTTSPronunciationUtils instance.
 func NewTextToSpeechTTSPronunciationUtils() TextToSpeechTTSPronunciationUtils {
 	class := getTextToSpeechTTSPronunciationUtilsClass()
-	rv := objc.Send[TextToSpeechTTSPronunciationUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSPronunciationUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

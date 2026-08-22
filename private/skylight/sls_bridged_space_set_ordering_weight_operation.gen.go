@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceSetOrderingWeightOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceSetOrderingWeightOperationClass) Alloc() SLSBridgedSpaceSetOrderingWeightOperation {
-	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedSpaceSetOrderingWeightOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceSetOrderingWeightOperation) Init() SLSBridgedSpaceSetOrderingWeightOperation {
-	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceSetOrderingWeightOperation) Autorelease() SLSBridgedSpaceSetOrderingWeightOperation {
-	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceSetOrderingWeightOperation creates a new SLSBridgedSpaceSetOrderingWeightOperation instance.
 func NewSLSBridgedSpaceSetOrderingWeightOperation() SLSBridgedSpaceSetOrderingWeightOperation {
 	class := getSLSBridgedSpaceSetOrderingWeightOperationClass()
-	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceSetOrderingWeightOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetOrderingWeightOperation {
 	instance := getSLSBridgedSpaceSetOrderingWeightOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceSetOrderingWeightOperationWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
 	instance := getSLSBridgedSpaceSetOrderingWeightOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceSetOrderingWeightOperation) InitWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
-	rv := objc.Send[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return rv
 }
 
 func (s SLSBridgedSpaceSetOrderingWeightOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
 func (s SLSBridgedSpaceSetOrderingWeightOperation) Weight() int {
-	rv := objc.Send[int](s.ID, objc.Sel("weight"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("weight"))
 	return rv
 }

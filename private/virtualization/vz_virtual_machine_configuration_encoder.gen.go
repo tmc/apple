@@ -40,7 +40,7 @@ func (vc VZVirtualMachineConfigurationEncoderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineConfigurationEncoderClass) Alloc() VZVirtualMachineConfigurationEncoder {
-	rv := objc.Send[VZVirtualMachineConfigurationEncoder](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationEncoder](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,26 +77,26 @@ type IVZVirtualMachineConfigurationEncoder interface {
 
 // Init initializes the instance.
 func (v VZVirtualMachineConfigurationEncoder) Init() VZVirtualMachineConfigurationEncoder {
-	rv := objc.Send[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtualMachineConfigurationEncoder) Autorelease() VZVirtualMachineConfigurationEncoder {
-	rv := objc.Send[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtualMachineConfigurationEncoder creates a new VZVirtualMachineConfigurationEncoder instance.
 func NewVZVirtualMachineConfigurationEncoder() VZVirtualMachineConfigurationEncoder {
 	class := getVZVirtualMachineConfigurationEncoderClass()
-	rv := objc.Send[VZVirtualMachineConfigurationEncoder](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationEncoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZVirtualMachineConfigurationEncoderWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationEncoder {
 	instance := getVZVirtualMachineConfigurationEncoderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseURL:"), url)
 	return VZVirtualMachineConfigurationEncoderFromID(rv)
 }
 
@@ -111,6 +111,6 @@ func (v VZVirtualMachineConfigurationEncoder) DataWithConfigurationFormatError(c
 
 }
 func (v VZVirtualMachineConfigurationEncoder) InitWithBaseURL(url foundation.NSURL) VZVirtualMachineConfigurationEncoder {
-	rv := objc.Send[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("initWithBaseURL:"), url)
+	rv := objc.SendIfResponds[VZVirtualMachineConfigurationEncoder](v.ID, objc.Sel("initWithBaseURL:"), url)
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLRemoteConnectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLRemoteConnectionClass) Alloc() MLRemoteConnection {
-	rv := objc.Send[MLRemoteConnection](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLRemoteConnection](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -120,31 +120,31 @@ type IMLRemoteConnection interface {
 
 // Init initializes the instance.
 func (m MLRemoteConnection) Init() MLRemoteConnection {
-	rv := objc.Send[MLRemoteConnection](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLRemoteConnection](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLRemoteConnection) Autorelease() MLRemoteConnection {
-	rv := objc.Send[MLRemoteConnection](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLRemoteConnection](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLRemoteConnection creates a new MLRemoteConnection instance.
 func NewMLRemoteConnection() MLRemoteConnection {
 	class := getMLRemoteConnectionClass()
-	rv := objc.Send[MLRemoteConnection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLRemoteConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLRemoteConnectionWithOptions(options objectivec.IObject) MLRemoteConnection {
 	instance := getMLRemoteConnectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOptions:"), options)
 	return MLRemoteConnectionFromID(rv)
 }
 
 func (m MLRemoteConnection) DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
 }
 func (m MLRemoteConnection) LoadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -173,10 +173,10 @@ func (m MLRemoteConnection) PredictionFromURLFeaturesOutputOptionsError(url foun
 
 }
 func (m MLRemoteConnection) SendOptions(send objectivec.IObject, options objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("send:options:"), send, options)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("send:options:"), send, options)
 }
 func (m MLRemoteConnection) SendDataAndWaitForAcknowledgementOrTimeout(timeout objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("sendDataAndWaitForAcknowledgementOrTimeout:"), timeout)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("sendDataAndWaitForAcknowledgementOrTimeout:"), timeout)
 	return rv
 }
 func (m MLRemoteConnection) UnloadFromURLOptionsError(url foundation.NSURL, options objectivec.IObject) (bool, error) {
@@ -193,42 +193,42 @@ func (m MLRemoteConnection) UnloadFromURLOptionsError(url foundation.NSURL, opti
 
 }
 func (m MLRemoteConnection) InitWithOptions(options objectivec.IObject) MLRemoteConnection {
-	rv := objc.Send[MLRemoteConnection](m.ID, objc.Sel("initWithOptions:"), options)
+	rv := objc.SendIfResponds[MLRemoteConnection](m.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
 
 func (m MLRemoteConnection) Connection() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLRemoteConnection) JobCount() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("jobCount"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("jobCount"))
 	return rv
 }
 func (m MLRemoteConnection) NwObj() IMLNetworking {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwObj"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nwObj"))
 	return MLNetworkingFromID(objc.ID(rv))
 }
 func (m MLRemoteConnection) NwOptions() uint {
-	rv := objc.Send[uint](m.ID, objc.Sel("nwOptions"))
+	rv := objc.SendIfResponds[uint](m.ID, objc.Sel("nwOptions"))
 	return rv
 }
 func (m MLRemoteConnection) OutputResult() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputResult"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputResult"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (m MLRemoteConnection) SetOutputResult(value foundation.NSMutableData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputResult:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputResult:"), value)
 }
 func (m MLRemoteConnection) Packet() IMLNetworkPacket {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("packet"))
 	return MLNetworkPacketFromID(objc.ID(rv))
 }
 func (m MLRemoteConnection) Q() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("q"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLRemoteConnection) Semaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("semaphore"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("semaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

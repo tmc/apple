@@ -39,7 +39,7 @@ func (ac AVAudioEnvironmentReverbParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioEnvironmentReverbParametersClass) Alloc() AVAudioEnvironmentReverbParameters {
-	rv := objc.Send[AVAudioEnvironmentReverbParameters](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentReverbParameters](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,30 +73,30 @@ type IAVAudioEnvironmentReverbParameters interface {
 
 // Init initializes the instance.
 func (a AVAudioEnvironmentReverbParameters) Init() AVAudioEnvironmentReverbParameters {
-	rv := objc.Send[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioEnvironmentReverbParameters) Autorelease() AVAudioEnvironmentReverbParameters {
-	rv := objc.Send[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioEnvironmentReverbParameters creates a new AVAudioEnvironmentReverbParameters instance.
 func NewAVAudioEnvironmentReverbParameters() AVAudioEnvironmentReverbParameters {
 	class := getAVAudioEnvironmentReverbParametersClass()
-	rv := objc.Send[AVAudioEnvironmentReverbParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentReverbParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioEnvironmentReverbParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentReverbParameters {
 	instance := getAVAudioEnvironmentReverbParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
 	return AVAudioEnvironmentReverbParametersFromID(rv)
 }
 
 func (a AVAudioEnvironmentReverbParameters) InitWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentReverbParameters {
-	rv := objc.Send[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
+	rv := objc.SendIfResponds[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
 	return rv
 }

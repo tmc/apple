@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXEventDispatcherClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXEventDispatcherClass) Alloc() CPXEventDispatcher {
-	rv := objc.Send[CPXEventDispatcher](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXEventDispatcher](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,9 +81,9 @@ type ICPXEventDispatcher interface {
 
 	// Topic: Methods
 
-	PostBackgroundEvent(event SLSEventRecord)
-	PostEventToConnectionID(event SLSEventRecord, id uint32)
-	PostEventToDestination(event SLSEventRecord, destination objectivec.IObject)
+	PostBackgroundEvent(event *SLSEventRecord)
+	PostEventToConnectionID(event *SLSEventRecord, id uint32)
+	PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -91,46 +92,46 @@ type ICPXEventDispatcher interface {
 
 // Init initializes the instance.
 func (c CPXEventDispatcher) Init() CPXEventDispatcher {
-	rv := objc.Send[CPXEventDispatcher](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXEventDispatcher](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXEventDispatcher) Autorelease() CPXEventDispatcher {
-	rv := objc.Send[CPXEventDispatcher](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXEventDispatcher](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXEventDispatcher creates a new CPXEventDispatcher instance.
 func NewCPXEventDispatcher() CPXEventDispatcher {
 	class := getCPXEventDispatcherClass()
-	rv := objc.Send[CPXEventDispatcher](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXEventDispatcher](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (c CPXEventDispatcher) PostBackgroundEvent(event SLSEventRecord) {
-	objc.Send[objc.ID](c.ID, objc.Sel("postBackgroundEvent:"), event)
+func (c CPXEventDispatcher) PostBackgroundEvent(event *SLSEventRecord) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("postBackgroundEvent:"), unsafe.Pointer(event))
 }
-func (c CPXEventDispatcher) PostEventToConnectionID(event SLSEventRecord, id uint32) {
-	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
+func (c CPXEventDispatcher) PostEventToConnectionID(event *SLSEventRecord, id uint32) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("postEvent:toConnectionID:"), unsafe.Pointer(event), id)
 }
-func (c CPXEventDispatcher) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toDestination:"), event, destination)
+func (c CPXEventDispatcher) PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("postEvent:toDestination:"), unsafe.Pointer(event), destination)
 }
 
 func (c CPXEventDispatcher) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXEventDispatcher) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXEventDispatcher) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXEventDispatcher) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

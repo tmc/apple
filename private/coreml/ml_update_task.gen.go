@@ -41,7 +41,7 @@ func (mc MLUpdateTaskClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLUpdateTaskClass) Alloc() MLUpdateTask {
-	rv := objc.Send[MLUpdateTask](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLUpdateTask](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -132,42 +132,45 @@ type IMLUpdateTask interface {
 
 // Init initializes the instance.
 func (m MLUpdateTask) Init() MLUpdateTask {
-	rv := objc.Send[MLUpdateTask](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLUpdateTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLUpdateTask) Autorelease() MLUpdateTask {
-	rv := objc.Send[MLUpdateTask](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLUpdateTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLUpdateTask creates a new MLUpdateTask instance.
 func NewMLUpdateTask() MLUpdateTask {
 	class := getMLUpdateTaskClass()
-	rv := objc.Send[MLUpdateTask](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLUpdateTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	instance := getMLUpdateTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLUpdateTask{}, objc.ErrInitFailed
 	}
 	return MLUpdateTaskFromID(rv), nil
 }
 
 func NewUpdateTaskWithState(state int64) MLUpdateTask {
 	instance := getMLUpdateTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
 	return MLUpdateTaskFromID(rv)
 }
 
 func (m MLUpdateTask) _completionHandlerBlock() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_completionHandlerBlock"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_completionHandlerBlock"))
 }
 
 // CompletionHandlerBlock is an exported wrapper for the private method _completionHandlerBlock.
@@ -185,7 +188,7 @@ func (m MLUpdateTask) CanCompletionHandlerBlock() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_completionHandlerBlock"))
 }
 func (m MLUpdateTask) _invokeProgressHandlerForContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_invokeProgressHandlerForContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_invokeProgressHandlerForContext:"), context)
 }
 
 // InvokeProgressHandlerForContext is an exported wrapper for the private method _invokeProgressHandlerForContext.
@@ -203,7 +206,7 @@ func (m MLUpdateTask) CanInvokeProgressHandlerForContext() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_invokeProgressHandlerForContext:"))
 }
 func (m MLUpdateTask) _progressHandlerBlock() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_progressHandlerBlock"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_progressHandlerBlock"))
 }
 
 // ProgressHandlerBlock is an exported wrapper for the private method _progressHandlerBlock.
@@ -221,19 +224,19 @@ func (m MLUpdateTask) CanProgressHandlerBlock() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_progressHandlerBlock"))
 }
 func (m MLUpdateTask) OnCancellation() {
-	objc.Send[objc.ID](m.ID, objc.Sel("onCancellation"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("onCancellation"))
 }
 func (m MLUpdateTask) OnCompletionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("onCompletionWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("onCompletionWithTaskContext:"), context)
 }
 func (m MLUpdateTask) OnFailureWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("onFailureWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("onFailureWithTaskContext:"), context)
 }
 func (m MLUpdateTask) OnResumptionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("onResumptionWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("onResumptionWithTaskContext:"), context)
 }
 func (m MLUpdateTask) OnSuspensionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
 }
 func (m MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
@@ -281,45 +284,45 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataP
 }
 
 func (m MLUpdateTask) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLUpdateTask) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLUpdateTask) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLUpdateTask) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
 func (m MLUpdateTask) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (m MLUpdateTask) TrainingData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("trainingData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("trainingData"))
 	return rv
 }
 func (m MLUpdateTask) UpdatableModel() IMLModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModel"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updatableModel"))
 	return MLModelFromID(objc.ID(rv))
 }
 func (m MLUpdateTask) UpdatableModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updatableModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLUpdateTask) UpdateHasStarted() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("updateHasStarted"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("updateHasStarted"))
 	return rv
 }
 func (m MLUpdateTask) SetUpdateHasStarted(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setUpdateHasStarted:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setUpdateHasStarted:"), value)
 }
 func (m MLUpdateTask) UpdateQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

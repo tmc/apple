@@ -39,7 +39,7 @@ func (pc PluginInstanceDelegateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PluginInstanceDelegateClass) Alloc() PluginInstanceDelegate {
-	rv := objc.Send[PluginInstanceDelegate](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PluginInstanceDelegate](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,43 +88,43 @@ type IPluginInstanceDelegate interface {
 
 // Init initializes the instance.
 func (p PluginInstanceDelegate) Init() PluginInstanceDelegate {
-	rv := objc.Send[PluginInstanceDelegate](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PluginInstanceDelegate](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PluginInstanceDelegate) Autorelease() PluginInstanceDelegate {
-	rv := objc.Send[PluginInstanceDelegate](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PluginInstanceDelegate](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPluginInstanceDelegate creates a new PluginInstanceDelegate instance.
 func NewPluginInstanceDelegate() PluginInstanceDelegate {
 	class := getPluginInstanceDelegateClass()
-	rv := objc.Send[PluginInstanceDelegate](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PluginInstanceDelegate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (p PluginInstanceDelegate) HandleConnectionError(error_ objectivec.IObject) {
-	objc.Send[objc.ID](p.ID, objc.Sel("handleConnectionError:"), error_)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("handleConnectionError:"), error_)
 }
 func (p PluginInstanceDelegate) InvalidateConnection() {
-	objc.Send[objc.ID](p.ID, objc.Sel("invalidateConnection"))
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("invalidateConnection"))
 }
 
 func (p PluginInstanceDelegate) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (p PluginInstanceDelegate) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](p.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (p PluginInstanceDelegate) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](p.ID, objc.Sel("hash"))
 	return rv
 }
 func (p PluginInstanceDelegate) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](p.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](p.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

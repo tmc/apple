@@ -39,7 +39,7 @@ func (tc TextToSpeechTaggedSSMLClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTaggedSSMLClass) Alloc() TextToSpeechTaggedSSML {
-	rv := objc.Send[TextToSpeechTaggedSSML](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTaggedSSML](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,34 +82,34 @@ type ITextToSpeechTaggedSSML interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTaggedSSML) Init() TextToSpeechTaggedSSML {
-	rv := objc.Send[TextToSpeechTaggedSSML](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTaggedSSML](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTaggedSSML) Autorelease() TextToSpeechTaggedSSML {
-	rv := objc.Send[TextToSpeechTaggedSSML](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTaggedSSML](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTaggedSSML creates a new TextToSpeechTaggedSSML instance.
 func NewTextToSpeechTaggedSSML() TextToSpeechTaggedSSML {
 	class := getTextToSpeechTaggedSSMLClass()
-	rv := objc.Send[TextToSpeechTaggedSSML](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTaggedSSML](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechTaggedSSML) OriginalSSML() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalSSML"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("originalSSML"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechTaggedSSML) SetOriginalSSML(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOriginalSSML:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOriginalSSML:"), objc.String(value))
 }
 func (t TextToSpeechTaggedSSML) SsmlSnippets() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssmlSnippets"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ssmlSnippets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TextToSpeechTaggedSSML) SetSsmlSnippets(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSsmlSnippets:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSsmlSnippets:"), value)
 }

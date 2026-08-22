@@ -39,7 +39,7 @@ func (vc VZPointingDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPointingDeviceConfigurationClass) Alloc() VZPointingDeviceConfiguration {
-	rv := objc.Send[VZPointingDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPointingDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,34 +91,34 @@ type IVZPointingDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZPointingDeviceConfiguration) Init() VZPointingDeviceConfiguration {
-	rv := objc.Send[VZPointingDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPointingDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPointingDeviceConfiguration) Autorelease() VZPointingDeviceConfiguration {
-	rv := objc.Send[VZPointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPointingDeviceConfiguration creates a new VZPointingDeviceConfiguration instance.
 func NewVZPointingDeviceConfiguration() VZPointingDeviceConfiguration {
 	class := getVZPointingDeviceConfigurationClass()
-	rv := objc.Send[VZPointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZPointingDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZPointingDeviceConfiguration) MakePointingDeviceForVirtualMachinePointingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makePointingDeviceForVirtualMachine:pointingDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makePointingDeviceForVirtualMachine:pointingDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZPointingDeviceConfiguration) _pointingDevice() int {
-	rv := objc.Send[int](v.ID, objc.Sel("_pointingDevice"))
+	rv := objc.SendIfResponds[int](v.ID, objc.Sel("_pointingDevice"))
 	return rv
 }
 
@@ -135,18 +135,18 @@ func (v VZPointingDeviceConfiguration) PointingDevice() (int, error) {
 	return v._pointingDevice(), nil
 }
 func (v VZPointingDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPointingDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZPointingDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZPointingDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

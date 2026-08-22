@@ -41,7 +41,7 @@ func (vc VZCPUExitContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCPUExitContextClass) Alloc() VZCPUExitContext {
-	rv := objc.Send[VZCPUExitContext](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCPUExitContext](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,20 +102,20 @@ type IVZCPUExitContext interface {
 
 // Init initializes the instance.
 func (v VZCPUExitContext) Init() VZCPUExitContext {
-	rv := objc.Send[VZCPUExitContext](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCPUExitContext](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCPUExitContext) Autorelease() VZCPUExitContext {
-	rv := objc.Send[VZCPUExitContext](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCPUExitContext](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCPUExitContext creates a new VZCPUExitContext instance.
 func NewVZCPUExitContext() VZCPUExitContext {
 	class := getVZCPUExitContextClass()
-	rv := objc.Send[VZCPUExitContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCPUExitContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -222,10 +222,10 @@ func (v VZCPUExitContext) SetSystemRegisterValueError(register uint16, value uin
 }
 
 func (v VZCPUExitContext) CPUExit() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CPUExit"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("CPUExit"))
 	return rv
 }
 func (v VZCPUExitContext) CPUIndex() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("CPUIndex"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("CPUIndex"))
 	return rv
 }

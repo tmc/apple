@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -38,7 +39,7 @@ func (tc TTSSpeakUPAUManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeakUPAUManagerClass) Alloc() TTSSpeakUPAUManager {
-	rv := objc.Send[TTSSpeakUPAUManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeakUPAUManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,28 +62,27 @@ type ITTSSpeakUPAUManager interface {
 
 // Init initializes the instance.
 func (t TTSSpeakUPAUManager) Init() TTSSpeakUPAUManager {
-	rv := objc.Send[TTSSpeakUPAUManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeakUPAUManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeakUPAUManager) Autorelease() TTSSpeakUPAUManager {
-	rv := objc.Send[TTSSpeakUPAUManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeakUPAUManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeakUPAUManager creates a new TTSSpeakUPAUManager instance.
 func NewTTSSpeakUPAUManager() TTSSpeakUPAUManager {
 	class := getTTSSpeakUPAUManagerClass()
-	rv := objc.Send[TTSSpeakUPAUManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeakUPAUManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() AudioComponentDescription {
-	rv := objc.Send[AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
-	_ = rv
-	return AudioComponentDescription{}
+func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() audiotoolbox.AudioComponentDescription {
+	rv := objc.SendIfResponds[audiotoolbox.AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
+	return audiotoolbox.AudioComponentDescription(rv)
 }
 func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) RegisterAU() {
-	objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("registerAU"))
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("registerAU"))
 }

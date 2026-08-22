@@ -40,7 +40,7 @@ func (ac AVAudioUnitMIDIInstrumentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitMIDIInstrumentClass) Alloc() AVAudioUnitMIDIInstrument {
-	rv := objc.Send[AVAudioUnitMIDIInstrument](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitMIDIInstrument](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,42 +83,42 @@ type IAVAudioUnitMIDIInstrument interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitMIDIInstrument) Init() AVAudioUnitMIDIInstrument {
-	rv := objc.Send[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitMIDIInstrument) Autorelease() AVAudioUnitMIDIInstrument {
-	rv := objc.Send[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitMIDIInstrument creates a new AVAudioUnitMIDIInstrument instance.
 func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 	class := getAVAudioUnitMIDIInstrumentClass()
-	rv := objc.Send[AVAudioUnitMIDIInstrument](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitMIDIInstrument](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioUnitMIDIInstrumentWithImpl(impl unsafe.Pointer) AVAudioUnitMIDIInstrument {
 	instance := getAVAudioUnitMIDIInstrumentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitMIDIInstrumentFromID(rv)
 }
 
 func (a AVAudioUnitMIDIInstrument) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioUnitMIDIInstrument) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioUnitMIDIInstrument) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioUnitMIDIInstrument) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

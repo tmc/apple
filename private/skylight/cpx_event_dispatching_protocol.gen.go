@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -12,10 +14,13 @@ type CPXEventDispatching interface {
 	objectivec.IObject
 
 	// PostBackgroundEvent protocol.
-	PostBackgroundEvent(event SLSEventRecord)
+	PostBackgroundEvent(event *SLSEventRecord)
 
 	// PostEventToConnectionID protocol.
-	PostEventToConnectionID(event SLSEventRecord, id uint32)
+	PostEventToConnectionID(event *SLSEventRecord, id uint32)
+
+	// PostEventToDestination protocol.
+	PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject)
 }
 
 // CPXEventDispatchingObject wraps an existing Objective-C object that conforms to the CPXEventDispatching protocol.
@@ -35,12 +40,12 @@ func CPXEventDispatchingObjectFromID(id objc.ID) CPXEventDispatchingObject {
 	}
 }
 
-func (o CPXEventDispatchingObject) PostBackgroundEvent(event SLSEventRecord) {
-	objc.Send[struct{}](o.ID, objc.Sel("postBackgroundEvent:"), event)
+func (o CPXEventDispatchingObject) PostBackgroundEvent(event *SLSEventRecord) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("postBackgroundEvent:"), unsafe.Pointer(event))
 }
-func (o CPXEventDispatchingObject) PostEventToConnectionID(event SLSEventRecord, id uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
+func (o CPXEventDispatchingObject) PostEventToConnectionID(event *SLSEventRecord, id uint32) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("postEvent:toConnectionID:"), unsafe.Pointer(event), id)
 }
-func (o CPXEventDispatchingObject) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("postEvent:toDestination:"), event, destination)
+func (o CPXEventDispatchingObject) PostEventToDestination(event *SLSEventRecord, destination objectivec.IObject) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("postEvent:toDestination:"), unsafe.Pointer(event), destination)
 }

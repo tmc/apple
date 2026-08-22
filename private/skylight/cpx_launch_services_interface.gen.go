@@ -39,7 +39,7 @@ func (cc CPXLaunchServicesInterfaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXLaunchServicesInterfaceClass) Alloc() CPXLaunchServicesInterface {
-	rv := objc.Send[CPXLaunchServicesInterface](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXLaunchServicesInterface](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,67 +100,67 @@ type ICPXLaunchServicesInterface interface {
 
 // Init initializes the instance.
 func (c CPXLaunchServicesInterface) Init() CPXLaunchServicesInterface {
-	rv := objc.Send[CPXLaunchServicesInterface](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXLaunchServicesInterface](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXLaunchServicesInterface) Autorelease() CPXLaunchServicesInterface {
-	rv := objc.Send[CPXLaunchServicesInterface](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXLaunchServicesInterface](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXLaunchServicesInterface creates a new CPXLaunchServicesInterface instance.
 func NewCPXLaunchServicesInterface() CPXLaunchServicesInterface {
 	class := getCPXLaunchServicesInterfaceClass()
-	rv := objc.Send[CPXLaunchServicesInterface](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXLaunchServicesInterface](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXLaunchServicesInterfaceWithSessionID(id int) CPXLaunchServicesInterface {
 	instance := getCPXLaunchServicesInterfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSessionID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSessionID:"), id)
 	return CPXLaunchServicesInterfaceFromID(rv)
 }
 
 func (c CPXLaunchServicesInterface) AddToPermittedFrontASNList(aSNList LSASNRef) int {
-	rv := objc.Send[int](c.ID, objc.Sel("addToPermittedFrontASNList:"), aSNList)
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("addToPermittedFrontASNList:"), aSNList)
 	return rv
 }
 func (c CPXLaunchServicesInterface) ApplicationInformationSeed(seed LSASNRef) int {
-	rv := objc.Send[int](c.ID, objc.Sel("applicationInformationSeed:"), seed)
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("applicationInformationSeed:"), seed)
 	return rv
 }
 func (c CPXLaunchServicesInterface) ApplicationType(type_ LSASNRef) byte {
-	rv := objc.Send[byte](c.ID, objc.Sel("applicationType:"), type_)
+	rv := objc.SendIfResponds[byte](c.ID, objc.Sel("applicationType:"), type_)
 	return rv
 }
 func (c CPXLaunchServicesInterface) RemoveFromPermittedFrontASNList(aSNList LSASNRef) int {
-	rv := objc.Send[int](c.ID, objc.Sel("removeFromPermittedFrontASNList:"), aSNList)
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("removeFromPermittedFrontASNList:"), aSNList)
 	return rv
 }
 func (c CPXLaunchServicesInterface) InitWithSessionID(id int) CPXLaunchServicesInterface {
-	rv := objc.Send[CPXLaunchServicesInterface](c.ID, objc.Sel("initWithSessionID:"), id)
+	rv := objc.SendIfResponds[CPXLaunchServicesInterface](c.ID, objc.Sel("initWithSessionID:"), id)
 	return rv
 }
 
 func (c CPXLaunchServicesInterface) FrontApplication() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("frontApplication"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("frontApplication"))
 	return objectivec.Object{ID: rv}
 }
 func (c CPXLaunchServicesInterface) FrontApplicationSeed() uint32 {
-	rv := objc.Send[uint32](c.ID, objc.Sel("frontApplicationSeed"))
+	rv := objc.SendIfResponds[uint32](c.ID, objc.Sel("frontApplicationSeed"))
 	return rv
 }
 func (c CPXLaunchServicesInterface) PermittedFrontApplications() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("permittedFrontApplications"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("permittedFrontApplications"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (c CPXLaunchServicesInterface) RunningApplications() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("runningApplications"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("runningApplications"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (c CPXLaunchServicesInterface) SessionID() int {
-	rv := objc.Send[int](c.ID, objc.Sel("sessionID"))
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("sessionID"))
 	return rv
 }

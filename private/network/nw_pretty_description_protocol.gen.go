@@ -10,6 +10,9 @@ import (
 // NWPrettyDescription protocol.
 type NWPrettyDescription interface {
 	objectivec.IObject
+
+	// DescriptionWithIndentShowFullContent protocol.
+	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
 }
 
 // NWPrettyDescriptionObject wraps an existing Objective-C object that conforms to the NWPrettyDescription protocol.
@@ -30,6 +33,6 @@ func NWPrettyDescriptionObjectFromID(id objc.ID) NWPrettyDescriptionObject {
 }
 
 func (o NWPrettyDescriptionObject) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }

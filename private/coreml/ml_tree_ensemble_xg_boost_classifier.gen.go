@@ -40,7 +40,7 @@ func (mc MLTreeEnsembleXGBoostClassifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTreeEnsembleXGBoostClassifierClass) Alloc() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostClassifier](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,8 +76,8 @@ func MLTreeEnsembleXGBoostClassifierFromID(id objc.ID) MLTreeEnsembleXGBoostClas
 	return MLTreeEnsembleXGBoostClassifier{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLTreeEnsembleXGBoostClassifier struct embeds objectivec.Object (parent type unavailable) but
-// IMLTreeEnsembleXGBoostClassifier embeds the parent interface; skip compile-time assertion.
+// Ensure MLTreeEnsembleXGBoostClassifier implements IMLTreeEnsembleXGBoostClassifier.
+var _ IMLTreeEnsembleXGBoostClassifier = MLTreeEnsembleXGBoostClassifier{}
 
 // An interface definition for the [MLTreeEnsembleXGBoostClassifier] class.
 //
@@ -105,7 +105,7 @@ func MLTreeEnsembleXGBoostClassifierFromID(id objc.ID) MLTreeEnsembleXGBoostClas
 //   - [IMLTreeEnsembleXGBoostClassifier.PredictionsFromBatchError]
 //   - [IMLTreeEnsembleXGBoostClassifier.PredictionsFromBatchOptionsError]
 type IMLTreeEnsembleXGBoostClassifier interface {
-	IMLClassifier
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -134,30 +134,33 @@ type IMLTreeEnsembleXGBoostClassifier interface {
 
 // Init initializes the instance.
 func (m MLTreeEnsembleXGBoostClassifier) Init() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLTreeEnsembleXGBoostClassifier) Autorelease() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLTreeEnsembleXGBoostClassifier creates a new MLTreeEnsembleXGBoostClassifier instance.
 func NewMLTreeEnsembleXGBoostClassifier() MLTreeEnsembleXGBoostClassifier {
 	class := getMLTreeEnsembleXGBoostClassifierClass()
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTreeEnsembleXGBoostClassifierWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLTreeEnsembleXGBoostClassifier{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLTreeEnsembleXGBoostClassifier{}, objc.ErrInitFailed
 	}
 	return MLTreeEnsembleXGBoostClassifierFromID(rv), nil
 }
@@ -203,11 +206,11 @@ func (m MLTreeEnsembleXGBoostClassifier) InitializeAndvalidateObjectiveAndNumCla
 
 }
 func (m MLTreeEnsembleXGBoostClassifier) InitializeBoosterIfOneExists() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("initializeBoosterIfOneExists"))
+	rv := objc.SendIfResponds[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("initializeBoosterIfOneExists"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostClassifier) PackageOutputWithPredictedLabelClassProbabilities(label objectivec.IObject, probabilities objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("packageOutputWithPredictedLabel:classProbabilities:"), label, probabilities)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("packageOutputWithPredictedLabel:classProbabilities:"), label, probabilities)
 	return objectivec.Object{ID: rv}
 }
 func (m MLTreeEnsembleXGBoostClassifier) PopulateXGBoostDataFormatTrainingDataDataIndexInputNameNeedLabelsError(format unsafe.Pointer, data objectivec.IObject, index int64, name objectivec.IObject, labels bool) error {
@@ -262,37 +265,37 @@ func (m MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchOptionsError(batch 
 }
 
 func (m MLTreeEnsembleXGBoostClassifier) Booster() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("booster"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("booster"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetBooster(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBooster:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBooster:"), value)
 }
 func (m MLTreeEnsembleXGBoostClassifier) LabelsForDataPoints() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelsForDataPoints"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("labelsForDataPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetLabelsForDataPoints(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLabelsForDataPoints:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLabelsForDataPoints:"), value)
 }
 func (m MLTreeEnsembleXGBoostClassifier) ModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetModelURL(value foundation.NSURL) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelURL:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelURL:"), value)
 }
 func (m MLTreeEnsembleXGBoostClassifier) NumClasses() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numClasses"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numClasses"))
 	return rv
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetNumClasses(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumClasses:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumClasses:"), value)
 }
 func (m MLTreeEnsembleXGBoostClassifier) Objective() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("objective"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("objective"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetObjective(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setObjective:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setObjective:"), objc.String(value))
 }

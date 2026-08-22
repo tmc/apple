@@ -39,7 +39,7 @@ func (ac AVAudioEnvironmentDistanceAttenuationParametersClass) Class() objc.Clas
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioEnvironmentDistanceAttenuationParametersClass) Alloc() AVAudioEnvironmentDistanceAttenuationParameters {
-	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentDistanceAttenuationParameters](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -73,30 +73,30 @@ type IAVAudioEnvironmentDistanceAttenuationParameters interface {
 
 // Init initializes the instance.
 func (a AVAudioEnvironmentDistanceAttenuationParameters) Init() AVAudioEnvironmentDistanceAttenuationParameters {
-	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioEnvironmentDistanceAttenuationParameters) Autorelease() AVAudioEnvironmentDistanceAttenuationParameters {
-	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioEnvironmentDistanceAttenuationParameters creates a new AVAudioEnvironmentDistanceAttenuationParameters instance.
 func NewAVAudioEnvironmentDistanceAttenuationParameters() AVAudioEnvironmentDistanceAttenuationParameters {
 	class := getAVAudioEnvironmentDistanceAttenuationParametersClass()
-	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentDistanceAttenuationParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	instance := getAVAudioEnvironmentDistanceAttenuationParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
 	return AVAudioEnvironmentDistanceAttenuationParametersFromID(rv)
 }
 
 func (a AVAudioEnvironmentDistanceAttenuationParameters) InitWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
-	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
+	rv := objc.SendIfResponds[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
 	return rv
 }

@@ -40,7 +40,7 @@ func (mc MLNLPWordTaggingModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNLPWordTaggingModelClass) Alloc() MLNLPWordTaggingModel {
-	rv := objc.Send[MLNLPWordTaggingModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNLPWordTaggingModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,30 +83,33 @@ type IMLNLPWordTaggingModel interface {
 
 // Init initializes the instance.
 func (m MLNLPWordTaggingModel) Init() MLNLPWordTaggingModel {
-	rv := objc.Send[MLNLPWordTaggingModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNLPWordTaggingModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNLPWordTaggingModel) Autorelease() MLNLPWordTaggingModel {
-	rv := objc.Send[MLNLPWordTaggingModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNLPWordTaggingModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNLPWordTaggingModel creates a new MLNLPWordTaggingModel instance.
 func NewMLNLPWordTaggingModel() MLNLPWordTaggingModel {
 	class := getMLNLPWordTaggingModelClass()
-	rv := objc.Send[MLNLPWordTaggingModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNLPWordTaggingModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLNLPWordTaggingModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPWordTaggingModel, error) {
 	var errorPtr objc.ID
 	instance := getMLNLPWordTaggingModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNLPWordTaggingModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNLPWordTaggingModel{}, objc.ErrInitFailed
 	}
 	return MLNLPWordTaggingModelFromID(rv), nil
 }
@@ -133,9 +136,9 @@ func (m MLNLPWordTaggingModel) InitWithModelDescriptionParameterDictionaryError(
 }
 
 func (m MLNLPWordTaggingModel) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLNLPWordTaggingModel) SetModelDescription(value IMLModelDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }

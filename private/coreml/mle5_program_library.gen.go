@@ -41,7 +41,7 @@ func (mc MLE5ProgramLibraryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5ProgramLibraryClass) Alloc() MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5ProgramLibrary](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -117,37 +117,40 @@ type IMLE5ProgramLibrary interface {
 
 // Init initializes the instance.
 func (m MLE5ProgramLibrary) Init() MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5ProgramLibrary](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5ProgramLibrary) Autorelease() MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5ProgramLibrary](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5ProgramLibrary creates a new MLE5ProgramLibrary instance.
 func NewMLE5ProgramLibrary() MLE5ProgramLibrary {
 	class := getMLE5ProgramLibraryClass()
-	rv := objc.Send[MLE5ProgramLibrary](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5ProgramLibrary](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5ProgramLibraryWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5ProgramLibrary, error) {
 	var errorPtr objc.ID
 	instance := getMLE5ProgramLibraryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLE5ProgramLibrary{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLE5ProgramLibrary{}, objc.ErrInitFailed
 	}
 	return MLE5ProgramLibraryFromID(rv), nil
 }
 
 func NewE5ProgramLibraryWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
 	instance := getMLE5ProgramLibraryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
 	return MLE5ProgramLibraryFromID(rv)
 }
 
@@ -253,35 +256,35 @@ func (m MLE5ProgramLibrary) InitWithContainerConfigurationError(container object
 
 }
 func (m MLE5ProgramLibrary) InitWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
+	rv := objc.SendIfResponds[MLE5ProgramLibrary](m.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
 	return rv
 }
 
 func (m MLE5ProgramLibrary) Container() IMLProgramE5Container {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("container"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("container"))
 	return MLProgramE5ContainerFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibrary) FunctionNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibrary) Impl() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("impl"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("impl"))
 	return rv
 }
 func (m MLE5ProgramLibrary) LazyInitQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lazyInitQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lazyInitQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibrary) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibrary) ModelDisplayName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5ProgramLibrary) SerializedMILText() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }

@@ -39,7 +39,7 @@ func (mc MLProgramTrainingDeltaClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramTrainingDeltaClass) Alloc() MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramTrainingDelta](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IMLProgramTrainingDelta interface {
 
 // Init initializes the instance.
 func (m MLProgramTrainingDelta) Init() MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramTrainingDelta](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramTrainingDelta) Autorelease() MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramTrainingDelta](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramTrainingDelta creates a new MLProgramTrainingDelta instance.
 func NewMLProgramTrainingDelta() MLProgramTrainingDelta {
 	class := getMLProgramTrainingDeltaClass()
-	rv := objc.Send[MLProgramTrainingDelta](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramTrainingDelta](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	instance := getMLProgramTrainingDeltaClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return MLProgramTrainingDeltaFromID(rv)
 }
 
 func (m MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
+	rv := objc.SendIfResponds[MLProgramTrainingDelta](m.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return rv
 }
 
 func (m MLProgramTrainingDelta) FlattenedModelUpdate() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("flattenedModelUpdate"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("flattenedModelUpdate"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

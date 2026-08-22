@@ -39,7 +39,7 @@ func (sc SOVoiceObjectClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOVoiceObjectClass) Alloc() SOVoiceObject {
-	rv := objc.Send[SOVoiceObject](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOVoiceObject](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -187,31 +187,31 @@ type ISOVoiceObject interface {
 
 // Init initializes the instance.
 func (s SOVoiceObject) Init() SOVoiceObject {
-	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOVoiceObject](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOVoiceObject) Autorelease() SOVoiceObject {
-	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOVoiceObject](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOVoiceObject creates a new SOVoiceObject instance.
 func NewSOVoiceObject() SOVoiceObject {
 	class := getSOVoiceObjectClass()
-	rv := objc.Send[SOVoiceObject](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOVoiceObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOVoiceObjectWithVoiceIdentifier(voice objectivec.IObject, identifier objectivec.IObject) SOVoiceObject {
 	instance := getSOVoiceObjectClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
 	return SOVoiceObjectFromID(rv)
 }
 
 func (s SOVoiceObject) _conversionLocale() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_conversionLocale"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_conversionLocale"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -229,7 +229,7 @@ func (s SOVoiceObject) CanConversionLocale() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale"))
 }
 func (s SOVoiceObject) _displayLocalizedVoiceNameForString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
@@ -247,7 +247,7 @@ func (s SOVoiceObject) CanDisplayLocalizedVoiceNameForString() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"))
 }
 func (s SOVoiceObject) _getSiriVoiceNameFromIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -265,7 +265,7 @@ func (s SOVoiceObject) CanGetSiriVoiceNameFromIdentifier() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
 }
 func (s SOVoiceObject) _overriddenCompactVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_overriddenCompactVoices"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_overriddenCompactVoices"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -283,7 +283,7 @@ func (s SOVoiceObject) CanOverriddenCompactVoices() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenCompactVoices"))
 }
 func (s SOVoiceObject) _siriVoiceDisplayName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayName"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -301,7 +301,7 @@ func (s SOVoiceObject) CanSiriVoiceDisplayName() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayName"))
 }
 func (s SOVoiceObject) _siriVoiceDisplayNameRoot() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -319,7 +319,7 @@ func (s SOVoiceObject) CanSiriVoiceDisplayNameRoot() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
 }
 func (s SOVoiceObject) _siriVoiceGenderedDisplayName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -337,7 +337,7 @@ func (s SOVoiceObject) CanSiriVoiceGenderedDisplayName() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
 }
 func (s SOVoiceObject) _siriVoiceGenderedDisplayNameRoot() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -355,7 +355,7 @@ func (s SOVoiceObject) CanSiriVoiceGenderedDisplayNameRoot() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
 }
 func (s SOVoiceObject) _voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"), name)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"), name)
 	return objectivec.Object{ID: rv}
 }
 
@@ -373,158 +373,158 @@ func (s SOVoiceObject) CanVoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceNam
 	return objc.RespondsToSelector(s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"))
 }
 func (s SOVoiceObject) Compare(compare objectivec.IObject) int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("compare:"), compare)
+	rv := objc.SendIfResponds[int64](s.ID, objc.Sel("compare:"), compare)
 	return rv
 }
 func (s SOVoiceObject) CountryDisplayString() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("countryDisplayString"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("countryDisplayString"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) CountryIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("countryIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("countryIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) DisplayName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayName"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayName"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) DisplayNameRoot() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayNameRoot"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayNameRoot"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) DoesMatchSystemLocale() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("doesMatchSystemLocale"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("doesMatchSystemLocale"))
 	return rv
 }
 func (s SOVoiceObject) Gender() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("gender"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("gender"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) GenderDisplayString() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("genderDisplayString"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("genderDisplayString"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) Identifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("identifier"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) IsAppropriateForSystemLanguage() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isAppropriateForSystemLanguage"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isAppropriateForSystemLanguage"))
 	return rv
 }
 func (s SOVoiceObject) IsNeuter() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isNeuter"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isNeuter"))
 	return rv
 }
 func (s SOVoiceObject) IsSiriVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isSiriVoice"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isSiriVoice"))
 	return rv
 }
 func (s SOVoiceObject) LanguageDisplayString() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("languageDisplayString"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("languageDisplayString"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) LanguageIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("languageIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("languageIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) LocaleIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("localeIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("localeIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) MatchesSearchString(string_ objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("matchesSearchString:"), string_)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("matchesSearchString:"), string_)
 	return rv
 }
 func (s SOVoiceObject) RelativeDesirability() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("relativeDesirability"))
+	rv := objc.SendIfResponds[int64](s.ID, objc.Sel("relativeDesirability"))
 	return rv
 }
 func (s SOVoiceObject) ShowsInFullListOnly() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("showsInFullListOnly"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("showsInFullListOnly"))
 	return rv
 }
 func (s SOVoiceObject) SiriLocalizedColorName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("siriLocalizedColorName"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("siriLocalizedColorName"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) SiriVoiceDisplayNameFromIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("siriVoiceDisplayNameFromIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("siriVoiceDisplayNameFromIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) VoiceAttributes() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("voiceAttributes"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("voiceAttributes"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoiceObject) InitWithVoiceWithIdentifier(voice objectivec.IObject, identifier objectivec.IObject) SOVoiceObject {
-	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
+	rv := objc.SendIfResponds[SOVoiceObject](s.ID, objc.Sel("initWithVoice:identifier:"), voice, identifier)
 	return rv
 }
 func (s SOVoiceObject) InitWithVoiceIdentifierWithIdentifier(identifier objectivec.IObject) SOVoiceObject {
-	rv := objc.Send[SOVoiceObject](s.ID, objc.Sel("initWithVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[SOVoiceObject](s.ID, objc.Sel("initWithVoiceIdentifier:"), identifier)
 	return rv
 }
 
 func (_SOVoiceObjectClass SOVoiceObjectClass) AssetForVoiceID(id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("assetForVoiceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("assetForVoiceID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) InvalidateAssetMaps() {
-	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("invalidateAssetMaps"))
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("invalidateAssetMaps"))
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) IsSameLanguageFromLocaleIdentifierSecondLocaleIdentifier(identifier objectivec.IObject, identifier2 objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLanguageFromLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLanguageFromLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
 	return rv
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) IsSameLocaleIdentifierSecondLocaleIdentifier(identifier objectivec.IObject, identifier2 objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOVoiceObjectClass.class), objc.Sel("isSameLocaleIdentifier:secondLocaleIdentifier:"), identifier, identifier2)
 	return rv
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) NormalizedVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("normalizedVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("normalizedVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) RebuildAssetMaps() {
-	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("rebuildAssetMaps"))
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("rebuildAssetMaps"))
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) SetVisibleVoicesTable(table objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("setVisibleVoicesTable:"), table)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("setVisibleVoicesTable:"), table)
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) SystemLocaleIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("systemLocaleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("systemLocaleIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) VisibleVoicesForLocaleIdentifierAdditionalRequiredVoicesAllowAllVoices(identifier objectivec.IObject, voices objectivec.IObject, voices2 bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesForLocaleIdentifier:additionalRequiredVoices:allowAllVoices:"), identifier, voices, voices2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesForLocaleIdentifier:additionalRequiredVoices:allowAllVoices:"), identifier, voices, voices2)
 	return objectivec.Object{ID: rv}
 }
 func (_SOVoiceObjectClass SOVoiceObjectClass) VisibleVoicesTable() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesTable"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoiceObjectClass.class), objc.Sel("visibleVoicesTable"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SOVoiceObject) DownloadPercentComplete() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("downloadPercentComplete"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("downloadPercentComplete"))
 	return rv
 }
 func (s SOVoiceObject) SetDownloadPercentComplete(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDownloadPercentComplete:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDownloadPercentComplete:"), value)
 }
 func (s SOVoiceObject) DownloadStatus() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("downloadStatus"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("downloadStatus"))
 	return rv
 }
 func (s SOVoiceObject) SetDownloadStatus(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDownloadStatus:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDownloadStatus:"), value)
 }
 func (s SOVoiceObject) Visibility() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("visibility"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("visibility"))
 	return rv
 }
 func (s SOVoiceObject) SetVisibility(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVisibility:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setVisibility:"), value)
 }
 func (s SOVoiceObject) Voice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("voice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("voice"))
 	return rv
 }

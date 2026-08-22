@@ -39,7 +39,7 @@ func (gc GTShaderProfilerTimingInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerTimingInfoClass) Alloc() GTShaderProfilerTimingInfo {
-	rv := objc.Send[GTShaderProfilerTimingInfo](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,65 +91,65 @@ type IGTShaderProfilerTimingInfo interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerTimingInfo) Init() GTShaderProfilerTimingInfo {
-	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerTimingInfo) Autorelease() GTShaderProfilerTimingInfo {
-	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerTimingInfo creates a new GTShaderProfilerTimingInfo instance.
 func NewGTShaderProfilerTimingInfo() GTShaderProfilerTimingInfo {
 	class := getGTShaderProfilerTimingInfoClass()
-	rv := objc.Send[GTShaderProfilerTimingInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerTimingInfoWithCoder(coder objectivec.IObject) GTShaderProfilerTimingInfo {
 	instance := getGTShaderProfilerTimingInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerTimingInfoFromID(rv)
 }
 
 func NewGTShaderProfilerTimingInfoWithTimeVertexTimeFragmentTimeComputeTime(time uint64, time2 uint64, time3 uint64, time4 uint64) GTShaderProfilerTimingInfo {
 	instance := getGTShaderProfilerTimingInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTime:vertexTime:fragmentTime:computeTime:"), time, time2, time3, time4)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTime:vertexTime:fragmentTime:computeTime:"), time, time2, time3, time4)
 	return GTShaderProfilerTimingInfoFromID(rv)
 }
 
 func (g GTShaderProfilerTimingInfo) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTShaderProfilerTimingInfo) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerTimingInfo {
-	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTShaderProfilerTimingInfo) InitWithTimeVertexTimeFragmentTimeComputeTime(time uint64, time2 uint64, time3 uint64, time4 uint64) GTShaderProfilerTimingInfo {
-	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithTime:vertexTime:fragmentTime:computeTime:"), time, time2, time3, time4)
+	rv := objc.SendIfResponds[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithTime:vertexTime:fragmentTime:computeTime:"), time, time2, time3, time4)
 	return rv
 }
 
 func (_GTShaderProfilerTimingInfoClass GTShaderProfilerTimingInfoClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTShaderProfilerTimingInfoClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTShaderProfilerTimingInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTShaderProfilerTimingInfo) ComputeTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("computeTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("computeTime"))
 	return rv
 }
 func (g GTShaderProfilerTimingInfo) FragmentTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("fragmentTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("fragmentTime"))
 	return rv
 }
 func (g GTShaderProfilerTimingInfo) Time() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("time"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("time"))
 	return rv
 }
 func (g GTShaderProfilerTimingInfo) VertexTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("vertexTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("vertexTime"))
 	return rv
 }

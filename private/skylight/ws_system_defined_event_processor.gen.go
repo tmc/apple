@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -37,7 +38,7 @@ func (wc WSSystemDefinedEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSSystemDefinedEventProcessorClass) Alloc() WSSystemDefinedEventProcessor {
-	rv := objc.Send[WSSystemDefinedEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSSystemDefinedEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,25 +61,25 @@ type IWSSystemDefinedEventProcessor interface {
 
 // Init initializes the instance.
 func (w WSSystemDefinedEventProcessor) Init() WSSystemDefinedEventProcessor {
-	rv := objc.Send[WSSystemDefinedEventProcessor](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSSystemDefinedEventProcessor](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSSystemDefinedEventProcessor) Autorelease() WSSystemDefinedEventProcessor {
-	rv := objc.Send[WSSystemDefinedEventProcessor](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSSystemDefinedEventProcessor](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSSystemDefinedEventProcessor creates a new WSSystemDefinedEventProcessor instance.
 func NewWSSystemDefinedEventProcessor() WSSystemDefinedEventProcessor {
 	class := getWSSystemDefinedEventProcessorClass()
-	rv := objc.Send[WSSystemDefinedEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSSystemDefinedEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewWSSystemDefinedEventProcessorWithSession(session CGXSession) WSSystemDefinedEventProcessor {
+func NewWSSystemDefinedEventProcessorWithSession(session *CGXSession) WSSystemDefinedEventProcessor {
 	instance := getWSSystemDefinedEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return WSSystemDefinedEventProcessorFromID(rv)
 }

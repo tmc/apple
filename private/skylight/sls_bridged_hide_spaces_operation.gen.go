@@ -39,7 +39,7 @@ func (sc SLSBridgedHideSpacesOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedHideSpacesOperationClass) Alloc() SLSBridgedHideSpacesOperation {
-	rv := objc.Send[SLSBridgedHideSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedHideSpacesOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedHideSpacesOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedHideSpacesOperation) Init() SLSBridgedHideSpacesOperation {
-	rv := objc.Send[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedHideSpacesOperation) Autorelease() SLSBridgedHideSpacesOperation {
-	rv := objc.Send[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedHideSpacesOperation creates a new SLSBridgedHideSpacesOperation instance.
 func NewSLSBridgedHideSpacesOperation() SLSBridgedHideSpacesOperation {
 	class := getSLSBridgedHideSpacesOperationClass()
-	rv := objc.Send[SLSBridgedHideSpacesOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedHideSpacesOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedHideSpacesOperationWithCoder(coder objectivec.IObject) SLSBridgedHideSpacesOperation {
 	instance := getSLSBridgedHideSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedHideSpacesOperationFromID(rv)
 }
 
 func NewSLSBridgedHideSpacesOperationWithSpaces(spaces objectivec.IObject) SLSBridgedHideSpacesOperation {
 	instance := getSLSBridgedHideSpacesOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaces:"), spaces)
 	return SLSBridgedHideSpacesOperationFromID(rv)
 }
 
 func (s SLSBridgedHideSpacesOperation) InitWithSpaces(spaces objectivec.IObject) SLSBridgedHideSpacesOperation {
-	rv := objc.Send[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
+	rv := objc.SendIfResponds[SLSBridgedHideSpacesOperation](s.ID, objc.Sel("initWithSpaces:"), spaces)
 	return rv
 }
 
 func (s SLSBridgedHideSpacesOperation) Spaces() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("spaces"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("spaces"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

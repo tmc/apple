@@ -39,7 +39,7 @@ func (mc MLBackgroundTaskClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLBackgroundTaskClass) Alloc() MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLBackgroundTask](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,66 +85,66 @@ type IMLBackgroundTask interface {
 
 // Init initializes the instance.
 func (m MLBackgroundTask) Init() MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLBackgroundTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLBackgroundTask) Autorelease() MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLBackgroundTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLBackgroundTask creates a new MLBackgroundTask instance.
 func NewMLBackgroundTask() MLBackgroundTask {
 	class := getMLBackgroundTaskClass()
-	rv := objc.Send[MLBackgroundTask](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLBackgroundTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewBackgroundTaskWithCoder(coder objectivec.IObject) MLBackgroundTask {
 	instance := getMLBackgroundTaskClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLBackgroundTaskFromID(rv)
 }
 
 func (m MLBackgroundTask) ActivityForScheduling() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("activityForScheduling"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("activityForScheduling"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLBackgroundTask) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLBackgroundTask) InitWithCoder(coder foundation.INSCoder) MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLBackgroundTask](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) CancelAllTasks() bool {
-	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelAllTasks"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelAllTasks"))
 	return rv
 }
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) CancelTaskWithIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelTaskWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelTaskWithIdentifier:"), identifier)
 	return rv
 }
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) ScheduleTask(task objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("scheduleTask:"), task)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("scheduleTask:"), task)
 	return rv
 }
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) TaskIsScheduledWithIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("taskIsScheduledWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("taskIsScheduledWithIdentifier:"), identifier)
 	return rv
 }
 
 func (m MLBackgroundTask) TaskIdentifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("taskIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("taskIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLBackgroundTask) SetTaskIdentifier(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTaskIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTaskIdentifier:"), objc.String(value))
 }

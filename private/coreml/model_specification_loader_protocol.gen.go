@@ -12,6 +12,9 @@ import (
 // MLModelSpecificationLoader protocol.
 type MLModelSpecificationLoader interface {
 	objectivec.IObject
+
+	// LoadModelFromSpecificationConfigurationError protocol.
+	LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLModelSpecificationLoaderObject wraps an existing Objective-C object that conforms to the MLModelSpecificationLoader protocol.

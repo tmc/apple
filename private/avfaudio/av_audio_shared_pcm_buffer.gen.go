@@ -38,7 +38,7 @@ func (ac AVAudioSharedPCMBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioSharedPCMBufferClass) Alloc() AVAudioSharedPCMBuffer {
-	rv := objc.Send[AVAudioSharedPCMBuffer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,55 +81,55 @@ type IAVAudioSharedPCMBuffer interface {
 
 // Init initializes the instance.
 func (a AVAudioSharedPCMBuffer) Init() AVAudioSharedPCMBuffer {
-	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioSharedPCMBuffer) Autorelease() AVAudioSharedPCMBuffer {
-	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioSharedPCMBuffer creates a new AVAudioSharedPCMBuffer instance.
 func NewAVAudioSharedPCMBuffer() AVAudioSharedPCMBuffer {
 	class := getAVAudioSharedPCMBufferClass()
-	rv := objc.Send[AVAudioSharedPCMBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioSharedPCMBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
 func NewAudioSharedPCMBufferWithPCMFormatFrameCapacity(pCMFormat objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), pCMFormat, capacity)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), pCMFormat, capacity)
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
 func NewAudioSharedPCMBufferWithPCMFormatSharedBufferToken(pCMFormat objectivec.IObject, token objectivec.IObject) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPCMFormat:sharedBufferToken:"), pCMFormat, token)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPCMFormat:sharedBufferToken:"), pCMFormat, token)
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
 func (a AVAudioSharedPCMBuffer) InitWithPCMFormatFrameCapacity(pCMFormat objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
-	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), pCMFormat, capacity)
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), pCMFormat, capacity)
 	return rv
 }
 func (a AVAudioSharedPCMBuffer) InitWithPCMFormatSharedBufferToken(pCMFormat objectivec.IObject, token objectivec.IObject) AVAudioSharedPCMBuffer {
-	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:sharedBufferToken:"), pCMFormat, token)
+	rv := objc.SendIfResponds[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:sharedBufferToken:"), pCMFormat, token)
 	return rv
 }
 
 func (a AVAudioSharedPCMBuffer) BackedBySharedMemory() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("backedBySharedMemory"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("backedBySharedMemory"))
 	return rv
 }
 func (a AVAudioSharedPCMBuffer) SharedBufferToken() IAVAudioSharedBufferToken {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedBufferToken"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sharedBufferToken"))
 	return AVAudioSharedBufferTokenFromID(objc.ID(rv))
 }

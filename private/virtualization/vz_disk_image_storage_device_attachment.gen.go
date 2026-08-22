@@ -38,7 +38,7 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDeviceAttachment {
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDiskImageStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,25 +75,25 @@ type IVZDiskImageStorageDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZDiskImageStorageDeviceAttachment) Init() VZDiskImageStorageDeviceAttachment {
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDiskImageStorageDeviceAttachment) Autorelease() VZDiskImageStorageDeviceAttachment {
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDiskImageStorageDeviceAttachment creates a new VZDiskImageStorageDeviceAttachment instance.
 func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment {
 	class := getVZDiskImageStorageDeviceAttachmentClass()
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDiskImageStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_updateDiskSize:"), size)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_updateDiskSize:"), size)
 }
 
 // UpdateDiskSize is an exported wrapper for the private method _updateDiskSize.
@@ -112,7 +112,7 @@ func (v VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
 }
 
 func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) _diskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"), image)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"), image)
 	return objectivec.Object{ID: rv}
 }
 
@@ -131,6 +131,6 @@ func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmen
 }
 
 func (v VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

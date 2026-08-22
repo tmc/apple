@@ -39,7 +39,7 @@ func (ac AVVoiceTriggerClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVoiceTriggerClientClass) Alloc() AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClient](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -208,216 +208,243 @@ type IAVVoiceTriggerClient interface {
 
 // Init initializes the instance.
 func (a AVVoiceTriggerClient) Init() AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClient](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVoiceTriggerClient) Autorelease() AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClient](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVoiceTriggerClient creates a new AVVoiceTriggerClient instance.
 func NewAVVoiceTriggerClient() AVVoiceTriggerClient {
 	class := getAVVoiceTriggerClientClass()
-	rv := objc.Send[AVVoiceTriggerClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
 	instance := getAVVoiceTriggerClientClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("init:"), init_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("init:"), init_)
 	return AVVoiceTriggerClientFromID(rv)
 }
 
 func (a AVVoiceTriggerClient) ActivateSecureSession(session bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("activateSecureSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("activateSecureSession:"), session)
 	return objectivec.Object{ID: rv}
 }
 func (a AVVoiceTriggerClient) CallServerCrashedBlock() {
-	objc.Send[objc.ID](a.ID, objc.Sel("callServerCrashedBlock"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callServerCrashedBlock"))
 }
 func (a AVVoiceTriggerClient) CallServerResetBlock() {
-	objc.Send[objc.ID](a.ID, objc.Sel("callServerResetBlock"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callServerResetBlock"))
 }
 func (a AVVoiceTriggerClient) EnableBargeInModeCompletionBlock(mode bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("enableBargeInMode:completionBlock:"), mode, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableBargeInMode:completionBlock:"), mode, _block1)
 }
 func (a AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlock(ports objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("enableListeningOnPorts:completionBlock:"), ports, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableListeningOnPorts:completionBlock:"), ports, _block1)
 }
 func (a AVVoiceTriggerClient) EnableSpeakerStateListening(listening bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:"), listening)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:"), listening)
 }
 func (a AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlock(listening bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:completionBlock:"), listening, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:completionBlock:"), listening, _block1)
 }
 func (a AVVoiceTriggerClient) EnableVoiceTriggerListening(listening bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:"), listening)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:"), listening)
 }
 func (a AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlock(listening bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:completionBlock:"), listening, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:completionBlock:"), listening, _block1)
 }
 func (a AVVoiceTriggerClient) GetInputChannelInfoCompletion(completion VoidHandler) {
 	_block0, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](a.ID, objc.Sel("getInputChannelInfoCompletion:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("getInputChannelInfoCompletion:"), _block0)
 }
 func (a AVVoiceTriggerClient) IsSiriClient() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isSiriClient"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isSiriClient"))
 	return rv
 }
 func (a AVVoiceTriggerClient) ListeningEnabledCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("listeningEnabledCompletionBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("listeningEnabledCompletionBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) PortStateActiveCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("portStateActiveCompletionBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("portStateActiveCompletionBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) PortStateChangedNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("portStateChangedNotification:"), notification)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("portStateChangedNotification:"), notification)
 }
 func (a AVVoiceTriggerClient) RecordingAuditTokenList() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordingAuditTokenList"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("recordingAuditTokenList"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVoiceTriggerClient) RecordingPIDList() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordingPIDList"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("recordingPIDList"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVoiceTriggerClient) SecureSessionServerCrash() {
-	objc.Send[objc.ID](a.ID, objc.Sel("secureSessionServerCrash"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("secureSessionServerCrash"))
 }
 func (a AVVoiceTriggerClient) SecureSessionServerReset() {
-	objc.Send[objc.ID](a.ID, objc.Sel("secureSessionServerReset"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("secureSessionServerReset"))
 }
 func (a AVVoiceTriggerClient) SetAggressiveECModeCompletionBlock(eCMode bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setAggressiveECMode:completionBlock:"), eCMode, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAggressiveECMode:completionBlock:"), eCMode, _block1)
 }
+
+var _avvoicetriggerclient_setavvcservercrashedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetAvvcServerCrashedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setAvvcServerCrashedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAvvcServerCrashedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setavvcserverresetblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetAvvcServerResetBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setAvvcServerResetBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAvvcServerResetBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) SetListeningPropertyCompletionBlock(property bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setListeningProperty:completionBlock:"), property, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setListeningProperty:completionBlock:"), property, _block1)
 }
+
+var _avvoicetriggerclient_setportstatechangedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetPortStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setPortStateChangedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPortStateChangedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setservercrashedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetServerCrashedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setServerCrashedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setServerCrashedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setserverresetblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetServerResetBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setServerResetBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setServerResetBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setsiriclientrecordstatechangedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setSiriClientRecordStateChangedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSiriClientRecordStateChangedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setspeakermutestatechangedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setSpeakerMuteStateChangedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSpeakerMuteStateChangedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setspeakerstatechangedblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetSpeakerStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setSpeakerStateChangedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSpeakerStateChangedBlock:"), _block0)
 }
+
+var _avvoicetriggerclient_setvoicetriggerblock_p0_key byte
+
 func (a AVVoiceTriggerClient) SetVoiceTriggerBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setVoiceTriggerBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setVoiceTriggerBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) SiriClientRecordStateChangedNotificationRecordingCount(notification bool, count uint64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("siriClientRecordStateChangedNotification:recordingCount:"), notification, count)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("siriClientRecordStateChangedNotification:recordingCount:"), notification, count)
 }
 func (a AVVoiceTriggerClient) SiriClientsRecordingCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("siriClientsRecordingCompletionBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("siriClientsRecordingCompletionBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) SpeakerMuteStateChangedNotification(notification bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("speakerMuteStateChangedNotification:"), notification)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speakerMuteStateChangedNotification:"), notification)
 }
 func (a AVVoiceTriggerClient) SpeakerStateActive() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("speakerStateActive"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("speakerStateActive"))
 	return rv
 }
 func (a AVVoiceTriggerClient) SpeakerStateActiveCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateActiveCompletionBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speakerStateActiveCompletionBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) SpeakerStateChangedNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateChangedNotification:"), notification)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speakerStateChangedNotification:"), notification)
 }
 func (a AVVoiceTriggerClient) SpeakerStateMuted() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("speakerStateMuted"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("speakerStateMuted"))
 	return rv
 }
 func (a AVVoiceTriggerClient) SpeakerStateMutedCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateMutedCompletionBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speakerStateMutedCompletionBlock:"), _block0)
 }
 func (a AVVoiceTriggerClient) UpdateVoiceTriggerConfiguration(configuration objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:"), configuration)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:"), configuration)
 }
 func (a AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlock(configuration objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:completionBlock:"), configuration, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:completionBlock:"), configuration, _block1)
 }
 func (a AVVoiceTriggerClient) VoiceTriggerNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerNotification:"), notification)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("voiceTriggerNotification:"), notification)
 }
 func (a AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletion(completion VoidHandler) {
 	_block0, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailableCompletion:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailableCompletion:"), _block0)
 }
 func (a AVVoiceTriggerClient) VoiceTriggerServerConnection() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerServerConnection"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("voiceTriggerServerConnection"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVoiceTriggerClient) InitWithValue(init_ int64) AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("init:"), init_)
+	rv := objc.SendIfResponds[AVVoiceTriggerClient](a.ID, objc.Sel("init:"), init_)
 	return rv
 }
 
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) IsAPIAvailable() bool {
-	rv := objc.Send[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("isAPIAvailable"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("isAPIAvailable"))
 	return rv
 }
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SharedInstance() AVVoiceTriggerClient {
-	rv := objc.Send[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance"))
 	return AVVoiceTriggerClientFromID(rv)
 }
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SharedInstanceWithInstance(instance int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance:"), instance)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance:"), instance)
 	return objectivec.Object{ID: rv}
 }
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SupportsDuckingOnSpeakerOutput() bool {
-	rv := objc.Send[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("supportsDuckingOnSpeakerOutput"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("supportsDuckingOnSpeakerOutput"))
 	return rv
 }
 
 func (a AVVoiceTriggerClient) ClientType() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("clientType"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("clientType"))
 	return rv
 }
 func (a AVVoiceTriggerClient) SetClientType(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setClientType:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setClientType:"), value)
 }
 func (a AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailable() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailable"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailable"))
 	return rv
 }
 

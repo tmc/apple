@@ -41,7 +41,7 @@ func (gc GTShaderProfilerStreamDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerStreamDataClass) Alloc() GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -285,50 +285,50 @@ type IGTShaderProfilerStreamData interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerStreamData) Init() GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerStreamData) Autorelease() GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerStreamData creates a new GTShaderProfilerStreamData instance.
 func NewGTShaderProfilerStreamData() GTShaderProfilerStreamData {
 	class := getGTShaderProfilerStreamDataClass()
-	rv := objc.Send[GTShaderProfilerStreamData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 
 func NewGTShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 
 func NewGTShaderProfilerStreamDataWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 
 func (g GTShaderProfilerStreamData) CleanupLocalFiles() {
-	objc.Send[objc.ID](g.ID, objc.Sel("cleanupLocalFiles"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cleanupLocalFiles"))
 }
 func (g GTShaderProfilerStreamData) GPUCommandInfoFromFunctionIndexSubCommandIndex(index uint32, index2 int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("GPUCommandInfoFromFunctionIndex:subCommandIndex:"), index, index2)
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("GPUCommandInfoFromFunctionIndex:subCommandIndex:"), index, index2)
 	return rv
 }
 func (g GTShaderProfilerStreamData) _setupDataPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_setupDataPath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_setupDataPath"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -346,7 +346,7 @@ func (g GTShaderProfilerStreamData) CanSetupDataPath() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_setupDataPath"))
 }
 func (g GTShaderProfilerStreamData) _writeLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_writeLocalData:dataPath:to:"), data, path, to)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_writeLocalData:dataPath:to:"), data, path, to)
 }
 
 // WriteLocalDataDataPathTo is an exported wrapper for the private method _writeLocalDataDataPathTo.
@@ -364,11 +364,11 @@ func (g GTShaderProfilerStreamData) CanWriteLocalDataDataPathTo() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_writeLocalData:dataPath:to:"))
 }
 func (g GTShaderProfilerStreamData) DataFromUnarchvedMetadata(metadata objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataFromUnarchvedMetadata:"), metadata)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("dataFromUnarchvedMetadata:"), metadata)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) DebugDump(dump objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("debugDump:"), dump)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDump:"), dump)
 }
 func (g GTShaderProfilerStreamData) EncodeError(encode objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -381,276 +381,276 @@ func (g GTShaderProfilerStreamData) EncodeError(encode objectivec.IObject) (obje
 
 }
 func (g GTShaderProfilerStreamData) EncodeAPSArrayForOldHostArray(host objectivec.IObject, array objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeAPSArrayForOldHost:array:"), host, array)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeAPSArrayForOldHost:array:"), host, array)
 }
 func (g GTShaderProfilerStreamData) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTShaderProfilerStreamData) EncoderInfoFromFunctionIndex(index uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderInfoFromFunctionIndex:"), index)
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("encoderInfoFromFunctionIndex:"), index)
 	return rv
 }
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedBatchIdFilteredCounterData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedBatchIdFilteredCounterData:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateUnarchivedBatchIdFilteredCounterData:"), _block0)
 }
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedGPUTimelineData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedGPUTimelineData:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateUnarchivedGPUTimelineData:"), _block0)
 }
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedShaderProfilerData(data VoidHandler) {
 	_block0, _ := NewVoidBlock(data)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedShaderProfilerData:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateUnarchivedShaderProfilerData:"), _block0)
 }
 func (g GTShaderProfilerStreamData) PatchObjectIds(ids objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("patchObjectIds:"), ids)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("patchObjectIds:"), ids)
 }
 func (g GTShaderProfilerStreamData) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTShaderProfilerStreamData) InitWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return rv
 }
 func (g GTShaderProfilerStreamData) InitWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamData {
-	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithPreSiBundle:"), bundle)
+	rv := objc.SendIfResponds[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return rv
 }
 
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) DataForMetadataFromArchivedDataURL(url foundation.NSURL) GTShaderProfilerStreamData {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataForMetadataFromArchivedDataURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataForMetadataFromArchivedDataURL:"), url)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) DataFromArchivedDataURL(url foundation.NSURL) GTShaderProfilerStreamData {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) StreamDataClasses() foundation.INSArray {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("streamDataClasses"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("streamDataClasses"))
 	return foundation.NSArrayFromID(rv)
 }
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SavedStreamDataFromCaptureArchive(archive objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("savedStreamDataFromCaptureArchive:"), archive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("savedStreamDataFromCaptureArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SteamDataFromData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("steamDataFromData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("steamDataFromData:"), data)
 	return objectivec.Object{ID: rv}
 }
 
 func (g GTShaderProfilerStreamData) DeviceInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("deviceInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("deviceInfo"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) SetDeviceInfo(value objectivec.IObject) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDeviceInfo:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDeviceInfo:"), value)
 }
 func (g GTShaderProfilerStreamData) GpuGeneration() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) MetalDeviceName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalDeviceName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("metalDeviceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerStreamData) MetalPluginName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalPluginName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("metalPluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerStreamData) ArchivedAPSCounterData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSCounterData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedAPSCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ArchivedAPSData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedAPSData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ArchivedAPSTimelineData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSTimelineData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedAPSTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ArchivedBatchIdFilteredCounterData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedBatchIdFilteredCounterData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedBatchIdFilteredCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ArchivedGPUTimelineData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedGPUTimelineData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedGPUTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ArchivedShaderProfilerData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedShaderProfilerData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("archivedShaderProfilerData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) BatchIdFilterableCounters() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("batchIdFilterableCounters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("batchIdFilterableCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) BlitCallCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("blitCallCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("blitCallCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) CommandBufferInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("commandBufferInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("commandBufferInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) CommandBufferInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("commandBufferInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("commandBufferInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) CommandBuffers() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("commandBuffers"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("commandBuffers"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) DataFileURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataFileURL"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("dataFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) DataSourceCaptureRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](g.ID, objc.Sel("dataSourceCaptureRange"))
+	rv := objc.SendIfResponds[foundation.NSRange](g.ID, objc.Sel("dataSourceCaptureRange"))
 	return foundation.NSRange(rv)
 }
 func (g GTShaderProfilerStreamData) DataSourceHasUnusedResources() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("dataSourceHasUnusedResources"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("dataSourceHasUnusedResources"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) EncoderInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("encoderInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("encoderInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) EncoderInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encoderInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) Encoders() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoders"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encoders"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) FunctionInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("functionInfo"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) FunctionInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("functionInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("functionInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) FunctionInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("functionInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) GpuCommandInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuCommandInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuCommandInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) GpuCommandInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommandInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuCommandInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) GpuCommands() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommands"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuCommands"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) IsPreSiData() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isPreSiData"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isPreSiData"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) PipelinePerformanceStatistics() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelinePerformanceStatistics"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pipelinePerformanceStatistics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) PipelineStateInfoCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateInfoCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("pipelineStateInfoCount"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) PipelineStateInfoData() foundation.NSData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStateInfoData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pipelineStateInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) PipelineStates() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStates"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pipelineStates"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerStreamData) PreSiBundleURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("preSiBundleURL"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("preSiBundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) ProfiledExecutionMode() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("profiledExecutionMode"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("profiledExecutionMode"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) SetProfiledExecutionMode(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setProfiledExecutionMode:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setProfiledExecutionMode:"), value)
 }
 func (g GTShaderProfilerStreamData) ProfiledPerformanceState() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("profiledPerformanceState"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("profiledPerformanceState"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) SetProfiledPerformanceState(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setProfiledPerformanceState:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setProfiledPerformanceState:"), value)
 }
 func (g GTShaderProfilerStreamData) ProfiledProfilerMode() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("profiledProfilerMode"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("profiledProfilerMode"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) SetProfiledProfilerMode(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setProfiledProfilerMode:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setProfiledProfilerMode:"), value)
 }
 func (g GTShaderProfilerStreamData) ShortDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shortDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("shortDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerStreamData) Strings() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("strings"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("strings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) SupportsFileFormatV2() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("supportsFileFormatV2"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("supportsFileFormatV2"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) SetSupportsFileFormatV2(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setSupportsFileFormatV2:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setSupportsFileFormatV2:"), value)
 }
 func (g GTShaderProfilerStreamData) TraceName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("traceName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("traceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerStreamData) SetTraceName(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTraceName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setTraceName:"), objc.String(value))
 }
 func (g GTShaderProfilerStreamData) UnarchivedAPSCounterData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSCounterData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedAPSCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnarchivedAPSData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedAPSData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnarchivedAPSTimelineData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSTimelineData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedAPSTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnarchivedBatchIdFilteredCounterData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedBatchIdFilteredCounterData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedBatchIdFilteredCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnarchivedGPUTimelineData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedGPUTimelineData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedGPUTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnarchivedShaderProfilerData() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedShaderProfilerData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unarchivedShaderProfilerData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerStreamData) UnixTimestamp() int64 {
-	rv := objc.Send[int64](g.ID, objc.Sel("unixTimestamp"))
+	rv := objc.SendIfResponds[int64](g.ID, objc.Sel("unixTimestamp"))
 	return rv
 }
 func (g GTShaderProfilerStreamData) Version() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("version"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("version"))
 	return rv
 }
 

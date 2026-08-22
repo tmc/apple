@@ -40,7 +40,7 @@ func (cc CPXEventDeferringPolicyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXEventDeferringPolicyClass) Alloc() CPXEventDeferringPolicy {
-	rv := objc.Send[CPXEventDeferringPolicy](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicy](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,36 +88,36 @@ type ICPXEventDeferringPolicy interface {
 	AdvicePolicy() int64
 	AppendDescriptionToStream(stream objectivec.IObject)
 	AuditHistory() unsafe.Pointer
-	FrontmostProcess() unsafe.Pointer
+	FrontmostProcess() *CPSProcessRec
 	KeyThiefConnectionID() uint32
 	SetKeyThiefConnectionID(value uint32)
 }
 
 // Init initializes the instance.
 func (c CPXEventDeferringPolicy) Init() CPXEventDeferringPolicy {
-	rv := objc.Send[CPXEventDeferringPolicy](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicy](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXEventDeferringPolicy) Autorelease() CPXEventDeferringPolicy {
-	rv := objc.Send[CPXEventDeferringPolicy](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicy](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXEventDeferringPolicy creates a new CPXEventDeferringPolicy instance.
 func NewCPXEventDeferringPolicy() CPXEventDeferringPolicy {
 	class := getCPXEventDeferringPolicyClass()
-	rv := objc.Send[CPXEventDeferringPolicy](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXEventDeferringPolicy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CPXEventDeferringPolicy) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (c CPXEventDeferringPolicy) _initWithCopyOf(of objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("_initWithCopyOf:"), of)
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("_initWithCopyOf:"), of)
 	return objectivec.Object{ID: rv}
 }
 
@@ -135,33 +135,33 @@ func (c CPXEventDeferringPolicy) CanInitWithCopyOf() bool {
 	return objc.RespondsToSelector(c.ID, objc.Sel("_initWithCopyOf:"))
 }
 func (c CPXEventDeferringPolicy) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 
 func (_CPXEventDeferringPolicyClass CPXEventDeferringPolicyClass) Build(build VoidHandler) objectivec.IObject {
 	_block0, _ := NewVoidBlock(build)
-	rv := objc.Send[objc.ID](objc.ID(_CPXEventDeferringPolicyClass.class), objc.Sel("build:"), _block0)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_CPXEventDeferringPolicyClass.class), objc.Sel("build:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 
 func (c CPXEventDeferringPolicy) AdvicePolicy() int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("advicePolicy"))
+	rv := objc.SendIfResponds[int64](c.ID, objc.Sel("advicePolicy"))
 	return rv
 }
 func (c CPXEventDeferringPolicy) AuditHistory() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("auditHistory"))
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("auditHistory"))
 	return rv
 }
-func (c CPXEventDeferringPolicy) FrontmostProcess() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("frontmostProcess"))
-	return rv
+func (c CPXEventDeferringPolicy) FrontmostProcess() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("frontmostProcess"))
+	return (*CPSProcessRec)(rv)
 }
 func (c CPXEventDeferringPolicy) KeyThiefConnectionID() uint32 {
-	rv := objc.Send[uint32](c.ID, objc.Sel("keyThiefConnectionID"))
+	rv := objc.SendIfResponds[uint32](c.ID, objc.Sel("keyThiefConnectionID"))
 	return rv
 }
 func (c CPXEventDeferringPolicy) SetKeyThiefConnectionID(value uint32) {
-	objc.Send[struct{}](c.ID, objc.Sel("setKeyThiefConnectionID:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setKeyThiefConnectionID:"), value)
 }
 
 // BuildSync is a synchronous wrapper around [CPXEventDeferringPolicy.Build].

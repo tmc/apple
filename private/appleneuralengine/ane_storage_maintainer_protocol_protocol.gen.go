@@ -10,6 +10,9 @@ import (
 // _ANEStorageMaintainerProtocol protocol.
 type ANEStorageMaintainerProtocol interface {
 	objectivec.IObject
+
+	// PurgeDanglingModelsAtWithReply protocol.
+	PurgeDanglingModelsAtWithReply(at objectivec.IObject, reply VoidHandler)
 }
 
 // ANEStorageMaintainerProtocolObject wraps an existing Objective-C object that conforms to the ANEStorageMaintainerProtocol protocol.
@@ -30,5 +33,7 @@ func ANEStorageMaintainerProtocolObjectFromID(id objc.ID) ANEStorageMaintainerPr
 }
 
 func (o ANEStorageMaintainerProtocolObject) PurgeDanglingModelsAtWithReply(at objectivec.IObject, reply VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("purgeDanglingModelsAt:withReply:"), at, reply)
+	_block1, _cleanup1 := NewVoidBlock(reply)
+	defer _cleanup1()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("purgeDanglingModelsAt:withReply:"), at, objc.ID(_block1))
 }

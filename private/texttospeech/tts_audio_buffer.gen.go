@@ -40,7 +40,7 @@ func (tc TTSAudioBufferClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioBufferClass) Alloc() TTSAudioBuffer {
-	rv := objc.Send[TTSAudioBuffer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAudioBuffer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,64 +95,64 @@ type ITTSAudioBuffer interface {
 
 // Init initializes the instance.
 func (t TTSAudioBuffer) Init() TTSAudioBuffer {
-	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAudioBuffer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAudioBuffer) Autorelease() TTSAudioBuffer {
-	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAudioBuffer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAudioBuffer creates a new TTSAudioBuffer instance.
 func NewTTSAudioBuffer() TTSAudioBuffer {
 	class := getTTSAudioBufferClass()
-	rv := objc.Send[TTSAudioBuffer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAudioBuffer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSAudioBufferWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer {
 	instance := getTTSAudioBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
 	return TTSAudioBufferFromID(rv)
 }
 
 func NewTTSAudioBufferWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer {
 	instance := getTTSAudioBufferClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
 	return TTSAudioBufferFromID(rv)
 }
 
 func (t TTSAudioBuffer) InitWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer {
-	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
+	rv := objc.SendIfResponds[TTSAudioBuffer](t.ID, objc.Sel("initWithAVBuffer:"), aVBuffer)
 	return rv
 }
 func (t TTSAudioBuffer) InitWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer {
-	rv := objc.Send[TTSAudioBuffer](t.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
+	rv := objc.SendIfResponds[TTSAudioBuffer](t.ID, objc.Sel("initWithFormat:frameCapacity:"), format, capacity)
 	return rv
 }
 
 func (t TTSAudioBuffer) AvBuffer() avfaudio.AVAudioPCMBuffer {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("avBuffer"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("avBuffer"))
 	return avfaudio.AVAudioPCMBufferFromID(objc.ID(rv))
 }
 func (t TTSAudioBuffer) Format() ITTSAudioFormat {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("format"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("format"))
 	return TTSAudioFormatFromID(objc.ID(rv))
 }
 func (t TTSAudioBuffer) FrameCapacity() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("frameCapacity"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("frameCapacity"))
 	return rv
 }
 func (t TTSAudioBuffer) FrameLength() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("frameLength"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("frameLength"))
 	return rv
 }
 func (t TTSAudioBuffer) SetFrameLength(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFrameLength:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFrameLength:"), value)
 }
 func (t TTSAudioBuffer) MutableAudioBufferList() coreaudiotypes.AudioBufferList {
-	rv := objc.Send[coreaudiotypes.AudioBufferList](t.ID, objc.Sel("mutableAudioBufferList"))
+	rv := objc.SendIfResponds[coreaudiotypes.AudioBufferList](t.ID, objc.Sel("mutableAudioBufferList"))
 	return coreaudiotypes.AudioBufferList(rv)
 }

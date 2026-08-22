@@ -41,7 +41,7 @@ func (mc MLNeuralNetworkMLComputeUpdateEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkMLComputeUpdateEngineClass) Alloc() MLNeuralNetworkMLComputeUpdateEngine {
-	rv := objc.Send[MLNeuralNetworkMLComputeUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeUpdateEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -171,30 +171,33 @@ type IMLNeuralNetworkMLComputeUpdateEngine interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkMLComputeUpdateEngine) Init() MLNeuralNetworkMLComputeUpdateEngine {
-	rv := objc.Send[MLNeuralNetworkMLComputeUpdateEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeUpdateEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkMLComputeUpdateEngine) Autorelease() MLNeuralNetworkMLComputeUpdateEngine {
-	rv := objc.Send[MLNeuralNetworkMLComputeUpdateEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeUpdateEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkMLComputeUpdateEngine creates a new MLNeuralNetworkMLComputeUpdateEngine instance.
 func NewMLNeuralNetworkMLComputeUpdateEngine() MLNeuralNetworkMLComputeUpdateEngine {
 	class := getMLNeuralNetworkMLComputeUpdateEngineClass()
-	rv := objc.Send[MLNeuralNetworkMLComputeUpdateEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkMLComputeUpdateEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:nnContainer:configuration:error:"), archive, container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:nnContainer:configuration:error:"), archive, container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkMLComputeUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkMLComputeUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
@@ -202,10 +205,13 @@ func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigur
 func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkMLComputeUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkMLComputeUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
@@ -213,35 +219,38 @@ func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(contai
 func NewNeuralNetworkMLComputeUpdateEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkMLComputeUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkMLComputeUpdateEngine{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
 func NewNeuralNetworkMLComputeUpdateEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv)
 }
 
 func NewNeuralNetworkMLComputeUpdateEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv)
 }
 
 func (m MLNeuralNetworkMLComputeUpdateEngine) CancelUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) LoadLossTargetName(name unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("loadLossTargetName:"), name)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("loadLossTargetName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameterValueForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) PerformInferenceWithOutputNameToLayerMapError(with objectivec.IObject, map_ objectivec.IObject) (objectivec.IObject, error) {
@@ -268,22 +277,22 @@ func (m MLNeuralNetworkMLComputeUpdateEngine) PerformTrainingWithCallBacksNumber
 
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ResumeUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), handlers, queue)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) UpdateLearningRateWithValue(value float32) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateLearningRateWithValue:"), value)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateLearningRateWithValue:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) UpdateParameters() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateParameters"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateParameters"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) WriteToURLError(url foundation.NSURL) (bool, error) {
@@ -311,73 +320,73 @@ func (m MLNeuralNetworkMLComputeUpdateEngine) InitWithCompiledArchiveNnContainer
 }
 
 func (m MLNeuralNetworkMLComputeUpdateEngine) BatchSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("batchSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("batchSize"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetBatchSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ClassLabelToIndexMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelToIndexMap"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabelToIndexMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ClassifierOutputIsSigmoidOutput() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetClassifierOutputIsSigmoidOutput(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ContinueWithUpdate() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("continueWithUpdate"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("continueWithUpdate"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetContinueWithUpdate(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) FinalLossValue() float32 {
-	rv := objc.Send[float32](m.ID, objc.Sel("finalLossValue"))
+	rv := objc.SendIfResponds[float32](m.ID, objc.Sel("finalLossValue"))
 	return rv
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetFinalLossValue(value float32) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFinalLossValue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFinalLossValue:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) LossTargetName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossTargetName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lossTargetName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) MlcGraph() IMLNeuralNetworkMLComputeGraph {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcGraph"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mlcGraph"))
 	return MLNeuralNetworkMLComputeGraphFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetMlcGraph(value IMLNeuralNetworkMLComputeGraph) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMlcGraph:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlcGraph:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ParameterContainer() IMLParameterContainer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) ShuffableTrainingData() IMLShufflingBatchProvider {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shuffableTrainingData"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shuffableTrainingData"))
 	return MLShufflingBatchProviderFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkMLComputeUpdateEngine) SetShuffableTrainingData(value IMLShufflingBatchProvider) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShuffableTrainingData:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setShuffableTrainingData:"), value)
 }

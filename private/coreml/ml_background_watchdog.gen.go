@@ -38,7 +38,7 @@ func (mc MLBackgroundWatchdogClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLBackgroundWatchdogClass) Alloc() MLBackgroundWatchdog {
-	rv := objc.Send[MLBackgroundWatchdog](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLBackgroundWatchdog](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,40 +78,40 @@ type IMLBackgroundWatchdog interface {
 
 // Init initializes the instance.
 func (m MLBackgroundWatchdog) Init() MLBackgroundWatchdog {
-	rv := objc.Send[MLBackgroundWatchdog](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLBackgroundWatchdog](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLBackgroundWatchdog) Autorelease() MLBackgroundWatchdog {
-	rv := objc.Send[MLBackgroundWatchdog](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLBackgroundWatchdog](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLBackgroundWatchdog creates a new MLBackgroundWatchdog instance.
 func NewMLBackgroundWatchdog() MLBackgroundWatchdog {
 	class := getMLBackgroundWatchdogClass()
-	rv := objc.Send[MLBackgroundWatchdog](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLBackgroundWatchdog](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLBackgroundWatchdog) Invalidate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("invalidate"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("invalidate"))
 }
 
 func (_MLBackgroundWatchdogClass MLBackgroundWatchdogClass) WatchdogWithTimeoutLabelQueue(timeout float64, label objectivec.IObject, queue objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:label:queue:"), timeout, label, queue)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:label:queue:"), timeout, label, queue)
 	return objectivec.Object{ID: rv}
 }
 func (_MLBackgroundWatchdogClass MLBackgroundWatchdogClass) WatchdogWithTimeoutQueue(timeout float64, queue objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:queue:"), timeout, queue)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:queue:"), timeout, queue)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLBackgroundWatchdog) Timer() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("timer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("timer"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLBackgroundWatchdog) SetTimer(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTimer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTimer:"), value)
 }

@@ -41,7 +41,7 @@ func (mc MLCompilerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCompilerClass) Alloc() MLCompiler {
-	rv := objc.Send[MLCompiler](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCompiler](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLCompiler interface {
 
 // Init initializes the instance.
 func (m MLCompiler) Init() MLCompiler {
-	rv := objc.Send[MLCompiler](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCompiler) Autorelease() MLCompiler {
-	rv := objc.Send[MLCompiler](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCompiler creates a new MLCompiler instance.
 func NewMLCompiler() MLCompiler {
 	class := getMLCompilerClass()
-	rv := objc.Send[MLCompiler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCompiler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -143,7 +143,7 @@ func (_MLCompilerClass MLCompilerClass) CanLoadSpecificationAtURLToError() bool 
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:"))
 }
 func (_MLCompilerClass MLCompilerClass) _updateFeaturesWithFeatures(features unsafe.Pointer, features2 objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"), features, features2)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"), features, features2)
 }
 
 // UpdateFeaturesWithFeatures is an exported wrapper for the private method _updateFeaturesWithFeatures.
@@ -161,7 +161,7 @@ func (_MLCompilerClass MLCompilerClass) CanUpdateFeaturesWithFeatures() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"))
 }
 func (_MLCompilerClass MLCompilerClass) _updateMetadataWithMetadata(metadata unsafe.Pointer, metadata2 objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"), metadata, metadata2)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"), metadata, metadata2)
 }
 
 // UpdateMetadataWithMetadata is an exported wrapper for the private method _updateMetadataWithMetadata.
@@ -179,7 +179,7 @@ func (_MLCompilerClass MLCompilerClass) CanUpdateMetadataWithMetadata() bool {
 	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"))
 }
 func (_MLCompilerClass MLCompilerClass) _updateSpecificationWithModelDescription(specification unsafe.Pointer, description objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:"), specification, description)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:"), specification, description)
 }
 
 // UpdateSpecificationWithModelDescription is an exported wrapper for the private method _updateSpecificationWithModelDescription.
@@ -217,7 +217,7 @@ func (_MLCompilerClass MLCompilerClass) AddMLProgramToCompiledModelAtURLWithComp
 
 }
 func (_MLCompilerClass MLCompilerClass) CanAddMLProgramToCompiledModelAtURL(url foundation.NSURL) bool {
-	rv := objc.Send[bool](objc.ID(_MLCompilerClass.class), objc.Sel("canAddMLProgramToCompiledModelAtURL:"), url)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLCompilerClass.class), objc.Sel("canAddMLProgramToCompiledModelAtURL:"), url)
 	return rv
 }
 func (_MLCompilerClass MLCompilerClass) CompileModelAtURLToURLOptionsError(url foundation.NSURL, url2 foundation.NSURL, options objectivec.IObject) (objectivec.IObject, error) {
@@ -373,7 +373,7 @@ func (_MLCompilerClass MLCompilerClass) FingerprintSpecificationAtURLToArchiveHa
 
 }
 func (_MLCompilerClass MLCompilerClass) HashSpecificationAtURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("hashSpecificationAtURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("hashSpecificationAtURL:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCompilerClass MLCompilerClass) StoreEncryptionInfoInCompiledArchiveOptionsError(archive unsafe.Pointer, options objectivec.IObject) (bool, error) {
@@ -390,6 +390,6 @@ func (_MLCompilerClass MLCompilerClass) StoreEncryptionInfoInCompiledArchiveOpti
 
 }
 func (_MLCompilerClass MLCompilerClass) VersionInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("versionInfo"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerClass.class), objc.Sel("versionInfo"))
 	return objectivec.Object{ID: rv}
 }

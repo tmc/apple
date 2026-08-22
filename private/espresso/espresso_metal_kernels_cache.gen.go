@@ -40,7 +40,7 @@ func (ec EspressoMetalKernelsCacheClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoMetalKernelsCacheClass) Alloc() EspressoMetalKernelsCache {
-	rv := objc.Send[EspressoMetalKernelsCache](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoMetalKernelsCache](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -107,70 +107,70 @@ type IEspressoMetalKernelsCache interface {
 
 // Init initializes the instance.
 func (e EspressoMetalKernelsCache) Init() EspressoMetalKernelsCache {
-	rv := objc.Send[EspressoMetalKernelsCache](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoMetalKernelsCache](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoMetalKernelsCache) Autorelease() EspressoMetalKernelsCache {
-	rv := objc.Send[EspressoMetalKernelsCache](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoMetalKernelsCache](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoMetalKernelsCache creates a new EspressoMetalKernelsCache instance.
 func NewEspressoMetalKernelsCache() EspressoMetalKernelsCache {
 	class := getEspressoMetalKernelsCacheClass()
-	rv := objc.Send[EspressoMetalKernelsCache](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoMetalKernelsCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoMetalKernelsCacheWithDevice(device objectivec.IObject) EspressoMetalKernelsCache {
 	instance := getEspressoMetalKernelsCacheClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return EspressoMetalKernelsCacheFromID(rv)
 }
 
 func (e EspressoMetalKernelsCache) AddLibraryAtPath(path objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("addLibraryAtPath:"), path)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("addLibraryAtPath:"), path)
 }
 func (e EspressoMetalKernelsCache) KernelForFunction(function string) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.StringData(function+"\x00")))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.StringData(function+"\x00")))
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoMetalKernelsCache) KernelForFunctionCacheStringWithConstants(function string, string_ string, constants objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.StringData(function+"\x00")), unsafe.Pointer(unsafe.StringData(string_+"\x00")), constants)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.StringData(function+"\x00")), unsafe.Pointer(unsafe.StringData(string_+"\x00")), constants)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoMetalKernelsCache) LazySetup() {
-	objc.Send[objc.ID](e.ID, objc.Sel("lazySetup"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("lazySetup"))
 }
 func (e EspressoMetalKernelsCache) LoadLibraryNamed(named objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("loadLibraryNamed:"), named)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("loadLibraryNamed:"), named)
 }
 func (e EspressoMetalKernelsCache) ShouldUseTexArray() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("shouldUseTexArray"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("shouldUseTexArray"))
 	return rv
 }
 func (e EspressoMetalKernelsCache) WasSetup() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("wasSetup"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("wasSetup"))
 	return rv
 }
 func (e EspressoMetalKernelsCache) InitWithDevice(device objectivec.IObject) EspressoMetalKernelsCache {
-	rv := objc.Send[EspressoMetalKernelsCache](e.ID, objc.Sel("initWithDevice:"), device)
+	rv := objc.SendIfResponds[EspressoMetalKernelsCache](e.ID, objc.Sel("initWithDevice:"), device)
 	return rv
 }
 
 func (e EspressoMetalKernelsCache) KernelPrefix() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelPrefix"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("kernelPrefix"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoMetalKernelsCache) SetKernelPrefix(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setKernelPrefix:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setKernelPrefix:"), objc.String(value))
 }
 func (e EspressoMetalKernelsCache) M_kernelCache() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("m_kernelCache"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("m_kernelCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoMetalKernelsCache) SetM_kernelCache(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setM_kernelCache:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setM_kernelCache:"), value)
 }

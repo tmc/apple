@@ -42,7 +42,7 @@ func (vc VZFramebufferViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZFramebufferViewClass) Alloc() VZFramebufferView {
-	rv := objc.Send[VZFramebufferView](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZFramebufferView](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -127,99 +127,99 @@ type IVZFramebufferView interface {
 
 // Init initializes the instance.
 func (v VZFramebufferView) Init() VZFramebufferView {
-	rv := objc.Send[VZFramebufferView](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZFramebufferView](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZFramebufferView) Autorelease() VZFramebufferView {
-	rv := objc.Send[VZFramebufferView](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZFramebufferView](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZFramebufferView creates a new VZFramebufferView instance.
 func NewVZFramebufferView() VZFramebufferView {
 	class := getVZFramebufferViewClass()
-	rv := objc.Send[VZFramebufferView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZFramebufferView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZFramebufferViewWithCoder(coder objectivec.IObject) VZFramebufferView {
 	instance := getVZFramebufferViewClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VZFramebufferViewFromID(rv)
 }
 
 func NewVZFramebufferViewWithFrame(frame corefoundation.CGRect) VZFramebufferView {
 	instance := getVZFramebufferViewClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frame)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frame)
 	return VZFramebufferViewFromID(rv)
 }
 
 func (v VZFramebufferView) ActionForLayerForKey(layer objectivec.IObject, key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("actionForLayer:forKey:"), layer, key)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("actionForLayer:forKey:"), layer, key)
 	return objectivec.Object{ID: rv}
 }
 func (v VZFramebufferView) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
 func (v VZFramebufferView) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
 }
 func (v VZFramebufferView) GetDisplayProtectionOptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("getDisplayProtectionOptions"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("getDisplayProtectionOptions"))
 	return rv
 }
 
 func (v VZFramebufferView) Cursor() appkit.NSCursor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("cursor"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("cursor"))
 	return appkit.NSCursorFromID(objc.ID(rv))
 }
 func (v VZFramebufferView) SetCursor(value appkit.NSCursor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCursor:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCursor:"), value)
 }
 func (v VZFramebufferView) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZFramebufferView) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZFramebufferView) DisplayProtectionOptions() foundation.NSNumber {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayProtectionOptions"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("displayProtectionOptions"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (v VZFramebufferView) Framebuffer() IVZFramebuffer {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("framebuffer"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebuffer"))
 	return VZFramebufferFromID(objc.ID(rv))
 }
 func (v VZFramebufferView) SetFramebuffer(value IVZFramebuffer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFramebuffer:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setFramebuffer:"), value)
 }
 func (v VZFramebufferView) FramebufferSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("framebufferSize"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](v.ID, objc.Sel("framebufferSize"))
 	return corefoundation.CGSize(rv)
 }
 func (v VZFramebufferView) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZFramebufferView) ShowsCursor() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("showsCursor"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("showsCursor"))
 	return rv
 }
 func (v VZFramebufferView) SetShowsCursor(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setShowsCursor:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setShowsCursor:"), value)
 }
 func (v VZFramebufferView) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZFramebufferView) SuppressFrameUpdates() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("suppressFrameUpdates"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("suppressFrameUpdates"))
 	return rv
 }
 func (v VZFramebufferView) SetSuppressFrameUpdates(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSuppressFrameUpdates:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSuppressFrameUpdates:"), value)
 }

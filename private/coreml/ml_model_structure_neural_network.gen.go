@@ -38,7 +38,7 @@ func (mc MLModelStructureNeuralNetworkClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureNeuralNetworkClass) Alloc() MLModelStructureNeuralNetwork {
-	rv := objc.Send[MLModelStructureNeuralNetwork](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetwork](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IMLModelStructureNeuralNetwork interface {
 
 // Init initializes the instance.
 func (m MLModelStructureNeuralNetwork) Init() MLModelStructureNeuralNetwork {
-	rv := objc.Send[MLModelStructureNeuralNetwork](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetwork](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureNeuralNetwork) Autorelease() MLModelStructureNeuralNetwork {
-	rv := objc.Send[MLModelStructureNeuralNetwork](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetwork](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureNeuralNetwork creates a new MLModelStructureNeuralNetwork instance.
 func NewMLModelStructureNeuralNetwork() MLModelStructureNeuralNetwork {
 	class := getMLModelStructureNeuralNetworkClass()
-	rv := objc.Send[MLModelStructureNeuralNetwork](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetwork](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureNeuralNetworkWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
 	instance := getMLModelStructureNeuralNetworkClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayers:"), layers)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayers:"), layers)
 	return MLModelStructureNeuralNetworkFromID(rv)
 }
 
 func (m MLModelStructureNeuralNetwork) InitWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
-	rv := objc.Send[MLModelStructureNeuralNetwork](m.ID, objc.Sel("initWithLayers:"), layers)
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetwork](m.ID, objc.Sel("initWithLayers:"), layers)
 	return rv
 }

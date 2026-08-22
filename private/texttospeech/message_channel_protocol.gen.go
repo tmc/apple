@@ -13,6 +13,9 @@ import (
 type AUMessageChannel interface {
 	objectivec.IObject
 
+	// CallAudioUnit protocol.
+	CallAudioUnit(unit objectivec.IObject) objectivec.IObject
+
 	// CallHostBlock protocol.
 	CallHostBlock() unsafe.Pointer
 }
@@ -35,10 +38,10 @@ func AUMessageChannelObjectFromID(id objc.ID) AUMessageChannelObject {
 }
 
 func (o AUMessageChannelObject) CallAudioUnit(unit objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("callAudioUnit:"), unit)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("callAudioUnit:"), unit)
 	return objectivec.Object{ID: rv}
 }
 func (o AUMessageChannelObject) CallHostBlock() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("callHostBlock"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("callHostBlock"))
 	return rv
 }

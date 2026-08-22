@@ -40,7 +40,7 @@ func (tc TTSEmojiUtilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSEmojiUtilitiesClass) Alloc() TTSEmojiUtilities {
-	rv := objc.Send[TTSEmojiUtilities](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSEmojiUtilities](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -63,25 +63,25 @@ type ITTSEmojiUtilities interface {
 
 // Init initializes the instance.
 func (t TTSEmojiUtilities) Init() TTSEmojiUtilities {
-	rv := objc.Send[TTSEmojiUtilities](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSEmojiUtilities](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSEmojiUtilities) Autorelease() TTSEmojiUtilities {
-	rv := objc.Send[TTSEmojiUtilities](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSEmojiUtilities](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSEmojiUtilities creates a new TTSEmojiUtilities instance.
 func NewTTSEmojiUtilities() TTSEmojiUtilities {
 	class := getTTSEmojiUtilitiesClass()
-	rv := objc.Send[TTSEmojiUtilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSEmojiUtilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) _initializeEmojiStructures(structures objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:"), structures)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:"), structures)
 }
 
 // InitializeEmojiStructures is an exported wrapper for the private method _initializeEmojiStructures.
@@ -99,19 +99,19 @@ func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) CanInitializeEmojiStructur
 	return objc.RespondsToSelector(objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:"))
 }
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EmojiRangeFromStringWithSearchRange(string_ objectivec.IObject, range_ foundation.NSRange) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("emojiRangeFromString:withSearchRange:"), string_, range_)
+	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("emojiRangeFromString:withSearchRange:"), string_, range_)
 	return foundation.NSRange(rv)
 }
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EnumerateEmojiCharactersInStringLanguageCodeWithBlock(string_ objectivec.IObject, code objectivec.IObject, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("enumerateEmojiCharactersInString:languageCode:withBlock:"), string_, code, _block2)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("enumerateEmojiCharactersInString:languageCode:withBlock:"), string_, code, _block2)
 }
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) StringByRemovingEmojiCharacters(characters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByRemovingEmojiCharacters:"), characters)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByRemovingEmojiCharacters:"), characters)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) StringByReplacingEmojiCharactersWithEmojiDescriptionsStringForPausesLanguageRangeReplacementsAppendEmojiSuffix(descriptions objectivec.IObject, pauses objectivec.IObject, language objectivec.IObject, replacements objectivec.IObject, suffix bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByReplacingEmojiCharactersWithEmojiDescriptions:stringForPauses:language:rangeReplacements:appendEmojiSuffix:"), descriptions, pauses, language, replacements, suffix)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByReplacingEmojiCharactersWithEmojiDescriptions:stringForPauses:language:rangeReplacements:appendEmojiSuffix:"), descriptions, pauses, language, replacements, suffix)
 	return objectivec.Object{ID: rv}
 }
 

@@ -37,7 +37,7 @@ func (vc VZGDBDebugStubConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGDBDebugStubConfigurationClass) Alloc() VZGDBDebugStubConfiguration {
-	rv := objc.Send[VZGDBDebugStubConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGDBDebugStubConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,45 +83,45 @@ type IVZGDBDebugStubConfiguration interface {
 
 // Init initializes the instance.
 func (v VZGDBDebugStubConfiguration) Init() VZGDBDebugStubConfiguration {
-	rv := objc.Send[VZGDBDebugStubConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGDBDebugStubConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGDBDebugStubConfiguration) Autorelease() VZGDBDebugStubConfiguration {
-	rv := objc.Send[VZGDBDebugStubConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGDBDebugStubConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGDBDebugStubConfiguration creates a new VZGDBDebugStubConfiguration instance.
 func NewVZGDBDebugStubConfiguration() VZGDBDebugStubConfiguration {
 	class := getVZGDBDebugStubConfigurationClass()
-	rv := objc.Send[VZGDBDebugStubConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGDBDebugStubConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZGDBDebugStubConfigurationWithPort(port uint16) VZGDBDebugStubConfiguration {
 	instance := getVZGDBDebugStubConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:"), port)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPort:"), port)
 	return VZGDBDebugStubConfigurationFromID(rv)
 }
 
 func (v VZGDBDebugStubConfiguration) InitWithPort(port uint16) VZGDBDebugStubConfiguration {
-	rv := objc.Send[VZGDBDebugStubConfiguration](v.ID, objc.Sel("initWithPort:"), port)
+	rv := objc.SendIfResponds[VZGDBDebugStubConfiguration](v.ID, objc.Sel("initWithPort:"), port)
 	return rv
 }
 
 func (v VZGDBDebugStubConfiguration) ListensOnAllNetworkInterfaces() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("listensOnAllNetworkInterfaces"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("listensOnAllNetworkInterfaces"))
 	return rv
 }
 func (v VZGDBDebugStubConfiguration) SetListensOnAllNetworkInterfaces(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setListensOnAllNetworkInterfaces:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setListensOnAllNetworkInterfaces:"), value)
 }
 func (v VZGDBDebugStubConfiguration) Port() uint16 {
-	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
+	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("port"))
 	return rv
 }
 func (v VZGDBDebugStubConfiguration) SetPort(value uint16) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPort:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setPort:"), value)
 }

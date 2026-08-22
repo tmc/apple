@@ -10,6 +10,24 @@ import (
 // _ArchiveReader protocol.
 type ArchiveReader interface {
 	objectivec.IObject
+
+	// CopyLayerShapesToContainer protocol.
+	CopyLayerShapesToContainer(container objectivec.IObject)
+
+	// LayerInfos protocol.
+	LayerInfos() objectivec.IObject
+
+	// LoadUpdatableParams protocol.
+	LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject
+
+	// ModelName protocol.
+	ModelName() objectivec.IObject
+
+	// ModelPath protocol.
+	ModelPath() objectivec.IObject
+
+	// TransformParams protocol.
+	TransformParams() objectivec.IObject
 }
 
 // ArchiveReaderObject wraps an existing Objective-C object that conforms to the ArchiveReader protocol.
@@ -30,25 +48,25 @@ func ArchiveReaderObjectFromID(id objc.ID) ArchiveReaderObject {
 }
 
 func (o ArchiveReaderObject) CopyLayerShapesToContainer(container objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("copyLayerShapesToContainer:"), container)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("copyLayerShapesToContainer:"), container)
 }
 func (o ArchiveReaderObject) LayerInfos() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("layerInfos"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("layerInfos"))
 	return objectivec.Object{ID: rv}
 }
 func (o ArchiveReaderObject) LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
 	return objectivec.Object{ID: rv}
 }
 func (o ArchiveReaderObject) ModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelName"))
 	return objectivec.Object{ID: rv}
 }
 func (o ArchiveReaderObject) ModelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelPath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
 }
 func (o ArchiveReaderObject) TransformParams() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("transformParams"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("transformParams"))
 	return objectivec.Object{ID: rv}
 }

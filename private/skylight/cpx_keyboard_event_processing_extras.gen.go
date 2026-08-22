@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXKeyboardEventProcessingExtrasClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyboardEventProcessingExtrasClass) Alloc() CPXKeyboardEventProcessingExtras {
-	rv := objc.Send[CPXKeyboardEventProcessingExtras](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessingExtras](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,7 +88,7 @@ type ICPXKeyboardEventProcessingExtras interface {
 	// Topic: Methods
 
 	AppendDescriptionToStream(stream objectivec.IObject)
-	ApplyToEvent(event SLSEventRecord)
+	ApplyToEvent(event *SLSEventRecord)
 	MainDisplayHeight() uint16
 	Window() uint32
 	WindowHeight() uint16
@@ -100,65 +101,65 @@ type ICPXKeyboardEventProcessingExtras interface {
 
 // Init initializes the instance.
 func (c CPXKeyboardEventProcessingExtras) Init() CPXKeyboardEventProcessingExtras {
-	rv := objc.Send[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyboardEventProcessingExtras) Autorelease() CPXKeyboardEventProcessingExtras {
-	rv := objc.Send[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyboardEventProcessingExtras creates a new CPXKeyboardEventProcessingExtras instance.
 func NewCPXKeyboardEventProcessingExtras() CPXKeyboardEventProcessingExtras {
 	class := getCPXKeyboardEventProcessingExtrasClass()
-	rv := objc.Send[CPXKeyboardEventProcessingExtras](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessingExtras](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXKeyboardEventProcessingExtrasWithWindowWindowHeightMainDisplayHeight(window uint32, height uint16, height2 uint16) CPXKeyboardEventProcessingExtras {
 	instance := getCPXKeyboardEventProcessingExtrasClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
 	return CPXKeyboardEventProcessingExtrasFromID(rv)
 }
 
 func (c CPXKeyboardEventProcessingExtras) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
-func (c CPXKeyboardEventProcessingExtras) ApplyToEvent(event SLSEventRecord) {
-	objc.Send[objc.ID](c.ID, objc.Sel("applyToEvent:"), event)
+func (c CPXKeyboardEventProcessingExtras) ApplyToEvent(event *SLSEventRecord) {
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("applyToEvent:"), unsafe.Pointer(event))
 }
 func (c CPXKeyboardEventProcessingExtras) InitWithWindowWindowHeightMainDisplayHeight(window uint32, height uint16, height2 uint16) CPXKeyboardEventProcessingExtras {
-	rv := objc.Send[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
+	rv := objc.SendIfResponds[CPXKeyboardEventProcessingExtras](c.ID, objc.Sel("initWithWindow:windowHeight:mainDisplayHeight:"), window, height, height2)
 	return rv
 }
 
 func (c CPXKeyboardEventProcessingExtras) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyboardEventProcessingExtras) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyboardEventProcessingExtras) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXKeyboardEventProcessingExtras) MainDisplayHeight() uint16 {
-	rv := objc.Send[uint16](c.ID, objc.Sel("mainDisplayHeight"))
+	rv := objc.SendIfResponds[uint16](c.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
 func (c CPXKeyboardEventProcessingExtras) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (c CPXKeyboardEventProcessingExtras) Window() uint32 {
-	rv := objc.Send[uint32](c.ID, objc.Sel("window"))
+	rv := objc.SendIfResponds[uint32](c.ID, objc.Sel("window"))
 	return rv
 }
 func (c CPXKeyboardEventProcessingExtras) WindowHeight() uint16 {
-	rv := objc.Send[uint16](c.ID, objc.Sel("windowHeight"))
+	rv := objc.SendIfResponds[uint16](c.ID, objc.Sel("windowHeight"))
 	return rv
 }

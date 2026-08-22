@@ -40,7 +40,7 @@ func (vc VZDirectoryShareClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
-	rv := objc.Send[VZDirectoryShare](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDirectoryShare](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,30 @@ type IVZDirectoryShare interface {
 
 // Init initializes the instance.
 func (v VZDirectoryShare) Init() VZDirectoryShare {
-	rv := objc.Send[VZDirectoryShare](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDirectoryShare](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDirectoryShare) Autorelease() VZDirectoryShare {
-	rv := objc.Send[VZDirectoryShare](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDirectoryShare](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDirectoryShare creates a new VZDirectoryShare instance.
 func NewVZDirectoryShare() VZDirectoryShare {
 	class := getVZDirectoryShareClass()
-	rv := objc.Send[VZDirectoryShare](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDirectoryShare](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZDirectoryShare) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZDirectoryShare) _share() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_share"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_share"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZDirectoryShare) Share() (unsafe.Pointer, error) {
 	return v._share(), nil
 }
 func (v VZDirectoryShare) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZDirectoryShare) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZDirectoryShare) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZDirectoryShare) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -39,7 +39,7 @@ func (ac ANEAnalyticsLayerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEAnalyticsLayerClass) Alloc() ANEAnalyticsLayer {
-	rv := objc.Send[ANEAnalyticsLayer](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEAnalyticsLayer](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,48 +82,48 @@ type IANEAnalyticsLayer interface {
 
 // Init initializes the instance.
 func (a ANEAnalyticsLayer) Init() ANEAnalyticsLayer {
-	rv := objc.Send[ANEAnalyticsLayer](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEAnalyticsLayer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEAnalyticsLayer) Autorelease() ANEAnalyticsLayer {
-	rv := objc.Send[ANEAnalyticsLayer](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEAnalyticsLayer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEAnalyticsLayer creates a new ANEAnalyticsLayer instance.
 func NewANEAnalyticsLayer() ANEAnalyticsLayer {
 	class := getANEAnalyticsLayerClass()
-	rv := objc.Send[ANEAnalyticsLayer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEAnalyticsLayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEAnalyticsLayerWithNameWeight(name objectivec.IObject, weight objectivec.IObject) ANEAnalyticsLayer {
 	instance := getANEAnalyticsLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:weight:"), name, weight)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:weight:"), name, weight)
 	return ANEAnalyticsLayerFromID(rv)
 }
 
 func (a ANEAnalyticsLayer) Serialize() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEAnalyticsLayer) InitWithNameWeight(name objectivec.IObject, weight objectivec.IObject) ANEAnalyticsLayer {
-	rv := objc.Send[ANEAnalyticsLayer](a.ID, objc.Sel("initWithName:weight:"), name, weight)
+	rv := objc.SendIfResponds[ANEAnalyticsLayer](a.ID, objc.Sel("initWithName:weight:"), name, weight)
 	return rv
 }
 
 func (_ANEAnalyticsLayerClass ANEAnalyticsLayerClass) ObjectWithNameWeight(name objectivec.IObject, weight objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsLayerClass.class), objc.Sel("objectWithName:weight:"), name, weight)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEAnalyticsLayerClass.class), objc.Sel("objectWithName:weight:"), name, weight)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEAnalyticsLayer) LayerName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerName"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEAnalyticsLayer) Weight() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weight"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weight"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }

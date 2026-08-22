@@ -38,7 +38,7 @@ func (vc VZCustomMMIODevicePluginBridgeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomMMIODevicePluginBridgeClass) Alloc() VZCustomMMIODevicePluginBridge {
-	rv := objc.Send[VZCustomMMIODevicePluginBridge](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomMMIODevicePluginBridge](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IVZCustomMMIODevicePluginBridge interface {
 
 // Init initializes the instance.
 func (v VZCustomMMIODevicePluginBridge) Init() VZCustomMMIODevicePluginBridge {
-	rv := objc.Send[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomMMIODevicePluginBridge) Autorelease() VZCustomMMIODevicePluginBridge {
-	rv := objc.Send[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomMMIODevicePluginBridge creates a new VZCustomMMIODevicePluginBridge instance.
 func NewVZCustomMMIODevicePluginBridge() VZCustomMMIODevicePluginBridge {
 	class := getVZCustomMMIODevicePluginBridgeClass()
-	rv := objc.Send[VZCustomMMIODevicePluginBridge](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomMMIODevicePluginBridge](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZCustomMMIODevicePluginBridgeWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objectivec.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomMMIODevicePluginBridge {
 	instance := getVZCustomMMIODevicePluginBridgeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
 	return VZCustomMMIODevicePluginBridgeFromID(rv)
 }
 
 func (v VZCustomMMIODevicePluginBridge) InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objectivec.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomMMIODevicePluginBridge {
-	rv := objc.Send[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
+	rv := objc.SendIfResponds[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
 	return rv
 }

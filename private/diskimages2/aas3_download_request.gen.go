@@ -40,7 +40,7 @@ func (ac AAS3DownloadRequestClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AAS3DownloadRequestClass) Alloc() AAS3DownloadRequest {
-	rv := objc.Send[AAS3DownloadRequest](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AAS3DownloadRequest](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -132,110 +132,110 @@ type IAAS3DownloadRequest interface {
 	SetStream(value unsafe.Pointer)
 	UrlRequest() foundation.NSMutableURLRequest
 	SetUrlRequest(value foundation.NSMutableURLRequest)
-	InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest
+	InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest
 }
 
 // Init initializes the instance.
 func (a AAS3DownloadRequest) Init() AAS3DownloadRequest {
-	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AAS3DownloadRequest](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AAS3DownloadRequest) Autorelease() AAS3DownloadRequest {
-	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AAS3DownloadRequest](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAAS3DownloadRequest creates a new AAS3DownloadRequest instance.
 func NewAAS3DownloadRequest() AAS3DownloadRequest {
 	class := getAAS3DownloadRequestClass()
-	rv := objc.Send[AAS3DownloadRequest](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AAS3DownloadRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
+func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
 	instance := getAAS3DownloadRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return AAS3DownloadRequestFromID(rv)
 }
 
 func (a AAS3DownloadRequest) CreateAndResumeTask() int {
-	rv := objc.Send[int](a.ID, objc.Sel("createAndResumeTask"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("createAndResumeTask"))
 	return rv
 }
-func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
-	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
+func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
+	rv := objc.SendIfResponds[AAS3DownloadRequest](a.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return rv
 }
 
 func (a AAS3DownloadRequest) Buf() string {
-	rv := objc.Send[*byte](a.ID, objc.Sel("buf"))
+	rv := objc.SendIfResponds[*byte](a.ID, objc.Sel("buf"))
 	return objc.GoString(rv)
 }
 func (a AAS3DownloadRequest) SetBuf(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setBuf:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setBuf:"), objc.String(value))
 }
 func (a AAS3DownloadRequest) DownloadSession() IAAS3DownloadSession {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("downloadSession"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("downloadSession"))
 	return AAS3DownloadSessionFromID(objc.ID(rv))
 }
 func (a AAS3DownloadRequest) SetDownloadSession(value IAAS3DownloadSession) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDownloadSession:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDownloadSession:"), value)
 }
 func (a AAS3DownloadRequest) Nbyte() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("nbyte"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("nbyte"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetNbyte(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setNbyte:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setNbyte:"), value)
 }
 func (a AAS3DownloadRequest) Offset() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("offset"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("offset"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetOffset(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setOffset:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setOffset:"), value)
 }
 func (a AAS3DownloadRequest) PauseInterval() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("pauseInterval"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("pauseInterval"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetPauseInterval(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPauseInterval:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPauseInterval:"), value)
 }
 func (a AAS3DownloadRequest) RemainingAttempts() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("remainingAttempts"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("remainingAttempts"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetRemainingAttempts(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRemainingAttempts:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setRemainingAttempts:"), value)
 }
 func (a AAS3DownloadRequest) Sem() objectivec.Object {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sem"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sem"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (a AAS3DownloadRequest) SetSem(value objectivec.Object) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSem:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSem:"), value)
 }
 func (a AAS3DownloadRequest) Status() int {
-	rv := objc.Send[int](a.ID, objc.Sel("status"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("status"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetStatus(value int) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStatus:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStatus:"), value)
 }
 func (a AAS3DownloadRequest) Stream() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("stream"))
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("stream"))
 	return rv
 }
 func (a AAS3DownloadRequest) SetStream(value unsafe.Pointer) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStream:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStream:"), value)
 }
 func (a AAS3DownloadRequest) UrlRequest() foundation.NSMutableURLRequest {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("urlRequest"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("urlRequest"))
 	return foundation.NSMutableURLRequestFromID(objc.ID(rv))
 }
 func (a AAS3DownloadRequest) SetUrlRequest(value foundation.NSMutableURLRequest) {
-	objc.Send[struct{}](a.ID, objc.Sel("setUrlRequest:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setUrlRequest:"), value)
 }

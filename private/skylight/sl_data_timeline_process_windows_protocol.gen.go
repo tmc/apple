@@ -42,18 +42,18 @@ func SLDataTimelineProcessWindowsObjectFromID(id objc.ID) SLDataTimelineProcessW
 }
 
 func (o SLDataTimelineProcessWindowsObject) OffScreen() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("offScreen"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("offScreen"))
 	return rv
 }
 func (o SLDataTimelineProcessWindowsObject) OnScreenOccluded() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("onScreenOccluded"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("onScreenOccluded"))
 	return rv
 }
 func (o SLDataTimelineProcessWindowsObject) OnScreenVisible() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("onScreenVisible"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("onScreenVisible"))
 	return rv
 }
 func (o SLDataTimelineProcessWindowsObject) OrderedOut() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("orderedOut"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("orderedOut"))
 	return rv
 }

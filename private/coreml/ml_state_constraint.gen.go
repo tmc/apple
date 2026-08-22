@@ -41,7 +41,7 @@ func (mc MLStateConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLStateConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,26 +87,26 @@ type IMLStateConstraint interface {
 
 // Init initializes the instance.
 func (m MLStateConstraint) Init() MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLStateConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLStateConstraint) Autorelease() MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLStateConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLStateConstraint creates a new MLStateConstraint instance.
 func NewMLStateConstraint() MLStateConstraint {
 	class := getMLStateConstraintClass()
-	rv := objc.Send[MLStateConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLStateConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewStateConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
 	instance := getMLStateConstraintClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return MLStateConstraintFromID(rv)
 }
 
@@ -150,19 +150,19 @@ func (m MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, 
 
 }
 func (m MLStateConstraint) Shape() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shape"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shape"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLStateConstraint) InitWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
+	rv := objc.SendIfResponds[MLStateConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return rv
 }
 
 func (_MLStateConstraintClass MLStateConstraintClass) ConstraintWithBufferShapeDataType(shape objectivec.IObject, type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLStateConstraintClass.class), objc.Sel("constraintWithBufferShape:dataType:"), shape, type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLStateConstraintClass.class), objc.Sel("constraintWithBufferShape:dataType:"), shape, type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLStateConstraintClass MLStateConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLStateConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLStateConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

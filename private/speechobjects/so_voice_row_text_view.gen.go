@@ -38,7 +38,7 @@ func (sc SOVoiceRowTextViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOVoiceRowTextViewClass) Alloc() SOVoiceRowTextView {
-	rv := objc.Send[SOVoiceRowTextView](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOVoiceRowTextView](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ISOVoiceRowTextView interface {
 
 // Init initializes the instance.
 func (s SOVoiceRowTextView) Init() SOVoiceRowTextView {
-	rv := objc.Send[SOVoiceRowTextView](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOVoiceRowTextView](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOVoiceRowTextView) Autorelease() SOVoiceRowTextView {
-	rv := objc.Send[SOVoiceRowTextView](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOVoiceRowTextView](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOVoiceRowTextView creates a new SOVoiceRowTextView instance.
 func NewSOVoiceRowTextView() SOVoiceRowTextView {
 	class := getSOVoiceRowTextViewClass()
-	rv := objc.Send[SOVoiceRowTextView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOVoiceRowTextView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

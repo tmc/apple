@@ -13,6 +13,12 @@ type MLE5ProgramLibraryImpl interface {
 
 	// CreateProgramLibraryHandleWithRespecializationError protocol.
 	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error)
+
+	// ModelDisplayName protocol.
+	ModelDisplayName() objectivec.IObject
+
+	// SerializedMILText protocol.
+	SerializedMILText() objectivec.IObject
 }
 
 // MLE5ProgramLibraryImplObject wraps an existing Objective-C object that conforms to the MLE5ProgramLibraryImpl protocol.
@@ -40,10 +46,10 @@ func (o MLE5ProgramLibraryImplObject) CreateProgramLibraryHandleWithRespecializa
 	return E5rtProgramLibraryRef(rv), nil
 }
 func (o MLE5ProgramLibraryImplObject) ModelDisplayName() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelDisplayName"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelDisplayName"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLE5ProgramLibraryImplObject) SerializedMILText() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("serializedMILText"))
 	return objectivec.Object{ID: rv}
 }

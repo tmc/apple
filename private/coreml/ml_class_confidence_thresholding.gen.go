@@ -40,7 +40,7 @@ func (mc MLClassConfidenceThresholdingClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLClassConfidenceThresholdingClass) Alloc() MLClassConfidenceThresholding {
-	rv := objc.Send[MLClassConfidenceThresholding](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLClassConfidenceThresholding](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,33 @@ type IMLClassConfidenceThresholding interface {
 
 // Init initializes the instance.
 func (m MLClassConfidenceThresholding) Init() MLClassConfidenceThresholding {
-	rv := objc.Send[MLClassConfidenceThresholding](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLClassConfidenceThresholding](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLClassConfidenceThresholding) Autorelease() MLClassConfidenceThresholding {
-	rv := objc.Send[MLClassConfidenceThresholding](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLClassConfidenceThresholding](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLClassConfidenceThresholding creates a new MLClassConfidenceThresholding instance.
 func NewMLClassConfidenceThresholding() MLClassConfidenceThresholding {
 	class := getMLClassConfidenceThresholdingClass()
-	rv := objc.Send[MLClassConfidenceThresholding](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLClassConfidenceThresholding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLClassConfidenceThresholding{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLClassConfidenceThresholding{}, objc.ErrInitFailed
 	}
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
@@ -120,46 +123,52 @@ func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfiguration
 func NewClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLClassConfidenceThresholding{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLClassConfidenceThresholding{}, objc.ErrInitFailed
 	}
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
 func NewClassConfidenceThresholdingWithConfiguration(configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
 func NewClassConfidenceThresholdingWithDescription(description objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
 func NewClassConfidenceThresholdingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
 func NewClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:precisionRecallCurves:error:"), description, configuration, curves, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:precisionRecallCurves:error:"), description, configuration, curves, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLClassConfidenceThresholding{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLClassConfidenceThresholding{}, objc.ErrInitFailed
 	}
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
 func NewClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
@@ -206,13 +215,13 @@ func (_MLClassConfidenceThresholdingClass MLClassConfidenceThresholdingClass) Lo
 }
 
 func (m MLClassConfidenceThresholding) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 func (m MLClassConfidenceThresholding) ParameterContainer() IMLParameterContainer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
 }
 func (m MLClassConfidenceThresholding) SetParameterContainer(value IMLParameterContainer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }

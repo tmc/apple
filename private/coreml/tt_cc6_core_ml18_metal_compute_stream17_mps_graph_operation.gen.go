@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCC6CoreML18MetalComputeStream17MPSGraphOperation] class.
+// The class instance for the [MPSGraphOperation] class.
 var (
-	_TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass     TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass
-	_TtCC6CoreML18MetalComputeStream17MPSGraphOperationClassOnce sync.Once
+	_MPSGraphOperationClass     MPSGraphOperationClass
+	_MPSGraphOperationClassOnce sync.Once
 )
 
-func getTtCC6CoreML18MetalComputeStream17MPSGraphOperationClass() TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass {
-	_TtCC6CoreML18MetalComputeStream17MPSGraphOperationClassOnce.Do(func() {
-		_TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass = TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass{class: objc.GetClass("_TtCC6CoreML18MetalComputeStream17MPSGraphOperation")}
+func getMPSGraphOperationClass() MPSGraphOperationClass {
+	_MPSGraphOperationClassOnce.Do(func() {
+		_MPSGraphOperationClass = MPSGraphOperationClass{class: objc.GetClass("_TtCC6CoreML18MetalComputeStream17MPSGraphOperation")}
 	})
-	return _TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass
+	return _MPSGraphOperationClass
 }
 
-// GetTtCC6CoreML18MetalComputeStream17MPSGraphOperationClass returns the class object for _TtCC6CoreML18MetalComputeStream17MPSGraphOperation.
-func GetTtCC6CoreML18MetalComputeStream17MPSGraphOperationClass() TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass {
-	return getTtCC6CoreML18MetalComputeStream17MPSGraphOperationClass()
+// GetMPSGraphOperationClass returns the class object for _TtCC6CoreML18MetalComputeStream17MPSGraphOperation.
+func GetMPSGraphOperationClass() MPSGraphOperationClass {
+	return getMPSGraphOperationClass()
 }
 
-type TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass struct {
+type MPSGraphOperationClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass) Class() objc.Class {
-	return tc.class
+func (mc MPSGraphOperationClass) Class() objc.Class {
+	return mc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC6CoreML18MetalComputeStream17MPSGraphOperationClass) Alloc() TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
-	rv := objc.Send[TtCC6CoreML18MetalComputeStream17MPSGraphOperation](objc.ID(tc.class), objc.Sel("alloc"))
+func (mc MPSGraphOperationClass) Alloc() MPSGraphOperation {
+	rv := objc.SendIfResponds[MPSGraphOperation](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC6CoreML18MetalComputeStream17MPSGraphOperation struct {
+type MPSGraphOperation struct {
 	objectivec.Object
 }
 
-// TtCC6CoreML18MetalComputeStream17MPSGraphOperationFromID constructs a [TtCC6CoreML18MetalComputeStream17MPSGraphOperation] from an objc.ID.
-func TtCC6CoreML18MetalComputeStream17MPSGraphOperationFromID(id objc.ID) TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
-	return TtCC6CoreML18MetalComputeStream17MPSGraphOperation{objectivec.Object{ID: id}}
+// MPSGraphOperationFromID constructs a [MPSGraphOperation] from an objc.ID.
+func MPSGraphOperationFromID(id objc.ID) MPSGraphOperation {
+	return MPSGraphOperation{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCC6CoreML18MetalComputeStream17MPSGraphOperation struct embeds objectivec.Object (parent type unavailable) but
-// ITtCC6CoreML18MetalComputeStream17MPSGraphOperation embeds the parent interface; skip compile-time assertion.
+// Ensure MPSGraphOperation implements IMPSGraphOperation.
+var _ IMPSGraphOperation = MPSGraphOperation{}
 
-// An interface definition for the [TtCC6CoreML18MetalComputeStream17MPSGraphOperation] class.
-type ITtCC6CoreML18MetalComputeStream17MPSGraphOperation interface {
+// An interface definition for the [MPSGraphOperation] class.
+type IMPSGraphOperation interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCC6CoreML18MetalComputeStream17MPSGraphOperation) Init() TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
-	rv := objc.Send[TtCC6CoreML18MetalComputeStream17MPSGraphOperation](t.ID, objc.Sel("init"))
+func (m MPSGraphOperation) Init() MPSGraphOperation {
+	rv := objc.SendIfResponds[MPSGraphOperation](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC6CoreML18MetalComputeStream17MPSGraphOperation) Autorelease() TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
-	rv := objc.Send[TtCC6CoreML18MetalComputeStream17MPSGraphOperation](t.ID, objc.Sel("autorelease"))
+func (m MPSGraphOperation) Autorelease() MPSGraphOperation {
+	rv := objc.SendIfResponds[MPSGraphOperation](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC6CoreML18MetalComputeStream17MPSGraphOperation creates a new TtCC6CoreML18MetalComputeStream17MPSGraphOperation instance.
-func NewTtCC6CoreML18MetalComputeStream17MPSGraphOperation() TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
-	class := getTtCC6CoreML18MetalComputeStream17MPSGraphOperationClass()
-	rv := objc.Send[TtCC6CoreML18MetalComputeStream17MPSGraphOperation](objc.ID(class.class), objc.Sel("new"))
+// NewMPSGraphOperation creates a new MPSGraphOperation instance.
+func NewMPSGraphOperation() MPSGraphOperation {
+	class := getMPSGraphOperationClass()
+	rv := objc.SendIfResponds[MPSGraphOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

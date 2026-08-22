@@ -38,7 +38,7 @@ func (vc VZPowerSourceDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPowerSourceDeviceClass) Alloc() VZPowerSourceDevice {
-	rv := objc.Send[VZPowerSourceDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPowerSourceDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZPowerSourceDevice interface {
 
 // Init initializes the instance.
 func (v VZPowerSourceDevice) Init() VZPowerSourceDevice {
-	rv := objc.Send[VZPowerSourceDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPowerSourceDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPowerSourceDevice) Autorelease() VZPowerSourceDevice {
-	rv := objc.Send[VZPowerSourceDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPowerSourceDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPowerSourceDevice creates a new VZPowerSourceDevice instance.
 func NewVZPowerSourceDevice() VZPowerSourceDevice {
 	class := getVZPowerSourceDeviceClass()
-	rv := objc.Send[VZPowerSourceDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPowerSourceDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZPowerSourceDevice) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

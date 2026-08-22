@@ -39,7 +39,7 @@ func (vc VZHIDEventFilterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHIDEventFilterClass) Alloc() VZHIDEventFilter {
-	rv := objc.Send[VZHIDEventFilter](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZHIDEventFilter](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,40 +79,40 @@ type IVZHIDEventFilter interface {
 
 // Init initializes the instance.
 func (v VZHIDEventFilter) Init() VZHIDEventFilter {
-	rv := objc.Send[VZHIDEventFilter](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZHIDEventFilter](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZHIDEventFilter) Autorelease() VZHIDEventFilter {
-	rv := objc.Send[VZHIDEventFilter](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZHIDEventFilter](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZHIDEventFilter creates a new VZHIDEventFilter instance.
 func NewVZHIDEventFilter() VZHIDEventFilter {
 	class := getVZHIDEventFilterClass()
-	rv := objc.Send[VZHIDEventFilter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZHIDEventFilter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZHIDEventFilter) GetHIDReportsFromHIDEvent(hIDEvent uintptr) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("getHIDReportsFromHIDEvent:"), hIDEvent)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("getHIDReportsFromHIDEvent:"), hIDEvent)
 	return objectivec.Object{ID: rv}
 }
 func (v VZHIDEventFilter) GetHIDReportsFromNSEvent(nSEvent objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("getHIDReportsFromNSEvent:"), nSEvent)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("getHIDReportsFromNSEvent:"), nSEvent)
 	return objectivec.Object{ID: rv}
 }
 func (v VZHIDEventFilter) UpdateCoordinateTransformIsFlipped(transform corefoundation.CGRect, flipped bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateCoordinateTransform:isFlipped:"), transform, flipped)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("updateCoordinateTransform:isFlipped:"), transform, flipped)
 }
 
 func (_VZHIDEventFilterClass VZHIDEventFilterClass) HasEventTranslators() bool {
-	rv := objc.Send[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("hasEventTranslators"))
+	rv := objc.SendIfResponds[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("hasEventTranslators"))
 	return rv
 }
 func (_VZHIDEventFilterClass VZHIDEventFilterClass) IsEnabled() bool {
-	rv := objc.Send[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("isEnabled"))
+	rv := objc.SendIfResponds[bool](objc.ID(_VZHIDEventFilterClass.class), objc.Sel("isEnabled"))
 	return rv
 }

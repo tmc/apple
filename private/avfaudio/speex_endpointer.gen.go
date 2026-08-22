@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -40,7 +41,7 @@ func (sc SpeexEndpointerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SpeexEndpointerClass) Alloc() SpeexEndpointer {
-	rv := objc.Send[SpeexEndpointer](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SpeexEndpointer](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -107,7 +108,7 @@ type ISpeexEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status AudioQueueBuffer) int
+	GetStatus(status audiotoolbox.AudioQueueBuffer) int
 	GetStatusCount(status []float32, count uint32) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
@@ -122,84 +123,84 @@ type ISpeexEndpointer interface {
 
 // Init initializes the instance.
 func (s SpeexEndpointer) Init() SpeexEndpointer {
-	rv := objc.Send[SpeexEndpointer](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SpeexEndpointer](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SpeexEndpointer) Autorelease() SpeexEndpointer {
-	rv := objc.Send[SpeexEndpointer](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SpeexEndpointer](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSpeexEndpointer creates a new SpeexEndpointer instance.
 func NewSpeexEndpointer() SpeexEndpointer {
 	class := getSpeexEndpointerClass()
-	rv := objc.Send[SpeexEndpointer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SpeexEndpointer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SpeexEndpointer) ConfigureWithASBDAndFrameRate(asbd coreaudiotypes.AudioStreamBasicDescription, rate uint32) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
 func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (s SpeexEndpointer) GetStatus(status AudioQueueBuffer) int {
-	rv := objc.Send[int](s.ID, objc.Sel("getStatus:"), status)
+func (s SpeexEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int {
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
 func (s SpeexEndpointer) GetStatusCount(status []float32, count uint32) int {
-	rv := objc.Send[int](s.ID, objc.Sel("getStatus:count:"), objc.CArray(status), count)
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("getStatus:count:"), objc.CArray(status), count)
 	return rv
 }
 func (s SpeexEndpointer) Reset() {
-	objc.Send[objc.ID](s.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("reset"))
 }
 
 func (s SpeexEndpointer) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SpeexEndpointer) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SpeexEndpointer) EndWaitTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("endWaitTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("endWaitTime"))
 	return rv
 }
 func (s SpeexEndpointer) SetEndWaitTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEndWaitTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEndWaitTime:"), value)
 }
 func (s SpeexEndpointer) EndpointMode() int {
-	rv := objc.Send[int](s.ID, objc.Sel("endpointMode"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("endpointMode"))
 	return rv
 }
 func (s SpeexEndpointer) SetEndpointMode(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEndpointMode:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEndpointMode:"), value)
 }
 func (s SpeexEndpointer) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SpeexEndpointer) InterspeechWaitTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("interspeechWaitTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("interspeechWaitTime"))
 	return rv
 }
 func (s SpeexEndpointer) SetInterspeechWaitTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setInterspeechWaitTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setInterspeechWaitTime:"), value)
 }
 func (s SpeexEndpointer) StartWaitTime() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("startWaitTime"))
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("startWaitTime"))
 	return rv
 }
 func (s SpeexEndpointer) SetStartWaitTime(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setStartWaitTime:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setStartWaitTime:"), value)
 }
 func (s SpeexEndpointer) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

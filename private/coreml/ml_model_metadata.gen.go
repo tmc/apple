@@ -39,7 +39,7 @@ func (mc MLModelMetadataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelMetadataClass) Alloc() MLModelMetadata {
-	rv := objc.Send[MLModelMetadata](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelMetadata](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,65 +94,65 @@ type IMLModelMetadata interface {
 
 // Init initializes the instance.
 func (m MLModelMetadata) Init() MLModelMetadata {
-	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelMetadata](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelMetadata) Autorelease() MLModelMetadata {
-	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelMetadata](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelMetadata creates a new MLModelMetadata instance.
 func NewMLModelMetadata() MLModelMetadata {
 	class := getMLModelMetadataClass()
-	rv := objc.Send[MLModelMetadata](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelMetadata](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelMetadataWithName(name objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
 	return MLModelMetadataFromID(rv)
 }
 
 func NewModelMetadataWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
 	return MLModelMetadataFromID(rv)
 }
 
 func (m MLModelMetadata) InitWithName(name objectivec.IObject) MLModelMetadata {
-	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[MLModelMetadata](m.ID, objc.Sel("initWithName:"), name)
 	return rv
 }
 func (m MLModelMetadata) InitWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
-	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
+	rv := objc.SendIfResponds[MLModelMetadata](m.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
 	return rv
 }
 
 func (m MLModelMetadata) Author() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("author"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("author"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelMetadata) CreatorDefined() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("creatorDefined"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("creatorDefined"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelMetadata) License() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("license"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("license"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelMetadata) Name() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelMetadata) ShortDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("shortDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("shortDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelMetadata) VersionString() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionString"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()
 }

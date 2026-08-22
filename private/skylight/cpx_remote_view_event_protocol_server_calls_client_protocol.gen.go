@@ -10,6 +10,9 @@ import (
 // CPXRemoteViewEventProtocolServerCallsClient protocol.
 type CPXRemoteViewEventProtocolServerCallsClient interface {
 	objectivec.IObject
+
+	// SendEventToHostFullDispatchReply protocol.
+	SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply NumberErrorHandler)
 }
 
 // CPXRemoteViewEventProtocolServerCallsClientObject wraps an existing Objective-C object that conforms to the CPXRemoteViewEventProtocolServerCallsClient protocol.
@@ -30,5 +33,7 @@ func CPXRemoteViewEventProtocolServerCallsClientObjectFromID(id objc.ID) CPXRemo
 }
 
 func (o CPXRemoteViewEventProtocolServerCallsClientObject) SendEventToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply NumberErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendEventToHost:fullDispatch:reply:"), host, dispatch, reply)
+	_block2, _cleanup2 := NewNumberErrorBlock(reply)
+	defer _cleanup2()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendEventToHost:fullDispatch:reply:"), host, dispatch, objc.ID(_block2))
 }

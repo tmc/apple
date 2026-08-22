@@ -40,7 +40,7 @@ func (mc MLWindowedBatchProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLWindowedBatchProviderClass) Alloc() MLWindowedBatchProvider {
-	rv := objc.Send[MLWindowedBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLWindowedBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,36 +98,39 @@ type IMLWindowedBatchProvider interface {
 
 // Init initializes the instance.
 func (m MLWindowedBatchProvider) Init() MLWindowedBatchProvider {
-	rv := objc.Send[MLWindowedBatchProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLWindowedBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLWindowedBatchProvider) Autorelease() MLWindowedBatchProvider {
-	rv := objc.Send[MLWindowedBatchProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLWindowedBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLWindowedBatchProvider creates a new MLWindowedBatchProvider instance.
 func NewMLWindowedBatchProvider() MLWindowedBatchProvider {
 	class := getMLWindowedBatchProviderClass()
-	rv := objc.Send[MLWindowedBatchProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLWindowedBatchProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewWindowedBatchProviderWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLWindowedBatchProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBatch:startIndex:windowLength:error:"), batch, index, length, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatch:startIndex:windowLength:error:"), batch, index, length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLWindowedBatchProvider{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLWindowedBatchProvider{}, objc.ErrInitFailed
 	}
 	return MLWindowedBatchProviderFromID(rv), nil
 }
 
 func (m MLWindowedBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLWindowedBatchProvider) InitWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
@@ -142,27 +145,27 @@ func (m MLWindowedBatchProvider) InitWithBatchStartIndexWindowLengthError(batch 
 }
 
 func (m MLWindowedBatchProvider) Count() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 func (m MLWindowedBatchProvider) FullBatch() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("fullBatch"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("fullBatch"))
 	return rv
 }
 func (m MLWindowedBatchProvider) SetFullBatch(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFullBatch:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFullBatch:"), value)
 }
 func (m MLWindowedBatchProvider) StartIndex() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("startIndex"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("startIndex"))
 	return rv
 }
 func (m MLWindowedBatchProvider) SetStartIndex(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setStartIndex:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setStartIndex:"), value)
 }
 func (m MLWindowedBatchProvider) WindowLength() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("windowLength"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("windowLength"))
 	return rv
 }
 func (m MLWindowedBatchProvider) SetWindowLength(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWindowLength:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWindowLength:"), value)
 }

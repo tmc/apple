@@ -38,7 +38,7 @@ func (ec ECTestOnlyEventTypeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ECTestOnlyEventTypeClass) Alloc() ECTestOnlyEventType {
-	rv := objc.Send[ECTestOnlyEventType](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ECTestOnlyEventType](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,36 +81,36 @@ type IECTestOnlyEventType interface {
 
 // Init initializes the instance.
 func (e ECTestOnlyEventType) Init() ECTestOnlyEventType {
-	rv := objc.Send[ECTestOnlyEventType](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ECTestOnlyEventType](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ECTestOnlyEventType) Autorelease() ECTestOnlyEventType {
-	rv := objc.Send[ECTestOnlyEventType](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ECTestOnlyEventType](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewECTestOnlyEventType creates a new ECTestOnlyEventType instance.
 func NewECTestOnlyEventType() ECTestOnlyEventType {
 	class := getECTestOnlyEventTypeClass()
-	rv := objc.Send[ECTestOnlyEventType](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ECTestOnlyEventType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e ECTestOnlyEventType) CgSubType() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("cgSubType"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("cgSubType"))
 	return rv
 }
 func (e ECTestOnlyEventType) CgType() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("cgType"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("cgType"))
 	return rv
 }
 func (e ECTestOnlyEventType) HidType() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("hidType"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("hidType"))
 	return rv
 }
 func (e ECTestOnlyEventType) IsCGType() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("isCGType"))
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("isCGType"))
 	return rv
 }

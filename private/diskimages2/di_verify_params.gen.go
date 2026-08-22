@@ -41,7 +41,7 @@ func (dc DIVerifyParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIVerifyParamsClass) Alloc() DIVerifyParams {
-	rv := objc.Send[DIVerifyParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIVerifyParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -84,36 +84,39 @@ type IDIVerifyParams interface {
 
 // Init initializes the instance.
 func (d DIVerifyParams) Init() DIVerifyParams {
-	rv := objc.Send[DIVerifyParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIVerifyParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIVerifyParams) Autorelease() DIVerifyParams {
-	rv := objc.Send[DIVerifyParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIVerifyParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIVerifyParams creates a new DIVerifyParams instance.
 func NewDIVerifyParams() DIVerifyParams {
 	class := getDIVerifyParamsClass()
-	rv := objc.Send[DIVerifyParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIVerifyParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIVerifyParamsWithCoder(coder objectivec.IObject) DIVerifyParams {
 	instance := getDIVerifyParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIVerifyParamsFromID(rv)
 }
 
 func NewDIVerifyParamsWithURLError(url foundation.NSURL) (DIVerifyParams, error) {
 	var errorPtr objc.ID
 	instance := getDIVerifyParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIVerifyParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIVerifyParams{}, objc.ErrInitFailed
 	}
 	return DIVerifyParamsFromID(rv), nil
 }
@@ -121,10 +124,13 @@ func NewDIVerifyParamsWithURLError(url foundation.NSURL) (DIVerifyParams, error)
 func NewDIVerifyParamsWithURLShadowURLsError(url foundation.NSURL, uRLs objectivec.IObject) (DIVerifyParams, error) {
 	var errorPtr objc.ID
 	instance := getDIVerifyParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, uRLs, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, uRLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIVerifyParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIVerifyParams{}, objc.ErrInitFailed
 	}
 	return DIVerifyParamsFromID(rv), nil
 }
@@ -154,9 +160,9 @@ func (d DIVerifyParams) InitWithURLShadowURLsError(url foundation.NSURL, uRLs ob
 }
 
 func (d DIVerifyParams) ShouldValidateShadows() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("shouldValidateShadows"))
 	return rv
 }
 func (d DIVerifyParams) SetShouldValidateShadows(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
 }

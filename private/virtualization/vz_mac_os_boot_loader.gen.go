@@ -38,7 +38,7 @@ func (vc VZMacOSBootLoaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
-	rv := objc.Send[VZMacOSBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacOSBootLoader](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,25 +78,25 @@ type IVZMacOSBootLoader interface {
 
 // Init initializes the instance.
 func (v VZMacOSBootLoader) Init() VZMacOSBootLoader {
-	rv := objc.Send[VZMacOSBootLoader](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacOSBootLoader](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacOSBootLoader) Autorelease() VZMacOSBootLoader {
-	rv := objc.Send[VZMacOSBootLoader](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacOSBootLoader](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacOSBootLoader creates a new VZMacOSBootLoader instance.
 func NewVZMacOSBootLoader() VZMacOSBootLoader {
 	class := getVZMacOSBootLoaderClass()
-	rv := objc.Send[VZMacOSBootLoader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacOSBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMacOSBootLoader) _setROMURL(romurl foundation.NSURL) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setROMURL:"), romurl)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setROMURL:"), romurl)
 }
 
 // SetROMURL is an exported wrapper for the private method _setROMURL.
@@ -115,7 +115,7 @@ func (v VZMacOSBootLoader) CanSetROMURL() bool {
 }
 
 func (v VZMacOSBootLoader) _romURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_romURL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_romURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
@@ -132,5 +132,5 @@ func (v VZMacOSBootLoader) RomURL() (foundation.NSURL, error) {
 	return v._romURL(), nil
 }
 func (v VZMacOSBootLoader) Set_romURL(value foundation.NSURL) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_romURL:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_romURL:"), value)
 }

@@ -5,8 +5,8 @@ package espresso
 import (
 	"sync"
 
+	"github.com/tmc/apple/metalperformanceshaders"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [MyMPSCNNConvolutionGradientState] class.
@@ -38,65 +38,42 @@ func (mc MyMPSCNNConvolutionGradientStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MyMPSCNNConvolutionGradientStateClass) Alloc() MyMPSCNNConvolutionGradientState {
-	rv := objc.Send[MyMPSCNNConvolutionGradientState](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MyMPSCNNConvolutionGradientState](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
-// # Methods
-//
-//   - [MyMPSCNNConvolutionGradientState.SourceHeight]
-//   - [MyMPSCNNConvolutionGradientState.SourceWidth]
 type MyMPSCNNConvolutionGradientState struct {
-	objectivec.Object
+	metalperformanceshaders.MPSCNNConvolutionGradientState
 }
 
 // MyMPSCNNConvolutionGradientStateFromID constructs a [MyMPSCNNConvolutionGradientState] from an objc.ID.
 func MyMPSCNNConvolutionGradientStateFromID(id objc.ID) MyMPSCNNConvolutionGradientState {
-	return MyMPSCNNConvolutionGradientState{objectivec.Object{ID: id}}
+	return MyMPSCNNConvolutionGradientState{MPSCNNConvolutionGradientState: metalperformanceshaders.MPSCNNConvolutionGradientStateFromID(id)}
 }
 
-// NOTE: MyMPSCNNConvolutionGradientState struct embeds objectivec.Object (parent type unavailable) but
-// IMyMPSCNNConvolutionGradientState embeds the parent interface; skip compile-time assertion.
+// Ensure MyMPSCNNConvolutionGradientState implements IMyMPSCNNConvolutionGradientState.
+var _ IMyMPSCNNConvolutionGradientState = MyMPSCNNConvolutionGradientState{}
 
 // An interface definition for the [MyMPSCNNConvolutionGradientState] class.
-//
-// # Methods
-//
-//   - [IMyMPSCNNConvolutionGradientState.SourceHeight]
-//   - [IMyMPSCNNConvolutionGradientState.SourceWidth]
 type IMyMPSCNNConvolutionGradientState interface {
-	IMPSCNNConvolutionGradientState
-
-	// Topic: Methods
-
-	SourceHeight() uint64
-	SourceWidth() uint64
+	metalperformanceshaders.IMPSCNNConvolutionGradientState
 }
 
 // Init initializes the instance.
 func (m MyMPSCNNConvolutionGradientState) Init() MyMPSCNNConvolutionGradientState {
-	rv := objc.Send[MyMPSCNNConvolutionGradientState](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MyMPSCNNConvolutionGradientState](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MyMPSCNNConvolutionGradientState) Autorelease() MyMPSCNNConvolutionGradientState {
-	rv := objc.Send[MyMPSCNNConvolutionGradientState](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MyMPSCNNConvolutionGradientState](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMyMPSCNNConvolutionGradientState creates a new MyMPSCNNConvolutionGradientState instance.
 func NewMyMPSCNNConvolutionGradientState() MyMPSCNNConvolutionGradientState {
 	class := getMyMPSCNNConvolutionGradientStateClass()
-	rv := objc.Send[MyMPSCNNConvolutionGradientState](objc.ID(class.class), objc.Sel("new"))
-	return rv
-}
-
-func (m MyMPSCNNConvolutionGradientState) SourceHeight() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("sourceHeight"))
-	return rv
-}
-func (m MyMPSCNNConvolutionGradientState) SourceWidth() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("sourceWidth"))
+	rv := objc.SendIfResponds[MyMPSCNNConvolutionGradientState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

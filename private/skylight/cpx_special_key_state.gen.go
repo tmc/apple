@@ -38,7 +38,7 @@ func (cc CPXSpecialKeyStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXSpecialKeyStateClass) Alloc() CPXSpecialKeyState {
-	rv := objc.Send[CPXSpecialKeyState](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXSpecialKeyState](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ICPXSpecialKeyState interface {
 
 // Init initializes the instance.
 func (c CPXSpecialKeyState) Init() CPXSpecialKeyState {
-	rv := objc.Send[CPXSpecialKeyState](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXSpecialKeyState](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXSpecialKeyState) Autorelease() CPXSpecialKeyState {
-	rv := objc.Send[CPXSpecialKeyState](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXSpecialKeyState](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXSpecialKeyState creates a new CPXSpecialKeyState instance.
 func NewCPXSpecialKeyState() CPXSpecialKeyState {
 	class := getCPXSpecialKeyStateClass()
-	rv := objc.Send[CPXSpecialKeyState](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXSpecialKeyState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

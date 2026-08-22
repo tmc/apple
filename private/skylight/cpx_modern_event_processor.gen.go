@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (cc CPXModernEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXModernEventProcessorClass) Alloc() CPXModernEventProcessor {
-	rv := objc.Send[CPXModernEventProcessor](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXModernEventProcessor](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,7 +80,7 @@ type ICPXModernEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event SLSEventRecordRef, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -88,44 +89,44 @@ type ICPXModernEventProcessor interface {
 
 // Init initializes the instance.
 func (c CPXModernEventProcessor) Init() CPXModernEventProcessor {
-	rv := objc.Send[CPXModernEventProcessor](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXModernEventProcessor](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXModernEventProcessor) Autorelease() CPXModernEventProcessor {
-	rv := objc.Send[CPXModernEventProcessor](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXModernEventProcessor](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXModernEventProcessor creates a new CPXModernEventProcessor instance.
 func NewCPXModernEventProcessor() CPXModernEventProcessor {
 	class := getCPXModernEventProcessorClass()
-	rv := objc.Send[CPXModernEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXModernEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CPXModernEventProcessor) ClearEventState() {
-	objc.Send[objc.ID](c.ID, objc.Sel("clearEventState"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("clearEventState"))
 }
-func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
+func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+	rv := objc.SendIfResponds[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, unsafe.Pointer(context), dispatcher)
 	return rv
 }
 
 func (c CPXModernEventProcessor) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXModernEventProcessor) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXModernEventProcessor) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXModernEventProcessor) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

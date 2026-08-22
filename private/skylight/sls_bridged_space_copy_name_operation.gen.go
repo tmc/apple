@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceCopyNameOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceCopyNameOperationClass) Alloc() SLSBridgedSpaceCopyNameOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyNameOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedSpaceCopyNameOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceCopyNameOperation) Init() SLSBridgedSpaceCopyNameOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceCopyNameOperation) Autorelease() SLSBridgedSpaceCopyNameOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceCopyNameOperation creates a new SLSBridgedSpaceCopyNameOperation instance.
 func NewSLSBridgedSpaceCopyNameOperation() SLSBridgedSpaceCopyNameOperation {
 	class := getSLSBridgedSpaceCopyNameOperationClass()
-	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyNameOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceCopyNameOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceCopyNameOperation {
 	instance := getSLSBridgedSpaceCopyNameOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceCopyNameOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceCopyNameOperationWithSpaceID(id uint64) SLSBridgedSpaceCopyNameOperation {
 	instance := getSLSBridgedSpaceCopyNameOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedSpaceCopyNameOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceCopyNameOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceCopyNameOperation) InitWithSpaceID(id uint64) SLSBridgedSpaceCopyNameOperation {
-	rv := objc.Send[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedSpaceCopyNameOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedSpaceCopyNameOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (sc SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationClass) Class()
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationClass) Alloc() SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) Init() SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) Autorelease() SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation creates a new SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation instance.
 func NewSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation() SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
 	class := getSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationClass()
-	rv := objc.Send[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationWithCoder(coder objectivec.IObject) SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
 	instance := getSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationFromID(rv)
 }
 
 func NewSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationWithDisplayIdentifierWindowID(identifier objectivec.IObject, id uint32) SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
 	instance := getSLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:windowID:"), identifier, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplayIdentifier:windowID:"), identifier, id)
 	return SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperationFromID(rv)
 }
 
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) MakeResultWithBoolValue(value bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithBoolValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) InitWithDisplayIdentifierWindowID(identifier objectivec.IObject, id uint32) SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation {
-	rv := objc.Send[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("initWithDisplayIdentifier:windowID:"), identifier, id)
+	rv := objc.SendIfResponds[SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation](s.ID, objc.Sel("initWithDisplayIdentifier:windowID:"), identifier, id)
 	return rv
 }
 
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) DisplayIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSBridgedManagedDisplayCurrentSpaceAllowsWindowOperation) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }

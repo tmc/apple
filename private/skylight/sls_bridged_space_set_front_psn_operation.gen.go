@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceSetFrontPSNOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceSetFrontPSNOperationClass) Alloc() SLSBridgedSpaceSetFrontPSNOperation {
-	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetFrontPSNOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,46 +78,45 @@ type ISLSBridgedSpaceSetFrontPSNOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceSetFrontPSNOperation) Init() SLSBridgedSpaceSetFrontPSNOperation {
-	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceSetFrontPSNOperation) Autorelease() SLSBridgedSpaceSetFrontPSNOperation {
-	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceSetFrontPSNOperation creates a new SLSBridgedSpaceSetFrontPSNOperation instance.
 func NewSLSBridgedSpaceSetFrontPSNOperation() SLSBridgedSpaceSetFrontPSNOperation {
 	class := getSLSBridgedSpaceSetFrontPSNOperationClass()
-	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetFrontPSNOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceSetFrontPSNOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetFrontPSNOperation {
 	instance := getSLSBridgedSpaceSetFrontPSNOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetFrontPSNOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceSetFrontPSNOperationWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
 	instance := getSLSBridgedSpaceSetFrontPSNOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return SLSBridgedSpaceSetFrontPSNOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceSetFrontPSNOperation) InitWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
-	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return rv
 }
 
 func (s SLSBridgedSpaceSetFrontPSNOperation) Psn() CPSProcessSerNum {
-	rv := objc.Send[CPSProcessSerNum](s.ID, objc.Sel("psn"))
-	_ = rv
-	return CPSProcessSerNum{}
+	rv := objc.SendIfResponds[CPSProcessSerNum](s.ID, objc.Sel("psn"))
+	return CPSProcessSerNum(rv)
 }
 func (s SLSBridgedSpaceSetFrontPSNOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

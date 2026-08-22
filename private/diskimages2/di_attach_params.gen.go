@@ -41,7 +41,7 @@ func (dc DIAttachParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIAttachParamsClass) Alloc() DIAttachParams {
-	rv := objc.Send[DIAttachParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIAttachParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -186,36 +186,39 @@ type IDIAttachParams interface {
 
 // Init initializes the instance.
 func (d DIAttachParams) Init() DIAttachParams {
-	rv := objc.Send[DIAttachParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIAttachParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIAttachParams) Autorelease() DIAttachParams {
-	rv := objc.Send[DIAttachParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIAttachParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIAttachParams creates a new DIAttachParams instance.
 func NewDIAttachParams() DIAttachParams {
 	class := getDIAttachParamsClass()
-	rv := objc.Send[DIAttachParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIAttachParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIAttachParamsWithCoder(coder objectivec.IObject) DIAttachParams {
 	instance := getDIAttachParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIAttachParamsFromID(rv)
 }
 
 func NewDIAttachParamsWithExistingParamsError(params IDIAttachParams) (DIAttachParams, error) {
 	var errorPtr objc.ID
 	instance := getDIAttachParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIAttachParams{}, objc.ErrInitFailed
 	}
 	return DIAttachParamsFromID(rv), nil
 }
@@ -223,10 +226,13 @@ func NewDIAttachParamsWithExistingParamsError(params IDIAttachParams) (DIAttachP
 func NewDIAttachParamsWithURLError(url foundation.NSURL) (DIAttachParams, error) {
 	var errorPtr objc.ID
 	instance := getDIAttachParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIAttachParams{}, objc.ErrInitFailed
 	}
 	return DIAttachParamsFromID(rv), nil
 }
@@ -234,10 +240,13 @@ func NewDIAttachParamsWithURLError(url foundation.NSURL) (DIAttachParams, error)
 func NewDIAttachParamsWithURLShadowURLsError(url foundation.NSURL, shadowURLs foundation.INSArray) (DIAttachParams, error) {
 	var errorPtr objc.ID
 	instance := getDIAttachParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, shadowURLs, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, shadowURLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIAttachParams{}, objc.ErrInitFailed
 	}
 	return DIAttachParamsFromID(rv), nil
 }
@@ -266,14 +275,14 @@ func (d DIAttachParams) NewAttachWithError() (IDIDeviceHandle, error) {
 
 }
 func (d DIAttachParams) SetupDefaults() {
-	objc.Send[objc.ID](d.ID, objc.Sel("setupDefaults"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("setupDefaults"))
 }
 func (d DIAttachParams) IsDeviceHighThroughputWithRegistryEntryID(id uint64) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isDeviceHighThroughputWithRegistryEntryID:"), id)
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isDeviceHighThroughputWithRegistryEntryID:"), id)
 	return rv
 }
 func (d DIAttachParams) IsDeviceSolidStateWithRegistryEntryID(id uint64) bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isDeviceSolidStateWithRegistryEntryID:"), id)
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isDeviceSolidStateWithRegistryEntryID:"), id)
 	return rv
 }
 func (d DIAttachParams) ReOpenIfWritableWithError() (bool, error) {
@@ -348,100 +357,100 @@ func (_DIAttachParamsClass DIAttachParamsClass) CopyWithURLOutURLStrMaxLenError(
 }
 
 func (d DIAttachParams) AutoMount() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("autoMount"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("autoMount"))
 	return rv
 }
 func (d DIAttachParams) SetAutoMount(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setAutoMount:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setAutoMount:"), value)
 }
 func (d DIAttachParams) CommandSize() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("commandSize"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("commandSize"))
 	return rv
 }
 func (d DIAttachParams) SetCommandSize(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCommandSize:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCommandSize:"), value)
 }
 func (d DIAttachParams) CustomCacheURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("customCacheURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("customCacheURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIAttachParams) SetCustomCacheURL(value foundation.NSURL) {
-	objc.Send[struct{}](d.ID, objc.Sel("setCustomCacheURL:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCustomCacheURL:"), value)
 }
 func (d DIAttachParams) EmulateExternalDisk() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("emulateExternalDisk"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("emulateExternalDisk"))
 	return rv
 }
 func (d DIAttachParams) SetEmulateExternalDisk(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEmulateExternalDisk:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEmulateExternalDisk:"), value)
 }
 func (d DIAttachParams) FileMode() int64 {
-	rv := objc.Send[int64](d.ID, objc.Sel("fileMode"))
+	rv := objc.SendIfResponds[int64](d.ID, objc.Sel("fileMode"))
 	return rv
 }
 func (d DIAttachParams) SetFileMode(value int64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setFileMode:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setFileMode:"), value)
 }
 func (d DIAttachParams) HandleRefCount() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("handleRefCount"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("handleRefCount"))
 	return rv
 }
 func (d DIAttachParams) SetHandleRefCount(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
 }
 func (d DIAttachParams) InputMountedFrom() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputMountedFrom"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("inputMountedFrom"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIAttachParams) SetInputMountedFrom(value string) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputMountedFrom:"), objc.String(value))
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputMountedFrom:"), objc.String(value))
 }
 func (d DIAttachParams) OnDiskCache() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("onDiskCache"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("onDiskCache"))
 	return rv
 }
 func (d DIAttachParams) SetOnDiskCache(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setOnDiskCache:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setOnDiskCache:"), value)
 }
 func (d DIAttachParams) RegEntryID() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("regEntryID"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("regEntryID"))
 	return rv
 }
 func (d DIAttachParams) SetRegEntryID(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setRegEntryID:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setRegEntryID:"), value)
 }
 func (d DIAttachParams) ShouldValidateShadows() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("shouldValidateShadows"))
 	return rv
 }
 func (d DIAttachParams) SetShouldValidateShadows(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
 }
 func (d DIAttachParams) SingleInstanceDaemon() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("singleInstanceDaemon"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("singleInstanceDaemon"))
 	return rv
 }
 func (d DIAttachParams) SetSingleInstanceDaemon(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSingleInstanceDaemon:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSingleInstanceDaemon:"), value)
 }
 func (d DIAttachParams) SuppressSsdFlags() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("suppressSsdFlags"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("suppressSsdFlags"))
 	return rv
 }
 func (d DIAttachParams) SetSuppressSsdFlags(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setSuppressSsdFlags:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSuppressSsdFlags:"), value)
 }
 func (d DIAttachParams) UniqueDevice() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("uniqueDevice"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("uniqueDevice"))
 	return rv
 }
 func (d DIAttachParams) SetUniqueDevice(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setUniqueDevice:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setUniqueDevice:"), value)
 }
 func (d DIAttachParams) InputStatFS() IDIStatFS {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputStatFS"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("inputStatFS"))
 	return DIStatFSFromID(objc.ID(rv))
 }
 func (d DIAttachParams) SetInputStatFS(value IDIStatFS) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputStatFS:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputStatFS:"), value)
 }

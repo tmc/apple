@@ -11,11 +11,17 @@ import (
 type GTShaderProfilerShaderFunction interface {
 	objectivec.IObject
 
+	// FilePath protocol.
+	FilePath() objectivec.IObject
+
 	// Index protocol.
 	Index() uint32
 
 	// LibraryObjectId protocol.
 	LibraryObjectId() uint64
+
+	// Name protocol.
+	Name() objectivec.IObject
 
 	// ObjectId protocol.
 	ObjectId() uint64
@@ -45,30 +51,30 @@ func GTShaderProfilerShaderFunctionObjectFromID(id objc.ID) GTShaderProfilerShad
 }
 
 func (o GTShaderProfilerShaderFunctionObject) FilePath() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("filePath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("filePath"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderFunctionObject) Index() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("index"))
 	return rv
 }
 func (o GTShaderProfilerShaderFunctionObject) LibraryObjectId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("libraryObjectId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("libraryObjectId"))
 	return rv
 }
 func (o GTShaderProfilerShaderFunctionObject) Name() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
 }
 func (o GTShaderProfilerShaderFunctionObject) ObjectId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("objectId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("objectId"))
 	return rv
 }
 func (o GTShaderProfilerShaderFunctionObject) PointerId() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("pointerId"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("pointerId"))
 	return rv
 }
 func (o GTShaderProfilerShaderFunctionObject) Type() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("type"))
 	return rv
 }

@@ -10,6 +10,12 @@ import (
 // VZGraphicsDisplayObserver protocol.
 type VZGraphicsDisplayObserver interface {
 	objectivec.IObject
+
+	// DisplayDidBeginReconfiguration protocol.
+	DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject)
+
+	// DisplayDidEndReconfiguration protocol.
+	DisplayDidEndReconfiguration(reconfiguration objectivec.IObject)
 }
 
 // VZGraphicsDisplayObserverObject wraps an existing Objective-C object that conforms to the VZGraphicsDisplayObserver protocol.
@@ -30,8 +36,8 @@ func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserver
 }
 
 func (o VZGraphicsDisplayObserverObject) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
 func (o VZGraphicsDisplayObserverObject) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
 }

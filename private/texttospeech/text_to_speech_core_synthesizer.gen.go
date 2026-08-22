@@ -42,7 +42,7 @@ func (tc TextToSpeechCoreSynthesizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechCoreSynthesizerClass) Alloc() TextToSpeechCoreSynthesizer {
-	rv := objc.Send[TextToSpeechCoreSynthesizer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesizer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -174,163 +174,165 @@ type ITextToSpeechCoreSynthesizer interface {
 	SetVoiceResolver(value unsafe.Pointer)
 	VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
 	VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler)
-	WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth objectivec.IObject, handler objectivec.IObject)
-	WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler ErrorHandler)
+	WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler)
+	WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 ErrorHandler, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler)
 	WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.NSURL, settings foundation.INSDictionary, handler ErrorHandler)
 }
 
 // Init initializes the instance.
 func (t TextToSpeechCoreSynthesizer) Init() TextToSpeechCoreSynthesizer {
-	rv := objc.Send[TextToSpeechCoreSynthesizer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesizer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechCoreSynthesizer) Autorelease() TextToSpeechCoreSynthesizer {
-	rv := objc.Send[TextToSpeechCoreSynthesizer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesizer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechCoreSynthesizer creates a new TextToSpeechCoreSynthesizer instance.
 func NewTextToSpeechCoreSynthesizer() TextToSpeechCoreSynthesizer {
 	class := getTextToSpeechCoreSynthesizerClass()
-	rv := objc.Send[TextToSpeechCoreSynthesizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechCoreSynthesizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechCoreSynthesizer) ContinueSpeaking() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("continueSpeaking"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("continueSpeaking"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) PauseSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("pauseSpeakingAt:completionHandler:"), at, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("pauseSpeakingAt:completionHandler:"), at, _block1)
 }
 func (t TextToSpeechCoreSynthesizer) SetLegacySubstitutions(substitutions objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("setLegacySubstitutions:"), substitutions)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setLegacySubstitutions:"), substitutions)
 }
 func (t TextToSpeechCoreSynthesizer) SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("speak:synth:completionHandler:"), speak, synth, _block2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speak:synth:completionHandler:"), speak, synth, _block2)
 }
 func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("speakWithRequest:language:synthesizer:completionHandler:"), request, language, synthesizer, _block3)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speakWithRequest:language:synthesizer:completionHandler:"), request, language, synthesizer, _block3)
 }
 func (t TextToSpeechCoreSynthesizer) StopSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeakingAt:completionHandler:"), at, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stopSpeakingAt:completionHandler:"), at, _block1)
 }
 func (t TextToSpeechCoreSynthesizer) StopWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
 }
 func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 func (t TextToSpeechCoreSynthesizer) VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLocale:completionHandler:"), locale, _block1)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceWithLocale:completionHandler:"), locale, _block1)
 }
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth objectivec.IObject, handler objectivec.IObject) {
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(callback)
-	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:synth:completionHandler:"), write, _block1, synth, handler)
+	_block3, _ := NewErrorBlock(handler)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("write:toBufferCallback:synth:completionHandler:"), write, _block1, synth, _block3)
 }
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler ErrorHandler) {
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 ErrorHandler, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(callback)
+	_block2, _ := NewErrorBlock(callback2)
 	_block4, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:toMarkerCallback:synth:completionHandler:"), write, _block1, callback2, synth, _block4)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("write:toBufferCallback:toMarkerCallback:synth:completionHandler:"), write, _block1, _block2, synth, _block4)
 }
 func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.NSURL, settings foundation.INSDictionary, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](t.ID, objc.Sel("writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:"), objc.String(phrase), file, settings, _block3)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:"), objc.String(phrase), file, settings, _block3)
 }
 
 func (t TextToSpeechCoreSynthesizer) _audioQueue() ITTSWrappedAudioQueue {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_audioQueue"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_audioQueue"))
 	return TTSWrappedAudioQueueFromID(objc.ID(rv))
 }
 func (t TextToSpeechCoreSynthesizer) Set_audioQueue(value ITTSWrappedAudioQueue) {
-	objc.Send[struct{}](t.ID, objc.Sel("set_audioQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_audioQueue:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) _bundleIdentifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_bundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechCoreSynthesizer) Set_bundleIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("set_bundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_bundleIdentifier:"), objc.String(value))
 }
 func (t TextToSpeechCoreSynthesizer) _effects() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_effects"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_effects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TextToSpeechCoreSynthesizer) Set_effects(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("set_effects:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_effects:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) _voiceResolver() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("_voiceResolver"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("_voiceResolver"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) Set_voiceResolver(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("set_voiceResolver:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_voiceResolver:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) AudioDevice() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioDevice"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioDevice"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) SetAudioDevice(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) AudioQueue() ITTSWrappedAudioQueue {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioQueue"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioQueue"))
 	return TTSWrappedAudioQueueFromID(objc.ID(rv))
 }
 func (t TextToSpeechCoreSynthesizer) SetAudioQueue(value ITTSWrappedAudioQueue) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioQueue:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) AudioQueueFlags() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) SetAudioQueueFlags(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TextToSpeechCoreSynthesizer) SetBundleIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (t TextToSpeechCoreSynthesizer) Effects() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("effects"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("effects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TextToSpeechCoreSynthesizer) SetEffects(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEffects:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEffects:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) IsPaused() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isPaused"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isPaused"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) IsSpeaking() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isSpeaking"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isSpeaking"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) OfflineChain() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("offlineChain"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("offlineChain"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TextToSpeechCoreSynthesizer) SetOfflineChain(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOfflineChain:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOfflineChain:"), value)
 }
 func (t TextToSpeechCoreSynthesizer) VoiceResolver() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("voiceResolver"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("voiceResolver"))
 	return rv
 }
 func (t TextToSpeechCoreSynthesizer) SetVoiceResolver(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceResolver:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceResolver:"), value)
 }
 
 // PauseSpeakingAt is a synchronous wrapper around [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler].
@@ -438,9 +440,24 @@ func (t TextToSpeechCoreSynthesizer) VoiceWithLocale(ctx context.Context, locale
 	}
 }
 
+// WriteToBufferCallbackSynth is a synchronous wrapper around [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth avfaudio.AVSpeechSynthesizer) error {
+	done := make(chan error, 1)
+	t.WriteToBufferCallbackSynthCompletionHandler(write, callback, synth, func(err error) {
+		done <- err
+	})
+	select {
+	case err := <-done:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
 // WriteToBufferCallbackToMarkerCallbackSynth is a synchronous wrapper around [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject) error {
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 ErrorHandler, synth avfaudio.AVSpeechSynthesizer) error {
 	done := make(chan error, 1)
 	t.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write, callback, callback2, synth, func(err error) {
 		done <- err

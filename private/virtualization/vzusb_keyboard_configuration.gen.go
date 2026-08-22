@@ -37,7 +37,7 @@ func (vc VZUSBKeyboardConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBKeyboardConfigurationClass) Alloc() VZUSBKeyboardConfiguration {
-	rv := objc.Send[VZUSBKeyboardConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBKeyboardConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZUSBKeyboardConfiguration interface {
 
 // Init initializes the instance.
 func (v VZUSBKeyboardConfiguration) Init() VZUSBKeyboardConfiguration {
-	rv := objc.Send[VZUSBKeyboardConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBKeyboardConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBKeyboardConfiguration) Autorelease() VZUSBKeyboardConfiguration {
-	rv := objc.Send[VZUSBKeyboardConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBKeyboardConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBKeyboardConfiguration creates a new VZUSBKeyboardConfiguration instance.
 func NewVZUSBKeyboardConfiguration() VZUSBKeyboardConfiguration {
 	class := getVZUSBKeyboardConfigurationClass()
-	rv := objc.Send[VZUSBKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

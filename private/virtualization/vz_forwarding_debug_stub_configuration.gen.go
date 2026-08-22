@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (vc VZForwardingDebugStubConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZForwardingDebugStubConfigurationClass) Alloc() VZForwardingDebugStubConfiguration {
-	rv := objc.Send[VZForwardingDebugStubConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZForwardingDebugStubConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -67,35 +68,35 @@ type IVZForwardingDebugStubConfiguration interface {
 
 	// Topic: Methods
 
-	_initWithDebugStub(stub DebugStub) objectivec.IObject
+	_initWithDebugStub(stub *DebugStub) objectivec.IObject
 }
 
 // Init initializes the instance.
 func (v VZForwardingDebugStubConfiguration) Init() VZForwardingDebugStubConfiguration {
-	rv := objc.Send[VZForwardingDebugStubConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZForwardingDebugStubConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZForwardingDebugStubConfiguration) Autorelease() VZForwardingDebugStubConfiguration {
-	rv := objc.Send[VZForwardingDebugStubConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZForwardingDebugStubConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZForwardingDebugStubConfiguration creates a new VZForwardingDebugStubConfiguration instance.
 func NewVZForwardingDebugStubConfiguration() VZForwardingDebugStubConfiguration {
 	class := getVZForwardingDebugStubConfigurationClass()
-	rv := objc.Send[VZForwardingDebugStubConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZForwardingDebugStubConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub DebugStub) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithDebugStub:"), stub)
+func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub *DebugStub) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithDebugStub:"), unsafe.Pointer(stub))
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithDebugStub is an exported wrapper for the private method _initWithDebugStub.
-func (v VZForwardingDebugStubConfiguration) InitWithDebugStub(stub DebugStub) (objectivec.IObject, error) {
+func (v VZForwardingDebugStubConfiguration) InitWithDebugStub(stub *DebugStub) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithDebugStub:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithDebugStub:"}
 		return nil, err

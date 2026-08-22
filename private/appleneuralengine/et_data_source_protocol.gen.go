@@ -11,6 +11,9 @@ import (
 type ETDataSource interface {
 	objectivec.IObject
 
+	// DataPointAtIndex protocol.
+	DataPointAtIndex(index int) objectivec.IObject
+
 	// NumberOfDataPoints protocol.
 	NumberOfDataPoints() int
 }
@@ -33,10 +36,10 @@ func ETDataSourceObjectFromID(id objc.ID) ETDataSourceObject {
 }
 
 func (o ETDataSourceObject) DataPointAtIndex(index int) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("dataPointAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (o ETDataSourceObject) NumberOfDataPoints() int {
-	rv := objc.Send[int](o.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }

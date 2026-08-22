@@ -40,7 +40,7 @@ func (gc GTMioEncoderQuadDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioEncoderQuadDataClass) Alloc() GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -140,18 +140,18 @@ type IGTMioEncoderQuadData interface {
 	_buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
-	_handleClique(clique GTMioUSCCliqueMetadata)
+	_handleClique(clique *GTMioUSCCliqueMetadata)
 	BuildEncoderFunctionIndexCliqueFilter(build objectivec.IObject, index uint32, filter VoidHandler) bool
-	CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count *uint32) unsafe.Pointer
-	CliqueIndexesForQuadLocationCount(location uint64, count *uint32) unsafe.Pointer
+	CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count *uint32) *GTMioUSCCliqueIndex
+	CliqueIndexesForQuadLocationCount(location uint64, count *uint32) *GTMioUSCCliqueIndex
 	ContainsDraw(draw uint32) bool
 	Depth() uint32
 	DrawCount() uint64
 	DrawIndexes() unsafe.Pointer
-	DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject
+	DrawIndexesForQuad(quad *GTMioQuadLocation) objectivec.IObject
 	DrawIndexesForQuadLocation(location uint64) objectivec.IObject
-	EncoderInfo() unsafe.Pointer
-	EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler)
+	EncoderInfo() *GTMioEncoderMetadata
+	EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocation, enumerator VoidHandler)
 	EnumerateCliquesForQuadLocationEnumerator(location uint64, enumerator VoidHandler)
 	EnumerateOrderedQuads(quads VoidHandler)
 	HeatmapType() uint64
@@ -164,9 +164,9 @@ type IGTMioEncoderQuadData interface {
 	Options() uint64
 	ProgramType() uint16
 	QuadCount() uint64
-	QuadIndexForQuad(quad GTMioQuadLocation) uint32
-	Quads() unsafe.Pointer
-	ReferenceComputePosition() unsafe.Pointer
+	QuadIndexForQuad(quad *GTMioQuadLocation) uint32
+	Quads() *GTMioQuadLocation
+	ReferenceComputePosition() *GTMioCliqueComputePosition
 	TraceData() unsafe.Pointer
 	Width() uint32
 	InitWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioEncoderQuadData
@@ -176,44 +176,44 @@ type IGTMioEncoderQuadData interface {
 
 // Init initializes the instance.
 func (g GTMioEncoderQuadData) Init() GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioEncoderQuadData) Autorelease() GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioEncoderQuadData creates a new GTMioEncoderQuadData instance.
 func NewGTMioEncoderQuadData() GTMioEncoderQuadData {
 	class := getGTMioEncoderQuadDataClass()
-	rv := objc.Send[GTMioEncoderQuadData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
 func (g GTMioEncoderQuadData) _buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	_block3, _ := NewVoidBlock(filter)
-	rv := objc.Send[bool](g.ID, objc.Sel("_buildCliques:encoderFunctionIndex:programType:cliqueFilter:"), cliques, index, type_, _block3)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_buildCliques:encoderFunctionIndex:programType:cliqueFilter:"), cliques, index, type_, _block3)
 	return rv
 }
 
@@ -232,7 +232,7 @@ func (g GTMioEncoderQuadData) CanBuildCliquesEncoderFunctionIndexProgramTypeCliq
 }
 func (g GTMioEncoderQuadData) _buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	_block3, _ := NewVoidBlock(filter)
-	rv := objc.Send[bool](g.ID, objc.Sel("_buildCompute:encoderFunctionIndex:programType:cliqueFilter:"), compute, index, type_, _block3)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_buildCompute:encoderFunctionIndex:programType:cliqueFilter:"), compute, index, type_, _block3)
 	return rv
 }
 
@@ -251,7 +251,7 @@ func (g GTMioEncoderQuadData) CanBuildComputeEncoderFunctionIndexProgramTypeCliq
 }
 func (g GTMioEncoderQuadData) _buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	_block3, _ := NewVoidBlock(filter)
-	rv := objc.Send[bool](g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"), fragment, index, type_, _block3)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"), fragment, index, type_, _block3)
 	return rv
 }
 
@@ -268,12 +268,12 @@ func (g GTMioEncoderQuadData) BuildFragmentEncoderFunctionIndexProgramTypeClique
 func (g GTMioEncoderQuadData) CanBuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"))
 }
-func (g GTMioEncoderQuadData) _handleClique(clique GTMioUSCCliqueMetadata) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_handleClique:"), clique)
+func (g GTMioEncoderQuadData) _handleClique(clique *GTMioUSCCliqueMetadata) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_handleClique:"), unsafe.Pointer(clique))
 }
 
 // HandleClique is an exported wrapper for the private method _handleClique.
-func (g GTMioEncoderQuadData) HandleClique(clique GTMioUSCCliqueMetadata) error {
+func (g GTMioEncoderQuadData) HandleClique(clique *GTMioUSCCliqueMetadata) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_handleClique:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_handleClique:"}
 		return err
@@ -288,127 +288,127 @@ func (g GTMioEncoderQuadData) CanHandleClique() bool {
 }
 func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilter(build objectivec.IObject, index uint32, filter VoidHandler) bool {
 	_block2, _ := NewVoidBlock(filter)
-	rv := objc.Send[bool](g.ID, objc.Sel("build:encoderFunctionIndex:cliqueFilter:"), build, index, _block2)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("build:encoderFunctionIndex:cliqueFilter:"), build, index, _block2)
 	return rv
 }
-func (g GTMioEncoderQuadData) CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count *uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuad:count:"), objc.CArray(quad), count)
-	return rv
+func (g GTMioEncoderQuadData) CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count *uint32) *GTMioUSCCliqueIndex {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuad:count:"), objc.CArray(quad), unsafe.Pointer(count))
+	return (*GTMioUSCCliqueIndex)(rv)
 }
-func (g GTMioEncoderQuadData) CliqueIndexesForQuadLocationCount(location uint64, count *uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuadLocation:count:"), location, count)
-	return rv
+func (g GTMioEncoderQuadData) CliqueIndexesForQuadLocationCount(location uint64, count *uint32) *GTMioUSCCliqueIndex {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuadLocation:count:"), location, unsafe.Pointer(count))
+	return (*GTMioUSCCliqueIndex)(rv)
 }
 func (g GTMioEncoderQuadData) ContainsDraw(draw uint32) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("containsDraw:"), draw)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("containsDraw:"), draw)
 	return rv
 }
-func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuad:"), quad)
+func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad *GTMioQuadLocation) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("drawIndexesForQuad:"), unsafe.Pointer(quad))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioEncoderQuadData) DrawIndexesForQuadLocation(location uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuadLocation:"), location)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("drawIndexesForQuadLocation:"), location)
 	return objectivec.Object{ID: rv}
 }
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler) {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocation, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuad:enumerator:"), quad, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuad:enumerator:"), quad, _block1)
 }
 func (g GTMioEncoderQuadData) EnumerateCliquesForQuadLocationEnumerator(location uint64, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuadLocation:enumerator:"), location, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuadLocation:enumerator:"), location, _block1)
 }
 func (g GTMioEncoderQuadData) EnumerateOrderedQuads(quads VoidHandler) {
 	_block0, _ := NewVoidBlock(quads)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateOrderedQuads:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateOrderedQuads:"), _block0)
 }
 func (g GTMioEncoderQuadData) InstructionsExecutedForQuadLocationThreadInstructionsExectuedActiveThreadInstructionsExecutedTotalInstructionsExectuedNumActiveThreads(location uint64, exectued *uint64, executed *uint64, exectued2 *uint64, threads *uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("instructionsExecutedForQuadLocation:threadInstructionsExectued:activeThreadInstructionsExecuted:totalInstructionsExectued:numActiveThreads:"), location, exectued, executed, exectued2, threads)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("instructionsExecutedForQuadLocation:threadInstructionsExectued:activeThreadInstructionsExecuted:totalInstructionsExectued:numActiveThreads:"), location, unsafe.Pointer(exectued), unsafe.Pointer(executed), unsafe.Pointer(exectued2), unsafe.Pointer(threads))
 }
-func (g GTMioEncoderQuadData) QuadIndexForQuad(quad GTMioQuadLocation) uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("quadIndexForQuad:"), quad)
+func (g GTMioEncoderQuadData) QuadIndexForQuad(quad *GTMioQuadLocation) uint32 {
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("quadIndexForQuad:"), unsafe.Pointer(quad))
 	return rv
 }
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
 	return rv
 }
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
 	return rv
 }
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
-	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
+	rv := objc.SendIfResponds[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
 	return rv
 }
 
 func (g GTMioEncoderQuadData) Depth() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("depth"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("depth"))
 	return rv
 }
 func (g GTMioEncoderQuadData) DrawCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("drawCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("drawCount"))
 	return rv
 }
 func (g GTMioEncoderQuadData) DrawIndexes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawIndexes"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("drawIndexes"))
 	return rv
 }
-func (g GTMioEncoderQuadData) EncoderInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
-	return rv
+func (g GTMioEncoderQuadData) EncoderInfo() *GTMioEncoderMetadata {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
+	return (*GTMioEncoderMetadata)(rv)
 }
 func (g GTMioEncoderQuadData) HeatmapType() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("heatmapType"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("heatmapType"))
 	return rv
 }
 func (g GTMioEncoderQuadData) Height() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("height"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("height"))
 	return rv
 }
 func (g GTMioEncoderQuadData) MaxCost() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("maxCost"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("maxCost"))
 	return rv
 }
 func (g GTMioEncoderQuadData) MaxTimestamp() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("maxTimestamp"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("maxTimestamp"))
 	return rv
 }
 func (g GTMioEncoderQuadData) MinCost() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("minCost"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("minCost"))
 	return rv
 }
 func (g GTMioEncoderQuadData) MinTimestamp() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("minTimestamp"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("minTimestamp"))
 	return rv
 }
 func (g GTMioEncoderQuadData) Options() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("options"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("options"))
 	return rv
 }
 func (g GTMioEncoderQuadData) ProgramType() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
 func (g GTMioEncoderQuadData) QuadCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("quadCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("quadCount"))
 	return rv
 }
-func (g GTMioEncoderQuadData) Quads() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("quads"))
-	return rv
+func (g GTMioEncoderQuadData) Quads() *GTMioQuadLocation {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("quads"))
+	return (*GTMioQuadLocation)(rv)
 }
-func (g GTMioEncoderQuadData) ReferenceComputePosition() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("referenceComputePosition"))
-	return rv
+func (g GTMioEncoderQuadData) ReferenceComputePosition() *GTMioCliqueComputePosition {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("referenceComputePosition"))
+	return (*GTMioCliqueComputePosition)(rv)
 }
 func (g GTMioEncoderQuadData) TraceData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traceData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traceData"))
 	return rv
 }
 func (g GTMioEncoderQuadData) Width() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("width"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("width"))
 	return rv
 }
 
@@ -474,7 +474,7 @@ func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilterSync(ctx cont
 
 // EnumerateCliquesForQuadEnumeratorSync is a synchronous wrapper around [GTMioEncoderQuadData.EnumerateCliquesForQuadEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad GTMioQuadLocation) error {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad *GTMioQuadLocation) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateCliquesForQuadEnumerator(quad, func() {
 		done <- struct{}{}

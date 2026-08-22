@@ -41,7 +41,7 @@ func (dc DIClient2ControllerXPCHandlerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIClient2ControllerXPCHandlerClass) Alloc() DIClient2ControllerXPCHandler {
-	rv := objc.Send[DIClient2ControllerXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIClient2ControllerXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,20 +89,20 @@ type IDIClient2ControllerXPCHandler interface {
 
 // Init initializes the instance.
 func (d DIClient2ControllerXPCHandler) Init() DIClient2ControllerXPCHandler {
-	rv := objc.Send[DIClient2ControllerXPCHandler](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIClient2ControllerXPCHandler](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIClient2ControllerXPCHandler) Autorelease() DIClient2ControllerXPCHandler {
-	rv := objc.Send[DIClient2ControllerXPCHandler](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIClient2ControllerXPCHandler](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIClient2ControllerXPCHandler creates a new DIClient2ControllerXPCHandler instance.
 func NewDIClient2ControllerXPCHandler() DIClient2ControllerXPCHandler {
 	class := getDIClient2ControllerXPCHandlerClass()
-	rv := objc.Send[DIClient2ControllerXPCHandler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIClient2ControllerXPCHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 

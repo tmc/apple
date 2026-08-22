@@ -43,7 +43,7 @@ func (sc SLContentStreamClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLContentStreamClass) Alloc() SLContentStream {
-	rv := objc.Send[SLContentStream](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLContentStream](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -158,20 +158,20 @@ type ISLContentStream interface {
 
 // Init initializes the instance.
 func (s SLContentStream) Init() SLContentStream {
-	rv := objc.Send[SLContentStream](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLContentStream](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLContentStream) Autorelease() SLContentStream {
-	rv := objc.Send[SLContentStream](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLContentStream](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLContentStream creates a new SLContentStream instance.
 func NewSLContentStream() SLContentStream {
 	class := getSLContentStreamClass()
-	rv := objc.Send[SLContentStream](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLContentStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -196,18 +196,18 @@ func (s SLContentStream) CreateStreamWithSessionError(session objectivec.IObject
 
 }
 func (s SLContentStream) PopulateDisplayStreamPropertiesWith(properties objectivec.IObject, with objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("populateDisplayStreamProperties:with:"), properties, with)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("populateDisplayStreamProperties:with:"), properties, with)
 }
 func (s SLContentStream) SetHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setHandler:"), _block0)
 }
 func (s SLContentStream) Start(start []objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("start:"), objectivec.IObjectSliceToNSArray(start))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("start:"), objectivec.IObjectSliceToNSArray(start))
 	return rv
 }
 func (s SLContentStream) Stop(stop []objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("stop:"), objectivec.IObjectSliceToNSArray(stop))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("stop:"), objectivec.IObjectSliceToNSArray(stop))
 	return rv
 }
 func (s SLContentStream) UpdateFilterError(filter objectivec.IObject) (bool, error) {
@@ -238,7 +238,7 @@ func (s SLContentStream) UpdatePropertiesError(properties objectivec.IObject) (b
 }
 func (s SLContentStream) InitWithFilterPropertiesQueueHandler(filter objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler VoidHandler) SLContentStream {
 	_block3, _ := NewVoidBlock(handler)
-	rv := objc.Send[SLContentStream](s.ID, objc.Sel("initWithFilter:properties:queue:handler:"), filter, properties, queue, _block3)
+	rv := objc.SendIfResponds[SLContentStream](s.ID, objc.Sel("initWithFilter:properties:queue:handler:"), filter, properties, queue, _block3)
 	return rv
 }
 func (s SLContentStream) InitWithFilterPropertiesQueueHandlerError(filter objectivec.IObject, properties objectivec.IObject, queue objectivec.IObject, handler func()) (SLContentStream, error) {
@@ -279,70 +279,70 @@ func (_SLContentStreamClass SLContentStreamClass) CreateSessionContentWithFilter
 }
 
 func (s SLContentStream) BridgingHandler() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("bridgingHandler"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("bridgingHandler"))
 	_ = rv
 	return nil
 }
 func (s SLContentStream) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLContentStream) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLContentStream) Filter() ISLContentFilter {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("filter"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("filter"))
 	return SLContentFilterFromID(objc.ID(rv))
 }
 func (s SLContentStream) SetFilter(value ISLContentFilter) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFilter:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFilter:"), value)
 }
 func (s SLContentStream) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLContentStream) Properties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("properties"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (s SLContentStream) SetProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setProperties:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setProperties:"), value)
 }
 func (s SLContentStream) Queue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLContentStream) SetQueue(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setQueue:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setQueue:"), value)
 }
 func (s SLContentStream) Running() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("running"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("running"))
 	return rv
 }
 func (s SLContentStream) SetRunning(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setRunning:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setRunning:"), value)
 }
 func (s SLContentStream) Session() ISLSharingSession {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("session"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("session"))
 	return SLSharingSessionFromID(objc.ID(rv))
 }
 func (s SLContentStream) SetSession(value ISLSharingSession) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSession:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSession:"), value)
 }
 func (s SLContentStream) Stream() coregraphics.CGDisplayStreamRef {
-	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("stream"))
+	rv := objc.SendIfResponds[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("stream"))
 	return coregraphics.CGDisplayStreamRef(rv)
 }
 func (s SLContentStream) SetStream(value coregraphics.CGDisplayStreamRef) {
-	objc.Send[struct{}](s.ID, objc.Sel("setStream:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setStream:"), value)
 }
 func (s SLContentStream) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (s SLContentStream) ZeroWeakSelf() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("zeroWeakSelf"))
 	_ = rv
 	return nil
 }

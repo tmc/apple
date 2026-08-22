@@ -38,7 +38,7 @@ func (sc SkyLightPresetSpecificationsShimClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPresetSpecificationsShimClass) Alloc() SkyLightPresetSpecificationsShim {
-	rv := objc.Send[SkyLightPresetSpecificationsShim](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPresetSpecificationsShim](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPresetSpecificationsShimFromID(id objc.ID) SkyLightPresetSpecificat
 	return SkyLightPresetSpecificationsShim{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPresetSpecificationsShim struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPresetSpecificationsShim embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPresetSpecificationsShim implements ISkyLightPresetSpecificationsShim.
+var _ ISkyLightPresetSpecificationsShim = SkyLightPresetSpecificationsShim{}
 
 // An interface definition for the [SkyLightPresetSpecificationsShim] class.
 type ISkyLightPresetSpecificationsShim interface {
@@ -61,19 +61,19 @@ type ISkyLightPresetSpecificationsShim interface {
 
 // Init initializes the instance.
 func (s SkyLightPresetSpecificationsShim) Init() SkyLightPresetSpecificationsShim {
-	rv := objc.Send[SkyLightPresetSpecificationsShim](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPresetSpecificationsShim](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPresetSpecificationsShim) Autorelease() SkyLightPresetSpecificationsShim {
-	rv := objc.Send[SkyLightPresetSpecificationsShim](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPresetSpecificationsShim](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPresetSpecificationsShim creates a new SkyLightPresetSpecificationsShim instance.
 func NewSkyLightPresetSpecificationsShim() SkyLightPresetSpecificationsShim {
 	class := getSkyLightPresetSpecificationsShimClass()
-	rv := objc.Send[SkyLightPresetSpecificationsShim](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPresetSpecificationsShim](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

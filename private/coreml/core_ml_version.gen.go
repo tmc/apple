@@ -39,7 +39,7 @@ func (cc CoreMLVersionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLVersionClass) Alloc() CoreMLVersion {
-	rv := objc.Send[CoreMLVersion](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLVersion](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,32 +76,32 @@ type ICoreMLVersion interface {
 
 // Init initializes the instance.
 func (c CoreMLVersion) Init() CoreMLVersion {
-	rv := objc.Send[CoreMLVersion](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLVersion](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLVersion) Autorelease() CoreMLVersion {
-	rv := objc.Send[CoreMLVersion](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLVersion](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLVersion creates a new CoreMLVersion instance.
 func NewCoreMLVersion() CoreMLVersion {
 	class := getCoreMLVersionClass()
-	rv := objc.Send[CoreMLVersion](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLVersion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_CoreMLVersionClass CoreMLVersionClass) GetInternalFrameworkVersion() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_CoreMLVersionClass.class), objc.Sel("getInternalFrameworkVersion"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_CoreMLVersionClass.class), objc.Sel("getInternalFrameworkVersion"))
 	return objectivec.Object{ID: rv}
 }
 
 func (c CoreMLVersion) FrameworkVersionNumber() foundation.NSNumber {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("frameworkVersionNumber"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("frameworkVersionNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (c CoreMLVersion) SetFrameworkVersionNumber(value foundation.NSNumber) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFrameworkVersionNumber:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setFrameworkVersionNumber:"), value)
 }

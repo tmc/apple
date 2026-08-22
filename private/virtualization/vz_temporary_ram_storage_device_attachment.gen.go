@@ -41,7 +41,7 @@ func (vc VZTemporaryRAMStorageDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZTemporaryRAMStorageDeviceAttachmentClass) Alloc() VZTemporaryRAMStorageDeviceAttachment {
-	rv := objc.Send[VZTemporaryRAMStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZTemporaryRAMStorageDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,37 +87,40 @@ type IVZTemporaryRAMStorageDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZTemporaryRAMStorageDeviceAttachment) Init() VZTemporaryRAMStorageDeviceAttachment {
-	rv := objc.Send[VZTemporaryRAMStorageDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZTemporaryRAMStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZTemporaryRAMStorageDeviceAttachment) Autorelease() VZTemporaryRAMStorageDeviceAttachment {
-	rv := objc.Send[VZTemporaryRAMStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZTemporaryRAMStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZTemporaryRAMStorageDeviceAttachment creates a new VZTemporaryRAMStorageDeviceAttachment instance.
 func NewVZTemporaryRAMStorageDeviceAttachment() VZTemporaryRAMStorageDeviceAttachment {
 	class := getVZTemporaryRAMStorageDeviceAttachmentClass()
-	rv := objc.Send[VZTemporaryRAMStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZTemporaryRAMStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZTemporaryRAMStorageDeviceAttachmentWithURLReadOnlyError(url foundation.NSURL, only bool) (VZTemporaryRAMStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZTemporaryRAMStorageDeviceAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZTemporaryRAMStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZTemporaryRAMStorageDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZTemporaryRAMStorageDeviceAttachmentFromID(rv), nil
 }
 
 func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueueCompletionHandler(queue dispatch.Queue, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"), uintptr(queue.Handle()), _block1)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"), uintptr(queue.Handle()), _block1)
 }
 
 // GetAttachmentWithQueueCompletionHandler is an exported wrapper for the private method _getAttachmentWithQueueCompletionHandler.
@@ -135,7 +138,7 @@ func (v VZTemporaryRAMStorageDeviceAttachment) CanGetAttachmentWithQueueCompleti
 	return objc.RespondsToSelector(v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"))
 }
 func (v VZTemporaryRAMStorageDeviceAttachment) IsReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isReadOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isReadOnly"))
 	return rv
 }
 func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.NSURL, only bool) (VZTemporaryRAMStorageDeviceAttachment, error) {
@@ -150,11 +153,11 @@ func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foun
 }
 
 func (v VZTemporaryRAMStorageDeviceAttachment) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (v VZTemporaryRAMStorageDeviceAttachment) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }
 

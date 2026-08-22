@@ -37,7 +37,7 @@ func (ec EspressoPassFuseGruActivationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseGruActivationClass) Alloc() EspressoPassFuseGruActivation {
-	rv := objc.Send[EspressoPassFuseGruActivation](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseGruActivation](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseGruActivation interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseGruActivation) Init() EspressoPassFuseGruActivation {
-	rv := objc.Send[EspressoPassFuseGruActivation](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseGruActivation](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseGruActivation) Autorelease() EspressoPassFuseGruActivation {
-	rv := objc.Send[EspressoPassFuseGruActivation](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseGruActivation](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseGruActivation creates a new EspressoPassFuseGruActivation instance.
 func NewEspressoPassFuseGruActivation() EspressoPassFuseGruActivation {
 	class := getEspressoPassFuseGruActivationClass()
-	rv := objc.Send[EspressoPassFuseGruActivation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseGruActivation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

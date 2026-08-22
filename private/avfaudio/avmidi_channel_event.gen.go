@@ -38,7 +38,7 @@ func (ac AVMIDIChannelEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMIDIChannelEventClass) Alloc() AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVMIDIChannelEvent](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -58,8 +58,9 @@ func AVMIDIChannelEventFromID(id objc.ID) AVMIDIChannelEvent {
 	return AVMIDIChannelEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: AVMIDIChannelEvent struct embeds objectivec.Object (parent type unavailable) but
-// IAVMIDIChannelEvent embeds the parent interface; skip compile-time assertion.
+// NOTE: AVMIDIChannelEvent embeds objectivec.Object because the parent type is
+// unavailable, but IAVMIDIChannelEvent embeds IAVMusicEvent, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [AVMIDIChannelEvent] class.
 //
@@ -84,44 +85,44 @@ type IAVMIDIChannelEvent interface {
 
 // Init initializes the instance.
 func (a AVMIDIChannelEvent) Init() AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVMIDIChannelEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVMIDIChannelEvent) Autorelease() AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVMIDIChannelEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVMIDIChannelEvent creates a new AVMIDIChannelEvent instance.
 func NewAVMIDIChannelEvent() AVMIDIChannelEvent {
 	class := getAVMIDIChannelEventClass()
-	rv := objc.Send[AVMIDIChannelEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVMIDIChannelEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMIDIChannelEventWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
 	instance := getAVMIDIChannelEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
 	return AVMIDIChannelEventFromID(rv)
 }
 
 func (a AVMIDIChannelEvent) Data1() byte {
-	rv := objc.Send[byte](a.ID, objc.Sel("data1"))
+	rv := objc.SendIfResponds[byte](a.ID, objc.Sel("data1"))
 	return rv
 }
 func (a AVMIDIChannelEvent) Data2() byte {
-	rv := objc.Send[byte](a.ID, objc.Sel("data2"))
+	rv := objc.SendIfResponds[byte](a.ID, objc.Sel("data2"))
 	return rv
 }
 func (a AVMIDIChannelEvent) SetData1(data1 byte) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setData1:"), data1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setData1:"), data1)
 }
 func (a AVMIDIChannelEvent) SetData2(data2 byte) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setData2:"), data2)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setData2:"), data2)
 }
 func (a AVMIDIChannelEvent) InitWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
+	rv := objc.SendIfResponds[AVMIDIChannelEvent](a.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
 	return rv
 }

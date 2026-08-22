@@ -39,7 +39,7 @@ func (cc CGXConnectionBoxClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CGXConnectionBoxClass) Alloc() CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CGXConnectionBox](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -74,49 +74,49 @@ type ICGXConnectionBox interface {
 
 	// Topic: Methods
 
-	Connection() unsafe.Pointer
+	Connection() *CGXConnection
 	SetConnection(value *CGXConnection)
 	InvalidateBackreference()
-	InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox
+	InitWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox
 }
 
 // Init initializes the instance.
 func (c CGXConnectionBox) Init() CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CGXConnectionBox](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CGXConnectionBox) Autorelease() CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CGXConnectionBox](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCGXConnectionBox creates a new CGXConnectionBox instance.
 func NewCGXConnectionBox() CGXConnectionBox {
 	class := getCGXConnectionBoxClass()
-	rv := objc.Send[CGXConnectionBox](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CGXConnectionBox](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewXConnectionBoxWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
+func NewXConnectionBoxWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
 	instance := getCGXConnectionBoxClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), unsafe.Pointer(cGXConnection))
 	return CGXConnectionBoxFromID(rv)
 }
 
 func (c CGXConnectionBox) InvalidateBackreference() {
-	objc.Send[objc.ID](c.ID, objc.Sel("invalidateBackreference"))
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("invalidateBackreference"))
 }
-func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
+func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
+	rv := objc.SendIfResponds[CGXConnectionBox](c.ID, objc.Sel("initWithCGXConnection:"), unsafe.Pointer(cGXConnection))
 	return rv
 }
 
-func (c CGXConnectionBox) Connection() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connection"))
-	return rv
+func (c CGXConnectionBox) Connection() *CGXConnection {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("connection"))
+	return (*CGXConnection)(rv)
 }
 func (c CGXConnectionBox) SetConnection(value *CGXConnection) {
-	objc.Send[struct{}](c.ID, objc.Sel("setConnection:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setConnection:"), value)
 }

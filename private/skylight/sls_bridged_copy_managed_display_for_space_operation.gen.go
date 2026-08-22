@@ -38,7 +38,7 @@ func (sc SLSBridgedCopyManagedDisplayForSpaceOperationClass) Class() objc.Class 
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedCopyManagedDisplayForSpaceOperationClass) Alloc() SLSBridgedCopyManagedDisplayForSpaceOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplayForSpaceOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedCopyManagedDisplayForSpaceOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) Init() SLSBridgedCopyManagedDisplayForSpaceOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) Autorelease() SLSBridgedCopyManagedDisplayForSpaceOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedCopyManagedDisplayForSpaceOperation creates a new SLSBridgedCopyManagedDisplayForSpaceOperation instance.
 func NewSLSBridgedCopyManagedDisplayForSpaceOperation() SLSBridgedCopyManagedDisplayForSpaceOperation {
 	class := getSLSBridgedCopyManagedDisplayForSpaceOperationClass()
-	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplayForSpaceOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedCopyManagedDisplayForSpaceOperationWithCoder(coder objectivec.IObject) SLSBridgedCopyManagedDisplayForSpaceOperation {
 	instance := getSLSBridgedCopyManagedDisplayForSpaceOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedCopyManagedDisplayForSpaceOperationFromID(rv)
 }
 
 func NewSLSBridgedCopyManagedDisplayForSpaceOperationWithSpaceID(id uint64) SLSBridgedCopyManagedDisplayForSpaceOperation {
 	instance := getSLSBridgedCopyManagedDisplayForSpaceOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedCopyManagedDisplayForSpaceOperationFromID(rv)
 }
 
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) MakeResultWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) InitWithSpaceID(id uint64) SLSBridgedCopyManagedDisplayForSpaceOperation {
-	rv := objc.Send[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedCopyManagedDisplayForSpaceOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedCopyManagedDisplayForSpaceOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

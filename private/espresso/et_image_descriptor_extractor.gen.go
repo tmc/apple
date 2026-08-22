@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // The class instance for the [ETImageDescriptorExtractor] class.
@@ -39,7 +40,7 @@ func (ec ETImageDescriptorExtractorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETImageDescriptorExtractorClass) Alloc() ETImageDescriptorExtractor {
-	rv := objc.Send[ETImageDescriptorExtractor](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETImageDescriptorExtractor](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -120,14 +121,14 @@ type IETImageDescriptorExtractor interface {
 	SetBrightness_range(value float32)
 	Contrast_range() float32
 	SetContrast_range(value float32)
-	CropResizeInputImage(image unsafe.Pointer) unsafe.Pointer
+	CropResizeInputImage(image appleneuralengine.VImageBuffer) appleneuralengine.VImageBuffer
 	Descriptors_file_cache_size() uint64
 	SetDescriptors_file_cache_size(value uint64)
 	Descriptors_mem_cache_size() uint64
 	SetDescriptors_mem_cache_size(value uint64)
 	DoBatchnormTuning() int
 	SetDoBatchnormTuning(value int)
-	ExtractDescriptorForDataPointFreeWhenDone(point unsafe.Pointer, done bool) unsafe.Pointer
+	ExtractDescriptorForDataPointFreeWhenDone(point appleneuralengine.VImageBuffer, done bool) unsafe.Pointer
 	ExtractForDataPoint(point objectivec.IObject)
 	Horizontal_flip() float32
 	SetHorizontal_flip(value float32)
@@ -145,133 +146,133 @@ type IETImageDescriptorExtractor interface {
 
 // Init initializes the instance.
 func (e ETImageDescriptorExtractor) Init() ETImageDescriptorExtractor {
-	rv := objc.Send[ETImageDescriptorExtractor](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETImageDescriptorExtractor](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETImageDescriptorExtractor) Autorelease() ETImageDescriptorExtractor {
-	rv := objc.Send[ETImageDescriptorExtractor](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETImageDescriptorExtractor](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETImageDescriptorExtractor creates a new ETImageDescriptorExtractor instance.
 func NewETImageDescriptorExtractor() ETImageDescriptorExtractor {
 	class := getETImageDescriptorExtractorClass()
-	rv := objc.Send[ETImageDescriptorExtractor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETImageDescriptorExtractor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETImageDescriptorExtractorWithNetwork(network objectivec.IObject) ETImageDescriptorExtractor {
 	instance := getETImageDescriptorExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETImageDescriptorExtractorFromID(rv)
 }
 
-func (e ETImageDescriptorExtractor) CropResizeInputImage(image unsafe.Pointer) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("cropResizeInputImage:"), image)
-	return rv
+func (e ETImageDescriptorExtractor) CropResizeInputImage(image appleneuralengine.VImageBuffer) appleneuralengine.VImageBuffer {
+	rv := objc.SendIfResponds[appleneuralengine.VImageBuffer](e.ID, objc.Sel("cropResizeInputImage:"), image)
+	return appleneuralengine.VImageBuffer(rv)
 }
-func (e ETImageDescriptorExtractor) ExtractDescriptorForDataPointFreeWhenDone(point unsafe.Pointer, done bool) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("extractDescriptorForDataPoint:freeWhenDone:"), point, done)
+func (e ETImageDescriptorExtractor) ExtractDescriptorForDataPointFreeWhenDone(point appleneuralengine.VImageBuffer, done bool) unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("extractDescriptorForDataPoint:freeWhenDone:"), point, done)
 	return rv
 }
 func (e ETImageDescriptorExtractor) ExtractForDataPoint(point objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("extractForDataPoint:"), point)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("extractForDataPoint:"), point)
 }
 func (e ETImageDescriptorExtractor) NumberOfChannels() int {
-	rv := objc.Send[int](e.ID, objc.Sel("numberOfChannels"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfChannels"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) InitWithNetwork(network objectivec.IObject) ETImageDescriptorExtractor {
-	rv := objc.Send[ETImageDescriptorExtractor](e.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[ETImageDescriptorExtractor](e.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
 }
 
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) VisionSceneNet_iOS10_Extractor() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSceneNet_iOS10_Extractor"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSceneNet_iOS10_Extractor"))
 	return objectivec.Object{ID: rv}
 }
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) VisionSmartCamNet_iOS11_Extractor() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSmartCamNet_iOS11_Extractor"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("VisionSmartCamNet_iOS11_Extractor"))
 	return objectivec.Object{ID: rv}
 }
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) Inception_v3_Extractor() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("inception_v3_Extractor"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("inception_v3_Extractor"))
 	return objectivec.Object{ID: rv}
 }
 func (_ETImageDescriptorExtractorClass ETImageDescriptorExtractorClass) PassthroughExtractor() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("passthroughExtractor"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETImageDescriptorExtractorClass.class), objc.Sel("passthroughExtractor"))
 	return objectivec.Object{ID: rv}
 }
 
 func (e ETImageDescriptorExtractor) Brightness_range() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("brightness_range"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("brightness_range"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetBrightness_range(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBrightness_range:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBrightness_range:"), value)
 }
 func (e ETImageDescriptorExtractor) Contrast_range() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("contrast_range"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("contrast_range"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetContrast_range(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setContrast_range:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setContrast_range:"), value)
 }
 func (e ETImageDescriptorExtractor) Descriptors_file_cache_size() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("descriptors_file_cache_size"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("descriptors_file_cache_size"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetDescriptors_file_cache_size(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDescriptors_file_cache_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDescriptors_file_cache_size:"), value)
 }
 func (e ETImageDescriptorExtractor) Descriptors_mem_cache_size() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("descriptors_mem_cache_size"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("descriptors_mem_cache_size"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetDescriptors_mem_cache_size(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDescriptors_mem_cache_size:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDescriptors_mem_cache_size:"), value)
 }
 func (e ETImageDescriptorExtractor) DoBatchnormTuning() int {
-	rv := objc.Send[int](e.ID, objc.Sel("doBatchnormTuning"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("doBatchnormTuning"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetDoBatchnormTuning(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDoBatchnormTuning:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDoBatchnormTuning:"), value)
 }
 func (e ETImageDescriptorExtractor) Horizontal_flip() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("horizontal_flip"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("horizontal_flip"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetHorizontal_flip(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setHorizontal_flip:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHorizontal_flip:"), value)
 }
 func (e ETImageDescriptorExtractor) NAugmentations() int {
-	rv := objc.Send[int](e.ID, objc.Sel("nAugmentations"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("nAugmentations"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetNAugmentations(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNAugmentations:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNAugmentations:"), value)
 }
 func (e ETImageDescriptorExtractor) Rotation_range() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("rotation_range"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("rotation_range"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetRotation_range(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRotation_range:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRotation_range:"), value)
 }
 func (e ETImageDescriptorExtractor) Shear_range() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("shear_range"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("shear_range"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetShear_range(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setShear_range:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setShear_range:"), value)
 }
 func (e ETImageDescriptorExtractor) Zoom_range() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("zoom_range"))
+	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("zoom_range"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) SetZoom_range(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setZoom_range:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setZoom_range:"), value)
 }

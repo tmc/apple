@@ -39,7 +39,7 @@ func (sc SLSWindowManagerDragContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSWindowManagerDragContextClass) Alloc() SLSWindowManagerDragContext {
-	rv := objc.Send[SLSWindowManagerDragContext](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSWindowManagerDragContext](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,66 +109,66 @@ type ISLSWindowManagerDragContext interface {
 
 // Init initializes the instance.
 func (s SLSWindowManagerDragContext) Init() SLSWindowManagerDragContext {
-	rv := objc.Send[SLSWindowManagerDragContext](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSWindowManagerDragContext](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSWindowManagerDragContext) Autorelease() SLSWindowManagerDragContext {
-	rv := objc.Send[SLSWindowManagerDragContext](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSWindowManagerDragContext](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSWindowManagerDragContext creates a new SLSWindowManagerDragContext instance.
 func NewSLSWindowManagerDragContext() SLSWindowManagerDragContext {
 	class := getSLSWindowManagerDragContextClass()
-	rv := objc.Send[SLSWindowManagerDragContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSWindowManagerDragContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSWindowManagerDragContext) AccessibilityState() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("accessibilityState"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("accessibilityState"))
 	return rv
 }
 func (s SLSWindowManagerDragContext) SetAccessibilityState(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAccessibilityState:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAccessibilityState:"), value)
 }
 func (s SLSWindowManagerDragContext) DefaultWindowOrigin() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("defaultWindowOrigin"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("defaultWindowOrigin"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSWindowManagerDragContext) DragOffset() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("dragOffset"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("dragOffset"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSWindowManagerDragContext) SetDragOffset(value corefoundation.CGPoint) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDragOffset:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDragOffset:"), value)
 }
 func (s SLSWindowManagerDragContext) MouseLocation() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("mouseLocation"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("mouseLocation"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSWindowManagerDragContext) SetMouseLocation(value corefoundation.CGPoint) {
-	objc.Send[struct{}](s.ID, objc.Sel("setMouseLocation:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setMouseLocation:"), value)
 }
 func (s SLSWindowManagerDragContext) ProposedWindowOrigin() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](s.ID, objc.Sel("proposedWindowOrigin"))
+	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("proposedWindowOrigin"))
 	return corefoundation.CGPoint(rv)
 }
 func (s SLSWindowManagerDragContext) SetProposedWindowOrigin(value corefoundation.CGPoint) {
-	objc.Send[struct{}](s.ID, objc.Sel("setProposedWindowOrigin:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setProposedWindowOrigin:"), value)
 }
 func (s SLSWindowManagerDragContext) Timestamp() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("timestamp"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("timestamp"))
 	return rv
 }
 func (s SLSWindowManagerDragContext) SetTimestamp(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setTimestamp:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTimestamp:"), value)
 }
 func (s SLSWindowManagerDragContext) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }
 func (s SLSWindowManagerDragContext) SetWindowID(value uint32) {
-	objc.Send[struct{}](s.ID, objc.Sel("setWindowID:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setWindowID:"), value)
 }

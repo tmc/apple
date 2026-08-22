@@ -11,8 +11,17 @@ import (
 type SLSWindowManagementBridgeDelegate interface {
 	objectivec.IObject
 
+	// PerformAsynchronousBridgedWindowManagementOperation protocol.
+	PerformAsynchronousBridgedWindowManagementOperation(operation objectivec.IObject)
+
+	// PerformSynchronousBridgedWindowManagementOperation protocol.
+	PerformSynchronousBridgedWindowManagementOperation(operation objectivec.IObject) objectivec.IObject
+
 	// PerformWindowManagementBridgeTransactionUsingBlock protocol.
 	PerformWindowManagementBridgeTransactionUsingBlock(block VoidHandler)
+
+	// SetWindowTagsOnWindowClear protocol.
+	SetWindowTagsOnWindowClear(tags objectivec.IObject, window uint32, clear bool)
 }
 
 // SLSWindowManagementBridgeDelegateObject wraps an existing Objective-C object that conforms to the SLSWindowManagementBridgeDelegate protocol.
@@ -33,15 +42,17 @@ func SLSWindowManagementBridgeDelegateObjectFromID(id objc.ID) SLSWindowManageme
 }
 
 func (o SLSWindowManagementBridgeDelegateObject) PerformAsynchronousBridgedWindowManagementOperation(operation objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("performAsynchronousBridgedWindowManagementOperation:"), operation)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("performAsynchronousBridgedWindowManagementOperation:"), operation)
 }
 func (o SLSWindowManagementBridgeDelegateObject) PerformSynchronousBridgedWindowManagementOperation(operation objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSynchronousBridgedWindowManagementOperation:"), operation)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("performSynchronousBridgedWindowManagementOperation:"), operation)
 	return objectivec.Object{ID: rv}
 }
 func (o SLSWindowManagementBridgeDelegateObject) PerformWindowManagementBridgeTransactionUsingBlock(block VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("performWindowManagementBridgeTransactionUsingBlock:"), block)
+	_block0, _cleanup0 := NewVoidBlock(block)
+	defer _cleanup0()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("performWindowManagementBridgeTransactionUsingBlock:"), objc.ID(_block0))
 }
 func (o SLSWindowManagementBridgeDelegateObject) SetWindowTagsOnWindowClear(tags objectivec.IObject, window uint32, clear bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setWindowTags:onWindow:clear:"), tags, window, clear)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setWindowTags:onWindow:clear:"), tags, window, clear)
 }

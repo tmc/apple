@@ -40,7 +40,7 @@ func (mc MLPendingPredictionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPendingPredictionClass) Alloc() MLPendingPrediction {
-	rv := objc.Send[MLPendingPrediction](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPendingPrediction](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,36 @@ type IMLPendingPrediction interface {
 
 // Init initializes the instance.
 func (m MLPendingPrediction) Init() MLPendingPrediction {
-	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPendingPrediction](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPendingPrediction) Autorelease() MLPendingPrediction {
-	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPendingPrediction](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPendingPrediction creates a new MLPendingPrediction instance.
 func NewMLPendingPrediction() MLPendingPrediction {
 	class := getMLPendingPredictionClass()
-	rv := objc.Send[MLPendingPrediction](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPendingPrediction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLPendingPrediction) InitWithPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) MLPendingPrediction {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
+	rv := objc.SendIfResponds[MLPendingPrediction](m.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
 	return rv
 }
 
 func (m MLPendingPrediction) CompletionHandler() VoidHandler {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("completionHandler"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("completionHandler"))
 	_ = rv
 	return nil
 }
 func (m MLPendingPrediction) PredictionRequest() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("predictionRequest"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("predictionRequest"))
 	return rv
 }
 

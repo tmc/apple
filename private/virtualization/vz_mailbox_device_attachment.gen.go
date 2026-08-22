@@ -40,7 +40,7 @@ func (vc VZMailboxDeviceAttachmentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMailboxDeviceAttachmentClass) Alloc() VZMailboxDeviceAttachment {
-	rv := objc.Send[VZMailboxDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMailboxDeviceAttachment](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,30 @@ type IVZMailboxDeviceAttachment interface {
 
 // Init initializes the instance.
 func (v VZMailboxDeviceAttachment) Init() VZMailboxDeviceAttachment {
-	rv := objc.Send[VZMailboxDeviceAttachment](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMailboxDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMailboxDeviceAttachment) Autorelease() VZMailboxDeviceAttachment {
-	rv := objc.Send[VZMailboxDeviceAttachment](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMailboxDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMailboxDeviceAttachment creates a new VZMailboxDeviceAttachment instance.
 func NewVZMailboxDeviceAttachment() VZMailboxDeviceAttachment {
 	class := getVZMailboxDeviceAttachmentClass()
-	rv := objc.Send[VZMailboxDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMailboxDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZMailboxDeviceAttachment) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZMailboxDeviceAttachment) _attachment() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_attachment"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZMailboxDeviceAttachment) Attachment() (unsafe.Pointer, error) {
 	return v._attachment(), nil
 }
 func (v VZMailboxDeviceAttachment) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMailboxDeviceAttachment) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZMailboxDeviceAttachment) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZMailboxDeviceAttachment) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

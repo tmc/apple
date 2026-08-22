@@ -41,7 +41,7 @@ func (mc MLModelEngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelEngineClass) Alloc() MLModelEngine {
-	rv := objc.Send[MLModelEngine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelEngine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -147,44 +147,44 @@ type IMLModelEngine interface {
 
 // Init initializes the instance.
 func (m MLModelEngine) Init() MLModelEngine {
-	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelEngine) Autorelease() MLModelEngine {
-	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelEngine creates a new MLModelEngine instance.
 func NewMLModelEngine() MLModelEngine {
 	class := getMLModelEngineClass()
-	rv := objc.Send[MLModelEngine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelEngine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	instance := getMLModelEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLModelEngineFromID(rv)
 }
 
 func NewModelEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	instance := getMLModelEngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLModelEngineFromID(rv)
 }
 
 func (m MLModelEngine) EnableInstrumentsTracing() {
-	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
 func (m MLModelEngine) ExecutionSchedule() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelEngine) ModelPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelPath"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLModelEngine) NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -248,11 +248,11 @@ func (m MLModelEngine) PredictionsFromBatchOptionsError(batch objectivec.IObject
 
 }
 func (m MLModelEngine) SetModelPathModelName(path objectivec.IObject, name objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setModelPath:modelName:"), path, name)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setModelPath:modelName:"), path, name)
 }
 func (m MLModelEngine) SubmitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("submitPredictionRequest:completionHandler:"), request, _block1)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("submitPredictionRequest:completionHandler:"), request, _block1)
 }
 func (m MLModelEngine) VectorizeInputError(input objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -265,56 +265,56 @@ func (m MLModelEngine) VectorizeInputError(input objectivec.IObject) (objectivec
 
 }
 func (m MLModelEngine) InitWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
-	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[MLModelEngine](m.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return rv
 }
 func (m MLModelEngine) InitWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
-	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[MLModelEngine](m.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return rv
 }
 
 func (m MLModelEngine) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLModelEngine) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelEngine) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelEngine) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLModelEngine) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
 func (m MLModelEngine) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLModelEngine) PredictionTypeForKTrace() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
 func (m MLModelEngine) RecordsPredictionEvent() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
 func (m MLModelEngine) SignpostID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
 func (m MLModelEngine) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (m MLModelEngine) SupportsConcurrentSubmissions() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }
 

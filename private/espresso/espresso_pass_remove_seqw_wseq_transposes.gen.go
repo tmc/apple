@@ -37,7 +37,7 @@ func (ec EspressoPassRemoveSeqwWseqTransposesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRemoveSeqwWseqTransposesClass) Alloc() EspressoPassRemoveSeqwWseqTransposes {
-	rv := objc.Send[EspressoPassRemoveSeqwWseqTransposes](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSeqwWseqTransposes](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRemoveSeqwWseqTransposes interface {
 
 // Init initializes the instance.
 func (e EspressoPassRemoveSeqwWseqTransposes) Init() EspressoPassRemoveSeqwWseqTransposes {
-	rv := objc.Send[EspressoPassRemoveSeqwWseqTransposes](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSeqwWseqTransposes](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRemoveSeqwWseqTransposes) Autorelease() EspressoPassRemoveSeqwWseqTransposes {
-	rv := objc.Send[EspressoPassRemoveSeqwWseqTransposes](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSeqwWseqTransposes](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRemoveSeqwWseqTransposes creates a new EspressoPassRemoveSeqwWseqTransposes instance.
 func NewEspressoPassRemoveSeqwWseqTransposes() EspressoPassRemoveSeqwWseqTransposes {
 	class := getEspressoPassRemoveSeqwWseqTransposesClass()
-	rv := objc.Send[EspressoPassRemoveSeqwWseqTransposes](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSeqwWseqTransposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (tc TTSStreamingZipReaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSStreamingZipReaderClass) Alloc() TTSStreamingZipReader {
-	rv := objc.Send[TTSStreamingZipReader](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSStreamingZipReader](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,52 +89,52 @@ type ITTSStreamingZipReader interface {
 
 // Init initializes the instance.
 func (t TTSStreamingZipReader) Init() TTSStreamingZipReader {
-	rv := objc.Send[TTSStreamingZipReader](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSStreamingZipReader](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSStreamingZipReader) Autorelease() TTSStreamingZipReader {
-	rv := objc.Send[TTSStreamingZipReader](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSStreamingZipReader](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSStreamingZipReader creates a new TTSStreamingZipReader instance.
 func NewTTSStreamingZipReader() TTSStreamingZipReader {
 	class := getTTSStreamingZipReaderClass()
-	rv := objc.Send[TTSStreamingZipReader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSStreamingZipReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSStreamingZipReaderWithPathAndPassword(path objectivec.IObject, password objectivec.IObject) TTSStreamingZipReader {
 	instance := getTTSStreamingZipReaderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:andPassword:"), path, password)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPath:andPassword:"), path, password)
 	return TTSStreamingZipReaderFromID(rv)
 }
 
 func (t TTSStreamingZipReader) EnumerateFiles(files VoidHandler) bool {
 	_block0, _ := NewVoidBlock(files)
-	rv := objc.Send[bool](t.ID, objc.Sel("enumerateFiles:"), _block0)
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("enumerateFiles:"), _block0)
 	return rv
 }
 func (t TTSStreamingZipReader) InitWithPathAndPassword(path objectivec.IObject, password objectivec.IObject) TTSStreamingZipReader {
-	rv := objc.Send[TTSStreamingZipReader](t.ID, objc.Sel("initWithPath:andPassword:"), path, password)
+	rv := objc.SendIfResponds[TTSStreamingZipReader](t.ID, objc.Sel("initWithPath:andPassword:"), path, password)
 	return rv
 }
 
 func (t TTSStreamingZipReader) Password() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("password"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("password"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSStreamingZipReader) SetPassword(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setPassword:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPassword:"), objc.String(value))
 }
 func (t TTSStreamingZipReader) ZipPath() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("zipPath"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("zipPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSStreamingZipReader) SetZipPath(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setZipPath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setZipPath:"), objc.String(value))
 }
 
 // EnumerateFilesSync is a synchronous wrapper around [TTSStreamingZipReader.EnumerateFiles].

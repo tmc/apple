@@ -39,7 +39,7 @@ func (vc VZHIDDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHIDDeviceConfigurationClass) Alloc() VZHIDDeviceConfiguration {
-	rv := objc.Send[VZHIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZHIDDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,36 +91,35 @@ type IVZHIDDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZHIDDeviceConfiguration) Init() VZHIDDeviceConfiguration {
-	rv := objc.Send[VZHIDDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZHIDDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZHIDDeviceConfiguration) Autorelease() VZHIDDeviceConfiguration {
-	rv := objc.Send[VZHIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZHIDDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZHIDDeviceConfiguration creates a new VZHIDDeviceConfiguration instance.
 func NewVZHIDDeviceConfiguration() VZHIDDeviceConfiguration {
 	class := getVZHIDDeviceConfigurationClass()
-	rv := objc.Send[VZHIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZHIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZHIDDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZHIDDeviceConfiguration) MakeHIDDeviceForVirtualMachineHidDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeHIDDeviceForVirtualMachine:hidDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeHIDDeviceForVirtualMachine:hidDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZHIDDeviceConfiguration) _hidDevice() AvpHidGenericDevice {
-	rv := objc.Send[AvpHidGenericDevice](v.ID, objc.Sel("_hidDevice"))
-	_ = rv
-	return AvpHidGenericDevice{}
+	rv := objc.SendIfResponds[AvpHidGenericDevice](v.ID, objc.Sel("_hidDevice"))
+	return AvpHidGenericDevice(rv)
 }
 
 // CanHidDevice reports whether the receiver responds to the private selector _hidDevice.
@@ -136,18 +135,18 @@ func (v VZHIDDeviceConfiguration) HidDevice() (AvpHidGenericDevice, error) {
 	return v._hidDevice(), nil
 }
 func (v VZHIDDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZHIDDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZHIDDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZHIDDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

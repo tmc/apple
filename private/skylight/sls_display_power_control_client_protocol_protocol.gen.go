@@ -11,6 +11,9 @@ import (
 type SLSDisplayPowerControlClientProtocol interface {
 	objectivec.IObject
 
+	// RequestStateChangeError protocol.
+	RequestStateChangeError(change objectivec.IObject) (uint64, error)
+
 	// TerminateConnection protocol.
 	TerminateConnection(connection []objectivec.IObject)
 }
@@ -40,5 +43,5 @@ func (o SLSDisplayPowerControlClientProtocolObject) RequestStateChangeError(chan
 	return rv, nil
 }
 func (o SLSDisplayPowerControlClientProtocolObject) TerminateConnection(connection []objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("terminateConnection:"), objectivec.IObjectSliceToNSArray(connection))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("terminateConnection:"), objectivec.IObjectSliceToNSArray(connection))
 }

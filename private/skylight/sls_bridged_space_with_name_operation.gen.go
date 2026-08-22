@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceWithNameOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceWithNameOperationClass) Alloc() SLSBridgedSpaceWithNameOperation {
-	rv := objc.Send[SLSBridgedSpaceWithNameOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceWithNameOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceWithNameOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceWithNameOperation) Init() SLSBridgedSpaceWithNameOperation {
-	rv := objc.Send[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceWithNameOperation) Autorelease() SLSBridgedSpaceWithNameOperation {
-	rv := objc.Send[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceWithNameOperation creates a new SLSBridgedSpaceWithNameOperation instance.
 func NewSLSBridgedSpaceWithNameOperation() SLSBridgedSpaceWithNameOperation {
 	class := getSLSBridgedSpaceWithNameOperationClass()
-	rv := objc.Send[SLSBridgedSpaceWithNameOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceWithNameOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceWithNameOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceWithNameOperation {
 	instance := getSLSBridgedSpaceWithNameOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceWithNameOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceWithNameOperationWithName(name objectivec.IObject) SLSBridgedSpaceWithNameOperation {
 	instance := getSLSBridgedSpaceWithNameOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
 	return SLSBridgedSpaceWithNameOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceWithNameOperation) MakeResultWithSpaceID(id uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithSpaceID:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedSpaceWithNameOperation) InitWithName(name objectivec.IObject) SLSBridgedSpaceWithNameOperation {
-	rv := objc.Send[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("initWithName:"), name)
+	rv := objc.SendIfResponds[SLSBridgedSpaceWithNameOperation](s.ID, objc.Sel("initWithName:"), name)
 	return rv
 }
 
 func (s SLSBridgedSpaceWithNameOperation) Name() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }

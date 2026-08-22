@@ -40,7 +40,7 @@ func (tc TTSAXResourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAXResourceClass) Alloc() TTSAXResource {
-	rv := objc.Send[TTSAXResource](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAXResource](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -203,183 +203,183 @@ type ITTSAXResource interface {
 
 // Init initializes the instance.
 func (t TTSAXResource) Init() TTSAXResource {
-	rv := objc.Send[TTSAXResource](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAXResource](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAXResource) Autorelease() TTSAXResource {
-	rv := objc.Send[TTSAXResource](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAXResource](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAXResource creates a new TTSAXResource instance.
 func NewTTSAXResource() TTSAXResource {
 	class := getTTSAXResourceClass()
-	rv := objc.Send[TTSAXResource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAXResource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSAXResource) AssetSize() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("assetSize"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("assetSize"))
 	return rv
 }
 func (t TTSAXResource) IsInstalled() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isInstalled"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isInstalled"))
 	return rv
 }
 func (t TTSAXResource) LocalizedNameForLanguageWithLanguage(language objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedNameForLanguage:"), language)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("localizedNameForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResource) NameAndFootprintForLanguage(language objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("nameAndFootprintForLanguage:"), language)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("nameAndFootprintForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResource) PrimaryLanguage() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("primaryLanguage"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("primaryLanguage"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSAXResource) SpeechVoice() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechVoice"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechVoice"))
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSAXResourceClass TTSAXResourceClass) LocalizedNameWithForLanguage(name objectivec.IObject, language objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceClass.class), objc.Sel("localizedName:forLanguage:"), name, language)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAXResourceClass.class), objc.Sel("localizedName:forLanguage:"), name, language)
 	return objectivec.Object{ID: rv}
 }
 
 func (t TTSAXResource) CanBeDownloaded() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("canBeDownloaded"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("canBeDownloaded"))
 	return rv
 }
 func (t TTSAXResource) SetCanBeDownloaded(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCanBeDownloaded:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCanBeDownloaded:"), value)
 }
 func (t TTSAXResource) ContentPath() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentPath"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("contentPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetContentPath(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setContentPath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setContentPath:"), objc.String(value))
 }
 func (t TTSAXResource) Footprint() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("footprint"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("footprint"))
 	return rv
 }
 func (t TTSAXResource) SetFootprint(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFootprint:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFootprint:"), value)
 }
 func (t TTSAXResource) Gender() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("gender"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("gender"))
 	return rv
 }
 func (t TTSAXResource) SetGender(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGender:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGender:"), value)
 }
 func (t TTSAXResource) Identifier() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetIdentifier(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
 func (t TTSAXResource) IsDefault() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isDefault"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isDefault"))
 	return rv
 }
 func (t TTSAXResource) SetIsDefault(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsDefault:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsDefault:"), value)
 }
 func (t TTSAXResource) IsNoveltyVoice() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isNoveltyVoice"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isNoveltyVoice"))
 	return rv
 }
 func (t TTSAXResource) SetIsNoveltyVoice(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsNoveltyVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsNoveltyVoice:"), value)
 }
 func (t TTSAXResource) IsPersonalVoice() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isPersonalVoice"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isPersonalVoice"))
 	return rv
 }
 func (t TTSAXResource) SetIsPersonalVoice(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsPersonalVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsPersonalVoice:"), value)
 }
 func (t TTSAXResource) IsSystemVoice() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isSystemVoice"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isSystemVoice"))
 	return rv
 }
 func (t TTSAXResource) SetIsSystemVoice(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsSystemVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsSystemVoice:"), value)
 }
 func (t TTSAXResource) Language() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("language"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetLanguage(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 func (t TTSAXResource) Languages() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("languages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSAXResource) SetLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
 func (t TTSAXResource) LocalizedName() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedName"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetLocalizedName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLocalizedName:"), objc.String(value))
 }
 func (t TTSAXResource) LocalizedNameWithFootprint() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedNameWithFootprint"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("localizedNameWithFootprint"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetLocalizedNameWithFootprint(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedNameWithFootprint:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setLocalizedNameWithFootprint:"), objc.String(value))
 }
 func (t TTSAXResource) Name() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
 func (t TTSAXResource) Subtype() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("subtype"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("subtype"))
 	return rv
 }
 func (t TTSAXResource) SetSubtype(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSubtype:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSubtype:"), value)
 }
 func (t TTSAXResource) SynthesisProviderVoice() avfaudio.AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("synthesisProviderVoice"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("synthesisProviderVoice"))
 	return avfaudio.AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
 }
 func (t TTSAXResource) SetSynthesisProviderVoice(value avfaudio.AVSpeechSynthesisProviderVoice) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSynthesisProviderVoice:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSynthesisProviderVoice:"), value)
 }
 func (t TTSAXResource) Type() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("type"))
 	return rv
 }
 func (t TTSAXResource) SetType(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setType:"), value)
 }
 func (t TTSAXResource) VoiceId() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceId"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceId"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAXResource) SetVoiceId(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceId:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceId:"), objc.String(value))
 }
 func (t TTSAXResource) VoiceType() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("voiceType"))
+	rv := objc.SendIfResponds[int64](t.ID, objc.Sel("voiceType"))
 	return rv
 }
 func (t TTSAXResource) SetVoiceType(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
 }

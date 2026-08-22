@@ -37,7 +37,7 @@ func (ec EspressoPassFuseBlizzardFinal1x1ConvolutionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseBlizzardFinal1x1ConvolutionsClass) Alloc() EspressoPassFuseBlizzardFinal1x1Convolutions {
-	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseBlizzardFinal1x1Convolutions interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseBlizzardFinal1x1Convolutions) Init() EspressoPassFuseBlizzardFinal1x1Convolutions {
-	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseBlizzardFinal1x1Convolutions) Autorelease() EspressoPassFuseBlizzardFinal1x1Convolutions {
-	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseBlizzardFinal1x1Convolutions creates a new EspressoPassFuseBlizzardFinal1x1Convolutions instance.
 func NewEspressoPassFuseBlizzardFinal1x1Convolutions() EspressoPassFuseBlizzardFinal1x1Convolutions {
 	class := getEspressoPassFuseBlizzardFinal1x1ConvolutionsClass()
-	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

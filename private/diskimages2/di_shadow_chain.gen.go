@@ -41,7 +41,7 @@ func (dc DIShadowChainClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIShadowChainClass) Alloc() DIShadowChain {
-	rv := objc.Send[DIShadowChain](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIShadowChain](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -126,26 +126,26 @@ type IDIShadowChain interface {
 
 // Init initializes the instance.
 func (d DIShadowChain) Init() DIShadowChain {
-	rv := objc.Send[DIShadowChain](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIShadowChain](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIShadowChain) Autorelease() DIShadowChain {
-	rv := objc.Send[DIShadowChain](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIShadowChain](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIShadowChain creates a new DIShadowChain instance.
 func NewDIShadowChain() DIShadowChain {
 	class := getDIShadowChainClass()
-	rv := objc.Send[DIShadowChain](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIShadowChain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIShadowChainWithCoder(coder objectivec.IObject) DIShadowChain {
 	instance := getDIShadowChainClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIShadowChainFromID(rv)
 }
 
@@ -189,10 +189,10 @@ func (d DIShadowChain) AddShadowURLsError(uRLs objectivec.IObject) (bool, error)
 
 }
 func (d DIShadowChain) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIShadowChain) OpenWritableCreateNonExisting(writable bool, existing bool) {
-	objc.Send[objc.ID](d.ID, objc.Sel("openWritable:createNonExisting:"), writable, existing)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("openWritable:createNonExisting:"), writable, existing)
 }
 func (d DIShadowChain) StatWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -218,51 +218,51 @@ func (d DIShadowChain) VerifyNodesError(nodes objectivec.IObject) (bool, error) 
 
 }
 func (d DIShadowChain) InitWithCoder(coder foundation.INSCoder) DIShadowChain {
-	rv := objc.Send[DIShadowChain](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIShadowChain](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DIShadowChainClass DIShadowChainClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIShadowChainClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIShadowChainClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIShadowChain) ActiveShadowURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeShadowURL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("activeShadowURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (d DIShadowChain) HasBaseImageCache() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("hasBaseImageCache"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("hasBaseImageCache"))
 	return rv
 }
 func (d DIShadowChain) IsEmpty() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isEmpty"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isEmpty"))
 	return rv
 }
 func (d DIShadowChain) MountPoints() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("mountPoints"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mountPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIShadowChain) Nodes() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("nodes"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("nodes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIShadowChain) NonCacheNodes() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("nonCacheNodes"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("nonCacheNodes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIShadowChain) ShadowStats() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowStats"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowStats"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DIShadowChain) ShouldValidate() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidate"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("shouldValidate"))
 	return rv
 }
 func (d DIShadowChain) SetShouldValidate(value bool) {
-	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidate:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setShouldValidate:"), value)
 }
 func (d DIShadowChain) TopDiskImageNumBlocks() int64 {
-	rv := objc.Send[int64](d.ID, objc.Sel("topDiskImageNumBlocks"))
+	rv := objc.SendIfResponds[int64](d.ID, objc.Sel("topDiskImageNumBlocks"))
 	return rv
 }

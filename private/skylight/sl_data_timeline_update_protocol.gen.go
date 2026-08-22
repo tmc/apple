@@ -13,6 +13,12 @@ type SLDataTimelineUpdate interface {
 
 	// Action protocol.
 	Action() uint32
+
+	// ClaimSnapshotCollection protocol.
+	ClaimSnapshotCollection() objectivec.IObject
+
+	// Connection protocol.
+	Connection() objectivec.IObject
 }
 
 // SLDataTimelineUpdateObject wraps an existing Objective-C object that conforms to the SLDataTimelineUpdate protocol.
@@ -33,14 +39,14 @@ func SLDataTimelineUpdateObjectFromID(id objc.ID) SLDataTimelineUpdateObject {
 }
 
 func (o SLDataTimelineUpdateObject) Action() uint32 {
-	rv := objc.Send[uint32](o.ID, objc.Sel("action"))
+	rv := objc.SendIfResponds[uint32](o.ID, objc.Sel("action"))
 	return rv
 }
 func (o SLDataTimelineUpdateObject) ClaimSnapshotCollection() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("claimSnapshotCollection"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("claimSnapshotCollection"))
 	return objectivec.Object{ID: rv}
 }
 func (o SLDataTimelineUpdateObject) Connection() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}
 }

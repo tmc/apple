@@ -41,7 +41,7 @@ func (vc VZVirtioGraphicsScanoutClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioGraphicsScanoutClass) Alloc() VZVirtioGraphicsScanout {
-	rv := objc.Send[VZVirtioGraphicsScanout](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanout](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,37 +78,40 @@ type IVZVirtioGraphicsScanout interface {
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsScanout) Init() VZVirtioGraphicsScanout {
-	rv := objc.Send[VZVirtioGraphicsScanout](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanout](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioGraphicsScanout) Autorelease() VZVirtioGraphicsScanout {
-	rv := objc.Send[VZVirtioGraphicsScanout](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanout](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioGraphicsScanout creates a new VZVirtioGraphicsScanout instance.
 func NewVZVirtioGraphicsScanout() VZVirtioGraphicsScanout {
 	class := getVZVirtioGraphicsScanoutClass()
-	rv := objc.Send[VZVirtioGraphicsScanout](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioGraphicsScanout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IObject) (VZVirtioGraphicsScanout, error) {
 	var errorPtr objc.ID
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZVirtioGraphicsScanout{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZVirtioGraphicsScanout{}, objc.ErrInitFailed
 	}
 	return VZVirtioGraphicsScanoutFromID(rv), nil
 }
 
 func NewVirtioGraphicsScanoutWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZVirtioGraphicsScanoutFromID(rv)
 }
 

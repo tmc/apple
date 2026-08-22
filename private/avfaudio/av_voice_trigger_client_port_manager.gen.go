@@ -39,7 +39,7 @@ func (ac AVVoiceTriggerClientPortManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVoiceTriggerClientPortManagerClass) Alloc() AVVoiceTriggerClientPortManager {
-	rv := objc.Send[AVVoiceTriggerClientPortManager](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClientPortManager](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -145,112 +145,118 @@ type IAVVoiceTriggerClientPortManager interface {
 
 // Init initializes the instance.
 func (a AVVoiceTriggerClientPortManager) Init() AVVoiceTriggerClientPortManager {
-	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVoiceTriggerClientPortManager) Autorelease() AVVoiceTriggerClientPortManager {
-	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVoiceTriggerClientPortManager creates a new AVVoiceTriggerClientPortManager instance.
 func NewAVVoiceTriggerClientPortManager() AVVoiceTriggerClientPortManager {
 	class := getAVVoiceTriggerClientPortManagerClass()
-	rv := objc.Send[AVVoiceTriggerClientPortManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVoiceTriggerClientPortManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVoiceTriggerClientPortManager) CallMuteStateChangeNotificationBlock(block bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("callMuteStateChangeNotificationBlock:"), block)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callMuteStateChangeNotificationBlock:"), block)
 }
 func (a AVVoiceTriggerClientPortManager) CallRunningStateChangeNotificationBlock(block bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("callRunningStateChangeNotificationBlock:"), block)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callRunningStateChangeNotificationBlock:"), block)
 }
 func (a AVVoiceTriggerClientPortManager) NotifyMuteStateChanged() {
-	objc.Send[objc.ID](a.ID, objc.Sel("notifyMuteStateChanged"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("notifyMuteStateChanged"))
 }
 func (a AVVoiceTriggerClientPortManager) NotifyRunningStateChangedWithHysteresis() {
-	objc.Send[objc.ID](a.ID, objc.Sel("notifyRunningStateChangedWithHysteresis"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("notifyRunningStateChangedWithHysteresis"))
 }
+
+var _avvoicetriggerclientportmanager_setmutestatechangenotificationblock_p0_key byte
+
 func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setMuteStateChangeNotificationBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setMuteStateChangeNotificationBlock:"), _block0)
 }
+
+var _avvoicetriggerclientportmanager_setrunningstatechangenotificationblock_p0_key byte
+
 func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setRunningStateChangeNotificationBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setRunningStateChangeNotificationBlock:"), _block0)
 }
 func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler, block2 VoidHandler) AVVoiceTriggerClientPortManager {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(block2)
-	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
+	rv := objc.SendIfResponds[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
 	return rv
 }
 
 func (a AVVoiceTriggerClientPortManager) DeviceID() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("deviceID"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("deviceID"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetDeviceID(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDeviceID:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDeviceID:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) Generation() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("generation"))
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("generation"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetGeneration(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setGeneration:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setGeneration:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) HysteresisDurationSeconds() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("hysteresisDurationSeconds"))
+	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("hysteresisDurationSeconds"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetHysteresisDurationSeconds(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setHysteresisDurationSeconds:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setHysteresisDurationSeconds:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) LastRunningStateSent() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("lastRunningStateSent"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("lastRunningStateSent"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetLastRunningStateSent(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setLastRunningStateSent:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setLastRunningStateSent:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) ListeningEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("listeningEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("listeningEnabled"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetListeningEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setListeningEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setListeningEnabled:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) MuteStateChangeNotificationRegistered() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("muteStateChangeNotificationRegistered"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("muteStateChangeNotificationRegistered"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationRegistered(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMuteStateChangeNotificationRegistered:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMuteStateChangeNotificationRegistered:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) PortType() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("portType"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("portType"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetPortType(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPortType:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPortType:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) Queue() objectivec.Object {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (a AVVoiceTriggerClientPortManager) SetQueue(value objectivec.Object) {
-	objc.Send[struct{}](a.ID, objc.Sel("setQueue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setQueue:"), value)
 }
 func (a AVVoiceTriggerClientPortManager) RunningStateChangeNotificationRegistered() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("runningStateChangeNotificationRegistered"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("runningStateChangeNotificationRegistered"))
 	return rv
 }
 func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationRegistered(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRunningStateChangeNotificationRegistered:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setRunningStateChangeNotificationRegistered:"), value)
 }
 
 // SetMuteStateChangeNotificationBlockSync is a synchronous wrapper around [AVVoiceTriggerClientPortManager.SetMuteStateChangeNotificationBlock].

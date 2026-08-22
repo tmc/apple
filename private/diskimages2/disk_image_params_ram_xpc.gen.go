@@ -40,7 +40,7 @@ func (dc DiskImageParamsRAMXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsRAMXPCClass) Alloc() DiskImageParamsRAMXPC {
-	rv := objc.Send[DiskImageParamsRAMXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsRAMXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,48 +82,51 @@ type IDiskImageParamsRAMXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsRAMXPC) Init() DiskImageParamsRAMXPC {
-	rv := objc.Send[DiskImageParamsRAMXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsRAMXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsRAMXPC) Autorelease() DiskImageParamsRAMXPC {
-	rv := objc.Send[DiskImageParamsRAMXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsRAMXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsRAMXPC creates a new DiskImageParamsRAMXPC instance.
 func NewDiskImageParamsRAMXPC() DiskImageParamsRAMXPC {
 	class := getDiskImageParamsRAMXPCClass()
-	rv := objc.Send[DiskImageParamsRAMXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsRAMXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 func NewDiskImageParamsRAM_XPCWithURLError(url foundation.NSURL) (DiskImageParamsRAMXPC, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageParamsRAMXPC{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageParamsRAMXPC{}, objc.ErrInitFailed
 	}
 	return DiskImageParamsRAMXPCFromID(rv), nil
 }
@@ -140,6 +143,6 @@ func (d DiskImageParamsRAMXPC) InitWithURLError(url foundation.NSURL) (DiskImage
 }
 
 func (d DiskImageParamsRAMXPC) RamSizeStr() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("ramSizeStr"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("ramSizeStr"))
 	return foundation.NSStringFromID(rv).String()
 }

@@ -40,7 +40,7 @@ func (mc MLBackgroundRunnerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLBackgroundRunnerClass) Alloc() MLBackgroundRunner {
-	rv := objc.Send[MLBackgroundRunner](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLBackgroundRunner](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -131,94 +131,94 @@ type IMLBackgroundRunner interface {
 
 // Init initializes the instance.
 func (m MLBackgroundRunner) Init() MLBackgroundRunner {
-	rv := objc.Send[MLBackgroundRunner](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLBackgroundRunner](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLBackgroundRunner) Autorelease() MLBackgroundRunner {
-	rv := objc.Send[MLBackgroundRunner](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLBackgroundRunner](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLBackgroundRunner creates a new MLBackgroundRunner instance.
 func NewMLBackgroundRunner() MLBackgroundRunner {
 	class := getMLBackgroundRunnerClass()
-	rv := objc.Send[MLBackgroundRunner](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLBackgroundRunner](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLBackgroundRunner) CreateExtensionDataSourceWithInfoKeyConformingToProtocol(key objectivec.IObject, protocol_ objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("createExtensionDataSourceWithInfoKey:conformingToProtocol:"), key, protocol_)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("createExtensionDataSourceWithInfoKey:conformingToProtocol:"), key, protocol_)
 	return rv
 }
 func (m MLBackgroundRunner) PrepareForActivity(activity objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("prepareForActivity:"), activity)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("prepareForActivity:"), activity)
 	return rv
 }
 func (m MLBackgroundRunner) Start() byte {
-	rv := objc.Send[byte](m.ID, objc.Sel("start"))
+	rv := objc.SendIfResponds[byte](m.ID, objc.Sel("start"))
 	return rv
 }
 func (m MLBackgroundRunner) Stop() {
-	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stop"))
 }
 
 func (m MLBackgroundRunner) Activity() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("activity"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("activity"))
 	return rv
 }
 func (m MLBackgroundRunner) SetActivity(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setActivity:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setActivity:"), value)
 }
 func (m MLBackgroundRunner) DataSource() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("dataSource"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("dataSource"))
 	return rv
 }
 func (m MLBackgroundRunner) SetDataSource(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDataSource:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDataSource:"), value)
 }
 func (m MLBackgroundRunner) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLBackgroundRunner) DelegateQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("delegateQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("delegateQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLBackgroundRunner) SetDelegateQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDelegateQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDelegateQueue:"), value)
 }
 func (m MLBackgroundRunner) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLBackgroundRunner) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLBackgroundRunner) ShouldStop() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("shouldStop"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("shouldStop"))
 	return rv
 }
 func (m MLBackgroundRunner) SetShouldStop(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setShouldStop:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setShouldStop:"), value)
 }
 func (m MLBackgroundRunner) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (m MLBackgroundRunner) Task() IMLBackgroundTask {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("task"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("task"))
 	return MLBackgroundTaskFromID(objc.ID(rv))
 }
 func (m MLBackgroundRunner) SetTask(value IMLBackgroundTask) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTask:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTask:"), value)
 }
 func (m MLBackgroundRunner) WatchdogQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("watchdogQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("watchdogQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLBackgroundRunner) SetWatchdogQueue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWatchdogQueue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWatchdogQueue:"), value)
 }

@@ -40,7 +40,7 @@ func (cc CPXConnectionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXConnectionManagerClass) Alloc() CPXConnectionManager {
-	rv := objc.Send[CPXConnectionManager](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXConnectionManager](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,9 +81,9 @@ type ICPXConnectionManager interface {
 
 	// Topic: Methods
 
-	ConnectionForID(id uint32) unsafe.Pointer
-	PidForConnection(connection CGXConnection) int
-	InitWithSession(session uintptr) CPXConnectionManager
+	ConnectionForID(id uint32) *CGXConnection
+	PidForConnection(connection *CGXConnection) int
+	InitWithSession(session CGXSessionRef) CPXConnectionManager
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -92,55 +92,55 @@ type ICPXConnectionManager interface {
 
 // Init initializes the instance.
 func (c CPXConnectionManager) Init() CPXConnectionManager {
-	rv := objc.Send[CPXConnectionManager](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXConnectionManager](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXConnectionManager) Autorelease() CPXConnectionManager {
-	rv := objc.Send[CPXConnectionManager](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXConnectionManager](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXConnectionManager creates a new CPXConnectionManager instance.
 func NewCPXConnectionManager() CPXConnectionManager {
 	class := getCPXConnectionManagerClass()
-	rv := objc.Send[CPXConnectionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXConnectionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewCPXConnectionManagerWithSession(session uintptr) CPXConnectionManager {
+func NewCPXConnectionManagerWithSession(session CGXSessionRef) CPXConnectionManager {
 	instance := getCPXConnectionManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXConnectionManagerFromID(rv)
 }
 
-func (c CPXConnectionManager) ConnectionForID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connectionForID:"), id)
+func (c CPXConnectionManager) ConnectionForID(id uint32) *CGXConnection {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("connectionForID:"), id)
+	return (*CGXConnection)(rv)
+}
+func (c CPXConnectionManager) PidForConnection(connection *CGXConnection) int {
+	rv := objc.SendIfResponds[int](c.ID, objc.Sel("pidForConnection:"), unsafe.Pointer(connection))
 	return rv
 }
-func (c CPXConnectionManager) PidForConnection(connection CGXConnection) int {
-	rv := objc.Send[int](c.ID, objc.Sel("pidForConnection:"), connection)
-	return rv
-}
-func (c CPXConnectionManager) InitWithSession(session uintptr) CPXConnectionManager {
-	rv := objc.Send[CPXConnectionManager](c.ID, objc.Sel("initWithSession:"), session)
+func (c CPXConnectionManager) InitWithSession(session CGXSessionRef) CPXConnectionManager {
+	rv := objc.SendIfResponds[CPXConnectionManager](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
 
 func (c CPXConnectionManager) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXConnectionManager) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXConnectionManager) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXConnectionManager) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

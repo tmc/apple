@@ -22,6 +22,12 @@ type SLSDisplayControlClientProtocol interface {
 	// Notification protocol.
 	Notification() unsafe.Pointer
 
+	// RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock protocol.
+	RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock(client objectivec.IObject, autoreconnect bool, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject
+
+	// RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock protocol.
+	RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, port uint32, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject
+
 	// TerminateConnection protocol.
 	TerminateConnection()
 }
@@ -44,25 +50,29 @@ func SLSDisplayControlClientProtocolObjectFromID(id objc.ID) SLSDisplayControlCl
 }
 
 func (o SLSDisplayControlClientProtocolObject) Configured() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("configured"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("configured"))
 	return rv
 }
 func (o SLSDisplayControlClientProtocolObject) Enabled() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("enabled"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("enabled"))
 	return rv
 }
 func (o SLSDisplayControlClientProtocolObject) Notification() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("notification"))
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("notification"))
 	return rv
 }
 func (o SLSDisplayControlClientProtocolObject) RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock(client objectivec.IObject, autoreconnect bool, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("registerDaemonClient:withAutoreconnect:error:notifyQueue:notificationType:notificationBlock:"), client, autoreconnect, objectivec.IObjectSliceToNSArray(error_), queue, type_, block)
+	_block5, _cleanup5 := NewUnsafePointerBlock(block)
+	defer _cleanup5()
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("registerDaemonClient:withAutoreconnect:error:notifyQueue:notificationType:notificationBlock:"), client, autoreconnect, objectivec.IObjectSliceToNSArray(error_), queue, type_, objc.ID(_block5))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSDisplayControlClientProtocolObject) RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, port uint32, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block UnsafePointerHandler) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("registerGUIClient:connectionPort:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, port, objectivec.IObjectSliceToNSArray(error_), queue, type_, block)
+	_block5, _cleanup5 := NewUnsafePointerBlock(block)
+	defer _cleanup5()
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("registerGUIClient:connectionPort:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, port, objectivec.IObjectSliceToNSArray(error_), queue, type_, objc.ID(_block5))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSDisplayControlClientProtocolObject) TerminateConnection() {
-	objc.Send[struct{}](o.ID, objc.Sel("terminateConnection"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("terminateConnection"))
 }

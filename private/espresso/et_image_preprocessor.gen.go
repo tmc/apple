@@ -39,7 +39,7 @@ func (ec ETImagePreprocessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETImagePreprocessorClass) Alloc() ETImagePreprocessor {
-	rv := objc.Send[ETImagePreprocessor](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETImagePreprocessor](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,44 +85,44 @@ type IETImagePreprocessor interface {
 
 // Init initializes the instance.
 func (e ETImagePreprocessor) Init() ETImagePreprocessor {
-	rv := objc.Send[ETImagePreprocessor](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETImagePreprocessor](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETImagePreprocessor) Autorelease() ETImagePreprocessor {
-	rv := objc.Send[ETImagePreprocessor](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETImagePreprocessor](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETImagePreprocessor creates a new ETImagePreprocessor instance.
 func NewETImagePreprocessor() ETImagePreprocessor {
 	class := getETImagePreprocessorClass()
-	rv := objc.Send[ETImagePreprocessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETImagePreprocessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETImagePreprocessorWithImagePreprocessParams(params objectivec.IObject) ETImagePreprocessor {
 	instance := getETImagePreprocessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImagePreprocessParams:"), params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImagePreprocessParams:"), params)
 	return ETImagePreprocessorFromID(rv)
 }
 
 func (e ETImagePreprocessor) LoadSrcBufferWithCGImage(cGImage coregraphics.CGImageRef) {
-	objc.Send[objc.ID](e.ID, objc.Sel("loadSrcBufferWithCGImage:"), cGImage)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("loadSrcBufferWithCGImage:"), cGImage)
 }
 func (e ETImagePreprocessor) Preprocess() {
-	objc.Send[objc.ID](e.ID, objc.Sel("preprocess"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("preprocess"))
 }
 func (e ETImagePreprocessor) TensorWithCGImage(cGImage coregraphics.CGImageRef) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("tensorWithCGImage:"), cGImage)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("tensorWithCGImage:"), cGImage)
 	return objectivec.Object{ID: rv}
 }
 func (e ETImagePreprocessor) TensorWithPath(path objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("tensorWithPath:"), path)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("tensorWithPath:"), path)
 	return objectivec.Object{ID: rv}
 }
 func (e ETImagePreprocessor) InitWithImagePreprocessParams(params objectivec.IObject) ETImagePreprocessor {
-	rv := objc.Send[ETImagePreprocessor](e.ID, objc.Sel("initWithImagePreprocessParams:"), params)
+	rv := objc.SendIfResponds[ETImagePreprocessor](e.ID, objc.Sel("initWithImagePreprocessParams:"), params)
 	return rv
 }

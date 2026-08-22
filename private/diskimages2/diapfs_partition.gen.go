@@ -37,7 +37,7 @@ func (dc DIAPFSPartitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIAPFSPartitionClass) Alloc() DIAPFSPartition {
-	rv := objc.Send[DIAPFSPartition](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIAPFSPartition](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IDIAPFSPartition interface {
 
 // Init initializes the instance.
 func (d DIAPFSPartition) Init() DIAPFSPartition {
-	rv := objc.Send[DIAPFSPartition](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIAPFSPartition](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIAPFSPartition) Autorelease() DIAPFSPartition {
-	rv := objc.Send[DIAPFSPartition](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIAPFSPartition](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIAPFSPartition creates a new DIAPFSPartition instance.
 func NewDIAPFSPartition() DIAPFSPartition {
 	class := getDIAPFSPartitionClass()
-	rv := objc.Send[DIAPFSPartition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIAPFSPartition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

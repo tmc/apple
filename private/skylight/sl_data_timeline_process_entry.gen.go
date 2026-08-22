@@ -39,7 +39,7 @@ func (sc SLDataTimelineProcessEntryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLDataTimelineProcessEntryClass) Alloc() SLDataTimelineProcessEntry {
-	rv := objc.Send[SLDataTimelineProcessEntry](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLDataTimelineProcessEntry](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -94,64 +94,64 @@ type ISLDataTimelineProcessEntry interface {
 
 // Init initializes the instance.
 func (s SLDataTimelineProcessEntry) Init() SLDataTimelineProcessEntry {
-	rv := objc.Send[SLDataTimelineProcessEntry](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLDataTimelineProcessEntry](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLDataTimelineProcessEntry) Autorelease() SLDataTimelineProcessEntry {
-	rv := objc.Send[SLDataTimelineProcessEntry](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLDataTimelineProcessEntry](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLDataTimelineProcessEntry creates a new SLDataTimelineProcessEntry instance.
 func NewSLDataTimelineProcessEntry() SLDataTimelineProcessEntry {
 	class := getSLDataTimelineProcessEntryClass()
-	rv := objc.Send[SLDataTimelineProcessEntry](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLDataTimelineProcessEntry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLDataTimelineProcessEntryWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry {
 	instance := getSLDataTimelineProcessEntryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return SLDataTimelineProcessEntryFromID(rv)
 }
 
 func (s SLDataTimelineProcessEntry) CreateXPCObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("createXPCObject"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createXPCObject"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLDataTimelineProcessEntry) InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry {
-	rv := objc.Send[SLDataTimelineProcessEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[SLDataTimelineProcessEntry](s.ID, objc.Sel("initWithXPCObject:"), xPCObject)
 	return rv
 }
 
 func (_SLDataTimelineProcessEntryClass SLDataTimelineProcessEntryClass) EntryWithXPCObject(xPCObject objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLDataTimelineProcessEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLDataTimelineProcessEntryClass.class), objc.Sel("entryWithXPCObject:"), xPCObject)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLDataTimelineProcessEntry) OffScreen() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("offScreen"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("offScreen"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) OnScreenOccluded() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("onScreenOccluded"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("onScreenOccluded"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) OnScreenVisible() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("onScreenVisible"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("onScreenVisible"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) OrderedOut() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("orderedOut"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("orderedOut"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) Pid() int {
-	rv := objc.Send[int](s.ID, objc.Sel("pid"))
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("pid"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) WindowData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("windowData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("windowData"))
 	return rv
 }

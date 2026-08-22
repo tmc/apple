@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (sc SLSSkyLightMouseEventAuthenticationMessageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSSkyLightMouseEventAuthenticationMessageClass) Alloc() SLSSkyLightMouseEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightMouseEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSSkyLightMouseEventAuthenticationMessage](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,48 +73,48 @@ type ISLSSkyLightMouseEventAuthenticationMessage interface {
 
 // Init initializes the instance.
 func (s SLSSkyLightMouseEventAuthenticationMessage) Init() SLSSkyLightMouseEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightMouseEventAuthenticationMessage](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSSkyLightMouseEventAuthenticationMessage](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSSkyLightMouseEventAuthenticationMessage) Autorelease() SLSSkyLightMouseEventAuthenticationMessage {
-	rv := objc.Send[SLSSkyLightMouseEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSSkyLightMouseEventAuthenticationMessage](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSSkyLightMouseEventAuthenticationMessage creates a new SLSSkyLightMouseEventAuthenticationMessage instance.
 func NewSLSSkyLightMouseEventAuthenticationMessage() SLSSkyLightMouseEventAuthenticationMessage {
 	class := getSLSSkyLightMouseEventAuthenticationMessageClass()
-	rv := objc.Send[SLSSkyLightMouseEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSSkyLightMouseEventAuthenticationMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSSkyLightMouseEventAuthenticationMessageWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBasis:signature:"), basis, signature)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
 func NewSLSSkyLightMouseEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightMouseEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightMouseEventAuthenticationMessage {
+func NewSLSSkyLightMouseEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightMouseEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightMouseEventAuthenticationMessage {
+func NewSLSSkyLightMouseEventAuthenticationMessageWithMessageInitData(data *MessageInitData) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), unsafe.Pointer(data))
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
 func (s SLSSkyLightMouseEventAuthenticationMessage) ButtonNumber() int8 {
-	rv := objc.Send[int8](s.ID, objc.Sel("buttonNumber"))
+	rv := objc.SendIfResponds[int8](s.ID, objc.Sel("buttonNumber"))
 	return rv
 }

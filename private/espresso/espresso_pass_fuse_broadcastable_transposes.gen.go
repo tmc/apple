@@ -37,7 +37,7 @@ func (ec EspressoPassFuseBroadcastableTransposesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassFuseBroadcastableTransposesClass) Alloc() EspressoPassFuseBroadcastableTransposes {
-	rv := objc.Send[EspressoPassFuseBroadcastableTransposes](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassFuseBroadcastableTransposes](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassFuseBroadcastableTransposes interface {
 
 // Init initializes the instance.
 func (e EspressoPassFuseBroadcastableTransposes) Init() EspressoPassFuseBroadcastableTransposes {
-	rv := objc.Send[EspressoPassFuseBroadcastableTransposes](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassFuseBroadcastableTransposes](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassFuseBroadcastableTransposes) Autorelease() EspressoPassFuseBroadcastableTransposes {
-	rv := objc.Send[EspressoPassFuseBroadcastableTransposes](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassFuseBroadcastableTransposes](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassFuseBroadcastableTransposes creates a new EspressoPassFuseBroadcastableTransposes instance.
 func NewEspressoPassFuseBroadcastableTransposes() EspressoPassFuseBroadcastableTransposes {
 	class := getEspressoPassFuseBroadcastableTransposesClass()
-	rv := objc.Send[EspressoPassFuseBroadcastableTransposes](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassFuseBroadcastableTransposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

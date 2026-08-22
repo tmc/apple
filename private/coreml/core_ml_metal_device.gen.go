@@ -38,7 +38,7 @@ func (cc CoreMLMetalDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMetalDeviceClass) Alloc() CoreMLMetalDevice {
-	rv := objc.Send[CoreMLMetalDevice](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMetalDevice](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMetalDeviceFromID(id objc.ID) CoreMLMetalDevice {
 	return CoreMLMetalDevice{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMetalDevice struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMetalDevice embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMetalDevice implements ICoreMLMetalDevice.
+var _ ICoreMLMetalDevice = CoreMLMetalDevice{}
 
 // An interface definition for the [CoreMLMetalDevice] class.
 type ICoreMLMetalDevice interface {
@@ -61,19 +61,19 @@ type ICoreMLMetalDevice interface {
 
 // Init initializes the instance.
 func (c CoreMLMetalDevice) Init() CoreMLMetalDevice {
-	rv := objc.Send[CoreMLMetalDevice](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMetalDevice](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMetalDevice) Autorelease() CoreMLMetalDevice {
-	rv := objc.Send[CoreMLMetalDevice](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMetalDevice](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMetalDevice creates a new CoreMLMetalDevice instance.
 func NewCoreMLMetalDevice() CoreMLMetalDevice {
 	class := getCoreMLMetalDeviceClass()
-	rv := objc.Send[CoreMLMetalDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMetalDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

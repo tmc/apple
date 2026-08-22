@@ -41,7 +41,7 @@ func (mc MLE5StaticShapeExecutionStreamOperationPoolClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5StaticShapeExecutionStreamOperationPoolClass) Alloc() MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5StaticShapeExecutionStreamOperationPool](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -132,34 +132,34 @@ type IMLE5StaticShapeExecutionStreamOperationPool interface {
 
 // Init initializes the instance.
 func (m MLE5StaticShapeExecutionStreamOperationPool) Init() MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5StaticShapeExecutionStreamOperationPool) Autorelease() MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5StaticShapeExecutionStreamOperationPool creates a new MLE5StaticShapeExecutionStreamOperationPool instance.
 func NewMLE5StaticShapeExecutionStreamOperationPool() MLE5StaticShapeExecutionStreamOperationPool {
 	class := getMLE5StaticShapeExecutionStreamOperationPoolClass()
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5StaticShapeExecutionStreamOperationPool](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5StaticShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
 	instance := getMLE5StaticShapeExecutionStreamOperationPoolClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return MLE5StaticShapeExecutionStreamOperationPoolFromID(rv)
 }
 
 func (m MLE5StaticShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_putBack:"), back)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_putBack:"), back)
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) _takeOut() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_takeOut"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_takeOut"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -190,7 +190,7 @@ func (m MLE5StaticShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeE
 
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -203,62 +203,62 @@ func (m MLE5StaticShapeExecutionStreamOperationPool) TakeOutOperationForFeatures
 
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+	rv := objc.SendIfResponds[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return rv
 }
 
 func (m MLE5StaticShapeExecutionStreamOperationPool) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) FunctionName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) NumberOfOperationsInUse() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("numberOfOperationsInUse"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("numberOfOperationsInUse"))
 	return rv
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) SetNumberOfOperationsInUse(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfOperationsInUse:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumberOfOperationsInUse:"), value)
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) Pool() foundation.INSSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("pool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5StaticShapeExecutionStreamOperationPool) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

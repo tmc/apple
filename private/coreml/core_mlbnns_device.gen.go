@@ -38,7 +38,7 @@ func (cc CoreMLBNNSDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLBNNSDeviceClass) Alloc() CoreMLBNNSDevice {
-	rv := objc.Send[CoreMLBNNSDevice](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLBNNSDevice](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLBNNSDeviceFromID(id objc.ID) CoreMLBNNSDevice {
 	return CoreMLBNNSDevice{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLBNNSDevice struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLBNNSDevice embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLBNNSDevice implements ICoreMLBNNSDevice.
+var _ ICoreMLBNNSDevice = CoreMLBNNSDevice{}
 
 // An interface definition for the [CoreMLBNNSDevice] class.
 type ICoreMLBNNSDevice interface {
@@ -61,19 +61,19 @@ type ICoreMLBNNSDevice interface {
 
 // Init initializes the instance.
 func (c CoreMLBNNSDevice) Init() CoreMLBNNSDevice {
-	rv := objc.Send[CoreMLBNNSDevice](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLBNNSDevice](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLBNNSDevice) Autorelease() CoreMLBNNSDevice {
-	rv := objc.Send[CoreMLBNNSDevice](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLBNNSDevice](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLBNNSDevice creates a new CoreMLBNNSDevice instance.
 func NewCoreMLBNNSDevice() CoreMLBNNSDevice {
 	class := getCoreMLBNNSDeviceClass()
-	rv := objc.Send[CoreMLBNNSDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLBNNSDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

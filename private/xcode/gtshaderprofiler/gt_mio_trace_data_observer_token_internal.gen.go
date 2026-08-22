@@ -38,7 +38,7 @@ func (gc GTMioTraceDataObserverTokenInternalClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioTraceDataObserverTokenInternalClass) Alloc() GTMioTraceDataObserverTokenInternal {
-	rv := objc.Send[GTMioTraceDataObserverTokenInternal](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioTraceDataObserverTokenInternal](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,33 +75,33 @@ type IGTMioTraceDataObserverTokenInternal interface {
 
 // Init initializes the instance.
 func (g GTMioTraceDataObserverTokenInternal) Init() GTMioTraceDataObserverTokenInternal {
-	rv := objc.Send[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioTraceDataObserverTokenInternal) Autorelease() GTMioTraceDataObserverTokenInternal {
-	rv := objc.Send[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioTraceDataObserverTokenInternal creates a new GTMioTraceDataObserverTokenInternal instance.
 func NewGTMioTraceDataObserverTokenInternal() GTMioTraceDataObserverTokenInternal {
 	class := getGTMioTraceDataObserverTokenInternalClass()
-	rv := objc.Send[GTMioTraceDataObserverTokenInternal](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioTraceDataObserverTokenInternal](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioTraceDataObserverTokenInternalWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
 	instance := getGTMioTraceDataObserverTokenInternalClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
 	return GTMioTraceDataObserverTokenInternalFromID(rv)
 }
 
 func (g GTMioTraceDataObserverTokenInternal) Cancel() {
-	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cancel"))
 }
 func (g GTMioTraceDataObserverTokenInternal) InitWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
-	rv := objc.Send[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
+	rv := objc.SendIfResponds[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
 	return rv
 }

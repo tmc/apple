@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +39,7 @@ func (ec ETTaskStateClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETTaskStateClass) Alloc() ETTaskState {
-	rv := objc.Send[ETTaskState](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETTaskState](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,7 +50,6 @@ func (ec ETTaskStateClass) Alloc() ETTaskState {
 //   - [ETTaskState.NetworkPointer]
 //   - [ETTaskState.SetNetworkPointer]
 //   - [ETTaskState.InitWithBlobMap]
-//   - [ETTaskState.InitWithNetwork]
 type ETTaskState struct {
 	objectivec.Object
 }
@@ -73,71 +71,65 @@ var _ IETTaskState = ETTaskState{}
 //   - [IETTaskState.NetworkPointer]
 //   - [IETTaskState.SetNetworkPointer]
 //   - [IETTaskState.InitWithBlobMap]
-//   - [IETTaskState.InitWithNetwork]
 type IETTaskState interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	Blobs() unsafe.Pointer
-	SetBlobs(value kernel.Pointer)
+	SetBlobs(value unsafe.Pointer)
 	NetworkPointer() unsafe.Pointer
-	SetNetworkPointer(value kernel.Pointer)
+	SetNetworkPointer(value unsafe.Pointer)
 	InitWithBlobMap(map_ unsafe.Pointer) ETTaskState
-	InitWithNetwork(network unsafe.Pointer) ETTaskState
 }
 
 // Init initializes the instance.
 func (e ETTaskState) Init() ETTaskState {
-	rv := objc.Send[ETTaskState](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETTaskState](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETTaskState) Autorelease() ETTaskState {
-	rv := objc.Send[ETTaskState](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETTaskState](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETTaskState creates a new ETTaskState instance.
 func NewETTaskState() ETTaskState {
 	class := getETTaskStateClass()
-	rv := objc.Send[ETTaskState](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETTaskState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETTaskStateWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlobMap:"), map_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBlobMap:"), map_)
 	return ETTaskStateFromID(rv)
 }
 
 func NewETTaskStateWithNetwork(network unsafe.Pointer) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETTaskStateFromID(rv)
 }
 
 func (e ETTaskState) InitWithBlobMap(map_ unsafe.Pointer) ETTaskState {
-	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithBlobMap:"), map_)
-	return rv
-}
-func (e ETTaskState) InitWithNetwork(network unsafe.Pointer) ETTaskState {
-	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithNetwork:"), network)
+	rv := objc.SendIfResponds[ETTaskState](e.ID, objc.Sel("initWithBlobMap:"), map_)
 	return rv
 }
 
 func (e ETTaskState) Blobs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("blobs"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("blobs"))
 	return rv
 }
-func (e ETTaskState) SetBlobs(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBlobs:"), value)
+func (e ETTaskState) SetBlobs(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBlobs:"), value)
 }
 func (e ETTaskState) NetworkPointer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("networkPointer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("networkPointer"))
 	return rv
 }
-func (e ETTaskState) SetNetworkPointer(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNetworkPointer:"), value)
+func (e ETTaskState) SetNetworkPointer(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNetworkPointer:"), value)
 }

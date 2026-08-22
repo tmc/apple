@@ -38,7 +38,7 @@ func (ec EspressoProfilingNetworkANEInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingNetworkANEInfoClass) Alloc() EspressoProfilingNetworkANEInfo {
-	rv := objc.Send[EspressoProfilingNetworkANEInfo](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkANEInfo](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,34 +81,34 @@ type IEspressoProfilingNetworkANEInfo interface {
 
 // Init initializes the instance.
 func (e EspressoProfilingNetworkANEInfo) Init() EspressoProfilingNetworkANEInfo {
-	rv := objc.Send[EspressoProfilingNetworkANEInfo](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkANEInfo](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoProfilingNetworkANEInfo) Autorelease() EspressoProfilingNetworkANEInfo {
-	rv := objc.Send[EspressoProfilingNetworkANEInfo](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkANEInfo](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoProfilingNetworkANEInfo creates a new EspressoProfilingNetworkANEInfo instance.
 func NewEspressoProfilingNetworkANEInfo() EspressoProfilingNetworkANEInfo {
 	class := getEspressoProfilingNetworkANEInfoClass()
-	rv := objc.Send[EspressoProfilingNetworkANEInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoProfilingNetworkANEInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoProfilingNetworkANEInfo) Ane_time_per_eval_ns() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("ane_time_per_eval_ns"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("ane_time_per_eval_ns"))
 	return rv
 }
 func (e EspressoProfilingNetworkANEInfo) SetAne_time_per_eval_ns(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setAne_time_per_eval_ns:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setAne_time_per_eval_ns:"), value)
 }
 func (e EspressoProfilingNetworkANEInfo) Total_ane_time_ns() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("total_ane_time_ns"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("total_ane_time_ns"))
 	return rv
 }
 func (e EspressoProfilingNetworkANEInfo) SetTotal_ane_time_ns(value uint64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setTotal_ane_time_ns:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setTotal_ane_time_ns:"), value)
 }

@@ -38,7 +38,7 @@ func (vc VoiceTableCellViewClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VoiceTableCellViewClass) Alloc() VoiceTableCellView {
-	rv := objc.Send[VoiceTableCellView](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VoiceTableCellView](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,32 +78,32 @@ type IVoiceTableCellView interface {
 
 // Init initializes the instance.
 func (v VoiceTableCellView) Init() VoiceTableCellView {
-	rv := objc.Send[VoiceTableCellView](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VoiceTableCellView](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VoiceTableCellView) Autorelease() VoiceTableCellView {
-	rv := objc.Send[VoiceTableCellView](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VoiceTableCellView](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVoiceTableCellView creates a new VoiceTableCellView instance.
 func NewVoiceTableCellView() VoiceTableCellView {
 	class := getVoiceTableCellViewClass()
-	rv := objc.Send[VoiceTableCellView](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VoiceTableCellView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VoiceTableCellView) ActiveCheckbox() ISOVoiceRowCheckboxButton {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("activeCheckbox"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("activeCheckbox"))
 	return SOVoiceRowCheckboxButtonFromID(objc.ID(rv))
 }
 func (v VoiceTableCellView) DownloadCheckbox() ISOVoiceRowCheckboxButton {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("downloadCheckbox"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("downloadCheckbox"))
 	return SOVoiceRowCheckboxButtonFromID(objc.ID(rv))
 }
 func (v VoiceTableCellView) DownloadMessageTextField() appkit.NSTextField {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("downloadMessageTextField"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("downloadMessageTextField"))
 	return appkit.NSTextFieldFromID(objc.ID(rv))
 }

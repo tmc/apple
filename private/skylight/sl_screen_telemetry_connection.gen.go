@@ -39,7 +39,7 @@ func (sc SLScreenTelemetryConnectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLScreenTelemetryConnectionClass) Alloc() SLScreenTelemetryConnection {
-	rv := objc.Send[SLScreenTelemetryConnection](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLScreenTelemetryConnection](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,72 +106,72 @@ type ISLScreenTelemetryConnection interface {
 
 // Init initializes the instance.
 func (s SLScreenTelemetryConnection) Init() SLScreenTelemetryConnection {
-	rv := objc.Send[SLScreenTelemetryConnection](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLScreenTelemetryConnection](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLScreenTelemetryConnection) Autorelease() SLScreenTelemetryConnection {
-	rv := objc.Send[SLScreenTelemetryConnection](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLScreenTelemetryConnection](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLScreenTelemetryConnection creates a new SLScreenTelemetryConnection instance.
 func NewSLScreenTelemetryConnection() SLScreenTelemetryConnection {
 	class := getSLScreenTelemetryConnectionClass()
-	rv := objc.Send[SLScreenTelemetryConnection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLScreenTelemetryConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLScreenTelemetryConnection) Close() {
-	objc.Send[objc.ID](s.ID, objc.Sel("close"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("close"))
 }
 func (s SLScreenTelemetryConnection) ClosedWithError(error_ objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("closedWithError:"), error_)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("closedWithError:"), error_)
 }
 func (s SLScreenTelemetryConnection) ConnectUsingXPCConnectionAndConfigMessage(xPCConnection objectivec.IObject, message objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("connectUsingXPCConnection:andConfigMessage:"), xPCConnection, message)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connectUsingXPCConnection:andConfigMessage:"), xPCConnection, message)
 }
 func (s SLScreenTelemetryConnection) HandleMessage(message objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("handleMessage:"), message)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("handleMessage:"), message)
 }
 func (s SLScreenTelemetryConnection) InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock(width uint32, height uint32, rows uint32, columns uint32, interval float64, queue objectivec.IObject, block VoidHandler) SLScreenTelemetryConnection {
 	_block6, _ := NewVoidBlock(block)
-	rv := objc.Send[SLScreenTelemetryConnection](s.ID, objc.Sel("initWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
+	rv := objc.SendIfResponds[SLScreenTelemetryConnection](s.ID, objc.Sel("initWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
 	return rv
 }
 
 func (_SLScreenTelemetryConnectionClass SLScreenTelemetryConnectionClass) ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock(width uint32, height uint32, rows uint32, columns uint32, interval float64, queue objectivec.IObject, block VoidHandler) objectivec.IObject {
 	_block6, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](objc.ID(_SLScreenTelemetryConnectionClass.class), objc.Sel("connectionWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLScreenTelemetryConnectionClass.class), objc.Sel("connectionWithZoneWidth:zoneHeight:zoneRows:zoneColumns:samplingInterval:queue:andUpdateBlock:"), width, height, rows, columns, interval, queue, _block6)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLScreenTelemetryConnection) Closed() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("closed"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("closed"))
 	return rv
 }
 func (s SLScreenTelemetryConnection) SetClosed(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setClosed:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setClosed:"), value)
 }
 func (s SLScreenTelemetryConnection) Connection() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("connection"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLScreenTelemetryConnection) SetConnection(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConnection:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setConnection:"), value)
 }
 func (s SLScreenTelemetryConnection) Queue() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("queue"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLScreenTelemetryConnection) UpdateBlock() VoidHandler {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("updateBlock"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("updateBlock"))
 	_ = rv
 	return nil
 }
 func (s SLScreenTelemetryConnection) ZeroingContainer() ISLSZeroingWeakContainer {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("zeroingContainer"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("zeroingContainer"))
 	return SLSZeroingWeakContainerFromID(objc.ID(rv))
 }
 

@@ -39,7 +39,7 @@ func (xc XRGPUAPSDerivedCounterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (xc XRGPUAPSDerivedCounterClass) Alloc() XRGPUAPSDerivedCounter {
-	rv := objc.Send[XRGPUAPSDerivedCounter](objc.ID(xc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[XRGPUAPSDerivedCounter](objc.ID(xc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,47 +85,47 @@ type IXRGPUAPSDerivedCounter interface {
 
 // Init initializes the instance.
 func (x XRGPUAPSDerivedCounter) Init() XRGPUAPSDerivedCounter {
-	rv := objc.Send[XRGPUAPSDerivedCounter](x.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[XRGPUAPSDerivedCounter](x.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (x XRGPUAPSDerivedCounter) Autorelease() XRGPUAPSDerivedCounter {
-	rv := objc.Send[XRGPUAPSDerivedCounter](x.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[XRGPUAPSDerivedCounter](x.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewXRGPUAPSDerivedCounter creates a new XRGPUAPSDerivedCounter instance.
 func NewXRGPUAPSDerivedCounter() XRGPUAPSDerivedCounter {
 	class := getXRGPUAPSDerivedCounterClass()
-	rv := objc.Send[XRGPUAPSDerivedCounter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[XRGPUAPSDerivedCounter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewXRGPUAPSDerivedCounterWithNameDocStringTypeCounterId(name objectivec.IObject, string_ objectivec.IObject, type_ uint32, id uint64) XRGPUAPSDerivedCounter {
 	instance := getXRGPUAPSDerivedCounterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:docString:type:counterId:"), name, string_, type_, id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:docString:type:counterId:"), name, string_, type_, id)
 	return XRGPUAPSDerivedCounterFromID(rv)
 }
 
 func (x XRGPUAPSDerivedCounter) InitWithNameDocStringTypeCounterId(name objectivec.IObject, string_ objectivec.IObject, type_ uint32, id uint64) XRGPUAPSDerivedCounter {
-	rv := objc.Send[XRGPUAPSDerivedCounter](x.ID, objc.Sel("initWithName:docString:type:counterId:"), name, string_, type_, id)
+	rv := objc.SendIfResponds[XRGPUAPSDerivedCounter](x.ID, objc.Sel("initWithName:docString:type:counterId:"), name, string_, type_, id)
 	return rv
 }
 
 func (x XRGPUAPSDerivedCounter) CounterId() uint64 {
-	rv := objc.Send[uint64](x.ID, objc.Sel("counterId"))
+	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("counterId"))
 	return rv
 }
 func (x XRGPUAPSDerivedCounter) CounterType() uint32 {
-	rv := objc.Send[uint32](x.ID, objc.Sel("counterType"))
+	rv := objc.SendIfResponds[uint32](x.ID, objc.Sel("counterType"))
 	return rv
 }
 func (x XRGPUAPSDerivedCounter) DocString() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("docString"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("docString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (x XRGPUAPSDerivedCounter) Name() string {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }

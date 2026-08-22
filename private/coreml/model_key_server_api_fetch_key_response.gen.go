@@ -38,7 +38,7 @@ func (mc ModelKeyServerAPIFetchKeyResponseClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc ModelKeyServerAPIFetchKeyResponseClass) Alloc() ModelKeyServerAPIFetchKeyResponse {
-	rv := objc.Send[ModelKeyServerAPIFetchKeyResponse](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIFetchKeyResponse](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,8 +71,9 @@ func ModelKeyServerAPIFetchKeyResponseFromID(id objc.ID) ModelKeyServerAPIFetchK
 	return ModelKeyServerAPIFetchKeyResponse{objectivec.Object{ID: id}}
 }
 
-// NOTE: ModelKeyServerAPIFetchKeyResponse struct embeds objectivec.Object (parent type unavailable) but
-// IModelKeyServerAPIFetchKeyResponse embeds the parent interface; skip compile-time assertion.
+// NOTE: ModelKeyServerAPIFetchKeyResponse embeds objectivec.Object because the parent type is
+// unavailable, but IModelKeyServerAPIFetchKeyResponse embeds IPBCodable, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [ModelKeyServerAPIFetchKeyResponse] class.
 //
@@ -123,85 +124,85 @@ type IModelKeyServerAPIFetchKeyResponse interface {
 
 // Init initializes the instance.
 func (m ModelKeyServerAPIFetchKeyResponse) Init() ModelKeyServerAPIFetchKeyResponse {
-	rv := objc.Send[ModelKeyServerAPIFetchKeyResponse](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIFetchKeyResponse](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m ModelKeyServerAPIFetchKeyResponse) Autorelease() ModelKeyServerAPIFetchKeyResponse {
-	rv := objc.Send[ModelKeyServerAPIFetchKeyResponse](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIFetchKeyResponse](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewModelKeyServerAPIFetchKeyResponse creates a new ModelKeyServerAPIFetchKeyResponse instance.
 func NewModelKeyServerAPIFetchKeyResponse() ModelKeyServerAPIFetchKeyResponse {
 	class := getModelKeyServerAPIFetchKeyResponseClass()
-	rv := objc.Send[ModelKeyServerAPIFetchKeyResponse](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ModelKeyServerAPIFetchKeyResponse](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m ModelKeyServerAPIFetchKeyResponse) StringAsResult(result objectivec.IObject) int {
-	rv := objc.Send[int](m.ID, objc.Sel("StringAsResult:"), result)
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("StringAsResult:"), result)
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) ClearOneofValuesForResult() {
-	objc.Send[objc.ID](m.ID, objc.Sel("clearOneofValuesForResult"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("clearOneofValuesForResult"))
 }
 func (m ModelKeyServerAPIFetchKeyResponse) CopyTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (m ModelKeyServerAPIFetchKeyResponse) MergeFrom(from objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) ReadFrom(from objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) ResultAsString(string_ int) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("resultAsString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resultAsString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (m ModelKeyServerAPIFetchKeyResponse) WriteTo(to objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("writeTo:"), to)
 }
 
 func (m ModelKeyServerAPIFetchKeyResponse) Error() IModelKeyServerAPIResultError {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("error"))
 	return ModelKeyServerAPIResultErrorFromID(objc.ID(rv))
 }
 func (m ModelKeyServerAPIFetchKeyResponse) SetError(value IModelKeyServerAPIResultError) {
-	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setError:"), value)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) HasError() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasError"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasError"))
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) HasResult() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasResult"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasResult"))
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) SetHasResult(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasResult:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setHasResult:"), value)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) HasSuccess() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasSuccess"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasSuccess"))
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) Result() int {
-	rv := objc.Send[int](m.ID, objc.Sel("result"))
+	rv := objc.SendIfResponds[int](m.ID, objc.Sel("result"))
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) SetResult(value int) {
-	objc.Send[struct{}](m.ID, objc.Sel("setResult:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setResult:"), value)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) Success() IModelKeyServerAPIFetchKeyResult {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("success"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("success"))
 	return ModelKeyServerAPIFetchKeyResultFromID(objc.ID(rv))
 }
 func (m ModelKeyServerAPIFetchKeyResponse) SetSuccess(value IModelKeyServerAPIFetchKeyResult) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSuccess:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSuccess:"), value)
 }

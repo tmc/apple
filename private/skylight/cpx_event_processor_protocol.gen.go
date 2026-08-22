@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -13,6 +15,9 @@ type CPXEventProcessor interface {
 
 	// ClearEventState protocol.
 	ClearEventState()
+
+	// ProcessEventContextDispatcher protocol.
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 }
 
 // CPXEventProcessorObject wraps an existing Objective-C object that conforms to the CPXEventProcessor protocol.
@@ -33,9 +38,9 @@ func CPXEventProcessorObjectFromID(id objc.ID) CPXEventProcessorObject {
 }
 
 func (o CPXEventProcessorObject) ClearEventState() {
-	objc.Send[struct{}](o.ID, objc.Sel("clearEventState"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("clearEventState"))
 }
-func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
-	rv := objc.Send[int64](o.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
+func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+	rv := objc.SendIfResponds[int64](o.ID, objc.Sel("processEvent:context:dispatcher:"), unsafe.Pointer(event), unsafe.Pointer(context), dispatcher)
 	return rv
 }

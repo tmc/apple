@@ -38,7 +38,7 @@ func (pc PBCodableClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PBCodableClass) Alloc() PBCodable {
-	rv := objc.Send[PBCodable](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PBCodable](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,19 +64,19 @@ type IPBCodable interface {
 
 // Init initializes the instance.
 func (p PBCodable) Init() PBCodable {
-	rv := objc.Send[PBCodable](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PBCodable](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PBCodable) Autorelease() PBCodable {
-	rv := objc.Send[PBCodable](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PBCodable](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPBCodable creates a new PBCodable instance.
 func NewPBCodable() PBCodable {
 	class := getPBCodableClass()
-	rv := objc.Send[PBCodable](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PBCodable](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

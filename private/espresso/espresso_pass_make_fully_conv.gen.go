@@ -37,7 +37,7 @@ func (ec EspressoPassMakeFullyConvClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMakeFullyConvClass) Alloc() EspressoPassMakeFullyConv {
-	rv := objc.Send[EspressoPassMakeFullyConv](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMakeFullyConv](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMakeFullyConv interface {
 
 // Init initializes the instance.
 func (e EspressoPassMakeFullyConv) Init() EspressoPassMakeFullyConv {
-	rv := objc.Send[EspressoPassMakeFullyConv](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMakeFullyConv](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMakeFullyConv) Autorelease() EspressoPassMakeFullyConv {
-	rv := objc.Send[EspressoPassMakeFullyConv](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMakeFullyConv](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMakeFullyConv creates a new EspressoPassMakeFullyConv instance.
 func NewEspressoPassMakeFullyConv() EspressoPassMakeFullyConv {
 	class := getEspressoPassMakeFullyConvClass()
-	rv := objc.Send[EspressoPassMakeFullyConv](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMakeFullyConv](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

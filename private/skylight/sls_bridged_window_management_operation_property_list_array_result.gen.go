@@ -39,7 +39,7 @@ func (sc SLSBridgedWindowManagementOperationPropertyListArrayResultClass) Class(
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationPropertyListArrayResultClass) Alloc() SLSBridgedWindowManagementOperationPropertyListArrayResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListArrayResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,41 +76,41 @@ type ISLSBridgedWindowManagementOperationPropertyListArrayResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) Init() SLSBridgedWindowManagementOperationPropertyListArrayResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) Autorelease() SLSBridgedWindowManagementOperationPropertyListArrayResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationPropertyListArrayResult creates a new SLSBridgedWindowManagementOperationPropertyListArrayResult instance.
 func NewSLSBridgedWindowManagementOperationPropertyListArrayResult() SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	class := getSLSBridgedWindowManagementOperationPropertyListArrayResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListArrayResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationPropertyListArrayResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListArrayResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationPropertyListArrayResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationPropertyListArrayResultWithPropertyListArray(array objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
 	instance := getSLSBridgedWindowManagementOperationPropertyListArrayResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPropertyListArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPropertyListArray:"), array)
 	return SLSBridgedWindowManagementOperationPropertyListArrayResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) InitWithPropertyListArray(array objectivec.IObject) SLSBridgedWindowManagementOperationPropertyListArrayResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("initWithPropertyListArray:"), array)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationPropertyListArrayResult](s.ID, objc.Sel("initWithPropertyListArray:"), array)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationPropertyListArrayResult) PropertyListArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("propertyListArray"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("propertyListArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

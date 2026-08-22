@@ -38,7 +38,7 @@ func (tc TextToSpeechVoicePreviewerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoicePreviewerClass) Alloc() TextToSpeechVoicePreviewer {
-	rv := objc.Send[TextToSpeechVoicePreviewer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechVoicePreviewer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -54,8 +54,9 @@ func TextToSpeechVoicePreviewerFromID(id objc.ID) TextToSpeechVoicePreviewer {
 	return TextToSpeechVoicePreviewer{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechVoicePreviewer struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechVoicePreviewer embeds the parent interface; skip compile-time assertion.
+// NOTE: TextToSpeechVoicePreviewer embeds objectivec.Object because the parent type is
+// unavailable, but ITextToSpeechVoicePreviewer embeds ISwiftNativeNSObject, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoicePreviewer] class.
 //
@@ -72,23 +73,23 @@ type ITextToSpeechVoicePreviewer interface {
 
 // Init initializes the instance.
 func (t TextToSpeechVoicePreviewer) Init() TextToSpeechVoicePreviewer {
-	rv := objc.Send[TextToSpeechVoicePreviewer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechVoicePreviewer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechVoicePreviewer) Autorelease() TextToSpeechVoicePreviewer {
-	rv := objc.Send[TextToSpeechVoicePreviewer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechVoicePreviewer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechVoicePreviewer creates a new TextToSpeechVoicePreviewer instance.
 func NewTextToSpeechVoicePreviewer() TextToSpeechVoicePreviewer {
 	class := getTextToSpeechVoicePreviewerClass()
-	rv := objc.Send[TextToSpeechVoicePreviewer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechVoicePreviewer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TextToSpeechVoicePreviewer) AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool) {
-	objc.Send[objc.ID](t.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
 }

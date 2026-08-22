@@ -39,7 +39,7 @@ func (gc GTShaderProfilerMCABinaryListClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerMCABinaryListClass) Alloc() GTShaderProfilerMCABinaryList {
-	rv := objc.Send[GTShaderProfilerMCABinaryList](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinaryList](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,43 +82,43 @@ type IGTShaderProfilerMCABinaryList interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerMCABinaryList) Init() GTShaderProfilerMCABinaryList {
-	rv := objc.Send[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerMCABinaryList) Autorelease() GTShaderProfilerMCABinaryList {
-	rv := objc.Send[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerMCABinaryList creates a new GTShaderProfilerMCABinaryList instance.
 func NewGTShaderProfilerMCABinaryList() GTShaderProfilerMCABinaryList {
 	class := getGTShaderProfilerMCABinaryListClass()
-	rv := objc.Send[GTShaderProfilerMCABinaryList](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinaryList](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerMCABinaryListWithShaderProfilerResultPipelineStateIdProgramType(result objectivec.IObject, id uint64, type_ uint32) GTShaderProfilerMCABinaryList {
 	instance := getGTShaderProfilerMCABinaryListClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShaderProfilerResult:pipelineStateId:programType:"), result, id, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShaderProfilerResult:pipelineStateId:programType:"), result, id, type_)
 	return GTShaderProfilerMCABinaryListFromID(rv)
 }
 
 func (g GTShaderProfilerMCABinaryList) InitWithShaderProfilerResultPipelineStateIdProgramType(result objectivec.IObject, id uint64, type_ uint32) GTShaderProfilerMCABinaryList {
-	rv := objc.Send[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("initWithShaderProfilerResult:pipelineStateId:programType:"), result, id, type_)
+	rv := objc.SendIfResponds[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("initWithShaderProfilerResult:pipelineStateId:programType:"), result, id, type_)
 	return rv
 }
 
 func (g GTShaderProfilerMCABinaryList) AllocatedGPRCount() int {
-	rv := objc.Send[int](g.ID, objc.Sel("allocatedGPRCount"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("allocatedGPRCount"))
 	return rv
 }
 func (g GTShaderProfilerMCABinaryList) HighRegisterCount() int {
-	rv := objc.Send[int](g.ID, objc.Sel("highRegisterCount"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("highRegisterCount"))
 	return rv
 }
 func (g GTShaderProfilerMCABinaryList) McaBinaries() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaBinaries"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mcaBinaries"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

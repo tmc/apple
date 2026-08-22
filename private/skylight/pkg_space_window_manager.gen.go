@@ -38,7 +38,7 @@ func (pc PKGSpaceWindowManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PKGSpaceWindowManagerClass) Alloc() PKGSpaceWindowManager {
-	rv := objc.Send[PKGSpaceWindowManager](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PKGSpaceWindowManager](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IPKGSpaceWindowManager interface {
 
 // Init initializes the instance.
 func (p PKGSpaceWindowManager) Init() PKGSpaceWindowManager {
-	rv := objc.Send[PKGSpaceWindowManager](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PKGSpaceWindowManager](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PKGSpaceWindowManager) Autorelease() PKGSpaceWindowManager {
-	rv := objc.Send[PKGSpaceWindowManager](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PKGSpaceWindowManager](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPKGSpaceWindowManager creates a new PKGSpaceWindowManager instance.
 func NewPKGSpaceWindowManager() PKGSpaceWindowManager {
 	class := getPKGSpaceWindowManagerClass()
-	rv := objc.Send[PKGSpaceWindowManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PKGSpaceWindowManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

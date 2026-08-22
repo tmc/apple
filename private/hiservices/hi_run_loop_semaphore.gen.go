@@ -41,7 +41,7 @@ func (hc HIRunLoopSemaphoreClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (hc HIRunLoopSemaphoreClass) Alloc() HIRunLoopSemaphore {
-	rv := objc.Send[HIRunLoopSemaphore](objc.ID(hc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[HIRunLoopSemaphore](objc.ID(hc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,53 +99,53 @@ type IHIRunLoopSemaphore interface {
 
 // Init initializes the instance.
 func (h HIRunLoopSemaphore) Init() HIRunLoopSemaphore {
-	rv := objc.Send[HIRunLoopSemaphore](h.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[HIRunLoopSemaphore](h.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (h HIRunLoopSemaphore) Autorelease() HIRunLoopSemaphore {
-	rv := objc.Send[HIRunLoopSemaphore](h.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[HIRunLoopSemaphore](h.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewHIRunLoopSemaphore creates a new HIRunLoopSemaphore instance.
 func NewHIRunLoopSemaphore() HIRunLoopSemaphore {
 	class := getHIRunLoopSemaphoreClass()
-	rv := objc.Send[HIRunLoopSemaphore](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[HIRunLoopSemaphore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewHIRunLoopSemaphoreWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
 	instance := getHIRunLoopSemaphoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
 	return HIRunLoopSemaphoreFromID(rv)
 }
 
 func (h HIRunLoopSemaphore) InvokeLoopInModeForDurationWithBlock(duration float64, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](h.ID, objc.Sel("invokeLoopInModeForDuration:withBlock:"), duration, _block1)
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("invokeLoopInModeForDuration:withBlock:"), duration, _block1)
 }
 func (h HIRunLoopSemaphore) SetLegacyWake() {
-	objc.Send[objc.ID](h.ID, objc.Sel("setLegacyWake"))
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("setLegacyWake"))
 }
 func (h HIRunLoopSemaphore) Signal() {
-	objc.Send[objc.ID](h.ID, objc.Sel("signal"))
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("signal"))
 }
 func (h HIRunLoopSemaphore) Wait() {
-	objc.Send[objc.ID](h.ID, objc.Sel("wait"))
+	objc.SendIfResponds[objc.ID](h.ID, objc.Sel("wait"))
 }
 func (h HIRunLoopSemaphore) WaitWithWait(wait float64) bool {
-	rv := objc.Send[bool](h.ID, objc.Sel("wait:"), wait)
+	rv := objc.SendIfResponds[bool](h.ID, objc.Sel("wait:"), wait)
 	return rv
 }
 func (h HIRunLoopSemaphore) InitWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
-	rv := objc.Send[HIRunLoopSemaphore](h.ID, objc.Sel("initWithMode:"), mode)
+	rv := objc.SendIfResponds[HIRunLoopSemaphore](h.ID, objc.Sel("initWithMode:"), mode)
 	return rv
 }
 
 func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _invocations() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -164,7 +164,7 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanInvocations() bool {
 }
 func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _observeWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) {
 	_block1, _ := NewVoidBlock(performing)
-	objc.Send[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"), _observe, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"), _observe, _block1)
 }
 
 // ObserveWhilePerforming is an exported wrapper for the private method _observeWhilePerforming.
@@ -183,14 +183,14 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanObserveWhilePerformin
 }
 
 func (h HIRunLoopSemaphore) Legend() string {
-	rv := objc.Send[objc.ID](h.ID, objc.Sel("legend"))
+	rv := objc.SendIfResponds[objc.ID](h.ID, objc.Sel("legend"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (h HIRunLoopSemaphore) SetLegend(value string) {
-	objc.Send[struct{}](h.ID, objc.Sel("setLegend:"), objc.String(value))
+	objc.SendIfResponds[struct{}](h.ID, objc.Sel("setLegend:"), objc.String(value))
 }
 func (h HIRunLoopSemaphore) Mode() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](h.ID, objc.Sel("mode"))
+	rv := objc.SendIfResponds[corefoundation.CFStringRef](h.ID, objc.Sel("mode"))
 	return corefoundation.CFStringRef(rv)
 }
 

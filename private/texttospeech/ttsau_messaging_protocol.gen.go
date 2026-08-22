@@ -10,6 +10,21 @@ import (
 // TTSAUMessaging protocol.
 type TTSAUMessaging interface {
 	objectivec.IObject
+
+	// DefaultSettingsForVoice protocol.
+	DefaultSettingsForVoice(voice objectivec.IObject) objectivec.IObject
+
+	// Echo protocol.
+	Echo(echo objectivec.IObject) objectivec.IObject
+
+	// PrewarmWithVoice protocol.
+	PrewarmWithVoice(voice objectivec.IObject)
+
+	// RequireFirstUnlockForVoiceLoad protocol.
+	RequireFirstUnlockForVoiceLoad() objectivec.IObject
+
+	// VoicesExternallyManaged protocol.
+	VoicesExternallyManaged() objectivec.IObject
 }
 
 // TTSAUMessagingObject wraps an existing Objective-C object that conforms to the TTSAUMessaging protocol.
@@ -30,21 +45,21 @@ func TTSAUMessagingObjectFromID(id objc.ID) TTSAUMessagingObject {
 }
 
 func (o TTSAUMessagingObject) DefaultSettingsForVoice(voice objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("defaultSettingsForVoice:"), voice)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("defaultSettingsForVoice:"), voice)
 	return objectivec.Object{ID: rv}
 }
 func (o TTSAUMessagingObject) Echo(echo objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("echo:"), echo)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("echo:"), echo)
 	return objectivec.Object{ID: rv}
 }
 func (o TTSAUMessagingObject) PrewarmWithVoice(voice objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("prewarmWithVoice:"), voice)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("prewarmWithVoice:"), voice)
 }
 func (o TTSAUMessagingObject) RequireFirstUnlockForVoiceLoad() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("requireFirstUnlockForVoiceLoad"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("requireFirstUnlockForVoiceLoad"))
 	return objectivec.Object{ID: rv}
 }
 func (o TTSAUMessagingObject) VoicesExternallyManaged() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("voicesExternallyManaged"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("voicesExternallyManaged"))
 	return objectivec.Object{ID: rv}
 }

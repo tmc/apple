@@ -40,7 +40,7 @@ func (mc MLSupportVectorClassifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSupportVectorClassifierClass) Alloc() MLSupportVectorClassifier {
-	rv := objc.Send[MLSupportVectorClassifier](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSupportVectorClassifier](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -59,8 +59,8 @@ func MLSupportVectorClassifierFromID(id objc.ID) MLSupportVectorClassifier {
 	return MLSupportVectorClassifier{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLSupportVectorClassifier struct embeds objectivec.Object (parent type unavailable) but
-// IMLSupportVectorClassifier embeds the parent interface; skip compile-time assertion.
+// Ensure MLSupportVectorClassifier implements IMLSupportVectorClassifier.
+var _ IMLSupportVectorClassifier = MLSupportVectorClassifier{}
 
 // An interface definition for the [MLSupportVectorClassifier] class.
 //
@@ -71,7 +71,7 @@ func MLSupportVectorClassifierFromID(id objc.ID) MLSupportVectorClassifier {
 //   - [IMLSupportVectorClassifier.SetEngine]
 //   - [IMLSupportVectorClassifier.InitWithEngineDescriptionConfigurationError]
 type IMLSupportVectorClassifier interface {
-	IMLClassifier
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -83,30 +83,33 @@ type IMLSupportVectorClassifier interface {
 
 // Init initializes the instance.
 func (m MLSupportVectorClassifier) Init() MLSupportVectorClassifier {
-	rv := objc.Send[MLSupportVectorClassifier](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSupportVectorClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSupportVectorClassifier) Autorelease() MLSupportVectorClassifier {
-	rv := objc.Send[MLSupportVectorClassifier](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSupportVectorClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSupportVectorClassifier creates a new MLSupportVectorClassifier instance.
 func NewMLSupportVectorClassifier() MLSupportVectorClassifier {
 	class := getMLSupportVectorClassifierClass()
-	rv := objc.Send[MLSupportVectorClassifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSupportVectorClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSupportVectorClassifierWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLSupportVectorClassifierClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:description:configuration:error:"), engine, description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSupportVectorClassifier{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSupportVectorClassifier{}, objc.ErrInitFailed
 	}
 	return MLSupportVectorClassifierFromID(rv), nil
 }
@@ -133,14 +136,14 @@ func (m MLSupportVectorClassifier) InitWithEngineDescriptionConfigurationError(e
 }
 
 func (_MLSupportVectorClassifierClass MLSupportVectorClassifierClass) FeatureValueWithObject(object objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSupportVectorClassifierClass.class), objc.Sel("featureValueWithObject:"), object)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSupportVectorClassifierClass.class), objc.Sel("featureValueWithObject:"), object)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLSupportVectorClassifier) Engine() IMLSVMEngine {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("engine"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("engine"))
 	return MLSVMEngineFromID(objc.ID(rv))
 }
 func (m MLSupportVectorClassifier) SetEngine(value IMLSVMEngine) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }

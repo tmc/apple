@@ -38,7 +38,7 @@ func (sc SkyLightPKGSystemStatusIndicatorsTimerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPKGSystemStatusIndicatorsTimerClass) Alloc() SkyLightPKGSystemStatusIndicatorsTimer {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsTimer](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsTimer](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPKGSystemStatusIndicatorsTimerFromID(id objc.ID) SkyLightPKGSystemS
 	return SkyLightPKGSystemStatusIndicatorsTimer{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPKGSystemStatusIndicatorsTimer struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPKGSystemStatusIndicatorsTimer embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPKGSystemStatusIndicatorsTimer implements ISkyLightPKGSystemStatusIndicatorsTimer.
+var _ ISkyLightPKGSystemStatusIndicatorsTimer = SkyLightPKGSystemStatusIndicatorsTimer{}
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsTimer] class.
 type ISkyLightPKGSystemStatusIndicatorsTimer interface {
@@ -61,19 +61,19 @@ type ISkyLightPKGSystemStatusIndicatorsTimer interface {
 
 // Init initializes the instance.
 func (s SkyLightPKGSystemStatusIndicatorsTimer) Init() SkyLightPKGSystemStatusIndicatorsTimer {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsTimer](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsTimer](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPKGSystemStatusIndicatorsTimer) Autorelease() SkyLightPKGSystemStatusIndicatorsTimer {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsTimer](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsTimer](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPKGSystemStatusIndicatorsTimer creates a new SkyLightPKGSystemStatusIndicatorsTimer instance.
 func NewSkyLightPKGSystemStatusIndicatorsTimer() SkyLightPKGSystemStatusIndicatorsTimer {
 	class := getSkyLightPKGSystemStatusIndicatorsTimerClass()
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsTimer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsTimer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

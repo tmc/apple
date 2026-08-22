@@ -10,6 +10,12 @@ import (
 // SLSRemoteViewEventClientConfig protocol.
 type SLSRemoteViewEventClientConfig interface {
 	objectivec.IObject
+
+	// Connection protocol.
+	Connection() objectivec.IObject
+
+	// ServiceInterface protocol.
+	ServiceInterface() objectivec.IObject
 }
 
 // SLSRemoteViewEventClientConfigObject wraps an existing Objective-C object that conforms to the SLSRemoteViewEventClientConfig protocol.
@@ -30,10 +36,10 @@ func SLSRemoteViewEventClientConfigObjectFromID(id objc.ID) SLSRemoteViewEventCl
 }
 
 func (o SLSRemoteViewEventClientConfigObject) Connection() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("connection"))
 	return objectivec.Object{ID: rv}
 }
 func (o SLSRemoteViewEventClientConfigObject) ServiceInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("serviceInterface"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("serviceInterface"))
 	return objectivec.Object{ID: rv}
 }

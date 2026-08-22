@@ -39,7 +39,7 @@ func (vc VZGraphicsDisplayClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,31 +97,31 @@ type IVZGraphicsDisplay interface {
 
 // Init initializes the instance.
 func (v VZGraphicsDisplay) Init() VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGraphicsDisplay](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGraphicsDisplay) Autorelease() VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGraphicsDisplay](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGraphicsDisplay creates a new VZGraphicsDisplay instance.
 func NewVZGraphicsDisplay() VZGraphicsDisplay {
 	class := getVZGraphicsDisplayClass()
-	rv := objc.Send[VZGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
 	instance := getVZGraphicsDisplayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZGraphicsDisplayFromID(rv)
 }
 
 func (v VZGraphicsDisplay) _configuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_configuration"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -139,7 +139,7 @@ func (v VZGraphicsDisplay) CanConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_configuration"))
 }
 func (v VZGraphicsDisplay) _graphicsDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDevice"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_graphicsDevice"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -157,7 +157,7 @@ func (v VZGraphicsDisplay) CanGraphicsDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice"))
 }
 func (v VZGraphicsDisplay) _graphicsOrientation() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_graphicsOrientation"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_graphicsOrientation"))
 	return rv
 }
 
@@ -175,7 +175,7 @@ func (v VZGraphicsDisplay) CanGraphicsOrientation() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsOrientation"))
 }
 func (v VZGraphicsDisplay) _initDetached() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initDetached"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initDetached"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -193,7 +193,7 @@ func (v VZGraphicsDisplay) CanInitDetached() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initDetached"))
 }
 func (v VZGraphicsDisplay) _matchesConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("_matchesConfiguration:"), configuration)
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_matchesConfiguration:"), configuration)
 	return rv
 }
 
@@ -211,7 +211,7 @@ func (v VZGraphicsDisplay) CanMatchesConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_matchesConfiguration:"))
 }
 func (v VZGraphicsDisplay) _setGraphicsDevice(device objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDevice:"), device)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setGraphicsDevice:"), device)
 }
 
 // SetGraphicsDevice is an exported wrapper for the private method _setGraphicsDevice.
@@ -230,7 +230,7 @@ func (v VZGraphicsDisplay) CanSetGraphicsDevice() bool {
 }
 func (v VZGraphicsDisplay) _takeScreenshotWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"), _block0)
 }
 
 // TakeScreenshotWithCompletionHandler is an exported wrapper for the private method _takeScreenshotWithCompletionHandler.
@@ -248,7 +248,7 @@ func (v VZGraphicsDisplay) CanTakeScreenshotWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"))
 }
 func (v VZGraphicsDisplay) _uuid() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_uuid"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -266,7 +266,7 @@ func (v VZGraphicsDisplay) CanUuid() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_uuid"))
 }
 func (v VZGraphicsDisplay) InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	rv := objc.SendIfResponds[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return rv
 }
 

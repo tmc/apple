@@ -37,7 +37,7 @@ func (ec EspressoPassMergePytorchLayernormClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMergePytorchLayernormClass) Alloc() EspressoPassMergePytorchLayernorm {
-	rv := objc.Send[EspressoPassMergePytorchLayernorm](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMergePytorchLayernorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMergePytorchLayernorm interface {
 
 // Init initializes the instance.
 func (e EspressoPassMergePytorchLayernorm) Init() EspressoPassMergePytorchLayernorm {
-	rv := objc.Send[EspressoPassMergePytorchLayernorm](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMergePytorchLayernorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMergePytorchLayernorm) Autorelease() EspressoPassMergePytorchLayernorm {
-	rv := objc.Send[EspressoPassMergePytorchLayernorm](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMergePytorchLayernorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMergePytorchLayernorm creates a new EspressoPassMergePytorchLayernorm instance.
 func NewEspressoPassMergePytorchLayernorm() EspressoPassMergePytorchLayernorm {
 	class := getEspressoPassMergePytorchLayernormClass()
-	rv := objc.Send[EspressoPassMergePytorchLayernorm](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMergePytorchLayernorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

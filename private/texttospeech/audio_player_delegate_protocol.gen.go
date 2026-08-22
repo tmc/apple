@@ -10,6 +10,12 @@ import (
 // AVAudioPlayerDelegate protocol.
 type AVAudioPlayerDelegate interface {
 	objectivec.IObject
+
+	// AudioPlayerDecodeErrorDidOccurError protocol.
+	AudioPlayerDecodeErrorDidOccurError(occur objectivec.IObject, error_ objectivec.IObject)
+
+	// AudioPlayerDidFinishPlayingSuccessfully protocol.
+	AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool)
 }
 
 // AVAudioPlayerDelegateObject wraps an existing Objective-C object that conforms to the AVAudioPlayerDelegate protocol.
@@ -30,8 +36,8 @@ func AVAudioPlayerDelegateObjectFromID(id objc.ID) AVAudioPlayerDelegateObject {
 }
 
 func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(occur objectivec.IObject, error_ objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), occur, error_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), occur, error_)
 }
 func (o AVAudioPlayerDelegateObject) AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
 }

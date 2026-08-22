@@ -11,6 +11,9 @@ import (
 // MLWritable protocol.
 type MLWritable interface {
 	objectivec.IObject
+
+	// WriteToURLError protocol.
+	WriteToURLError(url foundation.NSURL) (bool, error)
 }
 
 // MLWritableObject wraps an existing Objective-C object that conforms to the MLWritable protocol.

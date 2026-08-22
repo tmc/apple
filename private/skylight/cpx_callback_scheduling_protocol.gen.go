@@ -3,6 +3,8 @@
 package skylight
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +20,7 @@ type CPXCallbackScheduling interface {
 	DescheduleKillProcessCallback()
 
 	// ScheduleFixBadForegroundCallbackForProcess protocol.
-	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
+	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec)
 
 	// ScheduleForceLogoutCallbackForTime protocol.
 	ScheduleForceLogoutCallbackForTime(time float64)
@@ -45,17 +47,17 @@ func CPXCallbackSchedulingObjectFromID(id objc.ID) CPXCallbackSchedulingObject {
 }
 
 func (o CPXCallbackSchedulingObject) DescheduleForceLogoutCallback() {
-	objc.Send[struct{}](o.ID, objc.Sel("descheduleForceLogoutCallback"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("descheduleForceLogoutCallback"))
 }
 func (o CPXCallbackSchedulingObject) DescheduleKillProcessCallback() {
-	objc.Send[struct{}](o.ID, objc.Sel("descheduleKillProcessCallback"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("descheduleKillProcessCallback"))
 }
-func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
-	objc.Send[struct{}](o.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
+func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRec) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), unsafe.Pointer(process))
 }
 func (o CPXCallbackSchedulingObject) ScheduleForceLogoutCallbackForTime(time float64) {
-	objc.Send[struct{}](o.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("scheduleForceLogoutCallbackForTime:"), time)
 }
 func (o CPXCallbackSchedulingObject) ScheduleKillProcessCallbackForTime(time float64) {
-	objc.Send[struct{}](o.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("scheduleKillProcessCallbackForTime:"), time)
 }

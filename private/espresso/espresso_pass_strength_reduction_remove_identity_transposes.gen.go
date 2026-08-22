@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionRemoveIdentityTransposesClass) Class() obj
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionRemoveIdentityTransposesClass) Alloc() EspressoPassStrengthReductionRemoveIdentityTransposes {
-	rv := objc.Send[EspressoPassStrengthReductionRemoveIdentityTransposes](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionRemoveIdentityTransposes](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionRemoveIdentityTransposes interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionRemoveIdentityTransposes) Init() EspressoPassStrengthReductionRemoveIdentityTransposes {
-	rv := objc.Send[EspressoPassStrengthReductionRemoveIdentityTransposes](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionRemoveIdentityTransposes](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionRemoveIdentityTransposes) Autorelease() EspressoPassStrengthReductionRemoveIdentityTransposes {
-	rv := objc.Send[EspressoPassStrengthReductionRemoveIdentityTransposes](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionRemoveIdentityTransposes](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionRemoveIdentityTransposes creates a new EspressoPassStrengthReductionRemoveIdentityTransposes instance.
 func NewEspressoPassStrengthReductionRemoveIdentityTransposes() EspressoPassStrengthReductionRemoveIdentityTransposes {
 	class := getEspressoPassStrengthReductionRemoveIdentityTransposesClass()
-	rv := objc.Send[EspressoPassStrengthReductionRemoveIdentityTransposes](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionRemoveIdentityTransposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

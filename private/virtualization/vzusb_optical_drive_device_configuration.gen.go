@@ -40,7 +40,7 @@ func (vc VZUSBOpticalDriveDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBOpticalDriveDeviceConfigurationClass) Alloc() VZUSBOpticalDriveDeviceConfiguration {
-	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZUSBOpticalDriveDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,42 +71,42 @@ type IVZUSBOpticalDriveDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	_getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler)
+	_getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session *DispatchGroupSession, handler ErrorHandler)
 	InitWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration
 }
 
 // Init initializes the instance.
 func (v VZUSBOpticalDriveDeviceConfiguration) Init() VZUSBOpticalDriveDeviceConfiguration {
-	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZUSBOpticalDriveDeviceConfiguration) Autorelease() VZUSBOpticalDriveDeviceConfiguration {
-	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZUSBOpticalDriveDeviceConfiguration creates a new VZUSBOpticalDriveDeviceConfiguration instance.
 func NewVZUSBOpticalDriveDeviceConfiguration() VZUSBOpticalDriveDeviceConfiguration {
 	class := getVZUSBOpticalDriveDeviceConfigurationClass()
-	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZUSBOpticalDriveDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZUSBOpticalDriveDeviceConfigurationWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration {
 	instance := getVZUSBOpticalDriveDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttachment:"), attachment)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAttachment:"), attachment)
 	return VZUSBOpticalDriveDeviceConfigurationFromID(rv)
 }
 
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler) {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session *DispatchGroupSession, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"), uintptr(queue.Handle()), session, _block2)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"), uintptr(queue.Handle()), session, _block2)
 }
 
 // GetStorageDeviceWithQueueSessionCompletionHandler is an exported wrapper for the private method _getStorageDeviceWithQueueSessionCompletionHandler.
-func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session DispatchGroupSession, handler ErrorHandler) error {
+func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue dispatch.Queue, session *DispatchGroupSession, handler ErrorHandler) error {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_getStorageDeviceWithQueue:session:completionHandler:"}
 		return err
@@ -120,13 +120,13 @@ func (v VZUSBOpticalDriveDeviceConfiguration) CanGetStorageDeviceWithQueueSessio
 	return objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"))
 }
 func (v VZUSBOpticalDriveDeviceConfiguration) InitWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration {
-	rv := objc.Send[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:"), attachment)
+	rv := objc.SendIfResponds[VZUSBOpticalDriveDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:"), attachment)
 	return rv
 }
 
 // _getStorageDeviceWithQueueSession is a synchronous wrapper around [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue dispatch.Queue, session DispatchGroupSession) error {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue dispatch.Queue, session *DispatchGroupSession) error {
 	done := make(chan error, 1)
 	v._getStorageDeviceWithQueueSessionCompletionHandler(queue, session, func(err error) {
 		done <- err

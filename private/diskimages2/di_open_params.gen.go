@@ -40,7 +40,7 @@ func (dc DIOpenParamsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIOpenParamsClass) Alloc() DIOpenParams {
-	rv := objc.Send[DIOpenParams](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIOpenParams](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,36 +80,39 @@ type IDIOpenParams interface {
 
 // Init initializes the instance.
 func (d DIOpenParams) Init() DIOpenParams {
-	rv := objc.Send[DIOpenParams](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIOpenParams](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIOpenParams) Autorelease() DIOpenParams {
-	rv := objc.Send[DIOpenParams](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIOpenParams](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIOpenParams creates a new DIOpenParams instance.
 func NewDIOpenParams() DIOpenParams {
 	class := getDIOpenParamsClass()
-	rv := objc.Send[DIOpenParams](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIOpenParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIOpenParamsWithCoder(coder objectivec.IObject) DIOpenParams {
 	instance := getDIOpenParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIOpenParamsFromID(rv)
 }
 
 func NewDIOpenParamsWithURLError(url foundation.NSURL) (DIOpenParams, error) {
 	var errorPtr objc.ID
 	instance := getDIOpenParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIOpenParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIOpenParams{}, objc.ErrInitFailed
 	}
 	return DIOpenParamsFromID(rv), nil
 }
@@ -117,10 +120,13 @@ func NewDIOpenParamsWithURLError(url foundation.NSURL) (DIOpenParams, error) {
 func NewDIOpenParamsWithURLOpenModeError(url foundation.NSURL, mode int64) (DIOpenParams, error) {
 	var errorPtr objc.ID
 	instance := getDIOpenParamsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:error:"), url, mode, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:error:"), url, mode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIOpenParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DIOpenParams{}, objc.ErrInitFailed
 	}
 	return DIOpenParamsFromID(rv), nil
 }
@@ -147,6 +153,6 @@ func (d DIOpenParams) InitWithURLOpenModeError(url foundation.NSURL, mode int64)
 }
 
 func (d DIOpenParams) UIOOpenMode() int {
-	rv := objc.Send[int](d.ID, objc.Sel("UIOOpenMode"))
+	rv := objc.SendIfResponds[int](d.ID, objc.Sel("UIOOpenMode"))
 	return rv
 }

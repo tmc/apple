@@ -38,7 +38,7 @@ func (tc TTSAlternativeVoicesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAlternativeVoicesClass) Alloc() TTSAlternativeVoices {
-	rv := objc.Send[TTSAlternativeVoices](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAlternativeVoices](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,56 +61,56 @@ type ITTSAlternativeVoices interface {
 
 // Init initializes the instance.
 func (t TTSAlternativeVoices) Init() TTSAlternativeVoices {
-	rv := objc.Send[TTSAlternativeVoices](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAlternativeVoices](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAlternativeVoices) Autorelease() TTSAlternativeVoices {
-	rv := objc.Send[TTSAlternativeVoices](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAlternativeVoices](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAlternativeVoices creates a new TTSAlternativeVoices instance.
 func NewTTSAlternativeVoices() TTSAlternativeVoices {
 	class := getTTSAlternativeVoicesClass()
-	rv := objc.Send[TTSAlternativeVoices](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAlternativeVoices](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsCombinedVocalizerVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isCombinedVocalizerVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isCombinedVocalizerVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsCompactVocalizerVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isCompactVocalizerVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isCompactVocalizerVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsNeuralAXSiriVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isNeuralAXSiriVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isNeuralAXSiriVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsNeuralSiriVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isNeuralSiriVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isNeuralSiriVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsOldSiriVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isOldSiriVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isOldSiriVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsPersonalVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isPersonalVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isPersonalVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsSiriVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isSiriVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isSiriVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) IsVocalizerVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isVocalizerVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("isVocalizerVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_TTSAlternativeVoicesClass TTSAlternativeVoicesClass) NameForVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("nameForVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSAlternativeVoicesClass.class), objc.Sel("nameForVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }

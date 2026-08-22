@@ -40,7 +40,7 @@ func (mc MLModelStructurePathClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructurePathClass) Alloc() MLModelStructurePath {
-	rv := objc.Send[MLModelStructurePath](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructurePath](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -92,48 +92,51 @@ type IMLModelStructurePath interface {
 
 // Init initializes the instance.
 func (m MLModelStructurePath) Init() MLModelStructurePath {
-	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructurePath](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructurePath) Autorelease() MLModelStructurePath {
-	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructurePath](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructurePath creates a new MLModelStructurePath instance.
 func NewMLModelStructurePath() MLModelStructurePath {
 	class := getMLModelStructurePathClass()
-	rv := objc.Send[MLModelStructurePath](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructurePath](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructurePathWithCppPath(path Path) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCppPath:"), path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCppPath:"), path)
 	return MLModelStructurePathFromID(rv)
 }
 
 func NewModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
 	var errorPtr objc.ID
 	instance := getMLModelStructurePathClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMLProgramOperationPathComponents:scopedModelNames:error:"), components, names, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMLProgramOperationPathComponents:scopedModelNames:error:"), components, names, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModelStructurePath{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLModelStructurePath{}, objc.ErrInitFailed
 	}
 	return MLModelStructurePathFromID(rv), nil
 }
 
 func NewModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
 	return MLModelStructurePathFromID(rv)
 }
 
 func (m MLModelStructurePath) InitWithCppPath(path Path) MLModelStructurePath {
-	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("initWithCppPath:"), path)
+	rv := objc.SendIfResponds[MLModelStructurePath](m.ID, objc.Sel("initWithCppPath:"), path)
 	return rv
 }
 func (m MLModelStructurePath) InitWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
@@ -147,24 +150,23 @@ func (m MLModelStructurePath) InitWithMLProgramOperationPathComponentsScopedMode
 
 }
 func (m MLModelStructurePath) InitWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
-	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
+	rv := objc.SendIfResponds[MLModelStructurePath](m.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
 	return rv
 }
 
 func (m MLModelStructurePath) Components() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("components"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("components"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLModelStructurePath) CppPath() Path {
-	rv := objc.Send[Path](m.ID, objc.Sel("cppPath"))
-	_ = rv
-	return Path{}
+	rv := objc.SendIfResponds[Path](m.ID, objc.Sel("cppPath"))
+	return Path(rv)
 }
 func (m MLModelStructurePath) IsMLProgramOperationPath() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isMLProgramOperationPath"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isMLProgramOperationPath"))
 	return rv
 }
 func (m MLModelStructurePath) IsNeuralNetworkLayerPath() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isNeuralNetworkLayerPath"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isNeuralNetworkLayerPath"))
 	return rv
 }

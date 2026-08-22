@@ -40,7 +40,7 @@ func (mc MLCustomLayerWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCustomLayerWrapperClass) Alloc() MLCustomLayerWrapper {
-	rv := objc.Send[MLCustomLayerWrapper](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCustomLayerWrapper](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -113,116 +113,116 @@ type IMLCustomLayerWrapper interface {
 
 // Init initializes the instance.
 func (m MLCustomLayerWrapper) Init() MLCustomLayerWrapper {
-	rv := objc.Send[MLCustomLayerWrapper](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCustomLayerWrapper](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCustomLayerWrapper) Autorelease() MLCustomLayerWrapper {
-	rv := objc.Send[MLCustomLayerWrapper](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCustomLayerWrapper](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCustomLayerWrapper creates a new MLCustomLayerWrapper instance.
 func NewMLCustomLayerWrapper() MLCustomLayerWrapper {
 	class := getMLCustomLayerWrapperClass()
-	rv := objc.Send[MLCustomLayerWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCustomLayerWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCustomLayerWrapperWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
 	instance := getMLCustomLayerWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCustomLayerWrapperFromID(rv)
 }
 
 func (m MLCustomLayerWrapper) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 func (m MLCustomLayerWrapper) EncodeToMetalCommandBufferInputTensorsOutputTensors(buffer objectivec.IObject, tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
 }
 func (m MLCustomLayerWrapper) HasGPUSupport() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 func (m MLCustomLayerWrapper) SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
 }
 func (m MLCustomLayerWrapper) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 func (m MLCustomLayerWrapper) InitWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
-	rv := objc.Send[MLCustomLayerWrapper](m.ID, objc.Sel("initWithParameters:"), parameters)
+	rv := objc.SendIfResponds[MLCustomLayerWrapper](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) CoremlShapeToEspressoShapeNdMode(shape objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapeToEspressoShape:ndMode:"), shape, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapeToEspressoShape:ndMode:"), shape, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) CoremlShapesToEspressoShapesNdMode(shapes objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapesToEspressoShapes:ndMode:"), shapes, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapesToEspressoShapes:ndMode:"), shapes, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoShapeToCoremlShapeNdMode(shape objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapeToCoremlShape:ndMode:"), shape, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapeToCoremlShape:ndMode:"), shape, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoShapesToCoremlShapesNdMode(shapes objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapesToCoremlShapes:ndMode:"), shapes, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapesToCoremlShapes:ndMode:"), shapes, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorToCoremlTensorNdMode(tensor objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorToCoremlTensor:ndMode:"), tensor, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorToCoremlTensor:ndMode:"), tensor, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorsToCoremlTensorsNdMode(tensors objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensors:ndMode:"), tensors, mode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensors:ndMode:"), tensors, mode)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorsToCoremlTensorsGPU(gpu objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensorsGPU:"), gpu)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensorsGPU:"), gpu)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) Factory() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("factory"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("factory"))
 	return objectivec.Object{ID: rv}
 }
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) GetStrides(strides objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("getStrides:"), strides)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("getStrides:"), strides)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLCustomLayerWrapper) ClassName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("className"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("className"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCustomLayerWrapper) CustomImpl() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("customImpl"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("customImpl"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLCustomLayerWrapper) SetCustomImpl(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCustomImpl:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCustomImpl:"), value)
 }
 func (m MLCustomLayerWrapper) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCustomLayerWrapper) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLCustomLayerWrapper) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLCustomLayerWrapper) NdMode() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("ndMode"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("ndMode"))
 	return rv
 }
 func (m MLCustomLayerWrapper) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -38,7 +38,7 @@ func (sc SLSBridgedSpaceSetShapeOperationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceSetShapeOperationClass) Alloc() SLSBridgedSpaceSetShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetShapeOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,52 +71,52 @@ type ISLSBridgedSpaceSetShapeOperation interface {
 
 	// Topic: Methods
 
-	CopyShape() uintptr
+	CopyShape() CGSRegionObjectRef
 	SpaceID() uint64
-	InitWithSpaceIDShape(id uint64, shape uintptr) SLSBridgedSpaceSetShapeOperation
+	InitWithSpaceIDShape(id uint64, shape CGSRegionObjectRef) SLSBridgedSpaceSetShapeOperation
 }
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceSetShapeOperation) Init() SLSBridgedSpaceSetShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceSetShapeOperation) Autorelease() SLSBridgedSpaceSetShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceSetShapeOperation creates a new SLSBridgedSpaceSetShapeOperation instance.
 func NewSLSBridgedSpaceSetShapeOperation() SLSBridgedSpaceSetShapeOperation {
 	class := getSLSBridgedSpaceSetShapeOperationClass()
-	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetShapeOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceSetShapeOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceSetShapeOperation {
 	instance := getSLSBridgedSpaceSetShapeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceSetShapeOperationFromID(rv)
 }
 
-func NewSLSBridgedSpaceSetShapeOperationWithSpaceIDShape(id uint64, shape uintptr) SLSBridgedSpaceSetShapeOperation {
+func NewSLSBridgedSpaceSetShapeOperationWithSpaceIDShape(id uint64, shape CGSRegionObjectRef) SLSBridgedSpaceSetShapeOperation {
 	instance := getSLSBridgedSpaceSetShapeOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
 	return SLSBridgedSpaceSetShapeOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceSetShapeOperation) CopyShape() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("copyShape"))
-	return rv
+func (s SLSBridgedSpaceSetShapeOperation) CopyShape() CGSRegionObjectRef {
+	rv := objc.SendIfResponds[CGSRegionObjectRef](s.ID, objc.Sel("copyShape"))
+	return CGSRegionObjectRef(rv)
 }
-func (s SLSBridgedSpaceSetShapeOperation) InitWithSpaceIDShape(id uint64, shape uintptr) SLSBridgedSpaceSetShapeOperation {
-	rv := objc.Send[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
+func (s SLSBridgedSpaceSetShapeOperation) InitWithSpaceIDShape(id uint64, shape CGSRegionObjectRef) SLSBridgedSpaceSetShapeOperation {
+	rv := objc.SendIfResponds[SLSBridgedSpaceSetShapeOperation](s.ID, objc.Sel("initWithSpaceID:shape:"), id, shape)
 	return rv
 }
 
 func (s SLSBridgedSpaceSetShapeOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

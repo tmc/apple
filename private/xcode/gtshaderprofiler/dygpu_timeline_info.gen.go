@@ -40,7 +40,7 @@ func (dc DYGPUTimelineInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DYGPUTimelineInfoClass) Alloc() DYGPUTimelineInfo {
-	rv := objc.Send[DYGPUTimelineInfo](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DYGPUTimelineInfo](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -137,112 +137,112 @@ type IDYGPUTimelineInfo interface {
 
 // Init initializes the instance.
 func (d DYGPUTimelineInfo) Init() DYGPUTimelineInfo {
-	rv := objc.Send[DYGPUTimelineInfo](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DYGPUTimelineInfo](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DYGPUTimelineInfo) Autorelease() DYGPUTimelineInfo {
-	rv := objc.Send[DYGPUTimelineInfo](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DYGPUTimelineInfo](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDYGPUTimelineInfo creates a new DYGPUTimelineInfo instance.
 func NewDYGPUTimelineInfo() DYGPUTimelineInfo {
 	class := getDYGPUTimelineInfoClass()
-	rv := objc.Send[DYGPUTimelineInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DYGPUTimelineInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDYGPUTimelineInfoWithCoder(coder objectivec.IObject) DYGPUTimelineInfo {
 	instance := getDYGPUTimelineInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DYGPUTimelineInfoFromID(rv)
 }
 
 func (d DYGPUTimelineInfo) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DYGPUTimelineInfo) EnumerateActiveShadersForAllSamples(samples VoidHandler) {
 	_block0, _ := NewVoidBlock(samples)
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForAllSamples:"), _block0)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForAllSamples:"), _block0)
 }
 func (d DYGPUTimelineInfo) EnumerateActiveShadersForSampleAtIndexWithBlock(index uint32, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForSampleAtIndex:withBlock:"), index, _block1)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("enumerateActiveShadersForSampleAtIndex:withBlock:"), index, _block1)
 }
 func (d DYGPUTimelineInfo) InitWithCoder(coder foundation.INSCoder) DYGPUTimelineInfo {
-	rv := objc.Send[DYGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DYGPUTimelineInfo](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_DYGPUTimelineInfoClass DYGPUTimelineInfoClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DYGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DYGPUTimelineInfoClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DYGPUTimelineInfo) ActiveCoreInfoMasksPerPeriodicSample() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeCoreInfoMasksPerPeriodicSample"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("activeCoreInfoMasksPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetActiveCoreInfoMasksPerPeriodicSample(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setActiveCoreInfoMasksPerPeriodicSample:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setActiveCoreInfoMasksPerPeriodicSample:"), value)
 }
 func (d DYGPUTimelineInfo) ActiveShadersPerPeriodicSample() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeShadersPerPeriodicSample"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("activeShadersPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetActiveShadersPerPeriodicSample(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setActiveShadersPerPeriodicSample:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setActiveShadersPerPeriodicSample:"), value)
 }
 func (d DYGPUTimelineInfo) DerivedCounterNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("derivedCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetDerivedCounterNames(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
 }
 func (d DYGPUTimelineInfo) DerivedCounters() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounters"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("derivedCounters"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetDerivedCounters(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
 }
 func (d DYGPUTimelineInfo) EncoderTimelineInfos() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("encoderTimelineInfos"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encoderTimelineInfos"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetEncoderTimelineInfos(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setEncoderTimelineInfos:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setEncoderTimelineInfos:"), value)
 }
 func (d DYGPUTimelineInfo) MetalFXTimelineInfo() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("metalFXTimelineInfo"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("metalFXTimelineInfo"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetMetalFXTimelineInfo(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setMetalFXTimelineInfo:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setMetalFXTimelineInfo:"), value)
 }
 func (d DYGPUTimelineInfo) NumActiveShadersPerPeriodicSample() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("numActiveShadersPerPeriodicSample"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("numActiveShadersPerPeriodicSample"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetNumActiveShadersPerPeriodicSample(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNumActiveShadersPerPeriodicSample:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNumActiveShadersPerPeriodicSample:"), value)
 }
 func (d DYGPUTimelineInfo) NumPeriodicSamples() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("numPeriodicSamples"))
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("numPeriodicSamples"))
 	return rv
 }
 func (d DYGPUTimelineInfo) SetNumPeriodicSamples(value uint32) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNumPeriodicSamples:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNumPeriodicSamples:"), value)
 }
 func (d DYGPUTimelineInfo) Timestamps() foundation.NSData {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("timestamps"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("timestamps"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (d DYGPUTimelineInfo) SetTimestamps(value foundation.NSData) {
-	objc.Send[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
 }
 
 // EnumerateActiveShadersForAllSamplesSync is a synchronous wrapper around [DYGPUTimelineInfo.EnumerateActiveShadersForAllSamples].

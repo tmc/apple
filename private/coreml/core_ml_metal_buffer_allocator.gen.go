@@ -38,7 +38,7 @@ func (cc CoreMLMetalBufferAllocatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMetalBufferAllocatorClass) Alloc() CoreMLMetalBufferAllocator {
-	rv := objc.Send[CoreMLMetalBufferAllocator](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferAllocator](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMetalBufferAllocatorFromID(id objc.ID) CoreMLMetalBufferAllocator {
 	return CoreMLMetalBufferAllocator{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMetalBufferAllocator struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMetalBufferAllocator embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMetalBufferAllocator implements ICoreMLMetalBufferAllocator.
+var _ ICoreMLMetalBufferAllocator = CoreMLMetalBufferAllocator{}
 
 // An interface definition for the [CoreMLMetalBufferAllocator] class.
 type ICoreMLMetalBufferAllocator interface {
@@ -61,19 +61,19 @@ type ICoreMLMetalBufferAllocator interface {
 
 // Init initializes the instance.
 func (c CoreMLMetalBufferAllocator) Init() CoreMLMetalBufferAllocator {
-	rv := objc.Send[CoreMLMetalBufferAllocator](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferAllocator](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMetalBufferAllocator) Autorelease() CoreMLMetalBufferAllocator {
-	rv := objc.Send[CoreMLMetalBufferAllocator](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferAllocator](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMetalBufferAllocator creates a new CoreMLMetalBufferAllocator instance.
 func NewCoreMLMetalBufferAllocator() CoreMLMetalBufferAllocator {
 	class := getCoreMLMetalBufferAllocatorClass()
-	rv := objc.Send[CoreMLMetalBufferAllocator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferAllocator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

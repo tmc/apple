@@ -23,10 +23,14 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreML library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
-var frameworkPaths = []string{"/System/Library/Frameworks/CoreML.framework/CoreML"}
+// frameworkPaths lists paths to try when loading the CoreML library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/CoreML.framework/CoreML",
+}
 
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr

@@ -4,8 +4,6 @@ package avfaudio
 
 type AVAudioNodeImplBaseRef uintptr
 
-type AVVCRecordingEngineRef uintptr
-
 type AudioQueueBufferRef uintptr
 
 type AudioQueueLevelMeterStateRef uintptr
@@ -13,8 +11,6 @@ type AudioQueueLevelMeterStateRef uintptr
 type AudioStreamPacketDescriptionRef uintptr
 
 type AveragerRef uintptr
-
-type ControllerImplRef uintptr
 
 type OpaqueAUGraphRef uintptr
 
@@ -35,9 +31,5 @@ type OpaqueMusicSequenceRef uintptr
 type OpaqueMusicTrackRef uintptr
 
 type OpaqueCMFormatDescriptionRef uintptr
-
-type SharedWeakCountRef uintptr
-
-type UnfairLockRef uintptr
 
 type XPCTypeSRef uintptr

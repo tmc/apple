@@ -41,7 +41,7 @@ func (sc SLSDisplayControlClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSDisplayControlClientClass) Alloc() SLSDisplayControlClient {
-	rv := objc.Send[SLSDisplayControlClient](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSDisplayControlClient](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -153,44 +153,44 @@ type ISLSDisplayControlClient interface {
 
 // Init initializes the instance.
 func (s SLSDisplayControlClient) Init() SLSDisplayControlClient {
-	rv := objc.Send[SLSDisplayControlClient](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSDisplayControlClient](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSDisplayControlClient) Autorelease() SLSDisplayControlClient {
-	rv := objc.Send[SLSDisplayControlClient](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSDisplayControlClient](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSDisplayControlClient creates a new SLSDisplayControlClient instance.
 func NewSLSDisplayControlClient() SLSDisplayControlClient {
 	class := getSLSDisplayControlClientClass()
-	rv := objc.Send[SLSDisplayControlClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSDisplayControlClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSDisplayControlClient) AddNotificationTypeTo(type_ uint64, to objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addNotificationType:to:"), type_, to)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addNotificationType:to:"), type_, to)
 }
 func (s SLSDisplayControlClient) AddPayloadOfTypeTo(payload objectivec.IObject, type_ uint64, to objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addPayload:ofType:to:"), payload, type_, to)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addPayload:ofType:to:"), payload, type_, to)
 }
 func (s SLSDisplayControlClient) AddUUIDTo(uuid uint64, to objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addUUID:to:"), uuid, to)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addUUID:to:"), uuid, to)
 }
 func (s SLSDisplayControlClient) CfStringToCStringPtr(ptr objectivec.IObject) string {
-	rv := objc.Send[*byte](s.ID, objc.Sel("cfStringToCStringPtr:"), ptr)
+	rv := objc.SendIfResponds[*byte](s.ID, objc.Sel("cfStringToCStringPtr:"), ptr)
 	return objc.GoString(rv)
 }
 func (s SLSDisplayControlClient) CreateNSErrorWithCGError(nSError []objectivec.IObject, cGError int64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("createNSError:withCGError:"), objectivec.IObjectSliceToNSArray(nSError), cGError)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createNSError:withCGError:"), objectivec.IObjectSliceToNSArray(nSError), cGError)
 }
 func (s SLSDisplayControlClient) DecodeNotificationNotifyTypeUuidPayloadTypePayload(notification objectivec.IObject, type_ *uint64, uuid *uint64, type_2 *uint64, payload []objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("decodeNotification:notifyType:uuid:payloadType:payload:"), notification, type_, uuid, type_2, objectivec.IObjectSliceToNSArray(payload))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("decodeNotification:notifyType:uuid:payloadType:payload:"), notification, unsafe.Pointer(type_), unsafe.Pointer(uuid), unsafe.Pointer(type_2), objectivec.IObjectSliceToNSArray(payload))
 }
 func (s SLSDisplayControlClient) EncodeCommandWithUUIDPayloadTypePayload(command uint64, uuid *uint64, type_ uint64, payload objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("encodeCommand:withUUID:payloadType:payload:"), command, uuid, type_, payload)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeCommand:withUUID:payloadType:payload:"), command, unsafe.Pointer(uuid), type_, payload)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSDisplayControlClient) IsTypeOfClassAClassError(class objectivec.IObject, class2 objectivec.Class) (int, bool) {
@@ -199,77 +199,77 @@ func (s SLSDisplayControlClient) IsTypeOfClassAClassError(class objectivec.IObje
 	return error_, rv
 }
 func (s SLSDisplayControlClient) PayloadTypeToCFType(cFType uint64) uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("payloadTypeToCFType:"), cFType)
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("payloadTypeToCFType:"), cFType)
 	return rv
 }
 func (s SLSDisplayControlClient) RegisterClientPortNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, port uint32, queue objectivec.IObject, type_ uint64, block VoidHandler) {
 	_block4, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("registerClient:port:notifyQueue:notificationType:notificationBlock:"), client, port, queue, type_, _block4)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("registerClient:port:notifyQueue:notificationType:notificationBlock:"), client, port, queue, type_, _block4)
 }
 func (s SLSDisplayControlClient) RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock(client objectivec.IObject, autoreconnect bool, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) objectivec.IObject {
 	_block5, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("registerDaemonClient:withAutoreconnect:error:notifyQueue:notificationType:notificationBlock:"), client, autoreconnect, error_, queue, type_, _block5)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("registerDaemonClient:withAutoreconnect:error:notifyQueue:notificationType:notificationBlock:"), client, autoreconnect, error_, queue, type_, _block5)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSDisplayControlClient) RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, port uint32, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) objectivec.IObject {
 	_block5, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("registerGUIClient:connectionPort:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, port, error_, queue, type_, _block5)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("registerGUIClient:connectionPort:error:notifyQueue:notificationType:notificationBlock:"), gUIClient, port, error_, queue, type_, _block5)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSDisplayControlClient) SemaphoreSignal() {
-	objc.Send[objc.ID](s.ID, objc.Sel("semaphoreSignal"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("semaphoreSignal"))
 }
 func (s SLSDisplayControlClient) SemaphoreWait(wait byte) int {
-	rv := objc.Send[int](s.ID, objc.Sel("semaphoreWait:"), wait)
+	rv := objc.SendIfResponds[int](s.ID, objc.Sel("semaphoreWait:"), wait)
 	return rv
 }
 func (s SLSDisplayControlClient) SetNotification(notification VoidHandler) {
 	_block0, _ := NewVoidBlock(notification)
-	objc.Send[objc.ID](s.ID, objc.Sel("setNotification:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setNotification:"), _block0)
 }
 func (s SLSDisplayControlClient) TerminateConnection() {
-	objc.Send[objc.ID](s.ID, objc.Sel("terminateConnection"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("terminateConnection"))
 }
 func (s SLSDisplayControlClient) XpcEventToNotification(notification objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("xpcEventToNotification:"), notification)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("xpcEventToNotification:"), notification)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLSDisplayControlClient) Configured() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("configured"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("configured"))
 	return rv
 }
 func (s SLSDisplayControlClient) SetConfigured(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConfigured:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setConfigured:"), value)
 }
 func (s SLSDisplayControlClient) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSDisplayControlClient) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLSDisplayControlClient) Enabled() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("enabled"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("enabled"))
 	return rv
 }
 func (s SLSDisplayControlClient) SetEnabled(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setEnabled:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEnabled:"), value)
 }
 func (s SLSDisplayControlClient) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
 func (s SLSDisplayControlClient) Semaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("semaphore"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("semaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (s SLSDisplayControlClient) SetSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSemaphore:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSemaphore:"), value)
 }
 func (s SLSDisplayControlClient) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](s.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](s.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 

@@ -10,6 +10,12 @@ import (
 // MLFeatureProvider protocol.
 type MLFeatureProvider interface {
 	objectivec.IObject
+
+	// FeatureNames protocol.
+	FeatureNames() objectivec.IObject
+
+	// FeatureValueForName protocol.
+	FeatureValueForName(name objectivec.IObject) objectivec.IObject
 }
 
 // MLFeatureProviderObject wraps an existing Objective-C object that conforms to the MLFeatureProvider protocol.
@@ -30,10 +36,10 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 }
 
 func (o MLFeatureProviderObject) FeatureNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("featureNames"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLFeatureProviderObject) FeatureValueForName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureValueForName:"), name)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("featureValueForName:"), name)
 	return objectivec.Object{ID: rv}
 }

@@ -9,83 +9,83 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer] class.
+// The class instance for the [MediaLayer] class.
 var (
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass     TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClassOnce sync.Once
+	_MediaLayerClass     MediaLayerClass
+	_MediaLayerClassOnce sync.Once
 )
 
-func getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass {
-	_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClassOnce.Do(func() {
-		_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass{class: objc.GetClass("_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer")}
+func getMediaLayerClass() MediaLayerClass {
+	_MediaLayerClassOnce.Do(func() {
+		_MediaLayerClass = MediaLayerClass{class: objc.GetClass("_TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer")}
 	})
-	return _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass
+	return _MediaLayerClass
 }
 
-// GetTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass returns the class object for _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer.
-func GetTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass {
-	return getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass()
+// GetMediaLayerClass returns the class object for _TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer.
+func GetMediaLayerClass() MediaLayerClass {
+	return getMediaLayerClass()
 }
 
-type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass struct {
+type MediaLayerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass) Class() objc.Class {
-	return tc.class
+func (mc MediaLayerClass) Class() objc.Class {
+	return mc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass) Alloc() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer](objc.ID(tc.class), objc.Sel("alloc"))
+func (mc MediaLayerClass) Alloc() MediaLayer {
+	rv := objc.SendIfResponds[MediaLayer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer struct {
-	TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
+type MediaLayer struct {
+	IndicatorLayer
 }
 
-// TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID constructs a [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer] from an objc.ID.
-func TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID(id objc.ID) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer{TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer: TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerFromID(id)}
+// MediaLayerFromID constructs a [MediaLayer] from an objc.ID.
+func MediaLayerFromID(id objc.ID) MediaLayer {
+	return MediaLayer{IndicatorLayer: IndicatorLayerFromID(id)}
 }
 
-// Ensure TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer implements ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer.
-var _ ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer = TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer{}
+// Ensure MediaLayer implements IMediaLayer.
+var _ IMediaLayer = MediaLayer{}
 
-// An interface definition for the [TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer] class.
-type ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer interface {
-	ITtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayer
+// An interface definition for the [MediaLayer] class.
+type IMediaLayer interface {
+	IIndicatorLayer
 }
 
 // Init initializes the instance.
-func (t TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer) Init() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer](t.ID, objc.Sel("init"))
+func (m MediaLayer) Init() MediaLayer {
+	rv := objc.SendIfResponds[MediaLayer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer) Autorelease() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer](t.ID, objc.Sel("autorelease"))
+func (m MediaLayer) Autorelease() MediaLayer {
+	rv := objc.SendIfResponds[MediaLayer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer creates a new TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer instance.
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer() TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	class := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass()
-	rv := objc.Send[TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer](objc.ID(class.class), objc.Sel("new"))
+// NewMediaLayer creates a new MediaLayer instance.
+func NewMediaLayer() MediaLayer {
+	class := getMediaLayerClass()
+	rv := objc.SendIfResponds[MediaLayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithCoder(coder objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID(rv)
+func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithCoder(coder objectivec.IObject) MediaLayer {
+	instance := getMediaLayerClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MediaLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithLayer(layer objectivec.IObject) TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayer {
-	instance := getTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
-	return TtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerFromID(rv)
+func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithLayer(layer objectivec.IObject) MediaLayer {
+	instance := getMediaLayerClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
+	return MediaLayerFromID(rv)
 }

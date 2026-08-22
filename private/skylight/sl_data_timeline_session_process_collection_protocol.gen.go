@@ -14,8 +14,8 @@ type SLDataTimelineSessionProcessCollection interface {
 	// ForegroundAppPID protocol.
 	ForegroundAppPID() int
 
-	// ProcessesApplyBlock protocol.
-	ProcessesApplyBlock(block SLDataTimelineProcessHandler)
+	// Processes protocol.
+	Processes() objectivec.IObject
 
 	// SessionSnapshotIndex protocol.
 	SessionSnapshotIndex() uint64
@@ -42,21 +42,18 @@ func SLDataTimelineSessionProcessCollectionObjectFromID(id objc.ID) SLDataTimeli
 }
 
 func (o SLDataTimelineSessionProcessCollectionObject) ForegroundAppPID() int {
-	rv := objc.Send[int](o.ID, objc.Sel("foregroundAppPID"))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("foregroundAppPID"))
 	return rv
 }
 func (o SLDataTimelineSessionProcessCollectionObject) Processes() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("processes"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("processes"))
 	return objectivec.Object{ID: rv}
 }
-func (o SLDataTimelineSessionProcessCollectionObject) ProcessesApplyBlock(block SLDataTimelineProcessHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("processesApplyBlock:"), block)
-}
 func (o SLDataTimelineSessionProcessCollectionObject) SessionSnapshotIndex() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("sessionSnapshotIndex"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("sessionSnapshotIndex"))
 	return rv
 }
 func (o SLDataTimelineSessionProcessCollectionObject) SessionSnapshotTimestamp() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("sessionSnapshotTimestamp"))
+	rv := objc.SendIfResponds[float64](o.ID, objc.Sel("sessionSnapshotTimestamp"))
 	return rv
 }

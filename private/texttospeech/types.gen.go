@@ -4,14 +4,6 @@ package texttospeech
 
 // C struct types
 
-// AudioComponentDescription
-type AudioComponentDescription struct {
-}
-
-// AudioQueueBuffer
-type AudioQueueBuffer struct {
-}
-
 // OpaqueATAudioProcessingNode
 type OpaqueATAudioProcessingNode struct {
 }
@@ -24,6 +16,17 @@ type OpaqueAudioQueue struct {
 type URegularExpression struct {
 }
 
+// OSUnfairLockS
+type OSUnfairLockS struct {
+	_os_unfair_lock_opaque uint32
+}
+
+// Os_unfair_lock_s is a type alias for OSUnfairLockS for use in objc.Send[T] calls.
+type Os_unfair_lock_s = OSUnfairLockS
+
 // Pcre2RealCode8
 type Pcre2RealCode8 struct {
 }
+
+// Pcre2_real_code_8 is a type alias for Pcre2RealCode8 for use in objc.Send[T] calls.
+type Pcre2_real_code_8 = Pcre2RealCode8

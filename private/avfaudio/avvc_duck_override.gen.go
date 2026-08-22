@@ -39,7 +39,7 @@ func (ac AVVCDuckOverrideClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCDuckOverrideClass) Alloc() AVVCDuckOverride {
-	rv := objc.Send[AVVCDuckOverride](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCDuckOverride](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -97,59 +97,59 @@ type IAVVCDuckOverride interface {
 
 // Init initializes the instance.
 func (a AVVCDuckOverride) Init() AVVCDuckOverride {
-	rv := objc.Send[AVVCDuckOverride](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCDuckOverride](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCDuckOverride) Autorelease() AVVCDuckOverride {
-	rv := objc.Send[AVVCDuckOverride](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCDuckOverride](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCDuckOverride creates a new AVVCDuckOverride instance.
 func NewAVVCDuckOverride() AVVCDuckOverride {
 	class := getAVVCDuckOverrideClass()
-	rv := objc.Send[AVVCDuckOverride](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCDuckOverride](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCDuckOverrideWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
 	instance := getAVVCDuckOverrideClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
 	return AVVCDuckOverrideFromID(rv)
 }
 
 func (a AVVCDuckOverride) InitWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
-	rv := objc.Send[AVVCDuckOverride](a.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
+	rv := objc.SendIfResponds[AVVCDuckOverride](a.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
 	return rv
 }
 
 func (a AVVCDuckOverride) DuckOthers() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckOthers"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckOthers"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckOverride) SetDuckOthers(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDuckOthers:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckOthers:"), value)
 }
 func (a AVVCDuckOverride) DuckToLevel() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckToLevel"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckToLevel"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckOverride) SetDuckToLevel(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDuckToLevel:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckToLevel:"), value)
 }
 func (a AVVCDuckOverride) IsBlur() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("isBlur"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isBlur"))
 	return rv
 }
 func (a AVVCDuckOverride) SetIsBlur(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
 func (a AVVCDuckOverride) MixWithOthers() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mixWithOthers"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("mixWithOthers"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a AVVCDuckOverride) SetMixWithOthers(value foundation.NSNumber) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMixWithOthers:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMixWithOthers:"), value)
 }

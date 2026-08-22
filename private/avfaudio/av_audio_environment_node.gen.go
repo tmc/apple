@@ -40,7 +40,7 @@ func (ac AVAudioEnvironmentNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
-	rv := objc.Send[AVAudioEnvironmentNode](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentNode](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,49 +89,49 @@ type IAVAudioEnvironmentNode interface {
 
 // Init initializes the instance.
 func (a AVAudioEnvironmentNode) Init() AVAudioEnvironmentNode {
-	rv := objc.Send[AVAudioEnvironmentNode](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentNode](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioEnvironmentNode) Autorelease() AVAudioEnvironmentNode {
-	rv := objc.Send[AVAudioEnvironmentNode](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentNode](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioEnvironmentNode creates a new AVAudioEnvironmentNode instance.
 func NewAVAudioEnvironmentNode() AVAudioEnvironmentNode {
 	class := getAVAudioEnvironmentNodeClass()
-	rv := objc.Send[AVAudioEnvironmentNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioEnvironmentNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAudioEnvironmentNodeWithImpl(impl unsafe.Pointer) AVAudioEnvironmentNode {
 	instance := getAVAudioEnvironmentNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioEnvironmentNodeFromID(rv)
 }
 
 func (a AVAudioEnvironmentNode) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioEnvironmentNode) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioEnvironmentNode) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioEnvironmentNode) ListenerHeadTrackingEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("listenerHeadTrackingEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("listenerHeadTrackingEnabled"))
 	return rv
 }
 func (a AVAudioEnvironmentNode) SetListenerHeadTrackingEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setListenerHeadTrackingEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setListenerHeadTrackingEnabled:"), value)
 }
 func (a AVAudioEnvironmentNode) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

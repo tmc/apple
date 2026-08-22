@@ -41,7 +41,7 @@ func (gc GTMioShaderExecutionHistoryNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderExecutionHistoryNodeClass) Alloc() GTMioShaderExecutionHistoryNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryNode](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryNode](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -130,7 +130,7 @@ type IGTMioShaderExecutionHistoryNode interface {
 
 	// Topic: Methods
 
-	_costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	_costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	_dfsEnumerator(_dfs uint32, enumerator VoidHandler)
 	AddChild(child objectivec.IObject)
 	AddInstructionHitNumHits(hit uint32, hits uint32)
@@ -139,7 +139,7 @@ type IGTMioShaderExecutionHistoryNode interface {
 	Children() foundation.INSArray
 	CliqueRoot() objectivec.IObject
 	ContainsInstructionBinaryIndex(instruction uint32, index uint32) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	Dfs(dfs VoidHandler)
 	DurationPercentage() float64
 	EndTimestamp(timestamp uint64)
@@ -149,12 +149,12 @@ type IGTMioShaderExecutionHistoryNode interface {
 	InstructionForInstructionIndex(index uint32) objectivec.IObject
 	IsSameLocation(location objectivec.IObject) bool
 	LastInstructionIndex() uint32
-	NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 GTMioCostInfo) bool
+	NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 *GTMioCostInfo) bool
 	OverlapsWithInstructionInstructionCountBinaryIndex(instruction uint32, count uint32, index uint32) bool
 	Parent() IGTMioShaderExecutionHistoryNode
 	ParentFunction() IGTMioShaderExecutionHistoryFunctionNode
 	Root() IGTMioShaderExecutionHistoryRootNode
-	SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
+	SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
 	StartTimestamps() unsafe.Pointer
 	TimestampCount() uint32
 	TopCostPercentage() float64
@@ -165,36 +165,36 @@ type IGTMioShaderExecutionHistoryNode interface {
 
 // Init initializes the instance.
 func (g GTMioShaderExecutionHistoryNode) Init() GTMioShaderExecutionHistoryNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderExecutionHistoryNode) Autorelease() GTMioShaderExecutionHistoryNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderExecutionHistoryNode creates a new GTMioShaderExecutionHistoryNode instance.
 func NewGTMioShaderExecutionHistoryNode() GTMioShaderExecutionHistoryNode {
 	class := getGTMioShaderExecutionHistoryNodeClass()
-	rv := objc.Send[GTMioShaderExecutionHistoryNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderExecutionHistoryNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryNode {
 	instance := getGTMioShaderExecutionHistoryNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
 	return GTMioShaderExecutionHistoryNodeFromID(rv)
 }
 
-func (g GTMioShaderExecutionHistoryNode) _costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:"), scope, identifier, cost)
+func (g GTMioShaderExecutionHistoryNode) _costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
 
 // CostForScopeScopeIdentifierCacheCost is an exported wrapper for the private method _costForScopeScopeIdentifierCacheCost.
-func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) (bool, error) {
+func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost *GTMioCostInfo) (bool, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_costForScope:scopeIdentifier:cacheCost:"}
 		return false, err
@@ -208,7 +208,7 @@ func (g GTMioShaderExecutionHistoryNode) CanCostForScopeScopeIdentifierCacheCost
 }
 func (g GTMioShaderExecutionHistoryNode) _dfsEnumerator(_dfs uint32, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
-	objc.Send[objc.ID](g.ID, objc.Sel("_dfs:enumerator:"), _dfs, _block1)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_dfs:enumerator:"), _dfs, _block1)
 }
 
 // DfsEnumerator is an exported wrapper for the private method _dfsEnumerator.
@@ -226,116 +226,116 @@ func (g GTMioShaderExecutionHistoryNode) CanDfsEnumerator() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_dfs:enumerator:"))
 }
 func (g GTMioShaderExecutionHistoryNode) AddChild(child objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addChild:"), child)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addChild:"), child)
 }
 func (g GTMioShaderExecutionHistoryNode) AddInstructionHitNumHits(hit uint32, hits uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("addInstructionHit:numHits:"), hit, hits)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("addInstructionHit:numHits:"), hit, hits)
 }
 func (g GTMioShaderExecutionHistoryNode) BeginTimestamp(timestamp uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("beginTimestamp:"), timestamp)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("beginTimestamp:"), timestamp)
 }
 func (g GTMioShaderExecutionHistoryNode) CliqueRoot() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("cliqueRoot"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("cliqueRoot"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderExecutionHistoryNode) ContainsInstructionBinaryIndex(instruction uint32, index uint32) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("containsInstruction:binaryIndex:"), instruction, index)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("containsInstruction:binaryIndex:"), instruction, index)
 	return rv
 }
-func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) Dfs(dfs VoidHandler) {
 	_block0, _ := NewVoidBlock(dfs)
-	objc.Send[objc.ID](g.ID, objc.Sel("dfs:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("dfs:"), _block0)
 }
 func (g GTMioShaderExecutionHistoryNode) EndTimestamp(timestamp uint64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("endTimestamp:"), timestamp)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("endTimestamp:"), timestamp)
 }
 func (g GTMioShaderExecutionHistoryNode) EnumerateInstructions(instructions VoidHandler) {
 	_block0, _ := NewVoidBlock(instructions)
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructions:"), _block0)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateInstructions:"), _block0)
 }
 func (g GTMioShaderExecutionHistoryNode) FunctionForIdentifier(identifier uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionForIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("functionForIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderExecutionHistoryNode) InstructionForInstructionIndex(index uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructionForInstructionIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("instructionForInstructionIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderExecutionHistoryNode) IsSameLocation(location objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("isSameLocation:"), location)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("isSameLocation:"), location)
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) LastInstructionIndex() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("lastInstructionIndex"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("lastInstructionIndex"))
 	return rv
 }
-func (g GTMioShaderExecutionHistoryNode) NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("normalizedInstructionCost:scopeIdentifier:binary:cost:"), cost, identifier, binary, cost2)
+func (g GTMioShaderExecutionHistoryNode) NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("normalizedInstructionCost:scopeIdentifier:binary:cost:"), cost, identifier, binary, unsafe.Pointer(cost2))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) OverlapsWithInstructionInstructionCountBinaryIndex(instruction uint32, count uint32, index uint32) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("overlapsWithInstruction:instructionCount:binaryIndex:"), instruction, count, index)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("overlapsWithInstruction:instructionCount:binaryIndex:"), instruction, count, index)
 	return rv
 }
-func (g GTMioShaderExecutionHistoryNode) SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("selfCostForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (g GTMioShaderExecutionHistoryNode) SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("selfCostForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) InitWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryNode {
-	rv := objc.Send[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("initWithType:parent:"), type_, parent)
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryNode](g.ID, objc.Sel("initWithType:parent:"), type_, parent)
 	return rv
 }
 
 func (g GTMioShaderExecutionHistoryNode) Binaries() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaries"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaries"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderExecutionHistoryNode) Children() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("children"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("children"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderExecutionHistoryNode) DurationPercentage() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("durationPercentage"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("durationPercentage"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) EndTimestamps() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("endTimestamps"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("endTimestamps"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) Parent() IGTMioShaderExecutionHistoryNode {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("parent"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("parent"))
 	return GTMioShaderExecutionHistoryNodeFromID(objc.ID(rv))
 }
 func (g GTMioShaderExecutionHistoryNode) ParentFunction() IGTMioShaderExecutionHistoryFunctionNode {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("parentFunction"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("parentFunction"))
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(objc.ID(rv))
 }
 func (g GTMioShaderExecutionHistoryNode) Root() IGTMioShaderExecutionHistoryRootNode {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("root"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("root"))
 	return GTMioShaderExecutionHistoryRootNodeFromID(objc.ID(rv))
 }
 func (g GTMioShaderExecutionHistoryNode) StartTimestamps() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("startTimestamps"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("startTimestamps"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) TimestampCount() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("timestampCount"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("timestampCount"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) TopCostPercentage() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("topCostPercentage"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("topCostPercentage"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) TotalDuration() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("totalDuration"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("totalDuration"))
 	return rv
 }
 func (g GTMioShaderExecutionHistoryNode) Type() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("type"))
 	return rv
 }
 

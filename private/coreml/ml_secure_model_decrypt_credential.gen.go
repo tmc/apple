@@ -39,7 +39,7 @@ func (mc MLSecureModelDecryptCredentialClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSecureModelDecryptCredentialClass) Alloc() MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSecureModelDecryptCredential](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,46 +82,46 @@ type IMLSecureModelDecryptCredential interface {
 
 // Init initializes the instance.
 func (m MLSecureModelDecryptCredential) Init() MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSecureModelDecryptCredential](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSecureModelDecryptCredential) Autorelease() MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSecureModelDecryptCredential](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSecureModelDecryptCredential creates a new MLSecureModelDecryptCredential instance.
 func NewMLSecureModelDecryptCredential() MLSecureModelDecryptCredential {
 	class := getMLSecureModelDecryptCredentialClass()
-	rv := objc.Send[MLSecureModelDecryptCredential](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSecureModelDecryptCredential](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSecureModelDecryptCredentialWithCoder(coder objectivec.IObject) MLSecureModelDecryptCredential {
 	instance := getMLSecureModelDecryptCredentialClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSecureModelDecryptCredentialFromID(rv)
 }
 
 func (m MLSecureModelDecryptCredential) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLSecureModelDecryptCredential) InitWithCoder(coder foundation.INSCoder) MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLSecureModelDecryptCredential](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 func (_MLSecureModelDecryptCredentialClass MLSecureModelDecryptCredentialClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLSecureModelDecryptCredentialClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLSecureModelDecryptCredentialClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLSecureModelDecryptCredential) CryptoKey() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("cryptoKey"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("cryptoKey"))
 	return rv
 }
 func (m MLSecureModelDecryptCredential) SetCryptoKey(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCryptoKey:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCryptoKey:"), value)
 }

@@ -40,7 +40,7 @@ func (vc VZCustomMMIODeviceProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZCustomMMIODeviceProviderClass) Alloc() VZCustomMMIODeviceProvider {
-	rv := objc.Send[VZCustomMMIODeviceProvider](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceProvider](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,30 +89,30 @@ type IVZCustomMMIODeviceProvider interface {
 
 // Init initializes the instance.
 func (v VZCustomMMIODeviceProvider) Init() VZCustomMMIODeviceProvider {
-	rv := objc.Send[VZCustomMMIODeviceProvider](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceProvider](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZCustomMMIODeviceProvider) Autorelease() VZCustomMMIODeviceProvider {
-	rv := objc.Send[VZCustomMMIODeviceProvider](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceProvider](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZCustomMMIODeviceProvider creates a new VZCustomMMIODeviceProvider instance.
 func NewVZCustomMMIODeviceProvider() VZCustomMMIODeviceProvider {
 	class := getVZCustomMMIODeviceProviderClass()
-	rv := objc.Send[VZCustomMMIODeviceProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZCustomMMIODeviceProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZCustomMMIODeviceProvider) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZCustomMMIODeviceProvider) _connectionIdentifier() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_connectionIdentifier"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_connectionIdentifier"))
 	return rv
 }
 
@@ -129,18 +129,18 @@ func (v VZCustomMMIODeviceProvider) ConnectionIdentifier() (unsafe.Pointer, erro
 	return v._connectionIdentifier(), nil
 }
 func (v VZCustomMMIODeviceProvider) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomMMIODeviceProvider) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZCustomMMIODeviceProvider) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZCustomMMIODeviceProvider) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

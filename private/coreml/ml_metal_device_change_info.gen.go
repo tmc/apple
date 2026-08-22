@@ -39,7 +39,7 @@ func (mc MLMetalDeviceChangeInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMetalDeviceChangeInfoClass) Alloc() MLMetalDeviceChangeInfo {
-	rv := objc.Send[MLMetalDeviceChangeInfo](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMetalDeviceChangeInfo](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IMLMetalDeviceChangeInfo interface {
 
 // Init initializes the instance.
 func (m MLMetalDeviceChangeInfo) Init() MLMetalDeviceChangeInfo {
-	rv := objc.Send[MLMetalDeviceChangeInfo](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMetalDeviceChangeInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMetalDeviceChangeInfo) Autorelease() MLMetalDeviceChangeInfo {
-	rv := objc.Send[MLMetalDeviceChangeInfo](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMetalDeviceChangeInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMetalDeviceChangeInfo creates a new MLMetalDeviceChangeInfo instance.
 func NewMLMetalDeviceChangeInfo() MLMetalDeviceChangeInfo {
 	class := getMLMetalDeviceChangeInfoClass()
-	rv := objc.Send[MLMetalDeviceChangeInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMetalDeviceChangeInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMetalDeviceChangeInfoWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
 	instance := getMLMetalDeviceChangeInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
 	return MLMetalDeviceChangeInfoFromID(rv)
 }
 
 func (m MLMetalDeviceChangeInfo) InitWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
-	rv := objc.Send[MLMetalDeviceChangeInfo](m.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
+	rv := objc.SendIfResponds[MLMetalDeviceChangeInfo](m.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
 	return rv
 }
 
 func (m MLMetalDeviceChangeInfo) ChangeType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("changeType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("changeType"))
 	return rv
 }
 func (m MLMetalDeviceChangeInfo) MetalDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("metalDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("metalDevice"))
 	return rv
 }

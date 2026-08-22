@@ -40,7 +40,7 @@ func (vc VZDiskImageFormatClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZDiskImageFormatClass) Alloc() VZDiskImageFormat {
-	rv := objc.Send[VZDiskImageFormat](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZDiskImageFormat](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,53 +86,53 @@ type IVZDiskImageFormat interface {
 
 // Init initializes the instance.
 func (v VZDiskImageFormat) Init() VZDiskImageFormat {
-	rv := objc.Send[VZDiskImageFormat](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZDiskImageFormat](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZDiskImageFormat) Autorelease() VZDiskImageFormat {
-	rv := objc.Send[VZDiskImageFormat](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZDiskImageFormat](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZDiskImageFormat creates a new VZDiskImageFormat instance.
 func NewVZDiskImageFormat() VZDiskImageFormat {
 	class := getVZDiskImageFormatClass()
-	rv := objc.Send[VZDiskImageFormat](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZDiskImageFormat](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZDiskImageFormat) CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject {
 	_block2, _ := NewErrorBlock(handler)
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("createDynamicDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("createDynamicDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
 	return objectivec.Object{ID: rv}
 }
 func (v VZDiskImageFormat) CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler(url foundation.NSURL, size uint64, handler ErrorHandler) objectivec.IObject {
 	_block2, _ := NewErrorBlock(handler)
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("createFixedDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("createFixedDiskImageWithURL:suggestedSize:completionHandler:"), url, size, _block2)
 	return objectivec.Object{ID: rv}
 }
 
 func (_VZDiskImageFormatClass VZDiskImageFormatClass) RawDiskImageFormat() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("rawDiskImageFormat"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("rawDiskImageFormat"))
 	return objectivec.Object{ID: rv}
 }
 func (_VZDiskImageFormatClass VZDiskImageFormatClass) SupportedFormats() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("supportedFormats"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_VZDiskImageFormatClass.class), objc.Sel("supportedFormats"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZDiskImageFormat) CanCreateDynamicDiskImages() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canCreateDynamicDiskImages"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("canCreateDynamicDiskImages"))
 	return rv
 }
 func (v VZDiskImageFormat) CanCreateFixedDiskImages() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canCreateFixedDiskImages"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("canCreateFixedDiskImages"))
 	return rv
 }
 func (v VZDiskImageFormat) Identifier() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 

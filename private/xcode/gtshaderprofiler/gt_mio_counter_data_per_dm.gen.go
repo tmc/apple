@@ -40,7 +40,7 @@ func (gc GTMioCounterDataPerDMClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioCounterDataPerDMClass) Alloc() GTMioCounterDataPerDM {
-	rv := objc.Send[GTMioCounterDataPerDM](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioCounterDataPerDM](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,37 +101,37 @@ type IGTMioCounterDataPerDM interface {
 	SampleCount() uint64
 	Scope() uint16
 	ScopeIndex() uint64
-	Values() []float64
+	Values() unsafe.Pointer
 	InitWithContainerIndexDataMasterScopeScopeIndex(container unsafe.Pointer, index uint64, master uint16, scope uint16, index2 uint64) GTMioCounterDataPerDM
 }
 
 // Init initializes the instance.
 func (g GTMioCounterDataPerDM) Init() GTMioCounterDataPerDM {
-	rv := objc.Send[GTMioCounterDataPerDM](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioCounterDataPerDM](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioCounterDataPerDM) Autorelease() GTMioCounterDataPerDM {
-	rv := objc.Send[GTMioCounterDataPerDM](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioCounterDataPerDM](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioCounterDataPerDM creates a new GTMioCounterDataPerDM instance.
 func NewGTMioCounterDataPerDM() GTMioCounterDataPerDM {
 	class := getGTMioCounterDataPerDMClass()
-	rv := objc.Send[GTMioCounterDataPerDM](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioCounterDataPerDM](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioCounterDataPerDMWithContainerIndexDataMasterScopeScopeIndex(container unsafe.Pointer, index uint64, master uint16, scope uint16, index2 uint64) GTMioCounterDataPerDM {
 	instance := getGTMioCounterDataPerDMClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
 	return GTMioCounterDataPerDMFromID(rv)
 }
 
 func (g GTMioCounterDataPerDM) _cacheValues() {
-	objc.Send[objc.ID](g.ID, objc.Sel("_cacheValues"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_cacheValues"))
 }
 
 // CacheValues is an exported wrapper for the private method _cacheValues.
@@ -149,49 +149,47 @@ func (g GTMioCounterDataPerDM) CanCacheValues() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheValues"))
 }
 func (g GTMioCounterDataPerDM) InitWithContainerIndexDataMasterScopeScopeIndex(container unsafe.Pointer, index uint64, master uint16, scope uint16, index2 uint64) GTMioCounterDataPerDM {
-	rv := objc.Send[GTMioCounterDataPerDM](g.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
+	rv := objc.SendIfResponds[GTMioCounterDataPerDM](g.ID, objc.Sel("initWithContainer:index:dataMaster:scope:scopeIndex:"), container, index, master, scope, index2)
 	return rv
 }
 
 func (g GTMioCounterDataPerDM) CounterIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("counterIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("counterIndex"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) DataMaster() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("dataMaster"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("dataMaster"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) MaxValue() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("maxValue"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("maxValue"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) MinValue() float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("minValue"))
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("minValue"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) Name() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioCounterDataPerDM) OriginalName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("originalName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("originalName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioCounterDataPerDM) SampleCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("sampleCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("sampleCount"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) Scope() uint16 {
-	rv := objc.Send[uint16](g.ID, objc.Sel("scope"))
+	rv := objc.SendIfResponds[uint16](g.ID, objc.Sel("scope"))
 	return rv
 }
 func (g GTMioCounterDataPerDM) ScopeIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("scopeIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("scopeIndex"))
 	return rv
 }
-func (g GTMioCounterDataPerDM) Values() []float64 {
-	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("values"))
-	return objc.ConvertSlice(rv, func(id objc.ID) float64 {
-		return float64(id)
-	})
+func (g GTMioCounterDataPerDM) Values() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("values"))
+	return rv
 }

@@ -38,7 +38,7 @@ func (mc MLImageSizeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLImageSizeClass) Alloc() MLImageSize {
-	rv := objc.Send[MLImageSize](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLImageSize](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,39 +75,39 @@ type IMLImageSize interface {
 
 // Init initializes the instance.
 func (m MLImageSize) Init() MLImageSize {
-	rv := objc.Send[MLImageSize](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLImageSize](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLImageSize) Autorelease() MLImageSize {
-	rv := objc.Send[MLImageSize](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLImageSize](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLImageSize creates a new MLImageSize instance.
 func NewMLImageSize() MLImageSize {
 	class := getMLImageSizeClass()
-	rv := objc.Send[MLImageSize](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLImageSize](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 	instance := getMLImageSizeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
 	return MLImageSizeFromID(rv)
 }
 
 func (m MLImageSize) IsEqualToImageSize(size objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToImageSize:"), size)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEqualToImageSize:"), size)
 	return rv
 }
 func (m MLImageSize) InitWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
-	rv := objc.Send[MLImageSize](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
+	rv := objc.SendIfResponds[MLImageSize](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
 	return rv
 }
 
 func (_MLImageSizeClass MLImageSizeClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLImageSizeClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLImageSizeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }

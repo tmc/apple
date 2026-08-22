@@ -40,7 +40,7 @@ func (cc CPXKeyEventSequenceTrackerProviderDefaultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXKeyEventSequenceTrackerProviderDefaultClass) Alloc() CPXKeyEventSequenceTrackerProviderDefault {
-	rv := objc.Send[CPXKeyEventSequenceTrackerProviderDefault](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTrackerProviderDefault](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,61 +101,61 @@ type ICPXKeyEventSequenceTrackerProviderDefault interface {
 
 // Init initializes the instance.
 func (c CPXKeyEventSequenceTrackerProviderDefault) Init() CPXKeyEventSequenceTrackerProviderDefault {
-	rv := objc.Send[CPXKeyEventSequenceTrackerProviderDefault](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTrackerProviderDefault](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXKeyEventSequenceTrackerProviderDefault) Autorelease() CPXKeyEventSequenceTrackerProviderDefault {
-	rv := objc.Send[CPXKeyEventSequenceTrackerProviderDefault](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTrackerProviderDefault](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXKeyEventSequenceTrackerProviderDefault creates a new CPXKeyEventSequenceTrackerProviderDefault instance.
 func NewCPXKeyEventSequenceTrackerProviderDefault() CPXKeyEventSequenceTrackerProviderDefault {
 	class := getCPXKeyEventSequenceTrackerProviderDefaultClass()
-	rv := objc.Send[CPXKeyEventSequenceTrackerProviderDefault](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXKeyEventSequenceTrackerProviderDefault](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CPXKeyEventSequenceTrackerProviderDefault) EventLimit() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("eventLimit"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("eventLimit"))
 	return rv
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) StructuralRegionForID(id uint64) WSStructuralRegionRef {
-	rv := objc.Send[WSStructuralRegionRef](c.ID, objc.Sel("structuralRegionForID:"), id)
+	rv := objc.SendIfResponds[WSStructuralRegionRef](c.ID, objc.Sel("structuralRegionForID:"), id)
 	return WSStructuralRegionRef(rv)
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) WindowByID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("windowByID:"), id)
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("windowByID:"), id)
 	return rv
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) WindowHeightForWindow(window unsafe.Pointer) uint16 {
-	rv := objc.Send[uint16](c.ID, objc.Sel("windowHeightForWindow:"), window)
+	rv := objc.SendIfResponds[uint16](c.ID, objc.Sel("windowHeightForWindow:"), window)
 	return rv
 }
 
 func (c CPXKeyEventSequenceTrackerProviderDefault) CurrentRegionID() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("currentRegionID"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("currentRegionID"))
 	return rv
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) MainDisplayHeight() uint16 {
-	rv := objc.Send[uint16](c.ID, objc.Sel("mainDisplayHeight"))
+	rv := objc.SendIfResponds[uint16](c.ID, objc.Sel("mainDisplayHeight"))
 	return rv
 }
 func (c CPXKeyEventSequenceTrackerProviderDefault) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

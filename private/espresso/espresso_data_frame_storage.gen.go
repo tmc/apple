@@ -40,7 +40,7 @@ func (ec EspressoDataFrameStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameStorageClass) Alloc() EspressoDataFrameStorage {
-	rv := objc.Send[EspressoDataFrameStorage](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorage](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,29 +95,29 @@ type IEspressoDataFrameStorage interface {
 
 // Init initializes the instance.
 func (e EspressoDataFrameStorage) Init() EspressoDataFrameStorage {
-	rv := objc.Send[EspressoDataFrameStorage](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorage](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoDataFrameStorage) Autorelease() EspressoDataFrameStorage {
-	rv := objc.Send[EspressoDataFrameStorage](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorage](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoDataFrameStorage creates a new EspressoDataFrameStorage instance.
 func NewEspressoDataFrameStorage() EspressoDataFrameStorage {
 	class := getEspressoDataFrameStorageClass()
-	rv := objc.Send[EspressoDataFrameStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoDataFrameStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoDataFrameStorage) DataFrameAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrameAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataFrameAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoDataFrameStorage) NumberOfDataFrames() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataFrames"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("numberOfDataFrames"))
 	return rv
 }
 
@@ -133,23 +133,23 @@ func (_EspressoDataFrameStorageClass EspressoDataFrameStorageClass) DataFrameSto
 }
 
 func (e EspressoDataFrameStorage) BaseFilename() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("baseFilename"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("baseFilename"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e EspressoDataFrameStorage) SetBaseFilename(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBaseFilename:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBaseFilename:"), objc.String(value))
 }
 func (e EspressoDataFrameStorage) DataFrames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataFrames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e EspressoDataFrameStorage) SetDataFrames(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDataFrames:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDataFrames:"), value)
 }
 func (e EspressoDataFrameStorage) MappedFiles() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("mappedFiles"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("mappedFiles"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (e EspressoDataFrameStorage) SetMappedFiles(value foundation.INSDictionary) {
-	objc.Send[struct{}](e.ID, objc.Sel("setMappedFiles:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMappedFiles:"), value)
 }

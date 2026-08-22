@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +41,7 @@ func (sc SLSBrightnessControlClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBrightnessControlClientClass) Alloc() SLSBrightnessControlClient {
-	rv := objc.Send[SLSBrightnessControlClient](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -127,13 +126,13 @@ type ISLSBrightnessControlClient interface {
 	GetFloatWithKeyFromReply(key string, reply objectivec.IObject) (float32, bool)
 	GetWhitePointMatrixWithKeyFromReply(matrix unsafe.Pointer, key string, reply objectivec.IObject) bool
 	HandleServerMessage(message objectivec.IObject)
-	RequestAbortRampCommandDisplayError(ramp kernel.Pointer, command uint64, display int) (int, error)
+	RequestAbortRampCommandDisplayError(ramp unsafe.Pointer, command uint64, display int) (int, error)
 	RequestBrightnessPolicyError(policy objectivec.IObject) (uint64, error)
 	RequestBrightnessTimeoutsError(timeouts objectivec.IObject) (uint64, error)
 	RequestBulkBrightnessChangeError(change objectivec.IObject) (uint64, error)
-	RequestGetValueCommandDisplayError(value kernel.Pointer, command uint64, display int) (int, error)
+	RequestGetValueCommandDisplayError(value unsafe.Pointer, command uint64, display int) (int, error)
 	RequestSetContrastEnhancerDurationDisplayError(enhancer float32, duration float64, display int) (uint64, error)
-	RequestSetWhitePointDurationDisplayError(point kernel.Pointer, duration float64, display int) (uint64, error)
+	RequestSetWhitePointDurationDisplayError(point unsafe.Pointer, duration float64, display int) (uint64, error)
 	SendRequestCommandError(request objectivec.IObject, command uint64) (uint64, error)
 	SendSynchronousRequestCommandError(request objectivec.IObject, command uint64) (objectivec.IObject, error)
 	Service() ISLSXPCService
@@ -148,33 +147,33 @@ type ISLSBrightnessControlClient interface {
 
 // Init initializes the instance.
 func (s SLSBrightnessControlClient) Init() SLSBrightnessControlClient {
-	rv := objc.Send[SLSBrightnessControlClient](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBrightnessControlClient) Autorelease() SLSBrightnessControlClient {
-	rv := objc.Send[SLSBrightnessControlClient](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBrightnessControlClient creates a new SLSBrightnessControlClient instance.
 func NewSLSBrightnessControlClient() SLSBrightnessControlClient {
 	class := getSLSBrightnessControlClientClass()
-	rv := objc.Send[SLSBrightnessControlClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSBrightnessControlClient) BrightnessControls(controls []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("brightnessControls:"), objectivec.IObjectSliceToNSArray(controls))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("brightnessControls:"), objectivec.IObjectSliceToNSArray(controls))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBrightnessControlClient) CommitBrightnessPolicy(policy []objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("commitBrightnessPolicy:"), objectivec.IObjectSliceToNSArray(policy))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("commitBrightnessPolicy:"), objectivec.IObjectSliceToNSArray(policy))
 	return rv
 }
 func (s SLSBrightnessControlClient) ControllerWithId(id uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("controllerWithId:"), id)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("controllerWithId:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBrightnessControlClient) GetFloatWithKeyFromReply(key string, reply objectivec.IObject) (float32, bool) {
@@ -183,13 +182,13 @@ func (s SLSBrightnessControlClient) GetFloatWithKeyFromReply(key string, reply o
 	return float, rv
 }
 func (s SLSBrightnessControlClient) GetWhitePointMatrixWithKeyFromReply(matrix unsafe.Pointer, key string, reply objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("getWhitePointMatrix:withKey:fromReply:"), matrix, unsafe.Pointer(unsafe.StringData(key+"\x00")), reply)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("getWhitePointMatrix:withKey:fromReply:"), matrix, unsafe.Pointer(unsafe.StringData(key+"\x00")), reply)
 	return rv
 }
 func (s SLSBrightnessControlClient) HandleServerMessage(message objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("handleServerMessage:"), message)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("handleServerMessage:"), message)
 }
-func (s SLSBrightnessControlClient) RequestAbortRampCommandDisplayError(ramp kernel.Pointer, command uint64, display int) (int, error) {
+func (s SLSBrightnessControlClient) RequestAbortRampCommandDisplayError(ramp unsafe.Pointer, command uint64, display int) (int, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int](s.ID, objc.Sel("requestAbortRamp:command:display:error:"), ramp, command, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -229,7 +228,7 @@ func (s SLSBrightnessControlClient) RequestBulkBrightnessChangeError(change obje
 	return rv, nil
 
 }
-func (s SLSBrightnessControlClient) RequestGetValueCommandDisplayError(value kernel.Pointer, command uint64, display int) (int, error) {
+func (s SLSBrightnessControlClient) RequestGetValueCommandDisplayError(value unsafe.Pointer, command uint64, display int) (int, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[int](s.ID, objc.Sel("requestGetValue:command:display:error:"), value, command, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -249,7 +248,7 @@ func (s SLSBrightnessControlClient) RequestSetContrastEnhancerDurationDisplayErr
 	return rv, nil
 
 }
-func (s SLSBrightnessControlClient) RequestSetWhitePointDurationDisplayError(point kernel.Pointer, duration float64, display int) (uint64, error) {
+func (s SLSBrightnessControlClient) RequestSetWhitePointDurationDisplayError(point unsafe.Pointer, duration float64, display int) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](s.ID, objc.Sel("requestSetWhitePoint:duration:display:error:"), point, duration, display, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -280,42 +279,45 @@ func (s SLSBrightnessControlClient) SendSynchronousRequestCommandError(request o
 
 }
 func (s SLSBrightnessControlClient) SetDimMessagingPolicy(policy byte) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setDimMessagingPolicy:"), policy)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setDimMessagingPolicy:"), policy)
 }
+
+var _slsbrightnesscontrolclient_setnotifyblock_p0_key byte
+
 func (s SLSBrightnessControlClient) SetNotifyBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](s.ID, objc.Sel("setNotifyBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setNotifyBlock:"), _block0)
 }
 func (s SLSBrightnessControlClient) SetShieldingPolicy(policy byte) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setShieldingPolicy:"), policy)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setShieldingPolicy:"), policy)
 }
 func (s SLSBrightnessControlClient) SetSleepMessagingPolicy(policy byte) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setSleepMessagingPolicy:"), policy)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setSleepMessagingPolicy:"), policy)
 }
 func (s SLSBrightnessControlClient) InitBrightnessControlClientNotifyQueueNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, block VoidHandler) SLSBrightnessControlClient {
 	_block2, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSBrightnessControlClient](s.ID, objc.Sel("initBrightnessControlClient:notifyQueue:notificationBlock:"), client, queue, _block2)
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](s.ID, objc.Sel("initBrightnessControlClient:notifyQueue:notificationBlock:"), client, queue, _block2)
 	return rv
 }
 func (s SLSBrightnessControlClient) InitBrightnessControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSBrightnessControlClient {
 	_block3, _ := NewVoidBlock(block)
-	rv := objc.Send[SLSBrightnessControlClient](s.ID, objc.Sel("initBrightnessControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
+	rv := objc.SendIfResponds[SLSBrightnessControlClient](s.ID, objc.Sel("initBrightnessControlClient:notifyQueue:notificationType:notificationBlock:"), client, queue, type_, _block3)
 	return rv
 }
 
 func (s SLSBrightnessControlClient) Displays() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("displays"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displays"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSBrightnessControlClient) SetDisplays(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDisplays:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplays:"), value)
 }
 func (s SLSBrightnessControlClient) Service() ISLSXPCService {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("service"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("service"))
 	return SLSXPCServiceFromID(objc.ID(rv))
 }
 func (s SLSBrightnessControlClient) SetService(value ISLSXPCService) {
-	objc.Send[struct{}](s.ID, objc.Sel("setService:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setService:"), value)
 }
 
 // SetNotifyBlockSync is a synchronous wrapper around [SLSBrightnessControlClient.SetNotifyBlock].

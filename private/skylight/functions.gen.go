@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objectivec"
@@ -111,10 +112,10 @@ func CGSMainConnectionID() (CGSConnectionID, error) {
 	return tryCGSMainConnectionID()
 }
 
-var _sLEventPostToPSN func(psn *ProcessSerialNumber, event coregraphics.CGEvent) int32
+var _sLEventPostToPSN func(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) int32
 var _sLEventPostToPSNErr error
 
-func trySLEventPostToPSN(psn *ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
+func trySLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
 	if _sLEventPostToPSN == nil {
 		return 0, symbolCallError("SLEventPostToPSN", "", _sLEventPostToPSNErr)
 	}
@@ -122,7 +123,7 @@ func trySLEventPostToPSN(psn *ProcessSerialNumber, event coregraphics.CGEvent) (
 }
 
 // SLEventPostToPSN.
-func SLEventPostToPSN(psn *ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
+func SLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
 	return trySLEventPostToPSN(psn, event)
 }
 
@@ -173,10 +174,10 @@ func SLEventSetIntegerValueField(event coregraphics.CGEvent, field coregraphics.
 	return trySLEventSetIntegerValueField(event, field, value)
 }
 
-var _sLPSPostEventRecordTo func(psn *ProcessSerialNumber, record *byte) int32
+var _sLPSPostEventRecordTo func(psn *applicationservices.ProcessSerialNumber, record *byte) int32
 var _sLPSPostEventRecordToErr error
 
-func trySLPSPostEventRecordTo(psn *ProcessSerialNumber, record []byte) (int32, error) {
+func trySLPSPostEventRecordTo(psn *applicationservices.ProcessSerialNumber, record []byte) (int32, error) {
 	if _sLPSPostEventRecordTo == nil {
 		return 0, symbolCallError("SLPSPostEventRecordTo", "", _sLPSPostEventRecordToErr)
 	}
@@ -184,14 +185,44 @@ func trySLPSPostEventRecordTo(psn *ProcessSerialNumber, record []byte) (int32, e
 }
 
 // SLPSPostEventRecordTo.
-func SLPSPostEventRecordTo(psn *ProcessSerialNumber, record []byte) (int32, error) {
+func SLPSPostEventRecordTo(psn *applicationservices.ProcessSerialNumber, record []byte) (int32, error) {
 	return trySLPSPostEventRecordTo(psn, record)
 }
 
-var _sLSGetConnectionPSN func(cid CGSConnectionID, psn *ProcessSerialNumber) coregraphics.CGError
+var _sLSCopySpacesForWindows func(cid CGSConnectionID, mask uint, wids corefoundation.CFArrayRef) corefoundation.CFArrayRef
+var _sLSCopySpacesForWindowsErr error
+
+func trySLSCopySpacesForWindows(cid CGSConnectionID, mask uint, wids corefoundation.CFArrayRef) (corefoundation.CFArrayRef, error) {
+	if _sLSCopySpacesForWindows == nil {
+		return *new(corefoundation.CFArrayRef), symbolCallError("SLSCopySpacesForWindows", "", _sLSCopySpacesForWindowsErr)
+	}
+	return _sLSCopySpacesForWindows(cid, mask, wids), nil
+}
+
+// SLSCopySpacesForWindows.
+func SLSCopySpacesForWindows(cid CGSConnectionID, mask uint, wids corefoundation.CFArrayRef) (corefoundation.CFArrayRef, error) {
+	return trySLSCopySpacesForWindows(cid, mask, wids)
+}
+
+var _sLSGetActiveSpace func(cid CGSConnectionID) uint64
+var _sLSGetActiveSpaceErr error
+
+func trySLSGetActiveSpace(cid CGSConnectionID) (uint64, error) {
+	if _sLSGetActiveSpace == nil {
+		return 0, symbolCallError("SLSGetActiveSpace", "", _sLSGetActiveSpaceErr)
+	}
+	return _sLSGetActiveSpace(cid), nil
+}
+
+// SLSGetActiveSpace.
+func SLSGetActiveSpace(cid CGSConnectionID) (uint64, error) {
+	return trySLSGetActiveSpace(cid)
+}
+
+var _sLSGetConnectionPSN func(cid CGSConnectionID, psn *applicationservices.ProcessSerialNumber) coregraphics.CGError
 var _sLSGetConnectionPSNErr error
 
-func trySLSGetConnectionPSN(cid CGSConnectionID, psn *ProcessSerialNumber) (coregraphics.CGError, error) {
+func trySLSGetConnectionPSN(cid CGSConnectionID, psn *applicationservices.ProcessSerialNumber) (coregraphics.CGError, error) {
 	if _sLSGetConnectionPSN == nil {
 		return *new(coregraphics.CGError), symbolCallError("SLSGetConnectionPSN", "", _sLSGetConnectionPSNErr)
 	}
@@ -199,7 +230,7 @@ func trySLSGetConnectionPSN(cid CGSConnectionID, psn *ProcessSerialNumber) (core
 }
 
 // SLSGetConnectionPSN.
-func SLSGetConnectionPSN(cid CGSConnectionID, psn *ProcessSerialNumber) (coregraphics.CGError, error) {
+func SLSGetConnectionPSN(cid CGSConnectionID, psn *applicationservices.ProcessSerialNumber) (coregraphics.CGError, error) {
 	return trySLSGetConnectionPSN(cid, psn)
 }
 
@@ -218,10 +249,25 @@ func SLSGetWindowOwner(cid CGSConnectionID, wid coregraphics.CGWindowID, owner *
 	return trySLSGetWindowOwner(cid, wid, owner)
 }
 
-var _sLPSGetFrontProcess func(psn *ProcessSerialNumber) int32
+var _sLSMainConnectionID func() CGSConnectionID
+var _sLSMainConnectionIDErr error
+
+func trySLSMainConnectionID() (CGSConnectionID, error) {
+	if _sLSMainConnectionID == nil {
+		return *new(CGSConnectionID), symbolCallError("SLSMainConnectionID", "", _sLSMainConnectionIDErr)
+	}
+	return _sLSMainConnectionID(), nil
+}
+
+// SLSMainConnectionID.
+func SLSMainConnectionID() (CGSConnectionID, error) {
+	return trySLSMainConnectionID()
+}
+
+var _sLPSGetFrontProcess func(psn *applicationservices.ProcessSerialNumber) int32
 var _sLPSGetFrontProcessErr error
 
-func trySLPSGetFrontProcess(psn *ProcessSerialNumber) (int32, error) {
+func trySLPSGetFrontProcess(psn *applicationservices.ProcessSerialNumber) (int32, error) {
 	if _sLPSGetFrontProcess == nil {
 		return 0, symbolCallError("_SLPSGetFrontProcess", "", _sLPSGetFrontProcessErr)
 	}
@@ -229,14 +275,14 @@ func trySLPSGetFrontProcess(psn *ProcessSerialNumber) (int32, error) {
 }
 
 // SLPSGetFrontProcess.
-func SLPSGetFrontProcess(psn *ProcessSerialNumber) (int32, error) {
+func SLPSGetFrontProcess(psn *applicationservices.ProcessSerialNumber) (int32, error) {
 	return trySLPSGetFrontProcess(psn)
 }
 
-var _sLPSSetFrontProcessWithOptions func(psn *ProcessSerialNumber, wid uint32, mode uint32) int32
+var _sLPSSetFrontProcessWithOptions func(psn *applicationservices.ProcessSerialNumber, wid uint32, mode uint32) int32
 var _sLPSSetFrontProcessWithOptionsErr error
 
-func trySLPSSetFrontProcessWithOptions(psn *ProcessSerialNumber, wid uint32, mode uint32) (int32, error) {
+func trySLPSSetFrontProcessWithOptions(psn *applicationservices.ProcessSerialNumber, wid uint32, mode uint32) (int32, error) {
 	if _sLPSSetFrontProcessWithOptions == nil {
 		return 0, symbolCallError("_SLPSSetFrontProcessWithOptions", "", _sLPSSetFrontProcessWithOptionsErr)
 	}
@@ -244,7 +290,7 @@ func trySLPSSetFrontProcessWithOptions(psn *ProcessSerialNumber, wid uint32, mod
 }
 
 // SLPSSetFrontProcessWithOptions.
-func SLPSSetFrontProcessWithOptions(psn *ProcessSerialNumber, wid uint32, mode uint32) (int32, error) {
+func SLPSSetFrontProcessWithOptions(psn *applicationservices.ProcessSerialNumber, wid uint32, mode uint32) (int32, error) {
 	return trySLPSSetFrontProcessWithOptions(psn, wid, mode)
 }
 
@@ -259,8 +305,11 @@ func init() {
 	registerFunc(&_sLEventSetAuthenticationMessage, &_sLEventSetAuthenticationMessageErr, frameworkHandle, "SLEventSetAuthenticationMessage", "")
 	registerFunc(&_sLEventSetIntegerValueField, &_sLEventSetIntegerValueFieldErr, frameworkHandle, "SLEventSetIntegerValueField", "")
 	registerFunc(&_sLPSPostEventRecordTo, &_sLPSPostEventRecordToErr, frameworkHandle, "SLPSPostEventRecordTo", "")
+	registerFunc(&_sLSCopySpacesForWindows, &_sLSCopySpacesForWindowsErr, frameworkHandle, "SLSCopySpacesForWindows", "")
+	registerFunc(&_sLSGetActiveSpace, &_sLSGetActiveSpaceErr, frameworkHandle, "SLSGetActiveSpace", "")
 	registerFunc(&_sLSGetConnectionPSN, &_sLSGetConnectionPSNErr, frameworkHandle, "SLSGetConnectionPSN", "")
 	registerFunc(&_sLSGetWindowOwner, &_sLSGetWindowOwnerErr, frameworkHandle, "SLSGetWindowOwner", "")
+	registerFunc(&_sLSMainConnectionID, &_sLSMainConnectionIDErr, frameworkHandle, "SLSMainConnectionID", "")
 	registerFunc(&_sLPSGetFrontProcess, &_sLPSGetFrontProcessErr, frameworkHandle, "_SLPSGetFrontProcess", "")
 	registerFunc(&_sLPSSetFrontProcessWithOptions, &_sLPSSetFrontProcessWithOptionsErr, frameworkHandle, "_SLPSSetFrontProcessWithOptions", "")
 }

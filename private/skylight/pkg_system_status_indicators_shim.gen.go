@@ -40,7 +40,7 @@ func (pc PKGSystemStatusIndicatorsShimClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PKGSystemStatusIndicatorsShimClass) Alloc() PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,77 +110,77 @@ type IPKGSystemStatusIndicatorsShim interface {
 
 // Init initializes the instance.
 func (p PKGSystemStatusIndicatorsShim) Init() PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PKGSystemStatusIndicatorsShim) Autorelease() PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPKGSystemStatusIndicatorsShim creates a new PKGSystemStatusIndicatorsShim instance.
 func NewPKGSystemStatusIndicatorsShim() PKGSystemStatusIndicatorsShim {
 	class := getPKGSystemStatusIndicatorsShimClass()
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGSystemStatusIndicatorsShimWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim {
 	instance := getPKGSystemStatusIndicatorsShimClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowSize:"), size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWindowSize:"), size)
 	return PKGSystemStatusIndicatorsShimFromID(rv)
 }
 
 func (p PKGSystemStatusIndicatorsShim) DisplayNeedsSecureIndicatorFlush(flush unsafe.Pointer) bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("displayNeedsSecureIndicatorFlush:"), flush)
+	rv := objc.SendIfResponds[bool](p.ID, objc.Sel("displayNeedsSecureIndicatorFlush:"), flush)
 	return rv
 }
 func (p PKGSystemStatusIndicatorsShim) HasIndicatorWindows() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("hasIndicatorWindows"))
+	rv := objc.SendIfResponds[bool](p.ID, objc.Sel("hasIndicatorWindows"))
 	return rv
 }
 func (p PKGSystemStatusIndicatorsShim) OverrideIndicatorSize(size float32) {
-	objc.Send[objc.ID](p.ID, objc.Sel("overrideIndicatorSize:"), size)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("overrideIndicatorSize:"), size)
 }
 func (p PKGSystemStatusIndicatorsShim) RebuildDisplays(displays bool) {
-	objc.Send[objc.ID](p.ID, objc.Sel("rebuildDisplays:"), displays)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rebuildDisplays:"), displays)
 }
 func (p PKGSystemStatusIndicatorsShim) RebuildLayers() {
-	objc.Send[objc.ID](p.ID, objc.Sel("rebuildLayers"))
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rebuildLayers"))
 }
 func (p PKGSystemStatusIndicatorsShim) RebuildOcclusionMetadata() uint32 {
-	rv := objc.Send[uint32](p.ID, objc.Sel("rebuildOcclusionMetadata"))
+	rv := objc.SendIfResponds[uint32](p.ID, objc.Sel("rebuildOcclusionMetadata"))
 	return rv
 }
 func (p PKGSystemStatusIndicatorsShim) SetDisplayNeedsSecureIndicatorFlush(display unsafe.Pointer, flush bool) {
-	objc.Send[objc.ID](p.ID, objc.Sel("setDisplay:needsSecureIndicatorFlush:"), display, flush)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("setDisplay:needsSecureIndicatorFlush:"), display, flush)
 }
 func (p PKGSystemStatusIndicatorsShim) UpdateForIndicators(indicators uint32) {
-	objc.Send[objc.ID](p.ID, objc.Sel("updateForIndicators:"), indicators)
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("updateForIndicators:"), indicators)
 }
 func (p PKGSystemStatusIndicatorsShim) InitWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("initWithWindowSize:"), size)
+	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("initWithWindowSize:"), size)
 	return rv
 }
 
 func (_PKGSystemStatusIndicatorsShimClass PKGSystemStatusIndicatorsShimClass) AdditionalBarInsetForModePixelWidthPixelHeightPointWidthPointHeightScalePhysicalSize(width float64, height float64, width2 float64, height2 float64, scale float64, size corefoundation.CGSize) float64 {
-	rv := objc.Send[float64](objc.ID(_PKGSystemStatusIndicatorsShimClass.class), objc.Sel("additionalBarInsetForModePixelWidth:pixelHeight:pointWidth:pointHeight:scale:physicalSize:"), width, height, width2, height2, scale, size)
+	rv := objc.SendIfResponds[float64](objc.ID(_PKGSystemStatusIndicatorsShimClass.class), objc.Sel("additionalBarInsetForModePixelWidth:pixelHeight:pointWidth:pointHeight:scale:physicalSize:"), width, height, width2, height2, scale, size)
 	return rv
 }
 
 func (p PKGSystemStatusIndicatorsShim) GlobalEnableSecureIndicators() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("globalEnableSecureIndicators"))
+	rv := objc.SendIfResponds[bool](p.ID, objc.Sel("globalEnableSecureIndicators"))
 	return rv
 }
 func (p PKGSystemStatusIndicatorsShim) SetGlobalEnableSecureIndicators(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setGlobalEnableSecureIndicators:"), value)
+	objc.SendIfResponds[struct{}](p.ID, objc.Sel("setGlobalEnableSecureIndicators:"), value)
 }
 func (p PKGSystemStatusIndicatorsShim) SuspendUpdates() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("suspendUpdates"))
+	rv := objc.SendIfResponds[bool](p.ID, objc.Sel("suspendUpdates"))
 	return rv
 }
 func (p PKGSystemStatusIndicatorsShim) SetSuspendUpdates(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setSuspendUpdates:"), value)
+	objc.SendIfResponds[struct{}](p.ID, objc.Sel("setSuspendUpdates:"), value)
 }

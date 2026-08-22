@@ -37,7 +37,7 @@ func (ec EspressoPassL2Normalize5dToInstancenormClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassL2Normalize5dToInstancenormClass) Alloc() EspressoPassL2Normalize5dToInstancenorm {
-	rv := objc.Send[EspressoPassL2Normalize5dToInstancenorm](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassL2Normalize5dToInstancenorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassL2Normalize5dToInstancenorm interface {
 
 // Init initializes the instance.
 func (e EspressoPassL2Normalize5dToInstancenorm) Init() EspressoPassL2Normalize5dToInstancenorm {
-	rv := objc.Send[EspressoPassL2Normalize5dToInstancenorm](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassL2Normalize5dToInstancenorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassL2Normalize5dToInstancenorm) Autorelease() EspressoPassL2Normalize5dToInstancenorm {
-	rv := objc.Send[EspressoPassL2Normalize5dToInstancenorm](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassL2Normalize5dToInstancenorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassL2Normalize5dToInstancenorm creates a new EspressoPassL2Normalize5dToInstancenorm instance.
 func NewEspressoPassL2Normalize5dToInstancenorm() EspressoPassL2Normalize5dToInstancenorm {
 	class := getEspressoPassL2Normalize5dToInstancenormClass()
-	rv := objc.Send[EspressoPassL2Normalize5dToInstancenorm](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassL2Normalize5dToInstancenorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

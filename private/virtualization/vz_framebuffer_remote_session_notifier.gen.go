@@ -38,7 +38,7 @@ func (vc VZFramebufferRemoteSessionNotifierClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZFramebufferRemoteSessionNotifierClass) Alloc() VZFramebufferRemoteSessionNotifier {
-	rv := objc.Send[VZFramebufferRemoteSessionNotifier](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZFramebufferRemoteSessionNotifier](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZFramebufferRemoteSessionNotifier interface {
 
 // Init initializes the instance.
 func (v VZFramebufferRemoteSessionNotifier) Init() VZFramebufferRemoteSessionNotifier {
-	rv := objc.Send[VZFramebufferRemoteSessionNotifier](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZFramebufferRemoteSessionNotifier](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZFramebufferRemoteSessionNotifier) Autorelease() VZFramebufferRemoteSessionNotifier {
-	rv := objc.Send[VZFramebufferRemoteSessionNotifier](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZFramebufferRemoteSessionNotifier](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZFramebufferRemoteSessionNotifier creates a new VZFramebufferRemoteSessionNotifier instance.
 func NewVZFramebufferRemoteSessionNotifier() VZFramebufferRemoteSessionNotifier {
 	class := getVZFramebufferRemoteSessionNotifierClass()
-	rv := objc.Send[VZFramebufferRemoteSessionNotifier](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZFramebufferRemoteSessionNotifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

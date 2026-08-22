@@ -40,7 +40,7 @@ func (cc CPXProcessManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXProcessManagerClass) Alloc() CPXProcessManager {
-	rv := objc.Send[CPXProcessManager](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXProcessManager](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,16 +101,16 @@ type ICPXProcessManager interface {
 
 	IsPSNEqualToPSN(psn CPSProcessSerNum, psn2 CPSProcessSerNum) bool
 	IsValidConnectionIDForPSN(id uint32, psn CPSProcessSerNum) bool
-	ProcessForPID(pid int) unsafe.Pointer
-	ProcessForPSN(psn CPSProcessSerNum) unsafe.Pointer
-	ProcessOwningConnection(connection CGXConnection) unsafe.Pointer
-	ProcessOwningConnectionID(id uint32) unsafe.Pointer
-	ProcessPendingKill() unsafe.Pointer
+	ProcessForPID(pid int) *CPSProcessRec
+	ProcessForPSN(psn CPSProcessSerNum) *CPSProcessRec
+	ProcessOwningConnection(connection *CGXConnection) *CPSProcessRec
+	ProcessOwningConnectionID(id uint32) *CPSProcessRec
+	ProcessPendingKill() *CPSProcessRec
 	SetProcessPendingKill(value *CPSProcessRec)
-	ProcessRepresentedByConnection(connection CGXConnection) unsafe.Pointer
-	ProcessRepresentedByConnectionID(id uint32) unsafe.Pointer
-	UpdateProcessApplicationTypeIfNecessary(necessary CPSProcessRec) byte
-	InitWithSessionConnectionManager(session CGXSession, manager objectivec.IObject) CPXProcessManager
+	ProcessRepresentedByConnection(connection *CGXConnection) *CPSProcessRec
+	ProcessRepresentedByConnectionID(id uint32) *CPSProcessRec
+	UpdateProcessApplicationTypeIfNecessary(necessary *CPSProcessRec) byte
+	InitWithSessionConnectionManager(session *CGXSession, manager objectivec.IObject) CPXProcessManager
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -119,90 +119,90 @@ type ICPXProcessManager interface {
 
 // Init initializes the instance.
 func (c CPXProcessManager) Init() CPXProcessManager {
-	rv := objc.Send[CPXProcessManager](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXProcessManager](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXProcessManager) Autorelease() CPXProcessManager {
-	rv := objc.Send[CPXProcessManager](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXProcessManager](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXProcessManager creates a new CPXProcessManager instance.
 func NewCPXProcessManager() CPXProcessManager {
 	class := getCPXProcessManagerClass()
-	rv := objc.Send[CPXProcessManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXProcessManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewCPXProcessManagerWithSessionConnectionManager(session CGXSession, manager objectivec.IObject) CPXProcessManager {
+func NewCPXProcessManagerWithSessionConnectionManager(session *CGXSession, manager objectivec.IObject) CPXProcessManager {
 	instance := getCPXProcessManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:connectionManager:"), session, manager)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:connectionManager:"), unsafe.Pointer(session), manager)
 	return CPXProcessManagerFromID(rv)
 }
 
 func (c CPXProcessManager) IsPSNEqualToPSN(psn CPSProcessSerNum, psn2 CPSProcessSerNum) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("isPSN:equalToPSN:"), psn, psn2)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("isPSN:equalToPSN:"), psn, psn2)
 	return rv
 }
 func (c CPXProcessManager) IsValidConnectionIDForPSN(id uint32, psn CPSProcessSerNum) bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("isValidConnectionID:forPSN:"), id, psn)
+	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("isValidConnectionID:forPSN:"), id, psn)
 	return rv
 }
-func (c CPXProcessManager) ProcessForPID(pid int) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processForPID:"), pid)
+func (c CPXProcessManager) ProcessForPID(pid int) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processForPID:"), pid)
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) ProcessForPSN(psn CPSProcessSerNum) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processForPSN:"), psn)
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) ProcessOwningConnection(connection *CGXConnection) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processOwningConnection:"), unsafe.Pointer(connection))
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) ProcessOwningConnectionID(id uint32) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processOwningConnectionID:"), id)
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) ProcessRepresentedByConnection(connection *CGXConnection) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnection:"), unsafe.Pointer(connection))
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) ProcessRepresentedByConnectionID(id uint32) *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnectionID:"), id)
+	return (*CPSProcessRec)(rv)
+}
+func (c CPXProcessManager) UpdateProcessApplicationTypeIfNecessary(necessary *CPSProcessRec) byte {
+	rv := objc.SendIfResponds[byte](c.ID, objc.Sel("updateProcessApplicationTypeIfNecessary:"), unsafe.Pointer(necessary))
 	return rv
 }
-func (c CPXProcessManager) ProcessForPSN(psn CPSProcessSerNum) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processForPSN:"), psn)
-	return rv
-}
-func (c CPXProcessManager) ProcessOwningConnection(connection CGXConnection) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processOwningConnection:"), connection)
-	return rv
-}
-func (c CPXProcessManager) ProcessOwningConnectionID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processOwningConnectionID:"), id)
-	return rv
-}
-func (c CPXProcessManager) ProcessRepresentedByConnection(connection CGXConnection) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnection:"), connection)
-	return rv
-}
-func (c CPXProcessManager) ProcessRepresentedByConnectionID(id uint32) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processRepresentedByConnectionID:"), id)
-	return rv
-}
-func (c CPXProcessManager) UpdateProcessApplicationTypeIfNecessary(necessary CPSProcessRec) byte {
-	rv := objc.Send[byte](c.ID, objc.Sel("updateProcessApplicationTypeIfNecessary:"), necessary)
-	return rv
-}
-func (c CPXProcessManager) InitWithSessionConnectionManager(session CGXSession, manager objectivec.IObject) CPXProcessManager {
-	rv := objc.Send[CPXProcessManager](c.ID, objc.Sel("initWithSession:connectionManager:"), session, manager)
+func (c CPXProcessManager) InitWithSessionConnectionManager(session *CGXSession, manager objectivec.IObject) CPXProcessManager {
+	rv := objc.SendIfResponds[CPXProcessManager](c.ID, objc.Sel("initWithSession:connectionManager:"), unsafe.Pointer(session), manager)
 	return rv
 }
 
 func (c CPXProcessManager) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXProcessManager) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (c CPXProcessManager) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-func (c CPXProcessManager) ProcessPendingKill() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("processPendingKill"))
-	return rv
+func (c CPXProcessManager) ProcessPendingKill() *CPSProcessRec {
+	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processPendingKill"))
+	return (*CPSProcessRec)(rv)
 }
 func (c CPXProcessManager) SetProcessPendingKill(value *CPSProcessRec) {
-	objc.Send[struct{}](c.ID, objc.Sel("setProcessPendingKill:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setProcessPendingKill:"), value)
 }
 func (c CPXProcessManager) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](c.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

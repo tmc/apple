@@ -41,17 +41,17 @@ func (vc VZGraphicsDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGraphicsDeviceConfigurationClass) Alloc() VZGraphicsDeviceConfiguration {
-	rv := objc.Send[VZGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
+//   - [VZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [VZGraphicsDeviceConfiguration._init]
 //   - [VZGraphicsDeviceConfiguration._initWithConfiguration]
 //   - [VZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex]
 //   - [VZGraphicsDeviceConfiguration.ValidateWithError]
-//   - [VZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [VZGraphicsDeviceConfiguration.DebugDescription]
 //   - [VZGraphicsDeviceConfiguration.Description]
 //   - [VZGraphicsDeviceConfiguration.Hash]
@@ -72,11 +72,11 @@ var _ IVZGraphicsDeviceConfiguration = VZGraphicsDeviceConfiguration{}
 //
 // # Methods
 //
+//   - [IVZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [IVZGraphicsDeviceConfiguration._init]
 //   - [IVZGraphicsDeviceConfiguration._initWithConfiguration]
 //   - [IVZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex]
 //   - [IVZGraphicsDeviceConfiguration.ValidateWithError]
-//   - [IVZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [IVZGraphicsDeviceConfiguration.DebugDescription]
 //   - [IVZGraphicsDeviceConfiguration.Description]
 //   - [IVZGraphicsDeviceConfiguration.Hash]
@@ -86,11 +86,11 @@ type IVZGraphicsDeviceConfiguration interface {
 
 	// Topic: Methods
 
+	_graphicsDevice() unsafe.Pointer
 	_init() objectivec.IObject
 	_initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject
 	MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	ValidateWithError() (bool, error)
-	_graphicsDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -99,29 +99,29 @@ type IVZGraphicsDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZGraphicsDeviceConfiguration) Init() VZGraphicsDeviceConfiguration {
-	rv := objc.Send[VZGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZGraphicsDeviceConfiguration) Autorelease() VZGraphicsDeviceConfiguration {
-	rv := objc.Send[VZGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZGraphicsDeviceConfiguration creates a new VZGraphicsDeviceConfiguration instance.
 func NewVZGraphicsDeviceConfiguration() VZGraphicsDeviceConfiguration {
 	class := getVZGraphicsDeviceConfigurationClass()
-	rv := objc.Send[VZGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZGraphicsDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZGraphicsDeviceConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
 	return objectivec.Object{ID: rv}
 }
 
@@ -139,7 +139,7 @@ func (v VZGraphicsDeviceConfiguration) CanInitWithConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:"))
 }
 func (v VZGraphicsDeviceConfiguration) MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
@@ -157,7 +157,7 @@ func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 }
 
 func (v VZGraphicsDeviceConfiguration) _graphicsDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_graphicsDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_graphicsDevice"))
 	return rv
 }
 
@@ -174,18 +174,18 @@ func (v VZGraphicsDeviceConfiguration) GraphicsDevice() (unsafe.Pointer, error) 
 	return v._graphicsDevice(), nil
 }
 func (v VZGraphicsDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZGraphicsDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZGraphicsDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZGraphicsDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

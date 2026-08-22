@@ -39,7 +39,7 @@ func (tc TTSLocaleUtilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSLocaleUtilitiesClass) Alloc() TTSLocaleUtilities {
-	rv := objc.Send[TTSLocaleUtilities](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSLocaleUtilities](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -106,70 +106,70 @@ type ITTSLocaleUtilities interface {
 
 // Init initializes the instance.
 func (t TTSLocaleUtilities) Init() TTSLocaleUtilities {
-	rv := objc.Send[TTSLocaleUtilities](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSLocaleUtilities](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSLocaleUtilities) Autorelease() TTSLocaleUtilities {
-	rv := objc.Send[TTSLocaleUtilities](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSLocaleUtilities](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSLocaleUtilities creates a new TTSLocaleUtilities instance.
 func NewTTSLocaleUtilities() TTSLocaleUtilities {
 	class := getTTSLocaleUtilitiesClass()
-	rv := objc.Send[TTSLocaleUtilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSLocaleUtilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSLocaleUtilities) DefaultVoiceIdentifierForGeneralLanguageCode(code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForGeneralLanguageCode:"), code)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForGeneralLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSLocaleUtilities) DefaultVoiceIdentifierForVoiceName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForVoiceName:"), name)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForVoiceName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSLocaleUtilities) SampleStringForVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSLocaleUtilities) SampleStringForVoiceIdentifierWithPreferredLocaleID(identifier objectivec.IObject, id objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:withPreferredLocaleID:"), identifier, id)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("sampleStringForVoiceIdentifier:withPreferredLocaleID:"), identifier, id)
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSLocaleUtilitiesClass TTSLocaleUtilitiesClass) SharedInstance() TTSLocaleUtilities {
-	rv := objc.Send[objc.ID](objc.ID(_TTSLocaleUtilitiesClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSLocaleUtilitiesClass.class), objc.Sel("sharedInstance"))
 	return TTSLocaleUtilitiesFromID(rv)
 }
 
 func (t TTSLocaleUtilities) CanonicalLanguageCodeVoiceNamesData() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("canonicalLanguageCodeVoiceNamesData"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("canonicalLanguageCodeVoiceNamesData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSLocaleUtilities) SetCanonicalLanguageCodeVoiceNamesData(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCanonicalLanguageCodeVoiceNamesData:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCanonicalLanguageCodeVoiceNamesData:"), value)
 }
 func (t TTSLocaleUtilities) FallbackSampleStringCache() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("fallbackSampleStringCache"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("fallbackSampleStringCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSLocaleUtilities) SetFallbackSampleStringCache(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFallbackSampleStringCache:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setFallbackSampleStringCache:"), value)
 }
 func (t TTSLocaleUtilities) GeneralLanguageCodeData() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("generalLanguageCodeData"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("generalLanguageCodeData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSLocaleUtilities) SetGeneralLanguageCodeData(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setGeneralLanguageCodeData:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setGeneralLanguageCodeData:"), value)
 }
 func (t TTSLocaleUtilities) VoiceIdSampleStringData() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIdSampleStringData"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceIdSampleStringData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSLocaleUtilities) SetVoiceIdSampleStringData(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVoiceIdSampleStringData:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoiceIdSampleStringData:"), value)
 }

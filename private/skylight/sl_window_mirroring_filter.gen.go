@@ -38,7 +38,7 @@ func (sc SLWindowMirroringFilterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLWindowMirroringFilterClass) Alloc() SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,71 +90,71 @@ type ISLWindowMirroringFilter interface {
 
 // Init initializes the instance.
 func (s SLWindowMirroringFilter) Init() SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLWindowMirroringFilter) Autorelease() SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLWindowMirroringFilter creates a new SLWindowMirroringFilter instance.
 func NewSLWindowMirroringFilter() SLWindowMirroringFilter {
 	class := getSLWindowMirroringFilterClass()
-	rv := objc.Send[SLWindowMirroringFilter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLWindowMirroringFilterWithFilter(filter objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilter:"), filter)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilter:"), filter)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
 func NewSLWindowMirroringFilterWithIncludedApps(apps objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedApps:"), apps)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIncludedApps:"), apps)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
 func NewSLWindowMirroringFilterWithIncludedWindows(windows objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:"), windows)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:"), windows)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
 func NewSLWindowMirroringFilterWithIncludedWindowsAndIncludedApps(windows objectivec.IObject, apps objectivec.IObject) SLWindowMirroringFilter {
 	instance := getSLWindowMirroringFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
 	return SLWindowMirroringFilterFromID(rv)
 }
 
 func (s SLWindowMirroringFilter) SetShieldWindow(window objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setShieldWindow:"), window)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setShieldWindow:"), window)
 }
 func (s SLWindowMirroringFilter) ShieldWindow() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shieldWindow"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("shieldWindow"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLWindowMirroringFilter) WindowFilter() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("windowFilter"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("windowFilter"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLWindowMirroringFilter) InitWithFilter(filter objectivec.IObject) SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithFilter:"), filter)
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("initWithFilter:"), filter)
 	return rv
 }
 func (s SLWindowMirroringFilter) InitWithIncludedApps(apps objectivec.IObject) SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedApps:"), apps)
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedApps:"), apps)
 	return rv
 }
 func (s SLWindowMirroringFilter) InitWithIncludedWindows(windows objectivec.IObject) SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:"), windows)
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:"), windows)
 	return rv
 }
 func (s SLWindowMirroringFilter) InitWithIncludedWindowsAndIncludedApps(windows objectivec.IObject, apps objectivec.IObject) SLWindowMirroringFilter {
-	rv := objc.Send[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
+	rv := objc.SendIfResponds[SLWindowMirroringFilter](s.ID, objc.Sel("initWithIncludedWindows:andIncludedApps:"), windows, apps)
 	return rv
 }

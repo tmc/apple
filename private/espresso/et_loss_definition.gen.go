@@ -39,7 +39,7 @@ func (ec ETLossDefinitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETLossDefinitionClass) Alloc() ETLossDefinition {
-	rv := objc.Send[ETLossDefinition](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETLossDefinition](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,67 +91,67 @@ type IETLossDefinition interface {
 
 // Init initializes the instance.
 func (e ETLossDefinition) Init() ETLossDefinition {
-	rv := objc.Send[ETLossDefinition](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETLossDefinition](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETLossDefinition) Autorelease() ETLossDefinition {
-	rv := objc.Send[ETLossDefinition](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETLossDefinition](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETLossDefinition creates a new ETLossDefinition instance.
 func NewETLossDefinition() ETLossDefinition {
 	class := getETLossDefinitionClass()
-	rv := objc.Send[ETLossDefinition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETLossDefinition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETLossDefinitionWithModeInputNameTargetNameLossOutputName(mode uint64, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) ETLossDefinition {
 	instance := getETLossDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:inputName:targetName:lossOutputName:"), mode, name, name2, name3)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:inputName:targetName:lossOutputName:"), mode, name, name2, name3)
 	return ETLossDefinitionFromID(rv)
 }
 
 func (e ETLossDefinition) InitWithModeInputNameTargetNameLossOutputName(mode uint64, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) ETLossDefinition {
-	rv := objc.Send[ETLossDefinition](e.ID, objc.Sel("initWithMode:inputName:targetName:lossOutputName:"), mode, name, name2, name3)
+	rv := objc.SendIfResponds[ETLossDefinition](e.ID, objc.Sel("initWithMode:inputName:targetName:lossOutputName:"), mode, name, name2, name3)
 	return rv
 }
 
 func (_ETLossDefinitionClass ETLossDefinitionClass) BuiltInLoss(loss objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("BuiltInLoss:"), loss)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("BuiltInLoss:"), loss)
 	return objectivec.Object{ID: rv}
 }
 func (_ETLossDefinitionClass ETLossDefinitionClass) L2LossWithInputNameTargetInputNameLossOutputName(name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("L2LossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("L2LossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
 	return objectivec.Object{ID: rv}
 }
 func (_ETLossDefinitionClass ETLossDefinitionClass) CrossEntropyLossWithInputNameTargetInputNameLossOutputName(name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("crossEntropyLossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("crossEntropyLossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
 	return objectivec.Object{ID: rv}
 }
 
 func (e ETLossDefinition) InputName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("inputName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossDefinition) LossOutputName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("lossOutputName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("lossOutputName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossDefinition) Mode() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("mode"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("mode"))
 	return rv
 }
 func (e ETLossDefinition) OutputName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("outputName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETLossDefinition) SetOutputName(value string) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutputName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutputName:"), objc.String(value))
 }
 func (e ETLossDefinition) TargetInputName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("targetInputName"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("targetInputName"))
 	return foundation.NSStringFromID(rv).String()
 }

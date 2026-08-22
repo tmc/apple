@@ -39,7 +39,7 @@ func (tc TTSSpeechStringClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechStringClass) Alloc() TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechString](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -148,43 +148,43 @@ type ITTSSpeechString interface {
 
 // Init initializes the instance.
 func (t TTSSpeechString) Init() TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechString](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechString) Autorelease() TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechString](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechString creates a new TTSSpeechString instance.
 func NewTTSSpeechString() TTSSpeechString {
 	class := getTTSSpeechStringClass()
-	rv := objc.Send[TTSSpeechString](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewTTSSpeechStringWithOriginalString(string_ objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOriginalString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOriginalString:"), string_)
 	return TTSSpeechStringFromID(rv)
 }
 
 func NewTTSSpeechStringWithParentSpeechString(string_ objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParentSpeechString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParentSpeechString:"), string_)
 	return TTSSpeechStringFromID(rv)
 }
 
 func NewTTSSpeechStringWithSSMLString(sSMLString objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSSMLString:"), sSMLString)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSSMLString:"), sSMLString)
 	return TTSSpeechStringFromID(rv)
 }
 
 func (t TTSSpeechString) _insertTransformationForEncapsulatedTerminator(transformation objectivec.IObject, terminator bool) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:"), transformation, terminator)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:"), transformation, terminator)
 }
 
 // InsertTransformationForEncapsulatedTerminator is an exported wrapper for the private method _insertTransformationForEncapsulatedTerminator.
@@ -202,7 +202,7 @@ func (t TTSSpeechString) CanInsertTransformationForEncapsulatedTerminator() bool
 	return objc.RespondsToSelector(t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:"))
 }
 func (t TTSSpeechString) _rangeIsValid(valid foundation.NSRange) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_rangeIsValid:"), valid)
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("_rangeIsValid:"), valid)
 	return rv
 }
 
@@ -220,7 +220,7 @@ func (t TTSSpeechString) CanRangeIsValid() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_rangeIsValid:"))
 }
 func (t TTSSpeechString) _transformedStringNonMutating() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_transformedStringNonMutating"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_transformedStringNonMutating"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -238,7 +238,7 @@ func (t TTSSpeechString) CanTransformedStringNonMutating() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_transformedStringNonMutating"))
 }
 func (t TTSSpeechString) _translateRangeInTransformedStringWithParent(string_ foundation.NSRange, parent objectivec.IObject) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("_translateRangeInTransformedString:withParent:"), string_, parent)
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("_translateRangeInTransformedString:withParent:"), string_, parent)
 	return foundation.NSRange(rv)
 }
 
@@ -256,85 +256,85 @@ func (t TTSSpeechString) CanTranslateRangeInTransformedStringWithParent() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_translateRangeInTransformedString:withParent:"))
 }
 func (t TTSSpeechString) EncapsulateSubstringAtRangeWithPrefixAndSuffix(range_ foundation.NSRange, prefix objectivec.IObject, suffix objectivec.IObject) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("encapsulateSubstringAtRange:withPrefix:andSuffix:"), range_, prefix, suffix)
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("encapsulateSubstringAtRange:withPrefix:andSuffix:"), range_, prefix, suffix)
 	return rv
 }
 func (t TTSSpeechString) InsertAtLocationString(location uint64, string_ objectivec.IObject) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("insertAtLocation:string:"), location, string_)
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("insertAtLocation:string:"), location, string_)
 	return rv
 }
 func (t TTSSpeechString) ReplaceOccurencesOfStringWithString(string_ objectivec.IObject, string_2 objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("replaceOccurencesOfString:withString:"), string_, string_2)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("replaceOccurencesOfString:withString:"), string_, string_2)
 }
 func (t TTSSpeechString) TransformRangeTo(range_ foundation.NSRange, to objectivec.IObject) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("transformRange:to:"), range_, to)
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("transformRange:to:"), range_, to)
 	return rv
 }
 func (t TTSSpeechString) TranslateRangeInTransformedString(string_ foundation.NSRange) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("translateRangeInTransformedString:"), string_)
+	rv := objc.SendIfResponds[foundation.NSRange](t.ID, objc.Sel("translateRangeInTransformedString:"), string_)
 	return foundation.NSRange(rv)
 }
 func (t TTSSpeechString) XmlEscaped() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("xmlEscaped"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("xmlEscaped"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSSpeechString) XmlUnescaped() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("xmlUnescaped"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("xmlUnescaped"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSSpeechString) InitWithOriginalString(string_ objectivec.IObject) TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithOriginalString:"), string_)
+	rv := objc.SendIfResponds[TTSSpeechString](t.ID, objc.Sel("initWithOriginalString:"), string_)
 	return rv
 }
 func (t TTSSpeechString) InitWithParentSpeechString(string_ objectivec.IObject) TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithParentSpeechString:"), string_)
+	rv := objc.SendIfResponds[TTSSpeechString](t.ID, objc.Sel("initWithParentSpeechString:"), string_)
 	return rv
 }
 func (t TTSSpeechString) InitWithSSMLString(sSMLString objectivec.IObject) TTSSpeechString {
-	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithSSMLString:"), sSMLString)
+	rv := objc.SendIfResponds[TTSSpeechString](t.ID, objc.Sel("initWithSSMLString:"), sSMLString)
 	return rv
 }
 
 func (t TTSSpeechString) DefrostedTransformedString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("defrostedTransformedString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defrostedTransformedString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechString) Finalized() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("finalized"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("finalized"))
 	return rv
 }
 func (t TTSSpeechString) OriginalString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("originalString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechString) SetOriginalString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
 }
 func (t TTSSpeechString) ParentString() ITTSSpeechString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("parentString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("parentString"))
 	return TTSSpeechStringFromID(objc.ID(rv))
 }
 func (t TTSSpeechString) SetParentString(value ITTSSpeechString) {
-	objc.Send[struct{}](t.ID, objc.Sel("setParentString:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setParentString:"), value)
 }
 func (t TTSSpeechString) Transformations() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("transformations"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("transformations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSSpeechString) SetTransformations(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTransformations:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setTransformations:"), value)
 }
 func (t TTSSpeechString) TransformedString() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("transformedString"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("transformedString"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechString) SetTransformedString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTransformedString:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setTransformedString:"), objc.String(value))
 }
 func (t TTSSpeechString) Type() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("type"))
 	return rv
 }
 func (t TTSSpeechString) SetType(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setType:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setType:"), value)
 }

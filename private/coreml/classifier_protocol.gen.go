@@ -10,6 +10,12 @@ import (
 // MLClassifier protocol.
 type MLClassifierProtocol interface {
 	objectivec.IObject
+
+	// ClassLabels protocol.
+	ClassLabels() objectivec.IObject
+
+	// ClassifyOptionsError protocol.
+	ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLClassifierProtocolObject wraps an existing Objective-C object that conforms to the MLClassifierProtocol protocol.
@@ -30,7 +36,7 @@ func MLClassifierProtocolObjectFromID(id objc.ID) MLClassifierProtocolObject {
 }
 
 func (o MLClassifierProtocolObject) ClassLabels() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLClassifierProtocolObject) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {

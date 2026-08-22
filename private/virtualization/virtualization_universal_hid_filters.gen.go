@@ -38,7 +38,7 @@ func (vc VirtualizationUniversalHIDFiltersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VirtualizationUniversalHIDFiltersClass) Alloc() VirtualizationUniversalHIDFilters {
-	rv := objc.Send[VirtualizationUniversalHIDFilters](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VirtualizationUniversalHIDFilters](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func VirtualizationUniversalHIDFiltersFromID(id objc.ID) VirtualizationUniversal
 	return VirtualizationUniversalHIDFilters{objectivec.Object{ID: id}}
 }
 
-// NOTE: VirtualizationUniversalHIDFilters struct embeds objectivec.Object (parent type unavailable) but
-// IVirtualizationUniversalHIDFilters embeds the parent interface; skip compile-time assertion.
+// Ensure VirtualizationUniversalHIDFilters implements IVirtualizationUniversalHIDFilters.
+var _ IVirtualizationUniversalHIDFilters = VirtualizationUniversalHIDFilters{}
 
 // An interface definition for the [VirtualizationUniversalHIDFilters] class.
 type IVirtualizationUniversalHIDFilters interface {
@@ -61,19 +61,19 @@ type IVirtualizationUniversalHIDFilters interface {
 
 // Init initializes the instance.
 func (v VirtualizationUniversalHIDFilters) Init() VirtualizationUniversalHIDFilters {
-	rv := objc.Send[VirtualizationUniversalHIDFilters](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VirtualizationUniversalHIDFilters](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VirtualizationUniversalHIDFilters) Autorelease() VirtualizationUniversalHIDFilters {
-	rv := objc.Send[VirtualizationUniversalHIDFilters](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VirtualizationUniversalHIDFilters](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVirtualizationUniversalHIDFilters creates a new VirtualizationUniversalHIDFilters instance.
 func NewVirtualizationUniversalHIDFilters() VirtualizationUniversalHIDFilters {
 	class := getVirtualizationUniversalHIDFiltersClass()
-	rv := objc.Send[VirtualizationUniversalHIDFilters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VirtualizationUniversalHIDFilters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

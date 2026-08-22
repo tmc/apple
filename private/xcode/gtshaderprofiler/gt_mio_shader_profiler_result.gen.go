@@ -39,7 +39,7 @@ func (gc GTMioShaderProfilerResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioShaderProfilerResultClass) Alloc() GTMioShaderProfilerResult {
-	rv := objc.Send[GTMioShaderProfilerResult](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -169,37 +169,37 @@ type IGTMioShaderProfilerResult interface {
 
 // Init initializes the instance.
 func (g GTMioShaderProfilerResult) Init() GTMioShaderProfilerResult {
-	rv := objc.Send[GTMioShaderProfilerResult](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioShaderProfilerResult) Autorelease() GTMioShaderProfilerResult {
-	rv := objc.Send[GTMioShaderProfilerResult](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioShaderProfilerResult creates a new GTMioShaderProfilerResult instance.
 func NewGTMioShaderProfilerResult() GTMioShaderProfilerResult {
 	class := getGTMioShaderProfilerResultClass()
-	rv := objc.Send[GTMioShaderProfilerResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioShaderProfilerResultWithCoder(coder objectivec.IObject) GTMioShaderProfilerResult {
 	instance := getGTMioShaderProfilerResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTMioShaderProfilerResultFromID(rv)
 }
 
 func NewGTMioShaderProfilerResultWithTraceData(data objectivec.IObject) GTMioShaderProfilerResult {
 	instance := getGTMioShaderProfilerResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTraceData:"), data)
 	return GTMioShaderProfilerResultFromID(rv)
 }
 
 func (g GTMioShaderProfilerResult) _cacheObjects() {
-	objc.Send[objc.ID](g.ID, objc.Sel("_cacheObjects"))
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_cacheObjects"))
 }
 
 // CacheObjects is an exported wrapper for the private method _cacheObjects.
@@ -217,130 +217,130 @@ func (g GTMioShaderProfilerResult) CanCacheObjects() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheObjects"))
 }
 func (g GTMioShaderProfilerResult) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTMioShaderProfilerResult) EncoderForFunctionIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderForFunctionIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encoderForFunctionIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderProfilerResult) GpuCommandForFunctionIndexSubCommandIndex(index uint64, index2 int) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommandForFunctionIndex:subCommandIndex:"), index, index2)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuCommandForFunctionIndex:subCommandIndex:"), index, index2)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderProfilerResult) GpuName(name bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderProfilerResult) LoadFromTraceData(data objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("loadFromTraceData:"), data)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("loadFromTraceData:"), data)
 }
 func (g GTMioShaderProfilerResult) McaBinaryForBinaryKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaBinaryForBinaryKey:"), key)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mcaBinaryForBinaryKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderProfilerResult) PipelineStateForId(id uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStateForId:"), id)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pipelineStateForId:"), id)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioShaderProfilerResult) InitWithCoder(coder foundation.INSCoder) GTMioShaderProfilerResult {
-	rv := objc.Send[GTMioShaderProfilerResult](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTMioShaderProfilerResult) InitWithTraceData(data objectivec.IObject) GTMioShaderProfilerResult {
-	rv := objc.Send[GTMioShaderProfilerResult](g.ID, objc.Sel("initWithTraceData:"), data)
+	rv := objc.SendIfResponds[GTMioShaderProfilerResult](g.ID, objc.Sel("initWithTraceData:"), data)
 	return rv
 }
 
 func (_GTMioShaderProfilerResultClass GTMioShaderProfilerResultClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTMioShaderProfilerResultClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTMioShaderProfilerResultClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTMioShaderProfilerResult) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerResult) DerivedCountersData() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("derivedCountersData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("derivedCountersData"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerResult) Encoders() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoders"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encoders"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) SetEncoders(value foundation.INSArray) {
-	objc.Send[struct{}](g.ID, objc.Sel("setEncoders:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setEncoders:"), value)
 }
 func (g GTMioShaderProfilerResult) Gpu() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpu"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpu"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) GpuCommands() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommands"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("gpuCommands"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) SetGpuCommands(value foundation.INSArray) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGpuCommands:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setGpuCommands:"), value)
 }
 func (g GTMioShaderProfilerResult) GpuGeneration() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) GpuTime() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("gpuTime"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("gpuTime"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) MetalPluginName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalPluginName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("metalPluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioShaderProfilerResult) MioData() IGTMioTraceData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mioData"))
 	return GTMioTraceDataFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) PerformanceState() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("performanceState"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("performanceState"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) PipelineStates() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStates"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("pipelineStates"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) SetPipelineStates(value foundation.INSArray) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPipelineStates:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setPipelineStates:"), value)
 }
 func (g GTMioShaderProfilerResult) ProfilerMode() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("profilerMode"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("profilerMode"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) ShaderBinaries() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderBinaries"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("shaderBinaries"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) SetShaderBinaries(value foundation.INSDictionary) {
-	objc.Send[struct{}](g.ID, objc.Sel("setShaderBinaries:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setShaderBinaries:"), value)
 }
 func (g GTMioShaderProfilerResult) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTMioShaderProfilerResult) TimingInfo() IGTShaderProfilerTimingInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timingInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))
 }
 func (g GTMioShaderProfilerResult) UnixTimestamp() int64 {
-	rv := objc.Send[int64](g.ID, objc.Sel("unixTimestamp"))
+	rv := objc.SendIfResponds[int64](g.ID, objc.Sel("unixTimestamp"))
 	return rv
 }
 func (g GTMioShaderProfilerResult) WasPerformanceStateConsistent() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("wasPerformanceStateConsistent"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("wasPerformanceStateConsistent"))
 	return rv
 }

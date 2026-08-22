@@ -38,7 +38,7 @@ func (lc LPMObserverClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (lc LPMObserverClass) Alloc() LPMObserver {
-	rv := objc.Send[LPMObserver](objc.ID(lc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[LPMObserver](objc.ID(lc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,33 +75,33 @@ type ILPMObserver interface {
 
 // Init initializes the instance.
 func (l LPMObserver) Init() LPMObserver {
-	rv := objc.Send[LPMObserver](l.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[LPMObserver](l.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (l LPMObserver) Autorelease() LPMObserver {
-	rv := objc.Send[LPMObserver](l.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[LPMObserver](l.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewLPMObserver creates a new LPMObserver instance.
 func NewLPMObserver() LPMObserver {
 	class := getLPMObserverClass()
-	rv := objc.Send[LPMObserver](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[LPMObserver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (l LPMObserver) HandlePowerStateChange(change objectivec.IObject) {
-	objc.Send[objc.ID](l.ID, objc.Sel("handlePowerStateChange:"), change)
+	objc.SendIfResponds[objc.ID](l.ID, objc.Sel("handlePowerStateChange:"), change)
 }
 
 func (_LPMObserverClass LPMObserverClass) SharedLPMObserver() LPMObserver {
-	rv := objc.Send[objc.ID](objc.ID(_LPMObserverClass.class), objc.Sel("sharedLPMObserver"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_LPMObserverClass.class), objc.Sel("sharedLPMObserver"))
 	return LPMObserverFromID(rv)
 }
 
 func (l LPMObserver) IsLowPowerModeEnabled() bool {
-	rv := objc.Send[bool](l.ID, objc.Sel("isLowPowerModeEnabled"))
+	rv := objc.SendIfResponds[bool](l.ID, objc.Sel("isLowPowerModeEnabled"))
 	return rv
 }

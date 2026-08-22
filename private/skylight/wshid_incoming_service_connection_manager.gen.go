@@ -38,7 +38,7 @@ func (wc WSHIDIncomingServiceConnectionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSHIDIncomingServiceConnectionManagerClass) Alloc() WSHIDIncomingServiceConnectionManager {
-	rv := objc.Send[WSHIDIncomingServiceConnectionManager](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSHIDIncomingServiceConnectionManager](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -99,29 +99,29 @@ type IWSHIDIncomingServiceConnectionManager interface {
 
 // Init initializes the instance.
 func (w WSHIDIncomingServiceConnectionManager) Init() WSHIDIncomingServiceConnectionManager {
-	rv := objc.Send[WSHIDIncomingServiceConnectionManager](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSHIDIncomingServiceConnectionManager](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSHIDIncomingServiceConnectionManager) Autorelease() WSHIDIncomingServiceConnectionManager {
-	rv := objc.Send[WSHIDIncomingServiceConnectionManager](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSHIDIncomingServiceConnectionManager](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSHIDIncomingServiceConnectionManager creates a new WSHIDIncomingServiceConnectionManager instance.
 func NewWSHIDIncomingServiceConnectionManager() WSHIDIncomingServiceConnectionManager {
 	class := getWSHIDIncomingServiceConnectionManagerClass()
-	rv := objc.Send[WSHIDIncomingServiceConnectionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSHIDIncomingServiceConnectionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (w WSHIDIncomingServiceConnectionManager) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (w WSHIDIncomingServiceConnectionManager) _queue_appendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("_queue_appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_appendDescriptionToStream:"), stream)
 }
 
 // Queue_appendDescriptionToStream is an exported wrapper for the private method _queue_appendDescriptionToStream.
@@ -139,7 +139,7 @@ func (w WSHIDIncomingServiceConnectionManager) CanQueue_appendDescriptionToStrea
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:"))
 }
 func (w WSHIDIncomingServiceConnectionManager) _queue_deliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
 
@@ -157,7 +157,7 @@ func (w WSHIDIncomingServiceConnectionManager) CanQueue_deliveryManagerForAuditT
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"))
 }
 func (w WSHIDIncomingServiceConnectionManager) _queue_description() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_description"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_description"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -175,7 +175,7 @@ func (w WSHIDIncomingServiceConnectionManager) CanQueue_description() bool {
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_description"))
 }
 func (w WSHIDIncomingServiceConnectionManager) _queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
 
@@ -193,22 +193,22 @@ func (w WSHIDIncomingServiceConnectionManager) CanQueue_eventDeliveryObserverSer
 	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"))
 }
 func (w WSHIDIncomingServiceConnectionManager) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 func (w WSHIDIncomingServiceConnectionManager) DidUpdateEventDeliveryManagerForSession() {
-	objc.Send[objc.ID](w.ID, objc.Sel("didUpdateEventDeliveryManagerForSession"))
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("didUpdateEventDeliveryManagerForSession"))
 }
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryManagerConnection(connection objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryManagerConnection:"), connection)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryManagerConnection:"), connection)
 }
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryObserverConnection(connection objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryObserverConnection:"), connection)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryObserverConnection:"), connection)
 }
 func (w WSHIDIncomingServiceConnectionManager) IncomingServiceConnectionDidRevoke(revoke objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("incomingServiceConnectionDidRevoke:"), revoke)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("incomingServiceConnectionDidRevoke:"), revoke)
 }
 
 func (_WSHIDIncomingServiceConnectionManagerClass WSHIDIncomingServiceConnectionManagerClass) SharedInstance() WSHIDIncomingServiceConnectionManager {
-	rv := objc.Send[objc.ID](objc.ID(_WSHIDIncomingServiceConnectionManagerClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_WSHIDIncomingServiceConnectionManagerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDIncomingServiceConnectionManagerFromID(rv)
 }

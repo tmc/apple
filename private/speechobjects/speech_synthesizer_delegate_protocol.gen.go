@@ -11,6 +11,21 @@ import (
 // NSSpeechSynthesizerDelegate protocol.
 type NSSpeechSynthesizerDelegate interface {
 	objectivec.IObject
+
+	// SpeechSynthesizerDidEncounterErrorAtIndexOfStringMessage protocol.
+	SpeechSynthesizerDidEncounterErrorAtIndexOfStringMessage(synthesizer objectivec.IObject, index uint64, string_ objectivec.IObject, message objectivec.IObject)
+
+	// SpeechSynthesizerDidEncounterSyncMessage protocol.
+	SpeechSynthesizerDidEncounterSyncMessage(synthesizer objectivec.IObject, message objectivec.IObject)
+
+	// SpeechSynthesizerDidFinishSpeaking protocol.
+	SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool)
+
+	// SpeechSynthesizerWillSpeakPhoneme protocol.
+	SpeechSynthesizerWillSpeakPhoneme(synthesizer objectivec.IObject, phoneme int16)
+
+	// SpeechSynthesizerWillSpeakWordOfString protocol.
+	SpeechSynthesizerWillSpeakWordOfString(synthesizer objectivec.IObject, word foundation.NSRange, string_ objectivec.IObject)
 }
 
 // NSSpeechSynthesizerDelegateObject wraps an existing Objective-C object that conforms to the NSSpeechSynthesizerDelegate protocol.
@@ -31,17 +46,17 @@ func NSSpeechSynthesizerDelegateObjectFromID(id objc.ID) NSSpeechSynthesizerDele
 }
 
 func (o NSSpeechSynthesizerDelegateObject) SpeechSynthesizerDidEncounterErrorAtIndexOfStringMessage(synthesizer objectivec.IObject, index uint64, string_ objectivec.IObject, message objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didEncounterErrorAtIndex:ofString:message:"), synthesizer, index, string_, message)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("speechSynthesizer:didEncounterErrorAtIndex:ofString:message:"), synthesizer, index, string_, message)
 }
 func (o NSSpeechSynthesizerDelegateObject) SpeechSynthesizerDidEncounterSyncMessage(synthesizer objectivec.IObject, message objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didEncounterSyncMessage:"), synthesizer, message)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("speechSynthesizer:didEncounterSyncMessage:"), synthesizer, message)
 }
 func (o NSSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
 }
 func (o NSSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakPhoneme(synthesizer objectivec.IObject, phoneme int16) {
-	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakPhoneme:"), synthesizer, phoneme)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakPhoneme:"), synthesizer, phoneme)
 }
 func (o NSSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakWordOfString(synthesizer objectivec.IObject, word foundation.NSRange, string_ objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakWord:ofString:"), synthesizer, word, string_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakWord:ofString:"), synthesizer, word, string_)
 }

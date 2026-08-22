@@ -37,7 +37,7 @@ func (vc VZLinearFramebufferGraphicsDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinearFramebufferGraphicsDeviceClass) Alloc() VZLinearFramebufferGraphicsDevice {
-	rv := objc.Send[VZLinearFramebufferGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZLinearFramebufferGraphicsDevice interface {
 
 // Init initializes the instance.
 func (v VZLinearFramebufferGraphicsDevice) Init() VZLinearFramebufferGraphicsDevice {
-	rv := objc.Send[VZLinearFramebufferGraphicsDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZLinearFramebufferGraphicsDevice) Autorelease() VZLinearFramebufferGraphicsDevice {
-	rv := objc.Send[VZLinearFramebufferGraphicsDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZLinearFramebufferGraphicsDevice creates a new VZLinearFramebufferGraphicsDevice instance.
 func NewVZLinearFramebufferGraphicsDevice() VZLinearFramebufferGraphicsDevice {
 	class := getVZLinearFramebufferGraphicsDeviceClass()
-	rv := objc.Send[VZLinearFramebufferGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (ic InternalCustomGatherTreeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ic InternalCustomGatherTreeClass) Alloc() InternalCustomGatherTree {
-	rv := objc.Send[InternalCustomGatherTree](objc.ID(ic.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[InternalCustomGatherTree](objc.ID(ic.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,30 +87,33 @@ type IInternalCustomGatherTree interface {
 
 // Init initializes the instance.
 func (i InternalCustomGatherTree) Init() InternalCustomGatherTree {
-	rv := objc.Send[InternalCustomGatherTree](i.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[InternalCustomGatherTree](i.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (i InternalCustomGatherTree) Autorelease() InternalCustomGatherTree {
-	rv := objc.Send[InternalCustomGatherTree](i.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[InternalCustomGatherTree](i.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewInternalCustomGatherTree creates a new InternalCustomGatherTree instance.
 func NewInternalCustomGatherTree() InternalCustomGatherTree {
 	class := getInternalCustomGatherTreeClass()
-	rv := objc.Send[InternalCustomGatherTree](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[InternalCustomGatherTree](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewInternalCustomGatherTreeWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error) {
 	var errorPtr objc.ID
 	instance := getInternalCustomGatherTreeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameterDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameterDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return InternalCustomGatherTree{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return InternalCustomGatherTree{}, objc.ErrInitFailed
 	}
 	return InternalCustomGatherTreeFromID(rv), nil
 }
@@ -163,6 +166,6 @@ func (i InternalCustomGatherTree) InitWithParameterDictionaryError(dictionary ob
 }
 
 func (i InternalCustomGatherTree) Shape() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("shape"))
+	rv := objc.SendIfResponds[unsafe.Pointer](i.ID, objc.Sel("shape"))
 	return rv
 }

@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +41,7 @@ func (gc GTShaderProfilerProcessedDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerProcessedDataClass) Alloc() GTShaderProfilerProcessedData {
-	rv := objc.Send[GTShaderProfilerProcessedData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -101,7 +100,7 @@ type IGTShaderProfilerProcessedData interface {
 	SetGpuGeneration(value uint32)
 	MioData() IGTMioTraceData
 	ShaderProfilerResult() unsafe.Pointer
-	SetShaderProfilerResult(value kernel.Pointer)
+	SetShaderProfilerResult(value unsafe.Pointer)
 	StreamData() IGTShaderProfilerStreamData
 	SetStreamData(value IGTShaderProfilerStreamData)
 	TimelineInfo() IDYWorkloadGPUTimelineInfo
@@ -112,32 +111,32 @@ type IGTShaderProfilerProcessedData interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerProcessedData) Init() GTShaderProfilerProcessedData {
-	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerProcessedData) Autorelease() GTShaderProfilerProcessedData {
-	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerProcessedData creates a new GTShaderProfilerProcessedData instance.
 func NewGTShaderProfilerProcessedData() GTShaderProfilerProcessedData {
 	class := getGTShaderProfilerProcessedDataClass()
-	rv := objc.Send[GTShaderProfilerProcessedData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerProcessedDataWithCoder(coder objectivec.IObject) GTShaderProfilerProcessedData {
 	instance := getGTShaderProfilerProcessedDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTShaderProfilerProcessedDataFromID(rv)
 }
 
 func NewGTShaderProfilerProcessedDataWithMioData(data objectivec.IObject) GTShaderProfilerProcessedData {
 	instance := getGTShaderProfilerProcessedDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMioData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMioData:"), data)
 	return GTShaderProfilerProcessedDataFromID(rv)
 }
 
@@ -155,14 +154,14 @@ func (g GTShaderProfilerProcessedData) ArchiveToURLError(url foundation.NSURL) (
 
 }
 func (g GTShaderProfilerProcessedData) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTShaderProfilerProcessedData) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerProcessedData {
-	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTShaderProfilerProcessedData) InitWithMioData(data objectivec.IObject) GTShaderProfilerProcessedData {
-	rv := objc.Send[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithMioData:"), data)
+	rv := objc.SendIfResponds[GTShaderProfilerProcessedData](g.ID, objc.Sel("initWithMioData:"), data)
 	return rv
 }
 
@@ -187,39 +186,39 @@ func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) Da
 
 }
 func (_GTShaderProfilerProcessedDataClass GTShaderProfilerProcessedDataClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTShaderProfilerProcessedDataClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTShaderProfilerProcessedDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTShaderProfilerProcessedData) GpuGeneration() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
 func (g GTShaderProfilerProcessedData) SetGpuGeneration(value uint32) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGpuGeneration:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setGpuGeneration:"), value)
 }
 func (g GTShaderProfilerProcessedData) MioData() IGTMioTraceData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mioData"))
 	return GTMioTraceDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerProcessedData) ShaderProfilerResult() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
 	return rv
 }
-func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value kernel.Pointer) {
-	objc.Send[struct{}](g.ID, objc.Sel("setShaderProfilerResult:"), value)
+func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setShaderProfilerResult:"), value)
 }
 func (g GTShaderProfilerProcessedData) StreamData() IGTShaderProfilerStreamData {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerProcessedData) SetStreamData(value IGTShaderProfilerStreamData) {
-	objc.Send[struct{}](g.ID, objc.Sel("setStreamData:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setStreamData:"), value)
 }
 func (g GTShaderProfilerProcessedData) TimelineInfo() IDYWorkloadGPUTimelineInfo {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineInfo"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timelineInfo"))
 	return DYWorkloadGPUTimelineInfoFromID(objc.ID(rv))
 }
 func (g GTShaderProfilerProcessedData) SetTimelineInfo(value IDYWorkloadGPUTimelineInfo) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTimelineInfo:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setTimelineInfo:"), value)
 }

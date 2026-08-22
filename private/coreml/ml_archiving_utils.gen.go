@@ -41,7 +41,7 @@ func (mc MLArchivingUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLArchivingUtilsClass) Alloc() MLArchivingUtils {
-	rv := objc.Send[MLArchivingUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLArchivingUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,33 +64,33 @@ type IMLArchivingUtils interface {
 
 // Init initializes the instance.
 func (m MLArchivingUtils) Init() MLArchivingUtils {
-	rv := objc.Send[MLArchivingUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLArchivingUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLArchivingUtils) Autorelease() MLArchivingUtils {
-	rv := objc.Send[MLArchivingUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLArchivingUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLArchivingUtils creates a new MLArchivingUtils instance.
 func NewMLArchivingUtils() MLArchivingUtils {
 	class := getMLArchivingUtilsClass()
-	rv := objc.Send[MLArchivingUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLArchivingUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) URLOfInputArchive(archive unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("URLOfInputArchive:"), archive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("URLOfInputArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromInputArchiver(archiver unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromInputArchiver:"), archiver)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromInputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromOutputArchiver(archiver unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromOutputArchiver:"), archiver)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromOutputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCompilerVersionModelVersionError(archive unsafe.Pointer, version []objectivec.IObject, version2 []objectivec.IObject) (int, error) {

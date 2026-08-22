@@ -40,7 +40,7 @@ func (ec ETVariablesDefinitionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETVariablesDefinitionClass) Alloc() ETVariablesDefinition {
-	rv := objc.Send[ETVariablesDefinition](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETVariablesDefinition](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -80,30 +80,33 @@ type IETVariablesDefinition interface {
 
 // Init initializes the instance.
 func (e ETVariablesDefinition) Init() ETVariablesDefinition {
-	rv := objc.Send[ETVariablesDefinition](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETVariablesDefinition](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETVariablesDefinition) Autorelease() ETVariablesDefinition {
-	rv := objc.Send[ETVariablesDefinition](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETVariablesDefinition](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETVariablesDefinition creates a new ETVariablesDefinition instance.
 func NewETVariablesDefinition() ETVariablesDefinition {
 	class := getETVariablesDefinitionClass()
-	rv := objc.Send[ETVariablesDefinition](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETVariablesDefinition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETVariablesDefinitionForLayersError(layers objectivec.IObject) (ETVariablesDefinition, error) {
 	var errorPtr objc.ID
 	instance := getETVariablesDefinitionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForLayers:error:"), layers, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForLayers:error:"), layers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETVariablesDefinition{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETVariablesDefinition{}, objc.ErrInitFailed
 	}
 	return ETVariablesDefinitionFromID(rv), nil
 }
@@ -120,9 +123,9 @@ func (e ETVariablesDefinition) InitForLayersError(layers objectivec.IObject) (ET
 }
 
 func (e ETVariablesDefinition) LayerNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("layerNames"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("layerNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETVariablesDefinition) SetLayerNames(value foundation.INSArray) {
-	objc.Send[struct{}](e.ID, objc.Sel("setLayerNames:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setLayerNames:"), value)
 }

@@ -39,7 +39,7 @@ func (mc MLModelStructureProgramNamedValueTypeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramNamedValueTypeClass) Alloc() MLModelStructureProgramNamedValueType {
-	rv := objc.Send[MLModelStructureProgramNamedValueType](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,40 +76,40 @@ type IMLModelStructureProgramNamedValueType interface {
 
 // Init initializes the instance.
 func (m MLModelStructureProgramNamedValueType) Init() MLModelStructureProgramNamedValueType {
-	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureProgramNamedValueType) Autorelease() MLModelStructureProgramNamedValueType {
-	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureProgramNamedValueType creates a new MLModelStructureProgramNamedValueType instance.
 func NewMLModelStructureProgramNamedValueType() MLModelStructureProgramNamedValueType {
 	class := getMLModelStructureProgramNamedValueTypeClass()
-	rv := objc.Send[MLModelStructureProgramNamedValueType](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureProgramNamedValueTypeWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMILNamedValueType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILNamedValueType:"), type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)
 }
 
 func NewModelStructureProgramNamedValueTypeWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:type:"), name, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:type:"), name, type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)
 }
 
 func (m MLModelStructureProgramNamedValueType) InitWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
-	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithMILNamedValueType:"), type_)
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithMILNamedValueType:"), type_)
 	return rv
 }
 func (m MLModelStructureProgramNamedValueType) InitWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
-	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithName:type:"), name, type_)
+	rv := objc.SendIfResponds[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("initWithName:type:"), name, type_)
 	return rv
 }

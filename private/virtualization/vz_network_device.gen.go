@@ -38,7 +38,7 @@ func (vc VZNetworkDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
-	rv := objc.Send[VZNetworkDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZNetworkDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,25 +72,25 @@ type IVZNetworkDevice interface {
 
 // Init initializes the instance.
 func (v VZNetworkDevice) Init() VZNetworkDevice {
-	rv := objc.Send[VZNetworkDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZNetworkDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZNetworkDevice) Autorelease() VZNetworkDevice {
-	rv := objc.Send[VZNetworkDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZNetworkDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZNetworkDevice creates a new VZNetworkDevice instance.
 func NewVZNetworkDevice() VZNetworkDevice {
 	class := getVZNetworkDeviceClass()
-	rv := objc.Send[VZNetworkDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZNetworkDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZNetworkDevice) _type() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_type"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_type"))
 	return rv
 }
 

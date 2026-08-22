@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationSpacerIndexesResultClass) Class() ob
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationSpacerIndexesResultClass) Alloc() SLSBridgedWindowManagementOperationSpacerIndexesResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacerIndexesResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedWindowManagementOperationSpacerIndexesResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) Init() SLSBridgedWindowManagementOperationSpacerIndexesResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) Autorelease() SLSBridgedWindowManagementOperationSpacerIndexesResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationSpacerIndexesResult creates a new SLSBridgedWindowManagementOperationSpacerIndexesResult instance.
 func NewSLSBridgedWindowManagementOperationSpacerIndexesResult() SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	class := getSLSBridgedWindowManagementOperationSpacerIndexesResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacerIndexesResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationSpacerIndexesResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	instance := getSLSBridgedWindowManagementOperationSpacerIndexesResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpacerIndexesResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationSpacerIndexesResultWithVerticalIndexHorizontalIndex(index uint64, index2 uint64) SLSBridgedWindowManagementOperationSpacerIndexesResult {
 	instance := getSLSBridgedWindowManagementOperationSpacerIndexesResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
 	return SLSBridgedWindowManagementOperationSpacerIndexesResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) InitWithVerticalIndexHorizontalIndex(index uint64, index2 uint64) SLSBridgedWindowManagementOperationSpacerIndexesResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpacerIndexesResult](s.ID, objc.Sel("initWithVerticalIndex:horizontalIndex:"), index, index2)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) HorizontalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("horizontalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("horizontalIndex"))
 	return rv
 }
 func (s SLSBridgedWindowManagementOperationSpacerIndexesResult) VerticalIndex() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("verticalIndex"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("verticalIndex"))
 	return rv
 }

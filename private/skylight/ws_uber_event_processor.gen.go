@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -39,7 +40,7 @@ func (wc WSUberEventProcessorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSUberEventProcessorClass) Alloc() WSUberEventProcessor {
-	rv := objc.Send[WSUberEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSUberEventProcessor](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,8 +82,8 @@ type IWSUberEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	InitWithSession(session CGXSession) WSUberEventProcessor
+	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	InitWithSession(session *CGXSession) WSUberEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -91,54 +92,54 @@ type IWSUberEventProcessor interface {
 
 // Init initializes the instance.
 func (w WSUberEventProcessor) Init() WSUberEventProcessor {
-	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSUberEventProcessor](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSUberEventProcessor) Autorelease() WSUberEventProcessor {
-	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSUberEventProcessor](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSUberEventProcessor creates a new WSUberEventProcessor instance.
 func NewWSUberEventProcessor() WSUberEventProcessor {
 	class := getWSUberEventProcessorClass()
-	rv := objc.Send[WSUberEventProcessor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSUberEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewWSUberEventProcessorWithSession(session CGXSession) WSUberEventProcessor {
+func NewWSUberEventProcessorWithSession(session *CGXSession) WSUberEventProcessor {
 	instance := getWSUberEventProcessorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return WSUberEventProcessorFromID(rv)
 }
 
 func (w WSUberEventProcessor) ClearEventState() {
-	objc.Send[objc.ID](w.ID, objc.Sel("clearEventState"))
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("clearEventState"))
 }
-func (w WSUberEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
-	rv := objc.Send[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
+func (w WSUberEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
+	rv := objc.SendIfResponds[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), unsafe.Pointer(event), unsafe.Pointer(context), dispatcher)
 	return rv
 }
-func (w WSUberEventProcessor) InitWithSession(session CGXSession) WSUberEventProcessor {
-	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), session)
+func (w WSUberEventProcessor) InitWithSession(session *CGXSession) WSUberEventProcessor {
+	rv := objc.SendIfResponds[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
 	return rv
 }
 
 func (w WSUberEventProcessor) DebugDescription() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSUberEventProcessor) Description() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSUberEventProcessor) Hash() uint64 {
-	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
 func (w WSUberEventProcessor) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](w.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

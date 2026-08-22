@@ -5,7 +5,6 @@ package appleneuralengine
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -39,7 +38,7 @@ func (ac ANEErrorsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEErrorsClass) Alloc() ANEErrors {
-	rv := objc.Send[ANEErrors](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEErrors](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,156 +61,156 @@ type IANEErrors interface {
 
 // Init initializes the instance.
 func (a ANEErrors) Init() ANEErrors {
-	rv := objc.Send[ANEErrors](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEErrors](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEErrors) Autorelease() ANEErrors {
-	rv := objc.Send[ANEErrors](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEErrors](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEErrors creates a new ANEErrors instance.
 func NewANEErrors() ANEErrors {
 	class := getANEErrorsClass()
-	rv := objc.Send[ANEErrors](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEErrors](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEErrorsClass ANEErrorsClass) BadArgumentForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("badArgumentForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("badArgumentForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) BaseModelIdentifierNotFoundForNewInstanceMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("baseModelIdentifierNotFoundForNewInstanceMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("baseModelIdentifierNotFoundForNewInstanceMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) CreateErrorWithCodeDescription(code int64, description objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("createErrorWithCode:description:"), code, description)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("createErrorWithCode:description:"), code, description)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) DataNotFoundForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("dataNotFoundForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("dataNotFoundForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) EntitlementErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("entitlementErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("entitlementErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) FileAccessErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("fileAccessErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("fileAccessErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) FileNotFoundErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("fileNotFoundErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("fileNotFoundErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) GuestToHostInterfaceTooOld(old objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("guestToHostInterfaceTooOld:"), old)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("guestToHostInterfaceTooOld:"), old)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) HostTooOld(old objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("hostTooOld:"), old)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("hostTooOld:"), old)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) InvalidModelErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) InvalidModelInstanceErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelInstanceErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelInstanceErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) InvalidModelKeyErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelKeyErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("invalidModelKeyErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) MissingCodeSigningErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("missingCodeSigningErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("missingCodeSigningErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ModelIdentifierNotFoundForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("modelIdentifierNotFoundForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("modelIdentifierNotFoundForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ModelNewInstanceCacheIdentifierNotNilMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("modelNewInstanceCacheIdentifierNotNilMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("modelNewInstanceCacheIdentifierNotNilMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) NotSupportedErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("notSupportedErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("notSupportedErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) PriorityErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("priorityErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("priorityErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramChainingPrepareErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programChainingPrepareErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programChainingPrepareErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramCreationErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programCreationErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programCreationErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramIOSurfacesMapErrorForMethodCode(method objectivec.IObject, code int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programIOSurfacesMapErrorForMethod:code:"), method, code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programIOSurfacesMapErrorForMethod:code:"), method, code)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramIOSurfacesUnmapErrorForMethodCode(method objectivec.IObject, code int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programIOSurfacesUnmapErrorForMethod:code:"), method, code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programIOSurfacesUnmapErrorForMethod:code:"), method, code)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramInferenceOtherErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceOtherErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceOtherErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramInferenceOverflowErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceOverflowErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceOverflowErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramInferenceProgramNotFoundForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceProgramNotFoundForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programInferenceProgramNotFoundForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramLoadErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramLoadErrorForMethodCode(method objectivec.IObject, code int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadErrorForMethod:code:"), method, code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadErrorForMethod:code:"), method, code)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramLoadNewInstanceErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadNewInstanceErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadNewInstanceErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) ProgramLoadNewInstanceErrorForMethodCode(method objectivec.IObject, code int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadNewInstanceErrorForMethod:code:"), method, code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programLoadNewInstanceErrorForMethod:code:"), method, code)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) SystemModelPurgeNotAllowedForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("systemModelPurgeNotAllowedForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("systemModelPurgeNotAllowedForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) TimeoutErrorForMethod(method objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("timeoutErrorForMethod:"), method)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("timeoutErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) VirtualizationDataError(error_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationDataError:"), error_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationDataError:"), error_)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) VirtualizationHostError(error_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationHostError:"), error_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationHostError:"), error_)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEErrorsClass ANEErrorsClass) VirtualizationHostErrorError(hostError foundation.NSError, underlyingError foundation.NSError) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationHostError:error:"), hostError, underlyingError)
+func (_ANEErrorsClass ANEErrorsClass) VirtualizationHostErrorError(hostError objectivec.IObject, underlyingError objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationHostError:error:"), hostError, underlyingError)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEErrorsClass ANEErrorsClass) VirtualizationKernelErrorKernelErrorCode(error_ objectivec.IObject, code int) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationKernelError:kernelErrorCode:"), error_, code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationKernelError:kernelErrorCode:"), error_, code)
 	return objectivec.Object{ID: rv}
 }

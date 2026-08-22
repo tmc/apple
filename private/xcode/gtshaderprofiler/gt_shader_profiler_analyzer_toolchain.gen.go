@@ -39,7 +39,7 @@ func (gc GTShaderProfilerAnalyzerToolchainClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerAnalyzerToolchainClass) Alloc() GTShaderProfilerAnalyzerToolchain {
-	rv := objc.Send[GTShaderProfilerAnalyzerToolchain](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzerToolchain](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,27 +76,27 @@ type IGTShaderProfilerAnalyzerToolchain interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerAnalyzerToolchain) Init() GTShaderProfilerAnalyzerToolchain {
-	rv := objc.Send[GTShaderProfilerAnalyzerToolchain](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzerToolchain](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerAnalyzerToolchain) Autorelease() GTShaderProfilerAnalyzerToolchain {
-	rv := objc.Send[GTShaderProfilerAnalyzerToolchain](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzerToolchain](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerAnalyzerToolchain creates a new GTShaderProfilerAnalyzerToolchain instance.
 func NewGTShaderProfilerAnalyzerToolchain() GTShaderProfilerAnalyzerToolchain {
 	class := getGTShaderProfilerAnalyzerToolchainClass()
-	rv := objc.Send[GTShaderProfilerAnalyzerToolchain](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerAnalyzerToolchain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (g GTShaderProfilerAnalyzerToolchain) McaCommandLineToolPath() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaCommandLineToolPath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("mcaCommandLineToolPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerAnalyzerToolchain) SetMcaCommandLineToolPath(value string) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMcaCommandLineToolPath:"), objc.String(value))
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setMcaCommandLineToolPath:"), objc.String(value))
 }

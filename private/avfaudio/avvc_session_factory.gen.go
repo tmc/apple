@@ -41,7 +41,7 @@ func (ac AVVCSessionFactoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCSessionFactoryClass) Alloc() AVVCSessionFactory {
-	rv := objc.Send[AVVCSessionFactory](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCSessionFactory](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -129,20 +129,20 @@ type IAVVCSessionFactory interface {
 
 // Init initializes the instance.
 func (a AVVCSessionFactory) Init() AVVCSessionFactory {
-	rv := objc.Send[AVVCSessionFactory](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCSessionFactory](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCSessionFactory) Autorelease() AVVCSessionFactory {
-	rv := objc.Send[AVVCSessionFactory](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCSessionFactory](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCSessionFactory creates a new AVVCSessionFactory instance.
 func NewAVVCSessionFactory() AVVCSessionFactory {
 	class := getAVVCSessionFactoryClass()
-	rv := objc.Send[AVVCSessionFactory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCSessionFactory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -195,18 +195,18 @@ func (a AVVCSessionFactory) CanWqSessionAndManagerForContextClientTypeSessionMan
 	return objc.RespondsToSelector(a.ID, objc.Sel("_wqSessionAndManagerForContext:clientType:session:manager:error:"))
 }
 func (a AVVCSessionFactory) AuxSessionManagers() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("auxSessionManagers"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("auxSessionManagers"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVVCSessionFactory) CleanupContext(context objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("cleanupContext:"), context)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("cleanupContext:"), context)
 }
 func (a AVVCSessionFactory) ReleasePrimarySessionManager() {
-	objc.Send[objc.ID](a.ID, objc.Sel("releasePrimarySessionManager"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("releasePrimarySessionManager"))
 }
 func (a AVVCSessionFactory) SessionForContextClientTypeCompletion(context objectivec.IObject, type_ int64, completion VoidHandler) {
 	_block2, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](a.ID, objc.Sel("sessionForContext:clientType:completion:"), context, type_, _block2)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sessionForContext:clientType:completion:"), context, type_, _block2)
 }
 func (a AVVCSessionFactory) SessionForContextClientTypeError(context objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -220,7 +220,7 @@ func (a AVVCSessionFactory) SessionForContextClientTypeError(context objectivec.
 }
 func (a AVVCSessionFactory) SessionForContextCompletion(context objectivec.IObject, completion VoidHandler) {
 	_block1, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](a.ID, objc.Sel("sessionForContext:completion:"), context, _block1)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sessionForContext:completion:"), context, _block1)
 }
 func (a AVVCSessionFactory) SessionForContextError(context objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -234,7 +234,7 @@ func (a AVVCSessionFactory) SessionForContextError(context objectivec.IObject) (
 }
 func (a AVVCSessionFactory) SessionManagerForContextClientTypeCompletion(context objectivec.IObject, type_ int64, completion VoidHandler) {
 	_block2, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](a.ID, objc.Sel("sessionManagerForContext:clientType:completion:"), context, type_, _block2)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sessionManagerForContext:clientType:completion:"), context, type_, _block2)
 }
 func (a AVVCSessionFactory) SessionManagerForContextClientTypeError(context objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -246,40 +246,46 @@ func (a AVVCSessionFactory) SessionManagerForContextClientTypeError(context obje
 	return objectivec.Object{ID: rv}, nil
 
 }
+
+var _avvcsessionfactory_setsessionwascreatedblock_p0_key byte
+
 func (a AVVCSessionFactory) SetSessionWasCreatedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setSessionWasCreatedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSessionWasCreatedBlock:"), _block0)
 }
+
+var _avvcsessionfactory_setsessionwillbedestroyedblock_p0_key byte
+
 func (a AVVCSessionFactory) SetSessionWillBeDestroyedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](a.ID, objc.Sel("setSessionWillBeDestroyedBlock:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSessionWillBeDestroyedBlock:"), _block0)
 }
 
 func (_AVVCSessionFactoryClass AVVCSessionFactoryClass) SharedInstance() AVVCSessionFactory {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCSessionFactoryClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCSessionFactoryClass.class), objc.Sel("sharedInstance"))
 	return AVVCSessionFactoryFromID(rv)
 }
 
 func (a AVVCSessionFactory) PrimarySessionManager() IAVVCSessionManager {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("primarySessionManager"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("primarySessionManager"))
 	return AVVCSessionManagerFromID(objc.ID(rv))
 }
 func (a AVVCSessionFactory) SetPrimarySessionManager(value IAVVCSessionManager) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPrimarySessionManager:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPrimarySessionManager:"), value)
 }
 func (a AVVCSessionFactory) SessionManagerMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sessionManagerMap"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sessionManagerMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a AVVCSessionFactory) SetSessionManagerMap(value foundation.INSDictionary) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSessionManagerMap:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSessionManagerMap:"), value)
 }
 func (a AVVCSessionFactory) WorkQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("workQueue"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("workQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (a AVVCSessionFactory) SetWorkQueue(value objectivec.Object) {
-	objc.Send[struct{}](a.ID, objc.Sel("setWorkQueue:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setWorkQueue:"), value)
 }
 
 // SessionForContextClientTypeCompletionSync is a synchronous wrapper around [AVVCSessionFactory.SessionForContextClientTypeCompletion].

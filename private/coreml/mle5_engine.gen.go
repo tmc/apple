@@ -42,7 +42,7 @@ func (mc MLE5EngineClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLE5EngineClass) Alloc() MLE5Engine {
-	rv := objc.Send[MLE5Engine](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLE5Engine](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -193,49 +193,52 @@ type IMLE5Engine interface {
 
 // Init initializes the instance.
 func (m MLE5Engine) Init() MLE5Engine {
-	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLE5Engine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLE5Engine) Autorelease() MLE5Engine {
-	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLE5Engine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLE5Engine creates a new MLE5Engine instance.
 func NewMLE5Engine() MLE5Engine {
 	class := getMLE5EngineClass()
-	rv := objc.Send[MLE5Engine](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLE5Engine](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewE5EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
 	var errorPtr objc.ID
 	instance := getMLE5EngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLE5Engine{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLE5Engine{}, objc.ErrInitFailed
 	}
 	return MLE5EngineFromID(rv), nil
 }
 
 func NewE5EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLE5EngineFromID(rv)
 }
 
 func NewE5EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLE5EngineFromID(rv)
 }
 
 func NewE5EngineWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return MLE5EngineFromID(rv)
 }
 
@@ -315,7 +318,7 @@ func (m MLE5Engine) CanCleanUpAndReconfigureStreamForInputFeaturesError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"))
 }
 func (m MLE5Engine) _cleanUpStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_cleanUpStream:"), stream)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_cleanUpStream:"), stream)
 }
 
 // CleanUpStream is an exported wrapper for the private method _cleanUpStream.
@@ -381,7 +384,7 @@ func (m MLE5Engine) CanConformStateError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_conformState:error:"))
 }
 func (m MLE5Engine) _extractSupportFromBackendDict(dict objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportFromBackendDict:"), dict)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("_extractSupportFromBackendDict:"), dict)
 	return rv
 }
 
@@ -399,7 +402,7 @@ func (m MLE5Engine) CanExtractSupportFromBackendDict() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportFromBackendDict:"))
 }
 func (m MLE5Engine) _extractSupportedComputeUnitFromString(string_ objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"), string_)
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"), string_)
 	return rv
 }
 
@@ -476,7 +479,7 @@ func (m MLE5Engine) CanPostProcessingForOutputsOptionsError() bool {
 }
 func (m MLE5Engine) _predictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"), features, options, _block2)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"), features, options, _block2)
 }
 
 // PredictionFromFeaturesOptionsCompletionHandler is an exported wrapper for the private method _predictionFromFeaturesOptionsCompletionHandler.
@@ -538,7 +541,7 @@ func (m MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objec
 
 }
 func (m MLE5Engine) _probabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"), array, k)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"), array, k)
 	return objectivec.Object{ID: rv}
 }
 
@@ -556,7 +559,7 @@ func (m MLE5Engine) CanProbabilityDictionaryWithMultiArrayClassifyTopK() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"))
 }
 func (m MLE5Engine) _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"), dictionary)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"), dictionary)
 	return rv
 }
 
@@ -574,7 +577,7 @@ func (m MLE5Engine) CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary() boo
 	return objc.RespondsToSelector(m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"))
 }
 func (m MLE5Engine) _trimQuotesFromBackendName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_trimQuotesFromBackendName:"), name)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_trimQuotesFromBackendName:"), name)
 	return objectivec.Object{ID: rv}
 }
 
@@ -619,7 +622,7 @@ func (m MLE5Engine) CanValidateStreamReuseExpectationError() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_validateStreamReuse:expectation:error:"))
 }
 func (m MLE5Engine) ClassLabels() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -663,7 +666,7 @@ func (m MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model 
 
 }
 func (m MLE5Engine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
 func (m MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -700,12 +703,12 @@ func (m MLE5Engine) InitWithContainerConfigurationError(container objectivec.IOb
 
 }
 func (m MLE5Engine) InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
-	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
+	rv := objc.SendIfResponds[MLE5Engine](m.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return rv
 }
 
 func (_MLE5EngineClass MLE5EngineClass) ContainerClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLE5EngineClass.class), objc.Sel("containerClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLE5EngineClass.class), objc.Sel("containerClass"))
 	return objectivec.Class(rv)
 }
 func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -730,47 +733,47 @@ func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersion
 }
 
 func (m MLE5Engine) BatchMaxInFlightSem() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchMaxInFlightSem"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("batchMaxInFlightSem"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLE5Engine) ClassLabelsSharedKey() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelsSharedKey"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabelsSharedKey"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLE5Engine) ClassProbabilitiesFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classProbabilitiesFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classProbabilitiesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5Engine) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 func (m MLE5Engine) FunctionName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5Engine) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 func (m MLE5Engine) OperationPool() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("operationPool"))
 	return rv
 }
 func (m MLE5Engine) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 func (m MLE5Engine) SerializedMILText() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLE5Engine) StateFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("stateFeatureConformer"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stateFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 func (m MLE5Engine) StreamPool() IMLE5ExecutionStreamPool {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("streamPool"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("streamPool"))
 	return MLE5ExecutionStreamPoolFromID(objc.ID(rv))
 }
 

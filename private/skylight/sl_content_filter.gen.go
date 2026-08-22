@@ -39,7 +39,7 @@ func (sc SLContentFilterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLContentFilterClass) Alloc() SLContentFilter {
-	rv := objc.Send[SLContentFilter](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLContentFilter](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -145,163 +145,163 @@ type ISLContentFilter interface {
 
 // Init initializes the instance.
 func (s SLContentFilter) Init() SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLContentFilter) Autorelease() SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLContentFilter creates a new SLContentFilter instance.
 func NewSLContentFilter() SLContentFilter {
 	class := getSLContentFilterClass()
-	rv := objc.Send[SLContentFilter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLContentFilter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLContentFilterWithCoder(coder objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDesktopIndependentWindow(window uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDisplay(display uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:"), display)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDisplayApplication(display uint32, application objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:application:"), display, application)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:application:"), display, application)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, pids objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject, pids2 objectivec.IObject) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
 	return SLContentFilterFromID(rv)
 }
 
 func NewSLContentFilterWithDisplayWindow(display uint32, window uint32) SLContentFilter {
 	instance := getSLContentFilterClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:window:"), display, window)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDisplay:window:"), display, window)
 	return SLContentFilterFromID(rv)
 }
 
 func (s SLContentFilter) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (s SLContentFilter) ExcludeMenuBar(bar bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("excludeMenuBar:"), bar)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludeMenuBar:"), bar)
 }
 func (s SLContentFilter) GetFilterType() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("getFilterType"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("getFilterType"))
 	return rv
 }
 func (s SLContentFilter) InitWithCoder(coder foundation.INSCoder) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (s SLContentFilter) InitWithDesktopIndependentWindow(window uint32) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return rv
 }
 func (s SLContentFilter) InitWithDisplay(display uint32) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:"), display)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDisplay:"), display)
 	return rv
 }
 func (s SLContentFilter) InitWithDisplayApplication(display uint32, application objectivec.IObject) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:application:"), display, application)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDisplay:application:"), display, application)
 	return rv
 }
 func (s SLContentFilter) InitWithDisplayShareAllIncludedWindowsIncludedApplicationsExcludedWindowsExcludedApplications(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:excludedWindows:excludedApplications:"), display, all, windows, applications, windows2, applications2)
 	return rv
 }
 func (s SLContentFilter) InitWithDisplayShareAllIncludedWindowsIncludedApplicationsIncludedPIDSExcludedWindowsExcludedApplicationsExcludedPIDS(display uint32, all bool, windows objectivec.IObject, applications objectivec.IObject, pids objectivec.IObject, windows2 objectivec.IObject, applications2 objectivec.IObject, pids2 objectivec.IObject) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDisplay:shareAll:includedWindows:includedApplications:includedPIDS:excludedWindows:excludedApplications:excludedPIDS:"), display, all, windows, applications, pids, windows2, applications2, pids2)
 	return rv
 }
 func (s SLContentFilter) InitWithDisplayWindow(display uint32, window uint32) SLContentFilter {
-	rv := objc.Send[SLContentFilter](s.ID, objc.Sel("initWithDisplay:window:"), display, window)
+	rv := objc.SendIfResponds[SLContentFilter](s.ID, objc.Sel("initWithDisplay:window:"), display, window)
 	return rv
 }
 
 func (_SLContentFilterClass SLContentFilterClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_SLContentFilterClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_SLContentFilterClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (s SLContentFilter) ApplicationID() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("applicationID"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("applicationID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (s SLContentFilter) DisplayID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("displayID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("displayID"))
 	return rv
 }
 func (s SLContentFilter) ExcludedApplications() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedApplications"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) ExcludedPIDS() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedPIDS"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) SetExcludedPIDS(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setExcludedPIDS:"), value)
 }
 func (s SLContentFilter) ExcludedWindows() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("excludedWindows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("excludedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) FilterType() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("filterType"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("filterType"))
 	return rv
 }
 func (s SLContentFilter) HideMenuBar() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hideMenuBar"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("hideMenuBar"))
 	return rv
 }
 func (s SLContentFilter) SetHideMenuBar(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setHideMenuBar:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setHideMenuBar:"), value)
 }
 func (s SLContentFilter) IncludedApplications() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedApplications"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedApplications"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) IncludedPIDS() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedPIDS"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedPIDS"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) SetIncludedPIDS(value foundation.INSSet) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIncludedPIDS:"), value)
 }
 func (s SLContentFilter) IncludedWindows() foundation.INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("includedWindows"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("includedWindows"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (s SLContentFilter) ShareAll() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("shareAll"))
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("shareAll"))
 	return rv
 }
 func (s SLContentFilter) WindowID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("windowID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("windowID"))
 	return rv
 }

@@ -38,7 +38,7 @@ func (vc VZHIDEventMonitorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHIDEventMonitorClass) Alloc() VZHIDEventMonitor {
-	rv := objc.Send[VZHIDEventMonitor](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZHIDEventMonitor](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type IVZHIDEventMonitor interface {
 
 // Init initializes the instance.
 func (v VZHIDEventMonitor) Init() VZHIDEventMonitor {
-	rv := objc.Send[VZHIDEventMonitor](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZHIDEventMonitor](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZHIDEventMonitor) Autorelease() VZHIDEventMonitor {
-	rv := objc.Send[VZHIDEventMonitor](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZHIDEventMonitor](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZHIDEventMonitor creates a new VZHIDEventMonitor instance.
 func NewVZHIDEventMonitor() VZHIDEventMonitor {
 	class := getVZHIDEventMonitorClass()
-	rv := objc.Send[VZHIDEventMonitor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZHIDEventMonitor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

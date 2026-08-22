@@ -40,7 +40,7 @@ func (cc CoreMLModelSecurityServiceToClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLModelSecurityServiceToClientClass) Alloc() CoreMLModelSecurityServiceToClient {
-	rv := objc.Send[CoreMLModelSecurityServiceToClient](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLModelSecurityServiceToClient](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,52 +95,52 @@ type ICoreMLModelSecurityServiceToClient interface {
 
 // Init initializes the instance.
 func (c CoreMLModelSecurityServiceToClient) Init() CoreMLModelSecurityServiceToClient {
-	rv := objc.Send[CoreMLModelSecurityServiceToClient](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLModelSecurityServiceToClient](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLModelSecurityServiceToClient) Autorelease() CoreMLModelSecurityServiceToClient {
-	rv := objc.Send[CoreMLModelSecurityServiceToClient](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLModelSecurityServiceToClient](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLModelSecurityServiceToClient creates a new CoreMLModelSecurityServiceToClient instance.
 func NewCoreMLModelSecurityServiceToClient() CoreMLModelSecurityServiceToClient {
 	class := getCoreMLModelSecurityServiceToClientClass()
-	rv := objc.Send[CoreMLModelSecurityServiceToClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLModelSecurityServiceToClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureNamesWithReply(names objectivec.IObject, reply VoidHandler) {
 	_block1, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureNames:withReply:"), names, _block1)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("clientFeatureNames:withReply:"), names, _block1)
 }
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply VoidHandler) {
 	_block2, _ := NewVoidBlock(reply)
-	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureValueForName:uniqueKeyForProvider:withReply:"), name, provider, _block2)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("clientFeatureValueForName:uniqueKeyForProvider:withReply:"), name, provider, _block2)
 }
 
 func (c CoreMLModelSecurityServiceToClient) FeatureProviderCount() foundation.INSCountedSet {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureProviderCount"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("featureProviderCount"))
 	return foundation.NSCountedSetFromID(objc.ID(rv))
 }
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderCount(value foundation.INSCountedSet) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderCount:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setFeatureProviderCount:"), value)
 }
 func (c CoreMLModelSecurityServiceToClient) FeatureProviderMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureProviderMap"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("featureProviderMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderMap(value foundation.INSDictionary) {
-	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderMap:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setFeatureProviderMap:"), value)
 }
 func (c CoreMLModelSecurityServiceToClient) ServiceToClientQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("serviceToClientQueue"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("serviceToClientQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (c CoreMLModelSecurityServiceToClient) SetServiceToClientQueue(value objectivec.Object) {
-	objc.Send[struct{}](c.ID, objc.Sel("setServiceToClientQueue:"), value)
+	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setServiceToClientQueue:"), value)
 }
 
 // ClientFeatureNamesWithReplySync is a synchronous wrapper around [CoreMLModelSecurityServiceToClient.ClientFeatureNamesWithReply].

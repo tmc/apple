@@ -12,6 +12,9 @@ import (
 // _VZVirtualMachineConfigurationEncodable protocol.
 type VZVirtualMachineConfigurationEncodable interface {
 	objectivec.IObject
+
+	// EncodeWithEncoder protocol.
+	EncodeWithEncoder(encoder objectivec.IObject) unsafe.Pointer
 }
 
 // VZVirtualMachineConfigurationEncodableObject wraps an existing Objective-C object that conforms to the VZVirtualMachineConfigurationEncodable protocol.
@@ -32,6 +35,6 @@ func VZVirtualMachineConfigurationEncodableObjectFromID(id objc.ID) VZVirtualMac
 }
 
 func (o VZVirtualMachineConfigurationEncodableObject) EncodeWithEncoder(encoder objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("encodeWithEncoder:"), encoder)
+	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return rv
 }

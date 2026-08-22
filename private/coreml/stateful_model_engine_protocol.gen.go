@@ -10,6 +10,15 @@ import (
 // MLStatefulModelEngine protocol.
 type MLStatefulModelEngine interface {
 	objectivec.IObject
+
+	// NewRequestForModelInputFeaturesUsingStateOptionsError protocol.
+	NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
+
+	// NewStateWithClientBuffers protocol.
+	NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject
+
+	// PredictionFromFeaturesUsingStateOptionsError protocol.
+	PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLStatefulModelEngineObject wraps an existing Objective-C object that conforms to the MLStatefulModelEngine protocol.
@@ -37,7 +46,7 @@ func (o MLStatefulModelEngineObject) NewRequestForModelInputFeaturesUsingStateOp
 	return objectivec.Object{ID: rv}, nil
 }
 func (o MLStatefulModelEngineObject) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
 func (o MLStatefulModelEngineObject) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {

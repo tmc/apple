@@ -37,7 +37,7 @@ func (ec EspressoPassMultiHeadProgramGenClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassMultiHeadProgramGenClass) Alloc() EspressoPassMultiHeadProgramGen {
-	rv := objc.Send[EspressoPassMultiHeadProgramGen](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadProgramGen](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassMultiHeadProgramGen interface {
 
 // Init initializes the instance.
 func (e EspressoPassMultiHeadProgramGen) Init() EspressoPassMultiHeadProgramGen {
-	rv := objc.Send[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassMultiHeadProgramGen) Autorelease() EspressoPassMultiHeadProgramGen {
-	rv := objc.Send[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassMultiHeadProgramGen creates a new EspressoPassMultiHeadProgramGen instance.
 func NewEspressoPassMultiHeadProgramGen() EspressoPassMultiHeadProgramGen {
 	class := getEspressoPassMultiHeadProgramGenClass()
-	rv := objc.Send[EspressoPassMultiHeadProgramGen](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassMultiHeadProgramGen](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

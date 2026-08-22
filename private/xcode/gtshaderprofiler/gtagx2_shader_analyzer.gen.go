@@ -39,7 +39,7 @@ func (gc GTAGX2ShaderAnalyzerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2ShaderAnalyzerClass) Alloc() GTAGX2ShaderAnalyzer {
-	rv := objc.Send[GTAGX2ShaderAnalyzer](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2ShaderAnalyzer](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,25 +85,25 @@ type IGTAGX2ShaderAnalyzer interface {
 
 // Init initializes the instance.
 func (g GTAGX2ShaderAnalyzer) Init() GTAGX2ShaderAnalyzer {
-	rv := objc.Send[GTAGX2ShaderAnalyzer](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2ShaderAnalyzer](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2ShaderAnalyzer) Autorelease() GTAGX2ShaderAnalyzer {
-	rv := objc.Send[GTAGX2ShaderAnalyzer](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2ShaderAnalyzer](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2ShaderAnalyzer creates a new GTAGX2ShaderAnalyzer instance.
 func NewGTAGX2ShaderAnalyzer() GTAGX2ShaderAnalyzer {
 	class := getGTAGX2ShaderAnalyzerClass()
-	rv := objc.Send[GTAGX2ShaderAnalyzer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2ShaderAnalyzer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (g GTAGX2ShaderAnalyzer) _calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"), data, index, binary)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"), data, index, binary)
 }
 
 // CalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary is an exported wrapper for the private method _calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary.
@@ -121,7 +121,7 @@ func (g GTAGX2ShaderAnalyzer) CanCalculatePerDrawCallWithGRCSampleDataTargetInde
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"))
 }
 func (g GTAGX2ShaderAnalyzer) _calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"), data, result, index, aLUBlocks, info)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"), data, result, index, aLUBlocks, info)
 	return objectivec.Object{ID: rv}
 }
 
@@ -139,14 +139,14 @@ func (g GTAGX2ShaderAnalyzer) CanCalculatePerLineCostWithSampleDataAnalysisResul
 	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"))
 }
 func (g GTAGX2ShaderAnalyzer) AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo(binary objectivec.IObject, samples objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:"), binary, samples, index, aLUBlocks, info)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:"), binary, samples, index, aLUBlocks, info)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2ShaderAnalyzer) DisassembleBinary(binary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("disassembleBinary:"), binary)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("disassembleBinary:"), binary)
 	return objectivec.Object{ID: rv}
 }
 func (g GTAGX2ShaderAnalyzer) GetShaderBinaryForTargetIndexBinaryInfo(binary objectivec.IObject, index int, info objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getShaderBinary:forTargetIndex:binaryInfo:"), binary, index, info)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getShaderBinary:forTargetIndex:binaryInfo:"), binary, index, info)
 	return objectivec.Object{ID: rv}
 }

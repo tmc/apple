@@ -273,10 +273,10 @@ func AgxpsApsParserIsValid(parser AGXPSParserHandle) (bool, error) {
 	return tryAgxpsApsParserIsValid(parser)
 }
 
-var _agxpsApsParserParse func(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) int
+var _agxpsApsParserParse func(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) int32
 var _agxpsApsParserParseErr error
 
-func tryAgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) (int, error) {
+func tryAgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) (int32, error) {
 	if _agxpsApsParserParse == nil {
 		return 0, symbolCallError("agxps_aps_parser_parse", "", _agxpsApsParserParseErr)
 	}
@@ -284,7 +284,7 @@ func tryAgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size 
 }
 
 // AgxpsApsParserParse.
-func AgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) (int, error) {
+func AgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) (int32, error) {
 	return tryAgxpsApsParserParse(parser, data, size, profileDataOut)
 }
 
@@ -304,109 +304,184 @@ func AgxpsApsProfileDataDestroy(profileData AGXPSProfileData) error {
 	return tryAgxpsApsProfileDataDestroy(profileData)
 }
 
-var _agxpsApsProfileDataGetEslCliqueCliqueID func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetCounterGroupID func(profileData AGXPSProfileData, out *byte, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetCounterGroupIDErr error
+
+func tryAgxpsApsProfileDataGetCounterGroupID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetCounterGroupID == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_counter_group_id", "", _agxpsApsProfileDataGetCounterGroupIDErr)
+	}
+	return _agxpsApsProfileDataGetCounterGroupID(profileData, unsafe.SliceData(out), first, count), nil
+}
+
+// AgxpsApsProfileDataGetCounterGroupID.
+func AgxpsApsProfileDataGetCounterGroupID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetCounterGroupID(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetCounterGroupMetadata func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetCounterGroupMetadataErr error
+
+func tryAgxpsApsProfileDataGetCounterGroupMetadata(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetCounterGroupMetadata == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_counter_group_metadata", "", _agxpsApsProfileDataGetCounterGroupMetadataErr)
+	}
+	return _agxpsApsProfileDataGetCounterGroupMetadata(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetCounterGroupMetadata.
+func AgxpsApsProfileDataGetCounterGroupMetadata(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetCounterGroupMetadata(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetCounterNames func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetCounterNamesErr error
+
+func tryAgxpsApsProfileDataGetCounterNames(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetCounterNames == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_counter_names", "", _agxpsApsProfileDataGetCounterNamesErr)
+	}
+	return _agxpsApsProfileDataGetCounterNames(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetCounterNames.
+func AgxpsApsProfileDataGetCounterNames(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetCounterNames(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetCounterValues func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetCounterValuesErr error
+
+func tryAgxpsApsProfileDataGetCounterValues(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetCounterValues == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_counter_values", "", _agxpsApsProfileDataGetCounterValuesErr)
+	}
+	return _agxpsApsProfileDataGetCounterValues(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetCounterValues.
+func AgxpsApsProfileDataGetCounterValues(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetCounterValues(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetCounterValuesNum func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetCounterValuesNumErr error
+
+func tryAgxpsApsProfileDataGetCounterValuesNum(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetCounterValuesNum == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_counter_values_num", "", _agxpsApsProfileDataGetCounterValuesNumErr)
+	}
+	return _agxpsApsProfileDataGetCounterValuesNum(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetCounterValuesNum.
+func AgxpsApsProfileDataGetCounterValuesNum(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetCounterValuesNum(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetEslCliqueCliqueID func(profileData AGXPSProfileData, out *byte, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueCliqueIDErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueCliqueID == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_esl_clique_clique_id", "", _agxpsApsProfileDataGetEslCliqueCliqueIDErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_clique_id", "", _agxpsApsProfileDataGetEslCliqueCliqueIDErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueCliqueID(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueCliqueID(profileData, unsafe.SliceData(out), first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueCliqueID.
-func AgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueEnd func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetEslCliqueEnd func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueEndErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueEnd == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_esl_clique_end", "", _agxpsApsProfileDataGetEslCliqueEndErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_end", "", _agxpsApsProfileDataGetEslCliqueEndErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueEnd(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueEnd(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueEnd.
-func AgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueEnd(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueEnd(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueEslID func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetEslCliqueEslID func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueEslIDErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueEslID == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_esl_clique_esl_id", "", _agxpsApsProfileDataGetEslCliqueEslIDErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_esl_id", "", _agxpsApsProfileDataGetEslCliqueEslIDErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueEslID(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueEslID(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueEslID.
-func AgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueEslID(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueEslID(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueInstructionTrace func(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef
+var _agxpsApsProfileDataGetEslCliqueInstructionTrace func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueInstructionTraceErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
+func tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueInstructionTrace == nil {
-		return *new(AGXPSCliqueInstructionTraceRef), symbolCallError("agxps_aps_profile_data_get_esl_clique_instruction_trace", "", _agxpsApsProfileDataGetEslCliqueInstructionTraceErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_instruction_trace", "", _agxpsApsProfileDataGetEslCliqueInstructionTraceErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueInstructionTrace.
-func AgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueKickID func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetEslCliqueKickID func(profileData AGXPSProfileData, out *uint32, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueKickIDErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, out *uint32, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueKickID == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_esl_clique_kick_id", "", _agxpsApsProfileDataGetEslCliqueKickIDErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_kick_id", "", _agxpsApsProfileDataGetEslCliqueKickIDErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueKickID(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueKickID(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueKickID.
-func AgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueKickID(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, out *uint32, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueKickID(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueMissingEnd func(profileData AGXPSProfileData, cliqueIndex uint64) bool
+var _agxpsApsProfileDataGetEslCliqueMissingEnd func(profileData AGXPSProfileData, out *byte, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueMissingEndErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, cliqueIndex uint64) (bool, error) {
+func tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueMissingEnd == nil {
 		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_missing_end", "", _agxpsApsProfileDataGetEslCliqueMissingEndErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueMissingEnd(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueMissingEnd(profileData, unsafe.SliceData(out), first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueMissingEnd.
-func AgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, cliqueIndex uint64) (bool, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetEslCliqueStart func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetEslCliqueStart func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetEslCliqueStartErr error
 
-func tryAgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetEslCliqueStart == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_esl_clique_start", "", _agxpsApsProfileDataGetEslCliqueStartErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_esl_clique_start", "", _agxpsApsProfileDataGetEslCliqueStartErr)
 	}
-	return _agxpsApsProfileDataGetEslCliqueStart(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetEslCliqueStart(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetEslCliqueStart.
-func AgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetEslCliqueStart(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetEslCliqueStart(profileData, out, first, count)
 }
 
 var _agxpsApsProfileDataGetEslCliquesNum func(profileData AGXPSProfileData) uint64
@@ -424,49 +499,79 @@ func AgxpsApsProfileDataGetEslCliquesNum(profileData AGXPSProfileData) (uint64, 
 	return tryAgxpsApsProfileDataGetEslCliquesNum(profileData)
 }
 
-var _agxpsApsProfileDataGetKickEnd func(profileData AGXPSProfileData, kickIndex uint64) uint64
+var _agxpsApsProfileDataGetKickEnd func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetKickEndErr error
 
-func tryAgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetKickEnd == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_kick_end", "", _agxpsApsProfileDataGetKickEndErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_kick_end", "", _agxpsApsProfileDataGetKickEndErr)
 	}
-	return _agxpsApsProfileDataGetKickEnd(profileData, kickIndex), nil
+	return _agxpsApsProfileDataGetKickEnd(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetKickEnd.
-func AgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetKickEnd(profileData, kickIndex)
+func AgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetKickEnd(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetKickID func(profileData AGXPSProfileData, kickIndex uint64) uint64
+var _agxpsApsProfileDataGetKickID func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetKickIDErr error
 
-func tryAgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetKickID == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_kick_id", "", _agxpsApsProfileDataGetKickIDErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_kick_id", "", _agxpsApsProfileDataGetKickIDErr)
 	}
-	return _agxpsApsProfileDataGetKickID(profileData, kickIndex), nil
+	return _agxpsApsProfileDataGetKickID(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetKickID.
-func AgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetKickID(profileData, kickIndex)
+func AgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetKickID(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetKickStart func(profileData AGXPSProfileData, kickIndex uint64) uint64
+var _agxpsApsProfileDataGetKickKickSlot func(profileData AGXPSProfileData, out *uint16, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetKickKickSlotErr error
+
+func tryAgxpsApsProfileDataGetKickKickSlot(profileData AGXPSProfileData, out *uint16, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetKickKickSlot == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_kick_kick_slot", "", _agxpsApsProfileDataGetKickKickSlotErr)
+	}
+	return _agxpsApsProfileDataGetKickKickSlot(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetKickKickSlot.
+func AgxpsApsProfileDataGetKickKickSlot(profileData AGXPSProfileData, out *uint16, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetKickKickSlot(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetKickSoftwareID func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetKickSoftwareIDErr error
+
+func tryAgxpsApsProfileDataGetKickSoftwareID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetKickSoftwareID == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_kick_software_id", "", _agxpsApsProfileDataGetKickSoftwareIDErr)
+	}
+	return _agxpsApsProfileDataGetKickSoftwareID(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetKickSoftwareID.
+func AgxpsApsProfileDataGetKickSoftwareID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetKickSoftwareID(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetKickStart func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetKickStartErr error
 
-func tryAgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetKickStart == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_kick_start", "", _agxpsApsProfileDataGetKickStartErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_kick_start", "", _agxpsApsProfileDataGetKickStartErr)
 	}
-	return _agxpsApsProfileDataGetKickStart(profileData, kickIndex), nil
+	return _agxpsApsProfileDataGetKickStart(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetKickStart.
-func AgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetKickStart(profileData, kickIndex)
+func AgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetKickStart(profileData, out, first, count)
 }
 
 var _agxpsApsProfileDataGetKicksNum func(profileData AGXPSProfileData) uint64
@@ -484,49 +589,64 @@ func AgxpsApsProfileDataGetKicksNum(profileData AGXPSProfileData) (uint64, error
 	return tryAgxpsApsProfileDataGetKicksNum(profileData)
 }
 
-var _agxpsApsProfileDataGetWorkCliqueEnd func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetSystemTimestamps func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
+var _agxpsApsProfileDataGetSystemTimestampsErr error
+
+func tryAgxpsApsProfileDataGetSystemTimestamps(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	if _agxpsApsProfileDataGetSystemTimestamps == nil {
+		return false, symbolCallError("agxps_aps_profile_data_get_system_timestamps", "", _agxpsApsProfileDataGetSystemTimestampsErr)
+	}
+	return _agxpsApsProfileDataGetSystemTimestamps(profileData, out, first, count), nil
+}
+
+// AgxpsApsProfileDataGetSystemTimestamps.
+func AgxpsApsProfileDataGetSystemTimestamps(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetSystemTimestamps(profileData, out, first, count)
+}
+
+var _agxpsApsProfileDataGetWorkCliqueEnd func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetWorkCliqueEndErr error
 
-func tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetWorkCliqueEnd == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_work_clique_end", "", _agxpsApsProfileDataGetWorkCliqueEndErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_work_clique_end", "", _agxpsApsProfileDataGetWorkCliqueEndErr)
 	}
-	return _agxpsApsProfileDataGetWorkCliqueEnd(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetWorkCliqueEnd(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetWorkCliqueEnd.
-func AgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetWorkCliqueInstructionTrace func(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef
+var _agxpsApsProfileDataGetWorkCliqueInstructionTrace func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetWorkCliqueInstructionTraceErr error
 
-func tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
+func tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetWorkCliqueInstructionTrace == nil {
-		return *new(AGXPSCliqueInstructionTraceRef), symbolCallError("agxps_aps_profile_data_get_work_clique_instruction_trace", "", _agxpsApsProfileDataGetWorkCliqueInstructionTraceErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_work_clique_instruction_trace", "", _agxpsApsProfileDataGetWorkCliqueInstructionTraceErr)
 	}
-	return _agxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetWorkCliqueInstructionTrace.
-func AgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
-	return tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, out, first, count)
 }
 
-var _agxpsApsProfileDataGetWorkCliqueStart func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
+var _agxpsApsProfileDataGetWorkCliqueStart func(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) bool
 var _agxpsApsProfileDataGetWorkCliqueStartErr error
 
-func tryAgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+func tryAgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	if _agxpsApsProfileDataGetWorkCliqueStart == nil {
-		return 0, symbolCallError("agxps_aps_profile_data_get_work_clique_start", "", _agxpsApsProfileDataGetWorkCliqueStartErr)
+		return false, symbolCallError("agxps_aps_profile_data_get_work_clique_start", "", _agxpsApsProfileDataGetWorkCliqueStartErr)
 	}
-	return _agxpsApsProfileDataGetWorkCliqueStart(profileData, cliqueIndex), nil
+	return _agxpsApsProfileDataGetWorkCliqueStart(profileData, out, first, count), nil
 }
 
 // AgxpsApsProfileDataGetWorkCliqueStart.
-func AgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
-	return tryAgxpsApsProfileDataGetWorkCliqueStart(profileData, cliqueIndex)
+func AgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
+	return tryAgxpsApsProfileDataGetWorkCliqueStart(profileData, out, first, count)
 }
 
 var _agxpsApsProfileDataGetWorkCliquesNum func(profileData AGXPSProfileData) uint64
@@ -557,6 +677,21 @@ func tryAgxpsApsProfileDataIsValid(profileData AGXPSProfileData) (bool, error) {
 // AgxpsApsProfileDataIsValid.
 func AgxpsApsProfileDataIsValid(profileData AGXPSProfileData) (bool, error) {
 	return tryAgxpsApsProfileDataIsValid(profileData)
+}
+
+var _agxpsApsSystemTimestampToNanoseconds func(timestamp uint64) float64
+var _agxpsApsSystemTimestampToNanosecondsErr error
+
+func tryAgxpsApsSystemTimestampToNanoseconds(timestamp uint64) (float64, error) {
+	if _agxpsApsSystemTimestampToNanoseconds == nil {
+		return 0.0, symbolCallError("agxps_aps_system_timestamp_to_nanoseconds", "", _agxpsApsSystemTimestampToNanosecondsErr)
+	}
+	return _agxpsApsSystemTimestampToNanoseconds(timestamp), nil
+}
+
+// AgxpsApsSystemTimestampToNanoseconds.
+func AgxpsApsSystemTimestampToNanoseconds(timestamp uint64) (float64, error) {
+	return tryAgxpsApsSystemTimestampToNanoseconds(timestamp)
 }
 
 var _agxpsApsTimingAnalyzerGetNumCommands func(analyzer uintptr) uint64
@@ -634,10 +769,10 @@ func AgxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer uintptr) (float64,
 	return tryAgxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer)
 }
 
-var _agxpsGPUCreate func(gen uint, variant uint, rev uint) AGXPSGPU
+var _agxpsGPUCreate func(gen uint32, variant uint32, rev uint32) AGXPSGPU
 var _agxpsGPUCreateErr error
 
-func tryAgxpsGPUCreate(gen uint, variant uint, rev uint) (AGXPSGPU, error) {
+func tryAgxpsGPUCreate(gen uint32, variant uint32, rev uint32) (AGXPSGPU, error) {
 	if _agxpsGPUCreate == nil {
 		return *new(AGXPSGPU), symbolCallError("agxps_gpu_create", "", _agxpsGPUCreateErr)
 	}
@@ -645,7 +780,7 @@ func tryAgxpsGPUCreate(gen uint, variant uint, rev uint) (AGXPSGPU, error) {
 }
 
 // AgxpsGPUCreate.
-func AgxpsGPUCreate(gen uint, variant uint, rev uint) (AGXPSGPU, error) {
+func AgxpsGPUCreate(gen uint32, variant uint32, rev uint32) (AGXPSGPU, error) {
 	return tryAgxpsGPUCreate(gen, variant, rev)
 }
 
@@ -665,10 +800,10 @@ func AgxpsGPUDestroy(gpu AGXPSGPU) error {
 	return tryAgxpsGPUDestroy(gpu)
 }
 
-var _agxpsGPUFormatName func(gpu AGXPSGPU, buf *byte, size uint64) int
+var _agxpsGPUFormatName func(gpu AGXPSGPU, buf *byte, size uint64) int32
 var _agxpsGPUFormatNameErr error
 
-func tryAgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int, error) {
+func tryAgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int32, error) {
 	if _agxpsGPUFormatName == nil {
 		return 0, symbolCallError("agxps_gpu_format_name", "", _agxpsGPUFormatNameErr)
 	}
@@ -676,14 +811,14 @@ func tryAgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int, error) {
 }
 
 // AgxpsGPUFormatName.
-func AgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int, error) {
+func AgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int32, error) {
 	return tryAgxpsGPUFormatName(gpu, buf, size)
 }
 
-var _agxpsGPUGetGen func(gpu AGXPSGPU) uint
+var _agxpsGPUGetGen func(gpu AGXPSGPU) uint32
 var _agxpsGPUGetGenErr error
 
-func tryAgxpsGPUGetGen(gpu AGXPSGPU) (uint, error) {
+func tryAgxpsGPUGetGen(gpu AGXPSGPU) (uint32, error) {
 	if _agxpsGPUGetGen == nil {
 		return 0, symbolCallError("agxps_gpu_get_gen", "", _agxpsGPUGetGenErr)
 	}
@@ -691,14 +826,14 @@ func tryAgxpsGPUGetGen(gpu AGXPSGPU) (uint, error) {
 }
 
 // AgxpsGPUGetGen.
-func AgxpsGPUGetGen(gpu AGXPSGPU) (uint, error) {
+func AgxpsGPUGetGen(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetGen(gpu)
 }
 
-var _agxpsGPUGetRev func(gpu AGXPSGPU) uint
+var _agxpsGPUGetRev func(gpu AGXPSGPU) uint32
 var _agxpsGPUGetRevErr error
 
-func tryAgxpsGPUGetRev(gpu AGXPSGPU) (uint, error) {
+func tryAgxpsGPUGetRev(gpu AGXPSGPU) (uint32, error) {
 	if _agxpsGPUGetRev == nil {
 		return 0, symbolCallError("agxps_gpu_get_rev", "", _agxpsGPUGetRevErr)
 	}
@@ -706,14 +841,14 @@ func tryAgxpsGPUGetRev(gpu AGXPSGPU) (uint, error) {
 }
 
 // AgxpsGPUGetRev.
-func AgxpsGPUGetRev(gpu AGXPSGPU) (uint, error) {
+func AgxpsGPUGetRev(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetRev(gpu)
 }
 
-var _agxpsGPUGetVariant func(gpu AGXPSGPU) uint
+var _agxpsGPUGetVariant func(gpu AGXPSGPU) uint32
 var _agxpsGPUGetVariantErr error
 
-func tryAgxpsGPUGetVariant(gpu AGXPSGPU) (uint, error) {
+func tryAgxpsGPUGetVariant(gpu AGXPSGPU) (uint32, error) {
 	if _agxpsGPUGetVariant == nil {
 		return 0, symbolCallError("agxps_gpu_get_variant", "", _agxpsGPUGetVariantErr)
 	}
@@ -721,7 +856,7 @@ func tryAgxpsGPUGetVariant(gpu AGXPSGPU) (uint, error) {
 }
 
 // AgxpsGPUGetVariant.
-func AgxpsGPUGetVariant(gpu AGXPSGPU) (uint, error) {
+func AgxpsGPUGetVariant(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetVariant(gpu)
 }
 
@@ -740,10 +875,10 @@ func AgxpsGPUIsValid(gpu AGXPSGPU) (bool, error) {
 	return tryAgxpsGPUIsValid(gpu)
 }
 
-var _agxpsInitialize func() int
+var _agxpsInitialize func() int32
 var _agxpsInitializeErr error
 
-func tryAgxpsInitialize() (int, error) {
+func tryAgxpsInitialize() (int32, error) {
 	if _agxpsInitialize == nil {
 		return 0, symbolCallError("agxps_initialize", "", _agxpsInitializeErr)
 	}
@@ -751,7 +886,7 @@ func tryAgxpsInitialize() (int, error) {
 }
 
 // AgxpsInitialize.
-func AgxpsInitialize() (int, error) {
+func AgxpsInitialize() (int32, error) {
 	return tryAgxpsInitialize()
 }
 
@@ -774,6 +909,11 @@ func init() {
 	registerFunc(&_agxpsApsParserIsValid, &_agxpsApsParserIsValidErr, frameworkHandle, "agxps_aps_parser_is_valid", "")
 	registerFunc(&_agxpsApsParserParse, &_agxpsApsParserParseErr, frameworkHandle, "agxps_aps_parser_parse", "")
 	registerFunc(&_agxpsApsProfileDataDestroy, &_agxpsApsProfileDataDestroyErr, frameworkHandle, "agxps_aps_profile_data_destroy", "")
+	registerFunc(&_agxpsApsProfileDataGetCounterGroupID, &_agxpsApsProfileDataGetCounterGroupIDErr, frameworkHandle, "agxps_aps_profile_data_get_counter_group_id", "")
+	registerFunc(&_agxpsApsProfileDataGetCounterGroupMetadata, &_agxpsApsProfileDataGetCounterGroupMetadataErr, frameworkHandle, "agxps_aps_profile_data_get_counter_group_metadata", "")
+	registerFunc(&_agxpsApsProfileDataGetCounterNames, &_agxpsApsProfileDataGetCounterNamesErr, frameworkHandle, "agxps_aps_profile_data_get_counter_names", "")
+	registerFunc(&_agxpsApsProfileDataGetCounterValues, &_agxpsApsProfileDataGetCounterValuesErr, frameworkHandle, "agxps_aps_profile_data_get_counter_values", "")
+	registerFunc(&_agxpsApsProfileDataGetCounterValuesNum, &_agxpsApsProfileDataGetCounterValuesNumErr, frameworkHandle, "agxps_aps_profile_data_get_counter_values_num", "")
 	registerFunc(&_agxpsApsProfileDataGetEslCliqueCliqueID, &_agxpsApsProfileDataGetEslCliqueCliqueIDErr, frameworkHandle, "agxps_aps_profile_data_get_esl_clique_clique_id", "")
 	registerFunc(&_agxpsApsProfileDataGetEslCliqueEnd, &_agxpsApsProfileDataGetEslCliqueEndErr, frameworkHandle, "agxps_aps_profile_data_get_esl_clique_end", "")
 	registerFunc(&_agxpsApsProfileDataGetEslCliqueEslID, &_agxpsApsProfileDataGetEslCliqueEslIDErr, frameworkHandle, "agxps_aps_profile_data_get_esl_clique_esl_id", "")
@@ -784,13 +924,17 @@ func init() {
 	registerFunc(&_agxpsApsProfileDataGetEslCliquesNum, &_agxpsApsProfileDataGetEslCliquesNumErr, frameworkHandle, "agxps_aps_profile_data_get_esl_cliques_num", "")
 	registerFunc(&_agxpsApsProfileDataGetKickEnd, &_agxpsApsProfileDataGetKickEndErr, frameworkHandle, "agxps_aps_profile_data_get_kick_end", "")
 	registerFunc(&_agxpsApsProfileDataGetKickID, &_agxpsApsProfileDataGetKickIDErr, frameworkHandle, "agxps_aps_profile_data_get_kick_id", "")
+	registerFunc(&_agxpsApsProfileDataGetKickKickSlot, &_agxpsApsProfileDataGetKickKickSlotErr, frameworkHandle, "agxps_aps_profile_data_get_kick_kick_slot", "")
+	registerFunc(&_agxpsApsProfileDataGetKickSoftwareID, &_agxpsApsProfileDataGetKickSoftwareIDErr, frameworkHandle, "agxps_aps_profile_data_get_kick_software_id", "")
 	registerFunc(&_agxpsApsProfileDataGetKickStart, &_agxpsApsProfileDataGetKickStartErr, frameworkHandle, "agxps_aps_profile_data_get_kick_start", "")
 	registerFunc(&_agxpsApsProfileDataGetKicksNum, &_agxpsApsProfileDataGetKicksNumErr, frameworkHandle, "agxps_aps_profile_data_get_kicks_num", "")
+	registerFunc(&_agxpsApsProfileDataGetSystemTimestamps, &_agxpsApsProfileDataGetSystemTimestampsErr, frameworkHandle, "agxps_aps_profile_data_get_system_timestamps", "")
 	registerFunc(&_agxpsApsProfileDataGetWorkCliqueEnd, &_agxpsApsProfileDataGetWorkCliqueEndErr, frameworkHandle, "agxps_aps_profile_data_get_work_clique_end", "")
 	registerFunc(&_agxpsApsProfileDataGetWorkCliqueInstructionTrace, &_agxpsApsProfileDataGetWorkCliqueInstructionTraceErr, frameworkHandle, "agxps_aps_profile_data_get_work_clique_instruction_trace", "")
 	registerFunc(&_agxpsApsProfileDataGetWorkCliqueStart, &_agxpsApsProfileDataGetWorkCliqueStartErr, frameworkHandle, "agxps_aps_profile_data_get_work_clique_start", "")
 	registerFunc(&_agxpsApsProfileDataGetWorkCliquesNum, &_agxpsApsProfileDataGetWorkCliquesNumErr, frameworkHandle, "agxps_aps_profile_data_get_work_cliques_num", "")
 	registerFunc(&_agxpsApsProfileDataIsValid, &_agxpsApsProfileDataIsValidErr, frameworkHandle, "agxps_aps_profile_data_is_valid", "")
+	registerFunc(&_agxpsApsSystemTimestampToNanoseconds, &_agxpsApsSystemTimestampToNanosecondsErr, frameworkHandle, "agxps_aps_system_timestamp_to_nanoseconds", "")
 	registerFunc(&_agxpsApsTimingAnalyzerGetNumCommands, &_agxpsApsTimingAnalyzerGetNumCommandsErr, frameworkHandle, "agxps_aps_timing_analyzer_get_num_commands", "")
 	registerFunc(&_agxpsApsTimingAnalyzerGetNumWorkCliques, &_agxpsApsTimingAnalyzerGetNumWorkCliquesErr, frameworkHandle, "agxps_aps_timing_analyzer_get_num_work_cliques", "")
 	registerFunc(&_agxpsApsTimingAnalyzerGetWorkCliquesAverageDuration, &_agxpsApsTimingAnalyzerGetWorkCliquesAverageDurationErr, frameworkHandle, "agxps_aps_timing_analyzer_get_work_cliques_average_duration", "")

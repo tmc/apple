@@ -12,6 +12,9 @@ import (
 // MLSpecificationCompilerResolvingBlobFileReferences protocol.
 type MLSpecificationCompilerResolvingBlobFileReferences interface {
 	objectivec.IObject
+
+	// CompileSpecificationBlobMappingToArchiveOptionsError protocol.
+	CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLSpecificationCompilerResolvingBlobFileReferencesObject wraps an existing Objective-C object that conforms to the MLSpecificationCompilerResolvingBlobFileReferences protocol.

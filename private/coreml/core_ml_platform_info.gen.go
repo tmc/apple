@@ -38,7 +38,7 @@ func (cc CoreMLPlatformInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLPlatformInfoClass) Alloc() CoreMLPlatformInfo {
-	rv := objc.Send[CoreMLPlatformInfo](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLPlatformInfo](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLPlatformInfoFromID(id objc.ID) CoreMLPlatformInfo {
 	return CoreMLPlatformInfo{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLPlatformInfo struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLPlatformInfo embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLPlatformInfo implements ICoreMLPlatformInfo.
+var _ ICoreMLPlatformInfo = CoreMLPlatformInfo{}
 
 // An interface definition for the [CoreMLPlatformInfo] class.
 type ICoreMLPlatformInfo interface {
@@ -61,19 +61,19 @@ type ICoreMLPlatformInfo interface {
 
 // Init initializes the instance.
 func (c CoreMLPlatformInfo) Init() CoreMLPlatformInfo {
-	rv := objc.Send[CoreMLPlatformInfo](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLPlatformInfo](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLPlatformInfo) Autorelease() CoreMLPlatformInfo {
-	rv := objc.Send[CoreMLPlatformInfo](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLPlatformInfo](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLPlatformInfo creates a new CoreMLPlatformInfo instance.
 func NewCoreMLPlatformInfo() CoreMLPlatformInfo {
 	class := getCoreMLPlatformInfoClass()
-	rv := objc.Send[CoreMLPlatformInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLPlatformInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (mc MLModelAssetResourceFactoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetResourceFactoryClass) Alloc() MLModelAssetResourceFactory {
-	rv := objc.Send[MLModelAssetResourceFactory](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactory](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -102,40 +102,40 @@ type IMLModelAssetResourceFactory interface {
 
 // Init initializes the instance.
 func (m MLModelAssetResourceFactory) Init() MLModelAssetResourceFactory {
-	rv := objc.Send[MLModelAssetResourceFactory](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactory](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelAssetResourceFactory) Autorelease() MLModelAssetResourceFactory {
-	rv := objc.Send[MLModelAssetResourceFactory](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactory](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelAssetResourceFactory creates a new MLModelAssetResourceFactory instance.
 func NewMLModelAssetResourceFactory() MLModelAssetResourceFactory {
 	class := getMLModelAssetResourceFactoryClass()
-	rv := objc.Send[MLModelAssetResourceFactory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelAssetResourceFactory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelAssetResourceFactoryWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
 	instance := getMLModelAssetResourceFactoryClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return MLModelAssetResourceFactoryFromID(rv)
 }
 
 func (m MLModelAssetResourceFactory) ModelAssetDescriptionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescriptionWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelAssetDescriptionWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetResourceFactory) ModelStructureWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
 func (m MLModelAssetResourceFactory) ModelWithConfigurationCompletionHandler(configuration objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("modelWithConfiguration:completionHandler:"), configuration, _block1)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelWithConfiguration:completionHandler:"), configuration, _block1)
 }
 func (m MLModelAssetResourceFactory) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -148,12 +148,12 @@ func (m MLModelAssetResourceFactory) ModelWithConfigurationError(configuration o
 
 }
 func (m MLModelAssetResourceFactory) InitWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
-	rv := objc.Send[MLModelAssetResourceFactory](m.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[MLModelAssetResourceFactory](m.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }
 
 func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) ResourceFactoryWithArchiveData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelAssetResourceFactoryClass.class), objc.Sel("resourceFactoryWithArchiveData:"), data)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelAssetResourceFactoryClass.class), objc.Sel("resourceFactoryWithArchiveData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) ResourceFactoryWithModelURLError(url foundation.NSURL) (objectivec.IObject, error) {
@@ -168,23 +168,23 @@ func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) Resour
 }
 
 func (m MLModelAssetResourceFactory) CompiledModelURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (m MLModelAssetResourceFactory) DescriptionLoadQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptionLoadQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("descriptionLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLModelAssetResourceFactory) Impl() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("impl"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("impl"))
 	return rv
 }
 func (m MLModelAssetResourceFactory) ModelLoadQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelLoadQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLModelAssetResourceFactory) StructureLoadQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("structureLoadQueue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("structureLoadQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 

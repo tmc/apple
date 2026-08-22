@@ -40,7 +40,7 @@ func (mc MLArrayFeatureExtractorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLArrayFeatureExtractorClass) Alloc() MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLArrayFeatureExtractor](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,30 +86,33 @@ type IMLArrayFeatureExtractor interface {
 
 // Init initializes the instance.
 func (m MLArrayFeatureExtractor) Init() MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLArrayFeatureExtractor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLArrayFeatureExtractor) Autorelease() MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLArrayFeatureExtractor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLArrayFeatureExtractor creates a new MLArrayFeatureExtractor instance.
 func NewMLArrayFeatureExtractor() MLArrayFeatureExtractor {
 	class := getMLArrayFeatureExtractorClass()
-	rv := objc.Send[MLArrayFeatureExtractor](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLArrayFeatureExtractor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLArrayFeatureExtractor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLArrayFeatureExtractor{}, objc.ErrInitFailed
 	}
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
@@ -117,41 +120,44 @@ func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(
 func NewArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLArrayFeatureExtractor{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLArrayFeatureExtractor{}, objc.ErrInitFailed
 	}
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
 
 func NewArrayFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
 func NewArrayFeatureExtractorWithDescription(description objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
 func NewArrayFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
 func NewArrayFeatureExtractorWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
 func NewArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
@@ -166,16 +172,16 @@ func (m MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features obj
 
 }
 func (m MLArrayFeatureExtractor) InitWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[MLArrayFeatureExtractor](m.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
 	return rv
 }
 
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) ExtractArrayElementIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(element objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, name, description, description2, names, names2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, name, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) ExtractArrayElementIndicesInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(element objectivec.IObject, indices objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, description, description2, names, names2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -190,14 +196,14 @@ func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) LoadModelFromS
 }
 
 func (m MLArrayFeatureExtractor) ArrayColumnName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("arrayColumnName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("arrayColumnName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLArrayFeatureExtractor) ExtractIndices() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("extractIndices"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("extractIndices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLArrayFeatureExtractor) OutputType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("outputType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("outputType"))
 	return rv
 }

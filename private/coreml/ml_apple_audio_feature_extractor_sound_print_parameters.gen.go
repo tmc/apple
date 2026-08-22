@@ -38,7 +38,7 @@ func (mc MLAppleAudioFeatureExtractorSoundPrintParametersClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleAudioFeatureExtractorSoundPrintParametersClass) Alloc() MLAppleAudioFeatureExtractorSoundPrintParameters {
-	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleAudioFeatureExtractorSoundPrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,35 +75,35 @@ type IMLAppleAudioFeatureExtractorSoundPrintParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleAudioFeatureExtractorSoundPrintParameters) Init() MLAppleAudioFeatureExtractorSoundPrintParameters {
-	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleAudioFeatureExtractorSoundPrintParameters) Autorelease() MLAppleAudioFeatureExtractorSoundPrintParameters {
-	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleAudioFeatureExtractorSoundPrintParameters creates a new MLAppleAudioFeatureExtractorSoundPrintParameters instance.
 func NewMLAppleAudioFeatureExtractorSoundPrintParameters() MLAppleAudioFeatureExtractorSoundPrintParameters {
 	class := getMLAppleAudioFeatureExtractorSoundPrintParametersClass()
-	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleAudioFeatureExtractorSoundPrintParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleAudioFeatureExtractorSoundPrintParametersSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
 	instance := getMLAppleAudioFeatureExtractorSoundPrintParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initSoundPrintParameters:"), parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSoundPrintParameters:"), parameters)
 	return MLAppleAudioFeatureExtractorSoundPrintParametersFromID(rv)
 }
 
 func (m MLAppleAudioFeatureExtractorSoundPrintParameters) InitSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
-	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("initSoundPrintParameters:"), parameters)
+	rv := objc.SendIfResponds[MLAppleAudioFeatureExtractorSoundPrintParameters](m.ID, objc.Sel("initSoundPrintParameters:"), parameters)
 	return rv
 }
 
 func (m MLAppleAudioFeatureExtractorSoundPrintParameters) SoundPrintVersion() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("soundPrintVersion"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("soundPrintVersion"))
 	return rv
 }

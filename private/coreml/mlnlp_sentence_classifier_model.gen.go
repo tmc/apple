@@ -40,7 +40,7 @@ func (mc MLNLPSentenceClassifierModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNLPSentenceClassifierModelClass) Alloc() MLNLPSentenceClassifierModel {
-	rv := objc.Send[MLNLPSentenceClassifierModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNLPSentenceClassifierModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,30 +83,33 @@ type IMLNLPSentenceClassifierModel interface {
 
 // Init initializes the instance.
 func (m MLNLPSentenceClassifierModel) Init() MLNLPSentenceClassifierModel {
-	rv := objc.Send[MLNLPSentenceClassifierModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNLPSentenceClassifierModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNLPSentenceClassifierModel) Autorelease() MLNLPSentenceClassifierModel {
-	rv := objc.Send[MLNLPSentenceClassifierModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNLPSentenceClassifierModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNLPSentenceClassifierModel creates a new MLNLPSentenceClassifierModel instance.
 func NewMLNLPSentenceClassifierModel() MLNLPSentenceClassifierModel {
 	class := getMLNLPSentenceClassifierModelClass()
-	rv := objc.Send[MLNLPSentenceClassifierModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNLPSentenceClassifierModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLNLPSentenceClassifierModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPSentenceClassifierModel, error) {
 	var errorPtr objc.ID
 	instance := getMLNLPSentenceClassifierModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:parameterDictionary:error:"), description, dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNLPSentenceClassifierModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNLPSentenceClassifierModel{}, objc.ErrInitFailed
 	}
 	return MLNLPSentenceClassifierModelFromID(rv), nil
 }
@@ -133,9 +136,9 @@ func (m MLNLPSentenceClassifierModel) InitWithModelDescriptionParameterDictionar
 }
 
 func (m MLNLPSentenceClassifierModel) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 func (m MLNLPSentenceClassifierModel) SetModelDescription(value IMLModelDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }

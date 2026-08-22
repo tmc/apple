@@ -40,7 +40,7 @@ func (mc MLSecureModelClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSecureModelClass) Alloc() MLSecureModel {
-	rv := objc.Send[MLSecureModel](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSecureModel](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,30 +98,33 @@ type IMLSecureModel interface {
 
 // Init initializes the instance.
 func (m MLSecureModel) Init() MLSecureModel {
-	rv := objc.Send[MLSecureModel](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSecureModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSecureModel) Autorelease() MLSecureModel {
-	rv := objc.Send[MLSecureModel](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSecureModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSecureModel creates a new MLSecureModel instance.
 func NewMLSecureModel() MLSecureModel {
 	class := getMLSecureModelClass()
-	rv := objc.Send[MLSecureModel](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSecureModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSecureModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLSecureModel, error) {
 	var errorPtr objc.ID
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSecureModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSecureModel{}, objc.ErrInitFailed
 	}
 	return MLSecureModelFromID(rv), nil
 }
@@ -129,41 +132,44 @@ func NewSecureModelDescriptionOnlyWithSpecificationConfigurationError(specificat
 func NewSecureModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLSecureModel, error) {
 	var errorPtr objc.ID
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSecureModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLSecureModel{}, objc.ErrInitFailed
 	}
 	return MLSecureModelFromID(rv), nil
 }
 
 func NewSecureModelWithCoder(coder objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSecureModelFromID(rv)
 }
 
 func NewSecureModelWithConfiguration(configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLSecureModelFromID(rv)
 }
 
 func NewSecureModelWithDescription(description objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLSecureModelFromID(rv)
 }
 
 func NewSecureModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLSecureModelFromID(rv)
 }
 
 func NewSecureModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLSecureModel {
 	instance := getMLSecureModelClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLSecureModelFromID(rv)
 }
 
@@ -239,29 +245,29 @@ func (_MLSecureModelClass MLSecureModelClass) ModelWithContentsOfURLDecryptCrede
 
 }
 func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionPathsForModelURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionPathsForModelURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionPathsForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (_MLSecureModelClass MLSecureModelClass) SandboxExtensionTokenForModelURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionTokenForModelURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLSecureModelClass.class), objc.Sel("sandboxExtensionTokenForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (_MLSecureModelClass MLSecureModelClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLSecureModelClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLSecureModelClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLSecureModel) ConnectionToModelSecurityService() foundation.NSXPCConnection {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("connectionToModelSecurityService"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("connectionToModelSecurityService"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
 func (m MLSecureModel) SetConnectionToModelSecurityService(value foundation.NSXPCConnection) {
-	objc.Send[struct{}](m.ID, objc.Sel("setConnectionToModelSecurityService:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setConnectionToModelSecurityService:"), value)
 }
 func (m MLSecureModel) SecureModelProxy() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("secureModelProxy"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("secureModelProxy"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLSecureModel) SetSecureModelProxy(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSecureModelProxy:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSecureModelProxy:"), value)
 }

@@ -39,7 +39,7 @@ func (nc NWBrowserClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (nc NWBrowserClass) Alloc() NWBrowser {
-	rv := objc.Send[NWBrowser](objc.ID(nc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[NWBrowser](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,69 +100,69 @@ type INWBrowser interface {
 
 // Init initializes the instance.
 func (n NWBrowser) Init() NWBrowser {
-	rv := objc.Send[NWBrowser](n.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[NWBrowser](n.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (n NWBrowser) Autorelease() NWBrowser {
-	rv := objc.Send[NWBrowser](n.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[NWBrowser](n.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewNWBrowser creates a new NWBrowser instance.
 func NewNWBrowser() NWBrowser {
 	class := getNWBrowserClass()
-	rv := objc.Send[NWBrowser](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[NWBrowser](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNWBrowserWithDescriptorParameters(descriptor objectivec.IObject, parameters objectivec.IObject) NWBrowser {
 	instance := getNWBrowserClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
 	return NWBrowserFromID(rv)
 }
 
 func (n NWBrowser) Cancel() {
-	objc.Send[objc.ID](n.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("cancel"))
 }
 func (n NWBrowser) CopyDiscoveredEndpoints() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("copyDiscoveredEndpoints"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("copyDiscoveredEndpoints"))
 	return objectivec.Object{ID: rv}
 }
 func (n NWBrowser) SetUpdateHandler() {
-	objc.Send[objc.ID](n.ID, objc.Sel("setUpdateHandler"))
+	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("setUpdateHandler"))
 }
 func (n NWBrowser) InitWithDescriptorParameters(descriptor objectivec.IObject, parameters objectivec.IObject) NWBrowser {
-	rv := objc.Send[NWBrowser](n.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
+	rv := objc.SendIfResponds[NWBrowser](n.ID, objc.Sel("initWithDescriptor:parameters:"), descriptor, parameters)
 	return rv
 }
 
 func (_NWBrowserClass NWBrowserClass) AutomaticallyNotifiesObserversForKey(key objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_NWBrowserClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
+	rv := objc.SendIfResponds[bool](objc.ID(_NWBrowserClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
 	return rv
 }
 
 func (n NWBrowser) Descriptor() INWBrowseDescriptor {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("descriptor"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptor"))
 	return NWBrowseDescriptorFromID(objc.ID(rv))
 }
 func (n NWBrowser) DiscoveredEndpoints() foundation.INSSet {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("discoveredEndpoints"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("discoveredEndpoints"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (n NWBrowser) InternalBrowser() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalBrowser"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalBrowser"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWBrowser) InternalDiscoveredEndpoints() foundation.INSSet {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("internalDiscoveredEndpoints"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalDiscoveredEndpoints"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (n NWBrowser) SetInternalDiscoveredEndpoints(value foundation.INSSet) {
-	objc.Send[struct{}](n.ID, objc.Sel("setInternalDiscoveredEndpoints:"), value)
+	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalDiscoveredEndpoints:"), value)
 }
 func (n NWBrowser) Parameters() INWParameters {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("parameters"))
 	return NWParametersFromID(objc.ID(rv))
 }

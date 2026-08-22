@@ -39,7 +39,7 @@ func (wc WSEventDeliveryManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSEventDeliveryManagerClass) Alloc() WSEventDeliveryManager {
-	rv := objc.Send[WSEventDeliveryManager](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSEventDeliveryManager](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -93,93 +93,93 @@ type IWSEventDeliveryManager interface {
 	BkDeliveryManager() unsafe.Pointer
 	BkEventDeliveryObserverService() unsafe.Pointer
 	DeferEventsMatchingPredicateToTargetWithReason(predicate objectivec.IObject, target objectivec.IObject, reason objectivec.IObject) objectivec.IObject
-	DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event unsafe.Pointer) objectivec.IObject
+	DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event *CGEvent) objectivec.IObject
 	DeliveryGraphDescription() objectivec.IObject
 	DescriptionOfResolutionPathForEventDescriptorSenderDescriptor(descriptor objectivec.IObject, descriptor2 objectivec.IObject) objectivec.IObject
-	DestinationsForEvent(event SLSEventRecord) objectivec.IObject
+	DestinationsForEvent(event *SLSEventRecord) objectivec.IObject
 	DispatchDiscreteEventsForReasonWithRules(reason objectivec.IObject, rules objectivec.IObject) objectivec.IObject
-	ResolveDestinationsForEventStartingFromPID(event SLSEventRecord, pid int) objectivec.IObject
+	ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int) objectivec.IObject
 	TransactionAssertionWithReason(reason objectivec.IObject) objectivec.IObject
-	ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool
+	ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event *SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool
 	InitWithObserverService(service objectivec.IObject) WSEventDeliveryManager
 }
 
 // Init initializes the instance.
 func (w WSEventDeliveryManager) Init() WSEventDeliveryManager {
-	rv := objc.Send[WSEventDeliveryManager](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSEventDeliveryManager](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSEventDeliveryManager) Autorelease() WSEventDeliveryManager {
-	rv := objc.Send[WSEventDeliveryManager](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSEventDeliveryManager](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSEventDeliveryManager creates a new WSEventDeliveryManager instance.
 func NewWSEventDeliveryManager() WSEventDeliveryManager {
 	class := getWSEventDeliveryManagerClass()
-	rv := objc.Send[WSEventDeliveryManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSEventDeliveryManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewWSEventDeliveryManagerWithObserverService(service objectivec.IObject) WSEventDeliveryManager {
 	instance := getWSEventDeliveryManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObserverService:"), service)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithObserverService:"), service)
 	return WSEventDeliveryManagerFromID(rv)
 }
 
 func (w WSEventDeliveryManager) DeferEventsMatchingPredicateToTargetWithReason(predicate objectivec.IObject, target objectivec.IObject, reason objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("deferEventsMatchingPredicate:toTarget:withReason:"), predicate, target, reason)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deferEventsMatchingPredicate:toTarget:withReason:"), predicate, target, reason)
 	return objectivec.Object{ID: rv}
 }
-func (w WSEventDeliveryManager) DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryChainsForDeferringTarget:event:"), target, event)
+func (w WSEventDeliveryManager) DeliveryChainsForDeferringTargetEvent(target objectivec.IObject, event *CGEvent) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryChainsForDeferringTarget:event:"), target, event)
 	return objectivec.Object{ID: rv}
 }
 func (w WSEventDeliveryManager) DeliveryGraphDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryGraphDescription"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryGraphDescription"))
 	return objectivec.Object{ID: rv}
 }
 func (w WSEventDeliveryManager) DescriptionOfResolutionPathForEventDescriptorSenderDescriptor(descriptor objectivec.IObject, descriptor2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("descriptionOfResolutionPathForEventDescriptor:senderDescriptor:"), descriptor, descriptor2)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("descriptionOfResolutionPathForEventDescriptor:senderDescriptor:"), descriptor, descriptor2)
 	return objectivec.Object{ID: rv}
 }
-func (w WSEventDeliveryManager) DestinationsForEvent(event SLSEventRecord) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("destinationsForEvent:"), event)
+func (w WSEventDeliveryManager) DestinationsForEvent(event *SLSEventRecord) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("destinationsForEvent:"), unsafe.Pointer(event))
 	return objectivec.Object{ID: rv}
 }
 func (w WSEventDeliveryManager) DispatchDiscreteEventsForReasonWithRules(reason objectivec.IObject, rules objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("dispatchDiscreteEventsForReason:withRules:"), reason, rules)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("dispatchDiscreteEventsForReason:withRules:"), reason, rules)
 	return objectivec.Object{ID: rv}
 }
-func (w WSEventDeliveryManager) ResolveDestinationsForEventStartingFromPID(event SLSEventRecord, pid int) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("resolveDestinationsForEvent:startingFromPID:"), event, pid)
+func (w WSEventDeliveryManager) ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("resolveDestinationsForEvent:startingFromPID:"), unsafe.Pointer(event), pid)
 	return objectivec.Object{ID: rv}
 }
 func (w WSEventDeliveryManager) TransactionAssertionWithReason(reason objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("transactionAssertionWithReason:"), reason)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("transactionAssertionWithReason:"), reason)
 	return objectivec.Object{ID: rv}
 }
-func (w WSEventDeliveryManager) ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool {
-	rv := objc.Send[bool](w.ID, objc.Sel("validateTokenAndEnvironmentForEvent:processManager:outReason:"), event, manager, objectivec.IObjectSliceToNSArray(reason))
+func (w WSEventDeliveryManager) ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event *SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](w.ID, objc.Sel("validateTokenAndEnvironmentForEvent:processManager:outReason:"), unsafe.Pointer(event), manager, objectivec.IObjectSliceToNSArray(reason))
 	return rv
 }
 func (w WSEventDeliveryManager) InitWithObserverService(service objectivec.IObject) WSEventDeliveryManager {
-	rv := objc.Send[WSEventDeliveryManager](w.ID, objc.Sel("initWithObserverService:"), service)
+	rv := objc.SendIfResponds[WSEventDeliveryManager](w.ID, objc.Sel("initWithObserverService:"), service)
 	return rv
 }
 
 func (_WSEventDeliveryManagerClass WSEventDeliveryManagerClass) PossibleIOHIDKeyboardEventUsageForVirtualKeyCode(code uint32) uint32 {
-	rv := objc.Send[uint32](objc.ID(_WSEventDeliveryManagerClass.class), objc.Sel("possibleIOHIDKeyboardEventUsageForVirtualKeyCode:"), code)
+	rv := objc.SendIfResponds[uint32](objc.ID(_WSEventDeliveryManagerClass.class), objc.Sel("possibleIOHIDKeyboardEventUsageForVirtualKeyCode:"), code)
 	return rv
 }
 
 func (w WSEventDeliveryManager) BkDeliveryManager() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkDeliveryManager"))
+	rv := objc.SendIfResponds[unsafe.Pointer](w.ID, objc.Sel("bkDeliveryManager"))
 	return rv
 }
 func (w WSEventDeliveryManager) BkEventDeliveryObserverService() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkEventDeliveryObserverService"))
+	rv := objc.SendIfResponds[unsafe.Pointer](w.ID, objc.Sel("bkEventDeliveryObserverService"))
 	return rv
 }

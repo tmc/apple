@@ -33,5 +33,5 @@ func VZKeyboardEventSenderObjectFromID(id objc.ID) VZKeyboardEventSenderObject {
 }
 
 func (o VZKeyboardEventSenderObject) SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
 }

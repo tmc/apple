@@ -40,7 +40,7 @@ func (ec ETLayerInitializationParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETLayerInitializationParametersClass) Alloc() ETLayerInitializationParameters {
-	rv := objc.Send[ETLayerInitializationParameters](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETLayerInitializationParameters](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,30 +77,33 @@ type IETLayerInitializationParameters interface {
 
 // Init initializes the instance.
 func (e ETLayerInitializationParameters) Init() ETLayerInitializationParameters {
-	rv := objc.Send[ETLayerInitializationParameters](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETLayerInitializationParameters](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETLayerInitializationParameters) Autorelease() ETLayerInitializationParameters {
-	rv := objc.Send[ETLayerInitializationParameters](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETLayerInitializationParameters](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETLayerInitializationParameters creates a new ETLayerInitializationParameters instance.
 func NewETLayerInitializationParameters() ETLayerInitializationParameters {
 	class := getETLayerInitializationParametersClass()
-	rv := objc.Send[ETLayerInitializationParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETLayerInitializationParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETLayerInitializationParametersWithModeParametersError(mode uint64, parameters objectivec.IObject) (ETLayerInitializationParameters, error) {
 	var errorPtr objc.ID
 	instance := getETLayerInitializationParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:parameters:error:"), mode, parameters, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:parameters:error:"), mode, parameters, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return ETLayerInitializationParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return ETLayerInitializationParameters{}, objc.ErrInitFailed
 	}
 	return ETLayerInitializationParametersFromID(rv), nil
 }
@@ -117,6 +120,6 @@ func (e ETLayerInitializationParameters) InitWithModeParametersError(mode uint64
 }
 
 func (e ETLayerInitializationParameters) Parameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

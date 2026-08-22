@@ -38,7 +38,7 @@ func (dc DiskImageParamsLockedXPCClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageParamsLockedXPCClass) Alloc() DiskImageParamsLockedXPC {
-	rv := objc.Send[DiskImageParamsLockedXPC](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageParamsLockedXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -66,37 +66,37 @@ type IDiskImageParamsLockedXPC interface {
 
 // Init initializes the instance.
 func (d DiskImageParamsLockedXPC) Init() DiskImageParamsLockedXPC {
-	rv := objc.Send[DiskImageParamsLockedXPC](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageParamsLockedXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageParamsLockedXPC) Autorelease() DiskImageParamsLockedXPC {
-	rv := objc.Send[DiskImageParamsLockedXPC](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageParamsLockedXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageParamsLockedXPC creates a new DiskImageParamsLockedXPC instance.
 func NewDiskImageParamsLockedXPC() DiskImageParamsLockedXPC {
 	class := getDiskImageParamsLockedXPCClass()
-	rv := objc.Send[DiskImageParamsLockedXPC](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageParamsLockedXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageParamsLocked_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
 func NewDiskImageParamsLocked_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
 func NewDiskImageParamsLocked_XPCWithCoder(coder objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsLockedXPCFromID(rv)
 }

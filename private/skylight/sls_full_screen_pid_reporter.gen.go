@@ -39,7 +39,7 @@ func (sc SLSFullScreenPidReporterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSFullScreenPidReporterClass) Alloc() SLSFullScreenPidReporter {
-	rv := objc.Send[SLSFullScreenPidReporter](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSFullScreenPidReporter](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,48 +88,48 @@ type ISLSFullScreenPidReporter interface {
 
 // Init initializes the instance.
 func (s SLSFullScreenPidReporter) Init() SLSFullScreenPidReporter {
-	rv := objc.Send[SLSFullScreenPidReporter](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSFullScreenPidReporter](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSFullScreenPidReporter) Autorelease() SLSFullScreenPidReporter {
-	rv := objc.Send[SLSFullScreenPidReporter](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSFullScreenPidReporter](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSFullScreenPidReporter creates a new SLSFullScreenPidReporter instance.
 func NewSLSFullScreenPidReporter() SLSFullScreenPidReporter {
 	class := getSLSFullScreenPidReporterClass()
-	rv := objc.Send[SLSFullScreenPidReporter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSFullScreenPidReporter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSFullScreenPidReporter) EqualCurrentSeed(seed uint64) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("equalCurrentSeed:"), seed)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("equalCurrentSeed:"), seed)
 	return rv
 }
 func (s SLSFullScreenPidReporter) HandleConnectionInterrupt() {
-	objc.Send[objc.ID](s.ID, objc.Sel("handleConnectionInterrupt"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("handleConnectionInterrupt"))
 }
 func (s SLSFullScreenPidReporter) IncrementSeed() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("incrementSeed"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("incrementSeed"))
 	return rv
 }
 func (s SLSFullScreenPidReporter) ReceiveMessages(messages objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("receiveMessages:"), messages)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("receiveMessages:"), messages)
 }
 func (s SLSFullScreenPidReporter) ReportFullScreenStatusWithFilterAndHandler(filter objectivec.IObject, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("reportFullScreenStatusWithFilter:andHandler:"), filter, _block1)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("reportFullScreenStatusWithFilter:andHandler:"), filter, _block1)
 }
 func (s SLSFullScreenPidReporter) SetDisconnectHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("setDisconnectHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setDisconnectHandler:"), _block0)
 }
 
 func (_SLSFullScreenPidReporterClass SLSFullScreenPidReporterClass) SharedReporter() SLSFullScreenPidReporter {
-	rv := objc.Send[objc.ID](objc.ID(_SLSFullScreenPidReporterClass.class), objc.Sel("sharedReporter"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSFullScreenPidReporterClass.class), objc.Sel("sharedReporter"))
 	return SLSFullScreenPidReporterFromID(rv)
 }
 

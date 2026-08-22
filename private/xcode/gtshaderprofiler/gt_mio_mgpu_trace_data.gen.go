@@ -40,7 +40,7 @@ func (gc GTMioMGPUTraceDataClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioMGPUTraceDataClass) Alloc() GTMioMGPUTraceData {
-	rv := objc.Send[GTMioMGPUTraceData](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioMGPUTraceData](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,11 +98,11 @@ type IGTMioMGPUTraceData interface {
 	// Topic: Methods
 
 	CostCount() uint64
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
-	Costs() unsafe.Pointer
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool
+	Costs() *GTMioCostInfo
 	Index() uint64
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
-	Kicks() unsafe.Pointer
+	Kicks() *GTMioKickTrace
 	KicksCount() uint64
 	TimelineCounters() IGTMioTimelineCounters
 	TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64
@@ -116,87 +116,87 @@ type IGTMioMGPUTraceData interface {
 
 // Init initializes the instance.
 func (g GTMioMGPUTraceData) Init() GTMioMGPUTraceData {
-	rv := objc.Send[GTMioMGPUTraceData](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioMGPUTraceData](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioMGPUTraceData) Autorelease() GTMioMGPUTraceData {
-	rv := objc.Send[GTMioMGPUTraceData](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioMGPUTraceData](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioMGPUTraceData creates a new GTMioMGPUTraceData instance.
 func NewGTMioMGPUTraceData() GTMioMGPUTraceData {
 	class := getGTMioMGPUTraceDataClass()
-	rv := objc.Send[GTMioMGPUTraceData](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioMGPUTraceData](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioMGPUTraceDataWithMGPUDataParent(mGPUData unsafe.Pointer, parent objectivec.IObject) GTMioMGPUTraceData {
 	instance := getGTMioMGPUTraceDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMGPUData:parent:"), mGPUData, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMGPUData:parent:"), mGPUData, parent)
 	return GTMioMGPUTraceDataFromID(rv)
 }
 
-func (g GTMioMGPUTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
+func (g GTMioMGPUTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost *GTMioCostInfo) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, unsafe.Pointer(cost))
 	return rv
 }
 func (g GTMioMGPUTraceData) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (g GTMioMGPUTraceData) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
 func (g GTMioMGPUTraceData) InitWithMGPUDataParent(mGPUData unsafe.Pointer, parent objectivec.IObject) GTMioMGPUTraceData {
-	rv := objc.Send[GTMioMGPUTraceData](g.ID, objc.Sel("initWithMGPUData:parent:"), mGPUData, parent)
+	rv := objc.SendIfResponds[GTMioMGPUTraceData](g.ID, objc.Sel("initWithMGPUData:parent:"), mGPUData, parent)
 	return rv
 }
 
 func (g GTMioMGPUTraceData) CostCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-func (g GTMioMGPUTraceData) Costs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costs"))
-	return rv
+func (g GTMioMGPUTraceData) Costs() *GTMioCostInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("costs"))
+	return (*GTMioCostInfo)(rv)
 }
 func (g GTMioMGPUTraceData) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioMGPUTraceData) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTMioMGPUTraceData) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTMioMGPUTraceData) Index() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("index"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("index"))
 	return rv
 }
-func (g GTMioMGPUTraceData) Kicks() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("kicks"))
-	return rv
+func (g GTMioMGPUTraceData) Kicks() *GTMioKickTrace {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("kicks"))
+	return (*GTMioKickTrace)(rv)
 }
 func (g GTMioMGPUTraceData) KicksCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("kicksCount"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("kicksCount"))
 	return rv
 }
 func (g GTMioMGPUTraceData) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (g GTMioMGPUTraceData) TimelineCounters() IGTMioTimelineCounters {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineCounters"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timelineCounters"))
 	return GTMioTimelineCountersFromID(objc.ID(rv))
 }
 func (g GTMioMGPUTraceData) TraceData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traceData"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("traceData"))
 	return rv
 }

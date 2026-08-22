@@ -39,7 +39,7 @@ func (ec EspressoContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoContextClass) Alloc() EspressoContext {
-	rv := objc.Send[EspressoContext](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoContext](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -48,7 +48,6 @@ func (ec EspressoContextClass) Alloc() EspressoContext {
 //   - [EspressoContext.Ctx]
 //   - [EspressoContext.Platform]
 //   - [EspressoContext.Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority]
-//   - [EspressoContext.InitWithContext]
 //   - [EspressoContext.InitWithDeviceAndWisdomParams]
 //   - [EspressoContext.InitWithNetworkContext]
 //   - [EspressoContext.InitWithPlatform]
@@ -71,7 +70,6 @@ var _ IEspressoContext = EspressoContext{}
 //   - [IEspressoContext.Ctx]
 //   - [IEspressoContext.Platform]
 //   - [IEspressoContext.Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority]
-//   - [IEspressoContext.InitWithContext]
 //   - [IEspressoContext.InitWithDeviceAndWisdomParams]
 //   - [IEspressoContext.InitWithNetworkContext]
 //   - [IEspressoContext.InitWithPlatform]
@@ -83,7 +81,6 @@ type IEspressoContext interface {
 	Ctx() unsafe.Pointer
 	Platform() int
 	Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32)
-	InitWithContext(context unsafe.Pointer) EspressoContext
 	InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext
 	InitWithNetworkContext(context objectivec.IObject) EspressoContext
 	InitWithPlatform(platform int) EspressoContext
@@ -91,72 +88,68 @@ type IEspressoContext interface {
 
 // Init initializes the instance.
 func (e EspressoContext) Init() EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoContext) Autorelease() EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoContext creates a new EspressoContext instance.
 func NewEspressoContext() EspressoContext {
 	class := getEspressoContextClass()
-	rv := objc.Send[EspressoContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoContextWithContext(context unsafe.Pointer) EspressoContext {
 	instance := getEspressoContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContext:"), context)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContext:"), context)
 	return EspressoContextFromID(rv)
 }
 
 func NewEspressoContextWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext {
 	instance := getEspressoContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)
 	return EspressoContextFromID(rv)
 }
 
 func NewEspressoContextWithNetworkContext(context objectivec.IObject) EspressoContext {
 	instance := getEspressoContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetworkContext:"), context)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetworkContext:"), context)
 	return EspressoContextFromID(rv)
 }
 
 func NewEspressoContextWithPlatform(platform int) EspressoContext {
 	instance := getEspressoContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlatform:"), platform)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPlatform:"), platform)
 	return EspressoContextFromID(rv)
 }
 
 func (e EspressoContext) Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32) {
-	objc.Send[objc.ID](e.ID, objc.Sel("set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:"), set_priority, low_priority_max_ms_per_command_buffer, gpu_priority)
-}
-func (e EspressoContext) InitWithContext(context unsafe.Pointer) EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithContext:"), context)
-	return rv
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:"), set_priority, low_priority_max_ms_per_command_buffer, gpu_priority)
 }
 func (e EspressoContext) InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)
+	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)
 	return rv
 }
 func (e EspressoContext) InitWithNetworkContext(context objectivec.IObject) EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithNetworkContext:"), context)
+	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("initWithNetworkContext:"), context)
 	return rv
 }
 func (e EspressoContext) InitWithPlatform(platform int) EspressoContext {
-	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithPlatform:"), platform)
+	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("initWithPlatform:"), platform)
 	return rv
 }
 
 func (e EspressoContext) Ctx() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("ctx"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("ctx"))
 	return rv
 }
 func (e EspressoContext) Platform() int {
-	rv := objc.Send[int](e.ID, objc.Sel("platform"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("platform"))
 	return rv
 }

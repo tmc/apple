@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionGatherToLookupClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionGatherToLookupClass) Alloc() EspressoPassStrengthReductionGatherToLookup {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToLookup](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionGatherToLookup interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionGatherToLookup) Init() EspressoPassStrengthReductionGatherToLookup {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionGatherToLookup) Autorelease() EspressoPassStrengthReductionGatherToLookup {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionGatherToLookup creates a new EspressoPassStrengthReductionGatherToLookup instance.
 func NewEspressoPassStrengthReductionGatherToLookup() EspressoPassStrengthReductionGatherToLookup {
 	class := getEspressoPassStrengthReductionGatherToLookupClass()
-	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToLookup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

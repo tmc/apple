@@ -40,15 +40,15 @@ func (vc VZSerialPortConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
-	rv := objc.Send[VZSerialPortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSerialPortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
 //   - [VZSerialPortConfiguration._init]
-//   - [VZSerialPortConfiguration.MakeSerialPortForVirtualMachineSerialPortIndex]
 //   - [VZSerialPortConfiguration._serialPort]
+//   - [VZSerialPortConfiguration.MakeSerialPortForVirtualMachineSerialPortIndex]
 //   - [VZSerialPortConfiguration.DebugDescription]
 //   - [VZSerialPortConfiguration.Description]
 //   - [VZSerialPortConfiguration.Hash]
@@ -70,8 +70,8 @@ var _ IVZSerialPortConfiguration = VZSerialPortConfiguration{}
 // # Methods
 //
 //   - [IVZSerialPortConfiguration._init]
-//   - [IVZSerialPortConfiguration.MakeSerialPortForVirtualMachineSerialPortIndex]
 //   - [IVZSerialPortConfiguration._serialPort]
+//   - [IVZSerialPortConfiguration.MakeSerialPortForVirtualMachineSerialPortIndex]
 //   - [IVZSerialPortConfiguration.DebugDescription]
 //   - [IVZSerialPortConfiguration.Description]
 //   - [IVZSerialPortConfiguration.Hash]
@@ -82,8 +82,8 @@ type IVZSerialPortConfiguration interface {
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	MakeSerialPortForVirtualMachineSerialPortIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	_serialPort() unsafe.Pointer
+	MakeSerialPortForVirtualMachineSerialPortIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -92,39 +92,39 @@ type IVZSerialPortConfiguration interface {
 
 // Init initializes the instance.
 func (v VZSerialPortConfiguration) Init() VZSerialPortConfiguration {
-	rv := objc.Send[VZSerialPortConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSerialPortConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSerialPortConfiguration) Autorelease() VZSerialPortConfiguration {
-	rv := objc.Send[VZSerialPortConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSerialPortConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSerialPortConfiguration creates a new VZSerialPortConfiguration instance.
 func NewVZSerialPortConfiguration() VZSerialPortConfiguration {
 	class := getVZSerialPortConfigurationClass()
-	rv := objc.Send[VZSerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSerialPortConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZSerialPortConfiguration) MakeSerialPortForVirtualMachineSerialPortIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeSerialPortForVirtualMachine:serialPortIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeSerialPortForVirtualMachine:serialPortIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 func (_VZSerialPortConfigurationClass VZSerialPortConfigurationClass) SerialPortType() int64 {
-	rv := objc.Send[int64](objc.ID(_VZSerialPortConfigurationClass.class), objc.Sel("serialPortType"))
+	rv := objc.SendIfResponds[int64](objc.ID(_VZSerialPortConfigurationClass.class), objc.Sel("serialPortType"))
 	return rv
 }
 
 func (v VZSerialPortConfiguration) _serialPort() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_serialPort"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_serialPort"))
 	return rv
 }
 
@@ -141,18 +141,18 @@ func (v VZSerialPortConfiguration) SerialPort() (unsafe.Pointer, error) {
 	return v._serialPort(), nil
 }
 func (v VZSerialPortConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSerialPortConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZSerialPortConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZSerialPortConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

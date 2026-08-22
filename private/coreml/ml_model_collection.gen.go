@@ -41,7 +41,7 @@ func (mc MLModelCollectionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelCollectionClass) Alloc() MLModelCollection {
-	rv := objc.Send[MLModelCollection](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelCollection](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -120,31 +120,31 @@ type IMLModelCollection interface {
 
 // Init initializes the instance.
 func (m MLModelCollection) Init() MLModelCollection {
-	rv := objc.Send[MLModelCollection](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelCollection](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelCollection) Autorelease() MLModelCollection {
-	rv := objc.Send[MLModelCollection](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelCollection](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelCollection creates a new MLModelCollection instance.
 func NewMLModelCollection() MLModelCollection {
 	class := getMLModelCollectionClass()
-	rv := objc.Send[MLModelCollection](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelCollection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelCollectionWithIdentifier(identifier objectivec.IObject) MLModelCollection {
 	instance := getMLModelCollectionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), identifier)
 	return MLModelCollectionFromID(rv)
 }
 
 func (m MLModelCollection) _downloadOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_downloadOptions"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_downloadOptions"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -163,7 +163,7 @@ func (m MLModelCollection) CanDownloadOptions() bool {
 }
 func (m MLModelCollection) _downloadWithProgress(progress VoidHandler) bool {
 	_block0, _ := NewVoidBlock(progress)
-	rv := objc.Send[bool](m.ID, objc.Sel("_downloadWithProgress:"), _block0)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_downloadWithProgress:"), _block0)
 	return rv
 }
 
@@ -181,7 +181,7 @@ func (m MLModelCollection) CanDownloadWithProgress() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_downloadWithProgress:"))
 }
 func (m MLModelCollection) _endAccess() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_endAccess"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_endAccess"))
 	return rv
 }
 
@@ -199,7 +199,7 @@ func (m MLModelCollection) CanEndAccess() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_endAccess"))
 }
 func (m MLModelCollection) _handleTrialUpdateForNamespaceName(name objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_handleTrialUpdateForNamespaceName:"), name)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_handleTrialUpdateForNamespaceName:"), name)
 }
 
 // HandleTrialUpdateForNamespaceName is an exported wrapper for the private method _handleTrialUpdateForNamespaceName.
@@ -217,7 +217,7 @@ func (m MLModelCollection) CanHandleTrialUpdateForNamespaceName() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_handleTrialUpdateForNamespaceName:"))
 }
 func (m MLModelCollection) _populateEntries() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_populateEntries"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_populateEntries"))
 }
 
 // PopulateEntries is an exported wrapper for the private method _populateEntries.
@@ -235,7 +235,7 @@ func (m MLModelCollection) CanPopulateEntries() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_populateEntries"))
 }
 func (m MLModelCollection) _register() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_register"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("_register"))
 	return rv
 }
 
@@ -253,7 +253,7 @@ func (m MLModelCollection) CanRegister() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_register"))
 }
 func (m MLModelCollection) _registerForUpdates() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_registerForUpdates"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_registerForUpdates"))
 }
 
 // RegisterForUpdates is an exported wrapper for the private method _registerForUpdates.
@@ -271,15 +271,15 @@ func (m MLModelCollection) CanRegisterForUpdates() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_registerForUpdates"))
 }
 func (m MLModelCollection) _setDeploymentID() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setDeploymentID"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("_setDeploymentID"))
 }
 func (m MLModelCollection) InitWithIdentifier(identifier objectivec.IObject) MLModelCollection {
-	rv := objc.Send[MLModelCollection](m.ID, objc.Sel("initWithIdentifier:"), identifier)
+	rv := objc.SendIfResponds[MLModelCollection](m.ID, objc.Sel("initWithIdentifier:"), identifier)
 	return rv
 }
 
 func (_MLModelCollectionClass MLModelCollectionClass) _namespaceNameFromCollectionIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("_namespaceNameFromCollectionIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("_namespaceNameFromCollectionIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 
@@ -298,66 +298,66 @@ func (_MLModelCollectionClass MLModelCollectionClass) CanNamespaceNameFromCollec
 }
 func (_MLModelCollectionClass MLModelCollectionClass) BeginAccessingModelCollectionWithIdentifierCompletionHandler(identifier objectivec.IObject, handler ErrorHandler) objectivec.IObject {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("beginAccessingModelCollectionWithIdentifier:completionHandler:"), identifier, _block1)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("beginAccessingModelCollectionWithIdentifier:completionHandler:"), identifier, _block1)
 	return objectivec.Object{ID: rv}
 }
 func (_MLModelCollectionClass MLModelCollectionClass) EndAccessingModelCollectionWithIdentifierCompletionHandler(identifier objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("endAccessingModelCollectionWithIdentifier:completionHandler:"), identifier, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_MLModelCollectionClass.class), objc.Sel("endAccessingModelCollectionWithIdentifier:completionHandler:"), identifier, _block1)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialClientClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialClientClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialClientClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialDownloadOptionsClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialDownloadOptionsClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialDownloadOptionsClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialExperimentIdentifiersClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialExperimentIdentifiersClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialExperimentIdentifiersClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialFactorClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFactorClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFactorClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialFactorLevelClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFactorLevelClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFactorLevelClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialFileClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFileClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialFileClass"))
 	return objectivec.Class(rv)
 }
 func (_MLModelCollectionClass MLModelCollectionClass) GetTrialLevelClass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialLevelClass"))
+	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLModelCollectionClass.class), objc.Sel("getTrialLevelClass"))
 	return objectivec.Class(rv)
 }
 
 func (m MLModelCollection) DeploymentID() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("deploymentID"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("deploymentID"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelCollection) SetDeploymentID(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDeploymentID:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDeploymentID:"), objc.String(value))
 }
 func (m MLModelCollection) Entries() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("entries"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("entries"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLModelCollection) SetEntries(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEntries:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEntries:"), value)
 }
 func (m MLModelCollection) Identifier() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelCollection) NamespaceName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("namespaceName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("namespaceName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelCollection) TrialClient() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("trialClient"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("trialClient"))
 	return rv
 }
 

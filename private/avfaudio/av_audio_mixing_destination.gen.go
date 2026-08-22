@@ -39,7 +39,7 @@ func (ac AVAudioMixingDestinationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioMixingDestinationClass) Alloc() AVAudioMixingDestination {
-	rv := objc.Send[AVAudioMixingDestination](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioMixingDestination](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,36 +82,36 @@ type IAVAudioMixingDestination interface {
 
 // Init initializes the instance.
 func (a AVAudioMixingDestination) Init() AVAudioMixingDestination {
-	rv := objc.Send[AVAudioMixingDestination](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioMixingDestination](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioMixingDestination) Autorelease() AVAudioMixingDestination {
-	rv := objc.Send[AVAudioMixingDestination](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioMixingDestination](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioMixingDestination creates a new AVAudioMixingDestination instance.
 func NewAVAudioMixingDestination() AVAudioMixingDestination {
 	class := getAVAudioMixingDestinationClass()
-	rv := objc.Send[AVAudioMixingDestination](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioMixingDestination](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioMixingDestination) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioMixingDestination) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a AVAudioMixingDestination) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
 func (a AVAudioMixingDestination) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](a.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

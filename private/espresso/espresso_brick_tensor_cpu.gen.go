@@ -38,7 +38,7 @@ func (ec EspressoBrickTensorCPUClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoBrickTensorCPUClass) Alloc() EspressoBrickTensorCPU {
-	rv := objc.Send[EspressoBrickTensorCPU](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoBrickTensorCPU](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,27 +75,27 @@ type IEspressoBrickTensorCPU interface {
 
 // Init initializes the instance.
 func (e EspressoBrickTensorCPU) Init() EspressoBrickTensorCPU {
-	rv := objc.Send[EspressoBrickTensorCPU](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoBrickTensorCPU](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoBrickTensorCPU) Autorelease() EspressoBrickTensorCPU {
-	rv := objc.Send[EspressoBrickTensorCPU](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoBrickTensorCPU](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoBrickTensorCPU creates a new EspressoBrickTensorCPU instance.
 func NewEspressoBrickTensorCPU() EspressoBrickTensorCPU {
 	class := getEspressoBrickTensorCPUClass()
-	rv := objc.Send[EspressoBrickTensorCPU](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoBrickTensorCPU](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoBrickTensorCPU) RawPointer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
 	return rv
 }
 func (e EspressoBrickTensorCPU) SetRawPointer(value unsafe.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }

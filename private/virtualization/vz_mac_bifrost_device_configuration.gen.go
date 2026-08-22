@@ -38,7 +38,7 @@ func (vc VZMacBifrostDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacBifrostDeviceConfigurationClass) Alloc() VZMacBifrostDeviceConfiguration {
-	rv := objc.Send[VZMacBifrostDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacBifrostDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IVZMacBifrostDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZMacBifrostDeviceConfiguration) Init() VZMacBifrostDeviceConfiguration {
-	rv := objc.Send[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacBifrostDeviceConfiguration) Autorelease() VZMacBifrostDeviceConfiguration {
-	rv := objc.Send[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacBifrostDeviceConfiguration creates a new VZMacBifrostDeviceConfiguration instance.
 func NewVZMacBifrostDeviceConfiguration() VZMacBifrostDeviceConfiguration {
 	class := getVZMacBifrostDeviceConfigurationClass()
-	rv := objc.Send[VZMacBifrostDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacBifrostDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZMacBifrostDeviceConfigurationWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
 	instance := getVZMacBifrostDeviceConfigurationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return VZMacBifrostDeviceConfigurationFromID(rv)
 }
 
 func (v VZMacBifrostDeviceConfiguration) InitWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
-	rv := objc.Send[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
+	rv := objc.SendIfResponds[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return rv
 }

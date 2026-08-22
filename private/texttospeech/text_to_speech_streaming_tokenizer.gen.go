@@ -38,7 +38,7 @@ func (tc TextToSpeechStreamingTokenizerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechStreamingTokenizerClass) Alloc() TextToSpeechStreamingTokenizer {
-	rv := objc.Send[TextToSpeechStreamingTokenizer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechStreamingTokenizer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechStreamingTokenizerFromID(id objc.ID) TextToSpeechStreamingToken
 	return TextToSpeechStreamingTokenizer{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechStreamingTokenizer struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechStreamingTokenizer embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechStreamingTokenizer implements ITextToSpeechStreamingTokenizer.
+var _ ITextToSpeechStreamingTokenizer = TextToSpeechStreamingTokenizer{}
 
 // An interface definition for the [TextToSpeechStreamingTokenizer] class.
 type ITextToSpeechStreamingTokenizer interface {
@@ -61,19 +61,19 @@ type ITextToSpeechStreamingTokenizer interface {
 
 // Init initializes the instance.
 func (t TextToSpeechStreamingTokenizer) Init() TextToSpeechStreamingTokenizer {
-	rv := objc.Send[TextToSpeechStreamingTokenizer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechStreamingTokenizer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechStreamingTokenizer) Autorelease() TextToSpeechStreamingTokenizer {
-	rv := objc.Send[TextToSpeechStreamingTokenizer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechStreamingTokenizer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechStreamingTokenizer creates a new TextToSpeechStreamingTokenizer instance.
 func NewTextToSpeechStreamingTokenizer() TextToSpeechStreamingTokenizer {
 	class := getTextToSpeechStreamingTokenizerClass()
-	rv := objc.Send[TextToSpeechStreamingTokenizer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechStreamingTokenizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

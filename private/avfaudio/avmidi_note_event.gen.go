@@ -38,7 +38,7 @@ func (ac AVMIDINoteEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMIDINoteEventClass) Alloc() AVMIDINoteEvent {
-	rv := objc.Send[AVMIDINoteEvent](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVMIDINoteEvent](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,9 @@ func AVMIDINoteEventFromID(id objc.ID) AVMIDINoteEvent {
 	return AVMIDINoteEvent{objectivec.Object{ID: id}}
 }
 
-// NOTE: AVMIDINoteEvent struct embeds objectivec.Object (parent type unavailable) but
-// IAVMIDINoteEvent embeds the parent interface; skip compile-time assertion.
+// NOTE: AVMIDINoteEvent embeds objectivec.Object because the parent type is
+// unavailable, but IAVMIDINoteEvent embeds IAVMusicEvent, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [AVMIDINoteEvent] class.
 type IAVMIDINoteEvent interface {
@@ -61,19 +62,19 @@ type IAVMIDINoteEvent interface {
 
 // Init initializes the instance.
 func (a AVMIDINoteEvent) Init() AVMIDINoteEvent {
-	rv := objc.Send[AVMIDINoteEvent](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVMIDINoteEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVMIDINoteEvent) Autorelease() AVMIDINoteEvent {
-	rv := objc.Send[AVMIDINoteEvent](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVMIDINoteEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVMIDINoteEvent creates a new AVMIDINoteEvent instance.
 func NewAVMIDINoteEvent() AVMIDINoteEvent {
 	class := getAVMIDINoteEventClass()
-	rv := objc.Send[AVMIDINoteEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVMIDINoteEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

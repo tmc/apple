@@ -38,7 +38,7 @@ func (sc SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass) Cl
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass) Alloc() SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,41 +75,41 @@ type ISLSBridgedWindowManagementOperationSpaceResizeDirectionsResult interface {
 
 // Init initializes the instance.
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) Init() SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) Autorelease() SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResult creates a new SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult instance.
 func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResult() SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	class := getSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass()
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultWithCoder(coder objectivec.IObject) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultFromID(rv)
 }
 
 func NewSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultWithSpaceResizeDirections(directions uint64) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
 	instance := getSLSBridgedWindowManagementOperationSpaceResizeDirectionsResultClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
 	return SLSBridgedWindowManagementOperationSpaceResizeDirectionsResultFromID(rv)
 }
 
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) InitWithSpaceResizeDirections(directions uint64) SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult {
-	rv := objc.Send[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
+	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult](s.ID, objc.Sel("initWithSpaceResizeDirections:"), directions)
 	return rv
 }
 
 func (s SLSBridgedWindowManagementOperationSpaceResizeDirectionsResult) SpaceResizeDirections() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceResizeDirections"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceResizeDirections"))
 	return rv
 }

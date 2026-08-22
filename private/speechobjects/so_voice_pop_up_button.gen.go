@@ -39,7 +39,7 @@ func (sc SOVoicePopUpButtonClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SOVoicePopUpButtonClass) Alloc() SOVoicePopUpButton {
-	rv := objc.Send[SOVoicePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SOVoicePopUpButton](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,34 +109,34 @@ type ISOVoicePopUpButton interface {
 
 // Init initializes the instance.
 func (s SOVoicePopUpButton) Init() SOVoicePopUpButton {
-	rv := objc.Send[SOVoicePopUpButton](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SOVoicePopUpButton](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SOVoicePopUpButton) Autorelease() SOVoicePopUpButton {
-	rv := objc.Send[SOVoicePopUpButton](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SOVoicePopUpButton](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSOVoicePopUpButton creates a new SOVoicePopUpButton instance.
 func NewSOVoicePopUpButton() SOVoicePopUpButton {
 	class := getSOVoicePopUpButtonClass()
-	rv := objc.Send[SOVoicePopUpButton](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SOVoicePopUpButton](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSOVoicePopUpButtonWithCoder(coder objectivec.IObject) SOVoicePopUpButton {
 	instance := getSOVoicePopUpButtonClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SOVoicePopUpButtonFromID(rv)
 }
 
 func (s SOVoicePopUpButton) _forcePopupsToAdoptCachedMenuExceptPopUp(up objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_forcePopupsToAdoptCachedMenuExceptPopUp:"), up)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_forcePopupsToAdoptCachedMenuExceptPopUp:"), up)
 }
 func (s SOVoicePopUpButton) _handleSpeechDataInstallationNotification() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_handleSpeechDataInstallationNotification"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_handleSpeechDataInstallationNotification"))
 }
 
 // HandleSpeechDataInstallationNotification is an exported wrapper for the private method _handleSpeechDataInstallationNotification.
@@ -154,7 +154,7 @@ func (s SOVoicePopUpButton) CanHandleSpeechDataInstallationNotification() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_handleSpeechDataInstallationNotification"))
 }
 func (s SOVoicePopUpButton) _previouslyChosenVoiceIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_previouslyChosenVoiceIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_previouslyChosenVoiceIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -172,7 +172,7 @@ func (s SOVoicePopUpButton) CanPreviouslyChosenVoiceIdentifier() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_previouslyChosenVoiceIdentifier"))
 }
 func (s SOVoicePopUpButton) _setPreviouslyChosenVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_setPreviouslyChosenVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_setPreviouslyChosenVoiceIdentifier:"), identifier)
 }
 
 // SetPreviouslyChosenVoiceIdentifier is an exported wrapper for the private method _setPreviouslyChosenVoiceIdentifier.
@@ -190,7 +190,7 @@ func (s SOVoicePopUpButton) CanSetPreviouslyChosenVoiceIdentifier() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_setPreviouslyChosenVoiceIdentifier:"))
 }
 func (s SOVoicePopUpButton) _statusStringForActiveDownloads() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_statusStringForActiveDownloads"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_statusStringForActiveDownloads"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -208,7 +208,7 @@ func (s SOVoicePopUpButton) CanStatusStringForActiveDownloads() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads"))
 }
 func (s SOVoicePopUpButton) _updateDownloadStatusFields() {
-	objc.Send[objc.ID](s.ID, objc.Sel("_updateDownloadStatusFields"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 
 // UpdateDownloadStatusFields is an exported wrapper for the private method _updateDownloadStatusFields.
@@ -226,31 +226,31 @@ func (s SOVoicePopUpButton) CanUpdateDownloadStatusFields() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 func (s SOVoicePopUpButton) AddExcludedIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("addExcludedIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addExcludedIdentifier:"), identifier)
 }
 func (s SOVoicePopUpButton) BuildPopUpButtonWithSelectVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("buildPopUpButtonWithSelectVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("buildPopUpButtonWithSelectVoiceIdentifier:"), identifier)
 }
 func (s SOVoicePopUpButton) IsSelectedVoiceAppropriateForCurrentLanguageWithUserConfirmationParentWindowForSheet(confirmation bool, sheet objectivec.IObject) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isSelectedVoiceAppropriateForCurrentLanguageWithUserConfirmation:parentWindowForSheet:"), confirmation, sheet)
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isSelectedVoiceAppropriateForCurrentLanguageWithUserConfirmation:parentWindowForSheet:"), confirmation, sheet)
 	return rv
 }
 func (s SOVoicePopUpButton) SelectedVoiceAttributes() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("selectedVoiceAttributes"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("selectedVoiceAttributes"))
 	return objectivec.Object{ID: rv}
 }
 func (s SOVoicePopUpButton) SetAllowSystemVoiceChoice(choice bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setAllowSystemVoiceChoice:"), choice)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setAllowSystemVoiceChoice:"), choice)
 }
 func (s SOVoicePopUpButton) SetShowIndividualVoiceQualities(qualities bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setShowIndividualVoiceQualities:"), qualities)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setShowIndividualVoiceQualities:"), qualities)
 }
 func (s SOVoicePopUpButton) SetSystemVoiceLocalizedTextMenuItemTag(text objectivec.IObject, tag int64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setSystemVoiceLocalizedText:menuItemTag:"), text, tag)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setSystemVoiceLocalizedText:menuItemTag:"), text, tag)
 }
 
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) _forceAllVoicePopupsToUpdate() {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_forceAllVoicePopupsToUpdate"))
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_forceAllVoicePopupsToUpdate"))
 }
 
 // ForceAllVoicePopupsToUpdate is an exported wrapper for the private method _forceAllVoicePopupsToUpdate.
@@ -268,7 +268,7 @@ func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) CanForceAllVoicePopupsTo
 	return objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_forceAllVoicePopupsToUpdate"))
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) _startDelayedForceAllVoicePopupsToUpdate() {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_startDelayedForceAllVoicePopupsToUpdate"))
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_startDelayedForceAllVoicePopupsToUpdate"))
 }
 
 // StartDelayedForceAllVoicePopupsToUpdate is an exported wrapper for the private method _startDelayedForceAllVoicePopupsToUpdate.
@@ -286,36 +286,36 @@ func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) CanStartDelayedForceAllV
 	return objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_startDelayedForceAllVoicePopupsToUpdate"))
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) AddExcludedVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("addExcludedVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("addExcludedVoiceIdentifier:"), identifier)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) AddRequiredVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("addRequiredVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("addRequiredVoiceIdentifier:"), identifier)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) BuildSharedVoicesMenuShowingVOVoices(vOVoices bool) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("buildSharedVoicesMenuShowingVOVoices:"), vOVoices)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("buildSharedVoicesMenuShowingVOVoices:"), vOVoices)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) DisplayNameForGender(gender objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("displayNameForGender:"), gender)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("displayNameForGender:"), gender)
 	return objectivec.Object{ID: rv}
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) ForcePopupsToAdoptCachedMenuExceptPopUp(up objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("forcePopupsToAdoptCachedMenuExceptPopUp:"), up)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("forcePopupsToAdoptCachedMenuExceptPopUp:"), up)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) IsRequiredVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("isRequiredVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("isRequiredVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) IsSiriVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("isSiriVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("isSiriVoiceIdentifier:"), identifier)
 	return rv
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) RemoveRequiredVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("removeRequiredVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("removeRequiredVoiceIdentifier:"), identifier)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) SetFallbackVoiceIdentifier(identifier objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("setFallbackVoiceIdentifier:"), identifier)
+	objc.SendIfResponds[objc.ID](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("setFallbackVoiceIdentifier:"), identifier)
 }
 func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) ShouldExcludeVoiceIdentifier(identifier objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("shouldExcludeVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[bool](objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("shouldExcludeVoiceIdentifier:"), identifier)
 	return rv
 }

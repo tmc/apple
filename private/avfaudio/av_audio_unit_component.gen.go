@@ -40,7 +40,7 @@ func (ac AVAudioUnitComponentClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
-	rv := objc.Send[AVAudioUnitComponent](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioUnitComponent](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,42 +86,42 @@ type IAVAudioUnitComponent interface {
 
 // Init initializes the instance.
 func (a AVAudioUnitComponent) Init() AVAudioUnitComponent {
-	rv := objc.Send[AVAudioUnitComponent](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioUnitComponent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioUnitComponent) Autorelease() AVAudioUnitComponent {
-	rv := objc.Send[AVAudioUnitComponent](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioUnitComponent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioUnitComponent creates a new AVAudioUnitComponent instance.
 func NewAVAudioUnitComponent() AVAudioUnitComponent {
 	class := getAVAudioUnitComponentClass()
-	rv := objc.Send[AVAudioUnitComponent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioUnitComponent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVAudioUnitComponent) GetTypeName(name uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("GetTypeName:"), name)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("GetTypeName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioUnitComponent) LocaleChanged() {
-	objc.Send[objc.ID](a.ID, objc.Sel("localeChanged"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("localeChanged"))
 }
 func (a AVAudioUnitComponent) ValidateWithResultsInCompletionHandler(results objectivec.IObject, handler ErrorHandler) bool {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[bool](a.ID, objc.Sel("validateWithResults:inCompletionHandler:"), results, _block1)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("validateWithResults:inCompletionHandler:"), results, _block1)
 	return rv
 }
 
 func (a AVAudioUnitComponent) ComponentURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("componentURL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("componentURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (a AVAudioUnitComponent) SandboxSafe() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("sandboxSafe"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("sandboxSafe"))
 	return rv
 }
 

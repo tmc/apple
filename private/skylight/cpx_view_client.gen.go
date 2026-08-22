@@ -38,7 +38,7 @@ func (cc CPXViewClientClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXViewClientClass) Alloc() CPXViewClient {
-	rv := objc.Send[CPXViewClient](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXViewClient](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,19 +61,19 @@ type ICPXViewClient interface {
 
 // Init initializes the instance.
 func (c CPXViewClient) Init() CPXViewClient {
-	rv := objc.Send[CPXViewClient](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXViewClient](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXViewClient) Autorelease() CPXViewClient {
-	rv := objc.Send[CPXViewClient](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXViewClient](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXViewClient creates a new CPXViewClient instance.
 func NewCPXViewClient() CPXViewClient {
 	class := getCPXViewClientClass()
-	rv := objc.Send[CPXViewClient](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXViewClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

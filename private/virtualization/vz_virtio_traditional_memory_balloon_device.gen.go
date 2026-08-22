@@ -37,7 +37,7 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditionalMemoryBalloonDevice {
-	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioTraditionalMemoryBalloonDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,25 +71,25 @@ type IVZVirtioTraditionalMemoryBalloonDevice interface {
 
 // Init initializes the instance.
 func (v VZVirtioTraditionalMemoryBalloonDevice) Init() VZVirtioTraditionalMemoryBalloonDevice {
-	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioTraditionalMemoryBalloonDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioTraditionalMemoryBalloonDevice) Autorelease() VZVirtioTraditionalMemoryBalloonDevice {
-	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioTraditionalMemoryBalloonDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioTraditionalMemoryBalloonDevice creates a new VZVirtioTraditionalMemoryBalloonDevice instance.
 func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloonDevice {
 	class := getVZVirtioTraditionalMemoryBalloonDeviceClass()
-	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioTraditionalMemoryBalloonDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZVirtioTraditionalMemoryBalloonDevice) _maxTargetVirtualMachineMemorySize() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize"))
 	return rv
 }
 

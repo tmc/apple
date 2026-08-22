@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (cc CPXEventDeferringManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CPXEventDeferringManagerClass) Alloc() CPXEventDeferringManager {
-	rv := objc.Send[CPXEventDeferringManager](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CPXEventDeferringManager](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,44 +79,44 @@ type ICPXEventDeferringManager interface {
 
 // Init initializes the instance.
 func (c CPXEventDeferringManager) Init() CPXEventDeferringManager {
-	rv := objc.Send[CPXEventDeferringManager](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CPXEventDeferringManager](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CPXEventDeferringManager) Autorelease() CPXEventDeferringManager {
-	rv := objc.Send[CPXEventDeferringManager](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CPXEventDeferringManager](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCPXEventDeferringManager creates a new CPXEventDeferringManager instance.
 func NewCPXEventDeferringManager() CPXEventDeferringManager {
 	class := getCPXEventDeferringManagerClass()
-	rv := objc.Send[CPXEventDeferringManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CPXEventDeferringManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewCPXEventDeferringManagerWithDeliveryManagerProcessManagerConnectionManager(manager objectivec.IObject, manager2 objectivec.IObject, manager3 objectivec.IObject) CPXEventDeferringManager {
 	instance := getCPXEventDeferringManagerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
 	return CPXEventDeferringManagerFromID(rv)
 }
 
 func (c CPXEventDeferringManager) UpdatePolicyReason(policy objectivec.IObject, reason objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("updatePolicy:reason:"), policy, reason)
+	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("updatePolicy:reason:"), policy, reason)
 }
 func (c CPXEventDeferringManager) InitWithDeliveryManagerProcessManagerConnectionManager(manager objectivec.IObject, manager2 objectivec.IObject, manager3 objectivec.IObject) CPXEventDeferringManager {
-	rv := objc.Send[CPXEventDeferringManager](c.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
+	rv := objc.SendIfResponds[CPXEventDeferringManager](c.ID, objc.Sel("initWithDeliveryManager:processManager:connectionManager:"), manager, manager2, manager3)
 	return rv
 }
 
-func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) _symbolicLinkTokenForProcess(process CPSProcessRec) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:"), process)
+func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) _symbolicLinkTokenForProcess(process *CPSProcessRec) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:"), unsafe.Pointer(process))
 	return objectivec.Object{ID: rv}
 }
 
 // SymbolicLinkTokenForProcess is an exported wrapper for the private method _symbolicLinkTokenForProcess.
-func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) SymbolicLinkTokenForProcess(process CPSProcessRec) (objectivec.IObject, error) {
+func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) SymbolicLinkTokenForProcess(process *CPSProcessRec) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_symbolicLinkTokenForProcess:"}
 		return nil, err
@@ -129,6 +130,6 @@ func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) CanSymbolicL
 }
 
 func (c CPXEventDeferringManager) EnforcedPolicy() ICPXEventDeferringPolicy {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("enforcedPolicy"))
+	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("enforcedPolicy"))
 	return CPXEventDeferringPolicyFromID(objc.ID(rv))
 }

@@ -41,7 +41,7 @@ func (bc BaseDiskImageCreatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (bc BaseDiskImageCreatorClass) Alloc() BaseDiskImageCreator {
-	rv := objc.Send[BaseDiskImageCreator](objc.ID(bc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[BaseDiskImageCreator](objc.ID(bc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -192,30 +192,33 @@ type IBaseDiskImageCreator interface {
 
 // Init initializes the instance.
 func (b BaseDiskImageCreator) Init() BaseDiskImageCreator {
-	rv := objc.Send[BaseDiskImageCreator](b.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[BaseDiskImageCreator](b.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (b BaseDiskImageCreator) Autorelease() BaseDiskImageCreator {
-	rv := objc.Send[BaseDiskImageCreator](b.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[BaseDiskImageCreator](b.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewBaseDiskImageCreator creates a new BaseDiskImageCreator instance.
 func NewBaseDiskImageCreator() BaseDiskImageCreator {
 	class := getBaseDiskImageCreatorClass()
-	rv := objc.Send[BaseDiskImageCreator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[BaseDiskImageCreator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewBaseDiskImageCreatorWithURLDefaultFormatError(url foundation.NSURL, format int64) (BaseDiskImageCreator, error) {
 	var errorPtr objc.ID
 	instance := getBaseDiskImageCreatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:defaultFormat:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return BaseDiskImageCreator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return BaseDiskImageCreator{}, objc.ErrInitFailed
 	}
 	return BaseDiskImageCreatorFromID(rv), nil
 }
@@ -287,7 +290,7 @@ func (b BaseDiskImageCreator) PartitionDiskWithError() (bool, error) {
 
 }
 func (b BaseDiskImageCreator) SetPassphraseEncryptionMethod(passphrase string, method uint64) {
-	objc.Send[objc.ID](b.ID, objc.Sel("setPassphrase:encryptionMethod:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), method)
+	objc.SendIfResponds[objc.ID](b.ID, objc.Sel("setPassphrase:encryptionMethod:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), method)
 }
 func (b BaseDiskImageCreator) InitWithURLDefaultFormatError(url foundation.NSURL, format int64) (BaseDiskImageCreator, error) {
 	var errorPtr objc.ID
@@ -301,130 +304,130 @@ func (b BaseDiskImageCreator) InitWithURLDefaultFormatError(url foundation.NSURL
 }
 
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) DebugLogsEnabled() bool {
-	rv := objc.Send[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("debugLogsEnabled"))
+	rv := objc.SendIfResponds[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("debugLogsEnabled"))
 	return rv
 }
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) ForwardLogs() bool {
-	rv := objc.Send[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("forwardLogs"))
+	rv := objc.SendIfResponds[bool](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("forwardLogs"))
 	return rv
 }
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) SetDebugLogsEnabled(enabled bool) {
-	objc.Send[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setDebugLogsEnabled:"), enabled)
+	objc.SendIfResponds[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setDebugLogsEnabled:"), enabled)
 }
 func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) SetForwardLogs(logs bool) {
-	objc.Send[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setForwardLogs:"), logs)
+	objc.SendIfResponds[objc.ID](objc.ID(_BaseDiskImageCreatorClass.class), objc.Sel("setForwardLogs:"), logs)
 }
 
 func (b BaseDiskImageCreator) URL() foundation.NSURL {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (b BaseDiskImageCreator) BlockSize() uint32 {
-	rv := objc.Send[uint32](b.ID, objc.Sel("blockSize"))
+	rv := objc.SendIfResponds[uint32](b.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetBlockSize(value uint32) {
-	objc.Send[struct{}](b.ID, objc.Sel("setBlockSize:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setBlockSize:"), value)
 }
 func (b BaseDiskImageCreator) Certificate() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("certificate"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("certificate"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (b BaseDiskImageCreator) SetCertificate(value string) {
-	objc.Send[struct{}](b.ID, objc.Sel("setCertificate:"), objc.String(value))
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
 func (b BaseDiskImageCreator) DataPartition() IDIDataPartition {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("dataPartition"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("dataPartition"))
 	return DIDataPartitionFromID(objc.ID(rv))
 }
 func (b BaseDiskImageCreator) SetDataPartition(value IDIDataPartition) {
-	objc.Send[struct{}](b.ID, objc.Sel("setDataPartition:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setDataPartition:"), value)
 }
 func (b BaseDiskImageCreator) DevBSDName() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("devBSDName"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("devBSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (b BaseDiskImageCreator) SetDevBSDName(value string) {
-	objc.Send[struct{}](b.ID, objc.Sel("setDevBSDName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setDevBSDName:"), objc.String(value))
 }
 func (b BaseDiskImageCreator) EncryptionMethod() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("encryptionMethod"))
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("encryptionMethod"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetEncryptionMethod(value uint64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setEncryptionMethod:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setEncryptionMethod:"), value)
 }
 func (b BaseDiskImageCreator) FileSystem() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("fileSystem"))
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("fileSystem"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetFileSystem(value uint64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setFileSystem:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setFileSystem:"), value)
 }
 func (b BaseDiskImageCreator) ImageFormat() int64 {
-	rv := objc.Send[int64](b.ID, objc.Sel("imageFormat"))
+	rv := objc.SendIfResponds[int64](b.ID, objc.Sel("imageFormat"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetImageFormat(value int64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setImageFormat:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setImageFormat:"), value)
 }
 func (b BaseDiskImageCreator) MutableSymmetricKey() foundation.NSMutableData {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("mutableSymmetricKey"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("mutableSymmetricKey"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
 func (b BaseDiskImageCreator) NumBlocks() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("numBlocks"))
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("numBlocks"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetNumBlocks(value uint64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setNumBlocks:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setNumBlocks:"), value)
 }
 func (b BaseDiskImageCreator) Passphrase() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("passphrase"))
+	rv := objc.SendIfResponds[bool](b.ID, objc.Sel("passphrase"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetPassphrase(value bool) {
-	objc.Send[struct{}](b.ID, objc.Sel("setPassphrase:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setPassphrase:"), value)
 }
 func (b BaseDiskImageCreator) PublicKey() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("publicKey"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("publicKey"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (b BaseDiskImageCreator) SetPublicKey(value string) {
-	objc.Send[struct{}](b.ID, objc.Sel("setPublicKey:"), objc.String(value))
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
 func (b BaseDiskImageCreator) ReadPassphraseFlags() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("readPassphraseFlags"))
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("readPassphraseFlags"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetReadPassphraseFlags(value uint64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setReadPassphraseFlags:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setReadPassphraseFlags:"), value)
 }
 func (b BaseDiskImageCreator) SparseBundleBandSize() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("sparseBundleBandSize"))
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("sparseBundleBandSize"))
 	return rv
 }
 func (b BaseDiskImageCreator) SetSparseBundleBandSize(value uint64) {
-	objc.Send[struct{}](b.ID, objc.Sel("setSparseBundleBandSize:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
 func (b BaseDiskImageCreator) SymmetricKey() foundation.NSData {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("symmetricKey"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("symmetricKey"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (b BaseDiskImageCreator) SetSymmetricKey(value foundation.NSData) {
-	objc.Send[struct{}](b.ID, objc.Sel("setSymmetricKey:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setSymmetricKey:"), value)
 }
 func (b BaseDiskImageCreator) TemporaryPassphrase() IDITemporaryPassphrase {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("temporaryPassphrase"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
 }
 func (b BaseDiskImageCreator) SetTemporaryPassphrase(value IDITemporaryPassphrase) {
-	objc.Send[struct{}](b.ID, objc.Sel("setTemporaryPassphrase:"), value)
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setTemporaryPassphrase:"), value)
 }
 func (b BaseDiskImageCreator) VolumeName() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("volumeName"))
+	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("volumeName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (b BaseDiskImageCreator) SetVolumeName(value string) {
-	objc.Send[struct{}](b.ID, objc.Sel("setVolumeName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setVolumeName:"), objc.String(value))
 }

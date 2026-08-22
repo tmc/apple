@@ -37,7 +37,7 @@ func (ec EspressoPassRpnTrackerMergeConvsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRpnTrackerMergeConvsClass) Alloc() EspressoPassRpnTrackerMergeConvs {
-	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRpnTrackerMergeConvs](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRpnTrackerMergeConvs interface {
 
 // Init initializes the instance.
 func (e EspressoPassRpnTrackerMergeConvs) Init() EspressoPassRpnTrackerMergeConvs {
-	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRpnTrackerMergeConvs) Autorelease() EspressoPassRpnTrackerMergeConvs {
-	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRpnTrackerMergeConvs creates a new EspressoPassRpnTrackerMergeConvs instance.
 func NewEspressoPassRpnTrackerMergeConvs() EspressoPassRpnTrackerMergeConvs {
 	class := getEspressoPassRpnTrackerMergeConvsClass()
-	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRpnTrackerMergeConvs](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

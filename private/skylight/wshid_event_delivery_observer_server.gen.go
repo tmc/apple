@@ -40,7 +40,7 @@ func (wc WSHIDEventDeliveryObserverServerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSHIDEventDeliveryObserverServerClass) Alloc() WSHIDEventDeliveryObserverServer {
-	rv := objc.Send[WSHIDEventDeliveryObserverServer](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryObserverServer](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,60 +98,60 @@ type IWSHIDEventDeliveryObserverServer interface {
 
 // Init initializes the instance.
 func (w WSHIDEventDeliveryObserverServer) Init() WSHIDEventDeliveryObserverServer {
-	rv := objc.Send[WSHIDEventDeliveryObserverServer](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryObserverServer](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSHIDEventDeliveryObserverServer) Autorelease() WSHIDEventDeliveryObserverServer {
-	rv := objc.Send[WSHIDEventDeliveryObserverServer](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryObserverServer](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSHIDEventDeliveryObserverServer creates a new WSHIDEventDeliveryObserverServer instance.
 func NewWSHIDEventDeliveryObserverServer() WSHIDEventDeliveryObserverServer {
 	class := getWSHIDEventDeliveryObserverServerClass()
-	rv := objc.Send[WSHIDEventDeliveryObserverServer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSHIDEventDeliveryObserverServer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (w WSHIDEventDeliveryObserverServer) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (w WSHIDEventDeliveryObserverServer) Activate() {
-	objc.Send[objc.ID](w.ID, objc.Sel("activate"))
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("activate"))
 }
 func (w WSHIDEventDeliveryObserverServer) AppendDescriptionToStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
 }
 func (w WSHIDEventDeliveryObserverServer) DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
 	return objectivec.Object{ID: rv}
 }
 
 func (_WSHIDEventDeliveryObserverServerClass WSHIDEventDeliveryObserverServerClass) SharedInstance() WSHIDEventDeliveryObserverServer {
-	rv := objc.Send[objc.ID](objc.ID(_WSHIDEventDeliveryObserverServerClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_WSHIDEventDeliveryObserverServerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDEventDeliveryObserverServerFromID(rv)
 }
 
 func (w WSHIDEventDeliveryObserverServer) BkServer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](w.ID, objc.Sel("bkServer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](w.ID, objc.Sel("bkServer"))
 	return rv
 }
 func (w WSHIDEventDeliveryObserverServer) DebugDescription() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSHIDEventDeliveryObserverServer) Description() string {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (w WSHIDEventDeliveryObserverServer) Hash() uint64 {
-	rv := objc.Send[uint64](w.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("hash"))
 	return rv
 }
 func (w WSHIDEventDeliveryObserverServer) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](w.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](w.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

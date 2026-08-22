@@ -14,8 +14,14 @@ type MLPredictionRequest interface {
 	// Cancel protocol.
 	Cancel()
 
+	// InputFeatures protocol.
+	InputFeatures() objectivec.IObject
+
 	// IsCancelled protocol.
 	IsCancelled() bool
+
+	// PredictionOptions protocol.
+	PredictionOptions() objectivec.IObject
 }
 
 // MLPredictionRequestObject wraps an existing Objective-C object that conforms to the MLPredictionRequest protocol.
@@ -36,17 +42,17 @@ func MLPredictionRequestObjectFromID(id objc.ID) MLPredictionRequestObject {
 }
 
 func (o MLPredictionRequestObject) Cancel() {
-	objc.Send[struct{}](o.ID, objc.Sel("cancel"))
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("cancel"))
 }
 func (o MLPredictionRequestObject) InputFeatures() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputFeatures"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("inputFeatures"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLPredictionRequestObject) IsCancelled() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isCancelled"))
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("isCancelled"))
 	return rv
 }
 func (o MLPredictionRequestObject) PredictionOptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("predictionOptions"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("predictionOptions"))
 	return objectivec.Object{ID: rv}
 }

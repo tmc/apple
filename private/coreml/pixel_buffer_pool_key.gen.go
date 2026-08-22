@@ -39,7 +39,7 @@ func (pc PixelBufferPoolKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (pc PixelBufferPoolKeyClass) Alloc() PixelBufferPoolKey {
-	rv := objc.Send[PixelBufferPoolKey](objc.ID(pc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[PixelBufferPoolKey](objc.ID(pc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,39 +79,39 @@ type IPixelBufferPoolKey interface {
 
 // Init initializes the instance.
 func (p PixelBufferPoolKey) Init() PixelBufferPoolKey {
-	rv := objc.Send[PixelBufferPoolKey](p.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[PixelBufferPoolKey](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (p PixelBufferPoolKey) Autorelease() PixelBufferPoolKey {
-	rv := objc.Send[PixelBufferPoolKey](p.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[PixelBufferPoolKey](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewPixelBufferPoolKey creates a new PixelBufferPoolKey instance.
 func NewPixelBufferPoolKey() PixelBufferPoolKey {
 	class := getPixelBufferPoolKeyClass()
-	rv := objc.Send[PixelBufferPoolKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[PixelBufferPoolKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPixelBufferPoolKeyWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
 	instance := getPixelBufferPoolKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
 	return PixelBufferPoolKeyFromID(rv)
 }
 
 func (p PixelBufferPoolKey) InitWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
-	rv := objc.Send[PixelBufferPoolKey](p.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
+	rv := objc.SendIfResponds[PixelBufferPoolKey](p.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
 	return rv
 }
 
 func (p PixelBufferPoolKey) FrameSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](p.ID, objc.Sel("frameSize"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](p.ID, objc.Sel("frameSize"))
 	return corefoundation.CGSize(rv)
 }
 func (p PixelBufferPoolKey) PixelFormatType() uint32 {
-	rv := objc.Send[uint32](p.ID, objc.Sel("pixelFormatType"))
+	rv := objc.SendIfResponds[uint32](p.ID, objc.Sel("pixelFormatType"))
 	return rv
 }

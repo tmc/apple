@@ -5,8 +5,8 @@ package appleneuralengine
 import (
 	"sync"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -40,7 +40,7 @@ func (ac ANEIOSurfaceOutputSetsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEIOSurfaceOutputSetsClass) Alloc() ANEIOSurfaceOutputSets {
-	rv := objc.Send[ANEIOSurfaceOutputSets](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,68 +79,68 @@ type IANEIOSurfaceOutputSets interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 	OutputBuffer() foundation.INSArray
-	StatsSurRef() coregraphics.IOSurfaceRef
+	StatsSurRef() iosurface.IOSurfaceRef
 	InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceOutputSets
-	InitWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets
+	InitWithstatsSurRefOutputBuffer(ref iosurface.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets
 }
 
 // Init initializes the instance.
 func (a ANEIOSurfaceOutputSets) Init() ANEIOSurfaceOutputSets {
-	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEIOSurfaceOutputSets) Autorelease() ANEIOSurfaceOutputSets {
-	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEIOSurfaceOutputSets creates a new ANEIOSurfaceOutputSets instance.
 func NewANEIOSurfaceOutputSets() ANEIOSurfaceOutputSets {
 	class := getANEIOSurfaceOutputSetsClass()
-	rv := objc.Send[ANEIOSurfaceOutputSets](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEIOSurfaceOutputSetsWithCoder(coder objectivec.IObject) ANEIOSurfaceOutputSets {
 	instance := getANEIOSurfaceOutputSetsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
 
-func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
+func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref iosurface.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
 	instance := getANEIOSurfaceOutputSetsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
 
 func (a ANEIOSurfaceOutputSets) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEIOSurfaceOutputSets) InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceOutputSets {
-	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (a ANEIOSurfaceOutputSets) InitWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
-	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
+func (a ANEIOSurfaceOutputSets) InitWithstatsSurRefOutputBuffer(ref iosurface.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
+	rv := objc.SendIfResponds[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return rv
 }
 
-func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) ObjectWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("objectWithstatsSurRef:outputBuffer:"), ref, buffer)
+func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) ObjectWithstatsSurRefOutputBuffer(ref iosurface.IOSurfaceRef, buffer objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("objectWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEIOSurfaceOutputSetsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (a ANEIOSurfaceOutputSets) OutputBuffer() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputBuffer"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("outputBuffer"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (a ANEIOSurfaceOutputSets) StatsSurRef() coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("statsSurRef"))
-	return coregraphics.IOSurfaceRef(rv)
+func (a ANEIOSurfaceOutputSets) StatsSurRef() iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("statsSurRef"))
+	return iosurface.IOSurfaceRef(rv)
 }

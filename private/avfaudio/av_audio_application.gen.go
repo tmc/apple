@@ -42,7 +42,7 @@ func (ac AVAudioApplicationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioApplicationClass) Alloc() AVAudioApplication {
-	rv := objc.Send[AVAudioApplication](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVAudioApplication](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -53,6 +53,8 @@ func (ac AVAudioApplicationClass) Alloc() AVAudioApplication {
 //   - [AVAudioApplication.PrivateCallInputMuteHandlerBlockInputMutedIsTopDownMuteContext]
 //   - [AVAudioApplication.PrivateCreateAudioApplicationInServer]
 //   - [AVAudioApplication.PrivateEnableSystemMute]
+//   - [AVAudioApplication.PrivateGetAppProperty]
+//   - [AVAudioApplication.PrivateGetMXProperty]
 //   - [AVAudioApplication.PrivateHandlePing]
 //   - [AVAudioApplication.PrivateOptInToStemClickMuting]
 //   - [AVAudioApplication.PrivateRecreateAudioApplicationInServer]
@@ -68,7 +70,9 @@ func (ac AVAudioApplicationClass) Alloc() AVAudioApplication {
 //   - [AVAudioApplication.SessionIDs]
 //   - [AVAudioApplication.SetInputMutedContextError]
 //   - [AVAudioApplication.StemClickMutingEnabled]
+//   - [AVAudioApplication.InitDelegateForProcessProcessAttribution]
 //   - [AVAudioApplication.InitPrivate]
+//   - [AVAudioApplication.InitProxyForProcess]
 //   - [AVAudioApplication.InitWithSpecification]
 //   - [AVAudioApplication.InputMuted]
 type AVAudioApplication struct {
@@ -92,6 +96,8 @@ var _ IAVAudioApplication = AVAudioApplication{}
 //   - [IAVAudioApplication.PrivateCallInputMuteHandlerBlockInputMutedIsTopDownMuteContext]
 //   - [IAVAudioApplication.PrivateCreateAudioApplicationInServer]
 //   - [IAVAudioApplication.PrivateEnableSystemMute]
+//   - [IAVAudioApplication.PrivateGetAppProperty]
+//   - [IAVAudioApplication.PrivateGetMXProperty]
 //   - [IAVAudioApplication.PrivateHandlePing]
 //   - [IAVAudioApplication.PrivateOptInToStemClickMuting]
 //   - [IAVAudioApplication.PrivateRecreateAudioApplicationInServer]
@@ -107,7 +113,9 @@ var _ IAVAudioApplication = AVAudioApplication{}
 //   - [IAVAudioApplication.SessionIDs]
 //   - [IAVAudioApplication.SetInputMutedContextError]
 //   - [IAVAudioApplication.StemClickMutingEnabled]
+//   - [IAVAudioApplication.InitDelegateForProcessProcessAttribution]
 //   - [IAVAudioApplication.InitPrivate]
+//   - [IAVAudioApplication.InitProxyForProcess]
 //   - [IAVAudioApplication.InitWithSpecification]
 //   - [IAVAudioApplication.InputMuted]
 type IAVAudioApplication interface {
@@ -120,6 +128,8 @@ type IAVAudioApplication interface {
 	PrivateCallInputMuteHandlerBlockInputMutedIsTopDownMuteContext(block VoidHandler, muted bool, mute bool, context objectivec.IObject) objectivec.IObject
 	PrivateCreateAudioApplicationInServer(server objectivec.IObject) bool
 	PrivateEnableSystemMute(mute bool)
+	PrivateGetAppProperty(property objectivec.IObject) unsafe.Pointer
+	PrivateGetMXProperty(mXProperty objectivec.IObject) unsafe.Pointer
 	PrivateHandlePing()
 	PrivateOptInToStemClickMuting()
 	PrivateRecreateAudioApplicationInServer() bool
@@ -135,73 +145,95 @@ type IAVAudioApplication interface {
 	SessionIDs() objectivec.IObject
 	SetInputMutedContextError(muted bool, context objectivec.IObject) (bool, error)
 	StemClickMutingEnabled() bool
+	InitDelegateForProcessProcessAttribution(process unsafe.Pointer, attribution objectivec.IObject) AVAudioApplication
 	InitPrivate(private objectivec.IObject) AVAudioApplication
+	InitProxyForProcess(process unsafe.Pointer) AVAudioApplication
 	InitWithSpecification(specification objectivec.IObject) AVAudioApplication
 	InputMuted() bool
 }
 
 // Init initializes the instance.
 func (a AVAudioApplication) Init() AVAudioApplication {
-	rv := objc.Send[AVAudioApplication](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVAudioApplication) Autorelease() AVAudioApplication {
-	rv := objc.Send[AVAudioApplication](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVAudioApplication creates a new AVAudioApplication instance.
 func NewAVAudioApplication() AVAudioApplication {
 	class := getAVAudioApplicationClass()
-	rv := objc.Send[AVAudioApplication](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVAudioApplication](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewAudioApplicationDelegateForProcessProcessAttribution(process unsafe.Pointer, attribution objectivec.IObject) AVAudioApplication {
+	instance := getAVAudioApplicationClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDelegateForProcess:processAttribution:"), process, attribution)
+	return AVAudioApplicationFromID(rv)
 }
 
 func NewAudioApplicationPrivate(private objectivec.IObject) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initPrivate:"), private)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initPrivate:"), private)
+	return AVAudioApplicationFromID(rv)
+}
+
+func NewAudioApplicationProxyForProcess(process unsafe.Pointer) AVAudioApplication {
+	instance := getAVAudioApplicationClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initProxyForProcess:"), process)
 	return AVAudioApplicationFromID(rv)
 }
 
 func NewAudioApplicationWithSpecification(specification objectivec.IObject) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecification:"), specification)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:"), specification)
 	return AVAudioApplicationFromID(rv)
 }
 
 func (a AVAudioApplication) PostNotificationNameUserInfo(name objectivec.IObject, info objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("postNotificationName:userInfo:"), name, info)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("postNotificationName:userInfo:"), name, info)
 }
 func (a AVAudioApplication) PrivateCallInputMuteHandlerBlockInputMutedIsTopDownMuteContext(block VoidHandler, muted bool, mute bool, context objectivec.IObject) objectivec.IObject {
 	_block0, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("privateCallInputMuteHandlerBlock:inputMuted:isTopDownMute:context:"), _block0, muted, mute, context)
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privateCallInputMuteHandlerBlock:inputMuted:isTopDownMute:context:"), _block0, muted, mute, context)
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioApplication) PrivateCreateAudioApplicationInServer(server objectivec.IObject) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("privateCreateAudioApplicationInServer:"), server)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("privateCreateAudioApplicationInServer:"), server)
 	return rv
 }
 func (a AVAudioApplication) PrivateEnableSystemMute(mute bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("privateEnableSystemMute:"), mute)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privateEnableSystemMute:"), mute)
+}
+func (a AVAudioApplication) PrivateGetAppProperty(property objectivec.IObject) unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("privateGetAppProperty:"), property)
+	return rv
+}
+func (a AVAudioApplication) PrivateGetMXProperty(mXProperty objectivec.IObject) unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("privateGetMXProperty:"), mXProperty)
+	return rv
 }
 func (a AVAudioApplication) PrivateHandlePing() {
-	objc.Send[objc.ID](a.ID, objc.Sel("privateHandlePing"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privateHandlePing"))
 }
 func (a AVAudioApplication) PrivateOptInToStemClickMuting() {
-	objc.Send[objc.ID](a.ID, objc.Sel("privateOptInToStemClickMuting"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("privateOptInToStemClickMuting"))
 }
 func (a AVAudioApplication) PrivateRecreateAudioApplicationInServer() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("privateRecreateAudioApplicationInServer"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("privateRecreateAudioApplicationInServer"))
 	return rv
 }
 func (a AVAudioApplication) PrivateSetAppPropertyValue(property objectivec.IObject, value objectivec.IObject) int {
-	rv := objc.Send[int](a.ID, objc.Sel("privateSetAppProperty:value:"), property, value)
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetAppProperty:value:"), property, value)
 	return rv
 }
 func (a AVAudioApplication) PrivateSetAppPropertyValueGuard(property objectivec.IObject, value objectivec.IObject, guard unsafe.Pointer) int {
-	rv := objc.Send[int](a.ID, objc.Sel("privateSetAppProperty:value:guard:"), property, value, guard)
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetAppProperty:value:guard:"), property, value, guard)
 	return rv
 }
 func (a AVAudioApplication) PrivateSetInputMuteStateChangeHandlerError(handler func()) (bool, error) {
@@ -258,19 +290,19 @@ func (a AVAudioApplication) PrivateSetInputMutedProxyError(proxy bool) (bool, er
 
 }
 func (a AVAudioApplication) PrivateSetMXPropertyOnAllSessionsValue(sessions objectivec.IObject, value objectivec.IObject) int {
-	rv := objc.Send[int](a.ID, objc.Sel("privateSetMXPropertyOnAllSessions:value:"), sessions, value)
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetMXPropertyOnAllSessions:value:"), sessions, value)
 	return rv
 }
 func (a AVAudioApplication) PrivateUpdateAppPropertyValueContext(property objectivec.IObject, value objectivec.IObject, context objectivec.IObject) int {
-	rv := objc.Send[int](a.ID, objc.Sel("privateUpdateAppProperty:value:context:"), property, value, context)
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateUpdateAppProperty:value:context:"), property, value, context)
 	return rv
 }
 func (a AVAudioApplication) RequestRecordPermissionWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("requestRecordPermissionWithCompletionHandler:"), _block0)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("requestRecordPermissionWithCompletionHandler:"), _block0)
 }
 func (a AVAudioApplication) SessionIDs() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sessionIDs"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sessionIDs"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioApplication) SetInputMutedContextError(muted bool, context objectivec.IObject) (bool, error) {
@@ -287,15 +319,23 @@ func (a AVAudioApplication) SetInputMutedContextError(muted bool, context object
 
 }
 func (a AVAudioApplication) StemClickMutingEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("stemClickMutingEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("stemClickMutingEnabled"))
+	return rv
+}
+func (a AVAudioApplication) InitDelegateForProcessProcessAttribution(process unsafe.Pointer, attribution objectivec.IObject) AVAudioApplication {
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("initDelegateForProcess:processAttribution:"), process, attribution)
 	return rv
 }
 func (a AVAudioApplication) InitPrivate(private objectivec.IObject) AVAudioApplication {
-	rv := objc.Send[AVAudioApplication](a.ID, objc.Sel("initPrivate:"), private)
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("initPrivate:"), private)
+	return rv
+}
+func (a AVAudioApplication) InitProxyForProcess(process unsafe.Pointer) AVAudioApplication {
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("initProxyForProcess:"), process)
 	return rv
 }
 func (a AVAudioApplication) InitWithSpecification(specification objectivec.IObject) AVAudioApplication {
-	rv := objc.Send[AVAudioApplication](a.ID, objc.Sel("initWithSpecification:"), specification)
+	rv := objc.SendIfResponds[AVAudioApplication](a.ID, objc.Sel("initWithSpecification:"), specification)
 	return rv
 }
 
@@ -313,11 +353,11 @@ func (_AVAudioApplicationClass AVAudioApplicationClass) AllowAppToInitiatePlayba
 
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) AppleTVSupportsEnhanceDialogue() bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("appleTVSupportsEnhanceDialogue"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("appleTVSupportsEnhanceDialogue"))
 	return rv
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) CurrentRouteSupportsEnhanceDialogue(dialogue []objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("currentRouteSupportsEnhanceDialogue:"), objectivec.IObjectSliceToNSArray(dialogue))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("currentRouteSupportsEnhanceDialogue:"), objectivec.IObjectSliceToNSArray(dialogue))
 	return rv
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) GetEnhanceDialogueLevelError() (int64, error) {
@@ -334,11 +374,11 @@ func (_AVAudioApplicationClass AVAudioApplicationClass) GetEnhanceDialogueLevelE
 	return level, nil
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) IosDeviceSupportsEnhanceDialogue() bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("iosDeviceSupportsEnhanceDialogue"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("iosDeviceSupportsEnhanceDialogue"))
 	return rv
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) MuteRunningInputs(inputs []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_AVAudioApplicationClass.class), objc.Sel("muteRunningInputs:"), objectivec.IObjectSliceToNSArray(inputs))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVAudioApplicationClass.class), objc.Sel("muteRunningInputs:"), objectivec.IObjectSliceToNSArray(inputs))
 	return objectivec.Object{ID: rv}
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) SetEnhanceDialogueLevelError(level int64) (bool, error) {
@@ -368,20 +408,20 @@ func (_AVAudioApplicationClass AVAudioApplicationClass) SetEnhanceDialoguePrefer
 
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) ToggleInputMute(mute []objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("toggleInputMute:"), objectivec.IObjectSliceToNSArray(mute))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("toggleInputMute:"), objectivec.IObjectSliceToNSArray(mute))
 	return rv
 }
 func (_AVAudioApplicationClass AVAudioApplicationClass) VisionosDeviceSupportsEnhanceDialogue() bool {
-	rv := objc.Send[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("visionosDeviceSupportsEnhanceDialogue"))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVAudioApplicationClass.class), objc.Sel("visionosDeviceSupportsEnhanceDialogue"))
 	return rv
 }
 
 func (a AVAudioApplication) ClientID() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("clientID"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("clientID"))
 	return rv
 }
 func (a AVAudioApplication) InputMuted() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("inputMuted"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("inputMuted"))
 	return rv
 }
 

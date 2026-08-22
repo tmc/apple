@@ -40,7 +40,7 @@ func (gc GTMioKVDataStoreClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTMioKVDataStoreClass) Alloc() GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTMioKVDataStore](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -117,7 +117,7 @@ type IGTMioKVDataStore interface {
 
 	// Topic: Methods
 
-	_blockForName(name objectivec.IObject) unsafe.Pointer
+	_blockForName(name objectivec.IObject) *GTMioKVDataBlock
 	_enumerateBlocks(blocks objectivec.IObject) bool
 	_serializeData(_serialize objectivec.IObject, data []objectivec.IObject) bool
 	_valueForName(name objectivec.IObject) objectivec.IObject
@@ -146,48 +146,48 @@ type IGTMioKVDataStore interface {
 
 // Init initializes the instance.
 func (g GTMioKVDataStore) Init() GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTMioKVDataStore](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTMioKVDataStore) Autorelease() GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTMioKVDataStore](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTMioKVDataStore creates a new GTMioKVDataStore instance.
 func NewGTMioKVDataStore() GTMioKVDataStore {
 	class := getGTMioKVDataStoreClass()
-	rv := objc.Send[GTMioKVDataStore](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTMioKVDataStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTMioKVDataStoreWithBlockCompression(compression bool) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBlockCompression:"), compression)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBlockCompression:"), compression)
 	return GTMioKVDataStoreFromID(rv)
 }
 
 func NewGTMioKVDataStoreWithData(data objectivec.IObject) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return GTMioKVDataStoreFromID(rv)
 }
 
 func NewGTMioKVDataStoreWithURL(url foundation.NSURL) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return GTMioKVDataStoreFromID(rv)
 }
 
-func (g GTMioKVDataStore) _blockForName(name objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("_blockForName:"), name)
-	return rv
+func (g GTMioKVDataStore) _blockForName(name objectivec.IObject) *GTMioKVDataBlock {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("_blockForName:"), name)
+	return (*GTMioKVDataBlock)(rv)
 }
 
 // BlockForName is an exported wrapper for the private method _blockForName.
-func (g GTMioKVDataStore) BlockForName(name objectivec.IObject) (unsafe.Pointer, error) {
+func (g GTMioKVDataStore) BlockForName(name objectivec.IObject) (*GTMioKVDataBlock, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_blockForName:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_blockForName:"}
 		return nil, err
@@ -200,11 +200,11 @@ func (g GTMioKVDataStore) CanBlockForName() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_blockForName:"))
 }
 func (g GTMioKVDataStore) _enumerateBlocks(blocks objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("_enumerateBlocks:"), blocks)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_enumerateBlocks:"), blocks)
 	return rv
 }
 func (g GTMioKVDataStore) _serializeData(_serialize objectivec.IObject, data []objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("_serialize:data:"), _serialize, objectivec.IObjectSliceToNSArray(data))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("_serialize:data:"), _serialize, objectivec.IObjectSliceToNSArray(data))
 	return rv
 }
 
@@ -222,7 +222,7 @@ func (g GTMioKVDataStore) CanSerializeData() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_serialize:data:"))
 }
 func (g GTMioKVDataStore) _valueForName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_valueForName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_valueForName:"), name)
 	return objectivec.Object{ID: rv}
 }
 
@@ -240,85 +240,85 @@ func (g GTMioKVDataStore) CanValueForName() bool {
 	return objc.RespondsToSelector(g.ID, objc.Sel("_valueForName:"))
 }
 func (g GTMioKVDataStore) AddChildForKey(child objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addChild:forKey:"), child, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addChild:forKey:"), child, key)
 	return rv
 }
 func (g GTMioKVDataStore) AddChildArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addChildArray:forKey:"), array, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addChildArray:forKey:"), array, key)
 	return rv
 }
 func (g GTMioKVDataStore) AddDataForKey(data objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addData:forKey:"), data, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addData:forKey:"), data, key)
 	return rv
 }
 func (g GTMioKVDataStore) AddDataArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addDataArray:forKey:"), array, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addDataArray:forKey:"), array, key)
 	return rv
 }
 func (g GTMioKVDataStore) AddMetaForKey(meta objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addMeta:forKey:"), meta, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addMeta:forKey:"), meta, key)
 	return rv
 }
 func (g GTMioKVDataStore) AddStringArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("addStringArray:forKey:"), array, key)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("addStringArray:forKey:"), array, key)
 	return rv
 }
 func (g GTMioKVDataStore) DescriptionWithLevel(level uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("descriptionWithLevel:"), level)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("descriptionWithLevel:"), level)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) EnumerateBlocks(blocks objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBlocks:"), blocks)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("enumerateBlocks:"), blocks)
 }
 func (g GTMioKVDataStore) GetChild(child objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getChild:"), child)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getChild:"), child)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) GetChildArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getChildArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getChildArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) GetData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getData:"), data)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getData:"), data)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) GetDataArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getDataArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getDataArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) GetMeta(meta objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getMeta:"), meta)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getMeta:"), meta)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) GetStringArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getStringArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getStringArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) Serialize() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("serialize"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
 func (g GTMioKVDataStore) SerializeToFile(file objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("serializeToFile:"), file)
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("serializeToFile:"), file)
 	return rv
 }
 func (g GTMioKVDataStore) InitWithBlockCompression(compression bool) GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithBlockCompression:"), compression)
+	rv := objc.SendIfResponds[GTMioKVDataStore](g.ID, objc.Sel("initWithBlockCompression:"), compression)
 	return rv
 }
 func (g GTMioKVDataStore) InitWithData(data objectivec.IObject) GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithData:"), data)
+	rv := objc.SendIfResponds[GTMioKVDataStore](g.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
 func (g GTMioKVDataStore) InitWithURL(url foundation.NSURL) GTMioKVDataStore {
-	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithURL:"), url)
+	rv := objc.SendIfResponds[GTMioKVDataStore](g.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
 
 func (g GTMioKVDataStore) CompressBlocks() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("compressBlocks"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("compressBlocks"))
 	return rv
 }
 func (g GTMioKVDataStore) SetCompressBlocks(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setCompressBlocks:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setCompressBlocks:"), value)
 }

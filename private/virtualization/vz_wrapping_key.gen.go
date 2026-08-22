@@ -41,7 +41,7 @@ func (vc VZWrappingKeyClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZWrappingKeyClass) Alloc() VZWrappingKey {
-	rv := objc.Send[VZWrappingKey](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZWrappingKey](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -81,30 +81,33 @@ type IVZWrappingKey interface {
 
 // Init initializes the instance.
 func (v VZWrappingKey) Init() VZWrappingKey {
-	rv := objc.Send[VZWrappingKey](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZWrappingKey](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZWrappingKey) Autorelease() VZWrappingKey {
-	rv := objc.Send[VZWrappingKey](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZWrappingKey](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZWrappingKey creates a new VZWrappingKey instance.
 func NewVZWrappingKey() VZWrappingKey {
 	class := getVZWrappingKeyClass()
-	rv := objc.Send[VZWrappingKey](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZWrappingKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAESKey:error:"), aESKey, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAESKey:error:"), aESKey, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZWrappingKey{}, objc.ErrInitFailed
 	}
 	return VZWrappingKeyFromID(rv), nil
 }
@@ -112,10 +115,13 @@ func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, 
 func NewVZWrappingKeyWithAsymmetricKeyError(key security.SecKeyRef) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAsymmetricKey:error:"), key, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAsymmetricKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZWrappingKey{}, objc.ErrInitFailed
 	}
 	return VZWrappingKeyFromID(rv), nil
 }
@@ -123,10 +129,13 @@ func NewVZWrappingKeyWithAsymmetricKeyError(key security.SecKeyRef) (VZWrappingK
 func NewVZWrappingKeyWithPasswordError(password objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
 	instance := getVZWrappingKeyClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassword:error:"), password, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPassword:error:"), password, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZWrappingKey{}, objc.ErrInitFailed
 	}
 	return VZWrappingKeyFromID(rv), nil
 }

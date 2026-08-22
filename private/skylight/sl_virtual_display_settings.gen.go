@@ -40,7 +40,7 @@ func (sc SLVirtualDisplaySettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLVirtualDisplaySettingsClass) Alloc() SLVirtualDisplaySettings {
-	rv := objc.Send[SLVirtualDisplaySettings](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLVirtualDisplaySettings](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -89,36 +89,39 @@ type ISLVirtualDisplaySettings interface {
 
 // Init initializes the instance.
 func (s SLVirtualDisplaySettings) Init() SLVirtualDisplaySettings {
-	rv := objc.Send[SLVirtualDisplaySettings](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLVirtualDisplaySettings](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLVirtualDisplaySettings) Autorelease() SLVirtualDisplaySettings {
-	rv := objc.Send[SLVirtualDisplaySettings](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLVirtualDisplaySettings](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLVirtualDisplaySettings creates a new SLVirtualDisplaySettings instance.
 func NewSLVirtualDisplaySettings() SLVirtualDisplaySettings {
 	class := getSLVirtualDisplaySettingsClass()
-	rv := objc.Send[SLVirtualDisplaySettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLVirtualDisplaySettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLVirtualDisplaySettingsWithNativeModePreferredModeOptionalModesRotationsError(mode objectivec.IObject, mode2 objectivec.IObject, modes objectivec.IObject, rotations uint64) (SLVirtualDisplaySettings, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplaySettingsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNativeMode:preferredMode:optionalModes:rotations:error:"), mode, mode2, modes, rotations, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNativeMode:preferredMode:optionalModes:rotations:error:"), mode, mode2, modes, rotations, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SLVirtualDisplaySettings{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SLVirtualDisplaySettings{}, objc.ErrInitFailed
 	}
 	return SLVirtualDisplaySettingsFromID(rv), nil
 }
 
 func (s SLVirtualDisplaySettings) DictionaryRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLVirtualDisplaySettings) InitWithNativeModePreferredModeOptionalModesRotationsError(mode objectivec.IObject, mode2 objectivec.IObject, modes objectivec.IObject, rotations uint64) (SLVirtualDisplaySettings, error) {
@@ -133,27 +136,27 @@ func (s SLVirtualDisplaySettings) InitWithNativeModePreferredModeOptionalModesRo
 }
 
 func (_SLVirtualDisplaySettingsClass SLVirtualDisplaySettingsClass) SettingsWithBackendSettings(settings objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithBackendSettings:"), settings)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithBackendSettings:"), settings)
 	return objectivec.Object{ID: rv}
 }
 func (_SLVirtualDisplaySettingsClass SLVirtualDisplaySettingsClass) SettingsWithDictionaryRepresentation(representation objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithDictionaryRepresentation:"), representation)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplaySettingsClass.class), objc.Sel("settingsWithDictionaryRepresentation:"), representation)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLVirtualDisplaySettings) NativeMode() ISLVirtualDisplayMode {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("nativeMode"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("nativeMode"))
 	return SLVirtualDisplayModeFromID(objc.ID(rv))
 }
 func (s SLVirtualDisplaySettings) OptionalModes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionalModes"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("optionalModes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLVirtualDisplaySettings) PreferredMode() ISLVirtualDisplayMode {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("preferredMode"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("preferredMode"))
 	return SLVirtualDisplayModeFromID(objc.ID(rv))
 }
 func (s SLVirtualDisplaySettings) Rotations() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("rotations"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("rotations"))
 	return rv
 }

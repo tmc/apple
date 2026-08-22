@@ -10,6 +10,18 @@ import (
 // NSTabViewDelegate protocol.
 type NSTabViewDelegate interface {
 	objectivec.IObject
+
+	// TabViewDidSelectTabViewItem protocol.
+	TabViewDidSelectTabViewItem(view objectivec.IObject, item objectivec.IObject)
+
+	// TabViewShouldSelectTabViewItem protocol.
+	TabViewShouldSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) bool
+
+	// TabViewWillSelectTabViewItem protocol.
+	TabViewWillSelectTabViewItem(view objectivec.IObject, item objectivec.IObject)
+
+	// TabViewDidChangeNumberOfTabViewItems protocol.
+	TabViewDidChangeNumberOfTabViewItems(items objectivec.IObject)
 }
 
 // NSTabViewDelegateObject wraps an existing Objective-C object that conforms to the NSTabViewDelegate protocol.
@@ -30,15 +42,15 @@ func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
 }
 
 func (o NSTabViewDelegateObject) TabViewDidSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), view, item)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), view, item)
 }
 func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), view, item)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), view, item)
 	return rv
 }
 func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(view objectivec.IObject, item objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("tabView:willSelectTabViewItem:"), view, item)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("tabView:willSelectTabViewItem:"), view, item)
 }
 func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(items objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), items)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), items)
 }

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -39,7 +40,7 @@ func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Alloc() TextToSpeechTTSMagicFirstPartyAudioUnit {
-	rv := objc.Send[TextToSpeechTTSMagicFirstPartyAudioUnit](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSMagicFirstPartyAudioUnit](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -68,40 +69,43 @@ type ITextToSpeechTTSMagicFirstPartyAudioUnit interface {
 
 	// Topic: Methods
 
-	InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
+	InitWithComponentDescriptionOptionsError(description audiotoolbox.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
 }
 
 // Init initializes the instance.
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) Init() TextToSpeechTTSMagicFirstPartyAudioUnit {
-	rv := objc.Send[TextToSpeechTTSMagicFirstPartyAudioUnit](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSMagicFirstPartyAudioUnit](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) Autorelease() TextToSpeechTTSMagicFirstPartyAudioUnit {
-	rv := objc.Send[TextToSpeechTTSMagicFirstPartyAudioUnit](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSMagicFirstPartyAudioUnit](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSMagicFirstPartyAudioUnit creates a new TextToSpeechTTSMagicFirstPartyAudioUnit instance.
 func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstPartyAudioUnit {
 	class := getTextToSpeechTTSMagicFirstPartyAudioUnitClass()
-	rv := objc.Send[TextToSpeechTTSMagicFirstPartyAudioUnit](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSMagicFirstPartyAudioUnit](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description audiotoolbox.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	instance := getTextToSpeechTTSMagicFirstPartyAudioUnitClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return TextToSpeechTTSMagicFirstPartyAudioUnit{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return TextToSpeechTTSMagicFirstPartyAudioUnit{}, objc.ErrInitFailed
+	}
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 }
 
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description audiotoolbox.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

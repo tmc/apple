@@ -38,7 +38,7 @@ func (tc TextToSpeechPTParserClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechPTParserClass) Alloc() TextToSpeechPTParser {
-	rv := objc.Send[TextToSpeechPTParser](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechPTParser](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func TextToSpeechPTParserFromID(id objc.ID) TextToSpeechPTParser {
 	return TextToSpeechPTParser{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechPTParser struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechPTParser embeds the parent interface; skip compile-time assertion.
+// Ensure TextToSpeechPTParser implements ITextToSpeechPTParser.
+var _ ITextToSpeechPTParser = TextToSpeechPTParser{}
 
 // An interface definition for the [TextToSpeechPTParser] class.
 type ITextToSpeechPTParser interface {
@@ -61,19 +61,19 @@ type ITextToSpeechPTParser interface {
 
 // Init initializes the instance.
 func (t TextToSpeechPTParser) Init() TextToSpeechPTParser {
-	rv := objc.Send[TextToSpeechPTParser](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechPTParser](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechPTParser) Autorelease() TextToSpeechPTParser {
-	rv := objc.Send[TextToSpeechPTParser](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechPTParser](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechPTParser creates a new TextToSpeechPTParser instance.
 func NewTextToSpeechPTParser() TextToSpeechPTParser {
 	class := getTextToSpeechPTParserClass()
-	rv := objc.Send[TextToSpeechPTParser](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechPTParser](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

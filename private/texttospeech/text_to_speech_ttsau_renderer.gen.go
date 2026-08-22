@@ -40,7 +40,7 @@ func (tc TextToSpeechTTSAURendererClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSAURendererClass) Alloc() TextToSpeechTTSAURenderer {
-	rv := objc.Send[TextToSpeechTTSAURenderer](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TextToSpeechTTSAURenderer](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -53,8 +53,9 @@ func TextToSpeechTTSAURendererFromID(id objc.ID) TextToSpeechTTSAURenderer {
 	return TextToSpeechTTSAURenderer{objectivec.Object{ID: id}}
 }
 
-// NOTE: TextToSpeechTTSAURenderer struct embeds objectivec.Object (parent type unavailable) but
-// ITextToSpeechTTSAURenderer embeds the parent interface; skip compile-time assertion.
+// NOTE: TextToSpeechTTSAURenderer embeds objectivec.Object because the parent type is
+// unavailable, but ITextToSpeechTTSAURenderer embeds ISwiftNativeNSObject, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSAURenderer] class.
 type ITextToSpeechTTSAURenderer interface {
@@ -63,26 +64,26 @@ type ITextToSpeechTTSAURenderer interface {
 
 // Init initializes the instance.
 func (t TextToSpeechTTSAURenderer) Init() TextToSpeechTTSAURenderer {
-	rv := objc.Send[TextToSpeechTTSAURenderer](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TextToSpeechTTSAURenderer](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TextToSpeechTTSAURenderer) Autorelease() TextToSpeechTTSAURenderer {
-	rv := objc.Send[TextToSpeechTTSAURenderer](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TextToSpeechTTSAURenderer](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTextToSpeechTTSAURenderer creates a new TextToSpeechTTSAURenderer instance.
 func NewTextToSpeechTTSAURenderer() TextToSpeechTTSAURenderer {
 	class := getTextToSpeechTTSAURendererClass()
-	rv := objc.Send[TextToSpeechTTSAURenderer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TextToSpeechTTSAURenderer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TextToSpeechTTSAURendererClass TextToSpeechTTSAURendererClass) FormatForVoiceCompletionHandler(voice avfaudio.AVSpeechSynthesisProviderVoice, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_TextToSpeechTTSAURendererClass.class), objc.Sel("formatForVoice:completionHandler:"), voice, _block1)
+	objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechTTSAURendererClass.class), objc.Sel("formatForVoice:completionHandler:"), voice, _block1)
 }
 
 // FormatForVoice is a synchronous wrapper around [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler].

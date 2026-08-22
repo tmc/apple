@@ -39,7 +39,7 @@ func (ac ANEAnalyticsGroupClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEAnalyticsGroupClass) Alloc() ANEAnalyticsGroup {
-	rv := objc.Send[ANEAnalyticsGroup](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEAnalyticsGroup](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -85,52 +85,52 @@ type IANEAnalyticsGroup interface {
 
 // Init initializes the instance.
 func (a ANEAnalyticsGroup) Init() ANEAnalyticsGroup {
-	rv := objc.Send[ANEAnalyticsGroup](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEAnalyticsGroup](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEAnalyticsGroup) Autorelease() ANEAnalyticsGroup {
-	rv := objc.Send[ANEAnalyticsGroup](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEAnalyticsGroup](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEAnalyticsGroup creates a new ANEAnalyticsGroup instance.
 func NewANEAnalyticsGroup() ANEAnalyticsGroup {
 	class := getANEAnalyticsGroupClass()
-	rv := objc.Send[ANEAnalyticsGroup](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEAnalyticsGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEAnalyticsGroupWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
 	instance := getANEAnalyticsGroupClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
 	return ANEAnalyticsGroupFromID(rv)
 }
 
 func (a ANEAnalyticsGroup) Serialize() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
 func (a ANEAnalyticsGroup) InitWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
-	rv := objc.Send[ANEAnalyticsGroup](a.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
+	rv := objc.SendIfResponds[ANEAnalyticsGroup](a.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
 	return rv
 }
 
 func (_ANEAnalyticsGroupClass ANEAnalyticsGroupClass) ObjectWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsGroupClass.class), objc.Sel("objectWithID:layers:tasks:"), id, layers, tasks)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEAnalyticsGroupClass.class), objc.Sel("objectWithID:layers:tasks:"), id, layers, tasks)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEAnalyticsGroup) GroupID() foundation.NSNumber {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupID"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerInfo"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("layerInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEAnalyticsGroup) TaskInfo() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskInfo"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("taskInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

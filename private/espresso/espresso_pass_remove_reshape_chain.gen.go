@@ -37,7 +37,7 @@ func (ec EspressoPassRemoveReshapeChainClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRemoveReshapeChainClass) Alloc() EspressoPassRemoveReshapeChain {
-	rv := objc.Send[EspressoPassRemoveReshapeChain](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeChain](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRemoveReshapeChain interface {
 
 // Init initializes the instance.
 func (e EspressoPassRemoveReshapeChain) Init() EspressoPassRemoveReshapeChain {
-	rv := objc.Send[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRemoveReshapeChain) Autorelease() EspressoPassRemoveReshapeChain {
-	rv := objc.Send[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRemoveReshapeChain creates a new EspressoPassRemoveReshapeChain instance.
 func NewEspressoPassRemoveReshapeChain() EspressoPassRemoveReshapeChain {
 	class := getEspressoPassRemoveReshapeChainClass()
-	rv := objc.Send[EspressoPassRemoveReshapeChain](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRemoveReshapeChain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

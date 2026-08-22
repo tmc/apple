@@ -40,7 +40,7 @@ func (mc MLAppleImageFeatureExtractorObjectPrintParametersClass) Class() objc.Cl
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleImageFeatureExtractorObjectPrintParametersClass) Alloc() MLAppleImageFeatureExtractorObjectPrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorObjectPrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorObjectPrintParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,30 +83,33 @@ type IMLAppleImageFeatureExtractorObjectPrintParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) Init() MLAppleImageFeatureExtractorObjectPrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorObjectPrintParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorObjectPrintParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) Autorelease() MLAppleImageFeatureExtractorObjectPrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorObjectPrintParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorObjectPrintParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleImageFeatureExtractorObjectPrintParameters creates a new MLAppleImageFeatureExtractorObjectPrintParameters instance.
 func NewMLAppleImageFeatureExtractorObjectPrintParameters() MLAppleImageFeatureExtractorObjectPrintParameters {
 	class := getMLAppleImageFeatureExtractorObjectPrintParametersClass()
-	rv := objc.Send[MLAppleImageFeatureExtractorObjectPrintParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleImageFeatureExtractorObjectPrintParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleImageFeatureExtractorObjectPrintParametersObjectPrintParametersExpectedShapesExpectedKeysError(parameters uint64, shapes objectivec.IObject, keys objectivec.IObject) (MLAppleImageFeatureExtractorObjectPrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorObjectPrintParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initObjectPrintParameters:expectedShapes:expectedKeys:error:"), parameters, shapes, keys, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initObjectPrintParameters:expectedShapes:expectedKeys:error:"), parameters, shapes, keys, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractorObjectPrintParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleImageFeatureExtractorObjectPrintParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleImageFeatureExtractorObjectPrintParametersFromID(rv), nil
 }
@@ -123,14 +126,14 @@ func (m MLAppleImageFeatureExtractorObjectPrintParameters) InitObjectPrintParame
 }
 
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ExpectedKeys() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("expectedKeys"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("expectedKeys"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ExpectedShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("expectedShapes"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("expectedShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAppleImageFeatureExtractorObjectPrintParameters) ObjectPrintVersion() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("objectPrintVersion"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("objectPrintVersion"))
 	return rv
 }

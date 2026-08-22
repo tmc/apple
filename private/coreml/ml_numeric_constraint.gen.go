@@ -39,7 +39,7 @@ func (mc MLNumericConstraintClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNumericConstraintClass) Alloc() MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNumericConstraint](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,54 +88,54 @@ type IMLNumericConstraint interface {
 
 // Init initializes the instance.
 func (m MLNumericConstraint) Init() MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNumericConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNumericConstraint) Autorelease() MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNumericConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNumericConstraint creates a new MLNumericConstraint instance.
 func NewMLNumericConstraint() MLNumericConstraint {
 	class := getMLNumericConstraintClass()
-	rv := objc.Send[MLNumericConstraint](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNumericConstraint](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLNumericConstraintClass MLNumericConstraintClass) NumericConstraintWithEnumeratedNumbers(numbers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithEnumeratedNumbers:"), numbers)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithEnumeratedNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
 func (_MLNumericConstraintClass MLNumericConstraintClass) NumericConstraintWithMinNumberMaxNumber(number objectivec.IObject, number2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithMinNumber:maxNumber:"), number, number2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithMinNumber:maxNumber:"), number, number2)
 	return objectivec.Object{ID: rv}
 }
 func (_MLNumericConstraintClass MLNumericConstraintClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLNumericConstraintClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLNumericConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("enumeratedNumbers"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (m MLNumericConstraint) SetEnumeratedNumbers(value foundation.INSSet) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEnumeratedNumbers:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEnumeratedNumbers:"), value)
 }
 func (m MLNumericConstraint) MaxNumber() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("maxNumber"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("maxNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLNumericConstraint) SetMaxNumber(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMaxNumber:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMaxNumber:"), value)
 }
 func (m MLNumericConstraint) MinNumber() foundation.NSNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("minNumber"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("minNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (m MLNumericConstraint) SetMinNumber(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMinNumber:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMinNumber:"), value)
 }

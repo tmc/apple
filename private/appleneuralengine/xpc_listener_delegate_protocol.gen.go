@@ -10,6 +10,9 @@ import (
 // NSXPCListenerDelegate protocol.
 type NSXPCListenerDelegate interface {
 	objectivec.IObject
+
+	// ListenerShouldAcceptNewConnection protocol.
+	ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool
 }
 
 // NSXPCListenerDelegateObject wraps an existing Objective-C object that conforms to the NSXPCListenerDelegate protocol.
@@ -30,6 +33,6 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 }
 
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
+	rv := objc.SendIfResponds[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
 	return rv
 }

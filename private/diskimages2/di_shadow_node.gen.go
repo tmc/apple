@@ -39,7 +39,7 @@ func (dc DIShadowNodeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIShadowNodeClass) Alloc() DIShadowNode {
-	rv := objc.Send[DIShadowNode](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIShadowNode](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,74 +100,74 @@ type IDIShadowNode interface {
 
 // Init initializes the instance.
 func (d DIShadowNode) Init() DIShadowNode {
-	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIShadowNode](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIShadowNode) Autorelease() DIShadowNode {
-	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIShadowNode](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIShadowNode creates a new DIShadowNode instance.
 func NewDIShadowNode() DIShadowNode {
 	class := getDIShadowNodeClass()
-	rv := objc.Send[DIShadowNode](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIShadowNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDIShadowNodeWithCoder(coder objectivec.IObject) DIShadowNode {
 	instance := getDIShadowNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DIShadowNodeFromID(rv)
 }
 
 func NewDIShadowNodeWithURLIsCache(url foundation.NSURL, cache bool) DIShadowNode {
 	instance := getDIShadowNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:isCache:"), url, cache)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:isCache:"), url, cache)
 	return DIShadowNodeFromID(rv)
 }
 
 func (d DIShadowNode) CreateBackendWithFlags(flags int) {
-	objc.Send[objc.ID](d.ID, objc.Sel("createBackendWithFlags:"), flags)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createBackendWithFlags:"), flags)
 }
 func (d DIShadowNode) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (d DIShadowNode) InitWithCoder(coder foundation.INSCoder) DIShadowNode {
-	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[DIShadowNode](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (d DIShadowNode) InitWithURLIsCache(url foundation.NSURL, cache bool) DIShadowNode {
-	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("initWithURL:isCache:"), url, cache)
+	rv := objc.SendIfResponds[DIShadowNode](d.ID, objc.Sel("initWithURL:isCache:"), url, cache)
 	return rv
 }
 
 func (_DIShadowNodeClass DIShadowNodeClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIShadowNodeClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_DIShadowNodeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (d DIShadowNode) URL() IDIURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }
 func (d DIShadowNode) FileBackend() IFileLocalXPC {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileBackend"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("fileBackend"))
 	return FileLocalXPCFromID(objc.ID(rv))
 }
 func (d DIShadowNode) SetFileBackend(value IFileLocalXPC) {
-	objc.Send[struct{}](d.ID, objc.Sel("setFileBackend:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setFileBackend:"), value)
 }
 func (d DIShadowNode) IsCache() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("isCache"))
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isCache"))
 	return rv
 }
 func (d DIShadowNode) NumBlocks() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("numBlocks"))
 	return rv
 }
 func (d DIShadowNode) SetNumBlocks(value uint64) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }

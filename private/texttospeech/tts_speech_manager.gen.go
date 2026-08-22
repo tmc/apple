@@ -41,7 +41,7 @@ func (tc TTSSpeechManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechManagerClass) Alloc() TTSSpeechManager {
-	rv := objc.Send[TTSSpeechManager](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSSpeechManager](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -274,7 +274,7 @@ type ITTSSpeechManager interface {
 	_didBeginInterruption()
 	_didEndInterruption()
 	_dispatchSpeechAction(action objectivec.IObject)
-	_enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) bool
+	_enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool
 	_handleAudioInterruption(interruption objectivec.IObject)
 	_handleMediaServicesWereLost(lost objectivec.IObject)
 	_handleMediaServicesWereReset(reset objectivec.IObject)
@@ -372,25 +372,25 @@ type ITTSSpeechManager interface {
 
 // Init initializes the instance.
 func (t TTSSpeechManager) Init() TTSSpeechManager {
-	rv := objc.Send[TTSSpeechManager](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSSpeechManager](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSSpeechManager) Autorelease() TTSSpeechManager {
-	rv := objc.Send[TTSSpeechManager](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSSpeechManager](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSSpeechManager creates a new TTSSpeechManager instance.
 func NewTTSSpeechManager() TTSSpeechManager {
 	class := getTTSSpeechManagerClass()
-	rv := objc.Send[TTSSpeechManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSSpeechManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSSpeechManager) __speechJobFinished(finished objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("__speechJobFinished:"), finished)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("__speechJobFinished:"), finished)
 }
 
 // SpeechJobFinished is an exported wrapper for the private method __speechJobFinished.
@@ -408,13 +408,13 @@ func (t TTSSpeechManager) CanSpeechJobFinished() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("__speechJobFinished:"))
 }
 func (t TTSSpeechManager) _clearSpeechQueue() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_clearSpeechQueue"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_clearSpeechQueue"))
 }
 func (t TTSSpeechManager) _continueSpeaking() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_continueSpeaking"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_continueSpeaking"))
 }
 func (t TTSSpeechManager) _didBeginInterruption() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_didBeginInterruption"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_didBeginInterruption"))
 }
 
 // DidBeginInterruption is an exported wrapper for the private method _didBeginInterruption.
@@ -432,7 +432,7 @@ func (t TTSSpeechManager) CanDidBeginInterruption() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_didBeginInterruption"))
 }
 func (t TTSSpeechManager) _didEndInterruption() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_didEndInterruption"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_didEndInterruption"))
 }
 
 // DidEndInterruption is an exported wrapper for the private method _didEndInterruption.
@@ -450,15 +450,15 @@ func (t TTSSpeechManager) CanDidEndInterruption() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_didEndInterruption"))
 }
 func (t TTSSpeechManager) _dispatchSpeechAction(action objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_dispatchSpeechAction:"), action)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_dispatchSpeechAction:"), action)
 }
-func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"), thread, object, done)
+func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool {
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"), thread, object, done)
 	return rv
 }
 
 // EnqueueSelectorOnSpeechThreadObjectWaitUntilDone is an exported wrapper for the private method _enqueueSelectorOnSpeechThreadObjectWaitUntilDone.
-func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objectivec.SEL, object objectivec.IObject, done bool) (bool, error) {
+func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) (bool, error) {
 	if !objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_enqueueSelectorOnSpeechThread:object:waitUntilDone:"}
 		return false, err
@@ -471,16 +471,16 @@ func (t TTSSpeechManager) CanEnqueueSelectorOnSpeechThreadObjectWaitUntilDone() 
 	return objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"))
 }
 func (t TTSSpeechManager) _handleAudioInterruption(interruption objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_handleAudioInterruption:"), interruption)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_handleAudioInterruption:"), interruption)
 }
 func (t TTSSpeechManager) _handleMediaServicesWereLost(lost objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereLost:"), lost)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereLost:"), lost)
 }
 func (t TTSSpeechManager) _handleMediaServicesWereReset(reset objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereReset:"), reset)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereReset:"), reset)
 }
 func (t TTSSpeechManager) _initialize() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_initialize"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_initialize"))
 }
 
 // Initialize is an exported wrapper for the private method _initialize.
@@ -498,13 +498,13 @@ func (t TTSSpeechManager) CanInitialize() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_initialize"))
 }
 func (t TTSSpeechManager) _isSpeaking(speaking objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_isSpeaking:"), speaking)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_isSpeaking:"), speaking)
 }
 func (t TTSSpeechManager) _pauseSpeaking(speaking objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_pauseSpeaking:"), speaking)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_pauseSpeaking:"), speaking)
 }
 func (t TTSSpeechManager) _phonemeSubstitutionsForAction(action objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_phonemeSubstitutionsForAction:"), action)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_phonemeSubstitutionsForAction:"), action)
 	return objectivec.Object{ID: rv}
 }
 
@@ -522,7 +522,7 @@ func (t TTSSpeechManager) CanPhonemeSubstitutionsForAction() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_phonemeSubstitutionsForAction:"))
 }
 func (t TTSSpeechManager) _processAudioBufferCallback(callback objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processAudioBufferCallback:"), callback)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processAudioBufferCallback:"), callback)
 }
 
 // ProcessAudioBufferCallback is an exported wrapper for the private method _processAudioBufferCallback.
@@ -540,7 +540,7 @@ func (t TTSSpeechManager) CanProcessAudioBufferCallback() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processAudioBufferCallback:"))
 }
 func (t TTSSpeechManager) _processDidContinueCallback(callback objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processDidContinueCallback:"), callback)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processDidContinueCallback:"), callback)
 }
 
 // ProcessDidContinueCallback is an exported wrapper for the private method _processDidContinueCallback.
@@ -558,7 +558,7 @@ func (t TTSSpeechManager) CanProcessDidContinueCallback() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidContinueCallback:"))
 }
 func (t TTSSpeechManager) _processDidEncounterMarker(marker objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processDidEncounterMarker:"), marker)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processDidEncounterMarker:"), marker)
 }
 
 // ProcessDidEncounterMarker is an exported wrapper for the private method _processDidEncounterMarker.
@@ -576,7 +576,7 @@ func (t TTSSpeechManager) CanProcessDidEncounterMarker() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidEncounterMarker:"))
 }
 func (t TTSSpeechManager) _processDidPauseCallback(callback objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processDidPauseCallback:"), callback)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processDidPauseCallback:"), callback)
 }
 
 // ProcessDidPauseCallback is an exported wrapper for the private method _processDidPauseCallback.
@@ -594,7 +594,7 @@ func (t TTSSpeechManager) CanProcessDidPauseCallback() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidPauseCallback:"))
 }
 func (t TTSSpeechManager) _processDidStartCallback(callback objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processDidStartCallback:"), callback)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processDidStartCallback:"), callback)
 }
 
 // ProcessDidStartCallback is an exported wrapper for the private method _processDidStartCallback.
@@ -612,7 +612,7 @@ func (t TTSSpeechManager) CanProcessDidStartCallback() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidStartCallback:"))
 }
 func (t TTSSpeechManager) _processWillSpeechRange(range_ objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_processWillSpeechRange:"), range_)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processWillSpeechRange:"), range_)
 }
 
 // ProcessWillSpeechRange is an exported wrapper for the private method _processWillSpeechRange.
@@ -630,7 +630,7 @@ func (t TTSSpeechManager) CanProcessWillSpeechRange() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processWillSpeechRange:"))
 }
 func (t TTSSpeechManager) _resetInterruptionTracking() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_resetInterruptionTracking"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_resetInterruptionTracking"))
 }
 
 // ResetInterruptionTracking is an exported wrapper for the private method _resetInterruptionTracking.
@@ -648,7 +648,7 @@ func (t TTSSpeechManager) CanResetInterruptionTracking() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_resetInterruptionTracking"))
 }
 func (t TTSSpeechManager) _setVoiceForActionSnippet(action objectivec.IObject, snippet objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_setVoiceForAction:snippet:"), action, snippet)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_setVoiceForAction:snippet:"), action, snippet)
 }
 
 // SetVoiceForActionSnippet is an exported wrapper for the private method _setVoiceForActionSnippet.
@@ -666,7 +666,7 @@ func (t TTSSpeechManager) CanSetVoiceForActionSnippet() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_setVoiceForAction:snippet:"))
 }
 func (t TTSSpeechManager) _speechJobFinishedAction(finished bool, action objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_speechJobFinished:action:"), finished, action)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_speechJobFinished:action:"), finished, action)
 }
 
 // SpeechJobFinishedAction is an exported wrapper for the private method _speechJobFinishedAction.
@@ -684,7 +684,7 @@ func (t TTSSpeechManager) CanSpeechJobFinishedAction() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_speechJobFinished:action:"))
 }
 func (t TTSSpeechManager) _startNextSpeechJob() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_startNextSpeechJob"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_startNextSpeechJob"))
 }
 
 // StartNextSpeechJob is an exported wrapper for the private method _startNextSpeechJob.
@@ -702,13 +702,13 @@ func (t TTSSpeechManager) CanStartNextSpeechJob() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_startNextSpeechJob"))
 }
 func (t TTSSpeechManager) _stopSpeaking(speaking objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_stopSpeaking:"), speaking)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_stopSpeaking:"), speaking)
 }
 func (t TTSSpeechManager) _tearDown() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_tearDown"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_tearDown"))
 }
 func (t TTSSpeechManager) _updateAudioSessionProperties() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_updateAudioSessionProperties"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_updateAudioSessionProperties"))
 }
 
 // UpdateAudioSessionProperties is an exported wrapper for the private method _updateAudioSessionProperties.
@@ -726,7 +726,7 @@ func (t TTSSpeechManager) CanUpdateAudioSessionProperties() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_updateAudioSessionProperties"))
 }
 func (t TTSSpeechManager) _updateAuxiliarySession() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_updateAuxiliarySession"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_updateAuxiliarySession"))
 }
 
 // UpdateAuxiliarySession is an exported wrapper for the private method _updateAuxiliarySession.
@@ -744,7 +744,7 @@ func (t TTSSpeechManager) CanUpdateAuxiliarySession() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_updateAuxiliarySession"))
 }
 func (t TTSSpeechManager) _updateUserSubstitutions() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_updateUserSubstitutions"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_updateUserSubstitutions"))
 }
 
 // UpdateUserSubstitutions is an exported wrapper for the private method _updateUserSubstitutions.
@@ -762,68 +762,68 @@ func (t TTSSpeechManager) CanUpdateUserSubstitutions() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_updateUserSubstitutions"))
 }
 func (t TTSSpeechManager) ClearSpeechQueue() {
-	objc.Send[objc.ID](t.ID, objc.Sel("clearSpeechQueue"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("clearSpeechQueue"))
 }
 func (t TTSSpeechManager) ContinueSpeaking() {
-	objc.Send[objc.ID](t.ID, objc.Sel("continueSpeaking"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("continueSpeaking"))
 }
 func (t TTSSpeechManager) DispatchSpeechAction(action objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("dispatchSpeechAction:"), action)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("dispatchSpeechAction:"), action)
 }
 func (t TTSSpeechManager) ExternalVoiceIdentifierUsedForLanguage(language objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("externalVoiceIdentifierUsedForLanguage:"), language)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("externalVoiceIdentifierUsedForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSSpeechManager) HandleAudioInterruption(interruption objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("handleAudioInterruption:"), interruption)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioInterruption:"), interruption)
 }
 func (t TTSSpeechManager) HandleAudioSessionObservers(observers bool) {
-	objc.Send[objc.ID](t.ID, objc.Sel("handleAudioSessionObservers:"), observers)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioSessionObservers:"), observers)
 }
 func (t TTSSpeechManager) HandleMediaServicesWereLost(lost objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesWereLost:"), lost)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleMediaServicesWereLost:"), lost)
 }
 func (t TTSSpeechManager) HandleMediaServicesWereReset(reset objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesWereReset:"), reset)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleMediaServicesWereReset:"), reset)
 }
 func (t TTSSpeechManager) PauseSpeaking(speaking int64) {
-	objc.Send[objc.ID](t.ID, objc.Sel("pauseSpeaking:"), speaking)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("pauseSpeaking:"), speaking)
 }
 func (t TTSSpeechManager) SetRequestWillStart(start VoidHandler) {
 	_block0, _ := NewVoidBlock(start)
-	objc.Send[objc.ID](t.ID, objc.Sel("setRequestWillStart:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setRequestWillStart:"), _block0)
 }
 func (t TTSSpeechManager) SpeechSynthesizerDidContinueSpeakingRequest(synthesizer objectivec.IObject, request objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didContinueSpeakingRequest:"), synthesizer, request)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSynthesizer:didContinueSpeakingRequest:"), synthesizer, request)
 }
 func (t TTSSpeechManager) SpeechSynthesizerDidEncounterMarkerForRequest(synthesizer objectivec.IObject, marker objectivec.IObject, request objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didEncounterMarker:forRequest:"), synthesizer, marker, request)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSynthesizer:didEncounterMarker:forRequest:"), synthesizer, marker, request)
 }
 func (t TTSSpeechManager) SpeechSynthesizerDidFinishSpeakingRequestSuccessfullyWithError(synthesizer objectivec.IObject, request objectivec.IObject, successfully bool, error_ objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didFinishSpeakingRequest:successfully:withError:"), synthesizer, request, successfully, error_)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSynthesizer:didFinishSpeakingRequest:successfully:withError:"), synthesizer, request, successfully, error_)
 }
 func (t TTSSpeechManager) SpeechSynthesizerDidPauseSpeakingRequest(synthesizer objectivec.IObject, request objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didPauseSpeakingRequest:"), synthesizer, request)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSynthesizer:didPauseSpeakingRequest:"), synthesizer, request)
 }
 func (t TTSSpeechManager) SpeechSynthesizerDidStartSpeakingRequest(synthesizer objectivec.IObject, request objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didStartSpeakingRequest:"), synthesizer, request)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSynthesizer:didStartSpeakingRequest:"), synthesizer, request)
 }
 func (t TTSSpeechManager) StopSpeaking() {
-	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeaking"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stopSpeaking"))
 }
 func (t TTSSpeechManager) StopSpeakingWithSpeaking(speaking int64) {
-	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeaking:"), speaking)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("stopSpeaking:"), speaking)
 }
 func (t TTSSpeechManager) TearDown() {
-	objc.Send[objc.ID](t.ID, objc.Sel("tearDown"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("tearDown"))
 }
 func (t TTSSpeechManager) VoiceIdentifierUsedForLanguage(language objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIdentifierUsedForLanguage:"), language)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceIdentifierUsedForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
 
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) _isCharacterNativelySpeakableLanguageCode(speakable uint16, code objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_isCharacterNativelySpeakable:languageCode:"), speakable, code)
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_isCharacterNativelySpeakable:languageCode:"), speakable, code)
 	return rv
 }
 
@@ -841,7 +841,7 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanIsCharacterNativelySpeaka
 	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_isCharacterNativelySpeakable:languageCode:"))
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) _resetAvailableVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -859,7 +859,7 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanResetAvailableVoices() bo
 	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices"))
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) _resetAvailableVoicesWithVoices(voices bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices:"), voices)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
 
@@ -877,264 +877,264 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanResetAvailableVoicesWithV
 	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices:"))
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AudioFileSettingsForVoice(voice objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("audioFileSettingsForVoice:"), voice)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("audioFileSettingsForVoice:"), voice)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvSpeechVoicesForTTSAXResources(tTSAXResources objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("avSpeechVoicesForTTSAXResources:"), tTSAXResources)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("avSpeechVoicesForTTSAXResources:"), tTSAXResources)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvailableLanguageCodes() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableLanguageCodes"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableLanguageCodes"))
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvailableSuperCompactVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableSuperCompactVoices"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableSuperCompactVoices"))
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvailableVoices() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableVoices"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableVoices"))
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvailableVoicesWithVoices(voices bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableVoices:"), voices)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("availableVoices:"), voices)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) CreateRegularExpressionFromString(string_ objectivec.IObject) URegularExpressionRef {
-	rv := objc.Send[URegularExpressionRef](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("createRegularExpressionFromString:"), string_)
+	rv := objc.SendIfResponds[URegularExpressionRef](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("createRegularExpressionFromString:"), string_)
 	return URegularExpressionRef(rv)
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) CurrentLanguageCode() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("currentLanguageCode"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("currentLanguageCode"))
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) CurrentProcessAllowedToSaveVoiceInfo() bool {
-	rv := objc.Send[bool](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("currentProcessAllowedToSaveVoiceInfo"))
+	rv := objc.SendIfResponds[bool](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("currentProcessAllowedToSaveVoiceInfo"))
 	return rv
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) LanguageCodeForVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("languageCodeForVoiceIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("languageCodeForVoiceIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) LiteralStringMarkupStringSpeakCap(markup objectivec.IObject, string_ objectivec.IObject, cap_ bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("literalStringMarkup:string:speakCap:"), markup, string_, cap_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("literalStringMarkup:string:speakCap:"), markup, string_, cap_)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) MatchedRangesForStringWithRegularExpression(string_ objectivec.IObject, expression URegularExpressionRef) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("matchedRangesForString:withRegularExpression:"), string_, expression)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("matchedRangesForString:withRegularExpression:"), string_, expression)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) PauseMarkupString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("pauseMarkupString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("pauseMarkupString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) RemapLanguageCode(code objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("remapLanguageCode:"), code)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("remapLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) SpellOutLetterCaseMarkupStringString(string_ objectivec.IObject, string_2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("spellOutLetterCaseMarkupString:string:"), string_, string_2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("spellOutLetterCaseMarkupString:string:"), string_, string_2)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) SpellOutMarkupStringString(string_ objectivec.IObject, string_2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("spellOutMarkupString:string:"), string_, string_2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("spellOutMarkupString:string:"), string_, string_2)
 	return objectivec.Object{ID: rv}
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) Test_actionStartTap(tap VoidHandler) {
 	_block0, _ := NewVoidBlock(tap)
-	objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_actionStartTap:"), _block0)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_actionStartTap:"), _block0)
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) Test_setAvailableVoices(voices objectivec.IObject) {
-	objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_setAvailableVoices:"), voices)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_setAvailableVoices:"), voices)
 }
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) Test_setUnitTestMode(mode bool) {
-	objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_setUnitTestMode:"), mode)
+	objc.SendIfResponds[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_setUnitTestMode:"), mode)
 }
 
 func (t TTSSpeechManager) AudioDeactivatorTimer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("audioDeactivatorTimer"))
+	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("audioDeactivatorTimer"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioDeactivatorTimer(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioDeactivatorTimer:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioDeactivatorTimer:"), value)
 }
 func (t TTSSpeechManager) AudioDeviceId() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioDeviceId"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioDeviceId"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioDeviceId(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioDeviceId:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioDeviceId:"), value)
 }
 func (t TTSSpeechManager) AudioInterruptionStartedTime() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("audioInterruptionStartedTime"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("audioInterruptionStartedTime"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioInterruptionStartedTime(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioInterruptionStartedTime:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioInterruptionStartedTime:"), value)
 }
 func (t TTSSpeechManager) AudioOperationQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioOperationQueue"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioOperationQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (t TTSSpeechManager) SetAudioOperationQueue(value objectivec.Object) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioOperationQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioOperationQueue:"), value)
 }
 func (t TTSSpeechManager) AudioQueueFlags() uint32 {
-	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
+	rv := objc.SendIfResponds[uint32](t.ID, objc.Sel("audioQueueFlags"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioQueueFlags(value uint32) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
 func (t TTSSpeechManager) AudioSession() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioSession"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioSession"))
 	return objectivec.Object{ID: rv}
 }
 func (t TTSSpeechManager) SetAudioSession(value objectivec.IObject) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSession:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSession:"), value)
 }
 func (t TTSSpeechManager) AudioSessionCategory() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioSessionCategory"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioSessionCategory"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechManager) SetAudioSessionCategory(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSessionCategory:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSessionCategory:"), objc.String(value))
 }
 func (t TTSSpeechManager) AudioSessionCategoryOptions() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("audioSessionCategoryOptions"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("audioSessionCategoryOptions"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioSessionCategoryOptions(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSessionCategoryOptions:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSessionCategoryOptions:"), value)
 }
 func (t TTSSpeechManager) AudioSessionInactiveTimeout() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("audioSessionInactiveTimeout"))
+	rv := objc.SendIfResponds[float64](t.ID, objc.Sel("audioSessionInactiveTimeout"))
 	return rv
 }
 func (t TTSSpeechManager) SetAudioSessionInactiveTimeout(value float64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAudioSessionInactiveTimeout:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioSessionInactiveTimeout:"), value)
 }
 func (t TTSSpeechManager) DebugDescription() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechManager) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechManager) DidRequestPauseSpeakingDuringAudioInterruption() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("didRequestPauseSpeakingDuringAudioInterruption"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("didRequestPauseSpeakingDuringAudioInterruption"))
 	return rv
 }
 func (t TTSSpeechManager) SetDidRequestPauseSpeakingDuringAudioInterruption(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setDidRequestPauseSpeakingDuringAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setDidRequestPauseSpeakingDuringAudioInterruption:"), value)
 }
 func (t TTSSpeechManager) DidRequestResumeSpeakingDuringAudioInterruption() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("didRequestResumeSpeakingDuringAudioInterruption"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("didRequestResumeSpeakingDuringAudioInterruption"))
 	return rv
 }
 func (t TTSSpeechManager) SetDidRequestResumeSpeakingDuringAudioInterruption(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setDidRequestResumeSpeakingDuringAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setDidRequestResumeSpeakingDuringAudioInterruption:"), value)
 }
 func (t TTSSpeechManager) DidRequestStartSpeakingDuringAudioInterruption() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("didRequestStartSpeakingDuringAudioInterruption"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("didRequestStartSpeakingDuringAudioInterruption"))
 	return rv
 }
 func (t TTSSpeechManager) SetDidRequestStartSpeakingDuringAudioInterruption(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setDidRequestStartSpeakingDuringAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setDidRequestStartSpeakingDuringAudioInterruption:"), value)
 }
 func (t TTSSpeechManager) Hash() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
 func (t TTSSpeechManager) IsInAudioInterruption() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isInAudioInterruption"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isInAudioInterruption"))
 	return rv
 }
 func (t TTSSpeechManager) SetIsInAudioInterruption(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsInAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsInAudioInterruption:"), value)
 }
 func (t TTSSpeechManager) IsPaused() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isPaused"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isPaused"))
 	return rv
 }
 func (t TTSSpeechManager) SetIsPaused(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIsPaused:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIsPaused:"), value)
 }
 func (t TTSSpeechManager) IsSpeaking() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("isSpeaking"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("isSpeaking"))
 	return rv
 }
 func (t TTSSpeechManager) OriginalSpeechRateForJobOverride() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalSpeechRateForJobOverride"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("originalSpeechRateForJobOverride"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSSpeechManager) SetOriginalSpeechRateForJobOverride(value foundation.NSNumber) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOriginalSpeechRateForJobOverride:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOriginalSpeechRateForJobOverride:"), value)
 }
 func (t TTSSpeechManager) OutputChannels() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputChannels"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("outputChannels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSSpeechManager) SetOutputChannels(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setOutputChannels:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setOutputChannels:"), value)
 }
 func (t TTSSpeechManager) RequestedActionDuringAudioInterruption() ITTSSpeechAction {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("requestedActionDuringAudioInterruption"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("requestedActionDuringAudioInterruption"))
 	return TTSSpeechActionFromID(objc.ID(rv))
 }
 func (t TTSSpeechManager) SetRequestedActionDuringAudioInterruption(value ITTSSpeechAction) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRequestedActionDuringAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRequestedActionDuringAudioInterruption:"), value)
 }
 func (t TTSSpeechManager) SetActiveOptions() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("setActiveOptions"))
+	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("setActiveOptions"))
 	return rv
 }
 func (t TTSSpeechManager) SetSetActiveOptions(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSetActiveOptions:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSetActiveOptions:"), value)
 }
 func (t TTSSpeechManager) ShouldHandleAudioInterruptions() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldHandleAudioInterruptions"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldHandleAudioInterruptions"))
 	return rv
 }
 func (t TTSSpeechManager) SetShouldHandleAudioInterruptions(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldHandleAudioInterruptions:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldHandleAudioInterruptions:"), value)
 }
 func (t TTSSpeechManager) ShowControlCenterControls() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("showControlCenterControls"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("showControlCenterControls"))
 	return rv
 }
 func (t TTSSpeechManager) SpeechEnabled() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("speechEnabled"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("speechEnabled"))
 	return rv
 }
 func (t TTSSpeechManager) SetSpeechEnabled(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSpeechEnabled:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSpeechEnabled:"), value)
 }
 func (t TTSSpeechManager) SpeechSource() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechSource"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("speechSource"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSSpeechManager) SetSpeechSource(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSpeechSource:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSpeechSource:"), objc.String(value))
 }
 func (t TTSSpeechManager) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](t.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](t.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (t TTSSpeechManager) UsesAuxiliarySession() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("usesAuxiliarySession"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("usesAuxiliarySession"))
 	return rv
 }
 func (t TTSSpeechManager) SetUsesAuxiliarySession(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUsesAuxiliarySession:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUsesAuxiliarySession:"), value)
 }
 func (t TTSSpeechManager) WasSpeakingBeforeAudioInterruption() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("wasSpeakingBeforeAudioInterruption"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("wasSpeakingBeforeAudioInterruption"))
 	return rv
 }
 func (t TTSSpeechManager) SetWasSpeakingBeforeAudioInterruption(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setWasSpeakingBeforeAudioInterruption:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setWasSpeakingBeforeAudioInterruption:"), value)
 }
 
 // SetRequestWillStartSync is a synchronous wrapper around [TTSSpeechManager.SetRequestWillStart].

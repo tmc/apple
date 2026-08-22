@@ -41,7 +41,7 @@ func (tc TTSExceptionCatcherClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSExceptionCatcherClass) Alloc() TTSExceptionCatcher {
-	rv := objc.Send[TTSExceptionCatcher](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSExceptionCatcher](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,27 +64,28 @@ type ITTSExceptionCatcher interface {
 
 // Init initializes the instance.
 func (t TTSExceptionCatcher) Init() TTSExceptionCatcher {
-	rv := objc.Send[TTSExceptionCatcher](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSExceptionCatcher](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSExceptionCatcher) Autorelease() TTSExceptionCatcher {
-	rv := objc.Send[TTSExceptionCatcher](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSExceptionCatcher](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSExceptionCatcher creates a new TTSExceptionCatcher instance.
 func NewTTSExceptionCatcher() TTSExceptionCatcher {
 	class := getTTSExceptionCatcherClass()
-	rv := objc.Send[TTSExceptionCatcher](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSExceptionCatcher](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_TTSExceptionCatcherClass TTSExceptionCatcherClass) CatchExceptionError(exception func()) (bool, error) {
-	_block0, _ := NewVoidBlock(exception)
+	_block0, _cleanup0 := NewVoidBlock(exception)
+	defer _cleanup0()
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_TTSExceptionCatcherClass.class), objc.Sel("catchException:error:"), _block0, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_TTSExceptionCatcherClass.class), objc.Sel("catchException:error:"), objc.ID(_block0), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)

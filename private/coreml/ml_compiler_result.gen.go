@@ -40,7 +40,7 @@ func (mc MLCompilerResultClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCompilerResultClass) Alloc() MLCompilerResult {
-	rv := objc.Send[MLCompilerResult](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLCompilerResult](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -77,36 +77,36 @@ type IMLCompilerResult interface {
 
 // Init initializes the instance.
 func (m MLCompilerResult) Init() MLCompilerResult {
-	rv := objc.Send[MLCompilerResult](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLCompilerResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLCompilerResult) Autorelease() MLCompilerResult {
-	rv := objc.Send[MLCompilerResult](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLCompilerResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLCompilerResult creates a new MLCompilerResult instance.
 func NewMLCompilerResult() MLCompilerResult {
 	class := getMLCompilerResultClass()
-	rv := objc.Send[MLCompilerResult](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLCompilerResult](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithArchive(archive unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithArchive:"), archive)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithOutputFiles(files objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithOutputFiles:"), files)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithOutputFiles:"), files)
 	return objectivec.Object{ID: rv}
 }
 
 func (m MLCompilerResult) OutputFiles() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFiles"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputFiles"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLCompilerResult) SetOutputFiles(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputFiles:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputFiles:"), value)
 }

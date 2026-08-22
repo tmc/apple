@@ -39,7 +39,7 @@ func (mc MLArrayDictionaryFeatureProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLArrayDictionaryFeatureProviderClass) Alloc() MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,61 +88,61 @@ type IMLArrayDictionaryFeatureProvider interface {
 
 // Init initializes the instance.
 func (m MLArrayDictionaryFeatureProvider) Init() MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLArrayDictionaryFeatureProvider) Autorelease() MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLArrayDictionaryFeatureProvider creates a new MLArrayDictionaryFeatureProvider instance.
 func NewMLArrayDictionaryFeatureProvider() MLArrayDictionaryFeatureProvider {
 	class := getMLArrayDictionaryFeatureProviderClass()
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
 func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
 func (m MLArrayDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLArrayDictionaryFeatureProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 func (m MLArrayDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (m MLArrayDictionaryFeatureProvider) InitWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
+	rv := objc.SendIfResponds[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return rv
 }
 
 func (_MLArrayDictionaryFeatureProviderClass MLArrayDictionaryFeatureProviderClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLArrayDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLArrayDictionaryFeatureProviderClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLArrayDictionaryFeatureProvider) Array() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("array"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("array"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLArrayDictionaryFeatureProvider) Count() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("count"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("count"))
 	return rv
 }

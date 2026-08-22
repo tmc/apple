@@ -41,7 +41,7 @@ func (mc MLModelDescriptionUtilsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelDescriptionUtilsClass) Alloc() MLModelDescriptionUtils {
-	rv := objc.Send[MLModelDescriptionUtils](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelDescriptionUtils](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,20 +64,20 @@ type IMLModelDescriptionUtils interface {
 
 // Init initializes the instance.
 func (m MLModelDescriptionUtils) Init() MLModelDescriptionUtils {
-	rv := objc.Send[MLModelDescriptionUtils](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelDescriptionUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelDescriptionUtils) Autorelease() MLModelDescriptionUtils {
-	rv := objc.Send[MLModelDescriptionUtils](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelDescriptionUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelDescriptionUtils creates a new MLModelDescriptionUtils instance.
 func NewMLModelDescriptionUtils() MLModelDescriptionUtils {
 	class := getMLModelDescriptionUtilsClass()
-	rv := objc.Send[MLModelDescriptionUtils](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelDescriptionUtils](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
@@ -102,7 +102,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateFeatureT
 
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateMetaData(data objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("createMetaData:"), data)
+	rv := objc.SendIfResponds[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("createMetaData:"), data)
 	return rv
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateModelDescriptionError(description objectivec.IObject) (unsafe.Pointer, error) {
@@ -116,7 +116,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateModelDes
 
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetArrayFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getArrayFeatureTypeFromConstraint:"), constraint)
+	rv := objc.SendIfResponds[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getArrayFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetDictionaryFeatureTypeFromConstraintError(constraint objectivec.IObject) (unsafe.Pointer, error) {
@@ -130,7 +130,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetDictionaryF
 
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetImageFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getImageFeatureTypeFromConstraint:"), constraint)
+	rv := objc.SendIfResponds[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getImageFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetSequenceFeatureTypeFromConstraintError(constraint objectivec.IObject) (unsafe.Pointer, error) {
@@ -144,7 +144,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetSequenceFea
 
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetStateFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getStateFeatureTypeFromConstraint:"), constraint)
+	rv := objc.SendIfResponds[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getStateFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) SaveModelDescriptionToSpecificationError(description objectivec.IObject, specification unsafe.Pointer) (bool, error) {

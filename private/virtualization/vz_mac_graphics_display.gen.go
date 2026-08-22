@@ -41,7 +41,7 @@ func (vc VZMacGraphicsDisplayClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
-	rv := objc.Send[VZMacGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplay](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -87,42 +87,45 @@ type IVZMacGraphicsDisplay interface {
 
 // Init initializes the instance.
 func (v VZMacGraphicsDisplay) Init() VZMacGraphicsDisplay {
-	rv := objc.Send[VZMacGraphicsDisplay](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplay](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZMacGraphicsDisplay) Autorelease() VZMacGraphicsDisplay {
-	rv := objc.Send[VZMacGraphicsDisplay](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplay](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZMacGraphicsDisplay creates a new VZMacGraphicsDisplay instance.
 func NewVZMacGraphicsDisplay() VZMacGraphicsDisplay {
 	class := getVZMacGraphicsDisplayClass()
-	rv := objc.Send[VZMacGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZMacGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
 	instance := getVZMacGraphicsDisplayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZMacGraphicsDisplay{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZMacGraphicsDisplay{}, objc.ErrInitFailed
 	}
 	return VZMacGraphicsDisplayFromID(rv), nil
 }
 
 func NewMacGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZMacGraphicsDisplay {
 	instance := getVZMacGraphicsDisplayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZMacGraphicsDisplayFromID(rv)
 }
 
 func (v VZMacGraphicsDisplay) _connectionType() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_connectionType"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_connectionType"))
 	return rv
 }
 
@@ -140,7 +143,7 @@ func (v VZMacGraphicsDisplay) CanConnectionType() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_connectionType"))
 }
 func (v VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
@@ -158,7 +161,7 @@ func (v VZMacGraphicsDisplay) CanDisplayIdentifier() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_displayIdentifier"))
 }
 func (v VZMacGraphicsDisplay) _displayMode() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_displayMode"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_displayMode"))
 	return rv
 }
 

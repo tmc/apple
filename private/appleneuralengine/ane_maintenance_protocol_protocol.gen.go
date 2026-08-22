@@ -10,6 +10,9 @@ import (
 // _ANEMaintenanceProtocol protocol.
 type ANEMaintenanceProtocol interface {
 	objectivec.IObject
+
+	// ScheduleMaintenanceWithNameDirectoryPaths protocol.
+	ScheduleMaintenanceWithNameDirectoryPaths(name objectivec.IObject, paths objectivec.IObject)
 }
 
 // ANEMaintenanceProtocolObject wraps an existing Objective-C object that conforms to the ANEMaintenanceProtocol protocol.
@@ -30,5 +33,5 @@ func ANEMaintenanceProtocolObjectFromID(id objc.ID) ANEMaintenanceProtocolObject
 }
 
 func (o ANEMaintenanceProtocolObject) ScheduleMaintenanceWithNameDirectoryPaths(name objectivec.IObject, paths objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("scheduleMaintenanceWithName:directoryPaths:"), name, paths)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("scheduleMaintenanceWithName:directoryPaths:"), name, paths)
 }

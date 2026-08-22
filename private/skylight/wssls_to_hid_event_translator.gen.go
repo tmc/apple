@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -38,7 +39,7 @@ func (wc WSSLSToHIDEventTranslatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (wc WSSLSToHIDEventTranslatorClass) Alloc() WSSLSToHIDEventTranslator {
-	rv := objc.Send[WSSLSToHIDEventTranslator](objc.ID(wc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[WSSLSToHIDEventTranslator](objc.ID(wc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -67,29 +68,29 @@ type IWSSLSToHIDEventTranslator interface {
 
 	// Topic: Methods
 
-	HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr
+	HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecord, descriptor []objectivec.IObject) uintptr
 }
 
 // Init initializes the instance.
 func (w WSSLSToHIDEventTranslator) Init() WSSLSToHIDEventTranslator {
-	rv := objc.Send[WSSLSToHIDEventTranslator](w.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[WSSLSToHIDEventTranslator](w.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (w WSSLSToHIDEventTranslator) Autorelease() WSSLSToHIDEventTranslator {
-	rv := objc.Send[WSSLSToHIDEventTranslator](w.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[WSSLSToHIDEventTranslator](w.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewWSSLSToHIDEventTranslator creates a new WSSLSToHIDEventTranslator instance.
 func NewWSSLSToHIDEventTranslator() WSSLSToHIDEventTranslator {
 	class := getWSSLSToHIDEventTranslatorClass()
-	rv := objc.Send[WSSLSToHIDEventTranslator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[WSSLSToHIDEventTranslator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr {
-	rv := objc.Send[uintptr](w.ID, objc.Sel("hidEventForSLSEvent:outSenderDescriptor:"), sLSEvent, objectivec.IObjectSliceToNSArray(descriptor))
+func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecord, descriptor []objectivec.IObject) uintptr {
+	rv := objc.SendIfResponds[uintptr](w.ID, objc.Sel("hidEventForSLSEvent:outSenderDescriptor:"), unsafe.Pointer(sLSEvent), objectivec.IObjectSliceToNSArray(descriptor))
 	return rv
 }

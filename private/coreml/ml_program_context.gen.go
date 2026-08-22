@@ -40,7 +40,7 @@ func (mc MLProgramContextClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramContextClass) Alloc() MLProgramContext {
-	rv := objc.Send[MLProgramContext](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramContext](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,73 +110,73 @@ type IMLProgramContext interface {
 
 // Init initializes the instance.
 func (m MLProgramContext) Init() MLProgramContext {
-	rv := objc.Send[MLProgramContext](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramContext](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramContext) Autorelease() MLProgramContext {
-	rv := objc.Send[MLProgramContext](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramContext](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramContext creates a new MLProgramContext instance.
 func NewMLProgramContext() MLProgramContext {
 	class := getMLProgramContextClass()
-	rv := objc.Send[MLProgramContext](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramContextWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
 	instance := getMLProgramContextClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
 	return MLProgramContextFromID(rv)
 }
 
 func (m MLProgramContext) InitWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
-	rv := objc.Send[MLProgramContext](m.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
+	rv := objc.SendIfResponds[MLProgramContext](m.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
 	return rv
 }
 
 func (m MLProgramContext) ExecutionState() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("executionState"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("executionState"))
 	return rv
 }
 func (m MLProgramContext) SetExecutionState(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExecutionState:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setExecutionState:"), value)
 }
 func (m MLProgramContext) ForwardFunctionLossName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("forwardFunctionLossName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("forwardFunctionLossName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLProgramContext) SetForwardFunctionLossName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setForwardFunctionLossName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setForwardFunctionLossName:"), objc.String(value))
 }
 func (m MLProgramContext) FunctionNameToInputLayersNames() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToInputLayersNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionNameToInputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLProgramContext) SetFunctionNameToInputLayersNames(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToInputLayersNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFunctionNameToInputLayersNames:"), value)
 }
 func (m MLProgramContext) FunctionNameToOutputLayersNames() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToOutputLayersNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionNameToOutputLayersNames"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLProgramContext) SetFunctionNameToOutputLayersNames(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToOutputLayersNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFunctionNameToOutputLayersNames:"), value)
 }
 func (m MLProgramContext) FunctionNameToStateMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNameToStateMap"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("functionNameToStateMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLProgramContext) SetFunctionNameToStateMap(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFunctionNameToStateMap:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFunctionNameToStateMap:"), value)
 }
 func (m MLProgramContext) TrainFunctionLossName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainFunctionLossName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("trainFunctionLossName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLProgramContext) SetTrainFunctionLossName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrainFunctionLossName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTrainFunctionLossName:"), objc.String(value))
 }

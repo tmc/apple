@@ -40,7 +40,7 @@ func (oc OnDiskArchiveReaderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (oc OnDiskArchiveReaderClass) Alloc() OnDiskArchiveReader {
-	rv := objc.Send[OnDiskArchiveReader](objc.ID(oc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[OnDiskArchiveReader](objc.ID(oc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -107,55 +107,55 @@ type IOnDiskArchiveReader interface {
 
 // Init initializes the instance.
 func (o OnDiskArchiveReader) Init() OnDiskArchiveReader {
-	rv := objc.Send[OnDiskArchiveReader](o.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[OnDiskArchiveReader](o.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (o OnDiskArchiveReader) Autorelease() OnDiskArchiveReader {
-	rv := objc.Send[OnDiskArchiveReader](o.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[OnDiskArchiveReader](o.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewOnDiskArchiveReader creates a new OnDiskArchiveReader instance.
 func NewOnDiskArchiveReader() OnDiskArchiveReader {
 	class := getOnDiskArchiveReaderClass()
-	rv := objc.Send[OnDiskArchiveReader](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[OnDiskArchiveReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewOnDiskArchiveReaderWithNetJsonShapeJsonModelPath(json objectivec.IObject, json2 objectivec.IObject, path objectivec.IObject) OnDiskArchiveReader {
 	instance := getOnDiskArchiveReaderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetJson:shapeJson:modelPath:"), json, json2, path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetJson:shapeJson:modelPath:"), json, json2, path)
 	return OnDiskArchiveReaderFromID(rv)
 }
 
 func (o OnDiskArchiveReader) CopyLayerShapesToContainer(container objectivec.IObject) {
-	objc.Send[objc.ID](o.ID, objc.Sel("copyLayerShapesToContainer:"), container)
+	objc.SendIfResponds[objc.ID](o.ID, objc.Sel("copyLayerShapesToContainer:"), container)
 }
 func (o OnDiskArchiveReader) LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
 	return objectivec.Object{ID: rv}
 }
 func (o OnDiskArchiveReader) TransformParams() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("transformParams"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("transformParams"))
 	return objectivec.Object{ID: rv}
 }
 func (o OnDiskArchiveReader) InitWithNetJsonShapeJsonModelPath(json objectivec.IObject, json2 objectivec.IObject, path objectivec.IObject) OnDiskArchiveReader {
-	rv := objc.Send[OnDiskArchiveReader](o.ID, objc.Sel("initWithNetJson:shapeJson:modelPath:"), json, json2, path)
+	rv := objc.SendIfResponds[OnDiskArchiveReader](o.ID, objc.Sel("initWithNetJson:shapeJson:modelPath:"), json, json2, path)
 	return rv
 }
 
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelName"))
 	return objectivec.Object{ID: rv}
 }
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelNetFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelNetFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelNetFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelShapeFileName() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelShapeFileName"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelShapeFileName"))
 	return objectivec.Object{ID: rv}
 }
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ParseCompiledNetworkBlobWithNameArchiveError(name objectivec.IObject, archive unsafe.Pointer) (objectivec.IObject, error) {
@@ -180,34 +180,34 @@ func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ReaderFromArchiverErro
 }
 
 func (o OnDiskArchiveReader) DebugDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (o OnDiskArchiveReader) Description() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (o OnDiskArchiveReader) Hash() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("hash"))
 	return rv
 }
 func (o OnDiskArchiveReader) LayerInfos() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("layerInfos"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("layerInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (o OnDiskArchiveReader) ModelPath() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelPath"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("modelPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (o OnDiskArchiveReader) NetJson() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("netJson"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("netJson"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (o OnDiskArchiveReader) ShapeJson() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("shapeJson"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("shapeJson"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (o OnDiskArchiveReader) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](o.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](o.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

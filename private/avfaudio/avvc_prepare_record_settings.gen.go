@@ -39,7 +39,7 @@ func (ac AVVCPrepareRecordSettingsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCPrepareRecordSettingsClass) Alloc() AVVCPrepareRecordSettings {
-	rv := objc.Send[AVVCPrepareRecordSettings](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCPrepareRecordSettings](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,66 +103,66 @@ type IAVVCPrepareRecordSettings interface {
 
 // Init initializes the instance.
 func (a AVVCPrepareRecordSettings) Init() AVVCPrepareRecordSettings {
-	rv := objc.Send[AVVCPrepareRecordSettings](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCPrepareRecordSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCPrepareRecordSettings) Autorelease() AVVCPrepareRecordSettings {
-	rv := objc.Send[AVVCPrepareRecordSettings](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCPrepareRecordSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCPrepareRecordSettings creates a new AVVCPrepareRecordSettings instance.
 func NewAVVCPrepareRecordSettings() AVVCPrepareRecordSettings {
 	class := getAVVCPrepareRecordSettingsClass()
-	rv := objc.Send[AVVCPrepareRecordSettings](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCPrepareRecordSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	instance := getAVVCPrepareRecordSettingsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
 	return AVVCPrepareRecordSettingsFromID(rv)
 }
 
 func (a AVVCPrepareRecordSettings) InitWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
-	rv := objc.Send[AVVCPrepareRecordSettings](a.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
+	rv := objc.SendIfResponds[AVVCPrepareRecordSettings](a.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
 	return rv
 }
 
 func (a AVVCPrepareRecordSettings) AvAudioSettings() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("avAudioSettings"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("avAudioSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (a AVVCPrepareRecordSettings) SetAvAudioSettings(value foundation.INSDictionary) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAvAudioSettings:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAvAudioSettings:"), value)
 }
 func (a AVVCPrepareRecordSettings) DeviceBufferFrameSize() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("deviceBufferFrameSize"))
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("deviceBufferFrameSize"))
 	return rv
 }
 func (a AVVCPrepareRecordSettings) SetDeviceBufferFrameSize(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setDeviceBufferFrameSize:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDeviceBufferFrameSize:"), value)
 }
 func (a AVVCPrepareRecordSettings) MeteringEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("meteringEnabled"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("meteringEnabled"))
 	return rv
 }
 func (a AVVCPrepareRecordSettings) SetMeteringEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
 func (a AVVCPrepareRecordSettings) RecordBufferDuration() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("recordBufferDuration"))
+	rv := objc.SendIfResponds[float64](a.ID, objc.Sel("recordBufferDuration"))
 	return rv
 }
 func (a AVVCPrepareRecordSettings) SetRecordBufferDuration(value float64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRecordBufferDuration:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setRecordBufferDuration:"), value)
 }
 func (a AVVCPrepareRecordSettings) StreamID() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("streamID"))
 	return rv
 }
 func (a AVVCPrepareRecordSettings) SetStreamID(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setStreamID:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStreamID:"), value)
 }

@@ -38,7 +38,7 @@ func (vc VZPointingDeviceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZPointingDeviceClass) Alloc() VZPointingDevice {
-	rv := objc.Send[VZPointingDevice](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZPointingDevice](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -90,55 +90,55 @@ type IVZPointingDevice interface {
 
 // Init initializes the instance.
 func (v VZPointingDevice) Init() VZPointingDevice {
-	rv := objc.Send[VZPointingDevice](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZPointingDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZPointingDevice) Autorelease() VZPointingDevice {
-	rv := objc.Send[VZPointingDevice](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZPointingDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZPointingDevice creates a new VZPointingDevice instance.
 func NewVZPointingDevice() VZPointingDevice {
 	class := getVZPointingDeviceClass()
-	rv := objc.Send[VZPointingDevice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZPointingDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZPointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
 	instance := getVZPointingDeviceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return VZPointingDeviceFromID(rv)
 }
 
 func (v VZPointingDevice) SendMagnifyEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:"), events)
 }
 func (v VZPointingDevice) SendQuickLookEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:"), events)
 }
 func (v VZPointingDevice) SendRotationEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendRotationEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendRotationEvents:"), events)
 }
 func (v VZPointingDevice) SendScrollWheelEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:"), events)
 }
 func (v VZPointingDevice) SendSmartMagnifyEvents(events objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:"), events)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:"), events)
 }
 func (v VZPointingDevice) InitWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
-	rv := objc.Send[VZPointingDevice](v.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
+	rv := objc.SendIfResponds[VZPointingDevice](v.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
 	return rv
 }
 
 func (_VZPointingDeviceClass VZPointingDeviceClass) RequiresGrabbingMouseInput() bool {
-	rv := objc.Send[bool](objc.ID(_VZPointingDeviceClass.class), objc.Sel("requiresGrabbingMouseInput"))
+	rv := objc.SendIfResponds[bool](objc.ID(_VZPointingDeviceClass.class), objc.Sel("requiresGrabbingMouseInput"))
 	return rv
 }
 
 func (v VZPointingDevice) Type() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("type"))
 	return rv
 }

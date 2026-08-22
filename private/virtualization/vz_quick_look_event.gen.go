@@ -38,7 +38,7 @@ func (vc VZQuickLookEventClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZQuickLookEventClass) Alloc() VZQuickLookEvent {
-	rv := objc.Send[VZQuickLookEvent](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZQuickLookEvent](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,30 +72,30 @@ type IVZQuickLookEvent interface {
 
 // Init initializes the instance.
 func (v VZQuickLookEvent) Init() VZQuickLookEvent {
-	rv := objc.Send[VZQuickLookEvent](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZQuickLookEvent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZQuickLookEvent) Autorelease() VZQuickLookEvent {
-	rv := objc.Send[VZQuickLookEvent](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZQuickLookEvent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZQuickLookEvent creates a new VZQuickLookEvent instance.
 func NewVZQuickLookEvent() VZQuickLookEvent {
 	class := getVZQuickLookEventClass()
-	rv := objc.Send[VZQuickLookEvent](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZQuickLookEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewVZQuickLookEventWithEvent(event objectivec.IObject) VZQuickLookEvent {
 	instance := getVZQuickLookEventClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEvent:"), event)
 	return VZQuickLookEventFromID(rv)
 }
 
 func (v VZQuickLookEvent) InitWithEvent(event objectivec.IObject) VZQuickLookEvent {
-	rv := objc.Send[VZQuickLookEvent](v.ID, objc.Sel("initWithEvent:"), event)
+	rv := objc.SendIfResponds[VZQuickLookEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }

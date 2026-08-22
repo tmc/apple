@@ -40,7 +40,7 @@ func (mc MLAppleGazetteerParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLAppleGazetteerParametersClass) Alloc() MLAppleGazetteerParameters {
-	rv := objc.Send[MLAppleGazetteerParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLAppleGazetteerParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -116,30 +116,33 @@ type IMLAppleGazetteerParameters interface {
 
 // Init initializes the instance.
 func (m MLAppleGazetteerParameters) Init() MLAppleGazetteerParameters {
-	rv := objc.Send[MLAppleGazetteerParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLAppleGazetteerParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLAppleGazetteerParameters) Autorelease() MLAppleGazetteerParameters {
-	rv := objc.Send[MLAppleGazetteerParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLAppleGazetteerParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLAppleGazetteerParameters creates a new MLAppleGazetteerParameters instance.
 func NewMLAppleGazetteerParameters() MLAppleGazetteerParameters {
 	class := getMLAppleGazetteerParametersClass()
-	rv := objc.Send[MLAppleGazetteerParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLAppleGazetteerParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewAppleGazetteerParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleGazetteerParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleGazetteerParametersClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleGazetteerParameters{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLAppleGazetteerParameters{}, objc.ErrInitFailed
 	}
 	return MLAppleGazetteerParametersFromID(rv), nil
 }
@@ -156,51 +159,51 @@ func (m MLAppleGazetteerParameters) InitWithDataLanguageInputFeatureNameOutputFe
 }
 
 func (m MLAppleGazetteerParameters) InputFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("inputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleGazetteerParameters) SetInputFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
 func (m MLAppleGazetteerParameters) LabelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("labelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLAppleGazetteerParameters) SetLabelNames(value foundation.INSArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
 }
 func (m MLAppleGazetteerParameters) Language() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("language"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleGazetteerParameters) SetLanguage(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLanguage:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 func (m MLAppleGazetteerParameters) Metadata() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("metadata"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLAppleGazetteerParameters) SetMetadata(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleGazetteerParameters) ModelParameterData() foundation.NSData {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelParameterData"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (m MLAppleGazetteerParameters) SetModelParameterData(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)
 }
 func (m MLAppleGazetteerParameters) OutputFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLAppleGazetteerParameters) SetOutputFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
 }
 func (m MLAppleGazetteerParameters) Revision() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("revision"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("revision"))
 	return rv
 }
 func (m MLAppleGazetteerParameters) SetRevision(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setRevision:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setRevision:"), value)
 }

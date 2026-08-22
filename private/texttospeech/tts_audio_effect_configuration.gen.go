@@ -39,7 +39,7 @@ func (tc TTSAudioEffectConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioEffectConfigurationClass) Alloc() TTSAudioEffectConfiguration {
-	rv := objc.Send[TTSAudioEffectConfiguration](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSAudioEffectConfiguration](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -100,55 +100,55 @@ type ITTSAudioEffectConfiguration interface {
 
 // Init initializes the instance.
 func (t TTSAudioEffectConfiguration) Init() TTSAudioEffectConfiguration {
-	rv := objc.Send[TTSAudioEffectConfiguration](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSAudioEffectConfiguration](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSAudioEffectConfiguration) Autorelease() TTSAudioEffectConfiguration {
-	rv := objc.Send[TTSAudioEffectConfiguration](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSAudioEffectConfiguration](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSAudioEffectConfiguration creates a new TTSAudioEffectConfiguration instance.
 func NewTTSAudioEffectConfiguration() TTSAudioEffectConfiguration {
 	class := getTTSAudioEffectConfigurationClass()
-	rv := objc.Send[TTSAudioEffectConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSAudioEffectConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSAudioEffectConfiguration) EffectName() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("effectName"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("effectName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (t TTSAudioEffectConfiguration) SetEffectName(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEffectName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEffectName:"), objc.String(value))
 }
 func (t TTSAudioEffectConfiguration) Enabled() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("enabled"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("enabled"))
 	return rv
 }
 func (t TTSAudioEffectConfiguration) SetEnabled(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
 func (t TTSAudioEffectConfiguration) Identifier() foundation.NSUUID {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 func (t TTSAudioEffectConfiguration) SetIdentifier(value foundation.NSUUID) {
-	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIdentifier:"), value)
 }
 func (t TTSAudioEffectConfiguration) Parameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("parameters"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSAudioEffectConfiguration) SetParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setParameters:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setParameters:"), value)
 }
 func (t TTSAudioEffectConfiguration) Properties() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("properties"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (t TTSAudioEffectConfiguration) SetProperties(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setProperties:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setProperties:"), value)
 }

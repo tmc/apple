@@ -41,7 +41,7 @@ func (dc DiskImageGraphClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DiskImageGraphClass) Alloc() DiskImageGraph {
-	rv := objc.Send[DiskImageGraph](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DiskImageGraph](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -183,30 +183,33 @@ type IDiskImageGraph interface {
 
 // Init initializes the instance.
 func (d DiskImageGraph) Init() DiskImageGraph {
-	rv := objc.Send[DiskImageGraph](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DiskImageGraph](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DiskImageGraph) Autorelease() DiskImageGraph {
-	rv := objc.Send[DiskImageGraph](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DiskImageGraph](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDiskImageGraph creates a new DiskImageGraph instance.
 func NewDiskImageGraph() DiskImageGraph {
 	class := getDiskImageGraphClass()
-	rv := objc.Send[DiskImageGraph](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DiskImageGraph](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
@@ -214,10 +217,13 @@ func NewDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.NSURL,
 func NewDiskImageGraphWithBaseImageURLTagError(url foundation.NSURL, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
@@ -225,10 +231,13 @@ func NewDiskImageGraphWithBaseImageURLTagError(url foundation.NSURL, tag objecti
 func NewDiskImageGraphWithGraphDBError(db objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGraphDB:error:"), db, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGraphDB:error:"), db, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
@@ -236,10 +245,13 @@ func NewDiskImageGraphWithGraphDBError(db objectivec.IObject) (DiskImageGraph, e
 func NewDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGraphDB:workDir:error:"), db, dir, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGraphDB:workDir:error:"), db, dir, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
@@ -247,10 +259,13 @@ func NewDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objecti
 func NewDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:error:"), name, params, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:error:"), name, params, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
@@ -258,16 +273,19 @@ func NewDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject
 func NewDiskImageGraphWithPstackURLError(url foundation.NSURL) (DiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return DiskImageGraph{}, objc.ErrInitFailed
 	}
 	return DiskImageGraphFromID(rv), nil
 }
 
 func (d DiskImageGraph) URLRelativeToPstackParentWithURL(url foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("URLRelativeToPstackParentWithURL:"), url)
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("URLRelativeToPstackParentWithURL:"), url)
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraph) ActiveInfoWithExtraError(extra bool) (objectivec.IObject, error) {
@@ -359,7 +377,7 @@ func (d DiskImageGraph) AppendWithURLTagError(url foundation.NSURL, tag objectiv
 
 }
 func (d DiskImageGraph) BaseNode() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("baseNode"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("baseNode"))
 	return objectivec.Object{ID: rv}
 }
 func (d DiskImageGraph) CheckStackValidityWithError() (bool, error) {
@@ -594,7 +612,7 @@ func (_DiskImageGraphClass DiskImageGraphClass) CopyDictNodesToFolderDictError(f
 
 }
 func (_DiskImageGraphClass DiskImageGraphClass) CreateGraphDictWithNode(node objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("createGraphDictWithNode:"), node)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_DiskImageGraphClass.class), objc.Sel("createGraphDictWithNode:"), node)
 	return objectivec.Object{ID: rv}
 }
 func (_DiskImageGraphClass DiskImageGraphClass) CreateNodesConnectivityWithNodesDictError(dict objectivec.IObject) (bool, error) {
@@ -717,34 +735,34 @@ func (_DiskImageGraphClass DiskImageGraphClass) ValidateWithDictionaryError(dict
 }
 
 func (d DiskImageGraph) ActiveNode() IDiskImageGraphNode {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("activeNode"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("activeNode"))
 	return DiskImageGraphNodeFromID(objc.ID(rv))
 }
 func (d DiskImageGraph) SetActiveNode(value IDiskImageGraphNode) {
-	objc.Send[struct{}](d.ID, objc.Sel("setActiveNode:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setActiveNode:"), value)
 }
 func (d DiskImageGraph) GraphDB() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("graphDB"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("graphDB"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DiskImageGraph) SetGraphDB(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setGraphDB:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setGraphDB:"), value)
 }
 func (d DiskImageGraph) ImagesDictsArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("imagesDictsArray"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("imagesDictsArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (d DiskImageGraph) SetImagesDictsArray(value foundation.INSArray) {
-	objc.Send[struct{}](d.ID, objc.Sel("setImagesDictsArray:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setImagesDictsArray:"), value)
 }
 func (d DiskImageGraph) Nodes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("nodes"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("nodes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (d DiskImageGraph) SetNodes(value foundation.INSDictionary) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNodes:"), value)
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setNodes:"), value)
 }
 func (d DiskImageGraph) RootNode() IDiskImageGraphNode {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("rootNode"))
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("rootNode"))
 	return DiskImageGraphNodeFromID(objc.ID(rv))
 }

@@ -38,7 +38,7 @@ func (vc VZSerialPortClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSerialPortClass) Alloc() VZSerialPort {
-	rv := objc.Send[VZSerialPort](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSerialPort](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,31 +78,31 @@ type IVZSerialPort interface {
 
 // Init initializes the instance.
 func (v VZSerialPort) Init() VZSerialPort {
-	rv := objc.Send[VZSerialPort](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSerialPort](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSerialPort) Autorelease() VZSerialPort {
-	rv := objc.Send[VZSerialPort](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSerialPort](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSerialPort creates a new VZSerialPort instance.
 func NewVZSerialPort() VZSerialPort {
 	class := getVZSerialPortClass()
-	rv := objc.Send[VZSerialPort](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSerialPort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSerialPort) Attachment() IVZSerialPortAttachment {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("attachment"))
 	return VZSerialPortAttachmentFromID(objc.ID(rv))
 }
 func (v VZSerialPort) SetAttachment(value IVZSerialPortAttachment) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
 func (v VZSerialPort) Type() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("type"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("type"))
 	return rv
 }

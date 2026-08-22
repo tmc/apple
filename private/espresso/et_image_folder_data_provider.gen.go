@@ -40,7 +40,7 @@ func (ec ETImageFolderDataProviderClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec ETImageFolderDataProviderClass) Alloc() ETImageFolderDataProvider {
-	rv := objc.Send[ETImageFolderDataProvider](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ETImageFolderDataProvider](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -95,26 +95,26 @@ type IETImageFolderDataProvider interface {
 
 // Init initializes the instance.
 func (e ETImageFolderDataProvider) Init() ETImageFolderDataProvider {
-	rv := objc.Send[ETImageFolderDataProvider](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ETImageFolderDataProvider](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e ETImageFolderDataProvider) Autorelease() ETImageFolderDataProvider {
-	rv := objc.Send[ETImageFolderDataProvider](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ETImageFolderDataProvider](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewETImageFolderDataProvider creates a new ETImageFolderDataProvider instance.
 func NewETImageFolderDataProvider() ETImageFolderDataProvider {
 	class := getETImageFolderDataProviderClass()
-	rv := objc.Send[ETImageFolderDataProvider](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ETImageFolderDataProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewETImageFolderDataProviderWithFolderForImageTensorAndLabelTensorShuffleBeforeEachEpochShuffleRandomSeedWithImagePreprocessParams(folder objectivec.IObject, tensor objectivec.IObject, tensor2 objectivec.IObject, epoch bool, seed objectivec.IObject, params objectivec.IObject) ETImageFolderDataProvider {
 	instance := getETImageFolderDataProviderClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:"), folder, tensor, tensor2, epoch, seed, params)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:"), folder, tensor, tensor2, epoch, seed, params)
 	return ETImageFolderDataProviderFromID(rv)
 }
 
@@ -129,30 +129,30 @@ func (e ETImageFolderDataProvider) DataPointAtIndexError(index uint64) (objectiv
 
 }
 func (e ETImageFolderDataProvider) NumberOfDataPoints() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETImageFolderDataProvider) PrepareForEpoch() {
-	objc.Send[objc.ID](e.ID, objc.Sel("prepareForEpoch"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("prepareForEpoch"))
 }
 func (e ETImageFolderDataProvider) InitWithFolderForImageTensorAndLabelTensorShuffleBeforeEachEpochShuffleRandomSeedWithImagePreprocessParams(folder objectivec.IObject, tensor objectivec.IObject, tensor2 objectivec.IObject, epoch bool, seed objectivec.IObject, params objectivec.IObject) ETImageFolderDataProvider {
-	rv := objc.Send[ETImageFolderDataProvider](e.ID, objc.Sel("initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:"), folder, tensor, tensor2, epoch, seed, params)
+	rv := objc.SendIfResponds[ETImageFolderDataProvider](e.ID, objc.Sel("initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:"), folder, tensor, tensor2, epoch, seed, params)
 	return rv
 }
 
 func (e ETImageFolderDataProvider) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETImageFolderDataProvider) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (e ETImageFolderDataProvider) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 func (e ETImageFolderDataProvider) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](e.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](e.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

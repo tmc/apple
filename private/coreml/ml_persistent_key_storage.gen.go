@@ -41,7 +41,7 @@ func (mc MLPersistentKeyStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPersistentKeyStorageClass) Alloc() MLPersistentKeyStorage {
-	rv := objc.Send[MLPersistentKeyStorage](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPersistentKeyStorage](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -64,29 +64,29 @@ type IMLPersistentKeyStorage interface {
 
 // Init initializes the instance.
 func (m MLPersistentKeyStorage) Init() MLPersistentKeyStorage {
-	rv := objc.Send[MLPersistentKeyStorage](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPersistentKeyStorage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPersistentKeyStorage) Autorelease() MLPersistentKeyStorage {
-	rv := objc.Send[MLPersistentKeyStorage](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPersistentKeyStorage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPersistentKeyStorage creates a new MLPersistentKeyStorage instance.
 func NewMLPersistentKeyStorage() MLPersistentKeyStorage {
 	class := getMLPersistentKeyStorageClass()
-	rv := objc.Send[MLPersistentKeyStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPersistentKeyStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) PersistentKeyStorageURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
 	return foundation.NSURLFromID(rv)
 }
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) RetrieveKeyBlobForKeyIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("retrieveKeyBlobForKeyIdentifier:"), identifier)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("retrieveKeyBlobForKeyIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForKeyIdentifierError(blob objectivec.IObject, identifier objectivec.IObject) (bool, error) {
@@ -103,6 +103,6 @@ func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForK
 
 }
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) SyncQueue() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("syncQueue"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("syncQueue"))
 	return objectivec.Object{ID: rv}
 }

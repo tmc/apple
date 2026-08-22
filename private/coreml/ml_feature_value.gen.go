@@ -42,7 +42,7 @@ func (mc MLFeatureValueClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
-	rv := objc.Send[MLFeatureValue](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureValue](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -109,61 +109,61 @@ type IMLFeatureValue interface {
 
 // Init initializes the instance.
 func (m MLFeatureValue) Init() MLFeatureValue {
-	rv := objc.Send[MLFeatureValue](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureValue](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureValue) Autorelease() MLFeatureValue {
-	rv := objc.Send[MLFeatureValue](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureValue](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureValue creates a new MLFeatureValue instance.
 func NewMLFeatureValue() MLFeatureValue {
 	class := getMLFeatureValueClass()
-	rv := objc.Send[MLFeatureValue](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureValue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewFeatureValueWithUndefinedValueAndType(type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
 	return MLFeatureValueFromID(rv)
 }
 
 func NewFeatureValueWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:type:"), value, type_)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:type:"), value, type_)
 	return MLFeatureValueFromID(rv)
 }
 
 func (m MLFeatureValue) DebugQuickLookObject() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) GetFeatureSize(size []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("getFeatureSize:"), objectivec.IObjectSliceToNSArray(size))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("getFeatureSize:"), objectivec.IObjectSliceToNSArray(size))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) GetFeatureSizeNdArrayMode(size []objectivec.IObject, mode bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("getFeatureSize:ndArrayMode:"), objectivec.IObjectSliceToNSArray(size), mode)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("getFeatureSize:ndArrayMode:"), objectivec.IObjectSliceToNSArray(size), mode)
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) InternalStateValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("internalStateValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("internalStateValue"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) StateValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("stateValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("stateValue"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) InitWithUndefinedValueAndType(type_ int64) MLFeatureValue {
-	rv := objc.Send[MLFeatureValue](m.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
+	rv := objc.SendIfResponds[MLFeatureValue](m.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
 	return rv
 }
 func (m MLFeatureValue) InitWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
-	rv := objc.Send[MLFeatureValue](m.ID, objc.Sel("initWithValue:type:"), value, type_)
+	rv := objc.SendIfResponds[MLFeatureValue](m.ID, objc.Sel("initWithValue:type:"), value, type_)
 	return rv
 }
 
@@ -228,7 +228,7 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDictionaryError(
 
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDouble(double float64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithDouble:"), double)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithDouble:"), double)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLConstraintOptionsError(url foundation.NSURL, constraint objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -272,69 +272,69 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLPixels
 
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithInt64(int64_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64:"), int64_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64:"), int64_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithInt64KeyDictionary(dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64KeyDictionary:"), dictionary)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64KeyDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithMultiArray(array objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithMultiArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithMultiArray:"), array)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithPixelBuffer(buffer corevideo.CVImageBufferRef) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithPixelBuffer:"), buffer)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithPixelBuffer:"), buffer)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithSequence(sequence objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithSequence:"), sequence)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithSequence:"), sequence)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithState(state objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithState:"), state)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithState:"), state)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithStringKeyDictionary(dictionary objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithStringKeyDictionary:"), dictionary)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithStringKeyDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) InternalFeatureValueWithState(state objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("internalFeatureValueWithState:"), state)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("internalFeatureValueWithState:"), state)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLFeatureValueClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLFeatureValueClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_MLFeatureValueClass MLFeatureValueClass) UndefinedFeatureValueWithType(type_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("undefinedFeatureValueWithType:"), type_)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("undefinedFeatureValueWithType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 func (_MLFeatureValueClass MLFeatureValueClass) VisionCropAndScaleOptionFromOptions(options objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](objc.ID(_MLFeatureValueClass.class), objc.Sel("visionCropAndScaleOptionFromOptions:"), options)
+	rv := objc.SendIfResponds[uint64](objc.ID(_MLFeatureValueClass.class), objc.Sel("visionCropAndScaleOptionFromOptions:"), options)
 	return rv
 }
 
 func (m MLFeatureValue) ObjectValue() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectValue"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("objectValue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLFeatureValue) SetObjectValue(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setObjectValue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setObjectValue:"), value)
 }
 func (m MLFeatureValue) Undefined() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("undefined"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("undefined"))
 	return rv
 }
 func (m MLFeatureValue) Value() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("value"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("value"))
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureValue) SetValue(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setValue:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setValue:"), value)
 }

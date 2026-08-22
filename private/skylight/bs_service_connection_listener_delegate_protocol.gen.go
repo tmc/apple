@@ -10,6 +10,9 @@ import (
 // BSServiceConnectionListenerDelegate protocol.
 type BSServiceConnectionListenerDelegate interface {
 	objectivec.IObject
+
+	// ListenerDidReceiveConnectionWithContext protocol.
+	ListenerDidReceiveConnectionWithContext(listener objectivec.IObject, connection objectivec.IObject, context objectivec.IObject)
 }
 
 // BSServiceConnectionListenerDelegateObject wraps an existing Objective-C object that conforms to the BSServiceConnectionListenerDelegate protocol.
@@ -30,5 +33,5 @@ func BSServiceConnectionListenerDelegateObjectFromID(id objc.ID) BSServiceConnec
 }
 
 func (o BSServiceConnectionListenerDelegateObject) ListenerDidReceiveConnectionWithContext(listener objectivec.IObject, connection objectivec.IObject, context objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("listener:didReceiveConnection:withContext:"), listener, connection, context)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("listener:didReceiveConnection:withContext:"), listener, connection, context)
 }

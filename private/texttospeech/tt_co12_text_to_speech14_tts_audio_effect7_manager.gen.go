@@ -9,71 +9,71 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [TtCO12TextToSpeech14TTSAudioEffect7Manager] class.
+// The class instance for the [Manager] class.
 var (
-	_TtCO12TextToSpeech14TTSAudioEffect7ManagerClass     TtCO12TextToSpeech14TTSAudioEffect7ManagerClass
-	_TtCO12TextToSpeech14TTSAudioEffect7ManagerClassOnce sync.Once
+	_ManagerClass     ManagerClass
+	_ManagerClassOnce sync.Once
 )
 
-func getTtCO12TextToSpeech14TTSAudioEffect7ManagerClass() TtCO12TextToSpeech14TTSAudioEffect7ManagerClass {
-	_TtCO12TextToSpeech14TTSAudioEffect7ManagerClassOnce.Do(func() {
-		_TtCO12TextToSpeech14TTSAudioEffect7ManagerClass = TtCO12TextToSpeech14TTSAudioEffect7ManagerClass{class: objc.GetClass("_TtCO12TextToSpeech14TTSAudioEffect7Manager")}
+func getManagerClass() ManagerClass {
+	_ManagerClassOnce.Do(func() {
+		_ManagerClass = ManagerClass{class: objc.GetClass("_TtCO12TextToSpeech14TTSAudioEffect7Manager")}
 	})
-	return _TtCO12TextToSpeech14TTSAudioEffect7ManagerClass
+	return _ManagerClass
 }
 
-// GetTtCO12TextToSpeech14TTSAudioEffect7ManagerClass returns the class object for _TtCO12TextToSpeech14TTSAudioEffect7Manager.
-func GetTtCO12TextToSpeech14TTSAudioEffect7ManagerClass() TtCO12TextToSpeech14TTSAudioEffect7ManagerClass {
-	return getTtCO12TextToSpeech14TTSAudioEffect7ManagerClass()
+// GetManagerClass returns the class object for _TtCO12TextToSpeech14TTSAudioEffect7Manager.
+func GetManagerClass() ManagerClass {
+	return getManagerClass()
 }
 
-type TtCO12TextToSpeech14TTSAudioEffect7ManagerClass struct {
+type ManagerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (tc TtCO12TextToSpeech14TTSAudioEffect7ManagerClass) Class() objc.Class {
-	return tc.class
+func (mc ManagerClass) Class() objc.Class {
+	return mc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (tc TtCO12TextToSpeech14TTSAudioEffect7ManagerClass) Alloc() TtCO12TextToSpeech14TTSAudioEffect7Manager {
-	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](objc.ID(tc.class), objc.Sel("alloc"))
+func (mc ManagerClass) Alloc() Manager {
+	rv := objc.SendIfResponds[Manager](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
-type TtCO12TextToSpeech14TTSAudioEffect7Manager struct {
+type Manager struct {
 	objectivec.Object
 }
 
-// TtCO12TextToSpeech14TTSAudioEffect7ManagerFromID constructs a [TtCO12TextToSpeech14TTSAudioEffect7Manager] from an objc.ID.
-func TtCO12TextToSpeech14TTSAudioEffect7ManagerFromID(id objc.ID) TtCO12TextToSpeech14TTSAudioEffect7Manager {
-	return TtCO12TextToSpeech14TTSAudioEffect7Manager{objectivec.Object{ID: id}}
+// ManagerFromID constructs a [Manager] from an objc.ID.
+func ManagerFromID(id objc.ID) Manager {
+	return Manager{objectivec.Object{ID: id}}
 }
 
-// NOTE: TtCO12TextToSpeech14TTSAudioEffect7Manager struct embeds objectivec.Object (parent type unavailable) but
-// ITtCO12TextToSpeech14TTSAudioEffect7Manager embeds the parent interface; skip compile-time assertion.
+// Ensure Manager implements IManager.
+var _ IManager = Manager{}
 
-// An interface definition for the [TtCO12TextToSpeech14TTSAudioEffect7Manager] class.
-type ITtCO12TextToSpeech14TTSAudioEffect7Manager interface {
+// An interface definition for the [Manager] class.
+type IManager interface {
 	objectivec.IObject
 }
 
 // Init initializes the instance.
-func (t TtCO12TextToSpeech14TTSAudioEffect7Manager) Init() TtCO12TextToSpeech14TTSAudioEffect7Manager {
-	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](t.ID, objc.Sel("init"))
+func (m Manager) Init() Manager {
+	rv := objc.SendIfResponds[Manager](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t TtCO12TextToSpeech14TTSAudioEffect7Manager) Autorelease() TtCO12TextToSpeech14TTSAudioEffect7Manager {
-	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](t.ID, objc.Sel("autorelease"))
+func (m Manager) Autorelease() Manager {
+	rv := objc.SendIfResponds[Manager](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewTtCO12TextToSpeech14TTSAudioEffect7Manager creates a new TtCO12TextToSpeech14TTSAudioEffect7Manager instance.
-func NewTtCO12TextToSpeech14TTSAudioEffect7Manager() TtCO12TextToSpeech14TTSAudioEffect7Manager {
-	class := getTtCO12TextToSpeech14TTSAudioEffect7ManagerClass()
-	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](objc.ID(class.class), objc.Sel("new"))
+// NewManager creates a new Manager instance.
+func NewManager() Manager {
+	class := getManagerClass()
+	rv := objc.SendIfResponds[Manager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

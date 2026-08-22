@@ -38,7 +38,7 @@ func (mc MLSupervisedOnlineUpdateOptionsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSupervisedOnlineUpdateOptionsClass) Alloc() MLSupervisedOnlineUpdateOptions {
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSupervisedOnlineUpdateOptions](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,31 +61,31 @@ type IMLSupervisedOnlineUpdateOptions interface {
 
 // Init initializes the instance.
 func (m MLSupervisedOnlineUpdateOptions) Init() MLSupervisedOnlineUpdateOptions {
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSupervisedOnlineUpdateOptions) Autorelease() MLSupervisedOnlineUpdateOptions {
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSupervisedOnlineUpdateOptions creates a new MLSupervisedOnlineUpdateOptions instance.
 func NewMLSupervisedOnlineUpdateOptions() MLSupervisedOnlineUpdateOptions {
 	class := getMLSupervisedOnlineUpdateOptionsClass()
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSupervisedOnlineUpdateOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }
 
 func NewSupervisedOnlineUpdateOptionsWithUsesCPUOnly(cPUOnly bool) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }

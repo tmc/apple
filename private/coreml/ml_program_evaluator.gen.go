@@ -40,7 +40,7 @@ func (mc MLProgramEvaluatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLProgramEvaluatorClass) Alloc() MLProgramEvaluator {
-	rv := objc.Send[MLProgramEvaluator](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLProgramEvaluator](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,30 +98,33 @@ type IMLProgramEvaluator interface {
 
 // Init initializes the instance.
 func (m MLProgramEvaluator) Init() MLProgramEvaluator {
-	rv := objc.Send[MLProgramEvaluator](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLProgramEvaluator](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLProgramEvaluator) Autorelease() MLProgramEvaluator {
-	rv := objc.Send[MLProgramEvaluator](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLProgramEvaluator](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLProgramEvaluator creates a new MLProgramEvaluator instance.
 func NewMLProgramEvaluator() MLProgramEvaluator {
 	class := getMLProgramEvaluatorClass()
-	rv := objc.Send[MLProgramEvaluator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLProgramEvaluator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewProgramEvaluatorWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEvaluatorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgram:error:"), program, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:error:"), program, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLProgramEvaluator{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLProgramEvaluator{}, objc.ErrInitFailed
 	}
 	return MLProgramEvaluatorFromID(rv), nil
 }
@@ -157,11 +160,11 @@ func (m MLProgramEvaluator) NewContextAndReturnError() (objectivec.IObject, erro
 
 }
 func (m MLProgramEvaluator) PrepareArgumentsFromFeaturesContextForFunctionName(features objectivec.IObject, context objectivec.IObject, name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("prepareArgumentsFromFeatures:context:forFunctionName:"), features, context, name)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("prepareArgumentsFromFeatures:context:forFunctionName:"), features, context, name)
 	return objectivec.Object{ID: rv}
 }
 func (m MLProgramEvaluator) UpdateContextFunctionNameResult(context objectivec.IObject, name objectivec.IObject, result objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("updateContext:functionName:result:"), context, name, result)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updateContext:functionName:result:"), context, name, result)
 }
 func (m MLProgramEvaluator) InitWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
 	var errorPtr objc.ID
@@ -175,13 +178,13 @@ func (m MLProgramEvaluator) InitWithProgramError(program objectivec.IObject) (ML
 }
 
 func (m MLProgramEvaluator) Model() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("model"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("model"))
 	return rv
 }
 func (m MLProgramEvaluator) Program() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("program"))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("program"))
 	return rv
 }
 func (m MLProgramEvaluator) SetProgram(value unsafe.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProgram:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProgram:"), value)
 }

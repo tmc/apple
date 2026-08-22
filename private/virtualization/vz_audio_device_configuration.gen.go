@@ -40,18 +40,18 @@ func (vc VZAudioDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZAudioDeviceConfigurationClass) Alloc() VZAudioDeviceConfiguration {
-	rv := objc.Send[VZAudioDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZAudioDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
+//   - [VZAudioDeviceConfiguration._audioDevice]
 //   - [VZAudioDeviceConfiguration._init]
 //   - [VZAudioDeviceConfiguration._makeAudioDeviceForVirtualMachineAudioDeviceIndex]
 //   - [VZAudioDeviceConfiguration._role]
 //   - [VZAudioDeviceConfiguration.Set_role]
 //   - [VZAudioDeviceConfiguration._setRole]
-//   - [VZAudioDeviceConfiguration._audioDevice]
 //   - [VZAudioDeviceConfiguration.DebugDescription]
 //   - [VZAudioDeviceConfiguration.Description]
 //   - [VZAudioDeviceConfiguration.Hash]
@@ -72,12 +72,12 @@ var _ IVZAudioDeviceConfiguration = VZAudioDeviceConfiguration{}
 //
 // # Methods
 //
+//   - [IVZAudioDeviceConfiguration._audioDevice]
 //   - [IVZAudioDeviceConfiguration._init]
 //   - [IVZAudioDeviceConfiguration._makeAudioDeviceForVirtualMachineAudioDeviceIndex]
 //   - [IVZAudioDeviceConfiguration._role]
 //   - [IVZAudioDeviceConfiguration.Set_role]
 //   - [IVZAudioDeviceConfiguration._setRole]
-//   - [IVZAudioDeviceConfiguration._audioDevice]
 //   - [IVZAudioDeviceConfiguration.DebugDescription]
 //   - [IVZAudioDeviceConfiguration.Description]
 //   - [IVZAudioDeviceConfiguration.Hash]
@@ -87,12 +87,12 @@ type IVZAudioDeviceConfiguration interface {
 
 	// Topic: Methods
 
+	_audioDevice() unsafe.Pointer
 	_init() objectivec.IObject
 	_makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	_role() int64
 	Set_role(value int64)
 	_setRole(role int64)
-	_audioDevice() unsafe.Pointer
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -101,29 +101,29 @@ type IVZAudioDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZAudioDeviceConfiguration) Init() VZAudioDeviceConfiguration {
-	rv := objc.Send[VZAudioDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZAudioDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZAudioDeviceConfiguration) Autorelease() VZAudioDeviceConfiguration {
-	rv := objc.Send[VZAudioDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZAudioDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZAudioDeviceConfiguration creates a new VZAudioDeviceConfiguration instance.
 func NewVZAudioDeviceConfiguration() VZAudioDeviceConfiguration {
 	class := getVZAudioDeviceConfigurationClass()
-	rv := objc.Send[VZAudioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZAudioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZAudioDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 func (v VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"), machine, index)
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
@@ -141,7 +141,7 @@ func (v VZAudioDeviceConfiguration) CanMakeAudioDeviceForVirtualMachineAudioDevi
 	return objc.RespondsToSelector(v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"))
 }
 func (v VZAudioDeviceConfiguration) _setRole(role int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("_setRole:"), role)
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setRole:"), role)
 }
 
 // SetRole is an exported wrapper for the private method _setRole.
@@ -160,7 +160,7 @@ func (v VZAudioDeviceConfiguration) CanSetRole() bool {
 }
 
 func (v VZAudioDeviceConfiguration) _audioDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_audioDevice"))
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_audioDevice"))
 	return rv
 }
 
@@ -177,7 +177,7 @@ func (v VZAudioDeviceConfiguration) AudioDevice() (unsafe.Pointer, error) {
 	return v._audioDevice(), nil
 }
 func (v VZAudioDeviceConfiguration) _role() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("_role"))
+	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_role"))
 	return rv
 }
 
@@ -194,21 +194,21 @@ func (v VZAudioDeviceConfiguration) Role() (int64, error) {
 	return v._role(), nil
 }
 func (v VZAudioDeviceConfiguration) Set_role(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("set_role:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_role:"), value)
 }
 func (v VZAudioDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAudioDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZAudioDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZAudioDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

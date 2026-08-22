@@ -39,7 +39,7 @@ func (mc MLSequnceAsFeatureValueArrayClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSequnceAsFeatureValueArrayClass) Alloc() MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLSequnceAsFeatureValueArray](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,35 +76,35 @@ type IMLSequnceAsFeatureValueArray interface {
 
 // Init initializes the instance.
 func (m MLSequnceAsFeatureValueArray) Init() MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLSequnceAsFeatureValueArray) Autorelease() MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLSequnceAsFeatureValueArray creates a new MLSequnceAsFeatureValueArray instance.
 func NewMLSequnceAsFeatureValueArray() MLSequnceAsFeatureValueArray {
 	class := getMLSequnceAsFeatureValueArrayClass()
-	rv := objc.Send[MLSequnceAsFeatureValueArray](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLSequnceAsFeatureValueArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	instance := getMLSequnceAsFeatureValueArrayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWrappingSequence:"), sequence)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return MLSequnceAsFeatureValueArrayFromID(rv)
 }
 
 func (m MLSequnceAsFeatureValueArray) InitWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("initWrappingSequence:"), sequence)
+	rv := objc.SendIfResponds[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return rv
 }
 
 func (m MLSequnceAsFeatureValueArray) Sequence() IMLSequence {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("sequence"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("sequence"))
 	return MLSequenceFromID(objc.ID(rv))
 }

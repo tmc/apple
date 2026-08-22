@@ -39,7 +39,7 @@ func (ac ANEWeightClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEWeightClass) Alloc() ANEWeight {
-	rv := objc.Send[ANEWeight](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEWeight](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,92 +103,92 @@ type IANEWeight interface {
 
 // Init initializes the instance.
 func (a ANEWeight) Init() ANEWeight {
-	rv := objc.Send[ANEWeight](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEWeight](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEWeight) Autorelease() ANEWeight {
-	rv := objc.Send[ANEWeight](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEWeight](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEWeight creates a new ANEWeight instance.
 func NewANEWeight() ANEWeight {
 	class := getANEWeightClass()
-	rv := objc.Send[ANEWeight](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEWeight](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewANEWeightWithCoder(coder objectivec.IObject) ANEWeight {
 	instance := getANEWeightClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEWeightFromID(rv)
 }
 
 func NewANEWeightWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension(urlsha objectivec.IObject, url foundation.NSURL, hACode objectivec.IObject, extension objectivec.IObject) ANEWeight {
 	instance := getANEWeightClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWeightSymbolAndURLSHA:weightURL:SHACode:sandboxExtension:"), urlsha, url, hACode, extension)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWeightSymbolAndURLSHA:weightURL:SHACode:sandboxExtension:"), urlsha, url, hACode, extension)
 	return ANEWeightFromID(rv)
 }
 
 func NewANEWeightWithWeightSymbolAndURLWeightURL(url foundation.NSURL, url2 foundation.NSURL) ANEWeight {
 	instance := getANEWeightClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWeightSymbolAndURL:weightURL:"), url, url2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWeightSymbolAndURL:weightURL:"), url, url2)
 	return ANEWeightFromID(rv)
 }
 
 func (a ANEWeight) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (a ANEWeight) UpdateWeightURL(url foundation.NSURL) {
-	objc.Send[objc.ID](a.ID, objc.Sel("updateWeightURL:"), url)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateWeightURL:"), url)
 }
 func (a ANEWeight) InitWithCoder(coder foundation.INSCoder) ANEWeight {
-	rv := objc.Send[ANEWeight](a.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[ANEWeight](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (a ANEWeight) InitWithWeightSymbolAndURLWeightURL(url foundation.NSURL, url2 foundation.NSURL) ANEWeight {
-	rv := objc.Send[ANEWeight](a.ID, objc.Sel("initWithWeightSymbolAndURL:weightURL:"), url, url2)
+	rv := objc.SendIfResponds[ANEWeight](a.ID, objc.Sel("initWithWeightSymbolAndURL:weightURL:"), url, url2)
 	return rv
 }
 func (a ANEWeight) InitWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension(urlsha objectivec.IObject, url foundation.NSURL, hACode objectivec.IObject, extension objectivec.IObject) ANEWeight {
-	rv := objc.Send[ANEWeight](a.ID, objc.Sel("initWithWeightSymbolAndURLSHA:weightURL:SHACode:sandboxExtension:"), urlsha, url, hACode, extension)
+	rv := objc.SendIfResponds[ANEWeight](a.ID, objc.Sel("initWithWeightSymbolAndURLSHA:weightURL:SHACode:sandboxExtension:"), urlsha, url, hACode, extension)
 	return rv
 }
 
 func (_ANEWeightClass ANEWeightClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_ANEWeightClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEWeightClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 func (_ANEWeightClass ANEWeightClass) WeightWithSymbolAndURLWeightURL(url foundation.NSURL, url2 foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEWeightClass.class), objc.Sel("weightWithSymbolAndURL:weightURL:"), url, url2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEWeightClass.class), objc.Sel("weightWithSymbolAndURL:weightURL:"), url, url2)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEWeightClass ANEWeightClass) WeightWithSymbolAndURLSHAWeightURLSHACode(urlsha objectivec.IObject, url foundation.NSURL, hACode objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEWeightClass.class), objc.Sel("weightWithSymbolAndURLSHA:weightURL:SHACode:"), urlsha, url, hACode)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEWeightClass.class), objc.Sel("weightWithSymbolAndURLSHA:weightURL:SHACode:"), urlsha, url, hACode)
 	return objectivec.Object{ID: rv}
 }
 
 func (a ANEWeight) SHACode() foundation.NSData {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("SHACode"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("SHACode"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 func (a ANEWeight) SandboxExtension() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sandboxExtension"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sandboxExtension"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEWeight) SetSandboxExtension(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSandboxExtension:"), objc.String(value))
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSandboxExtension:"), objc.String(value))
 }
 func (a ANEWeight) WeightSymbol() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightSymbol"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightSymbol"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEWeight) WeightURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightURL"))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 func (a ANEWeight) SetWeightURL(value foundation.NSURL) {
-	objc.Send[struct{}](a.ID, objc.Sel("setWeightURL:"), value)
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setWeightURL:"), value)
 }

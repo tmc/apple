@@ -41,7 +41,7 @@ func (tc TTSRulesetRunnerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRulesetRunnerClass) Alloc() TTSRulesetRunner {
-	rv := objc.Send[TTSRulesetRunner](objc.ID(tc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[TTSRulesetRunner](objc.ID(tc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -144,25 +144,25 @@ type ITTSRulesetRunner interface {
 
 // Init initializes the instance.
 func (t TTSRulesetRunner) Init() TTSRulesetRunner {
-	rv := objc.Send[TTSRulesetRunner](t.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[TTSRulesetRunner](t.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (t TTSRulesetRunner) Autorelease() TTSRulesetRunner {
-	rv := objc.Send[TTSRulesetRunner](t.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[TTSRulesetRunner](t.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewTTSRulesetRunner creates a new TTSRulesetRunner instance.
 func NewTTSRulesetRunner() TTSRulesetRunner {
 	class := getTTSRulesetRunnerClass()
-	rv := objc.Send[TTSRulesetRunner](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[TTSRulesetRunner](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (t TTSRulesetRunner) _computeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"), ranges, ranges2)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"), ranges, ranges2)
 	return objectivec.Object{ID: rv}
 }
 
@@ -180,7 +180,7 @@ func (t TTSRulesetRunner) CanComputeActiveRangesWithIgnoreRanges() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"))
 }
 func (t TTSRulesetRunner) _ignoreRangesForString(string_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ignoreRangesForString:"), string_)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_ignoreRangesForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
@@ -198,7 +198,7 @@ func (t TTSRulesetRunner) CanIgnoreRangesForString() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_ignoreRangesForString:"))
 }
 func (t TTSRulesetRunner) _processSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"), string_, at, depth)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"), string_, at, depth)
 	return objectivec.Object{ID: rv}
 }
 
@@ -216,7 +216,7 @@ func (t TTSRulesetRunner) CanProcessSpeechStringStartingAtCurrentRecursionDepth(
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"))
 }
 func (t TTSRulesetRunner) _processTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"), text, replacement, unsafe.Pointer(unsafe.StringData(string_+"\x00")))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"), text, replacement, unsafe.Pointer(unsafe.StringData(string_+"\x00")))
 	return objectivec.Object{ID: rv}
 }
 
@@ -234,7 +234,7 @@ func (t TTSRulesetRunner) CanProcessTemplateReplacementTextForTextReplacementCSt
 	return objc.RespondsToSelector(t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"))
 }
 func (t TTSRulesetRunner) _recomputeRuleOrdering() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_recomputeRuleOrdering"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_recomputeRuleOrdering"))
 }
 
 // RecomputeRuleOrdering is an exported wrapper for the private method _recomputeRuleOrdering.
@@ -252,72 +252,72 @@ func (t TTSRulesetRunner) CanRecomputeRuleOrdering() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_recomputeRuleOrdering"))
 }
 func (t TTSRulesetRunner) CancelProcessing() {
-	objc.Send[objc.ID](t.ID, objc.Sel("cancelProcessing"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("cancelProcessing"))
 }
 func (t TTSRulesetRunner) LoadRuleSet(set objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("loadRuleSet:"), set)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("loadRuleSet:"), set)
 }
 func (t TTSRulesetRunner) ProcessText(text objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("processText:"), text)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("processText:"), text)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSRulesetRunner) Reset() {
-	objc.Send[objc.ID](t.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("reset"))
 }
 func (t TTSRulesetRunner) SetMatchLogger(logger VoidHandler) {
 	_block0, _ := NewVoidBlock(logger)
-	objc.Send[objc.ID](t.ID, objc.Sel("setMatchLogger:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setMatchLogger:"), _block0)
 }
 func (t TTSRulesetRunner) SetPostRuleWriter(writer VoidHandler) {
 	_block0, _ := NewVoidBlock(writer)
-	objc.Send[objc.ID](t.ID, objc.Sel("setPostRuleWriter:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setPostRuleWriter:"), _block0)
 }
 func (t TTSRulesetRunner) SetPreRuleWriter(writer VoidHandler) {
 	_block0, _ := NewVoidBlock(writer)
-	objc.Send[objc.ID](t.ID, objc.Sel("setPreRuleWriter:"), _block0)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("setPreRuleWriter:"), _block0)
 }
 func (t TTSRulesetRunner) UnloadRuleset(ruleset objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("unloadRuleset:"), ruleset)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("unloadRuleset:"), ruleset)
 }
 
 func (t TTSRulesetRunner) Executing() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("executing"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("executing"))
 	return rv
 }
 func (t TTSRulesetRunner) SetExecuting(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setExecuting:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setExecuting:"), value)
 }
 func (t TTSRulesetRunner) RegexExecutionQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexExecutionQueue"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("regexExecutionQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (t TTSRulesetRunner) SetRegexExecutionQueue(value objectivec.Object) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRegexExecutionQueue:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRegexExecutionQueue:"), value)
 }
 func (t TTSRulesetRunner) RuleCount() foundation.NSNumber {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleCount"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ruleCount"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 func (t TTSRulesetRunner) RuleReplacements() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacements"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ruleReplacements"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSRulesetRunner) SetRuleReplacements(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRuleReplacements:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRuleReplacements:"), value)
 }
 func (t TTSRulesetRunner) RuleSets() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleSets"))
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ruleSets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (t TTSRulesetRunner) SetRuleSets(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRuleSets:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setRuleSets:"), value)
 }
 func (t TTSRulesetRunner) ShouldAbort() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("shouldAbort"))
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("shouldAbort"))
 	return rv
 }
 func (t TTSRulesetRunner) SetShouldAbort(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setShouldAbort:"), value)
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setShouldAbort:"), value)
 }
 
 // SetMatchLoggerSync is a synchronous wrapper around [TTSRulesetRunner.SetMatchLogger].

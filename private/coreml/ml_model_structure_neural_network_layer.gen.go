@@ -38,7 +38,7 @@ func (mc MLModelStructureNeuralNetworkLayerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureNeuralNetworkLayerClass) Alloc() MLModelStructureNeuralNetworkLayer {
-	rv := objc.Send[MLModelStructureNeuralNetworkLayer](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetworkLayer](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,35 +75,35 @@ type IMLModelStructureNeuralNetworkLayer interface {
 
 // Init initializes the instance.
 func (m MLModelStructureNeuralNetworkLayer) Init() MLModelStructureNeuralNetworkLayer {
-	rv := objc.Send[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLModelStructureNeuralNetworkLayer) Autorelease() MLModelStructureNeuralNetworkLayer {
-	rv := objc.Send[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLModelStructureNeuralNetworkLayer creates a new MLModelStructureNeuralNetworkLayer instance.
 func NewMLModelStructureNeuralNetworkLayer() MLModelStructureNeuralNetworkLayer {
 	class := getMLModelStructureNeuralNetworkLayerClass()
-	rv := objc.Send[MLModelStructureNeuralNetworkLayer](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetworkLayer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewModelStructureNeuralNetworkLayerWithNameTypeInputNamesOutputNamesPath(name objectivec.IObject, type_ objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, path objectivec.IObject) MLModelStructureNeuralNetworkLayer {
 	instance := getMLModelStructureNeuralNetworkLayerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:type:inputNames:outputNames:path:"), name, type_, names, names2, path)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:type:inputNames:outputNames:path:"), name, type_, names, names2, path)
 	return MLModelStructureNeuralNetworkLayerFromID(rv)
 }
 
 func (m MLModelStructureNeuralNetworkLayer) InitWithNameTypeInputNamesOutputNamesPath(name objectivec.IObject, type_ objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, path objectivec.IObject) MLModelStructureNeuralNetworkLayer {
-	rv := objc.Send[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("initWithName:type:inputNames:outputNames:path:"), name, type_, names, names2, path)
+	rv := objc.SendIfResponds[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("initWithName:type:inputNames:outputNames:path:"), name, type_, names, names2, path)
 	return rv
 }
 
 func (m MLModelStructureNeuralNetworkLayer) Path() IMLModelStructurePath {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("path"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("path"))
 	return MLModelStructurePathFromID(objc.ID(rv))
 }

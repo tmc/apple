@@ -39,7 +39,7 @@ func (sc SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass) Class() objc
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass) Alloc() SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,49 +82,49 @@ type ISLSBridgedTileSpaceMoveSpacersForSizeFencedOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) Init() SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) Autorelease() SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperation creates a new SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation instance.
 func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperation() SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	class := getSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass()
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationWithCoder(coder objectivec.IObject) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationFromID(rv)
 }
 
 func NewSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationWithTileSpaceIDSizeFencePort(id uint64, size corefoundation.CGSize, port uint32) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
 	instance := getSLSBridgedTileSpaceMoveSpacersForSizeFencedOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
 	return SLSBridgedTileSpaceMoveSpacersForSizeFencedOperationFromID(rv)
 }
 
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) InitWithTileSpaceIDSizeFencePort(id uint64, size corefoundation.CGSize, port uint32) SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation {
-	rv := objc.Send[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
+	rv := objc.SendIfResponds[SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation](s.ID, objc.Sel("initWithTileSpaceID:size:fencePort:"), id, size, port)
 	return rv
 }
 
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) FencePort() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("fencePort"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("fencePort"))
 	return rv
 }
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) Size() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("size"))
+	rv := objc.SendIfResponds[corefoundation.CGSize](s.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
 func (s SLSBridgedTileSpaceMoveSpacersForSizeFencedOperation) TileSpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("tileSpaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("tileSpaceID"))
 	return rv
 }

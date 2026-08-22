@@ -38,7 +38,7 @@ func (sc SLSBridgedGetTileSpaceDividerDirectionsOperationClass) Class() objc.Cla
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedGetTileSpaceDividerDirectionsOperationClass) Alloc() SLSBridgedGetTileSpaceDividerDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedGetTileSpaceDividerDirectionsOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,45 +78,45 @@ type ISLSBridgedGetTileSpaceDividerDirectionsOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) Init() SLSBridgedGetTileSpaceDividerDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) Autorelease() SLSBridgedGetTileSpaceDividerDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedGetTileSpaceDividerDirectionsOperation creates a new SLSBridgedGetTileSpaceDividerDirectionsOperation instance.
 func NewSLSBridgedGetTileSpaceDividerDirectionsOperation() SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	class := getSLSBridgedGetTileSpaceDividerDirectionsOperationClass()
-	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedGetTileSpaceDividerDirectionsOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedGetTileSpaceDividerDirectionsOperationWithCoder(coder objectivec.IObject) SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	instance := getSLSBridgedGetTileSpaceDividerDirectionsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedGetTileSpaceDividerDirectionsOperationFromID(rv)
 }
 
 func NewSLSBridgedGetTileSpaceDividerDirectionsOperationWithSpaceID(id uint64) SLSBridgedGetTileSpaceDividerDirectionsOperation {
 	instance := getSLSBridgedGetTileSpaceDividerDirectionsOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:"), id)
 	return SLSBridgedGetTileSpaceDividerDirectionsOperationFromID(rv)
 }
 
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) MakeResultWithSpaceResizeDirections(directions uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithSpaceResizeDirections:"), directions)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) InitWithSpaceID(id uint64) SLSBridgedGetTileSpaceDividerDirectionsOperation {
-	rv := objc.Send[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
+	rv := objc.SendIfResponds[SLSBridgedGetTileSpaceDividerDirectionsOperation](s.ID, objc.Sel("initWithSpaceID:"), id)
 	return rv
 }
 
 func (s SLSBridgedGetTileSpaceDividerDirectionsOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }

@@ -40,7 +40,7 @@ func (sc SerializedDiskImageGraphClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SerializedDiskImageGraphClass) Alloc() SerializedDiskImageGraph {
-	rv := objc.Send[SerializedDiskImageGraph](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SerializedDiskImageGraph](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,30 +83,33 @@ type ISerializedDiskImageGraph interface {
 
 // Init initializes the instance.
 func (s SerializedDiskImageGraph) Init() SerializedDiskImageGraph {
-	rv := objc.Send[SerializedDiskImageGraph](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SerializedDiskImageGraph](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SerializedDiskImageGraph) Autorelease() SerializedDiskImageGraph {
-	rv := objc.Send[SerializedDiskImageGraph](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SerializedDiskImageGraph](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSerializedDiskImageGraph creates a new SerializedDiskImageGraph instance.
 func NewSerializedDiskImageGraph() SerializedDiskImageGraph {
 	class := getSerializedDiskImageGraphClass()
-	rv := objc.Send[SerializedDiskImageGraph](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SerializedDiskImageGraph](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSerializedDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:newPstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -114,10 +117,13 @@ func NewSerializedDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundat
 func NewSerializedDiskImageGraphWithBaseImageURLPstackURLTagError(url foundation.NSURL, url2 foundation.NSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:pstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:pstackURL:tag:error:"), url, url2, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -125,10 +131,13 @@ func NewSerializedDiskImageGraphWithBaseImageURLPstackURLTagError(url foundation
 func NewSerializedDiskImageGraphWithBaseImageURLTagError(url foundation.NSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBaseImageURL:tag:error:"), url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -136,10 +145,13 @@ func NewSerializedDiskImageGraphWithBaseImageURLTagError(url foundation.NSURL, t
 func NewSerializedDiskImageGraphWithGraphDBError(db objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGraphDB:error:"), db, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGraphDB:error:"), db, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -147,10 +159,13 @@ func NewSerializedDiskImageGraphWithGraphDBError(db objectivec.IObject) (Seriali
 func NewSerializedDiskImageGraphWithGraphDBPstackURLError(db objectivec.IObject, url foundation.NSURL) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGraphDB:pstackURL:error:"), db, url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGraphDB:pstackURL:error:"), db, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -158,10 +173,13 @@ func NewSerializedDiskImageGraphWithGraphDBPstackURLError(db objectivec.IObject,
 func NewSerializedDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGraphDB:workDir:error:"), db, dir, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGraphDB:workDir:error:"), db, dir, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -169,10 +187,13 @@ func NewSerializedDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, d
 func NewSerializedDiskImageGraphWithPluginNamePluginParamsPstackURLTagError(name objectivec.IObject, params objectivec.IObject, url foundation.NSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:pstackURL:tag:error:"), name, params, url, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:pstackURL:tag:error:"), name, params, url, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -180,10 +201,13 @@ func NewSerializedDiskImageGraphWithPluginNamePluginParamsPstackURLTagError(name
 func NewSerializedDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:error:"), name, params, tag, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPluginName:pluginParams:tag:error:"), name, params, tag, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -191,10 +215,13 @@ func NewSerializedDiskImageGraphWithPluginNamePluginParamsTagError(name objectiv
 func NewSerializedDiskImageGraphWithPstackURLError(url foundation.NSURL) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
 	instance := getSerializedDiskImageGraphClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPstackURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SerializedDiskImageGraph{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SerializedDiskImageGraph{}, objc.ErrInitFailed
 	}
 	return SerializedDiskImageGraphFromID(rv), nil
 }
@@ -231,11 +258,11 @@ func (s SerializedDiskImageGraph) InitWithPluginNamePluginParamsPstackURLTagErro
 }
 
 func (_SerializedDiskImageGraphClass SerializedDiskImageGraphClass) GetRelativeIfContainedWithChildURLParentURL(url foundation.NSURL, url2 foundation.NSURL) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SerializedDiskImageGraphClass.class), objc.Sel("getRelativeIfContainedWithChildURL:parentURL:"), url, url2)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SerializedDiskImageGraphClass.class), objc.Sel("getRelativeIfContainedWithChildURL:parentURL:"), url, url2)
 	return objectivec.Object{ID: rv}
 }
 
 func (s SerializedDiskImageGraph) PstackURL() foundation.NSURL {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("pstackURL"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("pstackURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

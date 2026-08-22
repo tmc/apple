@@ -38,7 +38,7 @@ func (gc GTShaderProfilerDebugDumpClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerDebugDumpClass) Alloc() GTShaderProfilerDebugDump {
-	rv := objc.Send[GTShaderProfilerDebugDump](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerDebugDump](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -78,42 +78,42 @@ type IGTShaderProfilerDebugDump interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerDebugDump) Init() GTShaderProfilerDebugDump {
-	rv := objc.Send[GTShaderProfilerDebugDump](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerDebugDump](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerDebugDump) Autorelease() GTShaderProfilerDebugDump {
-	rv := objc.Send[GTShaderProfilerDebugDump](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerDebugDump](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerDebugDump creates a new GTShaderProfilerDebugDump instance.
 func NewGTShaderProfilerDebugDump() GTShaderProfilerDebugDump {
 	class := getGTShaderProfilerDebugDumpClass()
-	rv := objc.Send[GTShaderProfilerDebugDump](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerDebugDump](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerDebugDumpWithDirectory(directory objectivec.IObject) GTShaderProfilerDebugDump {
 	instance := getGTShaderProfilerDebugDumpClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDirectory:"), directory)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDirectory:"), directory)
 	return GTShaderProfilerDebugDumpFromID(rv)
 }
 
 func (g GTShaderProfilerDebugDump) FilePathFromFileName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("filePathFromFileName:"), name)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("filePathFromFileName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerDebugDump) SetDirectory(directory objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setDirectory:"), directory)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setDirectory:"), directory)
 }
 func (g GTShaderProfilerDebugDump) InitWithDirectory(directory objectivec.IObject) GTShaderProfilerDebugDump {
-	rv := objc.Send[GTShaderProfilerDebugDump](g.ID, objc.Sel("initWithDirectory:"), directory)
+	rv := objc.SendIfResponds[GTShaderProfilerDebugDump](g.ID, objc.Sel("initWithDirectory:"), directory)
 	return rv
 }
 
 func (_GTShaderProfilerDebugDumpClass GTShaderProfilerDebugDumpClass) DebugDump() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerDebugDumpClass.class), objc.Sel("debugDump"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTShaderProfilerDebugDumpClass.class), objc.Sel("debugDump"))
 	return objectivec.Object{ID: rv}
 }

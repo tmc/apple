@@ -37,7 +37,7 @@ func (dc DIBaseAgentXPCHandlerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (dc DIBaseAgentXPCHandlerClass) Alloc() DIBaseAgentXPCHandler {
-	rv := objc.Send[DIBaseAgentXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[DIBaseAgentXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -71,23 +71,23 @@ type IDIBaseAgentXPCHandler interface {
 
 // Init initializes the instance.
 func (d DIBaseAgentXPCHandler) Init() DIBaseAgentXPCHandler {
-	rv := objc.Send[DIBaseAgentXPCHandler](d.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[DIBaseAgentXPCHandler](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (d DIBaseAgentXPCHandler) Autorelease() DIBaseAgentXPCHandler {
-	rv := objc.Send[DIBaseAgentXPCHandler](d.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[DIBaseAgentXPCHandler](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewDIBaseAgentXPCHandler creates a new DIBaseAgentXPCHandler instance.
 func NewDIBaseAgentXPCHandler() DIBaseAgentXPCHandler {
 	class := getDIBaseAgentXPCHandlerClass()
-	rv := objc.Send[DIBaseAgentXPCHandler](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[DIBaseAgentXPCHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (d DIBaseAgentXPCHandler) SetConnectionMode() {
-	objc.Send[objc.ID](d.ID, objc.Sel("setConnectionMode"))
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("setConnectionMode"))
 }

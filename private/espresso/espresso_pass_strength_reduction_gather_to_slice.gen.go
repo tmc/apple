@@ -37,7 +37,7 @@ func (ec EspressoPassStrengthReductionGatherToSliceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassStrengthReductionGatherToSliceClass) Alloc() EspressoPassStrengthReductionGatherToSlice {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToSlice](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToSlice](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassStrengthReductionGatherToSlice interface {
 
 // Init initializes the instance.
 func (e EspressoPassStrengthReductionGatherToSlice) Init() EspressoPassStrengthReductionGatherToSlice {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToSlice](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToSlice](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassStrengthReductionGatherToSlice) Autorelease() EspressoPassStrengthReductionGatherToSlice {
-	rv := objc.Send[EspressoPassStrengthReductionGatherToSlice](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToSlice](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassStrengthReductionGatherToSlice creates a new EspressoPassStrengthReductionGatherToSlice instance.
 func NewEspressoPassStrengthReductionGatherToSlice() EspressoPassStrengthReductionGatherToSlice {
 	class := getEspressoPassStrengthReductionGatherToSliceClass()
-	rv := objc.Send[EspressoPassStrengthReductionGatherToSlice](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassStrengthReductionGatherToSlice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

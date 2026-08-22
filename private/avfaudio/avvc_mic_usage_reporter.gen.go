@@ -39,7 +39,7 @@ func (ac AVVCMicUsageReporterClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVCMicUsageReporterClass) Alloc() AVVCMicUsageReporter {
-	rv := objc.Send[AVVCMicUsageReporter](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVVCMicUsageReporter](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -76,25 +76,25 @@ type IAVVCMicUsageReporter interface {
 
 // Init initializes the instance.
 func (a AVVCMicUsageReporter) Init() AVVCMicUsageReporter {
-	rv := objc.Send[AVVCMicUsageReporter](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVVCMicUsageReporter](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVVCMicUsageReporter) Autorelease() AVVCMicUsageReporter {
-	rv := objc.Send[AVVCMicUsageReporter](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVVCMicUsageReporter](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVVCMicUsageReporter creates a new AVVCMicUsageReporter instance.
 func NewAVVCMicUsageReporter() AVVCMicUsageReporter {
 	class := getAVVCMicUsageReporterClass()
-	rv := objc.Send[AVVCMicUsageReporter](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVVCMicUsageReporter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (a AVVCMicUsageReporter) _getAuditToken(token unsafe.Pointer) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("_getAuditToken:"), token)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("_getAuditToken:"), token)
 	return rv
 }
 
@@ -112,10 +112,10 @@ func (a AVVCMicUsageReporter) CanGetAuditToken() bool {
 	return objc.RespondsToSelector(a.ID, objc.Sel("_getAuditToken:"))
 }
 func (a AVVCMicUsageReporter) ReportMicUsage(usage bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("reportMicUsage:"), usage)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("reportMicUsage:"), usage)
 }
 
 func (_AVVCMicUsageReporterClass AVVCMicUsageReporterClass) SharedInstance() AVVCMicUsageReporter {
-	rv := objc.Send[objc.ID](objc.ID(_AVVCMicUsageReporterClass.class), objc.Sel("sharedInstance"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCMicUsageReporterClass.class), objc.Sel("sharedInstance"))
 	return AVVCMicUsageReporterFromID(rv)
 }

@@ -38,7 +38,7 @@ func (vc VZSharedDirectoryClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
-	rv := objc.Send[VZSharedDirectory](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSharedDirectory](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -72,24 +72,24 @@ type IVZSharedDirectory interface {
 
 // Init initializes the instance.
 func (v VZSharedDirectory) Init() VZSharedDirectory {
-	rv := objc.Send[VZSharedDirectory](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSharedDirectory](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSharedDirectory) Autorelease() VZSharedDirectory {
-	rv := objc.Send[VZSharedDirectory](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSharedDirectory](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSharedDirectory creates a new VZSharedDirectory instance.
 func NewVZSharedDirectory() VZSharedDirectory {
 	class := getVZSharedDirectoryClass()
-	rv := objc.Send[VZSharedDirectory](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSharedDirectory](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSharedDirectory) ReadOnly() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

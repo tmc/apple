@@ -38,7 +38,7 @@ func (sc SkyLightPKGSystemStatusIndicatorsAnimatorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SkyLightPKGSystemStatusIndicatorsAnimatorClass) Alloc() SkyLightPKGSystemStatusIndicatorsAnimator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsAnimator](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsAnimator](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func SkyLightPKGSystemStatusIndicatorsAnimatorFromID(id objc.ID) SkyLightPKGSyst
 	return SkyLightPKGSystemStatusIndicatorsAnimator{objectivec.Object{ID: id}}
 }
 
-// NOTE: SkyLightPKGSystemStatusIndicatorsAnimator struct embeds objectivec.Object (parent type unavailable) but
-// ISkyLightPKGSystemStatusIndicatorsAnimator embeds the parent interface; skip compile-time assertion.
+// Ensure SkyLightPKGSystemStatusIndicatorsAnimator implements ISkyLightPKGSystemStatusIndicatorsAnimator.
+var _ ISkyLightPKGSystemStatusIndicatorsAnimator = SkyLightPKGSystemStatusIndicatorsAnimator{}
 
 // An interface definition for the [SkyLightPKGSystemStatusIndicatorsAnimator] class.
 type ISkyLightPKGSystemStatusIndicatorsAnimator interface {
@@ -61,19 +61,19 @@ type ISkyLightPKGSystemStatusIndicatorsAnimator interface {
 
 // Init initializes the instance.
 func (s SkyLightPKGSystemStatusIndicatorsAnimator) Init() SkyLightPKGSystemStatusIndicatorsAnimator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsAnimator](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsAnimator](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SkyLightPKGSystemStatusIndicatorsAnimator) Autorelease() SkyLightPKGSystemStatusIndicatorsAnimator {
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsAnimator](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsAnimator](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSkyLightPKGSystemStatusIndicatorsAnimator creates a new SkyLightPKGSystemStatusIndicatorsAnimator instance.
 func NewSkyLightPKGSystemStatusIndicatorsAnimator() SkyLightPKGSystemStatusIndicatorsAnimator {
 	class := getSkyLightPKGSystemStatusIndicatorsAnimatorClass()
-	rv := objc.Send[SkyLightPKGSystemStatusIndicatorsAnimator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SkyLightPKGSystemStatusIndicatorsAnimator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

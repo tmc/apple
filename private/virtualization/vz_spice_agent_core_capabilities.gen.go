@@ -38,7 +38,7 @@ func (vc VZSpiceAgentCoreCapabilitiesClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSpiceAgentCoreCapabilitiesClass) Alloc() VZSpiceAgentCoreCapabilities {
-	rv := objc.Send[VZSpiceAgentCoreCapabilities](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreCapabilities](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -75,27 +75,27 @@ type IVZSpiceAgentCoreCapabilities interface {
 
 // Init initializes the instance.
 func (v VZSpiceAgentCoreCapabilities) Init() VZSpiceAgentCoreCapabilities {
-	rv := objc.Send[VZSpiceAgentCoreCapabilities](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreCapabilities](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZSpiceAgentCoreCapabilities) Autorelease() VZSpiceAgentCoreCapabilities {
-	rv := objc.Send[VZSpiceAgentCoreCapabilities](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreCapabilities](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZSpiceAgentCoreCapabilities creates a new VZSpiceAgentCoreCapabilities instance.
 func NewVZSpiceAgentCoreCapabilities() VZSpiceAgentCoreCapabilities {
 	class := getVZSpiceAgentCoreCapabilitiesClass()
-	rv := objc.Send[VZSpiceAgentCoreCapabilities](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZSpiceAgentCoreCapabilities](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZSpiceAgentCoreCapabilities) Clipboard() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("clipboard"))
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("clipboard"))
 	return rv
 }
 func (v VZSpiceAgentCoreCapabilities) SetClipboard(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setClipboard:"), value)
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setClipboard:"), value)
 }

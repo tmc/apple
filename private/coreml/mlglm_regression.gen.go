@@ -40,7 +40,7 @@ func (mc MLGLMRegressionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLGLMRegressionClass) Alloc() MLGLMRegression {
-	rv := objc.Send[MLGLMRegression](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLGLMRegression](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -62,8 +62,8 @@ func MLGLMRegressionFromID(id objc.ID) MLGLMRegression {
 	return MLGLMRegression{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLGLMRegression struct embeds objectivec.Object (parent type unavailable) but
-// IMLGLMRegression embeds the parent interface; skip compile-time assertion.
+// Ensure MLGLMRegression implements IMLGLMRegression.
+var _ IMLGLMRegression = MLGLMRegression{}
 
 // An interface definition for the [MLGLMRegression] class.
 //
@@ -77,7 +77,7 @@ func MLGLMRegressionFromID(id objc.ID) MLGLMRegression {
 //   - [IMLGLMRegression.Hash]
 //   - [IMLGLMRegression.Superclass]
 type IMLGLMRegression interface {
-	IMLRegressor
+	objectivec.IObject
 
 	// Topic: Methods
 
@@ -92,30 +92,33 @@ type IMLGLMRegression interface {
 
 // Init initializes the instance.
 func (m MLGLMRegression) Init() MLGLMRegression {
-	rv := objc.Send[MLGLMRegression](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLGLMRegression](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLGLMRegression) Autorelease() MLGLMRegression {
-	rv := objc.Send[MLGLMRegression](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLGLMRegression](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLGLMRegression creates a new MLGLMRegression instance.
 func NewMLGLMRegression() MLGLMRegression {
 	class := getMLGLMRegressionClass()
-	rv := objc.Send[MLGLMRegression](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLGLMRegression](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMRegressionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLRSpec:configuration:error:"), lRSpec, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLRSpec:configuration:error:"), lRSpec, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMRegression{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLGLMRegression{}, objc.ErrInitFailed
 	}
 	return MLGLMRegressionFromID(rv), nil
 }
@@ -123,10 +126,13 @@ func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configu
 func NewGLMRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMRegressionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMRegression{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLGLMRegression{}, objc.ErrInitFailed
 	}
 	return MLGLMRegressionFromID(rv), nil
 }
@@ -174,18 +180,18 @@ func (_MLGLMRegressionClass MLGLMRegressionClass) LoadModelFromSpecificationConf
 }
 
 func (m MLGLMRegression) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGLMRegression) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLGLMRegression) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLGLMRegression) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -39,7 +39,7 @@ func (mc MLFeatureFlagsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureFlagsClass) Alloc() MLFeatureFlags {
-	rv := objc.Send[MLFeatureFlags](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLFeatureFlags](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -103,68 +103,68 @@ type IMLFeatureFlags interface {
 
 // Init initializes the instance.
 func (m MLFeatureFlags) Init() MLFeatureFlags {
-	rv := objc.Send[MLFeatureFlags](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLFeatureFlags](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLFeatureFlags) Autorelease() MLFeatureFlags {
-	rv := objc.Send[MLFeatureFlags](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLFeatureFlags](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLFeatureFlags creates a new MLFeatureFlags instance.
 func NewMLFeatureFlags() MLFeatureFlags {
 	class := getMLFeatureFlagsClass()
-	rv := objc.Send[MLFeatureFlags](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLFeatureFlags](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLFeatureFlags) AddFeatureWithControlNameDefaultValue(feature objectivec.IObject, name objectivec.IObject, value bool) {
-	objc.Send[objc.ID](m.ID, objc.Sel("addFeature:withControlName:defaultValue:"), feature, name, value)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("addFeature:withControlName:defaultValue:"), feature, name, value)
 }
 func (m MLFeatureFlags) ControlKeyForFeature(feature objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("controlKeyForFeature:"), feature)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("controlKeyForFeature:"), feature)
 	return objectivec.Object{ID: rv}
 }
 func (m MLFeatureFlags) DefineFeatures() {
-	objc.Send[objc.ID](m.ID, objc.Sel("defineFeatures"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defineFeatures"))
 }
 func (m MLFeatureFlags) IsFeatureEnabled(enabled objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isFeatureEnabled:"), enabled)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isFeatureEnabled:"), enabled)
 	return rv
 }
 func (m MLFeatureFlags) IsMPSGraphEnabled() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isMPSGraphEnabled"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isMPSGraphEnabled"))
 	return rv
 }
 func (m MLFeatureFlags) IsMPSGraphFP16Enabled() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isMPSGraphFP16Enabled"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isMPSGraphFP16Enabled"))
 	return rv
 }
 func (m MLFeatureFlags) RemoveOverrideForFeature(feature objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("removeOverrideForFeature:"), feature)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("removeOverrideForFeature:"), feature)
 	return rv
 }
 func (m MLFeatureFlags) SetOverrideForFeature(override bool, feature objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("setOverride:forFeature:"), override, feature)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("setOverride:forFeature:"), override, feature)
 	return rv
 }
 
 func (_MLFeatureFlagsClass MLFeatureFlagsClass) SharedFeatureFlags() MLFeatureFlags {
-	rv := objc.Send[objc.ID](objc.ID(_MLFeatureFlagsClass.class), objc.Sel("sharedFeatureFlags"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLFeatureFlagsClass.class), objc.Sel("sharedFeatureFlags"))
 	return MLFeatureFlagsFromID(rv)
 }
 
 func (m MLFeatureFlags) Flags() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("flags"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("flags"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFeatureFlags) OverrideOriginalValues() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("overrideOriginalValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("overrideOriginalValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLFeatureFlags) UserDefaults() foundation.UserDefaults {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("userDefaults"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("userDefaults"))
 	return foundation.UserDefaultsFromID(objc.ID(rv))
 }

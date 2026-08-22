@@ -39,7 +39,7 @@ func (gc GTShaderProfilerCounterInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerCounterInfoClass) Alloc() GTShaderProfilerCounterInfo {
-	rv := objc.Send[GTShaderProfilerCounterInfo](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -139,124 +139,124 @@ type IGTShaderProfilerCounterInfo interface {
 
 // Init initializes the instance.
 func (g GTShaderProfilerCounterInfo) Init() GTShaderProfilerCounterInfo {
-	rv := objc.Send[GTShaderProfilerCounterInfo](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTShaderProfilerCounterInfo) Autorelease() GTShaderProfilerCounterInfo {
-	rv := objc.Send[GTShaderProfilerCounterInfo](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTShaderProfilerCounterInfo creates a new GTShaderProfilerCounterInfo instance.
 func NewGTShaderProfilerCounterInfo() GTShaderProfilerCounterInfo {
 	class := getGTShaderProfilerCounterInfoClass()
-	rv := objc.Send[GTShaderProfilerCounterInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTShaderProfilerCounterInfoWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterInfo {
 	instance := getGTShaderProfilerCounterInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
 	return GTShaderProfilerCounterInfoFromID(rv)
 }
 
 func (g GTShaderProfilerCounterInfo) FormatTimeValueUnitValue(value int64, value2 int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("formatTimeValue:unitValue:"), value, value2)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("formatTimeValue:unitValue:"), value, value2)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerCounterInfo) FormatValueContainsUnit(value float32, unit *bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("formatValue:containsUnit:"), value, unit)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("formatValue:containsUnit:"), value, unit)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerCounterInfo) StringFromMemoryByteCount(count uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringFromMemoryByteCount:"), count)
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("stringFromMemoryByteCount:"), count)
 	return objectivec.Object{ID: rv}
 }
 func (g GTShaderProfilerCounterInfo) InitWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterInfo {
-	rv := objc.Send[GTShaderProfilerCounterInfo](g.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
 	return rv
 }
 
 func (_GTShaderProfilerCounterInfoClass GTShaderProfilerCounterInfoClass) StringToDataType(type_ objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDataType:"), type_)
+	rv := objc.SendIfResponds[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDataType:"), type_)
 	return rv
 }
 func (_GTShaderProfilerCounterInfoClass GTShaderProfilerCounterInfoClass) StringToDisplayStyle(style objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDisplayStyle:"), style)
+	rv := objc.SendIfResponds[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDisplayStyle:"), style)
 	return rv
 }
 
 func (g GTShaderProfilerCounterInfo) BatchIdFilterable() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("batchIdFilterable"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("batchIdFilterable"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) DataType() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("dataType"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("dataType"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) SetDataType(value uint64) {
-	objc.Send[struct{}](g.ID, objc.Sel("setDataType:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDataType:"), value)
 }
 func (g GTShaderProfilerCounterInfo) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerCounterInfo) DisplayStyle() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("displayStyle"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("displayStyle"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) ExternallyVisible() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("externallyVisible"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("externallyVisible"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) GroupTag() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("groupTag"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("groupTag"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerCounterInfo) MaskInCompute() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("maskInCompute"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("maskInCompute"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) MaskInDraw() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("maskInDraw"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("maskInDraw"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) Name() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerCounterInfo) NonOverlappingEncoderDataIndex() int {
-	rv := objc.Send[int](g.ID, objc.Sel("nonOverlappingEncoderDataIndex"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("nonOverlappingEncoderDataIndex"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) SetNonOverlappingEncoderDataIndex(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setNonOverlappingEncoderDataIndex:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setNonOverlappingEncoderDataIndex:"), value)
 }
 func (g GTShaderProfilerCounterInfo) NonOverlappingGPUCommandDataIndex() int {
-	rv := objc.Send[int](g.ID, objc.Sel("nonOverlappingGPUCommandDataIndex"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("nonOverlappingGPUCommandDataIndex"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) SetNonOverlappingGPUCommandDataIndex(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setNonOverlappingGPUCommandDataIndex:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setNonOverlappingGPUCommandDataIndex:"), value)
 }
 func (g GTShaderProfilerCounterInfo) RequiresBatchIDFiltering() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("requiresBatchIDFiltering"))
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("requiresBatchIDFiltering"))
 	return rv
 }
 func (g GTShaderProfilerCounterInfo) SetRequiresBatchIDFiltering(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setRequiresBatchIDFiltering:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setRequiresBatchIDFiltering:"), value)
 }
 func (g GTShaderProfilerCounterInfo) ToolsCounterName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("toolsCounterName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("toolsCounterName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerCounterInfo) Unit() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("unit"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unit"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTShaderProfilerCounterInfo) VendorCounterNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorCounterNames"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("vendorCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

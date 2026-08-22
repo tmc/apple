@@ -41,7 +41,7 @@ func (mc MLBayesianProbitRegressionClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLBayesianProbitRegressionClass) Alloc() MLBayesianProbitRegression {
-	rv := objc.Send[MLBayesianProbitRegression](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -82,8 +82,8 @@ func MLBayesianProbitRegressionFromID(id objc.ID) MLBayesianProbitRegression {
 	return MLBayesianProbitRegression{objectivec.Object{ID: id}}
 }
 
-// NOTE: MLBayesianProbitRegression struct embeds objectivec.Object (parent type unavailable) but
-// IMLBayesianProbitRegression embeds the parent interface; skip compile-time assertion.
+// Ensure MLBayesianProbitRegression implements IMLBayesianProbitRegression.
+var _ IMLBayesianProbitRegression = MLBayesianProbitRegression{}
 
 // An interface definition for the [MLBayesianProbitRegression] class.
 //
@@ -116,14 +116,14 @@ func MLBayesianProbitRegressionFromID(id objc.ID) MLBayesianProbitRegression {
 //   - [IMLBayesianProbitRegression.Hash]
 //   - [IMLBayesianProbitRegression.Superclass]
 type IMLBayesianProbitRegression interface {
-	IMLRegressor
+	objectivec.IObject
 
 	// Topic: Methods
 
 	FeatureCount() uint64
 	ConvertOutputFeatureToPredictionValuesEventImportanceError(values objectivec.IObject) (bool, float64, error)
 	CreateCheckpoint()
-	CreateRegressorResult(result Prediction) objectivec.IObject
+	CreateRegressorResult(result *Prediction) objectivec.IObject
 	GetArrayFeatureValue(value objectivec.IObject) objectivec.IObject
 	GetFeatureValueForNameWithType(value objectivec.IObject, name objectivec.IObject, type_ int64) float64
 	GetOptimism(optimism objectivec.IObject) float64
@@ -150,48 +150,51 @@ type IMLBayesianProbitRegression interface {
 
 // Init initializes the instance.
 func (m MLBayesianProbitRegression) Init() MLBayesianProbitRegression {
-	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLBayesianProbitRegression) Autorelease() MLBayesianProbitRegression {
-	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLBayesianProbitRegression creates a new MLBayesianProbitRegression instance.
 func NewMLBayesianProbitRegression() MLBayesianProbitRegression {
 	class := getMLBayesianProbitRegressionClass()
-	rv := objc.Send[MLBayesianProbitRegression](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
 func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
 func NewBayesianProbitRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLBayesianProbitRegressionClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLBayesianProbitRegression{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLBayesianProbitRegression{}, objc.ErrInitFailed
 	}
 	return MLBayesianProbitRegressionFromID(rv), nil
 }
 
 func (m MLBayesianProbitRegression) FeatureCount() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("FeatureCount"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("FeatureCount"))
 	return rv
 }
 func (m MLBayesianProbitRegression) ConvertOutputFeatureToPredictionValuesEventImportanceError(values objectivec.IObject) (bool, float64, error) {
@@ -209,34 +212,34 @@ func (m MLBayesianProbitRegression) ConvertOutputFeatureToPredictionValuesEventI
 	return event, importance, nil
 }
 func (m MLBayesianProbitRegression) CreateCheckpoint() {
-	objc.Send[objc.ID](m.ID, objc.Sel("createCheckpoint"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("createCheckpoint"))
 }
-func (m MLBayesianProbitRegression) CreateRegressorResult(result Prediction) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("createRegressorResult:"), result)
+func (m MLBayesianProbitRegression) CreateRegressorResult(result *Prediction) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("createRegressorResult:"), unsafe.Pointer(result))
 	return objectivec.Object{ID: rv}
 }
 func (m MLBayesianProbitRegression) GetArrayFeatureValue(value objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("getArrayFeatureValue:"), value)
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("getArrayFeatureValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 func (m MLBayesianProbitRegression) GetFeatureValueForNameWithType(value objectivec.IObject, name objectivec.IObject, type_ int64) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("getFeatureValue:forName:withType:"), value, name, type_)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("getFeatureValue:forName:withType:"), value, name, type_)
 	return rv
 }
 func (m MLBayesianProbitRegression) GetOptimism(optimism objectivec.IObject) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("getOptimism:"), optimism)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("getOptimism:"), optimism)
 	return rv
 }
 func (m MLBayesianProbitRegression) GetSamplingScale(scale objectivec.IObject) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("getSamplingScale:"), scale)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("getSamplingScale:"), scale)
 	return rv
 }
 func (m MLBayesianProbitRegression) GetSamplingTruncation(truncation objectivec.IObject) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("getSamplingTruncation:"), truncation)
+	rv := objc.SendIfResponds[float64](m.ID, objc.Sel("getSamplingTruncation:"), truncation)
 	return rv
 }
 func (m MLBayesianProbitRegression) IsEqualToBopr(bopr objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToBopr:"), bopr)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isEqualToBopr:"), bopr)
 	return rv
 }
 func (m MLBayesianProbitRegression) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
@@ -250,25 +253,25 @@ func (m MLBayesianProbitRegression) RegressOptionsError(regress objectivec.IObje
 
 }
 func (m MLBayesianProbitRegression) Reset() {
-	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("reset"))
 }
 func (m MLBayesianProbitRegression) ResetToLastCheckpointBeforeDate(date objectivec.IObject) {
-	objc.Send[objc.ID](m.ID, objc.Sel("resetToLastCheckpointBeforeDate:"), date)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resetToLastCheckpointBeforeDate:"), date)
 }
 func (m MLBayesianProbitRegression) SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
 	return rv
 }
 func (m MLBayesianProbitRegression) SetFeatureCount(count uint64) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("setFeatureCount:"), count)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("setFeatureCount:"), count)
 	return rv
 }
 func (m MLBayesianProbitRegression) SetInputFeatureNameTo(name []objectivec.IObject, to objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("setInputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("setInputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
 	return rv
 }
 func (m MLBayesianProbitRegression) SetOutputFeatureNameTo(name []objectivec.IObject, to objectivec.IObject) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("setOutputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("setOutputFeatureName:to:"), objectivec.IObjectSliceToNSArray(name), to)
 	return rv
 }
 func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetError(features objectivec.IObject, target objectivec.IObject) (bool, error) {
@@ -298,11 +301,11 @@ func (m MLBayesianProbitRegression) UpdateModelFromFeaturesToTargetOptionsError(
 
 }
 func (m MLBayesianProbitRegression) InitWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
-	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
 	return rv
 }
 func (m MLBayesianProbitRegression) InitWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
-	rv := objc.Send[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
+	rv := objc.SendIfResponds[MLBayesianProbitRegression](m.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
 	return rv
 }
 func (m MLBayesianProbitRegression) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
@@ -337,27 +340,27 @@ func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ModelWit
 
 }
 func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) SetFeatureNameToDescriptions(name []objectivec.IObject, to objectivec.IObject, descriptions objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("setFeatureName:to:descriptions:"), objectivec.IObjectSliceToNSArray(name), to, descriptions)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("setFeatureName:to:descriptions:"), objectivec.IObjectSliceToNSArray(name), to, descriptions)
 	return rv
 }
 func (_MLBayesianProbitRegressionClass MLBayesianProbitRegressionClass) ValidateModelDescription(description objectivec.IObject) bool {
-	rv := objc.Send[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("validateModelDescription:"), description)
+	rv := objc.SendIfResponds[bool](objc.ID(_MLBayesianProbitRegressionClass.class), objc.Sel("validateModelDescription:"), description)
 	return rv
 }
 
 func (m MLBayesianProbitRegression) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLBayesianProbitRegression) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLBayesianProbitRegression) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLBayesianProbitRegression) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

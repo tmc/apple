@@ -10,6 +10,9 @@ import (
 // NSCoding protocol.
 type NSCoding interface {
 	objectivec.IObject
+
+	// EncodeWithCoder protocol.
+	EncodeWithCoder(coder objectivec.IObject)
 }
 
 // NSCodingObject wraps an existing Objective-C object that conforms to the NSCoding protocol.
@@ -30,5 +33,5 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 }
 
 func (o NSCodingObject) EncodeWithCoder(coder objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }

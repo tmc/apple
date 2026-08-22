@@ -6,9 +6,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
-	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -43,7 +42,7 @@ func (ec EspressoANEIOSurfaceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoANEIOSurfaceClass) Alloc() EspressoANEIOSurface {
-	rv := objc.Send[EspressoANEIOSurface](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoANEIOSurface](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -110,14 +109,14 @@ type IEspressoANEIOSurface interface {
 
 	Ane_io_surfaceForMultiBufferFrame(frame uint64) objectivec.IObject
 	CheckIfMatches(matches corevideo.CVImageBufferRef) bool
-	CheckIfMatchesIOSurface(iOSurface coregraphics.IOSurfaceRef) bool
+	CheckIfMatchesIOSurface(iOSurface iosurface.IOSurfaceRef) bool
 	Cleanup()
-	CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) coregraphics.IOSurfaceRef
+	CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) iosurface.IOSurfaceRef
 	DoNonLazyAllocation(allocation objectivec.IObject)
 	External_storage_blob_for_aliasing_mem() unsafe.Pointer
-	SetExternal_storage_blob_for_aliasing_mem(value kernel.Pointer)
-	IoSurfaceForMultiBufferFrame(frame uint64) coregraphics.IOSurfaceRef
-	IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) coregraphics.IOSurfaceRef
+	SetExternal_storage_blob_for_aliasing_mem(value unsafe.Pointer)
+	IoSurfaceForMultiBufferFrame(frame uint64) iosurface.IOSurfaceRef
+	IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) iosurface.IOSurfaceRef
 	LazilyAutoCreateSurfaceForFrame(frame uint64)
 	MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer
 	NFrames() uint64
@@ -125,101 +124,101 @@ type IEspressoANEIOSurface interface {
 	ResizeForMultipleAsyncBuffers(buffers uint64)
 	RestoreInternalStorage(storage uint64)
 	RestoreInternalStorageForAllMultiBufferFrames()
-	SetExternalStorageIoSurface(storage uint64, surface coregraphics.IOSurfaceRef)
+	SetExternalStorageIoSurface(storage uint64, surface iosurface.IOSurfaceRef)
 	InitWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface
 }
 
 // Init initializes the instance.
 func (e EspressoANEIOSurface) Init() EspressoANEIOSurface {
-	rv := objc.Send[EspressoANEIOSurface](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoANEIOSurface](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoANEIOSurface) Autorelease() EspressoANEIOSurface {
-	rv := objc.Send[EspressoANEIOSurface](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoANEIOSurface](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoANEIOSurface creates a new EspressoANEIOSurface instance.
 func NewEspressoANEIOSurface() EspressoANEIOSurface {
 	class := getEspressoANEIOSurfaceClass()
-	rv := objc.Send[EspressoANEIOSurface](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoANEIOSurface](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewEspressoANEIOSurfaceWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
 	instance := getEspressoANEIOSurfaceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
 	return EspressoANEIOSurfaceFromID(rv)
 }
 
 func (e EspressoANEIOSurface) Ane_io_surfaceForMultiBufferFrame(frame uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("ane_io_surfaceForMultiBufferFrame:"), frame)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("ane_io_surfaceForMultiBufferFrame:"), frame)
 	return objectivec.Object{ID: rv}
 }
 func (e EspressoANEIOSurface) CheckIfMatches(matches corevideo.CVImageBufferRef) bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatches:"), matches)
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("checkIfMatches:"), matches)
 	return rv
 }
-func (e EspressoANEIOSurface) CheckIfMatchesIOSurface(iOSurface coregraphics.IOSurfaceRef) bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatchesIOSurface:"), iOSurface)
+func (e EspressoANEIOSurface) CheckIfMatchesIOSurface(iOSurface iosurface.IOSurfaceRef) bool {
+	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("checkIfMatchesIOSurface:"), iOSurface)
 	return rv
 }
 func (e EspressoANEIOSurface) Cleanup() {
-	objc.Send[objc.ID](e.ID, objc.Sel("cleanup"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("cleanup"))
 }
-func (e EspressoANEIOSurface) CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("createIOSurfaceWithExtraProperties:"), properties)
-	return coregraphics.IOSurfaceRef(rv)
+func (e EspressoANEIOSurface) CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](e.ID, objc.Sel("createIOSurfaceWithExtraProperties:"), properties)
+	return iosurface.IOSurfaceRef(rv)
 }
 func (e EspressoANEIOSurface) DoNonLazyAllocation(allocation objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("doNonLazyAllocation:"), allocation)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("doNonLazyAllocation:"), allocation)
 }
-func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrame(frame uint64) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrame:"), frame)
-	return coregraphics.IOSurfaceRef(rv)
+func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrame(frame uint64) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrame:"), frame)
+	return iosurface.IOSurfaceRef(rv)
 }
-func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrameNoLazyForTesting:"), testing)
-	return coregraphics.IOSurfaceRef(rv)
+func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrameNoLazyForTesting:"), testing)
+	return iosurface.IOSurfaceRef(rv)
 }
 func (e EspressoANEIOSurface) LazilyAutoCreateSurfaceForFrame(frame uint64) {
-	objc.Send[objc.ID](e.ID, objc.Sel("lazilyAutoCreateSurfaceForFrame:"), frame)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("lazilyAutoCreateSurfaceForFrame:"), frame)
 }
 func (e EspressoANEIOSurface) MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("metalBufferWithDevice:multiBufferFrame:"), device, frame)
+	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("metalBufferWithDevice:multiBufferFrame:"), device, frame)
 	return metal.MTLBufferObjectFromID(rv)
 }
 func (e EspressoANEIOSurface) NFrames() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("nFrames"))
+	rv := objc.SendIfResponds[uint64](e.ID, objc.Sel("nFrames"))
 	return rv
 }
 func (e EspressoANEIOSurface) ResizeForMultipleAsyncBuffers(buffers uint64) {
-	objc.Send[objc.ID](e.ID, objc.Sel("resizeForMultipleAsyncBuffers:"), buffers)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("resizeForMultipleAsyncBuffers:"), buffers)
 }
 func (e EspressoANEIOSurface) RestoreInternalStorage(storage uint64) {
-	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorage:"), storage)
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("restoreInternalStorage:"), storage)
 }
 func (e EspressoANEIOSurface) RestoreInternalStorageForAllMultiBufferFrames() {
-	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorageForAllMultiBufferFrames"))
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("restoreInternalStorageForAllMultiBufferFrames"))
 }
-func (e EspressoANEIOSurface) SetExternalStorageIoSurface(storage uint64, surface coregraphics.IOSurfaceRef) {
-	objc.Send[objc.ID](e.ID, objc.Sel("setExternalStorage:ioSurface:"), storage, surface)
+func (e EspressoANEIOSurface) SetExternalStorageIoSurface(storage uint64, surface iosurface.IOSurfaceRef) {
+	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setExternalStorage:ioSurface:"), storage, surface)
 }
 func (e EspressoANEIOSurface) InitWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
-	rv := objc.Send[EspressoANEIOSurface](e.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
+	rv := objc.SendIfResponds[EspressoANEIOSurface](e.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
 	return rv
 }
 
 func (e EspressoANEIOSurface) External_storage_blob_for_aliasing_mem() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("external_storage_blob_for_aliasing_mem"))
+	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("external_storage_blob_for_aliasing_mem"))
 	return rv
 }
-func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value kernel.Pointer) {
-	objc.Send[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
+func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
 }
 func (e EspressoANEIOSurface) PixelFormat() uint32 {
-	rv := objc.Send[uint32](e.ID, objc.Sel("pixelFormat"))
+	rv := objc.SendIfResponds[uint32](e.ID, objc.Sel("pixelFormat"))
 	return rv
 }

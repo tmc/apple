@@ -10,6 +10,18 @@ import (
 // MLModelAssetResourceFactoryImpl protocol.
 type MLModelAssetResourceFactoryImpl interface {
 	objectivec.IObject
+
+	// CompiledModelURL protocol.
+	CompiledModelURL() objectivec.IObject
+
+	// ModelAssetDescriptionWithError protocol.
+	ModelAssetDescriptionWithError() (objectivec.IObject, error)
+
+	// ModelStructureWithError protocol.
+	ModelStructureWithError() (objectivec.IObject, error)
+
+	// ModelWithConfigurationError protocol.
+	ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLModelAssetResourceFactoryImplObject wraps an existing Objective-C object that conforms to the MLModelAssetResourceFactoryImpl protocol.
@@ -30,7 +42,7 @@ func MLModelAssetResourceFactoryImplObjectFromID(id objc.ID) MLModelAssetResourc
 }
 
 func (o MLModelAssetResourceFactoryImplObject) CompiledModelURL() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("compiledModelURL"))
+	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("compiledModelURL"))
 	return objectivec.Object{ID: rv}
 }
 func (o MLModelAssetResourceFactoryImplObject) ModelAssetDescriptionWithError() (objectivec.IObject, error) {

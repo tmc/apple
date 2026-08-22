@@ -39,7 +39,7 @@ func (mc MLKNearestNeighborsClassifierParametersClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLKNearestNeighborsClassifierParametersClass) Alloc() MLKNearestNeighborsClassifierParameters {
-	rv := objc.Send[MLKNearestNeighborsClassifierParameters](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLKNearestNeighborsClassifierParameters](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -112,69 +112,69 @@ type IMLKNearestNeighborsClassifierParameters interface {
 
 // Init initializes the instance.
 func (m MLKNearestNeighborsClassifierParameters) Init() MLKNearestNeighborsClassifierParameters {
-	rv := objc.Send[MLKNearestNeighborsClassifierParameters](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLKNearestNeighborsClassifierParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLKNearestNeighborsClassifierParameters) Autorelease() MLKNearestNeighborsClassifierParameters {
-	rv := objc.Send[MLKNearestNeighborsClassifierParameters](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLKNearestNeighborsClassifierParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLKNearestNeighborsClassifierParameters creates a new MLKNearestNeighborsClassifierParameters instance.
 func NewMLKNearestNeighborsClassifierParameters() MLKNearestNeighborsClassifierParameters {
 	class := getMLKNearestNeighborsClassifierParametersClass()
-	rv := objc.Send[MLKNearestNeighborsClassifierParameters](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLKNearestNeighborsClassifierParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (m MLKNearestNeighborsClassifierParameters) DefaultLabel() objectivec.Object {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultLabel"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("defaultLabel"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (m MLKNearestNeighborsClassifierParameters) SetDefaultLabel(value objectivec.Object) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDefaultLabel:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDefaultLabel:"), value)
 }
 func (m MLKNearestNeighborsClassifierParameters) IndexType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("indexType"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("indexType"))
 	return rv
 }
 func (m MLKNearestNeighborsClassifierParameters) SetIndexType(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
 func (m MLKNearestNeighborsClassifierParameters) LeafSize() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("leafSize"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("leafSize"))
 	return rv
 }
 func (m MLKNearestNeighborsClassifierParameters) SetLeafSize(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLeafSize:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLeafSize:"), value)
 }
 func (m MLKNearestNeighborsClassifierParameters) NearestDistancesFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestDistancesFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nearestDistancesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLKNearestNeighborsClassifierParameters) SetNearestDistancesFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNearestDistancesFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNearestDistancesFeatureName:"), objc.String(value))
 }
 func (m MLKNearestNeighborsClassifierParameters) NearestLabelsFeatureName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nearestLabelsFeatureName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("nearestLabelsFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLKNearestNeighborsClassifierParameters) SetNearestLabelsFeatureName(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNearestLabelsFeatureName:"), objc.String(value))
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNearestLabelsFeatureName:"), objc.String(value))
 }
 func (m MLKNearestNeighborsClassifierParameters) NumberOfDimensions() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDimensions"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numberOfDimensions"))
 	return rv
 }
 func (m MLKNearestNeighborsClassifierParameters) SetNumberOfDimensions(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfDimensions:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setNumberOfDimensions:"), value)
 }
 func (m MLKNearestNeighborsClassifierParameters) WeightingScheme() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("weightingScheme"))
+	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("weightingScheme"))
 	return rv
 }
 func (m MLKNearestNeighborsClassifierParameters) SetWeightingScheme(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("setWeightingScheme:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setWeightingScheme:"), value)
 }

@@ -38,7 +38,7 @@ func (cc CoreMLMetalBufferStorageClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLMetalBufferStorageClass) Alloc() CoreMLMetalBufferStorage {
-	rv := objc.Send[CoreMLMetalBufferStorage](objc.ID(cc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferStorage](objc.ID(cc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -51,8 +51,8 @@ func CoreMLMetalBufferStorageFromID(id objc.ID) CoreMLMetalBufferStorage {
 	return CoreMLMetalBufferStorage{objectivec.Object{ID: id}}
 }
 
-// NOTE: CoreMLMetalBufferStorage struct embeds objectivec.Object (parent type unavailable) but
-// ICoreMLMetalBufferStorage embeds the parent interface; skip compile-time assertion.
+// Ensure CoreMLMetalBufferStorage implements ICoreMLMetalBufferStorage.
+var _ ICoreMLMetalBufferStorage = CoreMLMetalBufferStorage{}
 
 // An interface definition for the [CoreMLMetalBufferStorage] class.
 type ICoreMLMetalBufferStorage interface {
@@ -61,19 +61,19 @@ type ICoreMLMetalBufferStorage interface {
 
 // Init initializes the instance.
 func (c CoreMLMetalBufferStorage) Init() CoreMLMetalBufferStorage {
-	rv := objc.Send[CoreMLMetalBufferStorage](c.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferStorage](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (c CoreMLMetalBufferStorage) Autorelease() CoreMLMetalBufferStorage {
-	rv := objc.Send[CoreMLMetalBufferStorage](c.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferStorage](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewCoreMLMetalBufferStorage creates a new CoreMLMetalBufferStorage instance.
 func NewCoreMLMetalBufferStorage() CoreMLMetalBufferStorage {
 	class := getCoreMLMetalBufferStorageClass()
-	rv := objc.Send[CoreMLMetalBufferStorage](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[CoreMLMetalBufferStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

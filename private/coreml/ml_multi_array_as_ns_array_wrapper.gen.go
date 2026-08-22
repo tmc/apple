@@ -39,7 +39,7 @@ func (mc MLMultiArrayAsNSArrayWrapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiArrayAsNSArrayWrapperClass) Alloc() MLMultiArrayAsNSArrayWrapper {
-	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLMultiArrayAsNSArrayWrapper](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,38 +79,38 @@ type IMLMultiArrayAsNSArrayWrapper interface {
 
 // Init initializes the instance.
 func (m MLMultiArrayAsNSArrayWrapper) Init() MLMultiArrayAsNSArrayWrapper {
-	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLMultiArrayAsNSArrayWrapper) Autorelease() MLMultiArrayAsNSArrayWrapper {
-	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLMultiArrayAsNSArrayWrapper creates a new MLMultiArrayAsNSArrayWrapper instance.
 func NewMLMultiArrayAsNSArrayWrapper() MLMultiArrayAsNSArrayWrapper {
 	class := getMLMultiArrayAsNSArrayWrapperClass()
-	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLMultiArrayAsNSArrayWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	instance := getMLMultiArrayAsNSArrayWrapperClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWrappingMultiArray:"), array)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWrappingMultiArray:"), array)
 	return MLMultiArrayAsNSArrayWrapperFromID(rv)
 }
 
 func (m MLMultiArrayAsNSArrayWrapper) InitWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
-	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("initWrappingMultiArray:"), array)
+	rv := objc.SendIfResponds[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("initWrappingMultiArray:"), array)
 	return rv
 }
 
 func (m MLMultiArrayAsNSArrayWrapper) MultiArray() IMLMultiArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArray"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("multiArray"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }
 func (m MLMultiArrayAsNSArrayWrapper) SetMultiArray(value IMLMultiArray) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMultiArray:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMultiArray:"), value)
 }

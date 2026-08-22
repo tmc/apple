@@ -37,7 +37,7 @@ func (ec EspressoPassRemoveSqueezeExpanddims1dOpsClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPassRemoveSqueezeExpanddims1dOpsClass) Alloc() EspressoPassRemoveSqueezeExpanddims1dOps {
-	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -65,19 +65,19 @@ type IEspressoPassRemoveSqueezeExpanddims1dOps interface {
 
 // Init initializes the instance.
 func (e EspressoPassRemoveSqueezeExpanddims1dOps) Init() EspressoPassRemoveSqueezeExpanddims1dOps {
-	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoPassRemoveSqueezeExpanddims1dOps) Autorelease() EspressoPassRemoveSqueezeExpanddims1dOps {
-	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoPassRemoveSqueezeExpanddims1dOps creates a new EspressoPassRemoveSqueezeExpanddims1dOps instance.
 func NewEspressoPassRemoveSqueezeExpanddims1dOps() EspressoPassRemoveSqueezeExpanddims1dOps {
 	class := getEspressoPassRemoveSqueezeExpanddims1dOpsClass()
-	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

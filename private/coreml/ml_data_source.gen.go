@@ -40,7 +40,7 @@ func (mc MLDataSourceClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDataSourceClass) Alloc() MLDataSource {
-	rv := objc.Send[MLDataSource](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLDataSource](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,30 +98,33 @@ type IMLDataSource interface {
 
 // Init initializes the instance.
 func (m MLDataSource) Init() MLDataSource {
-	rv := objc.Send[MLDataSource](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLDataSource) Autorelease() MLDataSource {
-	rv := objc.Send[MLDataSource](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLDataSource creates a new MLDataSource instance.
 func NewMLDataSource() MLDataSource {
 	class := getMLDataSourceClass()
-	rv := objc.Send[MLDataSource](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLDataSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewMLDataSourceWithMLFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMLFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMLFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDataSource{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDataSource{}, objc.ErrInitFailed
 	}
 	return MLDataSourceFromID(rv), nil
 }
@@ -137,7 +140,7 @@ func (m MLDataSource) DataPointAtIndexError(index uint64) (objectivec.IObject, e
 
 }
 func (m MLDataSource) NumberOfDataPoints() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfDataPoints"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (m MLDataSource) InitWithMLFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLDataSource, error) {
@@ -152,25 +155,25 @@ func (m MLDataSource) InitWithMLFeatureProviderForPredictionNeuralNetworkEngineE
 }
 
 func (m MLDataSource) DataTensorDictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataTensorDictionary"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dataTensorDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLDataSource) SetDataTensorDictionary(value foundation.INSDictionary) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDataTensorDictionary:"), value)
+	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDataTensorDictionary:"), value)
 }
 func (m MLDataSource) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLDataSource) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLDataSource) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 func (m MLDataSource) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](m.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

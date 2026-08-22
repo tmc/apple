@@ -38,7 +38,7 @@ func (ac ANEQoSMapperClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEQoSMapperClass) Alloc() ANEQoSMapper {
-	rv := objc.Send[ANEQoSMapper](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[ANEQoSMapper](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -61,68 +61,68 @@ type IANEQoSMapper interface {
 
 // Init initializes the instance.
 func (a ANEQoSMapper) Init() ANEQoSMapper {
-	rv := objc.Send[ANEQoSMapper](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[ANEQoSMapper](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a ANEQoSMapper) Autorelease() ANEQoSMapper {
-	rv := objc.Send[ANEQoSMapper](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[ANEQoSMapper](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewANEQoSMapper creates a new ANEQoSMapper instance.
 func NewANEQoSMapper() ANEQoSMapper {
 	class := getANEQoSMapperClass()
-	rv := objc.Send[ANEQoSMapper](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[ANEQoSMapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneBackgroundTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneBackgroundTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneBackgroundTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneDefaultTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneDefaultTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneDefaultTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneRealTimeTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneRealTimeTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneRealTimeTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneUserInitiatedTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUserInitiatedTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUserInitiatedTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneUserInteractiveTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUserInteractiveTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUserInteractiveTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneUtilityTaskQoS() uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUtilityTaskQoS"))
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("aneUtilityTaskQoS"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) DispatchQueueArrayByMappingPrioritiesWithTag(tag objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEQoSMapperClass.class), objc.Sel("dispatchQueueArrayByMappingPrioritiesWithTag:"), tag)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEQoSMapperClass.class), objc.Sel("dispatchQueueArrayByMappingPrioritiesWithTag:"), tag)
 	return objectivec.Object{ID: rv}
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) ProgramPriorityForQoS(s uint32) int {
-	rv := objc.Send[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("programPriorityForQoS:"), s)
+	rv := objc.SendIfResponds[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("programPriorityForQoS:"), s)
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) QosForProgramPriority(priority int) uint32 {
-	rv := objc.Send[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("qosForProgramPriority:"), priority)
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("qosForProgramPriority:"), priority)
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) QueueIndexForQoS(s uint32) uint64 {
-	rv := objc.Send[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("queueIndexForQoS:"), s)
+	rv := objc.SendIfResponds[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("queueIndexForQoS:"), s)
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeProgramPriority() int {
-	rv := objc.Send[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeProgramPriority"))
+	rv := objc.SendIfResponds[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeProgramPriority"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeQueueIndex() uint64 {
-	rv := objc.Send[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeQueueIndex"))
+	rv := objc.SendIfResponds[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeQueueIndex"))
 	return rv
 }

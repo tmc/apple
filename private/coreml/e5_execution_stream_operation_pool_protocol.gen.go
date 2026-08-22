@@ -13,6 +13,12 @@ type MLE5ExecutionStreamOperationPool interface {
 
 	// PrepareWithInitialPoolSizeError protocol.
 	PrepareWithInitialPoolSizeError(size int64) (bool, error)
+
+	// PutBack protocol.
+	PutBack(back objectivec.IObject)
+
+	// TakeOutOperationForFeaturesError protocol.
+	TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLE5ExecutionStreamOperationPoolObject wraps an existing Objective-C object that conforms to the MLE5ExecutionStreamOperationPool protocol.
@@ -40,7 +46,7 @@ func (o MLE5ExecutionStreamOperationPoolObject) PrepareWithInitialPoolSizeError(
 	return rv, nil
 }
 func (o MLE5ExecutionStreamOperationPoolObject) PutBack(back objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("putBack:"), back)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("putBack:"), back)
 }
 func (o MLE5ExecutionStreamOperationPoolObject) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("takeOutOperationForFeatures:error:"), features)

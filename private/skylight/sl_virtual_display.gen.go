@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +41,7 @@ func (sc SLVirtualDisplayClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLVirtualDisplayClass) Alloc() SLVirtualDisplay {
-	rv := objc.Send[SLVirtualDisplay](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLVirtualDisplay](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -83,7 +82,7 @@ type ISLVirtualDisplay interface {
 
 	ApplySettingsError(settings objectivec.IObject) (bool, error)
 	Delegate() unsafe.Pointer
-	SetDelegate(value kernel.Pointer)
+	SetDelegate(value unsafe.Pointer)
 	Destroy()
 	DisplayID() uint32
 	InitWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error)
@@ -91,30 +90,33 @@ type ISLVirtualDisplay interface {
 
 // Init initializes the instance.
 func (s SLVirtualDisplay) Init() SLVirtualDisplay {
-	rv := objc.Send[SLVirtualDisplay](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLVirtualDisplay](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLVirtualDisplay) Autorelease() SLVirtualDisplay {
-	rv := objc.Send[SLVirtualDisplay](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLVirtualDisplay](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLVirtualDisplay creates a new SLVirtualDisplay instance.
 func NewSLVirtualDisplay() SLVirtualDisplay {
 	class := getSLVirtualDisplayClass()
-	rv := objc.Send[SLVirtualDisplay](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLVirtualDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLVirtualDisplayWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error) {
 	var errorPtr objc.ID
 	instance := getSLVirtualDisplayClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return SLVirtualDisplay{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return SLVirtualDisplay{}, objc.ErrInitFailed
 	}
 	return SLVirtualDisplayFromID(rv), nil
 }
@@ -133,7 +135,7 @@ func (s SLVirtualDisplay) ApplySettingsError(settings objectivec.IObject) (bool,
 
 }
 func (s SLVirtualDisplay) Destroy() {
-	objc.Send[objc.ID](s.ID, objc.Sel("destroy"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("destroy"))
 }
 func (s SLVirtualDisplay) InitWithConfigurationError(configuration objectivec.IObject) (SLVirtualDisplay, error) {
 	var errorPtr objc.ID
@@ -147,18 +149,18 @@ func (s SLVirtualDisplay) InitWithConfigurationError(configuration objectivec.IO
 }
 
 func (_SLVirtualDisplayClass SLVirtualDisplayClass) Capabilities() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_SLVirtualDisplayClass.class), objc.Sel("capabilities"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLVirtualDisplayClass.class), objc.Sel("capabilities"))
 	return objectivec.Object{ID: rv}
 }
 
 func (s SLVirtualDisplay) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("delegate"))
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("delegate"))
 	return rv
 }
-func (s SLVirtualDisplay) SetDelegate(value kernel.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
+func (s SLVirtualDisplay) SetDelegate(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 func (s SLVirtualDisplay) DisplayID() uint32 {
-	rv := objc.Send[uint32](s.ID, objc.Sel("displayID"))
+	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("displayID"))
 	return rv
 }

@@ -39,7 +39,7 @@ func (ac AVMusicTrackEventIteratorClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMusicTrackEventIteratorClass) Alloc() AVMusicTrackEventIterator {
-	rv := objc.Send[AVMusicTrackEventIterator](objc.ID(ac.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[AVMusicTrackEventIterator](objc.ID(ac.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -98,72 +98,72 @@ type IAVMusicTrackEventIterator interface {
 	Seek(seek float64)
 	SetEventInfoData(info uint32, data unsafe.Pointer) bool
 	SetEventTime(time float64) bool
-	InitWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator
+	InitWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator
 }
 
 // Init initializes the instance.
 func (a AVMusicTrackEventIterator) Init() AVMusicTrackEventIterator {
-	rv := objc.Send[AVMusicTrackEventIterator](a.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[AVMusicTrackEventIterator](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (a AVMusicTrackEventIterator) Autorelease() AVMusicTrackEventIterator {
-	rv := objc.Send[AVMusicTrackEventIterator](a.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[AVMusicTrackEventIterator](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewAVMusicTrackEventIterator creates a new AVMusicTrackEventIterator instance.
 func NewAVMusicTrackEventIterator() AVMusicTrackEventIterator {
 	class := getAVMusicTrackEventIteratorClass()
-	rv := objc.Send[AVMusicTrackEventIterator](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[AVMusicTrackEventIterator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
-func NewMusicTrackEventIteratorWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
+func NewMusicTrackEventIteratorWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
 	instance := getAVMusicTrackEventIteratorClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), unsafe.Pointer(impl))
 	return AVMusicTrackEventIteratorFromID(rv)
 }
 
 func (a AVMusicTrackEventIterator) DeleteEvent() {
-	objc.Send[objc.ID](a.ID, objc.Sel("deleteEvent"))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("deleteEvent"))
 }
 func (a AVMusicTrackEventIterator) GetEventInfoOutEventTypeEventDataDataSize(info []float64, type_ *uint32, data unsafe.Pointer, size *uint32) {
-	objc.Send[objc.ID](a.ID, objc.Sel("getEventInfo:outEventType:eventData:dataSize:"), info, type_, data, size)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("getEventInfo:outEventType:eventData:dataSize:"), info, unsafe.Pointer(type_), data, unsafe.Pointer(size))
 }
 func (a AVMusicTrackEventIterator) HasCurrentEvent() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("hasCurrentEvent"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("hasCurrentEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) HasNextEvent() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("hasNextEvent"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("hasNextEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) HasPreviousEvent() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("hasPreviousEvent"))
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("hasPreviousEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) NextEvent() int {
-	rv := objc.Send[int](a.ID, objc.Sel("nextEvent"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("nextEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) PreviousEvent() int {
-	rv := objc.Send[int](a.ID, objc.Sel("previousEvent"))
+	rv := objc.SendIfResponds[int](a.ID, objc.Sel("previousEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) Seek(seek float64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("seek:"), seek)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("seek:"), seek)
 }
 func (a AVMusicTrackEventIterator) SetEventInfoData(info uint32, data unsafe.Pointer) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setEventInfo:data:"), info, data)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setEventInfo:data:"), info, data)
 	return rv
 }
 func (a AVMusicTrackEventIterator) SetEventTime(time float64) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setEventTime:"), time)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setEventTime:"), time)
 	return rv
 }
-func (a AVMusicTrackEventIterator) InitWithImpl(impl MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
-	rv := objc.Send[AVMusicTrackEventIterator](a.ID, objc.Sel("initWithImpl:"), impl)
+func (a AVMusicTrackEventIterator) InitWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
+	rv := objc.SendIfResponds[AVMusicTrackEventIterator](a.ID, objc.Sel("initWithImpl:"), unsafe.Pointer(impl))
 	return rv
 }

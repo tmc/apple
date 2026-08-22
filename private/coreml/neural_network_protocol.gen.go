@@ -10,6 +10,9 @@ import (
 // MLNeuralNetwork protocol.
 type MLNeuralNetwork interface {
 	objectivec.IObject
+
+	// EvaluateError protocol.
+	EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error)
 }
 
 // MLNeuralNetworkObject wraps an existing Objective-C object that conforms to the MLNeuralNetwork protocol.

@@ -39,7 +39,7 @@ func (mc MLPrecisionRecallCurveClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLPrecisionRecallCurveClass) Alloc() MLPrecisionRecallCurve {
-	rv := objc.Send[MLPrecisionRecallCurve](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -91,65 +91,65 @@ type IMLPrecisionRecallCurve interface {
 
 // Init initializes the instance.
 func (m MLPrecisionRecallCurve) Init() MLPrecisionRecallCurve {
-	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLPrecisionRecallCurve) Autorelease() MLPrecisionRecallCurve {
-	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLPrecisionRecallCurve creates a new MLPrecisionRecallCurve instance.
 func NewMLPrecisionRecallCurve() MLPrecisionRecallCurve {
 	class := getMLPrecisionRecallCurveClass()
-	rv := objc.Send[MLPrecisionRecallCurve](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewPrecisionRecallCurveWithCoder(coder objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLPrecisionRecallCurveFromID(rv)
 }
 
 func NewPrecisionRecallCurveWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
 	return MLPrecisionRecallCurveFromID(rv)
 }
 
 func (m MLPrecisionRecallCurve) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (m MLPrecisionRecallCurve) InitWithCoder(coder foundation.INSCoder) MLPrecisionRecallCurve {
-	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (m MLPrecisionRecallCurve) InitWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
-	rv := objc.Send[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
+	rv := objc.SendIfResponds[MLPrecisionRecallCurve](m.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
 	return rv
 }
 
 func (_MLPrecisionRecallCurveClass MLPrecisionRecallCurveClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_MLPrecisionRecallCurveClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_MLPrecisionRecallCurveClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (m MLPrecisionRecallCurve) PrecisionConfidenceThresholds() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("precisionConfidenceThresholds"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("precisionConfidenceThresholds"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLPrecisionRecallCurve) PrecisionValues() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("precisionValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("precisionValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLPrecisionRecallCurve) RecallConfidenceThresholds() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("recallConfidenceThresholds"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("recallConfidenceThresholds"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLPrecisionRecallCurve) RecallValues() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("recallValues"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("recallValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

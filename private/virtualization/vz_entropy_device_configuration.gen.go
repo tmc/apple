@@ -39,7 +39,7 @@ func (vc VZEntropyDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration {
-	rv := objc.Send[VZEntropyDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZEntropyDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,30 +88,30 @@ type IVZEntropyDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZEntropyDeviceConfiguration) Init() VZEntropyDeviceConfiguration {
-	rv := objc.Send[VZEntropyDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZEntropyDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZEntropyDeviceConfiguration) Autorelease() VZEntropyDeviceConfiguration {
-	rv := objc.Send[VZEntropyDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZEntropyDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZEntropyDeviceConfiguration creates a new VZEntropyDeviceConfiguration instance.
 func NewVZEntropyDeviceConfiguration() VZEntropyDeviceConfiguration {
 	class := getVZEntropyDeviceConfigurationClass()
-	rv := objc.Send[VZEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (v VZEntropyDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 func (v VZEntropyDeviceConfiguration) _entropyDevice() int {
-	rv := objc.Send[int](v.ID, objc.Sel("_entropyDevice"))
+	rv := objc.SendIfResponds[int](v.ID, objc.Sel("_entropyDevice"))
 	return rv
 }
 
@@ -128,18 +128,18 @@ func (v VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
 	return v._entropyDevice(), nil
 }
 func (v VZEntropyDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZEntropyDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (v VZEntropyDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 func (v VZEntropyDeviceConfiguration) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](v.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

@@ -37,7 +37,7 @@ func (vc VZVirtioMouseInputDeviceConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioMouseInputDeviceConfigurationClass) Alloc() VZVirtioMouseInputDeviceConfiguration {
-	rv := objc.Send[VZVirtioMouseInputDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZVirtioMouseInputDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZVirtioMouseInputDeviceConfiguration interface {
 
 // Init initializes the instance.
 func (v VZVirtioMouseInputDeviceConfiguration) Init() VZVirtioMouseInputDeviceConfiguration {
-	rv := objc.Send[VZVirtioMouseInputDeviceConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZVirtioMouseInputDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZVirtioMouseInputDeviceConfiguration) Autorelease() VZVirtioMouseInputDeviceConfiguration {
-	rv := objc.Send[VZVirtioMouseInputDeviceConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZVirtioMouseInputDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZVirtioMouseInputDeviceConfiguration creates a new VZVirtioMouseInputDeviceConfiguration instance.
 func NewVZVirtioMouseInputDeviceConfiguration() VZVirtioMouseInputDeviceConfiguration {
 	class := getVZVirtioMouseInputDeviceConfigurationClass()
-	rv := objc.Send[VZVirtioMouseInputDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZVirtioMouseInputDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

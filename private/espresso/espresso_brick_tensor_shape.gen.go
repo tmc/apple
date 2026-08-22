@@ -38,7 +38,7 @@ func (ec EspressoBrickTensorShapeClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoBrickTensorShapeClass) Alloc() EspressoBrickTensorShape {
-	rv := objc.Send[EspressoBrickTensorShape](objc.ID(ec.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[EspressoBrickTensorShape](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -105,62 +105,62 @@ type IEspressoBrickTensorShape interface {
 
 // Init initializes the instance.
 func (e EspressoBrickTensorShape) Init() EspressoBrickTensorShape {
-	rv := objc.Send[EspressoBrickTensorShape](e.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[EspressoBrickTensorShape](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (e EspressoBrickTensorShape) Autorelease() EspressoBrickTensorShape {
-	rv := objc.Send[EspressoBrickTensorShape](e.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[EspressoBrickTensorShape](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewEspressoBrickTensorShape creates a new EspressoBrickTensorShape instance.
 func NewEspressoBrickTensorShape() EspressoBrickTensorShape {
 	class := getEspressoBrickTensorShapeClass()
-	rv := objc.Send[EspressoBrickTensorShape](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[EspressoBrickTensorShape](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (e EspressoBrickTensorShape) Batch() int {
-	rv := objc.Send[int](e.ID, objc.Sel("batch"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("batch"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetBatch(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBatch:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBatch:"), value)
 }
 func (e EspressoBrickTensorShape) Channels() int {
-	rv := objc.Send[int](e.ID, objc.Sel("channels"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("channels"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetChannels(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setChannels:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setChannels:"), value)
 }
 func (e EspressoBrickTensorShape) Height() int {
-	rv := objc.Send[int](e.ID, objc.Sel("height"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("height"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetHeight(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setHeight:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHeight:"), value)
 }
 func (e EspressoBrickTensorShape) Rank() int {
-	rv := objc.Send[int](e.ID, objc.Sel("rank"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("rank"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetRank(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRank:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRank:"), value)
 }
 func (e EspressoBrickTensorShape) Sequence() int {
-	rv := objc.Send[int](e.ID, objc.Sel("sequence"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("sequence"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetSequence(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setSequence:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSequence:"), value)
 }
 func (e EspressoBrickTensorShape) Width() int {
-	rv := objc.Send[int](e.ID, objc.Sel("width"))
+	rv := objc.SendIfResponds[int](e.ID, objc.Sel("width"))
 	return rv
 }
 func (e EspressoBrickTensorShape) SetWidth(value int) {
-	objc.Send[struct{}](e.ID, objc.Sel("setWidth:"), value)
+	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setWidth:"), value)
 }

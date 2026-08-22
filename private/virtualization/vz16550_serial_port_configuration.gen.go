@@ -37,7 +37,7 @@ func (vc VZ16550SerialPortConfigurationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (vc VZ16550SerialPortConfigurationClass) Alloc() VZ16550SerialPortConfiguration {
-	rv := objc.Send[VZ16550SerialPortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[VZ16550SerialPortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -60,19 +60,19 @@ type IVZ16550SerialPortConfiguration interface {
 
 // Init initializes the instance.
 func (v VZ16550SerialPortConfiguration) Init() VZ16550SerialPortConfiguration {
-	rv := objc.Send[VZ16550SerialPortConfiguration](v.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[VZ16550SerialPortConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (v VZ16550SerialPortConfiguration) Autorelease() VZ16550SerialPortConfiguration {
-	rv := objc.Send[VZ16550SerialPortConfiguration](v.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[VZ16550SerialPortConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewVZ16550SerialPortConfiguration creates a new VZ16550SerialPortConfiguration instance.
 func NewVZ16550SerialPortConfiguration() VZ16550SerialPortConfiguration {
 	class := getVZ16550SerialPortConfigurationClass()
-	rv := objc.Send[VZ16550SerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[VZ16550SerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

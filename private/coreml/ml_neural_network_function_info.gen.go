@@ -40,7 +40,7 @@ func (mc MLNeuralNetworkFunctionInfoClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralNetworkFunctionInfoClass) Alloc() MLNeuralNetworkFunctionInfo {
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](objc.ID(mc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[MLNeuralNetworkFunctionInfo](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -86,30 +86,33 @@ type IMLNeuralNetworkFunctionInfo interface {
 
 // Init initializes the instance.
 func (m MLNeuralNetworkFunctionInfo) Init() MLNeuralNetworkFunctionInfo {
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (m MLNeuralNetworkFunctionInfo) Autorelease() MLNeuralNetworkFunctionInfo {
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewMLNeuralNetworkFunctionInfo creates a new MLNeuralNetworkFunctionInfo instance.
 func NewMLNeuralNetworkFunctionInfo() MLNeuralNetworkFunctionInfo {
 	class := getMLNeuralNetworkFunctionInfoClass()
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[MLNeuralNetworkFunctionInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkFunctionInfoClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledModelArchive:compilerVersionInfo:error:"), archive, info, unsafe.Pointer(&errorPtr))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledModelArchive:compilerVersionInfo:error:"), archive, info, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkFunctionInfo{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLNeuralNetworkFunctionInfo{}, objc.ErrInitFailed
 	}
 	return MLNeuralNetworkFunctionInfoFromID(rv), nil
 }
@@ -126,18 +129,18 @@ func (m MLNeuralNetworkFunctionInfo) InitWithCompiledModelArchiveCompilerVersion
 }
 
 func (m MLNeuralNetworkFunctionInfo) ClassLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLNeuralNetworkFunctionInfo) ClassScoreVectorName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLNeuralNetworkFunctionInfo) IsClassifier() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("isClassifier"))
+	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("isClassifier"))
 	return rv
 }
 func (m MLNeuralNetworkFunctionInfo) OutputNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputNames"))
+	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

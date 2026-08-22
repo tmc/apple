@@ -39,7 +39,7 @@ func (sc SLSecureCursorAssertionManagerClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSecureCursorAssertionManagerClass) Alloc() SLSecureCursorAssertionManager {
-	rv := objc.Send[SLSecureCursorAssertionManager](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertionManager](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -88,47 +88,47 @@ type ISLSecureCursorAssertionManager interface {
 
 // Init initializes the instance.
 func (s SLSecureCursorAssertionManager) Init() SLSecureCursorAssertionManager {
-	rv := objc.Send[SLSecureCursorAssertionManager](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertionManager](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSecureCursorAssertionManager) Autorelease() SLSecureCursorAssertionManager {
-	rv := objc.Send[SLSecureCursorAssertionManager](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertionManager](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSecureCursorAssertionManager creates a new SLSecureCursorAssertionManager instance.
 func NewSLSecureCursorAssertionManager() SLSecureCursorAssertionManager {
 	class := getSLSecureCursorAssertionManagerClass()
-	rv := objc.Send[SLSecureCursorAssertionManager](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSecureCursorAssertionManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func (s SLSecureCursorAssertionManager) InvalidateAll() {
-	objc.Send[objc.ID](s.ID, objc.Sel("invalidateAll"))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidateAll"))
 }
 func (s SLSecureCursorAssertionManager) InvalidateUUID(uuid objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("invalidateUUID:"), uuid)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidateUUID:"), uuid)
 }
 func (s SLSecureCursorAssertionManager) TakeAssertion() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("takeAssertion"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("takeAssertion"))
 	return objectivec.Object{ID: rv}
 }
 func (s SLSecureCursorAssertionManager) UnmapUUID(uuid objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("unmapUUID:"), uuid)
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("unmapUUID:"), uuid)
 }
 
 func (_SLSecureCursorAssertionManagerClass SLSecureCursorAssertionManagerClass) SharedManager() SLSecureCursorAssertionManager {
-	rv := objc.Send[objc.ID](objc.ID(_SLSecureCursorAssertionManagerClass.class), objc.Sel("sharedManager"))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSecureCursorAssertionManagerClass.class), objc.Sel("sharedManager"))
 	return SLSecureCursorAssertionManagerFromID(rv)
 }
 
 func (s SLSecureCursorAssertionManager) StrongAssertionUUIDs() foundation.NSHashTable {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("strongAssertionUUIDs"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("strongAssertionUUIDs"))
 	return foundation.NSHashTableFromID(objc.ID(rv))
 }
 func (s SLSecureCursorAssertionManager) WeakAssertionMap() foundation.NSMapTable {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("weakAssertionMap"))
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("weakAssertionMap"))
 	return foundation.NSMapTableFromID(objc.ID(rv))
 }

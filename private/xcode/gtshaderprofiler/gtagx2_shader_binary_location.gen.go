@@ -40,7 +40,7 @@ func (gc GTAGX2ShaderBinaryLocationClass) Class() objc.Class {
 
 // Alloc allocates memory for a new instance of the class.
 func (gc GTAGX2ShaderBinaryLocationClass) Alloc() GTAGX2ShaderBinaryLocation {
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](objc.ID(gc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](objc.ID(gc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -122,102 +122,102 @@ type IGTAGX2ShaderBinaryLocation interface {
 
 // Init initializes the instance.
 func (g GTAGX2ShaderBinaryLocation) Init() GTAGX2ShaderBinaryLocation {
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (g GTAGX2ShaderBinaryLocation) Autorelease() GTAGX2ShaderBinaryLocation {
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewGTAGX2ShaderBinaryLocation creates a new GTAGX2ShaderBinaryLocation instance.
 func NewGTAGX2ShaderBinaryLocation() GTAGX2ShaderBinaryLocation {
 	class := getGTAGX2ShaderBinaryLocationClass()
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewGTAGX2ShaderBinaryLocationWithCoder(coder objectivec.IObject) GTAGX2ShaderBinaryLocation {
 	instance := getGTAGX2ShaderBinaryLocationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTAGX2ShaderBinaryLocationFromID(rv)
 }
 
 func NewGTAGX2ShaderBinaryLocationWithFunctionNameIndexFullPathIndexLineColumnBinary(index uint64, index2 uint64, line int, column int, binary objectivec.IObject) GTAGX2ShaderBinaryLocation {
 	instance := getGTAGX2ShaderBinaryLocationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFunctionNameIndex:fullPathIndex:line:column:binary:"), index, index2, line, column, binary)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFunctionNameIndex:fullPathIndex:line:column:binary:"), index, index2, line, column, binary)
 	return GTAGX2ShaderBinaryLocationFromID(rv)
 }
 
 func (g GTAGX2ShaderBinaryLocation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (g GTAGX2ShaderBinaryLocation) SetParent(parent objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setParent:"), parent)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setParent:"), parent)
 }
 func (g GTAGX2ShaderBinaryLocation) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderBinaryLocation {
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) InitWithFunctionNameIndexFullPathIndexLineColumnBinary(index uint64, index2 uint64, line int, column int, binary objectivec.IObject) GTAGX2ShaderBinaryLocation {
-	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithFunctionNameIndex:fullPathIndex:line:column:binary:"), index, index2, line, column, binary)
+	rv := objc.SendIfResponds[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithFunctionNameIndex:fullPathIndex:line:column:binary:"), index, index2, line, column, binary)
 	return rv
 }
 
 func (_GTAGX2ShaderBinaryLocationClass GTAGX2ShaderBinaryLocationClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_GTAGX2ShaderBinaryLocationClass.class), objc.Sel("supportsSecureCoding"))
+	rv := objc.SendIfResponds[bool](objc.ID(_GTAGX2ShaderBinaryLocationClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
 
 func (g GTAGX2ShaderBinaryLocation) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("binary"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) Column() int {
-	rv := objc.Send[int](g.ID, objc.Sel("column"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("column"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) SetColumn(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setColumn:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setColumn:"), value)
 }
 func (g GTAGX2ShaderBinaryLocation) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinaryLocation) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinaryLocation) FileIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("fileIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("fileIndex"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) FullPath() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("fullPath"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("fullPath"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinaryLocation) FunctionName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionName"))
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (g GTAGX2ShaderBinaryLocation) FunctionNameIndex() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("functionNameIndex"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("functionNameIndex"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) Line() int {
-	rv := objc.Send[int](g.ID, objc.Sel("line"))
+	rv := objc.SendIfResponds[int](g.ID, objc.Sel("line"))
 	return rv
 }
 func (g GTAGX2ShaderBinaryLocation) SetLine(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setLine:"), value)
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setLine:"), value)
 }
 func (g GTAGX2ShaderBinaryLocation) Superclass() objectivec.Class {
-	rv := objc.Send[objectivec.Class](g.ID, objc.Sel("superclass"))
+	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }

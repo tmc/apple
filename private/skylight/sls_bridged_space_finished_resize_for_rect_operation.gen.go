@@ -39,7 +39,7 @@ func (sc SLSBridgedSpaceFinishedResizeForRectOperationClass) Class() objc.Class 
 
 // Alloc allocates memory for a new instance of the class.
 func (sc SLSBridgedSpaceFinishedResizeForRectOperationClass) Alloc() SLSBridgedSpaceFinishedResizeForRectOperation {
-	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceFinishedResizeForRectOperation](objc.ID(sc.class), objc.Sel("alloc"))
 	return rv
 }
 
@@ -79,45 +79,45 @@ type ISLSBridgedSpaceFinishedResizeForRectOperation interface {
 
 // Init initializes the instance.
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) Init() SLSBridgedSpaceFinishedResizeForRectOperation {
-	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("init"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) Autorelease() SLSBridgedSpaceFinishedResizeForRectOperation {
-	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("autorelease"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("autorelease"))
 	return rv
 }
 
 // NewSLSBridgedSpaceFinishedResizeForRectOperation creates a new SLSBridgedSpaceFinishedResizeForRectOperation instance.
 func NewSLSBridgedSpaceFinishedResizeForRectOperation() SLSBridgedSpaceFinishedResizeForRectOperation {
 	class := getSLSBridgedSpaceFinishedResizeForRectOperationClass()
-	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](objc.ID(class.class), objc.Sel("new"))
+	rv := objc.SendIfResponds[SLSBridgedSpaceFinishedResizeForRectOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 func NewSLSBridgedSpaceFinishedResizeForRectOperationWithCoder(coder objectivec.IObject) SLSBridgedSpaceFinishedResizeForRectOperation {
 	instance := getSLSBridgedSpaceFinishedResizeForRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SLSBridgedSpaceFinishedResizeForRectOperationFromID(rv)
 }
 
 func NewSLSBridgedSpaceFinishedResizeForRectOperationWithSpaceIDRect(id uint64, rect corefoundation.CGRect) SLSBridgedSpaceFinishedResizeForRectOperation {
 	instance := getSLSBridgedSpaceFinishedResizeForRectOperationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
 	return SLSBridgedSpaceFinishedResizeForRectOperationFromID(rv)
 }
 
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) InitWithSpaceIDRect(id uint64, rect corefoundation.CGRect) SLSBridgedSpaceFinishedResizeForRectOperation {
-	rv := objc.Send[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
+	rv := objc.SendIfResponds[SLSBridgedSpaceFinishedResizeForRectOperation](s.ID, objc.Sel("initWithSpaceID:rect:"), id, rect)
 	return rv
 }
 
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) Rect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rect"))
+	rv := objc.SendIfResponds[corefoundation.CGRect](s.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }
 func (s SLSBridgedSpaceFinishedResizeForRectOperation) SpaceID() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("spaceID"))
+	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
