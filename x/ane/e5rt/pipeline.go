@@ -11,10 +11,11 @@ import (
 
 // MaxPipelineStages is the largest pipeline one stream may contain.
 //
-// E5RT has held operations on at most 15 distinct compiled functions in this
-// process. The pool is shared, so contention can make a smaller pipeline fail.
-// A pipeline with more stages must be planned into separate streams by its
-// caller; E5RT retains the function slots until a stream is released.
+// A macOS 26.x stream-retention control measured 15 distinct compiled
+// functions in this process: releasing an encoded operation did not free the
+// next function slot, while releasing its stream did. The pool is shared, so
+// contention can make a smaller pipeline fail. A pipeline with more stages
+// must be planned into separate streams by its caller.
 const MaxPipelineStages = 15
 
 // A PipelinePort identifies a named port on a pipeline stage.
