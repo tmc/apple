@@ -58,6 +58,7 @@ var Symbols = []string{
 	"e5rt_io_port_bind_buffer_object",
 	"e5rt_io_port_release",
 	"e5rt_execution_stream_operation_retain_input_port",
+	"e5rt_execution_stream_operation_retain_inout_port",
 	"e5rt_execution_stream_operation_retain_output_port",
 
 	// Dispatch.
@@ -666,6 +667,23 @@ func (l *Lib) OperationRetainInputPort(op uintptr, portName string) (uintptr, er
 	name, p := cstring(portName)
 	out := newOut()
 	err := l.callErr("e5rt_execution_stream_operation_retain_input_port", op, p, uintptr(unsafe.Pointer(out)))
+	runtime.KeepAlive(name)
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// OperationRetainInoutPort retains the named inout port of an operation.
+//
+// An inout is one port backed by one caller-supplied object for both its read
+// and its write. It is distinct from binding the same object independently to
+// an input and output port. The three-argument convention matches the input
+// and output port calls: operation, NUL-terminated name, and out-parameter.
+// Its first use is kept in a subprocess probe because E5RT failures can throw
+// C++ exceptions across purego.
+func (l *Lib) OperationRetainInoutPort(op uintptr, portName string) (uintptr, error) {
+	name, p := cstring(portName)
+	out := newOut()
+	err := l.callErr("e5rt_execution_stream_operation_retain_inout_port", op, p, uintptr(unsafe.Pointer(out)))
 	runtime.KeepAlive(name)
 	runtime.KeepAlive(out)
 	return *out, err

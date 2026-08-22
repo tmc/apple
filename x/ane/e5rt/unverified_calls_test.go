@@ -65,6 +65,74 @@ func buildStateModel(t *testing.T) string {
 	return dir
 }
 
+// buildReadStateModel writes the matching state reader. Using a separately
+// compiled operation makes its result independent of an update program output
+// that might merely echo its tensor input.
+func buildReadStateModel(t *testing.T) string {
+	t.Helper()
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "model.mil"), []byte(mil.GenReadState("kv", [4]int{1, 4, 1, 4})), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
+// openStateOperation compiles the state model in dir and creates its operation.
+// The caller binds its particular input, inout, and output ports.
+func openStateOperation(t *testing.T, lib *e5rt.Lib, dir string) uintptr {
+	t.Helper()
+	config, err := lib.CompilerConfigOptionsCreate()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := lib.CompilerConfigOptionsSetCacheBundleLocation(config, dir); err != nil {
+		t.Fatal(err)
+	}
+	compiler, err := lib.CompilerCreateWithConfig(config)
+	if err != nil {
+		t.Fatal(err)
+	}
+	options, err := lib.CompilerOptionsCreate()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := lib.CompilerOptionsSetComputeDeviceTypesMask(options, e5rt.ComputeDeviceANE); err != nil {
+		t.Fatal(err)
+	}
+	library, err := lib.CompilerCompile(compiler, filepath.Join(dir, "model.mil"), options)
+	if err != nil {
+		t.Fatalf("state compile: %v", err)
+	}
+	backends := bundleBackends(t, dir, "main")
+	fmt.Printf("RESULT state compiler backends: %v\n", backends)
+	aneBackend := false
+	for _, backend := range backends {
+		if backend == "ane" {
+			aneBackend = true
+			break
+		}
+	}
+	if !aneBackend {
+		t.Fatalf("state compiler did not emit an ANE cache artifact: %v", backends)
+	}
+	function, err := lib.ProgramLibraryRetainProgramFunction(library, "main")
+	if err != nil {
+		t.Fatal(err)
+	}
+	opOptions, err := lib.PrecompiledComputeOpOptionsCreate(function)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := lib.PrecompiledComputeOpOptionsSetOperationName(opOptions, "main"); err != nil {
+		t.Fatal(err)
+	}
+	op, err := lib.OperationCreatePrecompiled(opOptions)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return op
+}
+
 // route holds the handles of a compiled, bound, encodable program.
 type route struct {
 	lib      *e5rt.Lib
@@ -401,55 +469,19 @@ var probes = map[string]func(t *testing.T){
 	},
 
 	// The state parameter is not listed by the public model API. Try the
-	// obvious lower-level representation before concluding it needs a private
-	// allocator: retain kv as both an input and an output, bind the same buffer
-	// object to both ports, then run the write/read program. Reaching execution
-	// would justify a second, distinct-value step that distinguishes stored state
-	// from an output that merely echoes the current input.
+	// obvious lower-level representations before concluding it needs a private
+	// allocator. First try the dedicated inout port, which is one caller-supplied
+	// object for both the state read and write. If that is not exposed, try the
+	// weaker input/output aliasing representation. Reaching execution would
+	// justify a second, distinct-value step that distinguishes stored state from
+	// an output that merely echoes the current input.
 	"statePortAlias": func(t *testing.T) {
 		lib, err := e5rt.Open()
 		if err != nil {
 			t.Fatal(err)
 		}
 		dir := buildStateModel(t)
-		config, err := lib.CompilerConfigOptionsCreate()
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := lib.CompilerConfigOptionsSetCacheBundleLocation(config, dir); err != nil {
-			t.Fatal(err)
-		}
-		compiler, err := lib.CompilerCreateWithConfig(config)
-		if err != nil {
-			t.Fatal(err)
-		}
-		options, err := lib.CompilerOptionsCreate()
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := lib.CompilerOptionsSetComputeDeviceTypesMask(options, e5rt.ComputeDeviceANE); err != nil {
-			t.Fatal(err)
-		}
-		library, err := lib.CompilerCompile(compiler, filepath.Join(dir, "model.mil"), options)
-		if err != nil {
-			fmt.Printf("RESULT state compile: %v\n", err)
-			return
-		}
-		function, err := lib.ProgramLibraryRetainProgramFunction(library, "main")
-		if err != nil {
-			t.Fatal(err)
-		}
-		opOptions, err := lib.PrecompiledComputeOpOptionsCreate(function)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := lib.PrecompiledComputeOpOptionsSetOperationName(opOptions, "main"); err != nil {
-			t.Fatal(err)
-		}
-		op, err := lib.OperationCreatePrecompiled(opOptions)
-		if err != nil {
-			t.Fatal(err)
-		}
+		op := openStateOperation(t, lib, dir)
 
 		valuePort, err := lib.OperationRetainInputPort(op, "value")
 		if err != nil {
@@ -468,21 +500,30 @@ var probes = map[string]func(t *testing.T){
 			t.Fatal(err)
 		}
 
-		stateIn, inErr := lib.OperationRetainInputPort(op, "kv")
-		stateOut, outErr := lib.OperationRetainOutputPort(op, "kv")
-		fmt.Printf("RESULT state kv ports: input=%v output=%v\n", inErr, outErr)
-		if inErr != nil || outErr != nil {
-			return
+		statePort, inoutErr := lib.OperationRetainInoutPort(op, "kv")
+		fmt.Printf("RESULT state kv inout port: %v\n", inoutErr)
+		var stateOutputPort uintptr
+		if inoutErr != nil {
+			stateIn, inErr := lib.OperationRetainInputPort(op, "kv")
+			stateOut, outErr := lib.OperationRetainOutputPort(op, "kv")
+			fmt.Printf("RESULT state kv ports: input=%v output=%v\n", inErr, outErr)
+			if inErr != nil || outErr != nil {
+				return
+			}
+			statePort = stateIn
+			stateOutputPort = stateOut
 		}
 		state, err := lib.BufferObjectAlloc(32, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := lib.IOPortBindBufferObject(stateIn, state); err != nil {
+		if err := lib.IOPortBindBufferObject(statePort, state); err != nil {
 			t.Fatal(err)
 		}
-		if err := lib.IOPortBindBufferObject(stateOut, state); err != nil {
-			t.Fatal(err)
+		if stateOutputPort != 0 {
+			if err := lib.IOPortBindBufferObject(stateOutputPort, state); err != nil {
+				t.Fatal(err)
+			}
 		}
 		output, err := lib.OperationRetainOutputPort(op, "y")
 		if err != nil {
@@ -516,6 +557,50 @@ var probes = map[string]func(t *testing.T){
 		}
 		got := readExampleFP16(outPtr, len(first))
 		fmt.Printf("RESULT state alias first output: %v\n", got)
+
+		// A distinct, separately compiled reader bound to the same inout buffer
+		// is the persistence control. It cannot return the update operation's
+		// ordinary tensor output by accident.
+		readOp := openStateOperation(t, lib, buildReadStateModel(t))
+		readStatePort, err := lib.OperationRetainInoutPort(readOp, "kv")
+		if err != nil {
+			t.Fatalf("state read kv inout port: %v", err)
+		}
+		if err := lib.IOPortBindBufferObject(readStatePort, state); err != nil {
+			t.Fatal(err)
+		}
+		readOutputPort, err := lib.OperationRetainOutputPort(readOp, "y")
+		if err != nil {
+			t.Fatal(err)
+		}
+		readOutput, err := lib.BufferObjectAlloc(32, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.IOPortBindBufferObject(readOutputPort, readOutput); err != nil {
+			t.Fatal(err)
+		}
+		readPtr, err := lib.BufferObjectGetDataPtr(readOutput)
+		if err != nil {
+			t.Fatal(err)
+		}
+		readStream, err := lib.ExecutionStreamCreate()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.EncodeOperation(readStream, readOp); err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.ExecuteSync(readStream); err != nil {
+			t.Fatal(err)
+		}
+		read := readExampleFP16(readPtr, len(first))
+		for i := range first {
+			if read[i] != first[i] {
+				t.Fatalf("state reader returned %v, want %v", read, first)
+			}
+		}
+		fmt.Printf("RESULT state reader after update: %v\n", read)
 	},
 
 	// ANEForge (docs/e5rt-dispatch-reference.md:313-317) says a completion event

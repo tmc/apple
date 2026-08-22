@@ -10,23 +10,16 @@ import (
 	"github.com/tmc/apple/x/ane/mil"
 )
 
-// TestStateProgramsDoNotRun records that the two state generators produce
-// programs nothing in this module can execute, and fails if that changes.
+// TestPublicStateProgramsDoNotRun records the public-model API's state
+// limitation and fails if that changes.
 //
 // It is a tripwire rather than a check on the generators. The text they emit is
-// valid MIL and the ANE compiler accepts one of the two; what is missing is any
-// way to bind the state buffer, on either route. Of the 292 e5rt symbols the
-// framework exports, the only two mentioning state are a compiler option and
-// its getter. So the day a macOS release supplies one, these expectations break
-// and the KV cache that has been waiting on them becomes writable — which is
-// worth being told about, and is why this asserts the failure rather than
-// skipping.
+// valid MIL. The lower-level e5rt route binds the state as a named inout port;
+// that execution path is covered by x/ane/e5rt's subprocess probe. This test
+// records the distinct public API limitation, which does not expose the port.
 //
-// The e5rt half of the story is not exercised here: encoding a state operation
-// on that route fails with status 2, and one nearby program shape faults inside
-// the compiler outright, which would take the test binary down with it. See the
-// doc comments on [mil.GenReadState] and [mil.GenUpdateState].
-func TestStateProgramsDoNotRun(t *testing.T) {
+// See the doc comments on [mil.GenReadState] and [mil.GenUpdateState].
+func TestPublicStateProgramsDoNotRun(t *testing.T) {
 	c, err := ane.Open()
 	if err != nil {
 		t.Skipf("no ANE client: %v", err)

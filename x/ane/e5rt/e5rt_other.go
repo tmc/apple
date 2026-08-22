@@ -59,6 +59,7 @@ var Symbols = []string{
 	"e5rt_io_port_bind_buffer_object",
 	"e5rt_io_port_release",
 	"e5rt_execution_stream_operation_retain_input_port",
+	"e5rt_execution_stream_operation_retain_inout_port",
 	"e5rt_execution_stream_operation_retain_output_port",
 	"e5rt_execution_stream_create",
 	"e5rt_execution_stream_operation_prepare_op_for_encode",
@@ -213,6 +214,9 @@ func (l *Lib) BufferObjectRelease(uintptr) error { return ErrUnsupported }
 
 // OperationRetainInputPort retains the named input port of an operation.
 func (l *Lib) OperationRetainInputPort(uintptr, string) (uintptr, error) { return 0, ErrUnsupported }
+
+// OperationRetainInoutPort retains the named inout port of an operation.
+func (l *Lib) OperationRetainInoutPort(uintptr, string) (uintptr, error) { return 0, ErrUnsupported }
 
 // OperationRetainOutputPort retains the named output port of an operation.
 func (l *Lib) OperationRetainOutputPort(uintptr, string) (uintptr, error) { return 0, ErrUnsupported }
