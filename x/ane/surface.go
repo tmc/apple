@@ -322,24 +322,63 @@ func readStridedF32WithLayout(ref coregraphics.IOSurfaceRef, data []float32, lay
 	return nil
 }
 
-// float32ToFP16 converts a float32 to IEEE 754 half-precision (package-internal).
+// float32ToFP16 converts a float32 to IEEE 754 half-precision
+// (package-internal). It rounds to nearest even, preserves subnormals through
+// gradual underflow, and keeps NaN as NaN, matching the arm64 FCVTN
+// instruction and Apple's own Core ML weight conversion bit for bit.
 func float32ToFP16(f float32) uint16 {
 	b := math.Float32bits(f)
-	sign := (b >> 16) & 0x8000
-	exp := int((b>>23)&0xFF) - 127 + 15
+	sign := uint16(b>>16) & 0x8000
+	exp := int32((b>>23)&0xFF) - 127
 	frac := b & 0x7FFFFF
 
 	switch {
-	case exp <= 0:
-		return uint16(sign)
-	case exp >= 31:
-		return uint16(sign | 0x7C00)
+	case exp == 128:
+		if frac == 0 {
+			return sign | 0x7C00
+		}
+		// Quiet NaN carrying the high payload bits. The 0x7E00 keeps the
+		// mantissa nonzero so a payload that shifts away cannot turn the
+		// result into an infinity.
+		return sign | 0x7E00 | uint16(frac>>13)&0x01FF
+	case exp >= 16:
+		return sign | 0x7C00
+	case exp >= -14:
+		e := uint32(exp + 15)
+		m := frac >> 13
+		if r := frac & 0x1FFF; r > 0x1000 || (r == 0x1000 && m&1 == 1) {
+			m++
+			if m == 0x400 {
+				// The mantissa carried out; the exponent absorbs it, and
+				// may itself overflow to infinity.
+				m = 0
+				e++
+				if e == 31 {
+					return sign | 0x7C00
+				}
+			}
+		}
+		return sign | uint16(e<<10) | uint16(m)
+	case exp >= -25:
+		// Gradual underflow. Restore the implicit leading bit and shift
+		// down to the fixed subnormal exponent, rounding to nearest even.
+		// A mantissa that carries all the way up lands exactly on the
+		// smallest normal, which is the correct encoding.
+		m := frac | 0x800000
+		shift := uint32(-exp - 1)
+		q := m >> shift
+		half := uint32(1) << (shift - 1)
+		if r := m & (half<<1 - 1); r > half || (r == half && q&1 == 1) {
+			q++
+		}
+		return sign | uint16(q)
 	default:
-		return uint16(sign | uint32(exp)<<10 | (frac >> 13))
+		return sign
 	}
 }
 
-// fp16ToFloat32 converts an IEEE 754 half-precision value to float32 (package-internal).
+// fp16ToFloat32 converts an IEEE 754 half-precision value to float32
+// (package-internal). NaN is quieted, as the arm64 FCVTL instruction does.
 func fp16ToFloat32(h uint16) float32 {
 	sign := uint32(h>>15) & 1
 	exp := uint32(h>>10) & 0x1F
@@ -359,7 +398,9 @@ func fp16ToFloat32(h uint16) float32 {
 		fallthrough
 	case exp < 31:
 		return math.Float32frombits(sign<<31 | (exp+127-15)<<23 | frac<<13)
+	case frac == 0:
+		return math.Float32frombits(sign<<31 | 0x7F800000)
 	default:
-		return math.Float32frombits(sign<<31 | 0x7F800000 | frac<<13)
+		return math.Float32frombits(sign<<31 | 0x7FC00000 | frac<<13)
 	}
 }
